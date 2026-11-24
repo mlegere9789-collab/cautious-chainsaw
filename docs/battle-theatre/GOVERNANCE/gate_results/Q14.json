@@ -8,7 +8,7 @@
   "NOT-RUN": 1,
   "PASS": 43
  },
- "finished_utc": "2026-11-16T00:35:41Z",
+ "finished_utc": "2026-11-24T04:36:58Z",
  "gate": "Q14",
  "incomplete_reasons": [
   "102 item(s) NOT-RUN or BLOCKED-INPUT",
@@ -17,6 +17,7 @@
  "input_hashes": {
   "docs/battle-theatre/BIBLE/plan-clean.txt": "5515b8ce322c142bdadcfd1a97c2a68c066e27c971b226ef852aa54a2f9210e7",
   "docs/battle-theatre/GOVERNANCE/conflicts_structured.json": "e21953ec5a4e4a9e69bd25e8f207d4abd84ba7d10619fb9bdd66518459421e4a",
+  "docs/battle-theatre/GOVERNANCE/gate_results/thresholds.json": "7d7264ba373465255031d29c266d9b8fad5a506e654ffe856545aa3513fe1faf",
   "docs/battle-theatre/app/data/battery-guns.json": "94a5c1d83a46496b767c1fa07827fd8a158ab4d841cf1a54c1a83184a762b260",
   "docs/battle-theatre/app/data/fx3d/weapons.json": "eeb839f2d8b41e502df4ddd41b67be9121b64eb2c69681a996be79455125caa7",
   "docs/battle-theatre/app/src/anim3d/ballistics.mjs": "bf68d1b15cbd85c03629528ae52064cb33b63fa717751174daacb9293c4a79d8",
@@ -27,13 +28,13 @@
   "docs/battle-theatre/drill/drill_artillery.json": "b0f017b003b187db60935ff9857fbf0b132439e3eed0844fa08161903cc93cfa",
   "docs/battle-theatre/drill/drill_infantry.json": "c5b5d5e689afbddd1ba1dca26836a06ca267f5d4bec51507edf8cb6975820f7b",
   "docs/battle-theatre/drill/ordnance_tables.json": "f7dab4cf42cec57a840fda1d4ad43a60c06db06c13962b8dee1acd362d124e2d",
-  "docs/battle-theatre/kit/verified_batteries.json": null,
+  "docs/battle-theatre/kit/verified_batteries.json": "219249541179c7a1db09784c60222c43c17135930f185647f34fde971589f279",
   "docs/battle-theatre/kit/weapons.json": "412396eada9819f2a0185d771c6555f3025939607991f18b3db11461948a5d02",
   "docs/battle-theatre/structures/structures.json": "b223dacf386d9983167d24561dc05a8466248096a7715a23dd25fa5bd2b1ad53",
   "tools/bt/gates/oob_layer_lib.mjs": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d",
-  "tools/bt/gates/oobgates_common.py": "43f575e729605dfb5fd518e0e0a9a17cf03b774a5b145434a2b88f7f515e8e97",
+  "tools/bt/gates/oobgates_common.py": "86bb514bfebcf4b090a9c452ffeb973cd1de82040107988eca9e4ef91e4af409",
   "tools/bt/gates/q14_layer.mjs": "0e5b07bb22035b5eb416d8d1b4aa8dc370fc8f9e16f8e6a6e0f9c77a37988b05",
-  "tools/bt/gates/q14_ordnance.py": "cc41eaac5e7b7e82e08e89f7938e7dbf39b41e5014b58800bd925c084401cca3"
+  "tools/bt/gates/q14_ordnance.py": "ad33d74b4d2f92b8ea4bb4748f5f5144c7640eed68043fe07dbc80ffeb38e412"
  },
  "inputs": [
   {
@@ -47,6 +48,12 @@
    "path": "docs/battle-theatre/GOVERNANCE/conflicts_structured.json",
    "role": "data",
    "sha256": "e21953ec5a4e4a9e69bd25e8f207d4abd84ba7d10619fb9bdd66518459421e4a"
+  },
+  {
+   "bytes": 17633,
+   "path": "docs/battle-theatre/GOVERNANCE/gate_results/thresholds.json",
+   "role": "thresholds",
+   "sha256": "7d7264ba373465255031d29c266d9b8fad5a506e654ffe856545aa3513fe1faf"
   },
   {
    "bytes": 16499,
@@ -109,10 +116,10 @@
    "sha256": "f7dab4cf42cec57a840fda1d4ad43a60c06db06c13962b8dee1acd362d124e2d"
   },
   {
-   "missing": true,
+   "bytes": 80693,
    "path": "docs/battle-theatre/kit/verified_batteries.json",
    "role": "table",
-   "sha256": null
+   "sha256": "219249541179c7a1db09784c60222c43c17135930f185647f34fde971589f279"
   },
   {
    "bytes": 171362,
@@ -133,10 +140,10 @@
    "sha256": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d"
   },
   {
-   "bytes": 9183,
+   "bytes": 12137,
    "path": "tools/bt/gates/oobgates_common.py",
    "role": "runner",
-   "sha256": "43f575e729605dfb5fd518e0e0a9a17cf03b774a5b145434a2b88f7f515e8e97"
+   "sha256": "86bb514bfebcf4b090a9c452ffeb973cd1de82040107988eca9e4ef91e4af409"
   },
   {
    "bytes": 7817,
@@ -145,10 +152,10 @@
    "sha256": "0e5b07bb22035b5eb416d8d1b4aa8dc370fc8f9e16f8e6a6e0f9c77a37988b05"
   },
   {
-   "bytes": 48707,
+   "bytes": 50917,
    "path": "tools/bt/gates/q14_ordnance.py",
    "role": "runner",
-   "sha256": "cc41eaac5e7b7e82e08e89f7938e7dbf39b41e5014b58800bd925c084401cca3"
+   "sha256": "ad33d74b4d2f92b8ea4bb4748f5f5144c7640eed68043fe07dbc80ffeb38e412"
   }
  ],
  "items": [
@@ -6585,8 +6592,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "not_drawn",
     "world": {
      "crew_groups": 0,
@@ -6596,7 +6601,7 @@
    },
    "id": "Q14/Q14.5/cs-1c-art/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -6650,8 +6655,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -6661,7 +6664,7 @@
    },
    "id": "Q14/Q14.5/cs-1c-hood-henry/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -6715,8 +6718,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -6726,7 +6727,7 @@
    },
    "id": "Q14/Q14.5/cs-1c-mclaws-cabell/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -6780,8 +6781,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -6791,7 +6790,7 @@
    },
    "id": "Q14/Q14.5/cs-1c-pickett-dearing/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -6845,8 +6844,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -6856,7 +6853,7 @@
    },
    "id": "Q14/Q14.5/cs-1c-res-art-alexander-ashland/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -6910,8 +6907,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -6921,7 +6916,7 @@
    },
    "id": "Q14/Q14.5/cs-1c-res-art-alexander-bath/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -6975,8 +6970,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -6986,7 +6979,7 @@
    },
    "id": "Q14/Q14.5/cs-1c-res-art-alexander-bedford/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7040,8 +7033,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -7051,7 +7042,7 @@
    },
    "id": "Q14/Q14.5/cs-1c-res-art-alexander-brookssc/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7105,8 +7096,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -7116,7 +7105,7 @@
    },
    "id": "Q14/Q14.5/cs-1c-res-art-alexander-madisonla/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7170,8 +7159,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -7181,7 +7168,7 @@
    },
    "id": "Q14/Q14.5/cs-1c-res-art-alexander-richmond/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7235,8 +7222,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -7246,7 +7231,7 @@
    },
    "id": "Q14/Q14.5/cs-1c-res-art-washington/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7300,8 +7285,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "not_drawn",
     "world": {
      "crew_groups": 0,
@@ -7311,7 +7294,7 @@
    },
    "id": "Q14/Q14.5/cs-2c-early-jones/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7365,8 +7348,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -7376,7 +7357,7 @@
    },
    "id": "Q14/Q14.5/cs-2c-johnson-andrews/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7430,8 +7411,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "not_drawn",
     "world": {
      "crew_groups": 0,
@@ -7441,7 +7420,7 @@
    },
    "id": "Q14/Q14.5/cs-2c-res-art-1vaartbn/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7495,8 +7474,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "not_drawn",
     "world": {
      "crew_groups": 0,
@@ -7506,7 +7483,7 @@
    },
    "id": "Q14/Q14.5/cs-2c-res-art-nelson/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7560,8 +7537,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -7571,7 +7546,7 @@
    },
    "id": "Q14/Q14.5/cs-2c-rodes-carter/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7625,8 +7600,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -7636,7 +7609,7 @@
    },
    "id": "Q14/Q14.5/cs-3c-anderson-cutts/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7690,8 +7663,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -7701,7 +7672,7 @@
    },
    "id": "Q14/Q14.5/cs-3c-heth-garnett/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7755,8 +7726,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -7766,7 +7735,7 @@
    },
    "id": "Q14/Q14.5/cs-3c-pender-poague/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7820,8 +7789,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -7831,7 +7798,7 @@
    },
    "id": "Q14/Q14.5/cs-3c-res-art-mcintosh/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7885,8 +7852,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -7896,7 +7861,7 @@
    },
    "id": "Q14/Q14.5/cs-3c-res-art-pegram/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7950,8 +7915,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "not_drawn",
     "world": {
      "crew_groups": 0,
@@ -7961,7 +7924,7 @@
    },
    "id": "Q14/Q14.5/cs-cav-horse-art/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -8023,8 +7986,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "not_drawn",
     "world": {
      "crew_groups": 0,
@@ -8034,7 +7995,7 @@
    },
    "id": "Q14/Q14.5/us-11c-art-13ny/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -8088,8 +8049,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -8099,7 +8058,7 @@
    },
    "id": "Q14/Q14.5/us-11c-art-1nyi/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -8153,8 +8112,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "not_drawn",
     "world": {
      "crew_groups": 0,
@@ -8164,7 +8121,7 @@
    },
    "id": "Q14/Q14.5/us-11c-art-1ohi/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -8218,8 +8175,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "not_drawn",
     "world": {
      "crew_groups": 0,
@@ -8229,7 +8184,7 @@
    },
    "id": "Q14/Q14.5/us-11c-art-1ohk/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -8283,8 +8238,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "not_drawn",
     "world": {
      "crew_groups": 0,
@@ -8294,7 +8247,7 @@
    },
    "id": "Q14/Q14.5/us-11c-art-4usg/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -8624,8 +8577,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -8635,7 +8586,7 @@
    },
    "id": "Q14/Q14.5/us-1c-art-1nye/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -8689,8 +8640,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -8700,7 +8649,7 @@
    },
    "id": "Q14/Q14.5/us-1c-art-1nyl/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -8754,8 +8703,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -8765,7 +8712,7 @@
    },
    "id": "Q14/Q14.5/us-1c-art-1pab/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -8819,8 +8766,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -8830,7 +8775,7 @@
    },
    "id": "Q14/Q14.5/us-1c-art-2me/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -8884,8 +8829,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -8895,7 +8838,7 @@
    },
    "id": "Q14/Q14.5/us-1c-art-4usb/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -8949,8 +8892,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -8960,7 +8901,7 @@
    },
    "id": "Q14/Q14.5/us-1c-art-5me/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -9022,8 +8963,6 @@
      ],
      "weak_source": true
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 4,
@@ -9033,7 +8972,7 @@
    },
    "id": "Q14/Q14.5/us-2c-art-1nyb/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -9095,8 +9034,6 @@
      ],
      "weak_source": true
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -9106,7 +9043,7 @@
    },
    "id": "Q14/Q14.5/us-2c-art-1ria/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -9168,8 +9105,6 @@
      ],
      "weak_source": true
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -9179,7 +9114,7 @@
    },
    "id": "Q14/Q14.5/us-2c-art-1rib/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -9241,8 +9176,6 @@
      ],
      "weak_source": true
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -9252,7 +9185,7 @@
    },
    "id": "Q14/Q14.5/us-2c-art-1usi/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -9314,8 +9247,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -9325,7 +9256,7 @@
    },
    "id": "Q14/Q14.5/us-2c-art-4usa/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -9379,8 +9310,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -9390,7 +9319,7 @@
    },
    "id": "Q14/Q14.5/us-3c-art-1njb/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -9444,8 +9373,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -9455,7 +9382,7 @@
    },
    "id": "Q14/Q14.5/us-3c-art-1nyd/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -9509,8 +9436,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -9520,7 +9445,7 @@
    },
    "id": "Q14/Q14.5/us-3c-art-1rie/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -9583,8 +9508,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -9594,7 +9517,7 @@
    },
    "id": "Q14/Q14.5/us-3c-art-4ny/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -9648,8 +9571,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -9659,7 +9580,7 @@
    },
    "id": "Q14/Q14.5/us-3c-art-4usk/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -9713,8 +9634,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -9724,7 +9643,7 @@
    },
    "id": "Q14/Q14.5/us-5c-art-1nyc/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -9778,8 +9697,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -9789,7 +9706,7 @@
    },
    "id": "Q14/Q14.5/us-5c-art-1ohl/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -9843,8 +9760,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -9854,7 +9769,7 @@
    },
    "id": "Q14/Q14.5/us-5c-art-3ma/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -9916,8 +9831,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -9927,7 +9840,7 @@
    },
    "id": "Q14/Q14.5/us-5c-art-5usd/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -9981,8 +9894,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -9992,7 +9903,7 @@
    },
    "id": "Q14/Q14.5/us-5c-art-5usi/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10046,8 +9957,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -10057,7 +9966,7 @@
    },
    "id": "Q14/Q14.5/us-6c-art-1maa/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10111,8 +10020,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -10122,7 +10029,7 @@
    },
    "id": "Q14/Q14.5/us-6c-art-1ny/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10176,8 +10083,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -10187,7 +10092,7 @@
    },
    "id": "Q14/Q14.5/us-6c-art-1ric/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10241,8 +10146,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -10252,7 +10155,7 @@
    },
    "id": "Q14/Q14.5/us-6c-art-1rig/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10306,8 +10209,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -10317,7 +10218,7 @@
    },
    "id": "Q14/Q14.5/us-6c-art-2usd/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10371,8 +10272,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -10382,7 +10281,7 @@
    },
    "id": "Q14/Q14.5/us-6c-art-2usg/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10436,8 +10335,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -10447,7 +10344,7 @@
    },
    "id": "Q14/Q14.5/us-6c-art-3ny/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10501,8 +10398,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -10512,7 +10407,7 @@
    },
    "id": "Q14/Q14.5/us-6c-art-5usf/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10573,8 +10468,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -10584,7 +10477,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-fitzhugh-1nj/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10645,8 +10538,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -10656,7 +10547,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-fitzhugh-1nyg/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10710,8 +10601,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -10721,7 +10610,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-fitzhugh-1nyk/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10782,8 +10671,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 4,
@@ -10793,7 +10680,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-fitzhugh-6me/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10854,8 +10741,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -10865,7 +10750,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-fitzhugh-mda/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10926,8 +10811,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -10937,7 +10820,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-huntington-1nh/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10998,8 +10881,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -11009,7 +10890,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-huntington-1ohh/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -11063,8 +10944,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -11074,7 +10953,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-huntington-1paf/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -11128,8 +11007,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -11139,7 +11016,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-huntington-1pag/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -11200,8 +11077,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 4,
@@ -11211,7 +11086,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-huntington-wvc/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -11272,8 +11147,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 4,
@@ -11283,7 +11156,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-mcgilvery-15ny/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -11344,8 +11217,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -11355,7 +11226,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-mcgilvery-5ma/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -11416,8 +11287,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -11427,7 +11296,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-mcgilvery-9ma/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -11481,8 +11350,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -11492,7 +11359,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-mcgilvery-pac/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -11546,8 +11413,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -11557,7 +11422,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-mcgilvery-paf/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -11618,8 +11483,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -11629,7 +11492,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-ransom-1ush/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -11683,8 +11546,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -11694,7 +11555,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-ransom-3usf/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -11748,8 +11609,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 0,
@@ -11759,7 +11618,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-ransom-3usk/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -11820,8 +11679,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -11831,7 +11688,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-ransom-4usc/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -11892,8 +11749,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -11903,7 +11758,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-ransom-5usc/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -11957,8 +11812,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "not_on_field",
     "world": {
      "crew_groups": 0,
@@ -11968,7 +11821,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-taft-1ctheavy-b/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -12022,8 +11875,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "not_on_field",
     "world": {
      "crew_groups": 0,
@@ -12033,7 +11884,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-taft-1ctheavy-m/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -12099,8 +11950,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -12110,7 +11959,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-taft-2ct/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -12171,8 +12020,6 @@
      ],
      "weak_source": false
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "moving",
     "world": {
      "crew_groups": 6,
@@ -12182,7 +12029,7 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-taft-5ny/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -12236,8 +12083,6 @@
      "types": [],
      "weak_source": null
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_batteries.json",
     "render": "not_drawn",
     "world": {
      "crew_groups": 0,
@@ -12247,7 +12092,7 @@
    },
    "id": "Q14/Q14.5/us-cav-art/default",
    "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal the guns fired and the count stated)",
+   "reason": "input missing: the verified battery table has no row for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -13206,13 +13051,19 @@
  "owed": [
   "Q14.2: OCR texts of the manuals that are not under tmp/library/misc are read from tmp/bt-gates/library-misc when it exists; a run without either has NOT-RUN items",
   "Q14.4, Q14.6: the scenario set S* was not enumerated; this run covered 7 scenario(s): default and the six sample scenarios of history.test.mjs: a sample, never S*",
-  "Q14.5 needs `kit/verified_batteries.json` to be written by its owner before any battery item can leave BLOCKED-INPUT",
   "Q14.6: the documented per-battery expenditures (Smith 4th NY 240 rounds, Wheeler 13th NY 850, Bigelow about three tons including 92 canister, McCarthy 20) are not mapped to roster batteries here; only the war-establishment stock of the Instruction for Field Artillery is applied",
   "Q14.7: the drill state machine of a gun detachment (ten states, B.6.14.3) is not compared with the product (needs a machine list of the product's detachment states)"
  ],
  "renderer_class": "mixed",
- "run_id": "20261116T003524Z-Q14",
+ "run_id": "20261124T043650Z-Q14",
  "runnable_here": true,
+ "runner_files": [
+  "oob_layer_lib.mjs",
+  "oobgates_common.py",
+  "q14_layer.mjs",
+  "q14_ordnance.py"
+ ],
+ "runner_version": "18913e4dcf5fe94b",
  "scenario_set": {
   "complete": false,
   "count": 7,
@@ -13221,8 +13072,15 @@
   "note": "default and the six sample scenarios of history.test.mjs: a sample, never S*"
  },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-16T00:35:24Z",
- "thresholds": [],
+ "started_utc": "2026-11-24T04:36:50Z",
+ "thresholds": [
+  {
+   "decision": "PLAN",
+   "id": "T-Q02-1",
+   "metric": "max_words",
+   "value": 14
+  }
+ ],
  "tool_versions": {
   "node": "v22.23.4",
   "python": "3.13.18"
@@ -13297,9 +13155,10 @@
  },
  "verdict": "FAIL",
  "verified_battery_table": {
-  "batteries": 0,
+  "batteries": 131,
+  "diagnostic_copy": false,
   "path": "docs/battle-theatre/kit/verified_batteries.json",
-  "present": false,
-  "schema": null
+  "present": true,
+  "schema": "kit-verified-batteries-1"
  }
 }

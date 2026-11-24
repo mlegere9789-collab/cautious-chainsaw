@@ -121,6 +121,8 @@ def main():
     note = a[a.index('--note') + 1] if '--note' in a else None
     g = governance()
     gt, gtot, green = gates()
+    gtot['EVALUATED'] = gtot['PASS'] + gtot['FAIL']                       # items a runner could judge
+    gtot['OPEN'] = gtot['FAIL'] + gtot['BLOCKED-INPUT'] + gtot['NOT-RUN']   # items not yet passing; BLOCKED turning into FAIL is neutral here, PASS rising is the gain
     tn, tv = timeline_verified()
     cr, cf = conflicts()
     now = datetime.datetime.now(datetime.timezone.utc)
@@ -152,8 +154,8 @@ def main():
             r = r.get(k) if isinstance(r, dict) else None
         return r
     up = [('bt', 'subreq_passing'), ('bt', 'gates_green'), ('bt', 'timeline_verified_canonical'), ('bt', 'conflicts_resolved'), ('bt', 'conflict_resolution_files'),
-          ('bt', 'roster_lines'), ('bt', 'gate_items', 'PASS'), ('site', 'shipped'), ('site', 'built_not_shipped'), ('site', 'best_clean_streak')]
-    down = [('bt', 'gate_items', 'FAIL'), ('bt', 'gate_items', 'BLOCKED-INPUT'), ('bt', 'gate_items', 'NOT-RUN'), ('site', 'open_buildable'), ('site', 'open_needs_decision')]
+          ('bt', 'roster_lines'), ('bt', 'gate_items', 'PASS'), ('bt', 'gate_items', 'EVALUATED'), ('site', 'shipped'), ('site', 'built_not_shipped'), ('site', 'best_clean_streak')]
+    down = [('bt', 'gate_items', 'OPEN'), ('site', 'open_buildable'), ('site', 'open_needs_decision')]
     better, worse = [], []
     if prev:
         for path in up:
@@ -165,6 +167,19 @@ def main():
             if isinstance(x, (int, float)) and isinstance(y, (int, float)):
                 (better if x < y else worse if x > y else []).append('.'.join(path) + ' %s -> %s' % (y, x)) if x != y else None
     rec['vs_previous_day'] = {'previous': prev.get('t') if prev else None, 'better': better, 'worse': worse}
+    last = None
+    try:
+        for line in open(OUT, encoding='utf-8'):
+            last = json.loads(line)
+    except Exception:
+        pass
+    if last:
+        d = []
+        for path in up + down:
+            x, y = pick(rec, path), pick(last, path)
+            if isinstance(x, (int, float)) and isinstance(y, (int, float)) and x != y:
+                d.append('.'.join(path) + ' %s -> %s' % (y, x))
+        rec['vs_last_line'] = {'previous': last.get('t'), 'changes': d}
     line = json.dumps(rec, separators=(',', ':'), ensure_ascii=False)
     if '--no-append' not in a:
         os.makedirs(os.path.dirname(OUT), exist_ok=True)

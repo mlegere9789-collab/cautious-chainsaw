@@ -1,0 +1,3902 @@
+{
+ "schema": "kit-verified-batteries-1",
+ "_doc": "Verified batteries: guns by date and state as the record states them, with tier and citation ids. A battery without a non-lead source is unverified. kit_card shows what the kit tables hold now, for comparison only.",
+ "rules": {
+  "comparison": "proposed for gate Q14: a drawn battery passes when its gun count equals a total of its figures for the date asked (state present or engaged), or the battery is unverified",
+  "status": "verified, inferred, conflict, gap or unverified (as for the order of battle)"
+ },
+ "inputs": {
+  "groups_json_sha256_16": "0f8769adf9294086",
+  "evidence_files": {
+   "us-1c": "f72c4892616d873a",
+   "us-2c-1d": "d1ff0fc5612d7260",
+   "us-2c-2d3d": "702677dec1d11893",
+   "us-3c-1d": "20ea7a6735aca376"
+  }
+ },
+ "totals": {
+  "batteries": 131,
+  "formations": 33,
+  "verified": 0,
+  "inferred": 0,
+  "conflict": 0,
+  "gap": 0,
+  "unverified": 131
+ },
+ "batteries": {
+  "us-1c-art-2me": {
+   "name": "2nd ME",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-1c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.2nd_Maine_B"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.2nd_Maine_B",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-1c-art-5me": {
+   "name": "5th ME",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-1c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.5th_Maine_E"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.5th_Maine_E",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-1c-art-1nye": {
+   "name": "1st NY E",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-1c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_NY_E_L"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_NY_E_L",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-1c-art-1nyl": {
+   "name": "1st NY L",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-1c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_NY_E_L"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_NY_E_L",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-1c-art-1pab": {
+   "name": "1st PA B",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-1c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_Pa_B"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_Pa_B",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-1c-art-4usb": {
+   "name": "4th US B",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-1c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.4th_US_B"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.4th_US_B",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-2c-art-1nyb": {
+   "name": "1st NY B",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-2c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_NY_B"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_NY_B",
+     "guns_printed": "four 10-pdr Parrotts",
+     "guns_status": "stated",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union",
+      "IronBrigader-Hazard"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-2c-art-1ria": {
+   "name": "1st RI A",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-2c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_RI_A"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_RI_A",
+     "guns_printed": "six 3-inch",
+     "guns_status": "stated",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union",
+      "IronBrigader-Hazard"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-2c-art-1rib": {
+   "name": "1st RI B",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-2c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_RI_B"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_RI_B",
+     "guns_printed": "six light 12-pdrs",
+     "guns_status": "stated",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union",
+      "IronBrigader-Hazard"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-2c-art-1usi": {
+   "name": "1st US I",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-2c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_US_I"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_US_I",
+     "guns_printed": "six \"light 12-pdrs\"",
+     "guns_status": "stated",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union",
+      "IronBrigader-Hazard"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-2c-art-4usa": {
+   "name": "4th US A",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-2c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.4th_US_A"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.4th_US_A",
+     "guns_printed": "six 3-inch rifles",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "Wiki-OOB-Union",
+      "SS-Cushing-7888"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-3c-art-1njb": {
+   "name": "1st NJ B",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-3c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_NJ_B"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_NJ_B",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-3c-art-1nyd": {
+   "name": "1st NY D",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-3c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_NY_D"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_NY_D",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-3c-art-4ny": {
+   "name": "4th NY",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-3c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.4th_NY"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.4th_NY",
+     "guns_printed": "six 10-pdr Parrotts (monument)",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "Wiki-OOB-Union",
+      "GburgDaily-Smith4NY",
+      "SS-NYArt-1958"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-3c-art-1rie": {
+   "name": "1st RI E",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-3c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_RI_E"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_RI_E",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-3c-art-4usk": {
+   "name": "4th US K",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-3c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.4th_US_K"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.4th_US_K",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-5c-art-3ma": {
+   "name": "3rd MA",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-5c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.3rd_Mass"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.3rd_Mass",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-5c-art-1nyc": {
+   "name": "1st NY C",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-5c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_NY_C"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_NY_C",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-5c-art-1ohl": {
+   "name": "1st OH L",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-5c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_Ohio_L"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_Ohio_L",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-5c-art-5usd": {
+   "name": "5th US D",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-5c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.5th_US_D"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.5th_US_D",
+     "guns_printed": "six 10-pdr Parrotts",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "Wiki-OOB-Union",
+      "SS-Hazlett-10491"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-5c-art-5usi": {
+   "name": "5th US I",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-5c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.5th_US_I"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.5th_US_I",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-6c-art-1maa": {
+   "name": "1st MA A",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-6c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_Mass"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_Mass",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-6c-art-1ny": {
+   "name": "1st NY",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-6c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_NY"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_NY",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-6c-art-3ny": {
+   "name": "3rd NY",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-6c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.3rd_NY"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.3rd_NY",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-6c-art-1ric": {
+   "name": "1st RI C",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-6c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_RI_C"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_RI_C",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-6c-art-1rig": {
+   "name": "1st RI G",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-6c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_RI_G"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_RI_G",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-6c-art-2usd": {
+   "name": "2nd US D",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-6c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.2nd_US_D"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.2nd_US_D",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-6c-art-2usg": {
+   "name": "2nd US G",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-6c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.2nd_US_G"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.2nd_US_G",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-6c-art-5usf": {
+   "name": "5th US F",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-6c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.5th_US_F"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.5th_US_F",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-11c-art-1nyi": {
+   "name": "1st NY I",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-11c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_NY_I"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_NY_I",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-11c-art-13ny": {
+   "name": "13th NY",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-11c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.13th_NY"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.13th_NY",
+     "guns_printed": "3-inch (count not stated)",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "Wiki-OOB-Union",
+      "13NYBty-Wheeler"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-11c-art-1ohi": {
+   "name": "1st OH I",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-11c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_Ohio_I"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_Ohio_I",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-11c-art-1ohk": {
+   "name": "1st OH K",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-11c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_Ohio_K"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_Ohio_K",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-11c-art-4usg": {
+   "name": "4th US G",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-11c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.4th_US_G"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.4th_US_G",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-12c-art-1nym": {
+   "name": "1st NY M",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-12c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.1st_NY_M"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_NY_M",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-12c-art-pae": {
+   "name": "PA E",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-12c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.Pa_E"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.Pa_E",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-12c-art-4usf": {
+   "name": "4th US F",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-12c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.4th_US_F"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.4th_US_F",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-12c-art-5usk": {
+   "name": "5th US K",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-12c-art",
+   "group": "us-art-corps",
+   "kit_ids": [
+    "US.ART.5th_US_K"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.5th_US_K",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-ransom-1ush": {
+   "name": "1st US H",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-ransom",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.1st_US_H"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_US_H",
+     "guns_printed": "6 Napoleons",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-ransom-3usf": {
+   "name": "3rd US F",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-ransom",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.3rd_US_F_K"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.3rd_US_F_K",
+     "guns_printed": "6 Napoleons",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-ransom-3usk": {
+   "name": "3rd US K",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-ransom",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.3rd_US_F_K"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.3rd_US_F_K",
+     "guns_printed": "6 Napoleons",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-ransom-4usc": {
+   "name": "4th US C",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-ransom",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.4th_US_C"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.4th_US_C",
+     "guns_printed": "6 Napoleons",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-ransom-5usc": {
+   "name": "5th US C",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-ransom",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.5th_US_C"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.5th_US_C",
+     "guns_printed": "6 Napoleons",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-mcgilvery-5ma": {
+   "name": "5th MA",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-mcgilvery",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.5th_Massachusetts"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.5th_Massachusetts",
+     "guns_printed": "6 3-inch rifles (conflict: Civil War News says Napoleons)",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-mcgilvery-9ma": {
+   "name": "9th MA",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-mcgilvery",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.9th_Massachusetts"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.9th_Massachusetts",
+     "guns_printed": "6 Napoleons",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-mcgilvery-15ny": {
+   "name": "15th NY",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-mcgilvery",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.15th_New_York"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.15th_New_York",
+     "guns_printed": "4 Napoleons",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-mcgilvery-pac": {
+   "name": "PA C",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-mcgilvery",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.Pa_Independent_C_F"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.Pa_Independent_C_F",
+     "guns_printed": "6 3-inch rifles",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-mcgilvery-paf": {
+   "name": "PA F",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-mcgilvery",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.Pa_Independent_C_F"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.Pa_Independent_C_F",
+     "guns_printed": "6 3-inch rifles",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-taft-1ctheavy": {
+   "name": "1st CT Heavy",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-taft",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.1st_Conn_Heavy_B_and_H"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_Conn_Heavy_B_and_H",
+     "guns_printed": "not at Gettysburg (at Westminster)",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-taft-2ct": {
+   "name": "2nd CT",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-taft",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.2nd_Connecticut"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.2nd_Connecticut",
+     "guns_printed": "4 James rifles; 2 12-pdr howitzers",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-taft-5ny": {
+   "name": "5th NY",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-taft",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.5th_New_York"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.5th_New_York",
+     "guns_printed": "6 20-pdr Parrotts",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-huntington-1nh": {
+   "name": "1st NH",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-huntington",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.1st_New_Hampshire"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_New_Hampshire",
+     "guns_printed": "6 3-inch",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-huntington-1ohh": {
+   "name": "1st OH H",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-huntington",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.1st_Ohio_H"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_Ohio_H",
+     "guns_printed": "6 3-inch",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-huntington-1paf": {
+   "name": "1st PA F",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-huntington",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.1st_Pennsylvania_F_G"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_Pennsylvania_F_G",
+     "guns_printed": "6 3-inch",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-huntington-1pag": {
+   "name": "1st PA G",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-huntington",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.1st_Pennsylvania_F_G"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_Pennsylvania_F_G",
+     "guns_printed": "6 3-inch",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-huntington-wvc": {
+   "name": "WV C",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-huntington",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.W_Va_C"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.W_Va_C",
+     "guns_printed": "4 10-pdr Parrotts",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-fitzhugh-6me": {
+   "name": "6th ME",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-fitzhugh",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.6th_Maine"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.6th_Maine",
+     "guns_printed": "4 Napoleons",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-fitzhugh-mda": {
+   "name": "MD A",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-fitzhugh",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.Md_A"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.Md_A",
+     "guns_printed": "6 3-inch",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-fitzhugh-1nj": {
+   "name": "1st NJ",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-fitzhugh",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.1st_NJ"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_NJ",
+     "guns_printed": "6 10-pdr Parrotts",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-fitzhugh-1nyg": {
+   "name": "1st NY G",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-fitzhugh",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.1st_NY_G"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_NY_G",
+     "guns_printed": "6 Napoleons",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-fitzhugh-1nyk": {
+   "name": "1st NY K",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-fitzhugh",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.1st_NY_K_with_11th_NY_attached"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_NY_K_with_11th_NY_attached",
+     "guns_printed": "6 3-inch",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-taft-1ctheavy-b": {
+   "name": "1st CT Heavy B",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-taft-1ctheavy",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.1st_Conn_Heavy_B_and_H"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_Conn_Heavy_B_and_H",
+     "guns_printed": "not at Gettysburg (at Westminster)",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-taft-1ctheavy-m": {
+   "name": "1st CT Heavy M",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-art-reserve-taft-1ctheavy",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.1st_Conn_Heavy_B_and_H"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_Conn_Heavy_B_and_H",
+     "guns_printed": "not at Gettysburg (at Westminster)",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ArtReserve"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "US.ART.9th_Mich": {
+   "name": "9th Mich.",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-cav-art",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.9th_Mich"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.9th_Mich",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "US.ART.6th_NY": {
+   "name": "6th NY",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-cav-art",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.6th_NY"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.6th_NY",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "US.ART.2nd_US_B_L": {
+   "name": "2nd US B & L",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-cav-art",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.2nd_US_B_L"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.2nd_US_B_L",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "US.ART.2nd_US_M": {
+   "name": "2nd US M",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-cav-art",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.2nd_US_M"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.2nd_US_M",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "US.ART.4th_US_E": {
+   "name": "4th US E",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-cav-art",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.4th_US_E"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.4th_US_E",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "US.ART.1st_US_E_G": {
+   "name": "1st US E & G",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-cav-art",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.1st_US_E_G"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_US_E_G",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "US.ART.1st_US_K": {
+   "name": "1st US K",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-cav-art",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.1st_US_K"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.1st_US_K",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "Wiki-OOB-Union"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "US.ART.2nd_US_A": {
+   "name": "2nd US A",
+   "army": "US",
+   "level": "battery",
+   "parent": "us-cav-art",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [
+    "US.ART.2nd_US_A"
+   ],
+   "kit_card": [
+    {
+     "id": "US.ART.2nd_US_A",
+     "guns_printed": "six 3-inch rifles",
+     "guns_status": "stated",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "Wiki-OOB-Union",
+      "SS-Calef-7820"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-1c-res-art-alexander-ashland": {
+   "name": "Ashland",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-res-art-alexander",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Ashland"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Ashland",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-1c-res-art-alexander-bedford": {
+   "name": "Bedford",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-res-art-alexander",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Bedford"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Bedford",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-1c-res-art-alexander-brookssc": {
+   "name": "Brooks SC",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-res-art-alexander",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Brooks"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Brooks",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-1c-res-art-alexander-madisonla": {
+   "name": "Madison LA",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-res-art-alexander",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Madison_La"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Madison_La",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-1c-res-art-alexander-richmond": {
+   "name": "Richmond",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-res-art-alexander",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Richmond"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Richmond",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-1c-res-art-alexander-bath": {
+   "name": "Bath",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-res-art-alexander",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Bath"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Bath",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Squires": {
+   "name": "Squires battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-res-art-washington",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Squires"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Squires",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Richardson": {
+   "name": "Richardson battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-res-art-washington",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Richardson"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Richardson",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Miller": {
+   "name": "Miller battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-res-art-washington",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Miller"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Miller",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Norcom": {
+   "name": "Norcom battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-res-art-washington",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Norcom"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Norcom",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.1st_NC_A": {
+   "name": "1st NC A battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-mclaws-cabell",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.1st_NC_A"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.1st_NC_A",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Pulaski_GA": {
+   "name": "Pulaski GA battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-mclaws-cabell",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Pulaski_GA"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Pulaski_GA",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.1st_Richmond_Howitzers": {
+   "name": "1st Richmond Howitzers",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-mclaws-cabell",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.1st_Richmond_Howitzers"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.1st_Richmond_Howitzers",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Troup_GA": {
+   "name": "Troup GA battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-mclaws-cabell",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Troup_GA"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Troup_GA",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Fauquier": {
+   "name": "Fauquier battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-pickett-dearing",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Fauquier"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Fauquier",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Hampden": {
+   "name": "Hampden battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-pickett-dearing",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Hampden"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Hampden",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Richmond_Fayette": {
+   "name": "Richmond Fayette battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-pickett-dearing",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Richmond_Fayette"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Richmond_Fayette",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Blount_s": {
+   "name": "Blount's battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-pickett-dearing",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Blount_s"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Blount_s",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Branch_NC": {
+   "name": "Branch NC battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-hood-henry",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Branch_NC"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Branch_NC",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Charleston_German_SC": {
+   "name": "Charleston German SC battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-hood-henry",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Charleston_German_SC"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Charleston_German_SC",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Palmetto_SC": {
+   "name": "Palmetto SC battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-hood-henry",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Palmetto_SC"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Palmetto_SC",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Rowan_NC": {
+   "name": "Rowan NC battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-1c-hood-henry",
+   "group": "cs-art-1c",
+   "kit_ids": [
+    "CS.ART.Rowan_NC"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Rowan_NC",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Charlottesville": {
+   "name": "Charlottesville battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-early-jones",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Charlottesville"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Charlottesville",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Courtney": {
+   "name": "Courtney battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-early-jones",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Courtney"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Courtney",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Louisiana_Guard": {
+   "name": "Louisiana Guard battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-early-jones",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Louisiana_Guard"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Louisiana_Guard",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Staunton": {
+   "name": "Staunton battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-early-jones",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Staunton"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Staunton",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.1st_Md": {
+   "name": "1st Md battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-johnson-andrews",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.1st_Md"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.1st_Md",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Alleghany": {
+   "name": "Alleghany battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-johnson-andrews",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Alleghany"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Alleghany",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Chesapeake": {
+   "name": "Chesapeake battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-johnson-andrews",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Chesapeake"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Chesapeake",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Lee": {
+   "name": "Lee battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-johnson-andrews",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Lee"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Lee",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Jefferson_Davis_AL": {
+   "name": "Jefferson Davis AL battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-rodes-carter",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Jefferson_Davis_AL"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Jefferson_Davis_AL",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.King_William": {
+   "name": "King William battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-rodes-carter",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.King_William"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.King_William",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Morris": {
+   "name": "Morris battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-rodes-carter",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Morris"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Morris",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Orange": {
+   "name": "Orange battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-rodes-carter",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Orange"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Orange",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.2nd_and_3rd_Richmond_Howitzers": {
+   "name": "2nd and 3rd Richmond Howitzers",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-res-art-1vaartbn",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.2nd_and_3rd_Richmond_Howitzers"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.2nd_and_3rd_Richmond_Howitzers",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Powhatan": {
+   "name": "Powhatan battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-res-art-1vaartbn",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Powhatan"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Powhatan",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Rockbridge": {
+   "name": "Rockbridge battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-res-art-1vaartbn",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Rockbridge"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Rockbridge",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Salem": {
+   "name": "Salem battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-res-art-1vaartbn",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Salem"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Salem",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Amherst": {
+   "name": "Amherst battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-res-art-nelson",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Amherst"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Amherst",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Fluvanna": {
+   "name": "Fluvanna battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-res-art-nelson",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Fluvanna"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Fluvanna",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Milledge_GA": {
+   "name": "Milledge GA battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-2c-res-art-nelson",
+   "group": "cs-art-2c",
+   "kit_ids": [
+    "CS.ART.Milledge_GA"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Milledge_GA",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Donaldsonville": {
+   "name": "Donaldsonville battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-3c-heth-garnett",
+   "group": "cs-art-3c",
+   "kit_ids": [
+    "CS.ART.Donaldsonville"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Donaldsonville",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Huger": {
+   "name": "Huger battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-3c-heth-garnett",
+   "group": "cs-art-3c",
+   "kit_ids": [
+    "CS.ART.Huger"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Huger",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Lewis": {
+   "name": "Lewis battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-3c-heth-garnett",
+   "group": "cs-art-3c",
+   "kit_ids": [
+    "CS.ART.Lewis"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Lewis",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Norfolk_Blues": {
+   "name": "Norfolk Blues battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-3c-heth-garnett",
+   "group": "cs-art-3c",
+   "kit_ids": [
+    "CS.ART.Norfolk_Blues"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Norfolk_Blues",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Danville": {
+   "name": "Danville battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-3c-res-art-mcintosh",
+   "group": "cs-art-3c",
+   "kit_ids": [
+    "CS.ART.Danville"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Danville",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.HURT": {
+   "name": "Hardaway AL battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-3c-res-art-mcintosh",
+   "group": "cs-art-3c",
+   "kit_ids": [
+    "CS.ART.HURT"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.HURT",
+     "guns_printed": "Two Whitworths and two 3-inch rifles; July 3 on Oak Hill per the marker (forum quote)",
+     "guns_status": "stated (weak: forum transcription of a marker)",
+     "tier": "inferred",
+     "weak_source": true,
+     "source_keys": [
+      "CWTalk-Whitworths",
+      "SS-ConfArt-96"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.2nd_Rockbridge": {
+   "name": "2nd Rockbridge battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-3c-res-art-mcintosh",
+   "group": "cs-art-3c",
+   "kit_ids": [
+    "CS.ART.2nd_Rockbridge"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.2nd_Rockbridge",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Johnson_s": {
+   "name": "Johnson's battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-3c-res-art-mcintosh",
+   "group": "cs-art-3c",
+   "kit_ids": [
+    "CS.ART.Johnson_s"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Johnson_s",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Crenshaw": {
+   "name": "Crenshaw battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-3c-res-art-pegram",
+   "group": "cs-art-3c",
+   "kit_ids": [
+    "CS.ART.Crenshaw"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Crenshaw",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Fredericksburg": {
+   "name": "Fredericksburg battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-3c-res-art-pegram",
+   "group": "cs-art-3c",
+   "kit_ids": [
+    "CS.ART.Fredericksburg"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Fredericksburg",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Letcher": {
+   "name": "Letcher battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-3c-res-art-pegram",
+   "group": "cs-art-3c",
+   "kit_ids": [
+    "CS.ART.Letcher"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Letcher",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Pee_Dee": {
+   "name": "Pee Dee battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-3c-res-art-pegram",
+   "group": "cs-art-3c",
+   "kit_ids": [
+    "CS.ART.Pee_Dee"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Pee_Dee",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Purcell": {
+   "name": "Purcell battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-3c-res-art-pegram",
+   "group": "cs-art-3c",
+   "kit_ids": [
+    "CS.ART.Purcell"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Purcell",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Breathed": {
+   "name": "Breathed battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-cav-horse-art",
+   "group": "cs-cav",
+   "kit_ids": [
+    "CS.ART.Breathed"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Breathed",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Chew": {
+   "name": "Chew battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-cav-horse-art",
+   "group": "cs-cav",
+   "kit_ids": [
+    "CS.ART.Chew"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Chew",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Griffin": {
+   "name": "Griffin battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-cav-horse-art",
+   "group": "cs-cav",
+   "kit_ids": [
+    "CS.ART.Griffin"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Griffin",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Hart": {
+   "name": "Hart battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-cav-horse-art",
+   "group": "cs-cav",
+   "kit_ids": [
+    "CS.ART.Hart"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Hart",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.McGregor": {
+   "name": "McGregor battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-cav-horse-art",
+   "group": "cs-cav",
+   "kit_ids": [
+    "CS.ART.McGregor"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.McGregor",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "CS.ART.Moorman": {
+   "name": "Moorman battery",
+   "army": "CS",
+   "level": "battery",
+   "parent": "cs-cav-horse-art",
+   "group": "cs-cav",
+   "kit_ids": [
+    "CS.ART.Moorman"
+   ],
+   "kit_card": [
+    {
+     "id": "CS.ART.Moorman",
+     "guns_printed": "gap",
+     "guns_status": "gap",
+     "tier": "documented",
+     "weak_source": false,
+     "source_keys": [
+      "SS-ConfArt-96",
+      "Wiki-OOB-Confed"
+     ]
+    }
+   ],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  }
+ },
+ "formations": {
+  "us-1c-art": {
+   "name": "Artillery Wainwright",
+   "army": "US",
+   "level": "artillery_brigade",
+   "parent": "us-1c",
+   "group": "us-art-corps",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-2c-art": {
+   "name": "Artillery Hazard",
+   "army": "US",
+   "level": "artillery_brigade",
+   "parent": "us-2c",
+   "group": "us-art-corps",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-3c-art": {
+   "name": "Artillery Randolph/Clark",
+   "army": "US",
+   "level": "artillery_brigade",
+   "parent": "us-3c",
+   "group": "us-art-corps",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-5c-art": {
+   "name": "Artillery Martin",
+   "army": "US",
+   "level": "artillery_brigade",
+   "parent": "us-5c",
+   "group": "us-art-corps",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-6c-art": {
+   "name": "Artillery Tompkins",
+   "army": "US",
+   "level": "artillery_brigade",
+   "parent": "us-6c",
+   "group": "us-art-corps",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-11c-art": {
+   "name": "Artillery Osborn",
+   "army": "US",
+   "level": "artillery_brigade",
+   "parent": "us-11c",
+   "group": "us-art-corps",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-12c-art": {
+   "name": "Artillery Muhlenberg",
+   "army": "US",
+   "level": "artillery_brigade",
+   "parent": "us-12c",
+   "group": "us-art-corps",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-cav-art": {
+   "name": "Horse Artillery",
+   "army": "US",
+   "level": "artillery_brigade",
+   "parent": "us-cav",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-ransom": {
+   "name": "1st Regular Brigade",
+   "army": "US",
+   "level": "artillery_brigade",
+   "parent": "us-art-reserve",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-mcgilvery": {
+   "name": "1st Volunteer Brigade",
+   "army": "US",
+   "level": "artillery_brigade",
+   "parent": "us-art-reserve",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-taft": {
+   "name": "2nd Vol Brigade",
+   "army": "US",
+   "level": "artillery_brigade",
+   "parent": "us-art-reserve",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-huntington": {
+   "name": "3rd Vol Brigade",
+   "army": "US",
+   "level": "artillery_brigade",
+   "parent": "us-art-reserve",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "us-art-reserve-fitzhugh": {
+   "name": "4th Vol Brigade",
+   "army": "US",
+   "level": "artillery_brigade",
+   "parent": "us-art-reserve",
+   "group": "us-art-reserve-horse",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-1c-mclaws-cabell": {
+   "name": "Cabell's battalion",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-1c-mclaws",
+   "group": "cs-art-1c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-1c-pickett-dearing": {
+   "name": "Dearing's battalion",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-1c-pickett",
+   "group": "cs-art-1c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-1c-hood-henry": {
+   "name": "Henry's battalion",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-1c-hood",
+   "group": "cs-art-1c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-1c-res-art": {
+   "name": "Reserve artillery Walton",
+   "army": "CS",
+   "level": "artillery_group",
+   "parent": "cs-1c",
+   "group": "cs-art-1c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-1c-res-art-alexander": {
+   "name": "Alexander's battalion",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-1c-res-art",
+   "group": "cs-art-1c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-1c-res-art-washington": {
+   "name": "Washington (LA) Artillery",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-1c-res-art",
+   "group": "cs-art-1c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-1c-art": {
+   "name": "I Corps artillery",
+   "army": "CS",
+   "level": "artillery_group",
+   "parent": "cs-1c",
+   "group": "cs-art-1c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-2c-early-jones": {
+   "name": "Jones's battalion",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-2c-early",
+   "group": "cs-art-2c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-2c-johnson-andrews": {
+   "name": "Andrews's battalion",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-2c-johnson",
+   "group": "cs-art-2c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-2c-rodes-carter": {
+   "name": "Carter's battalion",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-2c-rodes",
+   "group": "cs-art-2c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-2c-res-art": {
+   "name": "Reserve artillery J. T. Brown",
+   "army": "CS",
+   "level": "artillery_group",
+   "parent": "cs-2c",
+   "group": "cs-art-2c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-2c-res-art-1vaartbn": {
+   "name": "1st VA Artillery Bn",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-2c-res-art",
+   "group": "cs-art-2c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-2c-res-art-nelson": {
+   "name": "Nelson's battalion",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-2c-res-art",
+   "group": "cs-art-2c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-3c-anderson-cutts": {
+   "name": "Cutts's battalion",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-3c-anderson",
+   "group": "cs-art-3c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-3c-heth-garnett": {
+   "name": "Garnett's battalion",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-3c-heth",
+   "group": "cs-art-3c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-3c-pender-poague": {
+   "name": "Poague's battalion",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-3c-pender",
+   "group": "cs-art-3c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-3c-res-art": {
+   "name": "Reserve artillery R. L. Walker",
+   "army": "CS",
+   "level": "artillery_group",
+   "parent": "cs-3c",
+   "group": "cs-art-3c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-3c-res-art-mcintosh": {
+   "name": "McIntosh's battalion",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-3c-res-art",
+   "group": "cs-art-3c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-3c-res-art-pegram": {
+   "name": "Pegram's battalion",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-3c-res-art",
+   "group": "cs-art-3c",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  },
+  "cs-cav-horse-art": {
+   "name": "Stuart Horse Artillery",
+   "army": "CS",
+   "level": "artillery_battalion",
+   "parent": "cs-cav-div",
+   "group": "cs-cav",
+   "kit_ids": [],
+   "status": "unverified",
+   "guns": [],
+   "range_by_date": {},
+   "unverified": true
+  }
+ }
+}

@@ -1,8 +1,8 @@
 # STATE (read this first on every wake; it replaces reading CAMPAIGN.md, which is the long history)
 
-Updated 2026-11-24 04:35 UTC by the orchestrating session. Plan: OPERATING-PLAN-2026-11-24.md. Ledger: SCOREBOARD.jsonl.
+Updated 2026-11-24 04:45 UTC by the orchestrating session. Plan: OPERATING-PLAN-2026-11-24.md. Ledger: SCOREBOARD.jsonl.
 
-Nothing is running. Last fleet died Nov 16 about 03:55 UTC on the weekly limit. Window now: Nov 22 22:00 to Nov 29 22:00 UTC
+Running: one background agent finishing the conflict kit (queue 3, READY.json when done) and the zero-token watchdog `watch.sh 10800`. Last fleet died Nov 16 about 03:55 UTC on the weekly limit. Window now: Nov 22 22:00 to Nov 29 22:00 UTC
 (planning allowance $1,800; cost at the start of the window $3,960 of the session total; recalibrate from get_session usage.cost_usd).
 
 On every wake, in this order, and nothing else:
@@ -14,6 +14,10 @@ On every wake, in this order, and nothing else:
 6. Commit and push both branches (`main-2hmypf` and `main`), fetch first, never force.
 7. Append one line to CAMPAIGN.md only when something changed. Tell the owner only what changed and what is true, quoting the scoreboard.
 
+Done today with no model: `python3 -I tools/bt/kit_verified.py build` wrote kit/verified_oob.json (825 units: 80 verified, 48 partly, 697 unverified) and verified_batteries.json (131 batteries, all unverified); Q01 re-run: PASS 0 -> 2,069, BLOCKED-INPUT 3,510 -> 1,238, FAIL 133 -> 435 (66 planted-defect tests of the Q01 runner pass). Gate items overall PASS 206 -> 2,275 (ledger line 04:37Z).
+Rule that follows: every finished kit-evidence group raises PASS by itself. After any lane task run `python3 -I tools/horde/after_task.py --cost <usd>` (rebuild tables, re-run the light gates, append a ledger line).
+Known defect: q20_cavalry.py crashes with `duplicate item id Q20/Q20.1/CS.CAV.11VA/default` because 31 kit ids are shared by more than one table unit (CS.KERSHAW by 6); the stored Q20.json is stale (Nov 16). Fix is a bounded task (queue 2b). Q14 stays blocked until artillery kit evidence lands (131 batteries unverified).
+
 Banned: see plan section 2. No fleet wider than the governor, no re-verification of closed work, no model polling, no task without `moves:`.
 Scheduled routines are denied for this session (ACCESS_DENIED since the PC approval card of Nov 16); wake sources are workflow-completion
 notices, the watchdog and the owner's messages.
@@ -21,4 +25,4 @@ notices, the watchdog and the owner's messages.
 Open owner items: approve the pending PowerShell request in the MSI probe session (session_01YP4o7Ri5VkRJD1AtuhsG2G) for PC work;
 the allowance (the weekly window is not unlimited); main site versus Battle Theatre priority.
 
-Queue head (plan section 4): 2 gate failure triage by class; 3 finish the conflict kit (READY.json); 4 bookkeeping gate fixes; 5 conflicts phase A (18 weak first).
+Queue head (plan section 4): 2b Q20 runner shared-kit-id fix (red-first test, re-run) and Q01 remaining 435 FAIL / 1,238 BLOCKED by class; 2 gate failure triage by class; 3 finish the conflict kit (READY.json); 4 bookkeeping gate fixes; 5 conflicts phase A (18 weak first).
