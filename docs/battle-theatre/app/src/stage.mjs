@@ -20,7 +20,8 @@ import { SEED } from './config.mjs';
 
 export const HIDDEN = 1e6;                 // hidden units and guns are parked here: far outside every frustum and culled on the CPU
 export const FALL_NEVER = 1e9;             // the prototype's “never falls” time in the soldier table
-const UNIT_STRIDE = 12, TURN_S = 25, MAX_TURN_EDGE_MS = 2.5146;      // TURN_S: the shortest turn; MAX_TURN_EDGE_MS: the fastest the outer edge of a formation may move while it turns = the documented urgent double quick, 180 steps a minute of 33 in. (Hardee para 114; app/data/anim3d/drill-timing.json double_quick_urgent): a block cannot turn faster than a man can move (a train turned in 25 s moved its far end at 30 m/s; the earlier 4.4 m/s was an undocumented tuning value, gate Q05.3)
+const UNIT_STRIDE = 12;
+export const TURN_S = 25, MAX_TURN_EDGE_MS = 2.5146;      // TURN_S: the shortest turn; MAX_TURN_EDGE_MS: the fastest the outer edge of a formation may move while it turns = the documented urgent double quick, 180 steps a minute of 33 in. (Hardee para 114; app/data/anim3d/drill-timing.json double_quick_urgent): a block cannot turn faster than a man can move (a train turned in 25 s moved its far end at 30 m/s; the earlier 4.4 m/s was an undocumented tuning value, gate Q05.3)
 const NEVER = { from: Infinity, to: null };      // a unit with no arrival record (not on the field, or no gate) is never present
 // the speed of the fastest segment of a path leg (seconds, metres) while t lies inside the leg; 0 outside it (the unit is not moving on that leg)
 const PATH_VMAX = new WeakMap();

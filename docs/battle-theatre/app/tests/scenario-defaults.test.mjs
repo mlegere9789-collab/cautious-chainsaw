@@ -104,3 +104,10 @@ test('panel: a gap, window, range and unresolved set carry a visible chip; settl
   for (const c of conf.filter(c => c.delegated)) for (const o of c.options) assert.equal(selectedLabel(c, o.key), optionLabel(c, o), c.id + ' ' + o.key);
   assert.match(selectedLabel(by('C-008'), DELEGATED_KEY), /^Morning of 2 July: plan given by about 9 a\.m\.; formal order about 11:00 \(Longstreet\); before about noon \(default, inferred\)$/);
 });
+
+test('floor holds: C-005, C-007, C-021 and C-023 each carry a drawn_clamped record that reaches the panel; C-023 has no clock (none is invented) and the panel says so', () => {
+  for (const id of ['C-005', 'C-007', 'C-021', 'C-023']) { const c = conf.find(x => x.id === id); assert.ok(c.delegated.clamped, id); assert.ok(/^1863-07-0\d T?|^1863-07-0\dT\d\d:\d\d$/.test(c.delegated.clamped.floor), id + ' floor'); assert.ok(c.delegated.clamped.rows.length > 0, id); }
+  const k = conf.find(x => x.id === 'C-023').delegated; assert.equal(k.clamped.resolution_at, null); assert.equal(k.clamped.no_clock, true); assert.equal(k.animation.at, null, 'no clock is invented for C-023'); assert.equal(k.drawnText, null);
+  assert.deepEqual(k.clamped.rows, ['cs-cav-flee-chambliss', 'cs-cav-hampton', 'cs-cav-jenkins']);
+  const src = fs.readFileSync(path.join(BT, 'app/src/ui/panels.mjs'), 'utf8'); assert.match(src, /d\.clamped\.resolution_at \?/); assert.match(src, /The sources give no hour for this, so none is drawn here/);
+});

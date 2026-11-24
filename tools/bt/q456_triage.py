@@ -182,6 +182,13 @@ def render(now, before):
         bb = sum(v for g in GATES for k, v in ((before.get(g) or {}).get('rows', {})).items() if k.split('|')[2] == cause)
         if a or bb:
             L.append('| `%s` | %d | %d | %s | %s |' % (cause, bb, a, meaning.replace('|', '/'), fix.replace('|', '/')))
+    L += ['', '## Why the Q04 item count fell from 5187 to 5088', '',
+          'A Q04.1 item is one distinct behaviour of one unit (the hash of what the unit does, `evidence.hash`); every scenario that gives that same behaviour is listed in the one item (`evidence.n_scenarios`). '
+          'Before the floor fix (app/src/history/arrivals.mjs: a chosen value earlier than the unit\'s own floor is drawn at the floor), a chosen value below the floor (C-005 x:C-005-P5 and S5, the `earliest` view of the Hood units, C-039) gave a different behaviour from the floor itself, so it was an item of its own and FAILED. '
+          'After the fix it draws exactly as the floor does, so its behaviour hash equals that of an existing item and the two collapse into one (for example `earliest` of cs-1c-hood-anderson-11ga now has the hash of `delegated`, whose n_scenarios went from 245 to 246). '
+          'Result: 169 ids gone, 70 new (a collapsed behaviour takes the id of its first scenario, and the Q04.scan item ids move with the representative scenario of each group), net -99: Q04.1 3939 -> 3844 (19 units), Q04.scan 179 -> 175; Q04.3, Q04.4, Q04.5, Q04.6 and Q04.S* are unchanged id for id. '
+          'No unit and no scenario left coverage: the scenario set is the same 1635, the same 726 units are in Q04.1, and for every unit the total of scenarios spread over its items is unchanged; the scan covers every behaviour (3844 = the Q04.1 items). '
+          'Proved by `python3 -I tools/bt/q04_coverage_check.py` (snapshot of the first full results: `horde/q04-coverage-before.json`); it exits 1 if a unit or scenario drops out, if a unit\'s scenario total changes, or if two items of a unit share a behaviour hash.', '']
     return '\n'.join(L) + '\n'
 
 

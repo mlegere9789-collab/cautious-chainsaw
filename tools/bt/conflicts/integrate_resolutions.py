@@ -62,11 +62,19 @@ def arrival_floors():
     return out
 
 
+NO_CLOCK_HOLDS = {'C-023': ['cs-cav-flee-chambliss', 'cs-cav-hampton', 'cs-cav-jenkins']}   # FLOOR-HOLDS.md: resolution 'afternoon of Jul 2', no hour; the 19:32 floor (Stuart) holds these rows later than the record
+
+
 def clamp(r, floors):
     """The resolution's instant may be earlier than the arrival gate's floor (Q04 and the ledger): the floor is never moved here. The drawn instant is then the highest floor it
     falls below, and the case is reported as an owner decision. Returns (at, info or None)."""
     at = ((r['default'].get('animation') or {}).get('at'))
     if not at:
+        rows = NO_CLOCK_HOLDS.get(r['id'])
+        if rows:   # no clock is drawn and none is invented; the floor still holds these rows later than the record (FLOOR-HOLDS.md) and the viewer says so
+            fl = [f for f, u in floors.get(r['id'], []) if u in rows]
+            top = max(fl) if fl else '1863-07-02T19:32'
+            return None, {'resolution_at': None, 'no_clock': True, 'floor': top, 'rows': sorted(rows)}
         return None, None
     below = [(f, u) for f, u in floors.get(r['id'], []) if at < f]
     if not below:
@@ -80,7 +88,7 @@ def drawn_text(r, at=None, info=None):
     d = r['default']
     a = d.get('animation') or {}
     at = at or a.get('at')
-    if info:
+    if info and at:
         return '%s Jul %d (drawn at the arrival gate floor; the resolution\'s instant, %s, is earlier than the floor and the floor is not moved: owner decision): %s' % (at[11:16], int(at[8:10]), info['resolution_at'][11:16], d['label'])
     if at and not at.endswith('T00:00'):
         day = int(at[8:10])
@@ -299,7 +307,7 @@ def text_blocks(R, cd):
         f0 = fs[0] if fs else {}
         L.append('| %s | %s | %s | %d; %s |' % (cid, c, md_cell(new), len(fs), md_cell('%s: %s (%s)' % (f0.get('where', ''), f0.get('query', ''), f0.get('outcome', '')))))
     L.append('')
-    clamped = [(cid, cd['conflicts'][cid]['drawn_clamped']) for cid in R if cd['conflicts'][cid].get('drawn_clamped')]
+    clamped = [(cid, cd['conflicts'][cid]['drawn_clamped']) for cid in R if cd['conflicts'][cid].get('drawn_clamped') and cd['conflicts'][cid]['drawn_clamped'].get('resolution_at')]
     L.append('### Owner decisions left open: the resolution\'s instant is earlier than an arrival gate floor (the floor is NOT moved; the viewer draws at the floor): %d' % len(clamped))
     for cid, c in clamped:
         L.append('- %s: resolution instant %s, gate floor %s (rows %s). To draw at the resolution\'s instant the owner must lower the floor; no gate was edited.' % (cid, c['resolution_at'], c['floor'], ', '.join(c['rows'])))

@@ -327,12 +327,17 @@ class RealProduct(unittest.TestCase):
     def get(self, out, check, uid=None):
         return [i for i in out['items'] if i['check'] == check and (uid or self.UNIT) in i['id']][0]
 
-    def test_the_real_product_moves_this_unit_within_the_documented_speeds_and_joins_its_legs_but_turns_its_far_end_too_fast(self):
+    def test_the_real_product_moves_this_unit_within_the_documented_speeds_and_joins_its_legs_and_turns_its_far_end_within_the_foot_bound(self):
         out = self.runner(None)
         self.assertEqual(self.get(out, 'Q05.1')['result'], 'PASS', self.get(out, 'Q05.1')['reason'])
         self.assertEqual(self.get(out, 'Q05.2')['result'], 'PASS', self.get(out, 'Q05.2')['reason'])
-        x = self.get(out, 'Q05.3')                               # the stage turns a block rigidly in 25 s: its far end moves at 4 to 6 m/s: a finding, not a fixture
-        self.assertEqual(x['result'], 'FAIL')
+        x = self.get(out, 'Q05.3')                               # the stage stretches a turn so the outer edge stays within MAX_TURN_EDGE_MS (read from src/stage.mjs by the node child)
+        self.assertEqual(x['result'], 'PASS', x['reason'])
+
+    def test_a_stage_that_turns_every_block_in_the_fixed_25_s_moves_the_far_end_too_fast_and_fails(self):   # negative control, planted defect in the real code path
+        out = self.runner('turn_old_formula.mjs')
+        x = self.get(out, 'Q05.3')
+        self.assertEqual(x['result'], 'FAIL', x['reason'])
         self.assertIn('far end', x['reason'])
         self.assertEqual(out['verdict'], 'FAIL')
 
