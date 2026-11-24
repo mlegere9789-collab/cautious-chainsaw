@@ -1,0 +1,1622 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-021",
+ "topic": "Pickett’s arrival",
+ "pdf_row": {
+  "page": 62,
+  "text": "Pickett’s arrival | night of Jul 2 (W-D2, PHIF); Jul 3 (SS2); | marches from 06:00 Jul 2 (EPP); no order to | be up by daylight Jul 3 (W-PC) | on the field the morning of Jul 3 | (conservative: not shown before dawn Jul 3) | night of Jul 2",
+  "values": [
+   "night of Jul 2 (W-D2, PHIF)",
+   "Jul 3 (SS2)",
+   "marches from 06:00 Jul 2 (EPP)",
+   "no order to be up by daylight Jul 3 (W-PC)"
+  ],
+  "recommended_default": "on the field the morning of Jul 3 (conservative: not shown before dawn Jul 3)",
+  "selectable_alternatives": [
+   "night of Jul 2"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-021-DEFAULT",
+  "default_label": "on the field the morning of Jul 3; Q04 gate (Jul 3 04:36) not moved",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-021-S1",
+   "C-021-S2",
+   "C-021-S3",
+   "C-021-S4",
+   "C-021-S5",
+   "C-021-S6",
+   "C-021-DEFAULT"
+  ]
+ },
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-021",
+ "event_date": "1863-07-02",
+ "positions": [
+  {
+   "id": "C-021-P1",
+   "origin": "pdf_value",
+   "pdf_label": "night of Jul 2 (W-D2, PHIF)",
+   "scenario_ids": [
+    "C-021-S1"
+   ],
+   "source_keys": [
+    "W-D2",
+    "PHIF"
+   ],
+   "label": "Night of Jul 2: the division arrives the night before (two web pages; later books)",
+   "kind": "period",
+   "value": {
+    "text": "night of the 2d",
+    "date": "1863-07-02",
+    "part_of_day": "night"
+   },
+   "approx": false,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "memoir_only",
+    "different_event"
+   ],
+   "support": [
+    {
+     "id": "C-021-P1-c1",
+     "source": "BL-3",
+     "source_class": "book",
+     "part": null,
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 1255743,
+     "quote": "Pickett's division had been left at Chambersburg as rear-guard, and joined the corps on the night of the 2d",
+     "page_note": "the text has no page marks; the article is Hunt's 'The Second Day at Gettysburg' in Battles and Leaders, vol. 3; printed page not read",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery of the Army of the Potomac, writing of the Confederate side",
+      "side": "union"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "hunt",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "on the night of the 2d"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "A Union officer, 24 years later, of the Confederate arrival; no source given."
+    },
+    {
+     "id": "C-021-P1-c2",
+     "source": "NJ-TOOMBS-1888",
+     "source_class": "book",
+     "part": null,
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 381240,
+     "quote": "Pickett had arrived within a short distance of the battle-field the night before, after a forced march from Chambersburg, and at seven o'clock on the morning of the third he reported to General Longstreet",
+     "page_note": "the text has no page marks; the printed page was not read",
+     "witness": {
+      "name": "Samuel Toombs",
+      "role": "author of a book on the New Jersey troops; not at the field with the Confederates",
+      "side": "other"
+     },
+     "written": {
+      "date": "1888",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "toombs",
+     "exact": false,
+     "states": {
+      "times": [
+       "07:00"
+      ],
+      "numbers": [
+       7
+      ],
+      "phrases": [
+       "the night before"
+      ]
+     },
+     "note": "Gives no source for the hour."
+    },
+    {
+     "id": "C-021-P1-c3",
+     "source": "NPS-HB9-1954",
+     "source_class": "official",
+     "part": null,
+     "page": "29",
+     "page_basis": "pdf_marker",
+     "text_offset": 39550,
+     "quote": "Pickett's men had arrived the previous evening from Chambersburg, where they had guarded Lee's wagons on July 1 and 2",
+     "witness": {
+      "name": "Frederick Tilberg",
+      "role": "Park Service historian, handbook of 1954",
+      "side": "institution"
+     },
+     "written": {
+      "date": "1954",
+      "kind": "institutional"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "nps-hb9",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "the previous evening"
+      ],
+      "dates": [
+       "07-01"
+      ]
+     },
+     "note": "A Park Service handbook; no source given. It says they arrived (at the field massed west of Emmitsburg Road) the previous evening, a day before the charge."
+    },
+    {
+     "id": "C-021-P1-c4",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-S18-02",
+     "page": "999",
+     "page_basis": "scan_leaf",
+     "text_offset": 3617720,
+     "quote": "After a march of about 25 miles on the 2d the brigade bivouacked about 4 miles from Gettysburg, on the Chambersburg turnpike",
+     "witness": {
+      "name": "William R. Aylett",
+      "role": "Colonel, 53d Virginia, commanding Armistead's brigade of Pickett's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "aylett",
+     "exact": false,
+     "states": {
+      "numbers": [
+       25,
+       4,
+       2
+      ]
+     }
+    },
+    {
+     "id": "C-021-P1-c5",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R442",
+     "page": "388",
+     "page_basis": "scan_leaf",
+     "text_offset": 1435415,
+     "quote": "That evening about dusk, orders were received to move at once to the field of battle, which was done, my battalion encamping (or rather bivouacking) for the night in rear of the line of battle of the First Corps",
+     "witness": {
+      "name": "James Dearing",
+      "role": "Major, commanding the artillery battalion attached to Pickett's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-16",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "dearing",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "That evening about dusk",
+       "for the night"
+      ]
+     },
+     "note": "The artillery battalion went to the field at dusk and spent the night in rear of the First Corps line; the infantry brigades are not said to have done so."
+    }
+   ],
+   "inference": {
+    "step": "Three later books say the division arrived the night of 2 Jul, and Dearing puts his own battalion in rear of the First Corps line that night; the claim for the infantry is carried only by the later writers, while Aylett has Armistead's brigade bivouacked about four miles out that night.",
+    "from": [
+     "C-021-P1-c1",
+     "C-021-P1-c2",
+     "C-021-P1-c3",
+     "C-021-P1-c5"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "True of the guns (Dearing, at dusk) and of the neighbourhood: Armistead's brigade lay about four miles out that night (Aylett). The brigades reached the field next morning (Aylett, Peyton, Lee)."
+   }
+  },
+  {
+   "id": "C-021-P2",
+   "origin": "pdf_value",
+   "pdf_label": "Jul 3 (SS2)",
+   "scenario_ids": [
+    "C-021-S2"
+   ],
+   "source_keys": [
+    "SS2"
+   ],
+   "label": "Jul 3: the division is on the field that day (the day only, no hour)",
+   "kind": "date",
+   "value": {
+    "date": "1863-07-03"
+   },
+   "approx": false,
+   "clock": "unspecified",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-021-P2-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R441",
+     "page": "385",
+     "page_basis": "scan_leaf",
+     "text_offset": 1424138,
+     "quote": "in the late battle near Gettysburg, Pa., July 3. Notwithstanding the long and severe marches made by the troops of this brigade, they reached the field about 9 a. m.",
+     "witness": {
+      "name": "Charles S. Peyton",
+      "role": "Major, 19th Virginia, commanding Garnett's brigade of Pickett's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "peyton",
+     "exact": true,
+     "states": {
+      "times": [
+       "09:00"
+      ],
+      "numbers": [
+       3,
+       9
+      ],
+      "dates": [
+       "07-03"
+      ]
+     }
+    },
+    {
+     "id": "C-021-P2-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-S18-02",
+     "page": "999",
+     "page_basis": "scan_leaf",
+     "text_offset": 3617654,
+     "quote": "in the battle of July 3, [...] After a march of about 25 miles on the 2d the brigade bivouacked about 4 miles from Gettysburg, on the Chambersburg turnpike. From this position it moved at 3 a. m. on the 3d instant to the right of the town",
+     "witness": {
+      "name": "William R. Aylett",
+      "role": "Colonel, 53d Virginia, commanding Armistead's brigade of Pickett's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "aylett",
+     "exact": false,
+     "states": {
+      "times": [
+       "03:00"
+      ],
+      "numbers": [
+       3,
+       25,
+       4,
+       2,
+       3
+      ],
+      "dates": [
+       "07-03"
+      ]
+     }
+    },
+    {
+     "id": "C-021-P2-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R442",
+     "page": "388",
+     "page_basis": "scan_leaf",
+     "text_offset": 1435668,
+     "quote": "About daybreak the next morning (the morning of July 3), it marched to the field of battle",
+     "witness": {
+      "name": "James Dearing",
+      "role": "Major, commanding the artillery battalion attached to Pickett's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-16",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "dearing",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "the morning of July 3"
+      ],
+      "dates": [
+       "07-03"
+      ]
+     }
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "rounding",
+    "text": "The same day as the default, with no hour. The default is the morning of 3 Jul; the reports give 3 a.m. for one brigade's start and about 9 a.m. for another's arrival."
+   }
+  },
+  {
+   "id": "C-021-P3",
+   "origin": "pdf_value",
+   "pdf_label": "marches from 06:00 Jul 2 (EPP)",
+   "scenario_ids": [
+    "C-021-S3"
+   ],
+   "source_keys": [
+    "EPP"
+   ],
+   "label": "06:00 on Jul 2: the division sets out from Chambersburg (one timeline page)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T06:00",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "unspecified",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "lead_only",
+    "unsourced",
+    "contradicted"
+   ],
+   "support": [],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No writer gives 06:00. Alexander (1907) has the division on the road at 2 a.m.; Dearing and Hoke say only the morning of the 2d."
+   },
+   "failed_lookups": [
+    {
+     "where": "J. F. Epperson timeline (the plan's EPP)",
+     "query": "the page itself for the 06:00 start; the host is not among the hosts reachable for this research and a web page is only a pointer",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-2 (Lee R426, Longstreet R430, Peyton R441, Dearing R442, Aylett, Cabell R435) and OR27-3 (Lee to Imboden, 30 Jun, p. 948)",
+     "query": "a clock reading for the division leaving Chambersburg on 2 Jul: none; Lee's letter says Imboden is to relieve Pickett at Chambersburg that day (30 Jun), who will then move forward; Dearing says only that they marched on the morning of July 2",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "ledger books and papers (Alexander 1907, Hoke 1887, Longstreet 1896, Taylor 1906, Owen 1885, SHSP 4 to 6)",
+     "query": "six o'clock, 6 A.M., 6.00 with Pickett and Chambersburg: none; the one hour is Alexander's 2 A.M.",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ]
+  },
+  {
+   "id": "C-021-P4",
+   "origin": "pdf_value",
+   "pdf_label": "no order to be up by daylight Jul 3 (W-PC)",
+   "scenario_ids": [
+    "C-021-S4"
+   ],
+   "source_keys": [
+    "W-PC"
+   ],
+   "label": "No order to have Pickett up by daylight on Jul 3 (a claim about orders, from Longstreet)",
+   "kind": "category",
+   "value": {
+    "text": "no order to be up by daylight on 3 Jul"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "memoir_only",
+    "different_event"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-021-P4-c1",
+     "source": "LONGSTREET-1896",
+     "source_class": "book",
+     "part": null,
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 888793,
+     "quote": "He did not give or send me orders for the morning of the third day, nor did he reinforce me by Pickett's brigades for morning attack",
+     "page_note": "printed pages 385-386 (the text has no page marks; the running head of 385 stands before the passage)",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General, commanding the First Corps; wrote in 1896",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1896",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet-1896",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "morning attack"
+      ]
+     },
+     "note": "His answer to Lee's 'ordered to attack the next morning'. It is about orders for an attack, not about when Pickett reached the field; he says elsewhere that Lee rode over after sunrise and gave his orders."
+    },
+    {
+     "id": "C-021-P4-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R426",
+     "page": "320",
+     "page_basis": "scan_leaf",
+     "text_offset": 1215617,
+     "quote": "which arrived near the battle [...] during the afternoon of the 2d, was ordered to attack the next morning",
+     "witness": {
+      "name": "Robert E. Lee",
+      "role": "General, commanding the Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1864-01-20",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "lee-1864",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "ordered to attack the next morning"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Lee's detailed report says Longstreet was ordered to attack the next morning with Pickett's brigades; it is the other side of the dispute and gives no hour for an order to Pickett."
+    },
+    {
+     "id": "C-021-P4-c3",
+     "source": "TAYLOR-GENLEE-1906-C005",
+     "source_class": "book",
+     "part": null,
+     "page": "209",
+     "page_basis": "as_read",
+     "text_offset": 467269,
+     "quote": "according to Longstreet's own testimony, the order was given soon after sunrise",
+     "page_note": "printed page 209 inferred from the running head GENERAL LEE 210 that follows the passage",
+     "witness": {
+      "name": "Walter H. Taylor",
+      "role": "Colonel, Lee's adjutant general; wrote in 1906",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1906",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "soon_after",
+     "group": "taylor-1906",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "soon after sunrise"
+      ]
+     },
+     "note": "Taylor answers Longstreet from Longstreet's own account (Lee rode over after sunrise and gave his orders); an argument, not a record of the orders."
+    }
+   ],
+   "inference": {
+    "step": "Longstreet says he had no orders for the morning of the third day and was not reinforced by Pickett for a morning attack; the plan's clause is read from that as no order to have Pickett up by daylight. Lee (1864) and Taylor (1906) say the opposite about the orders; no order to Pickett survives.",
+    "from": [
+     "C-021-P4-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It is a dispute over orders for the attack, not over when the division reached the field; Lee says Longstreet was ordered to attack that morning, and no order to Pickett is in the record."
+   }
+  },
+  {
+   "id": "C-021-P5",
+   "origin": "pdf_default",
+   "pdf_label": "on the field the morning of Jul 3 (conservative: not shown before dawn Jul 3)",
+   "scenario_ids": [
+    "C-021-S5",
+    "C-021-DEFAULT"
+   ],
+   "label": "On the field the morning of Jul 3 (not before dawn): the plan's default, the first delegated default",
+   "kind": "period",
+   "value": {
+    "text": "the morning",
+    "date": "1863-07-03",
+    "part_of_day": "morning"
+   },
+   "approx": false,
+   "clock": "unspecified",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-021-P5-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R442",
+     "page": "388",
+     "page_basis": "scan_leaf",
+     "text_offset": 1435668,
+     "quote": "About daybreak the next morning (the morning of July 3), it marched to the field of battle",
+     "witness": {
+      "name": "James Dearing",
+      "role": "Major, commanding the artillery battalion attached to Pickett's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-16",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "dearing",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "the morning of July 3"
+      ],
+      "dates": [
+       "07-03"
+      ]
+     }
+    },
+    {
+     "id": "C-021-P5-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-S18-02",
+     "page": "999",
+     "page_basis": "scan_leaf",
+     "text_offset": 3617654,
+     "quote": "in the battle of July 3, [...] After a march of about 25 miles on the 2d the brigade bivouacked about 4 miles from Gettysburg, on the Chambersburg turnpike. From this position it moved at 3 a. m. on the 3d instant to the right of the town",
+     "witness": {
+      "name": "William R. Aylett",
+      "role": "Colonel, 53d Virginia, commanding Armistead's brigade of Pickett's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "aylett",
+     "exact": false,
+     "states": {
+      "times": [
+       "03:00"
+      ],
+      "numbers": [
+       3,
+       25,
+       4,
+       2,
+       3
+      ],
+      "dates": [
+       "07-03"
+      ]
+     }
+    },
+    {
+     "id": "C-021-P5-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R441",
+     "page": "385",
+     "page_basis": "scan_leaf",
+     "text_offset": 1424138,
+     "quote": "in the late battle near Gettysburg, Pa., July 3. Notwithstanding the long and severe marches made by the troops of this brigade, they reached the field about 9 a. m.",
+     "witness": {
+      "name": "Charles S. Peyton",
+      "role": "Major, 19th Virginia, commanding Garnett's brigade of Pickett's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "peyton",
+     "exact": false,
+     "states": {
+      "times": [
+       "09:00"
+      ],
+      "numbers": [
+       3,
+       9
+      ],
+      "dates": [
+       "07-03"
+      ]
+     }
+    },
+    {
+     "id": "C-021-P5-c4",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R426",
+     "page": "308",
+     "page_basis": "scan_leaf",
+     "text_offset": 1169824,
+     "quote": "Pickett, with three of his brigades, joined Longstreet the following morning",
+     "witness": {
+      "name": "Robert E. Lee",
+      "role": "General, commanding the Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "lee-1863",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "the following morning"
+      ]
+     },
+     "note": "The report of 31 Jul 1863 (the outline sent to the Department). The sentence before it says the battle ceased at dark on the 2d, so the following morning is 3 Jul."
+    },
+    {
+     "id": "C-021-P5-c5",
+     "source": "FREMANTLE-1863-GUT-C007",
+     "source_class": "primary",
+     "part": null,
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 360352,
+     "quote": "Pickett's division, which had just come up, was to bear the brunt in Longstreet's attack, together with Heth and Pettigrew in Hill's corps",
+     "page_note": "the Gutenberg text has no page marks; the entry is of 3 July in the diary as published in 1863",
+     "witness": {
+      "name": "Arthur J. L. Fremantle",
+      "role": "Lieutenant Colonel, Coldstream Guards, British observer with Longstreet's corps",
+      "side": "other"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "fremantle",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "just come up"
+      ]
+     },
+     "note": "The entry of 3 July, written after the rider rose at 6 A.M. and went over the ground; no hour for the arrival."
+    },
+    {
+     "id": "C-021-P5-c6",
+     "source": "DICKERT-1899-GUT-C007",
+     "source_class": "book",
+     "part": null,
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 564658,
+     "quote": "General Pickett, who had been left at Chambersburg, had now come up with his three Virginia Brigades, Garnett's, Kemper's, and Armstead's",
+     "page_note": "the Gutenberg text has no page marks",
+     "witness": {
+      "name": "D. Augustus Dickert",
+      "role": "member of the 3d South Carolina, Kershaw's brigade, which stood on the same ridge; wrote the brigade's history",
+      "side": "other"
+     },
+     "written": {
+      "date": "1899",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "dickert",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "had now come up"
+      ]
+     },
+     "note": "Written 36 years later, of the morning of 3 Jul (the sentence before it has the fighting on the left going on till 10 o'clock); no hour for the arrival."
+    },
+    {
+     "id": "C-021-P5-c7",
+     "source": "OWEN-1885-C021",
+     "source_class": "book",
+     "part": null,
+     "page": "248",
+     "page_basis": "as_read",
+     "text_offset": 537175,
+     "quote": "Pickett's divison (just arrived from Chambers- burg), supported by Heth and Wilcox, was to advance",
+     "page_note": "printed page 248 read from the running head THE WASHINGTON ARTILLERY. 248 that stands just before the passage",
+     "witness": {
+      "name": "William M. Owen",
+      "role": "Adjutant (captain) of the Washington Artillery of New Orleans; compiled the book from his diary",
+      "side": "other"
+     },
+     "written": {
+      "date": "1885",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "owen",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "just arrived"
+      ]
+     },
+     "note": "Of the morning of 3 Jul, after the staff met in the morning (the book has them awake at daylight); no hour for the arrival."
+    },
+    {
+     "id": "C-021-P5-c8",
+     "source": "SHSP-06",
+     "source_class": "book",
+     "part": null,
+     "page": "117",
+     "page_basis": "as_read",
+     "text_offset": 349497,
+     "quote": "About 10 A. M., Pickett's three brigades — Armistead's, Garnett's and Kemper's — arrived and formed in line",
+     "page_note": "printed page 117 read from the running heads (Southern Historical Society Papers, 118 follows a few lines after the passage)",
+     "witness": {
+      "name": "Cadmus M. Wilcox",
+      "role": "Brigadier General, commanding the Alabama brigade of Hill's corps that stood on Pickett's right on 3 Jul",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "wilcox",
+     "exact": false,
+     "states": {
+      "times": [
+       "10:00"
+      ],
+      "numbers": [
+       10
+      ],
+      "phrases": [
+       "arrived and formed in line"
+      ]
+     },
+     "note": "His account of the third day, written 14 years later; his own brigade had been placed in support of the artillery between daylight and sunup, and he saw Pickett's brigades form behind it. The 'About 10' is the formation of the line (Peyton: ordered to position about noon), later than Peyton's 'reached the field about 9'."
+    }
+   ]
+  },
+  {
+   "id": "C-021-P6",
+   "origin": "research",
+   "scenario_ids": [
+    "C-021-S6"
+   ],
+   "label": "Afternoon of Jul 2: the division arrives near the field (Lee's report of 1864; within three miles)",
+   "kind": "period",
+   "value": {
+    "text": "afternoon of the 2d",
+    "date": "1863-07-02",
+    "part_of_day": "afternoon"
+   },
+   "approx": false,
+   "clock": "unspecified",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-021-P6-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R426",
+     "page": "320",
+     "page_basis": "scan_leaf",
+     "text_offset": 1215617,
+     "quote": "which arrived near the battle [...] during the afternoon of the 2d, was ordered to attack the next morning",
+     "witness": {
+      "name": "Robert E. Lee",
+      "role": "General, commanding the Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1864-01-20",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "lee-1864",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "afternoon of the 2d"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The detailed report; its dateline reads January, day blank, 1864, and Lee forwarded it on 20 Jan 1864. The print reads 'near the battle-field' (the second scan reads the same); Taylor (1906) quotes it as 'on the battle-field'."
+    },
+    {
+     "id": "C-021-P6-c2",
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "part": null,
+     "page": "389",
+     "page_basis": "as_read",
+     "text_offset": 1023532,
+     "quote": "Pickett's division was also upon the road, having marched from Chambersburg at 2 A.M. It made 22 miles and encamped within three miles of Gettysburg at 4 P.M., reporting its presence to Lee",
+     "page_note": "printed page 389 read from the running head GETTYSBURG: THE FIRST DAY 389 a few lines after the passage; the passage stands at the foot of 388",
+     "witness": {
+      "name": "E. Porter Alexander",
+      "role": "Colonel, commanding a battalion of the reserve artillery of the First Corps; reached the field about 9 a.m. on 2 Jul",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "alexander",
+     "exact": false,
+     "states": {
+      "times": [
+       "02:00",
+       "16:00"
+      ],
+      "numbers": [
+       2,
+       22,
+       3,
+       4
+      ]
+     },
+     "note": "He was not with Pickett; he writes of the 2d from the army's records and his own place at headquarters (no source named)."
+    },
+    {
+     "id": "C-021-P6-c3",
+     "source": "HOKE-1887",
+     "source_class": "book",
+     "part": null,
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 707109,
+     "quote": "left its encampment early on Thursday morning and reached the field of battle about three o'clock in the afternoon",
+     "page_note": "the text has no page marks; the printed page was not read",
+     "witness": {
+      "name": "Jacob Hoke",
+      "role": "civilian of Chambersburg who wrote a history of the invasion",
+      "side": "other"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "hoke",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ],
+      "numbers": [
+       3
+      ]
+     },
+     "note": "He was in Chambersburg when the division left (he describes its camp and its leaving) and takes the rest from reports. 'The field of battle' here is the neighbourhood: his own later page has the division placed in line next morning."
+    },
+    {
+     "id": "C-021-P6-c4",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-S18-02",
+     "page": "999",
+     "page_basis": "scan_leaf",
+     "text_offset": 3617720,
+     "quote": "After a march of about 25 miles on the 2d the brigade bivouacked about 4 miles from Gettysburg, on the Chambersburg turnpike",
+     "witness": {
+      "name": "William R. Aylett",
+      "role": "Colonel, 53d Virginia, commanding Armistead's brigade of Pickett's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "aylett",
+     "exact": false,
+     "states": {
+      "numbers": [
+       25,
+       4,
+       2
+      ]
+     }
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Lee says near the field; Alexander says within three miles, Aylett about four. That is the neighbourhood, not the field: the brigades went in next morning (Aylett, Peyton, Lee 1863)."
+   }
+  },
+  {
+   "id": "C-021-P7",
+   "origin": "research",
+   "label": "About 03:00 on Jul 3: Armistead's brigade leaves its bivouac four miles out for the field",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T03:00",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "confederate",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-021-P7-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-S18-02",
+     "page": "999",
+     "page_basis": "scan_leaf",
+     "text_offset": 3617654,
+     "quote": "in the battle of July 3, [...] After a march of about 25 miles on the 2d the brigade bivouacked about 4 miles from Gettysburg, on the Chambersburg turnpike. From this position it moved at 3 a. m. on the 3d instant to the right of the town",
+     "witness": {
+      "name": "William R. Aylett",
+      "role": "Colonel, 53d Virginia, commanding Armistead's brigade of Pickett's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "aylett",
+     "exact": true,
+     "states": {
+      "times": [
+       "03:00"
+      ],
+      "numbers": [
+       3,
+       25,
+       4,
+       2,
+       3
+      ],
+      "dates": [
+       "07-03"
+      ]
+     }
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "place_of_observation",
+    "text": "One brigade's start, from a bivouac about four miles out; the walk to the field, which the report does not time, comes after it. It is the earliest documented time and drives the animation."
+   }
+  },
+  {
+   "id": "C-021-P8",
+   "origin": "research",
+   "label": "About 09:00 on Jul 3: Garnett's brigade reaches the field",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T09:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-021-P8-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R441",
+     "page": "385",
+     "page_basis": "scan_leaf",
+     "text_offset": 1424138,
+     "quote": "in the late battle near Gettysburg, Pa., July 3. Notwithstanding the long and severe marches made by the troops of this brigade, they reached the field about 9 a. m.",
+     "witness": {
+      "name": "Charles S. Peyton",
+      "role": "Major, 19th Virginia, commanding Garnett's brigade of Pickett's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "peyton",
+     "exact": true,
+     "states": {
+      "times": [
+       "09:00"
+      ],
+      "numbers": [
+       3,
+       9
+      ],
+      "dates": [
+       "07-03"
+      ]
+     }
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "place_of_observation",
+    "text": "The hour for one brigade (Garnett's), the later end of the morning; Armistead's brigade began its move at 3 a.m. and Kemper's brigade has no hour in any report."
+   }
+  },
+  {
+   "id": "C-021-P9",
+   "origin": "research",
+   "label": "About 06:00 to 07:00 on Jul 3: in position soon after six; reports to Longstreet at seven (two later books)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-03T06:00",
+    "to": "1863-07-03T07:00"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "memoir_only",
+    "weak"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-021-P9-c1",
+     "source": "HOKE-1887",
+     "source_class": "book",
+     "part": null,
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 726944,
+     "quote": "Pickett's division left its bivouac at dawn of day and moving around to the right reached the position assigned it in the ravine behind Cemetery Ridge soon after six o'clock",
+     "page_note": "printed page 367 read from the running head of the page before the passage; the text has no page marks",
+     "witness": {
+      "name": "Jacob Hoke (quoting Captain Owen)",
+      "role": "civilian of Chambersburg who wrote a history of the invasion; the words are printed as those of Captain Owen",
+      "side": "other"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "later_history"
+     },
+     "vantage": "not_stated",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "lower",
+     "group": "hoke-owen",
+     "exact": false,
+     "states": {
+      "times": [
+       "06:00"
+      ],
+      "numbers": [
+       6
+      ],
+      "phrases": [
+       "soon after six o'clock"
+      ]
+     },
+     "note": "Hoke prints the words as Captain Owen's. They are not in Owen's own book of 1885 (searched for 'soon after six' and 'left its bivouac'); where Hoke took them is not stated. The 'Cemetery Ridge' of the print is the wrong ridge for Confederate lines."
+    },
+    {
+     "id": "C-021-P9-c2",
+     "source": "NJ-TOOMBS-1888",
+     "source_class": "book",
+     "part": null,
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 381240,
+     "quote": "Pickett had arrived within a short distance of the battle-field the night before, after a forced march from Chambersburg, and at seven o'clock on the morning of the third he reported to General Longstreet",
+     "page_note": "the text has no page marks; the printed page was not read",
+     "witness": {
+      "name": "Samuel Toombs",
+      "role": "author of a book on the New Jersey troops; not at the field with the Confederates",
+      "side": "other"
+     },
+     "written": {
+      "date": "1888",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "toombs",
+     "exact": false,
+     "states": {
+      "times": [
+       "07:00"
+      ],
+      "numbers": [
+       7
+      ],
+      "phrases": [
+       "the night before"
+      ]
+     },
+     "note": "Gives no source for the hour."
+    }
+   ],
+   "inference": {
+    "step": "Hoke prints Owen as having the division in position soon after six o'clock and Toombs has Pickett report to Longstreet at seven o'clock; the window runs from the first to the second hour. Neither names a source and neither is in the reports of 1863.",
+    "from": [
+     "C-021-P9-c1",
+     "C-021-P9-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "Two books of 1887 and 1888 without a named source; the reports written within a month give 3 a.m. for the start of one brigade and about 9 a.m. for another's arrival."
+   }
+  },
+  {
+   "id": "C-021-P10",
+   "origin": "research",
+   "label": "About 15:00 to 16:00 on Jul 2: the division comes within three miles of Gettysburg",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T15:00",
+    "to": "1863-07-02T16:00"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "memoir_only",
+    "different_event"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-021-P10-c1",
+     "source": "HOKE-1887",
+     "source_class": "book",
+     "part": null,
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 707109,
+     "quote": "left its encampment early on Thursday morning and reached the field of battle about three o'clock in the afternoon",
+     "page_note": "the text has no page marks; the printed page was not read",
+     "witness": {
+      "name": "Jacob Hoke",
+      "role": "civilian of Chambersburg who wrote a history of the invasion",
+      "side": "other"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "hoke",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ],
+      "numbers": [
+       3
+      ]
+     },
+     "note": "He was in Chambersburg when the division left (he describes its camp and its leaving) and takes the rest from reports. 'The field of battle' here is the neighbourhood: his own later page has the division placed in line next morning."
+    },
+    {
+     "id": "C-021-P10-c2",
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "part": null,
+     "page": "389",
+     "page_basis": "as_read",
+     "text_offset": 1023532,
+     "quote": "Pickett's division was also upon the road, having marched from Chambersburg at 2 A.M. It made 22 miles and encamped within three miles of Gettysburg at 4 P.M., reporting its presence to Lee",
+     "page_note": "printed page 389 read from the running head GETTYSBURG: THE FIRST DAY 389 a few lines after the passage; the passage stands at the foot of 388",
+     "witness": {
+      "name": "E. Porter Alexander",
+      "role": "Colonel, commanding a battalion of the reserve artillery of the First Corps; reached the field about 9 a.m. on 2 Jul",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "alexander",
+     "exact": false,
+     "states": {
+      "times": [
+       "02:00",
+       "16:00"
+      ],
+      "numbers": [
+       2,
+       22,
+       3,
+       4
+      ]
+     },
+     "note": "He was not with Pickett; he writes of the 2d from the army's records and his own place at headquarters (no source named)."
+    }
+   ],
+   "inference": {
+    "step": "Hoke has the division at about three o'clock and Alexander has it encamped within three miles at 4 p.m.; the window runs from the first hour to the second. Both write decades later and name no record.",
+    "from": [
+     "C-021-P10-c1",
+     "C-021-P10-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "The neighbourhood, within three miles, not the field; both writers are far later and Hoke's 'the field' is the neighbourhood."
+   }
+  },
+  {
+   "id": "C-021-P11",
+   "origin": "research",
+   "label": "About dusk on Jul 2: Dearing's guns move to the field and bivouac in rear of the First Corps line",
+   "kind": "period",
+   "value": {
+    "text": "about dusk",
+    "date": "1863-07-02",
+    "part_of_day": "dusk"
+   },
+   "approx": false,
+   "clock": "confederate",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-021-P11-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R442",
+     "page": "388",
+     "page_basis": "scan_leaf",
+     "text_offset": 1435154,
+     "quote": "We remained near Chambersburg until the morning of July 2. On that day we marched to within a few miles of the battle-field of Gettysburg, and went into camp, after a very long and tiresome march both to men and horses. That evening about dusk, orders were received to move at once to the field of battle, which was done, my battalion encamping (or rather bivouacking) for the night in rear of the line of battle of the First Corps",
+     "witness": {
+      "name": "James Dearing",
+      "role": "Major, commanding the artillery battalion attached to Pickett's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-16",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "dearing",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "That evening about dusk"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     }
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "place_of_observation",
+    "text": "One artillery battalion attached to the division; no infantry brigade is said to have gone to the field that night. It is the earliest documented time any part of the division was on the field."
+   }
+  }
+ ],
+ "class": "weighted",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Armistead's brigade (Aylett, 12 Jul 1863) moved at 3 a.m. on the 3d from a bivouac about four miles out; Garnett's brigade (Peyton, 9 Jul 1863) reached the field about 9 a.m.; the division's artillery (Dearing, 16 Aug 1863) marched to the field at daybreak on the morning of July 3; Lee (31 Jul 1863) has the brigades joining Longstreet the following morning."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-021-P5"
+  ],
+  "label": "On the field the morning of Jul 3 (not before dawn); one brigade starts at 03:00, another arrives about 09:00",
+  "animation": {
+   "at": "1863-07-03T03:00",
+   "rule": "earliest_documented",
+   "note": "The earliest documented time is the start of Armistead's brigade at 3 a.m. from a bivouac about four miles out on the Chambersburg turnpike; it is drawn as a march, not a spawn. No report times its arrival on the field; Garnett's brigade reached the field about 9 a.m. The later readings stay selectable. This bears on gate Q04, which keeps the division off the scene until sunrise (04:36): see the readers."
+  },
+  "note": "The record gives brigade times, not a division time: the morning is certain, the hour is not. Dearing's guns were on the field at dusk of the 2d."
+ },
+ "weighing": {
+  "summary": "Two questions were run together. Date: the division came within about three or four miles of Gettysburg on the afternoon of 2 Jul (Lee 1864, Alexander, Hoke, Aylett, Dearing) and spent the night there; it did not reach the field that night except Dearing's guns, which moved up at dusk. On the field: the infantry brigades went in on the morning of 3 Jul (Lee 1863: joined Longstreet the following morning; Aylett: Armistead's brigade moved at 3 a.m.; Peyton: Garnett's brigade reached the field about 9 a.m.; Fremantle, Dickert and Owen: just come up). The values that look opposed (night of the 2d, afternoon of the 2d, the 3rd) are different events: arrival in the neighbourhood, the guns at dusk, the infantry on the field. No source gives 06:00 on the 2d. No order to Pickett is in the record. The default is the plan's own morning of Jul 3, with the brigade hours it rests on.",
+  "who": "Aylett commanded Armistead's brigade, Peyton Garnett's brigade and Dearing the artillery battalion attached to the division: all three were with the units they describe. Lee commanded the army and ordered the division forward. Fremantle, Dickert, Owen and Wilcox saw the division on the ridge but not its march. Alexander, Hoke, Toombs, Hunt and the Park Service handbook were not with it. No report of Pickett, Kemper or Garnett exists (Garnett was killed, Kemper wounded; Lee asked Pickett to modify his and he did not).",
+  "when": "Peyton wrote on 9 Jul, Aylett on 12 Jul, Lee on 31 Jul 1863, Dearing on 16 Aug 1863 (days to six weeks after); Lee's detailed report is of Jan 1864. Hunt (1887), Hoke (1887), Toombs (1888), Longstreet (1896), Taylor (1906) and Alexander (1907) are 24 to 44 years later; the Park Service handbook is of 1954. The reports of 1863 outrank the memoirs and the books.",
+  "where": "Aylett was with Armistead's brigade on the turnpike four miles out and then on the field; Peyton with Garnett's brigade; Dearing with the guns, which went up at dusk. Lee, at his headquarters, wrote of the three brigades together. Fremantle was on the ridge from 6 a.m. on the 3d.",
+  "how_knew": "Aylett, Peyton and Dearing give the hours of their own commands and say how (moved at 3 a.m.; reached the field about 9 a.m.; orders received about dusk). Lee had it from reports. Alexander, Hoke, Toombs, Hunt and the handbook give no source; Owen compiled his book from his diary.",
+  "clock": "Every writer is Confederate or unspecified; the Confederate hours (3 a.m., 9 a.m., about dusk) are not corrected for the reported 20-minute difference between the armies' clocks, which would not change a morning or an afternoon. 'About 9' keeps a quarter hour either way.",
+  "independence": "The default rests on the separate reports of two brigades (Aylett, Peyton), the artillery battalion (Dearing) and Lee, with Fremantle, Dickert, Owen and Wilcox as witnesses on the ridge that morning; they are independent of each other. Lee 1863 and Lee 1864 are one writer. Hoke and Owen overlap (Hoke prints Owen); Toombs, Hunt and the handbook name no source."
+ },
+ "source_panel_text": "The morning of Jul 3: Armistead's brigade left its camp four miles out at 3 a.m. and Garnett's brigade reached the field about 9 a.m. (reports of July 1863); Lee has the brigades joining Longstreet that morning. On Jul 2 they were only near the field, apart from the artillery at dusk. Ten other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "yes",
+   "note": "The morning of Jul 3 holds: three reports of 1863 and Lee put the infantry on the field then. The plan's clause not shown before dawn also holds for the infantry, since the earliest report is a 3 a.m. start from four miles out; Dearing's guns were on the field at dusk of the 2d, which the clause does not allow for."
+  },
+  "first_delegated": {
+   "holds": "yes",
+   "note": "The first delegated default (the morning of Jul 3, gate at 04:36 not moved) holds. Its rationale named Lee and Peyton only; Aylett, Dearing, Fremantle and the books add to it. The afternoon of Jul 2 (Lee 1864) is the neighbourhood, not the field, and stays selectable."
+  }
+ },
+ "readers": [
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-1c-pickett",
+   "must_change": false,
+   "note": "Pickett's Division: gate default sunrise Jul 3 (04:36) named_period_convention; earliest 20:04 Jul 2 (dusk); latest noon Jul 3. The default view stays on the morning of Jul 3. The earliest 20:04 on the night of Jul 2 matches Dearing's guns at about dusk (the only documented presence); the latest noon holds (Peyton: ordered to position about 12 m.). Not edited here."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04",
+   "must_change": false,
+   "note": "Named case Q04.6 (Pickett not present before sunrise Jul 3, 04:36). This result bears on it in two ways and moves neither: the only documented start before 04:36 is Armistead's brigade leaving a bivouac about four miles out at 3 a.m., which is a march and not a presence on the field; and Dearing's battalion, if the scene draws it with the division, was on the field the night of Jul 2. The integration step reconciles the gate spec in the open; nothing is lowered."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json C-021",
+   "must_change": true,
+   "note": "default_scenario_id C-021-DEFAULT: the default holds; the label gains the brigade hours (3 a.m., about 9 a.m.) and the scenario list gains the research values."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/src/data.mjs line 42 (C-021)",
+   "must_change": false,
+   "note": "Carries the plan row; the default text matches."
+  },
+  {
+   "kind": "app_code",
+   "ref": "docs/battle-theatre/app/tools/placement-clauses.mjs lines 352 and 354",
+   "must_change": true,
+   "note": "'Jul 2 night: Seminary Ridge area (disputed)' and 'UNRESOLVED: begins marching to Gettysburg 06:00 Jul 2 (EPP)': the first is true only of the artillery at dusk, the second has no source; both stay recorded, not scheduled."
+  },
+  {
+   "kind": "other",
+   "ref": "tools/bt/positions_summary.py lines 43 and 239; tools/bt/positions_D/30_pickett.py and 85_brigade_arrivals.py (cf pickett_arrival C-021)",
+   "must_change": true,
+   "note": "Position notes say no report by Pickett and four different statements (Lee, Longstreet, Peyton, Dearing); Aylett (Armistead's brigade, 12 Jul 1863) and Dearing's march are further reports to add."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-021 row)",
+   "must_change": false,
+   "note": "Row line 31 (morning of Jul 3, gate not moved) stands; the class and tier follow this resolution (weighted, documented)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-021 (line 49, PENDING OWNER)",
+   "must_change": false,
+   "note": "Entry stands; to note the resolution."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-239",
+   "must_change": true,
+   "note": "Row 'Jul 3 night, Pickett (if present)' (open gap): Pickett's division bivouacked west of Seminary Ridge on the night of Jul 2 only as to Dearing's guns; the infantry lay about four miles out until 3 a.m. on the 3d. Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-069",
+   "must_change": false,
+   "note": "'Jul 3 by noon': Pickett's three brigades west of Emmitsburg Road: consistent (Peyton: ordered into position about 12 m.)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/app/HISTORY-LAYER-NOTES.md lines 1071 and 1268 (C-021)",
+   "must_change": false,
+   "note": "Notes of the unresolved arrival; to be read with this resolution."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0103.md",
+   "must_change": true,
+   "note": "Entry lists C-021 night of Jul 2 as having no Official Records hour at all: Dearing (16 Aug 1863) puts his guns on the field about dusk of the 2d and Aylett and Peyton give hours for the 3d; to be updated by the integration step."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0104.md",
+   "must_change": false,
+   "note": "Entry lists C-021 afternoon of Jul 2 (Lee January 1864, p. 320) as an Official Records value the plan omits: carried here as a position (near the field)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0106.md",
+   "must_change": false,
+   "note": "Entry notes Fremantle p. 258 'Pickett being still in the rear' on 2 Jul (supports not on the field then); consistent, cited here as the diary of the day."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-023",
+   "must_change": false,
+   "note": "Line 296 records the first delegated values and that gates (Q04, Pickett 04:36) are not moved; this resolution moves none."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-B.md",
+   "must_change": false,
+   "note": "Names C-021 among the conflicts that move gates; unchanged."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md",
+   "must_change": false,
+   "note": "Names C-021 in the scenario syntax example (choices C-021 v1); unchanged."
+  },
+  {
+   "kind": "gate",
+   "ref": "tools/bt/gates/oob_layer_lib.mjs",
+   "must_change": false,
+   "note": "Sample scenario carries C-021 'range' with the option text night of Jul 2; unchanged."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "Wikipedia (the plan's W-D2 and W-PC), Warfare History Network (PHIF), Stone Sentinels July 2 (SS2), J. F. Epperson timeline (EPP)",
+   "query": "the pages for night of Jul 2, Jul 3, 06:00 on Jul 2 and no order to be up by daylight: none of the hosts is among the hosts reachable for this research and a web page is only a pointer",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-1 and OR27-2 (reports of Pickett, Kemper, Armistead, Garnett, Hunton, Corse)",
+   "query": "a report written by Pickett, Kemper, Garnett or Armistead: none exists in the record; Armistead's and Garnett's brigades are reported by Aylett and Peyton; Kemper's brigade and the three regiments of it have no report with an hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2 and OR27-3, all reports and letters",
+   "query": "Pickett near arrived / reached / joined / came up with night, morning, o'clock, dusk: Lee (two), Longstreet (not yet relieved at Chambersburg), Peyton, Dearing, Aylett only",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OWEN-1885-C021 (fetched from archive.org cu31924030922680)",
+   "query": "soon after six, left its bivouac, dawn of day: not in Owen's book; Hoke prints them as Owen's words without naming a source",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "SHSP-04, SHSP-05, SHSP-06, ANNALS-1879, Taylor 1877 and 1906, Long 1886, Sorrel",
+   "query": "an hour for Pickett reaching the field on 2 or 3 Jul: SHSP-06 (Wilcox, 1877) has Pickett's three brigades arrive and form line about 10 A.M. on the third day (cited); none gives the 2d",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Kemper's brigade (Kemper wounded) and Pickett's staff: Pickett's own letters",
+   "query": "an hour for the arrival of Kemper's brigade or the division staff: no local text; Pickett's report was returned by Lee and never rewritten (Alexander 1907)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report or letter of 2 or 3 July by Pickett, Kemper or a staff officer, or the regimental reports of Kemper's brigade, that give the hour the division reached the field; or a report that puts Armistead's or Garnett's brigade on the field before 4:36 a.m. A page image of the Official Records that reads a different hour in Aylett or Peyton would also change it."
+}

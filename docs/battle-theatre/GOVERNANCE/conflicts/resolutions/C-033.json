@@ -1,0 +1,645 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-033",
+ "topic": "Imboden departs",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-033",
+ "event_date": "1863-07-04",
+ "pdf_row": {
+  "page": 62,
+  "text": "Imboden departs | Jul 4; Jul 5 | Jul 4 afternoon | Jul 5",
+  "values": [
+   "Jul 4",
+   "Jul 5"
+  ],
+  "recommended_default": "Jul 4 afternoon",
+  "selectable_alternatives": [
+   "Jul 5"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-033-DEFAULT",
+  "default_label": "Jul 4, evening start (wounded train ordered off)",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-033-S1",
+   "C-033-S2",
+   "C-033-S3",
+   "C-033-DEFAULT"
+  ]
+ },
+ "class": "settled",
+ "tier": "inferred",
+ "basis": {
+  "kind": "reminiscence",
+  "text": "Imboden, who gave the order, puts the head of the column in motion about 4 p.m. on July 4 (Battles and Leaders, 1887); Guild (report of 20 July 1863) has the ambulance trains marching on the evening of the 4th, Lee and Pendleton the order and the escort on the 4th. Nothing found puts his departure on July 5."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-033-P3"
+  ],
+  "label": "Jul 4 afternoon: the head of the column leaves Cashtown about 16:00; Imboden after dark; the rear at dawn Jul 5",
+  "animation": {
+   "at": "1863-07-04T16:00",
+   "rule": "best_supported",
+   "note": "The head of the train starts at about 16:00 on July 4; Imboden follows after dark (sunset 19:32); the rear starts at dawn on July 5 (source-supported times). The 20:00 Jul 5 departure is not drawn."
+  }
+ },
+ "positions": [
+  {
+   "id": "C-033-P1",
+   "origin": "pdf_value",
+   "label": "Jul 4 (the day the trains were ordered off and began to move)",
+   "kind": "date",
+   "value": {
+    "date": "1863-07-04"
+   },
+   "tier": "documented",
+   "clock": "confederate",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-033-P1-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R426",
+     "page": "322",
+     "page_basis": "scan_leaf",
+     "text_offset": 1224637,
+     "quote": "The trains, with such of the wounded as could bear removal, were ordered to Williamsport on July 4, part moving through Cashtown and Greencastle, escorted by General Imboden",
+     "witness": {
+      "name": "Robert E. Lee",
+      "role": "General commanding the Army of Northern Virginia, detailed report of January 1864",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1864-01",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "lee",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-04"
+      ],
+      "phrases": [
+       "escorted by General Imboden"
+      ]
+     },
+     "note": "Lee: the trains were ordered to Williamsport on July 4, part through Cashtown and Greencastle escorted by Imboden."
+    },
+    {
+     "id": "C-033-P1-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R427",
+     "page": "326",
+     "page_basis": "scan_leaf",
+     "text_offset": 1241352,
+     "quote": "on the evening of the 4th, our ambulance trains [...] up their line of march by two routes",
+     "witness": {
+      "name": "Lafayette Guild",
+      "role": "Surgeon, Medical Director of the Army of Northern Virginia, report of 20 July 1863",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-20",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "guild",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "evening of the 4th"
+      ]
+     },
+     "note": "Guild: the ambulance trains took up their line of march on the evening of the 4th."
+    },
+    {
+     "id": "C-033-P1-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R428",
+     "page": "353",
+     "page_basis": "scan_leaf",
+     "text_offset": 1308649,
+     "quote": "were detailed to report to General Imboden, at Cashtown, and aid in guarding the main wagon train back to Williamsport",
+     "witness": {
+      "name": "William N. Pendleton",
+      "role": "Brigadier General, chief of artillery of the Army of Northern Virginia, report of 12 September 1863",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-09-12",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "pendleton",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "report to General Imboden, at Cashtown"
+      ]
+     },
+     "note": "Pendleton: batteries were detailed in the defensive measures for the 4th to report to Imboden at Cashtown. The detail of the escort on the 4th."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "rounding",
+    "text": "The day only; the default is the same day with its hour: the head of the column about 16:00."
+   },
+   "pdf_label": "Jul 4",
+   "scenario_ids": [
+    "C-033-S1"
+   ]
+  },
+  {
+   "id": "C-033-P2",
+   "origin": "pdf_value",
+   "label": "Jul 5 (the rear of the column leaves at dawn; the train reaches Williamsport late)",
+   "kind": "date",
+   "value": {
+    "date": "1863-07-05"
+   },
+   "tier": "inferred",
+   "clock": "confederate",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-033-P2-c1",
+     "source": "BL-3",
+     "source_class": "book",
+     "page": "423",
+     "page_basis": "as_read",
+     "text_offset": 1781258,
+     "quote": "It was found from the position of the head of the column west of the moun- tain at dawn of the 5th — the hour at which Young's cavalry and Hart's battery began the ascent of the mountain near Cashtown — that the entire column was seventeen miles long",
+     "witness": {
+      "name": "John D. Imboden",
+      "role": "Brigadier General, commanding the cavalry brigade charged with the wagon train of wounded at Cashtown",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "imboden",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "dawn of the 5th"
+      ]
+     },
+     "note": "Imboden: the rear of the column, Young's cavalry and Hart's battery, began the ascent near Cashtown at dawn of the 5th; the column was seventeen miles long when drawn out. This is the tail, not the departure of Imboden or of the head.",
+     "page_note": "printed page read from the running heads of Battles and Leaders vol. 3 (THE CONFEDERATE RETREAT FROM GETTYSBURG 423 and 424 stand in the text)"
+    },
+    {
+     "id": "C-033-P2-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R428",
+     "page": "353",
+     "page_basis": "scan_leaf",
+     "text_offset": 1309151,
+     "quote": "the batteries accompanying General Imboden arrived with the train at Williamsport late on the 5th",
+     "witness": {
+      "name": "William N. Pendleton",
+      "role": "Brigadier General, chief of artillery, report of 12 September 1863",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-09-12",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "pendleton",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "arrived with the train at Williamsport late on the 5th"
+      ]
+     },
+     "note": "Pendleton: the batteries with Imboden arrived with the train at Williamsport late on the 5th: an arrival, which a 20:00 departure on the 5th cannot match."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Jul 5 dates the tail of the column (dawn) and the arrival at Williamsport, not the departure of Imboden or of the head; no source gives a departure on the 5th, 20:00 included."
+   },
+   "pdf_label": "Jul 5",
+   "scenario_ids": [
+    "C-033-S2"
+   ],
+   "derived": true,
+   "inference": {
+    "step": "Imboden puts the start of the rear of the column at dawn of the 5th and Pendleton the arrival at Williamsport late on the 5th; the 5th is read as the day the column was still leaving Cashtown, not as the day Imboden departed.",
+    "from": [
+     "C-033-P2-c1",
+     "C-033-P2-c2"
+    ]
+   }
+  },
+  {
+   "id": "C-033-P3",
+   "origin": "pdf_default",
+   "label": "Jul 4 afternoon: the head of the column leaves Cashtown about 16:00",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-04T16:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "tier": "inferred",
+   "clock": "confederate",
+   "stance": "default",
+   "support": [
+    {
+     "id": "C-033-P3-c1",
+     "source": "BL-3",
+     "source_class": "book",
+     "page": "422",
+     "page_basis": "as_read",
+     "text_offset": 1778769,
+     "quote": "On the morning of July 4th my written instructions, and a large official envelope addressed to President Davis, were handed to me",
+     "witness": {
+      "name": "John D. Imboden",
+      "role": "Brigadier General, commanding the cavalry brigade charged with the wagon train of wounded at Cashtown",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "imboden",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-04"
+      ]
+     },
+     "note": "Imboden in Battles and Leaders (1887): on the morning of July 4th he received his written instructions. Names the day of the passage that follows.",
+     "page_note": "printed page 422, read from the running heads (423 stands a few lines later)"
+    },
+    {
+     "id": "C-033-P3-c2",
+     "source": "BL-3",
+     "source_class": "book",
+     "page": "423",
+     "page_basis": "as_read",
+     "text_offset": 1780374,
+     "quote": "As the afternoon wore on there was no abatement in the storm. [...] About 4 p. M. the head of the column was put in motion near Cashtown, and began the ascent of the mountain in the direction of Chambersburg",
+     "witness": {
+      "name": "John D. Imboden",
+      "role": "Brigadier General, commanding the cavalry brigade charged with the wagon train of wounded at Cashtown",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "imboden",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ],
+      "phrases": [
+       "afternoon"
+      ]
+     },
+     "note": "Imboden, 24 years later and as the officer in charge: 'About 4 p. M. the head of the column was put in motion near Cashtown, and began the ascent of the mountain in the direction of Chambersburg.' The head of a column 17 miles long, not the whole train and not Imboden himself, who 'remained at Cashtown giving directions'.",
+     "page_note": "printed page read from the running heads of Battles and Leaders vol. 3 (THE CONFEDERATE RETREAT FROM GETTYSBURG 423 and 424 stand in the text)"
+    },
+    {
+     "id": "C-033-P3-c3",
+     "source": "HOKE-1887",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 946688,
+     "quote": "the head of it left the scene of conflict amidst a terrific rain storm about four o'clock in the afternoon of Saturday, July 4th",
+     "witness": {
+      "name": "Jacob Hoke",
+      "role": "Chambersburg author of The Great Invasion (1887), a local history of the campaign (not an eyewitness of the departure)",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "later_history"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "hoke",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ],
+      "dates": [
+       "07-04"
+      ]
+     },
+     "note": "Hoke, a Chambersburg writer, in 1887: the head of the train, in Imboden's charge, left in a terrific rain storm about four o'clock in the afternoon of Saturday, July 4th. No source named; the same hour and rain as Imboden's article of the same year, so possibly drawn from it.",
+     "page_note": "no printed page marks in the text layer; the passage is in the chapter on the retreat"
+    }
+   ],
+   "flags": [
+    "memoir_only"
+   ],
+   "pdf_label": "Jul 4 afternoon",
+   "scenario_ids": [
+    "C-033-S3"
+   ],
+   "approx": true,
+   "derived": true,
+   "inference": {
+    "step": "Imboden, who gave the orders, puts the head of the column in motion about 4 p.m. on July 4; a memoir of 1887 documents what he said, not the fact. Hoke repeats the hour with no source named.",
+    "from": [
+     "C-033-P3-c1",
+     "C-033-P3-c2",
+     "C-033-P3-c3"
+    ]
+   }
+  },
+  {
+   "id": "C-033-P4",
+   "origin": "first_delegated",
+   "label": "Jul 4 evening: the ambulance trains take up their march (Guild)",
+   "kind": "period",
+   "value": {
+    "text": "evening of the 4th",
+    "date": "1863-07-04",
+    "part_of_day": "evening"
+   },
+   "tier": "documented",
+   "clock": "confederate",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-033-P4-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R427",
+     "page": "326",
+     "page_basis": "scan_leaf",
+     "text_offset": 1241352,
+     "quote": "on the evening of the 4th, our ambulance trains [...] up their line of march by two routes",
+     "witness": {
+      "name": "Lafayette Guild",
+      "role": "Surgeon, Medical Director of the Army of Northern Virginia (at Gettysburg), report of 20 July 1863",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-20",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "guild",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "evening of the 4th"
+      ]
+     },
+     "note": "Guild, medical director, 16 days after: 'on the evening of the 4th, our ambulance trains took up their line of march by two routes ... One train went by Cashtown, the other by Fairfield.' He does not name Imboden, but the Cashtown train is the one under him (Lee's report). 'Evening' in the usage of the time begins in the late afternoon."
+    },
+    {
+     "id": "C-033-P4-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R426",
+     "page": "322",
+     "page_basis": "scan_leaf",
+     "text_offset": 1224637,
+     "quote": "The trains, with such of the wounded as could bear removal, were ordered to Williamsport on July 4, part moving through Cashtown and Greencastle, escorted by General Imboden",
+     "witness": {
+      "name": "Robert E. Lee",
+      "role": "General commanding the Army of Northern Virginia, detailed report of January 1864",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1864-01",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "lee",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-04"
+      ],
+      "phrases": [
+       "escorted by General Imboden"
+      ]
+     },
+     "note": "Lee, six months after: the trains with the wounded were ordered to Williamsport on July 4, part through Cashtown and Greencastle escorted by Imboden. The order and the day, no hour."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "rounding",
+    "text": "Guild's evening of the 4th and Imboden's about 4 p.m. are the same start worded loosely; the contemporary report names no hour."
+   },
+   "scenario_ids": [
+    "C-033-DEFAULT"
+   ]
+  },
+  {
+   "id": "C-033-P5",
+   "origin": "research",
+   "label": "Jul 4, after dark: Imboden himself sets out from Cashtown",
+   "kind": "period",
+   "value": {
+    "text": "After dark",
+    "date": "1863-07-04",
+    "part_of_day": "night"
+   },
+   "tier": "inferred",
+   "clock": "confederate",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-033-P5-c1",
+     "source": "BL-3",
+     "source_class": "book",
+     "page": "424",
+     "page_basis": "as_read",
+     "text_offset": 1782448,
+     "quote": "After dark I set out from Cashtown to gain the head of the column during the night",
+     "witness": {
+      "name": "John D. Imboden",
+      "role": "Brigadier General, commanding the cavalry brigade charged with the wagon train of wounded at Cashtown",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "imboden",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "After dark"
+      ]
+     },
+     "note": "Imboden himself, after the head had gone: 'After dark I set out from Cashtown to gain the head of the column during the night.' Sunset was 19:32 (local mean time); he gives no hour.",
+     "page_note": "printed page read from the running heads of Battles and Leaders vol. 3 (THE CONFEDERATE RETREAT FROM GETTYSBURG 423 and 424 stand in the text)"
+    }
+   ],
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "This is Imboden's own departure to catch up with the head of the column, hours after it started."
+   },
+   "derived": true,
+   "inference": {
+    "step": "Imboden says the head of the column moved about 4 p.m. and that he himself set out after dark; sunset was at 19:32, so his own start is after about 19:30 on the 4th.",
+    "from": [
+     "C-033-P5-c1"
+    ]
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "Every source that dates the departure puts it on July 4: Imboden about 4 p.m. for the head of the column and after dark for himself; Guild the evening of the 4th; Lee and Pendleton the day. Jul 5 dates the tail at dawn and the arrival. Class settled; tier inferred because the hour rests on Imboden's memoir.",
+  "who": "Imboden commanded the escort and gave the orders at Cashtown; Guild was the army's medical director at Gettysburg; Lee commanded; Pendleton commanded the artillery that gave the batteries. Hoke is a Chambersburg writer, not a witness of the start.",
+  "when": "Guild wrote 16 days, Pendleton 10 weeks and Lee 6 months after; Imboden and Hoke 24 years after. A contemporary report outranks a memoir, but Guild gives a period (evening), not a clock, so the hour comes from the memoir and carries the inferred tier.",
+  "where": "Imboden was at Cashtown directing the column on the 4th, and set out after dark; Guild saw the ambulance trains leave Gettysburg and stood at the army's hospitals; Lee, Pendleton and Hoke were not at Cashtown at the hour.",
+  "how_knew": "Imboden gives the hour of his own order, with his rain-bound day around it; Guild reports what he saw and ordered; Hoke, no source.",
+  "clock": "Confederate clock; the reported difference of about 20 minutes from the Union clock is not applied and is not at issue between these accounts.",
+  "independence": "Imboden, Guild, Lee and Pendleton are independent lines, but only Imboden gives an hour; Hoke may draw on Imboden. Two lines (Guild, Lee) give the 4th without an hour; one (Imboden) gives the hour."
+ },
+ "source_panel_text": "Jul 4, about 16:00, from Cashtown: Imboden, who gave the order, says the head of the wagon train started then (1887); he left himself after dark; the rear started at dawn on Jul 5. Guild (1863) has the trains marching on the evening of the 4th. No source puts a departure on Jul 5. Three other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "yes",
+   "note": "Jul 4 afternoon holds: Imboden puts the head of the column in motion about 4 p.m. The hour rests on a memoir of 1887, so the tier is inferred."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "Jul 4, evening start holds as Guild's wording of the same start (Guild is contemporary, with no hour); the default is the head at about 16:00, which Imboden gives."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-033 row)",
+   "must_change": true,
+   "note": "computed: delegated-decision row line 43 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-033",
+   "must_change": true,
+   "note": "computed: decision log line 61 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-cav-robertson-jones-imboden",
+   "must_change": false,
+   "note": "Row of Robertson's and Jones's brigades and Imboden; key_positions 'Jul 4-5 Imboden's train' carries C-033 with gate kind none. The cell is a printed phrase; the resolution makes the departure Jul 4 about 16:00 (head) and Jul 5 dawn (rear); the row's gate needs no change. Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-158",
+   "must_change": true,
+   "note": "Row 'Jul 4 late afternoon' (Cashtown, Chambersburg Pike; train 15-20 miles; 'Imboden personally leaves about 20:00 per another'): the head leaves about 16:00 Jul 4 and Imboden after dark Jul 4 (his own article); the 'late afternoon of Jul 5' assembly is unsourced. Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-178",
+   "must_change": true,
+   "note": "Row 'Jul 5 ~20:00 NIGHT' (Cashtown; Imboden leaves per one account): no source found for a Jul 5 departure; Pendleton has the train arriving at Williamsport late on the 5th. The row should be dropped or relabelled as the tail of the column (dawn Jul 5). Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-146",
+   "must_change": false,
+   "note": "Row 'Jul 4 01:00 NIGHT' (Lee summons Imboden; 'Imboden's own narrative not retrieved'): Imboden's narrative is now local (BL-3); it has Lee's summons about 11 p.m. on the night of July 3 and a conversation about 1 o'clock. Not read further here; no change to this resolution."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-163",
+   "must_change": false,
+   "note": "Row 'Jul 4 NIGHT (Guild)' (Cashtown and Fairfield columns): Guild says 'on the evening of the 4th', consistent with the head leaving about 16:00 and the main march by night. No change required."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-033)",
+   "must_change": true,
+   "note": "holds the first delegated default 'Jul 4, evening start (wounded train ordered off)'; the default becomes Jul 4 about 16:00 (head of the column). Not edited here."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/positions_D/40_i_corps_reserve_artillery.py (cf imboden_departs C-033)",
+   "must_change": false,
+   "note": "The position note says Lee tells Imboden to start the train by 5 p.m. on July 4 and Eshleman is at Cashtown about 9 a.m.; I did not find Lee's 5 p.m. note in the volumes read here, only Imboden's own timing. No change required by this resolution."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-2 (Lee R426, Guild R427, Pendleton R428, Walker R535, Richardson R555) and OR27-3 (July 3 to 7)",
+   "query": "Imboden's own report of the retreat or a clock reading for the departure from Cashtown: the reports give the day (Jul 4), the evening, the escort and the arrival late on the 5th, no hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "all local books and papers, OR27-1 to OR27-3 (find_passage --all)",
+   "query": "Imboden or Cashtown within 300 characters of 8 p.m., eight o'clock or 20:00, and wagons or train or wounded within 200 characters of Cashtown, Chambersburg or Greencastle and July 5: the plan's Jul 5 20:00 departure",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Eshleman R466 (the Washington Artillery at Cashtown), Walker R535",
+   "query": "the hour of the battalions' arrival at Cashtown and of their start: only the day (the 4th) was read; the rest of the reports was not read for this conflict",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A letter, diary or report of an officer at Cashtown on July 4, or Imboden's own report of the retreat if it exists in the archives, giving an hour with its clock for the start of the column, would test the 16:00 and could raise the tier."
+}

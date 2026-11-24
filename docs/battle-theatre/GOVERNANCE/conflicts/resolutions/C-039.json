@@ -1,0 +1,991 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-039",
+ "topic": "Hancock arrives Jul 1",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-039",
+ "event_date": "1863-07-01",
+ "pdf_row": {
+  "page": 63,
+  "text": "Hancock arrives Jul 1 | about 15:00; before 16:00; 16:00; 16:30 | about 15:00-16:00 | 16:00, 16:30",
+  "values": [
+   "about 15:00",
+   "before 16:00",
+   "16:00",
+   "16:30"
+  ],
+  "recommended_default": "about 15:00-16:00",
+  "selectable_alternatives": [
+   "16:00",
+   "16:30"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-039-DEFAULT",
+  "default_label": "about 15:00-16:00",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-039-S1",
+   "C-039-S2",
+   "C-039-S3",
+   "C-039-S4",
+   "C-039-S5",
+   "C-039-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Two timed dispatches of the afternoon of 1 Jul in the Official Records agree on about four o'clock: Howard's note (headed 5 p.m., p. 696) says 'General Hancock arrived at 4 p. m.' and Hancock's own dispatch (5.25 p.m., p. 366) says he arrived 'an hour since'. Howard's report (31 Aug 1863, p. 704) and Doubleday (1882) say about 4.30. Hancock's 3 p.m. is his report written months later."
+ },
+ "default": {
+  "mode": "window",
+  "positions": [
+   "C-039-P3",
+   "C-039-P4"
+  ],
+  "label": "About 16:00 to 16:30: Howard's note of the day (4 p.m.) to Howard's report and Doubleday (about 4.30)",
+  "basis_text": "The two ends are Howard's note to Meade of 1 Jul (4 p.m., a round hour) and the 4.30 of Howard's report of 31 Aug 1863 and of Doubleday (1882); Hancock's own dispatch of 5.25 p.m. ('an hour since', about 16:25) lies inside. Hancock's later 3 to 3:30 lies before the window and stays selectable; no 20-minute clock correction is applied.",
+  "animation": {
+   "at": "1863-07-01T16:00",
+   "rule": "best_supported",
+   "note": "Hancock is drawn arriving at 16:00, the one clock reading of the day (Howard's note); the window runs to 16:30. The earlier values (15:00 and 15:30, Hancock's later words) stay selectable and are not earlier than the earliest source-supported time, which is 15:00 (Hancock's report); the floor of 15:00 is not moved."
+  },
+  "note": "A window between two statements by Howard and Doubleday, with Hancock's own dispatch inside it; the only witness before it is Hancock, in writings of months and years later."
+ },
+ "positions": [
+  {
+   "id": "C-039-P1",
+   "origin": "pdf_value",
+   "pdf_label": "about 15:00",
+   "scenario_ids": [
+    "C-039-S1"
+   ],
+   "source_keys": [],
+   "label": "About 15:00: Hancock's report (3 p.m.), repeated in his letter of 1878 as 3 to 3:30",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T15:00",
+    "approx": true,
+    "tolerance_min": 30
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-039-P1-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "368",
+     "page_basis": "scan_leaf",
+     "text_offset": 1282969,
+     "quote": "At 3 p. m. I arrived at Gettysburg and assumed the command",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding Second Army Corps; sent by Meade to take command of the field on 1 Jul",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-24",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hancock",
+     "exact": true,
+     "states": {
+      "times": [
+       "15:00"
+      ]
+     },
+     "note": "Hancock's report of the battle; the OR prints its date as blank (\"-, 186C\") but the corrections of 24 Oct 1863 (p. 377) call it 'forwarded some time since', so it was written between July and October 1863. 24 Oct is the latest date it can have."
+    },
+    {
+     "id": "C-039-P1-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "367",
+     "page_basis": "scan_leaf",
+     "text_offset": 1281415,
+     "quote": "On the morning of July 1, the command marched to Taneytown, going into bivouac about 11 a. m.",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding Second Army Corps; sent by Meade to take command of the field on 1 Jul",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-24",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hancock",
+     "exact": true,
+     "states": {
+      "times": [
+       "11:00"
+      ],
+      "dates": [
+       "07-01"
+      ]
+     },
+     "note": "Dates the day of the 3 p.m. sentence: the same report, the paragraph of 1 July (the arrival follows on p. 368)."
+    },
+    {
+     "id": "C-039-P1-c2",
+     "source": "SHSP-05",
+     "source_class": "book",
+     "page": "169",
+     "page_basis": "as_read",
+     "text_offset": 503423,
+     "quote": "When I arrived upon the field, about 3 P. M., or between that and 3:30",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding Second Army Corps; sent by Meade to take command of the field on 1 Jul",
+      "side": "union"
+     },
+     "written": {
+      "date": "1878-01-17",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hancock",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00",
+       "15:30"
+      ]
+     },
+     "note": "Hancock's letter of 17 Jan 1878 to General Fitzhugh Lee, printed in the paper 'Reply to General Longstreet' (SHSP vol. 5). He gives three to half past three, and says that about 4 p.m. he sent Major Mitchell to Meade (p. 168); his own report is the source of the 3 p.m."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "Hancock's report was written months later. His own dispatch of 5.25 p.m. says 'an hour since' and Howard's note of the day says 4 p.m.; his later words (1878, 1887) repeat the report."
+   }
+  },
+  {
+   "id": "C-039-P2",
+   "origin": "pdf_value",
+   "pdf_label": "before 16:00",
+   "scenario_ids": [
+    "C-039-S2"
+   ],
+   "source_keys": [],
+   "label": "Before 16:00: an upper bound that fits only Hancock's later 3 to 3:30",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T16:00",
+    "approx": false,
+    "note": "upper bound: at or before 16:00"
+   },
+   "approx": false,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "support": [
+    {
+     "id": "C-039-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "368",
+     "page_basis": "scan_leaf",
+     "text_offset": 1282969,
+     "quote": "At 3 p. m. I arrived at Gettysburg and assumed the command",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding Second Army Corps; sent by Meade to take command of the field on 1 Jul",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-24",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hancock",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ]
+     },
+     "note": "Only Hancock's 3 p.m. lies before 16:00; no writer found says 'before 16:00' or gives a bound."
+    }
+   ],
+   "inference": {
+    "step": "No writer states 'before 16:00'. Hancock's 3 p.m. (and his 3 to 3:30 of 1878) is before 16:00, so the bound holds only if his later hour holds; Howard's note of the day puts the arrival at 16:00 itself.",
+    "from": [
+     "C-039-P2-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "unclear_expression",
+    "text": "A bound, not a time: no writer says 'before 16:00'. It follows only from Hancock's later 3 to 3:30, which the two dispatches of the day contradict."
+   }
+  },
+  {
+   "id": "C-039-P3",
+   "origin": "pdf_value",
+   "pdf_label": "16:00",
+   "scenario_ids": [
+    "C-039-S3"
+   ],
+   "source_keys": [],
+   "label": "16:00: Howard's note of the day, 'General Hancock arrived at 4 p. m.'",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T16:00",
+    "approx": false,
+    "note": "a round hour without minutes"
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-039-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "696",
+     "page_basis": "scan_leaf",
+     "text_offset": 2433777,
+     "quote": "July 1, 1863—5 p. m. [...] General Hancock arrived at 4 p. m., and communicated his instructions",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding Eleventh Corps; in command of the field from Reynolds' death until Hancock came",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-01",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "howard",
+     "exact": true,
+     "states": {
+      "times": [
+       "16:00",
+       "17:00"
+      ],
+      "dates": [
+       "07-01"
+      ]
+     },
+     "note": "Howard's note to Meade, headed 'Hdqrs. Eleventh Corps ... July 1, 1863-5 p. m.' (p. 696): written on Cemetery Hill the same afternoon. Round hour, no minutes."
+    },
+    {
+     "id": "C-039-P3-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R271",
+     "page": "768",
+     "page_basis": "scan_leaf",
+     "text_offset": 2689427,
+     "quote": "to 4 p. m. of same day (when General Howard was relieved by the arrival of General Hancock)",
+     "witness": {
+      "name": "Alpheus S. Williams",
+      "role": "Brigadier General, commanding First Division, Twelfth Corps, and temporary commander of the corps; not on Cemetery Hill at 4 p.m.",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-12-26",
+      "kind": "official_report"
+     },
+     "vantage": "not_stated",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "howard",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Williams, letter to Slocum from Tullahoma, Tenn., 26 Dec 1863, on omissions in Meade's report (OR p. 766-768; the first pass and the dossier call it Slocum's, but the print's heading shows it is Williams's): Schurz commanded the Eleventh Corps 'from 10.30 a. m. of July 1 ... to 4 p. m. of same day (when General Howard was relieved by the arrival of General Hancock)'. He does not say how he knew; his 10.30 for Howard's assumption differs from Howard's own 11.15 (p. 696), so it is not a copy of Howard's report, but it is counted with Howard's line, not as a second witness."
+    },
+    {
+     "id": "C-039-P3-c3",
+     "source": "HOWARD-1907-C039",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer",
+     "text_offset": 819876,
+     "quote": "between 4 and 5 P.M., General Hancock joined me near the Baltimore pike",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding Eleventh Corps; in command of the field from Reynolds' death until Hancock came",
+      "side": "union"
+     },
+     "written": {
+      "date": "1907-01-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "window",
+     "group": "howard",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00",
+       "17:00"
+      ]
+     },
+     "note": "Howard's Autobiography (1907): Hancock joined him 'between 4 and 5 P.M.', at 'the time of the greatest confusion'; the book is dated 1907 (year only)."
+    }
+   ]
+  },
+  {
+   "id": "C-039-P4",
+   "origin": "pdf_value",
+   "pdf_label": "16:30",
+   "scenario_ids": [
+    "C-039-S4"
+   ],
+   "source_keys": [],
+   "label": "About 16:30: Howard's report (4.30 p.m., 'about this time') and Doubleday (1882)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T16:30",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-039-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "704",
+     "page_basis": "scan_leaf",
+     "text_offset": 2456093,
+     "quote": "At 4.30 p. m. the columns reached Cemetery Hill [...] General Hancock came to me about this time",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding Eleventh Corps; in command of the field from Reynolds' death until Hancock came",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "howard",
+     "exact": true,
+     "states": {
+      "times": [
+       "16:30"
+      ]
+     },
+     "note": "Howard's report of 31 Aug 1863: at 4.30 the columns reached Cemetery Hill; after Wiedrich's battery broke the attack on the right, 'General Hancock came to me about this time'. The two sentences are one paragraph; 'this time' follows the 4.30."
+    },
+    {
+     "id": "C-039-P4-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "701",
+     "page_basis": "scan_leaf",
+     "text_offset": 2443246,
+     "quote": "At 3.30 a. m. July 1, orders were received from your headquarters to move the Eleventh Corps",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding Eleventh Corps; in command of the field from Reynolds' death until Hancock came",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "howard",
+     "exact": true,
+     "states": {
+      "times": [
+       "03:30"
+      ],
+      "dates": [
+       "07-01"
+      ]
+     },
+     "note": "Dates the day of the 4.30 sentence: the same report narrates 1 July in order from this line to p. 704."
+    },
+    {
+     "id": "C-039-P4-c2",
+     "source": "DOUBLEDAY-1882-C041",
+     "source_class": "book",
+     "page": "150",
+     "page_basis": "as_read",
+     "text_offset": 309829,
+     "quote": "About 4.30 P.M. General Hancock arrived with orders from",
+     "witness": {
+      "name": "Abner Doubleday",
+      "role": "Major General; commanded the First Corps after Reynolds fell; on Cemetery Hill when Hancock came",
+      "side": "union"
+     },
+     "written": {
+      "date": "1882-01-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "doubleday",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:30"
+      ]
+     },
+     "note": "Doubleday, Chancellorsville and Gettysburg (1882), p. 150 (the page image shows 'About 4.30 P.M.'); his report of Dec 1863 (OR27-1 p. 252) says only 'Major-General Hancock now rode up'. Walker (1894) quotes the same sentence as 'About half-past three'; the printed page read here says 4.30."
+    }
+   ]
+  },
+  {
+   "id": "C-039-P5",
+   "origin": "pdf_default",
+   "pdf_label": "about 15:00-16:00",
+   "scenario_ids": [
+    "C-039-S5",
+    "C-039-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "About 15:00 to 16:00: the plan's recommended default and the first delegated default (Hancock to Howard)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-01T15:00",
+    "to": "1863-07-01T16:00",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-039-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "368",
+     "page_basis": "scan_leaf",
+     "text_offset": 1282969,
+     "quote": "At 3 p. m. I arrived at Gettysburg and assumed the command",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding Second Army Corps; sent by Meade to take command of the field on 1 Jul",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-24",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hancock",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ]
+     },
+     "note": "The early end of the window: Hancock's report."
+    },
+    {
+     "id": "C-039-P5-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "696",
+     "page_basis": "scan_leaf",
+     "text_offset": 2434606,
+     "quote": "General Hancock arrived at 4 p. m., and communicated his instructions",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding Eleventh Corps; in command of the field from Reynolds' death until Hancock came",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-01",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "howard",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "The late end of the window: Howard's note of the day."
+    }
+   ],
+   "inference": {
+    "step": "The band joins the earliest hour a witness gives (Hancock, 3 p.m.) to the hour of Howard's note of the day (4 p.m.). No writer gives a window; the plan's 'about 15:00-16:00' is the span between two statements.",
+    "from": [
+     "C-039-P5-c1",
+     "C-039-P5-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "Its early end rests on Hancock's later writings alone; the dispatches of the day put the arrival at 16:00 to about 16:25. Only the late end (16:00) is kept, as the start of the chosen window."
+   }
+  },
+  {
+   "id": "C-039-P6",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 16:25: Hancock's own dispatch of 5.25 p.m. says he arrived 'an hour since'",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T16:25",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-039-P6-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "366",
+     "page_basis": "scan_leaf",
+     "text_offset": 1276217,
+     "quote": "5.25 [p. M., July 1, 1863,] General: When I arrived here an hour since",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding Second Army Corps; sent by Meade to take command of the field on 1 Jul",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-01",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hancock-dispatch",
+     "exact": false,
+     "states": {
+      "times": [
+       "17:25"
+      ],
+      "phrases": [
+       "an hour since"
+      ]
+     },
+     "note": "Hancock to Butterfield, Cemetery Hill, written 5.25 p.m. (the OR prints the hour, with 'p. M., July 1, 1863' in brackets as editor's completion). 'An hour since' is a round expression, not a clock reading; Meade told the Joint Committee he received it about 7 o'clock."
+    }
+   ],
+   "inference": {
+    "step": "The dispatch is headed 5.25 and says he arrived 'an hour since': 17:25 less about an hour is about 16:25. 'An hour since' is loose, so the result is about 16:25 give or take a quarter of an hour, not a clock reading.",
+    "from": [
+     "C-039-P6-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "A loose computation ('an hour since' before 5.25 p.m.) that falls inside the chosen window of 16:00 to 16:30; it supports the late end of the window and is shown beside it."
+   }
+  },
+  {
+   "id": "C-039-P7",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 15:30: Hancock's later hour (letter of 1878, Narrative of 1887, Walker 1894)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T15:30",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-039-P7-c1",
+     "source": "SHSP-05",
+     "source_class": "book",
+     "page": "169",
+     "page_basis": "as_read",
+     "text_offset": 503423,
+     "quote": "When I arrived upon the field, about 3 P. M., or between that and 3:30",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding Second Army Corps; sent by Meade to take command of the field on 1 Jul",
+      "side": "union"
+     },
+     "written": {
+      "date": "1878-01-17",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hancock-later",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00",
+       "15:30"
+      ]
+     },
+     "note": "Hancock's letter of 17 Jan 1878: 'between that and 3:30'."
+    },
+    {
+     "id": "C-039-P7-c2",
+     "source": "HANCOCK-REMIN-1887-C039",
+     "source_class": "book",
+     "page": "189",
+     "page_basis": "as_read",
+     "text_offset": 282778,
+     "quote": "About 3:30 he reached Cemetery Hill",
+     "witness": {
+      "name": "Narrative of the Second Army Corps (author not named on the pages read), printed in Reminiscences of Winfield Scott Hancock",
+      "role": "Compiled account of Hancock's corps, printed in a book by his widow; the compiler is not named on the page",
+      "side": "union"
+     },
+     "written": {
+      "date": "1887-01-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hancock-later",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:30"
+      ]
+     },
+     "note": "The Narrative (1887) says Hancock left Taneytown 'about half past one' and 'About 3:30 he reached Cemetery Hill'; its source is not stated and it follows Hancock's own account."
+    },
+    {
+     "id": "C-039-P7-c3",
+     "source": "WALKER-HANCOCK-1894-C039",
+     "source_class": "book",
+     "page": "109",
+     "page_basis": "as_read",
+     "text_offset": 187340,
+     "quote": "Hancock gives the hour of his arrival as half-past three",
+     "witness": {
+      "name": "Francis A. Walker",
+      "role": "Historian of the Second Corps; Hancock's former adjutant general",
+      "side": "union"
+     },
+     "written": {
+      "date": "1894-01-01",
+      "kind": "later_history"
+     },
+     "vantage": "not_stated",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hancock-later",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:30"
+      ]
+     },
+     "note": "Walker's footnote of 1894: 'Hancock gives the hour of his arrival as half-past three. Howard says four o'clock.' It relays Hancock and names the two-hour dispute in plain words."
+    }
+   ],
+   "inference": {
+    "step": "Hancock's letter says 'about 3 P. M., or between that and 3:30', the Narrative of 1887 says about 3:30 and Walker (1894) says Hancock gives half-past three; these are later statements of one line of knowledge (Hancock) and are not a clock reading of the day.",
+    "from": [
+     "C-039-P7-c1",
+     "C-039-P7-c2",
+     "C-039-P7-c3"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "Hancock's own later recollection (1878, 1887), carried on by Walker; the dispatch he wrote that evening says 'an hour since' at 5.25 p.m. and Howard's note of the day says 4 p.m."
+   }
+  },
+  {
+   "id": "C-039-P8",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 14:00: an unnamed writer of the Philadelphia Evening Bulletin, 1864 (quoted in a magazine)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T14:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-039-P8-c1",
+     "source": "USSM-1864-V1",
+     "source_class": "primary",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not read; the article stands on pages 306-307 of the March 1864 number",
+     "text_offset": 937357,
+     "quote": "about two p*m., General Hancock found every thing in confusion",
+     "witness": {
+      "name": "Unnamed writer of the Philadelphia Evening Bulletin (quoted in the United States Service Magazine, March 1864)",
+      "role": "Unnamed; the magazine's editor calls him 'evidently an eye-witness'",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-01",
+      "kind": "newspaper_1863"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "bulletin-1864",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "about two"
+      ]
+     },
+     "note": "'About two p.m.' for Hancock's arrival (the text layer prints 'p*m.'; the hour is the word 'two'); the writer is not named, the magazine's guess that he was an eye-witness is not evidence, and the passage has no other support."
+    }
+   ],
+   "inference": {
+    "step": "A single anonymous newspaper statement of 'about two p.m.'; kept as a value because it is a source of 1864, not because it is supported.",
+    "from": [
+     "C-039-P8-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "An unnamed writer of 1864. Hancock's own report has him leaving Taneytown, 13 miles away, at 1.10 p.m., and no named witness gives an hour before 3."
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "Hancock's report (written months later) says 3 p.m. and his later words say 3 to 3:30. Against that stand two timed dispatches of the afternoon itself: Howard's note ('General Hancock arrived at 4 p. m.', headed 5 p.m.) and Hancock's own dispatch of 5.25 p.m., which says he arrived 'an hour since', about 16:25. Howard's report (31 Aug 1863) and Doubleday (1882) say about 4.30; Williams's 4 p.m. (letter of Dec 1863) and Howard's 'between 4 and 5' (1907) fit. A writing of the day outranks writings of months and years later, and two witnesses on the hill give the hour of the day as about four. Hancock's report also has the First and Eleventh Corps 'retiring through the town' when he came, and Howard's report puts the order to fall back at 4.10 and the arrival on Cemetery Hill at 4.30. Weighted: about 16:00 to 16:30; 3 to 3:30 stays selectable.",
+  "who": "Howard commanded the field and the Eleventh Corps and stood on Cemetery Hill; Hancock was the man arriving; Doubleday commanded the First Corps and was on the hill. Slocum arrived between 5 and 6 and Williams came later with the Twelfth Corps; neither was there at 4. Walker wrote Hancock's corps history (1886, 1894) and relays Hancock. Hancock's letter of 1878 is printed in a Southern paper ('Reply to General Longstreet'), whose writer only prints it. The writer of the Evening Bulletin (1864) is unnamed.",
+  "when": "Howard's note: 1 Jul 1863, afternoon. Hancock's dispatch: 5.25 p.m. the same day. Howard's report: 31 Aug 1863. Hancock's report: between July and 24 Oct 1863 (date blank in the print). Hancock's evidence to the Joint Committee: 22 Mar 1864 (quoted in his letter). Hancock's letter: 17 Jan 1878. Doubleday: 1882. The Narrative: 1887. Walker: 1894. Howard's book: 1907.",
+  "where": "Howard and Hancock wrote on Cemetery Hill the same afternoon; Hancock's report names Captain Parker of his staff as the officer who carried his written report of the position to Meade. Hancock's report adds he started from Taneytown at 1.10 p.m. (the headquarters were 13 miles away) and that Slocum arrived between 5 and 6, which fits the 5.25 dispatch ('Slocum is now coming on the ground'). Williams (Twelfth Corps) wrote in Dec 1863 from Tullahoma and was not on the hill at 4.",
+  "how_knew": "Howard and Hancock each knew from being there; both timed notes are round expressions ('4 p. m.', 'an hour since'), not clock readings of the moment. Doubleday knew from being on the hill but wrote 19 years later. Walker, the Narrative and the Evening Bulletin writer give no way of knowing.",
+  "clock": "All the Union writers use the Union clock, or do not say; the 20-minute difference between the two armies' clocks is not applied. A mismatch of an hour between Hancock's later hour and the notes of the day is far larger than any clock difference. Walker (1886) puts the first sight of Gettysburg at 'half-past three', which would put the arrival after that; his 1894 footnote prints the same half-past three as Hancock's arrival.",
+  "independence": "Three groups carry the window: Howard (note, report, 1907; Williams of the Twelfth Corps counted with him), Doubleday (1882) and Hancock's dispatch of the day. Hancock's 3, 3 to 3:30 and 3:30 are one line (Hancock; the Narrative and Walker relay him; a Southern paper prints his letter). The 4 p.m. note stays single-source because Williams (Dec 1863) is counted with Howard. Doubleday's sentence is printed as 'About 4.30 P.M.' in the 1882 book (page image read) but Walker (1894) quotes it as 'About half-past three'; the discrepancy is unresolved and Walker's quotation is not used."
+ },
+ "source_panel_text": "About 16:00 to 16:30 on Jul 1: Howard's note of the day says Hancock arrived at 4 p.m.; Howard's report and Doubleday say about 4.30; Hancock's own dispatch (5.25 p.m.) says 'an hour since'. His report and later words say 3 to 3:30. Six other values stay selectable.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "The plan's 15:00 to 16:00 starts at Hancock's later 3 p.m., which his own dispatch of the day and Howard's note contradict; only its end (16:00) stands. All its values stay selectable."
+  },
+  "first_delegated": {
+   "holds": "no",
+   "note": "The first pass read the Official Records and kept the plan's band, saying 'all four values occur'. Read in context and weighed, the dispatches of the day put the arrival at 16:00 to about 16:25, so the window moves to 16:00 to 16:30."
+  }
+ },
+ "failed_searches": [
+  {
+   "where": "OR27-1, OR27-2, OR27-3 (all parts)",
+   "query": "Hancock within 250 characters of 3, 4, 3.30, 4.30, three, four, half past three with p. m. or o'clock, arrived/reached/came/assumed; Buford (p. 927), Doubleday (p. 252), Newton, Wadsworth, Robinson: no other hour for the arrival (Buford, Doubleday, Meade give none)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "newspapers of 1863 and the other ledger families (CA-1863, ADAMS-SENTINEL-1863, GBG-COMPILER-1863) and the book families",
+   "query": "Hancock with arrived/reached/came/assumed and an hour, in both orders, run over the ledger with --families (capped at 60 and 34 hits that were taken up by other texts); the newspaper hits are Meade's report and Everett's address, none with an hour for Hancock",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Pennsylvania at Gettysburg (PA-GB-1904 pp. 89 and 489; PA-GB-1914) and New York at Gettysburg",
+   "query": "monument addresses give 'between 3 and 4 p.m.', 'about 4.30' and '3.30 o'clock'; the speakers are not named in the passages read, so none is cited",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Meade, Life and Letters (MEADE-LL-v2) and Hancock before the Joint Committee, vol. 1 p. 405 (22 Mar 1864)",
+   "query": "Meade's son has Hancock send a verbal message 'about four o'clock' by Major Mitchell; that is Hancock's own testimony of 1864 as quoted in his letter, not a separate source; the volume of the Joint Committee that holds the testimony is not local (the copy read is the Petersburg volume)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report, diary, letter or telegram of 1 to 2 July with a clock reading for Hancock's arrival (Hancock's staff, Captain Parker or Major Mitchell, Warren, Buford, Howard's staff, a journal of the Second Corps headquarters) or the original of the 5.25 dispatch showing a different hour; any of these would replace the window.",
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-039 row)",
+   "must_change": true,
+   "note": "The first delegated row (about 15:00-16:00, documented) is superseded by this resolution: default window 16:00 to 16:30, weighted, documented."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL03-02 row)",
+   "must_change": false,
+   "note": "Applies the first default to rows T1-143 and T1-163; the integration step records the new window beside it."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL04-02 row)",
+   "must_change": false,
+   "note": "Applies the first default to T1-175 and T2-001 (the dispatch rows); the dispatch text stands."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-UNITS-HQ-02 row)",
+   "must_change": true,
+   "note": "Added 'about 15:30' as a scenario and kept the band 15:00-16:00; this resolution moves the default to 16:00-16:30 and carries about 15:30 as P7."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 972 row)",
+   "must_change": false,
+   "note": "Section note of the unit-headquarters decisions; no value."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-039",
+   "must_change": true,
+   "note": "Decision log line (PENDING OWNER) names the PDF default; the resolution's default window 16:00-16:30 is recorded by the integration step."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-143",
+   "must_change": true,
+   "note": "Seed window 'Jul 1 about 15:00' (Hancock arrives); the default becomes about 16:00 to 16:30; 15:00 and 15:30 stay selectable. Row not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-163",
+   "must_change": false,
+   "note": "Window 'Jul 1 about 16:00' (Hancock and Howard exchange): consistent with the new default; no change."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-164",
+   "must_change": false,
+   "note": "Window 'about 16:00-17:00' (Hancock rallies troops): consistent; no change."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-175",
+   "must_change": false,
+   "note": "Dispatch row 17:25 ('an hour since'): the dispatch text is read in full here and its 'an hour since' is carried as P6 (about 16:25); the row's 'Beale treats it as a misprint' is not supported by the OR print, which gives the hour 5.25 and the words 'an hour since'."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-001",
+   "must_change": false,
+   "note": "Window 'Jul 1 about 16:00': consistent; no change."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "us-hancock-acting",
+   "must_change": true,
+   "note": "printed_clock default 1863-07-01T15:00, earliest 15:00, latest 16:30 (history/arrivals.json): the default becomes 16:00 (window 16:00-16:30); earliest stays 15:00 (Hancock's report, selectable) and latest stays 16:30. default_basis text ('start used as gate') must be reconciled by the integration step."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04",
+   "must_change": false,
+   "note": "Q04 floor for us-hancock-acting stays at the earliest 15:00; the floor is never raised to 16:00 by this resolution (Hancock's own 3 p.m. is the earliest source-supported time). Reconcile only through the owner's decision."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-039)",
+   "must_change": true,
+   "note": "default_scenario_id C-039-DEFAULT 'about 15:00-16:00' becomes the window 16:00-16:30 with scenarios P5-P8 added; edited by the integration step."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/arrivals_data.py line 72 (us-hancock-acting default_basis)",
+   "must_change": true,
+   "note": "default_basis says 'C-039 recommended default about 15:00-16:00 (a range; start used as gate)'; must change with the arrivals row."
+  }
+ ]
+}

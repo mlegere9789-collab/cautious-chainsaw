@@ -1,0 +1,944 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-035",
+ "topic": "Falling Waters prisoners",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-035",
+ "event_date": "1863-07-14",
+ "pdf_row": {
+  "page": 62,
+  "text": "Falling Waters prisoners | 500; 1,000-2,000 | 500 | 1,000-2,000",
+  "values": [
+   "500",
+   "1,000-2,000"
+  ],
+  "recommended_default": "500",
+  "selectable_alternatives": [
+   "1,000-2,000"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-035-DEFAULT",
+  "default_label": "500-511 (Buford over 500; Gamble about 511, 61 turned to Kilpatrick)",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-035-S1",
+   "C-035-S2",
+   "C-035-S3",
+   "C-035-S4",
+   "C-035-DEFAULT"
+  ]
+ },
+ "class": "irreducible",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Buford's report of 29 Aug 1863 (over 500 prisoners) and Gamble's of 24 Aug (about 511) against Meade's dispatches of 14 Jul (1,500 strong, then 500 more, over 2,000) and Kilpatrick's report of 7 Aug (upward of 1,500 or 1,600); Lee and Heth deny an organized capture and count no one."
+ },
+ "default": {
+  "mode": "range",
+  "positions": [
+   "C-035-P1",
+   "C-035-P6"
+  ],
+  "label": "Range: over 500 (Buford) to over 2,000 (Meade's dispatch); no single figure",
+  "basis_text": "The lower end is the Official Records count of one division commander present (Buford: over 500 prisoners, Gamble 511); the upper end is the highest figure the Union headquarters gave that day (Meade: over 2,000), which rests on Kilpatrick's claim (1,500 or 1,600) that Lee and Heth deny.",
+  "range": {
+   "low": 500,
+   "high": 2000,
+   "basis": "Buford's report (over 500) to Meade's dispatch of 14 Jul (over 2,000); both are lower bounds as printed (\"over\")"
+  },
+  "animation": {
+   "at": null,
+   "rule": "earliest_documented",
+   "note": "The lowest documented count (over 500) is the most the picture draws without a viewer choosing a larger figure; larger counts stay selectable. The count is of Confederate men taken at Falling Waters on 14 Jul, the earliest dated capture time in the record being the morning fight."
+  },
+  "note": "The record is divided: division commanders give about 500; the cavalry and army headquarters give 1,500 to over 2,000; the Confederates give no number and deny a brigade was taken. The plan's 1,000 has no source."
+ },
+ "positions": [
+  {
+   "id": "C-035-P1",
+   "origin": "pdf_value",
+   "pdf_label": "500",
+   "scenario_ids": [
+    "C-035-S1",
+    "C-035-S3"
+   ],
+   "source_keys": [],
+   "label": "Over 500 prisoners (Buford's division, report of Aug 1863)",
+   "kind": "count",
+   "value": {
+    "n": 500
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R337",
+     "page": "929",
+     "page_basis": "scan_leaf",
+     "text_offset": 3269365,
+     "quote": "over 500 prisoners, and about 300 muskets",
+     "witness": {
+      "name": "John Buford",
+      "role": "Brigadier General, commanding the First Cavalry Division, present at Falling Waters",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-29",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "buford-division",
+     "exact": true,
+     "states": {
+      "numbers": [
+       500,
+       300
+      ]
+     },
+     "note": "Buford: \"Our spoils on this occasion were one 10-pounder Parrott gun, one caisson, over 500 prisoners, and about 300 muskets.\" His report of the whole campaign is dated 29 Aug 1863 (p. 927). He counts the spoils of his division on 14 Jul; the count is a lower bound (\"over\")."
+    },
+    {
+     "source": "FREEMAN-RELEE-V3-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks)",
+     "text_offset": 363879,
+     "quote": "Estimating the number captured at Falling Waters on July 14 at 500, the total is 23,371",
+     "witness": {
+      "name": "Douglas Southall Freeman",
+      "role": "Biographer of Lee, historian, not a witness",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1935-01-01",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "freeman-estimate",
+     "exact": false,
+     "states": {
+      "numbers": [
+       500,
+       23371
+      ]
+     },
+     "note": "A biographer of 1935 who adds an estimate of 500 to the Confederate losses; he gives no source for the 500 and it is probably Buford's or Meade's figure. Listed as agreement of a later hand, not as a second witness."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ]
+  },
+  {
+   "id": "C-035-P2",
+   "origin": "pdf_value",
+   "pdf_label": "1,000-2,000",
+   "scenario_ids": [
+    "C-035-S2"
+   ],
+   "source_keys": [],
+   "label": "1,000 to 2,000 prisoners (the Union headquarters and Kilpatrick, with later books)",
+   "kind": "count_range",
+   "value": {
+    "low": 1000,
+    "high": 2000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "OATES-1905-C016",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks)",
+     "text_offset": 664837,
+     "quote": "Lee lost 2,000 prisoners",
+     "witness": {
+      "name": "William C. Oates",
+      "role": "Confederate colonel and later governor, not at Falling Waters",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1905-01-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "oates-1905",
+     "exact": false,
+     "states": {
+      "numbers": [
+       2000
+      ]
+     },
+     "note": "A memoir of 1905: \"by mismanagement of subordinates and a ruse of the Yankee cavalry, Lee lost 2,000 prisoners\". He was not there and names no source; it agrees with the Union claim."
+    },
+    {
+     "source": "KIDD-1908-C035",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 188-189 by the running heads, not marked in the text layer",
+     "text_offset": 335374,
+     "quote": "losing about 1,500 prisoners, one or two pieces of artilery and many small arms",
+     "witness": {
+      "name": "James H. Kidd",
+      "role": "Captain, 6th Michigan Cavalry, wounded early in the fight and in a field hospital for the rest of it",
+      "side": "union"
+     },
+     "written": {
+      "date": "1908-01-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "about",
+     "group": "kilpatrick-claim",
+     "exact": false,
+     "states": {
+      "numbers": [
+       1500
+      ]
+     },
+     "note": "Kidd of Custer's brigade, wounded early; he wrote 45 years later \"the enemy was driven in confusion to the river, losing about 1,500 prisoners\". He did not see the end of the fight and repeats the division's claim. Book page not readable in the text layer."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R359",
+     "page": "990",
+     "page_basis": "scan_leaf",
+     "text_offset": 3485577,
+     "quote": "We captured 2 guns, 3 battle-flags, and upward of 1,600 prisoners",
+     "witness": {
+      "name": "Judson Kilpatrick",
+      "role": "Brigadier General, commanding the Third Cavalry Division, present at Falling Waters",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "kilpatrick-claim",
+     "exact": true,
+     "states": {
+      "numbers": [
+       2,
+       3,
+       1600
+      ]
+     },
+     "note": "Kilpatrick's letter of 7 Aug 1863 to the Cavalry Corps chief of staff, p. 990: \"upward of 1,600 prisoners\" (a lower bound as printed). The second scan of the volume (archive.org warofrebellion271unit; ledger OR27-1-SCAN2-C018, offset 3437952, which the validator cannot cite) prints 1,500 in the same place. The page image could not be fetched (image host blocked), so the digit is not settled and both readings are kept; the text layer is not corrected here."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "contradicted"
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "Kept inside the range shown: the claims of 1,500 to over 2,000 lie within it, and no source gives 1,000."
+   },
+   "inference": {
+    "step": "The plan's range 1,000-2,000 spans the claims found (Kilpatrick 1,500 or 1,600; Meade over 2,000; Kidd 1,500; Oates 2,000); no source states 1,000 or the range itself.",
+    "from": [
+     "C-035-P5",
+     "C-035-P6"
+    ]
+   },
+   "derived": true
+  },
+  {
+   "id": "C-035-P3",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-035-S4"
+   ],
+   "source_keys": [],
+   "label": "About 511 prisoners (Gamble's brigade, 61 handed to Kilpatrick's division)",
+   "kind": "count",
+   "value": {
+    "n": 511
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R338",
+     "page": "937",
+     "page_basis": "scan_leaf",
+     "text_offset": 3294885,
+     "quote": "taking about 511 prisoners, 61 of whom, together with 300 stand of arms, were turned over to an officer of Kilpatrick's division by mistake",
+     "witness": {
+      "name": "William Gamble",
+      "role": "Colonel, commanding the First Brigade of Buford's division, present at Falling Waters",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-24",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "buford-division",
+     "exact": true,
+     "states": {
+      "numbers": [
+       511,
+       61,
+       300
+      ]
+     },
+     "note": "Gamble: the brigade, in a dismounted carbine fight, took about 511 prisoners; 61 of them were handed to an officer of Kilpatrick's division by mistake, so the brigade kept about 450. Dated 24 Aug 1863. Gamble's brigade is part of Buford's division and Buford wrote five days later; they are counted as one line of knowledge."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "Gamble's brigade count, about 450 kept after 61 were handed over; it sits just above Buford's division figure and inside the range shown."
+   }
+  },
+  {
+   "id": "C-035-P4",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-035-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "500 to 511 (Buford over 500; Gamble about 511, 61 turned over to Kilpatrick)",
+   "kind": "count_range",
+   "value": {
+    "low": 500,
+    "high": 511
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R337",
+     "page": "929",
+     "page_basis": "scan_leaf",
+     "text_offset": 3269365,
+     "quote": "over 500 prisoners, and about 300 muskets",
+     "witness": {
+      "name": "John Buford",
+      "role": "Brigadier General, commanding the First Cavalry Division, present at Falling Waters",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-29",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "buford-division",
+     "exact": true,
+     "states": {
+      "numbers": [
+       500,
+       300
+      ]
+     },
+     "note": "Buford: \"Our spoils on this occasion were one 10-pounder Parrott gun, one caisson, over 500 prisoners, and about 300 muskets.\" His report of the whole campaign is dated 29 Aug 1863 (p. 927). He counts the spoils of his division on 14 Jul; the count is a lower bound (\"over\")."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R338",
+     "page": "937",
+     "page_basis": "scan_leaf",
+     "text_offset": 3294885,
+     "quote": "taking about 511 prisoners, 61 of whom, together with 300 stand of arms, were turned over to an officer of Kilpatrick's division by mistake",
+     "witness": {
+      "name": "William Gamble",
+      "role": "Colonel, commanding the First Brigade of Buford's division, present at Falling Waters",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-24",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "buford-division",
+     "exact": true,
+     "states": {
+      "numbers": [
+       511,
+       61,
+       300
+      ]
+     },
+     "note": "Gamble: the brigade, in a dismounted carbine fight, took about 511 prisoners; 61 of them were handed to an officer of Kilpatrick's division by mistake, so the brigade kept about 450. Dated 24 Aug 1863. Gamble's brigade is part of Buford's division and Buford wrote five days later; they are counted as one line of knowledge."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "The first pass's range for the two division counts; it is kept, but the record also holds the larger claims, so it is the low part of the range shown."
+   }
+  },
+  {
+   "id": "C-035-P5",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 1,500 to 1,600 prisoners (Kilpatrick's report of 7 Aug 1863; the two scans print 1,500 and 1,600)",
+   "kind": "count_range",
+   "value": {
+    "low": 1500,
+    "high": 1600
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R359",
+     "page": "990",
+     "page_basis": "scan_leaf",
+     "text_offset": 3485577,
+     "quote": "We captured 2 guns, 3 battle-flags, and upward of 1,600 prisoners",
+     "witness": {
+      "name": "Judson Kilpatrick",
+      "role": "Brigadier General, commanding the Third Cavalry Division, present at Falling Waters",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "kilpatrick-claim",
+     "exact": true,
+     "states": {
+      "numbers": [
+       2,
+       3,
+       1600
+      ]
+     },
+     "note": "Kilpatrick's letter of 7 Aug 1863 to the Cavalry Corps chief of staff, p. 990: \"upward of 1,600 prisoners\" (a lower bound as printed). The second scan of the volume (archive.org warofrebellion271unit; ledger OR27-1-SCAN2-C018, offset 3437952, which the validator cannot cite) prints 1,500 in the same place. The page image could not be fetched (image host blocked), so the digit is not settled and both readings are kept; the text layer is not corrected here."
+    },
+    {
+     "source": "MCCLELLAN-1885-C023",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks)",
+     "text_offset": 854662,
+     "quote": "Kilpatrick claims to have captured 1,500 prisoners, two guns, and three battle flags",
+     "witness": {
+      "name": "Henry B. McClellan",
+      "role": "Former chief of staff to Stuart, historian of Stuart's cavalry",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1885-01-01",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "kilpatrick-claim",
+     "exact": false,
+     "states": {
+      "numbers": [
+       1500
+      ]
+     },
+     "note": "A later writer who read Kilpatrick's report and gives 1,500; he sets it beside Buford's \"over 500\" and Lee's denial. It repeats the report, and is cited for the digit only (the printed sentence reads 1,500)."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "contradicted"
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "Kilpatrick's own count, disputed by Lee and Heth; it lies inside the range shown and is carried by the dispatches at its top."
+   },
+   "inference": {
+    "step": "The first scan of the Official Records prints 1,600 for Kilpatrick's count; the second scan prints 1,500 (page image not seen) and McClellan (1885) reads 1,500; both digits are kept as a span.",
+    "from": [
+     "C-035-P2"
+    ]
+   }
+  },
+  {
+   "id": "C-035-P6",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Over 2,000 prisoners (Meade's dispatches of 14 Jul: a brigade 1,500 strong, then 500 more)",
+   "kind": "count",
+   "value": {
+    "n": 2000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "support": [
+    {
+     "source": "OR27-3",
+     "source_class": "primary",
+     "part": "OR27-3-D1482",
+     "page": "698",
+     "page_basis": "scan_leaf",
+     "text_offset": 1849777,
+     "quote": "I was only able to overtake his rear guard at Falling Waters, where we captured over 2,000 prisoners",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac (at army headquarters, not at the field)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-14",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "kilpatrick-claim",
+     "exact": true,
+     "states": {
+      "numbers": [
+       2000
+      ],
+      "phrases": [
+       "over 2,000 prisoners"
+      ]
+     },
+     "note": "Meade to General Couch, 14 Jul 1863, 9 p.m., p. 698. He did not see the field; the figure is the cavalry's claim carried to headquarters (Heth, p. 641-642, says Meade reported \"on the statement of General Kilpatrick\")."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "93",
+     "page_basis": "scan_leaf",
+     "text_offset": 319805,
+     "quote": "having overtaken and captured a brigade of infantry 1,500 strong",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac (at army headquarters, not at the field)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-14",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "kilpatrick-claim",
+     "exact": false,
+     "states": {
+      "numbers": [
+       1500
+      ]
+     },
+     "note": "Meade to Halleck, 14 Jul 1863, 3 p.m., p. 93: a brigade of infantry \"1,500 strong\" captured. It counts a unit, not prisoners, and with Meade's 8:30 p.m. wire (\"500 prisoners, in addition to those previously reported\", p. 94) it makes 2,000."
+    },
+    {
+     "source": "CA-1863",
+     "source_class": "primary",
+     "part": "sn83030213/1863-07-16/ed-1/seq-1",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "front page; the text layer has no printed page number",
+     "text_offset": 343,
+     "quote": "Officers report that they captured about 2,000 pris",
+     "witness": {
+      "name": "Headquarters correspondent",
+      "role": "Correspondent of a New York daily with the Army of the Potomac, dated Tuesday 14 Jul 1863 (newspaper LCCN sn83030213)",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1863-07-16",
+      "kind": "newspaper_1863"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "kilpatrick-claim",
+     "exact": true,
+     "states": {
+      "numbers": [
+       2000
+      ]
+     },
+     "note": "The correspondent writes that officers report about 2,000 prisoners taken at Falling Waters on 14 Jul. A second correspondent in the same issue writes that \"a brigade, probably not more than 1,600 strong, has been taken\" and that the entire number may be 2,500."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "contradicted"
+   ]
+  },
+  {
+   "id": "C-035-P7",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "No Confederate count: Lee \"unable to state\"; Heth, several hundred stragglers",
+   "kind": "none",
+   "value": {
+    "text": "no Confederate figure for the men lost at Falling Waters"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R359",
+     "page": "991",
+     "page_basis": "scan_leaf",
+     "text_offset": 3488166,
+     "quote": "The number of stragglers thus lost I am unable to state with accuracy, but it is greatly exaggerated in the dispatch referred to",
+     "witness": {
+      "name": "Robert E. Lee",
+      "role": "General commanding the Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-21",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "confederate-denial",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "unable to state with accuracy"
+      ]
+     },
+     "note": "Lee to the Adjutant General, 21 Jul 1863, printed on p. 991. He says no organized body was captured, \"only stragglers and such as were left asleep on the road\", and gives no number."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R549",
+     "page": "642",
+     "page_basis": "scan_leaf",
+     "text_offset": 2387689,
+     "quote": "several hundred stragglers who probably never reached their commands",
+     "witness": {
+      "name": "Henry Heth",
+      "role": "Major General, commanding the rear-guard division engaged at Falling Waters",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-09-13",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "confederate-denial",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "several hundred stragglers"
+      ]
+     },
+     "note": "Heth, p. 642: his staff officers alone drove \"several hundred stragglers\" from roadside buildings; they were a small proportion of those who straggled. He writes \"I think I state correctly\" that 3 out of 4 of the men captured by the enemy on the 14th were taken between the works near Hagerstown and the point where he engaged, and he rejects the claim of a brigade captured (the digits are clear in the second scan; the first scan reads \"3 out of -i\"). He gives no total."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "unclear_expression",
+    "text": "Neither Lee nor Heth gives a number; both deny a brigade was taken and speak of stragglers."
+   },
+   "inference": {
+    "step": "Lee writes that he is unable to state the number and Heth gives only several hundred stragglers; from their texts and the failed searches no Confederate figure exists.",
+    "from": [
+     "C-035-P2"
+    ]
+   }
+  },
+  {
+   "id": "C-035-P8",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Partial counts by Union units: about 50, 200 to 300 and 400 (each one command)",
+   "kind": "count_range",
+   "value": {
+    "low": 50,
+    "high": 400
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R078",
+     "page": "383",
+     "page_basis": "scan_leaf",
+     "text_offset": 1341430,
+     "quote": "held the advance in pursuit of the enemy's rear guard, capturing some 50 prisoners",
+     "witness": {
+      "name": "H. Boyd McKeen",
+      "role": "Colonel, commanding a brigade of the Second Corps, in the infantry pursuit on 14 Jul",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-11",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "mckeen",
+     "exact": false,
+     "states": {
+      "numbers": [
+       50
+      ]
+     },
+     "note": "McKeen's brigade held the advance and took \"some 50 prisoners\" near Falling Waters (p. 383)."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R272",
+     "page": "772",
+     "page_basis": "scan_leaf",
+     "text_offset": 2703462,
+     "quote": "sent in between 200 and 300 prisoners",
+     "witness": {
+      "name": "Alpheus S. Williams",
+      "role": "Brigadier General, commanding the First Division, Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-22",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "window",
+     "group": "williams",
+     "exact": false,
+     "states": {
+      "numbers": [
+       200,
+       300
+      ]
+     },
+     "note": "Williams (p. 772): his skirmishers advancing toward Falling Waters sent in \"between 200 and 300 prisoners\" from the rear guard."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R361",
+     "page": "1000",
+     "page_basis": "scan_leaf",
+     "text_offset": 3521851,
+     "quote": "a 10-pounder Parrott gun, 400 prisoners, the battleflag of the Fifty-fifth Virginia Infantry",
+     "witness": {
+      "name": "George A. Custer",
+      "role": "Brigadier General, commanding the Second Brigade, Third Cavalry Division (summary of the 7th Michigan Cavalry in his report)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-09",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "kilpatrick-claim",
+     "exact": false,
+     "states": {
+      "numbers": [
+       10,
+       400
+      ]
+     },
+     "note": "Summary of the 7th Michigan Cavalry in Custer's report of 9 Sep 1863 (p. 1000): the regiment, engaged on the right at Falling Waters, captured a gun, \"400 prisoners\" and the colonel of the 55th Virginia. In the same report (p. 998) the 47th Virginia taken was \"5 officers and 56 men\"."
+    }
+   ],
+   "flags": [
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Each is one command's capture near the field; they overlap Buford's and Kilpatrick's counts in unknown amounts and are not totals."
+   },
+   "inference": {
+    "step": "Single-unit counts (a brigade about 50, a division's skirmishers 200-300, a regiment 400) are given as the span of unit counts; they are not summed because the overlap with the cavalry counts is unknown.",
+    "from": [
+     "C-035-P1",
+     "C-035-P5"
+    ]
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "Union commanders on the field give three kinds of figure. Buford, for his division, reports over 500 prisoners (Aug 29) and Gamble, for one of his brigades, about 511 of whom 61 went to Kilpatrick by mistake (Aug 24). Kilpatrick reports upward of 1,500 (second scan) or 1,600 (first scan) (Aug 7). Meade telegraphed on the day a brigade 1,500 strong, then 500 more, then over 2,000. Lee (Jul 21) and Heth (Sep 13) say no organized body was taken, only stragglers, and give no total. Other units report 50 to 400 each. Nothing in the record separates these: the commanders who were present disagree by a factor of three, the Confederates give no count, and the headquarters figures repeat Kilpatrick's claim. The conflict is irreducible; the default is the range from the lowest count of a division commander (over 500) to the highest dispatch of the day (over 2,000), and every figure stays selectable.",
+  "who": "Buford commanded the First Division and Gamble its First Brigade; both were at the fight. Kilpatrick commanded the Third Division and led the charge on the hill. Meade was at army headquarters and wrote from reports. Lee wrote from the army's side and did not count. Heth commanded the rear guard and was engaged; he rejects the brigade claim and thinks most of the men lost on 14 Jul were taken on the road, before his engagement. Kidd (wounded early), Oates and McClellan wrote later and repeat the claims.",
+  "when": "Meade's wires and the newspaper of 16 Jul are of the day (rank 6 and 4); Lee's letter is 7 days later; Kilpatrick, Gamble and Buford wrote 24 to 46 days later (official reports, ranks 5 and 4); Heth wrote two months later. The memoirs and histories are 1885 to 1935. By the owner's rule a dispatch of the day outranks a report of weeks and that a memoir; but the dispatches are relayed claims of one source (Kilpatrick), which Lee and Heth deny in kind, so the rank does not decide the count.",
+  "where": "Buford, Gamble and Kilpatrick were present; the Union claims are for the whole day (Williamsport to the river), the division counts for what each command took in the fight near the ford. The two kinds may count different sets: the 1,500 of Kilpatrick and Meade is a brigade as a unit, the 500 of Buford is a count of men. Heth thinks that 3 out of 4 of the men the enemy took on 14 Jul were taken between Hagerstown and the point where he engaged, which would fit a day total larger than the count at the ford; he does not give a number.",
+  "how_knew": "Buford, Gamble and Kilpatrick counted or were told by their own men; Meade relayed; the newspaper relayed officers. Lee says the number is not known to him; Heth gives \"several hundred\" from his own staff's work. No return of Confederate prisoners lost on 14 Jul was found. The partial counts (McKeen about 50; Williams 200-300; the 7th Michigan 400) are single commands and are not summed. Which digit Kilpatrick's report prints (1,500 or 1,600) is not settled: the two scans differ and the page image could not be fetched.",
+  "clock": "not applicable: these are counts. The dispatches carry the Union headquarters' clock (3 p.m., 8:30 p.m., 9 p.m.); the 20-minute difference between the armies' clocks is not applied and does not matter to a count.",
+  "independence": "Groups: (1) Buford and Gamble, one division (Buford wrote five days after Gamble; they are not counted as two witnesses); (2) Kilpatrick's claim, carried by Kilpatrick, Meade's dispatches (Heth names Kilpatrick as Meade's authority), the newspaper correspondent, Kidd, Custer's regimental summary and McClellan; (3) Lee and Heth, one Confederate denial; (4) McKeen; (5) Williams; (6) Oates and Freeman, no source stated. So the largest count rests on one claim; the lowest on one division. Each carries a single_source flag."
+ },
+ "source_panel_text": "Between over 500 and over 2,000 prisoners: Buford's report puts the capture by his division at over 500, Kilpatrick and Meade claimed 1,500 to over 2,000, and Lee and Heth deny any brigade was taken and give no count. The record is divided, so a range is shown. 6 other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "Over 500 is a documented count (Buford) and the low end of the range, but the Official Records also hold 1,500 to over 2,000 from Kilpatrick and Meade, so 500 alone is not the better-supported figure."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "The two division counts (over 500; about 511) are right, but the first pass called 1,000-2,000 \"secondary only\": the Official Records themselves carry Kilpatrick's 1,500 or 1,600 and Meade's over 2,000, so the larger values are documented claims."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-035 row)",
+   "must_change": true,
+   "note": "Delegated-decision row line 45 gives 500-511 (documented); this resolution makes the default a range from over 500 to over 2,000 (irreducible, documented) and keeps 500-511 selectable. Not edited here."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-023",
+   "must_change": false,
+   "note": "Decision log line 296 lists C-035 511 as an added selectable scenario; it stays selectable. Read; nothing to change."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-035",
+   "must_change": true,
+   "note": "Line 63 shows C-035 as PENDING OWNER; the integration step records the resolved default (range, class irreducible, tier documented). Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-205",
+   "must_change": true,
+   "note": "Seed row Jul 14 morning prints \"Prisoners: over 500 (W-WMP; ABT-FW) vs 1,000-2,000 (W-RET)\" and a Michigan site claim of 1,500; the Official Records carry 1,500 or 1,600 (Kilpatrick) and over 2,000 (Meade) as claims and the default is the range. Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-208",
+   "must_change": true,
+   "note": "Retreat totals row reads \"Over 500 (inferred; the two stronger sources agree)\" for Falling Waters; the resolution is a documented range, class irreducible. Not edited here."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-035)",
+   "must_change": true,
+   "note": "Carries default scenario C-035-DEFAULT (500-511); the integration step replaces the label with the range and keeps the five scenarios."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-2 (Confederate reports and returns, regex)",
+   "query": "(July 14|14th) ... (captured|prisoners) ... (Falling Waters|Williamsport) and Falling Waters ... (missing|captured|prisoners|straggl): only Heth, Jones (Pettigrew's brigade), Perrin (about 30 men), Lowrance and Guild; none gives a count of men lost at Falling Waters",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "BL-3 (Battles and Leaders vol. 3, regex)",
+   "query": "Pettigrew ... prisoners and Falling Waters ... (captured|prisoners): the two hits are a note on Pettigrew's death and a count of Archer's capture; no figure for Falling Waters",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "weeklies of 1863 (ADAMS-SENTINEL-1863, GBG-COMPILER-1863) and the saved newspaper pages (tmp/library/web/ca/pages)",
+   "query": "Falling Waters in every issue: the Adams Sentinel of 18 Aug 1863 repeats Kilpatrick's claim and Lee's denial; a Southern paper of 21 Jul prints Meade's dispatch; the New York pages give 2,000 and 1,500; no Confederate count",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "www.gutenberg.org (Kidd, ebook 29608)",
+   "query": "cache/epub/29608/pg29608.txt and ebooks/29608.txt.utf-8: the host answered \"Temporarily Down for Maintenance\"; the archive.org scan personalrecollec00kidd was used instead",
+   "outcome": "failed",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "archive.org page image of OR27 part 1 p. 990 (cu31924077699761, leaf near n1020)",
+   "query": "the BookReader image redirect to ia903205.us.archive.org: CONNECT tunnel failed, 403; the digit of Kilpatrick's figure (1,500 or 1,600) was not viewed",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "LIVERMORE-1900, PHISTERER-1883, SWINTON-1866 (ledger section 9, planned)",
+   "query": "not fetched for this conflict",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A Confederate return or report counting the men of the rear guard missing on 14 July, or the prisoner rolls of the provost marshal who received them at Frederick or Washington, would narrow the range. The page image of Kilpatrick's report would settle 1,500 against 1,600."
+}

@@ -1,0 +1,936 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-003",
+ "topic": "V Corps arrival Jul 2",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-003",
+ "pdf_row": {
+  "page": 62,
+  "text": "V Corps arrival Jul 2 | 05:00; 08:00 (head of column) | head at 08:00 near Power’s Hill | 05:00",
+  "values": [
+   "05:00",
+   "08:00 (head of column)"
+  ],
+  "recommended_default": "head at 08:00 near Power's Hill",
+  "selectable_alternatives": [
+   "05:00"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-003-DEFAULT",
+  "default_label": "window 07:00-08:00 Jul 2 (head of column); 05:00 kept flagged",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-003-S1",
+   "C-003-S2",
+   "C-003-S3",
+   "C-003-S4",
+   "C-003-DEFAULT"
+  ]
+ },
+ "event_date": "1863-07-02",
+ "class": "weighted",
+ "tier": "inferred",
+ "basis": {
+  "kind": "official_records",
+  "text": "Chamberlain (report of 6 Jul 1863) and Barnes (24 Aug 1863) have the first division on the heights at about 7 a.m., Meade (1 Oct 1863) the corps on the ground by 7 a.m., Sykes (31 Jul 1863) himself on the field about 8 a.m. A dispatch of 6.15 a.m. from army headquarters has the Fifth not yet up. Only Slocum (23 Aug 1863) gives 5 a.m."
+ },
+ "default": {
+  "mode": "window",
+  "positions": [
+   "C-003-P7"
+  ],
+  "label": "Window 07:00-08:00 on Jul 2: the Fifth Corps comes up on the right of the line; drawn at 07:00",
+  "basis_text": "Lower bound: Chamberlain (about 7 a.m.), Barnes (about 7) and Meade (by 7 a.m.), after the headquarters dispatch of 6.15 a.m. that the Fifth is still expected. Upper bound: Sykes (about 8 a.m. on the 2d), with a battery of the corps in position about 8 and the Third Division at noon as the tail.",
+  "animation": {
+   "at": "1863-07-02T07:00",
+   "rule": "earliest_documented",
+   "note": "07:00 is the earliest hour that a report of the Fifth Corps itself gives for its first troops; Slocum's 5 a.m., which is earlier, stays selectable and sets the floor of the arrival gate. Sykes's 8 a.m. and the third division's noon are the later parts of the column."
+  },
+  "note": "The corps came up over several hours: the first division at about 7, Sykes with the rest about 8, the Third Division about noon; the reports give different moments of one march, so the window shows the spread."
+ },
+ "positions": [
+  {
+   "id": "C-003-P1",
+   "origin": "pdf_value",
+   "pdf_label": "05:00",
+   "scenario_ids": [
+    "C-003-S1"
+   ],
+   "source_keys": [],
+   "label": "05:00: the Fifth Corps arrives and takes position on the right of the Twelfth (Slocum)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T05:00",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "contradicted"
+   ],
+   "support": [
+    {
+     "id": "C-003-P1-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R271",
+     "page": "759",
+     "page_basis": "scan_leaf",
+     "text_offset": 2655245,
+     "quote": "The Fifth Corps arrived at 5 a. m. on July 2, and, by direction of the commanding general, was placed in line on the right of the Twelfth Corps",
+     "witness": {
+      "name": "Henry W. Slocum",
+      "role": "Major General commanding the Twelfth Corps and the right wing, on Culp's Hill and Powers Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-23",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "slocum",
+     "exact": true,
+     "states": {
+      "times": [
+       "05:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Slocum's report of 23 Aug 1863 (51 days): the Fifth Corps arrived at 5 a.m. on July 2 and was placed on the right of the Twelfth Corps; 'at about 8 a. m.' the Fifth and the First Division of the Twelfth were moved to the left across Rock Creek. The second scan of the volume reads '5 a. m.' too."
+    },
+    {
+     "id": "C-003-P1-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R272",
+     "page": "773",
+     "page_basis": "scan_leaf",
+     "text_offset": 2708446,
+     "quote": "The Fifth Corps arrived, and took position on our right. At 8 a. m. orders were received to unite the two divisions",
+     "witness": {
+      "name": "Alpheus S. Williams",
+      "role": "Brigadier General commanding the First Division, Twelfth Corps, on the right of the line",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-22",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "awilliams",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "The Fifth Corps arrived, and took position on our right"
+      ]
+     },
+     "note": "The Twelfth Corps' First Division: the Fifth Corps arrived and took position on its right before the orders of 8 a.m. No hour for the arrival; an upper bound only."
+    },
+    {
+     "id": "C-003-P1-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R195",
+     "page": "621",
+     "page_basis": "scan_leaf",
+     "text_offset": 2178188,
+     "quote": "arrived within 3 miles of Gettysburg at 1 a. m. [July 2], when we bivouacked. July 2. — Started at 4 a. m.; went about 2 miles, when we got into position",
+     "witness": {
+      "name": "James C. Rice",
+      "role": "Colonel, Forty-fourth New York (Vincent's brigade, First Division, Fifth Corps)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "rice",
+     "exact": false,
+     "states": {
+      "times": [
+       "01:00",
+       "04:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Rice's itinerary: his regiment (Vincent's brigade) bivouacked within 3 miles of Gettysburg at 1 a.m., started at 4 a.m., went about 2 miles and got into position, stayed about 2 hours and then crossed the creek. It dates no arrival hour; it fits an arrival on the right in the early morning."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "Slocum's 5 a.m. stands alone and was written 51 days after; a dispatch of 6.15 a.m. from army headquarters has the Fifth not yet up, and its own regiments say 7 a.m."
+   }
+  },
+  {
+   "id": "C-003-P2",
+   "origin": "pdf_value",
+   "pdf_label": "08:00 (head of column)",
+   "scenario_ids": [
+    "C-003-S2"
+   ],
+   "source_keys": [],
+   "label": "About 08:00: Sykes reaches the field (his report; a battery in position; later books)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T08:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-003-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R187",
+     "page": "592",
+     "page_basis": "scan_leaf",
+     "text_offset": 2076500,
+     "quote": "On June 29 and 30 and on July 1 and 2, I made long, rapid, and fatiguing marches, starting at Frederick, Md., and reaching the field of Gettysburg [...] about 8 a. m. on the latter date",
+     "witness": {
+      "name": "George Sykes",
+      "role": "Major General commanding the Fifth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "sykes",
+     "exact": false,
+     "states": {
+      "times": [
+       "08:00"
+      ]
+     },
+     "note": "Sykes's report of 31 Jul 1863 (29 days): he reached the field of Gettysburg about 8 a.m. on the 2d; his troops took position on the right and were later massed near the Rock Creek bridge on the Baltimore pike, within reach of the Twelfth Corps. His own itinerary says he marched at 4 a.m. from Bonaughtown, 6 miles, and 'arrived early'."
+    },
+    {
+     "id": "C-003-P2-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R222",
+     "page": "662",
+     "page_basis": "scan_leaf",
+     "text_offset": 2321970,
+     "quote": "Marching nearly all night of July 1, we went into position about 8 a. m. on the morning of the 2d, to the right of the Baltimore pike",
+     "witness": {
+      "name": "Frank C. Gibbs",
+      "role": "Captain, Battery L, First Ohio Light Artillery (Fifth Corps artillery)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "gibbs",
+     "exact": false,
+     "states": {
+      "times": [
+       "08:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "A battery of the corps artillery, about 8 a.m. in position right of the Baltimore pike; it dates the battery, not the head of the corps."
+    },
+    {
+     "id": "C-003-P2-c3",
+     "source": "MEADE-LL-v2",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 64 read from the running head 'LIFE AND LETTERS OF GENERAL MEADE' (page 64) just before the passage; the text layer prints the number as 64 inside the previous line",
+     "text_offset": 182775,
+     "quote": "General Sykes, of the Fifth Corps, with Barnes's and Ayres's divisions, arrived at eight o'clock, having at daylight marched from his bivouac at Bonaughtown. Crawford's division of this corps did not arrive until about noon",
+     "witness": {
+      "name": "Author of the chapter on the battle in Life and Letters of General Meade (edited by his son George Meade)",
+      "role": "Compiler of 1913; the chapter names no source for the hour",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "later_history"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "sykes",
+     "exact": false,
+     "states": {
+      "times": [
+       "08:00",
+       "12:00"
+      ]
+     },
+     "note": "Echoes Sykes's report (8 a.m.) and Crawford's (noon); counted with Sykes."
+    },
+    {
+     "id": "C-003-P2-c4",
+     "source": "NY-GB-1900",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the text layer carries no readable printed page number near the passage",
+     "text_offset": 99701,
+     "quote": "The Fifth Corps, under General Sykes, arrived on the field at 8 a. m., from Hanover",
+     "witness": {
+      "name": "New York Monuments Commission (Final Report on the Battlefield of Gettysburg, vol. 1)",
+      "role": "Commission volume of 1900; the passage names no source for the hour",
+      "side": "union"
+     },
+     "written": {
+      "date": "1900",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "sykes",
+     "exact": false,
+     "states": {
+      "times": [
+       "08:00"
+      ]
+     },
+     "note": "Counted with Sykes."
+    }
+   ],
+   "derived": true,
+   "inference": {
+    "step": "Sykes's sentence names the marches of June 29 and 30 and of July 1 and 2 and puts the arrival 'about 8 a. m. on the latter date', that is July 2; Gibbs's battery puts itself in position about 8 on the morning of the 2d.",
+    "from": [
+     "C-003-P2-c1",
+     "C-003-P2-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "Sykes's about 8 a.m. is the upper end of the window. It is the corps commander's own arrival, not the head of the column, which Barnes and Chamberlain put at about 7."
+   }
+  },
+  {
+   "id": "C-003-P3",
+   "origin": "pdf_default",
+   "pdf_label": "head at 08:00 near Power's Hill",
+   "scenario_ids": [
+    "C-003-S3"
+   ],
+   "source_keys": [],
+   "label": "The plan's default: the head of the column at 08:00 near Powers Hill",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T08:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-003-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R187",
+     "page": "592",
+     "page_basis": "scan_leaf",
+     "text_offset": 2076500,
+     "quote": "On June 29 and 30 and on July 1 and 2, I made long, rapid, and fatiguing marches, starting at Frederick, Md., and reaching the field of Gettysburg [...] about 8 a. m. on the latter date",
+     "witness": {
+      "name": "George Sykes",
+      "role": "Major General commanding the Fifth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "sykes",
+     "exact": false,
+     "states": {
+      "times": [
+       "08:00"
+      ]
+     },
+     "note": "Sykes's report of 31 Jul 1863 (29 days): he reached the field of Gettysburg about 8 a.m. on the 2d; his troops took position on the right and were later massed near the Rock Creek bridge on the Baltimore pike, within reach of the Twelfth Corps. His own itinerary says he marched at 4 a.m. from Bonaughtown, 6 miles, and 'arrived early'."
+    },
+    {
+     "id": "C-003-P3-c1",
+     "source": "BACH-WHATTOSEE-1873",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page about 51-52 (the guide's account of the view from the cemetery); the text layer carries running heads 'BRINGING UP THE TROOPS. 51' and '52 GETTYSBURG' on either side of the page; the exact page of the sentence was not read",
+     "text_offset": 81009,
+     "quote": "Powers' Hill is where General Slocum had his head-quarters, and can just be seen past the right of the grove at our left ; beyond that runs Rock Creek. Here the Fifth corps, General Sykes, was halted when it came up",
+     "witness": {
+      "name": "John B. Bachelder",
+      "role": "Battlefield historian and artist; not a participant",
+      "side": "union"
+     },
+     "written": {
+      "date": "1873",
+      "kind": "later_history"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "bachelder",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Powers' Hill",
+       "Fifth corps"
+      ]
+     },
+     "note": "Bachelder places the halt of the Fifth Corps near Slocum's headquarters on Powers' Hill; no source and no hour."
+    }
+   ],
+   "derived": true,
+   "inference": {
+    "step": "The hour is Sykes's about 8 a.m. for himself and the corps; the place is Bachelder's statement of 1873 that the Fifth Corps halted where Slocum had his headquarters on Powers' Hill, and Sykes's own massing near the Rock Creek bridge within reach of the Twelfth Corps. Neither says 'head of the column'.",
+    "from": [
+     "C-003-P3-c1",
+     "C-003-P2-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "Nothing says that 8 a.m. is the head of the column: Barnes, Chamberlain and Meade have the first of the corps on the ground by about 7. Powers Hill rests on one history of 1873."
+   }
+  },
+  {
+   "id": "C-003-P4",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-003-S4"
+   ],
+   "source_keys": [],
+   "label": "About 07:00: the first division reaches the heights (Chamberlain, Barnes; Meade: by 7 a.m.)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T07:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-003-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "622",
+     "page_basis": "scan_leaf",
+     "text_offset": 2183503,
+     "quote": "reached the heights southeasterly of Gettysburg at about 7 a. m., July 2",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, Twentieth Maine (Vincent's brigade, First Division, Fifth Corps)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "chamberlain",
+     "exact": true,
+     "states": {
+      "times": [
+       "07:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Chamberlain, 4 days after: after an hour or two of sleep by the roadside just before daybreak, the regiment reached the heights southeasterly of Gettysburg at about 7 a.m."
+    },
+    {
+     "id": "C-003-P4-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R189",
+     "page": "600",
+     "page_basis": "scan_leaf",
+     "text_offset": 2103034,
+     "quote": "halting after midnight about 2 miles from that place. Resuming its march, after a brief rest of two or three hours, the division reached Gettysburg at about 7 o'clock in the morning",
+     "witness": {
+      "name": "James Barnes",
+      "role": "Brigadier General commanding the First Division, Fifth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-24",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "barnes",
+     "exact": false,
+     "states": {
+      "times": [
+       "07:00"
+      ]
+     },
+     "note": "Barnes, 53 days after: the division halted after midnight about 2 miles from the town and reached Gettysburg at about 7 in the morning. The text layer reads the day as 'Jidy 3' (an OCR confusion; the sentence follows the night march of July 1-2); the day is not used from this passage and the page image was not viewed."
+    },
+    {
+     "id": "C-003-P4-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "115",
+     "page_basis": "scan_leaf",
+     "text_offset": 389835,
+     "quote": "arriving there at 1 a. m. of the 2d. So soon as it was light, I proceeded to inspect the position occupied, and to make arrangements for posting the several corps as they should reach the ground. By 7 a. m. the Second and Fifth Corps, with the rest of the Third, had reached the ground",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "upper",
+     "group": "meade",
+     "exact": false,
+     "states": {
+      "times": [
+       "01:00",
+       "07:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Meade's report: by 7 a.m. the Second and Fifth Corps and the rest of the Third had reached the ground; an upper bound for 'the Fifth Corps' as a whole."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "About 7 a.m. is the lower end of the default window; Sykes with the rest of the column puts the corps' arrival an hour later."
+   }
+  },
+  {
+   "id": "C-003-P5",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "06:15: the Fifth Corps is not yet up, 'momentarily expected' (dispatch from army headquarters)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T06:15",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-003-P5-c1",
+     "source": "OR27-3",
+     "source_class": "primary",
+     "part": "OR27-3-D2099",
+     "page": "1086",
+     "page_basis": "scan_leaf",
+     "text_offset": 2977912,
+     "quote": "July 2, 18G3— 6.15 a. m. Maj. Gen. D. Butteefield [...] The Second Corps is up and the Fifth is momentarily expected",
+     "witness": {
+      "name": "Seth Williams",
+      "role": "Assistant Adjutant General of the Army of the Potomac, at army headquarters on the field",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "staff_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "swilliams",
+     "exact": true,
+     "states": {
+      "times": [
+       "06:15"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Seth Williams, Meade's assistant adjutant general, to Butterfield at Taneytown, timed 6.15 a.m. on July 2: the Second Corps is up and the Fifth is momentarily expected. The raw text reads '18G3' for 1863 in the heading."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "This says the Fifth was still expected at 6.15, a lower limit on its arrival from army headquarters; it dates no arrival."
+   }
+  },
+  {
+   "id": "C-003-P6",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About noon: the Third Division (Pennsylvania Reserves) reaches the corps' position",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T12:00",
+    "approx": true,
+    "tolerance_min": 30
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-003-P6-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R218",
+     "page": "652-653",
+     "page_basis": "scan_leaf",
+     "text_offset": 2287647,
+     "quote": "At daylight on the 2d instant [...] The column was put in motion at once, and by noon had arrived at the position occupied by the First and Second Divisions of the corps",
+     "witness": {
+      "name": "Samuel W. Crawford",
+      "role": "Brigadier General commanding the Third Division (Pennsylvania Reserves), Fifth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-10",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "upper",
+     "group": "crawford",
+     "exact": true,
+     "states": {
+      "times": [
+       "12:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Crawford's Third Division (Pennsylvania Reserves): at daylight near McSherrystown after marching nearly all the previous night, ordered to Gettysburg, by noon at the position of the First and Second Divisions."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "The Third Division came from McSherrystown after a night march and joined the other two about noon; the question is the corps' first arrival."
+   }
+  },
+  {
+   "id": "C-003-P7",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-003-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "Window 07:00-08:00 on Jul 2: the Fifth Corps comes up on the right of the line",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T07:00",
+    "to": "1863-07-02T08:00"
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "default",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-003-P7-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "622",
+     "page_basis": "scan_leaf",
+     "text_offset": 2183503,
+     "quote": "reached the heights southeasterly of Gettysburg at about 7 a. m., July 2",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, Twentieth Maine (Vincent's brigade, First Division, Fifth Corps)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "chamberlain",
+     "exact": true,
+     "states": {
+      "times": [
+       "07:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Chamberlain, 4 days after: after an hour or two of sleep by the roadside just before daybreak, the regiment reached the heights southeasterly of Gettysburg at about 7 a.m."
+    },
+    {
+     "id": "C-003-P7-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R187",
+     "page": "592",
+     "page_basis": "scan_leaf",
+     "text_offset": 2076500,
+     "quote": "On June 29 and 30 and on July 1 and 2, I made long, rapid, and fatiguing marches, starting at Frederick, Md., and reaching the field of Gettysburg [...] about 8 a. m. on the latter date",
+     "witness": {
+      "name": "George Sykes",
+      "role": "Major General commanding the Fifth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "sykes",
+     "exact": false,
+     "states": {
+      "times": [
+       "08:00"
+      ]
+     },
+     "note": "Sykes's report of 31 Jul 1863 (29 days): he reached the field of Gettysburg about 8 a.m. on the 2d; his troops took position on the right and were later massed near the Rock Creek bridge on the Baltimore pike, within reach of the Twelfth Corps. His own itinerary says he marched at 4 a.m. from Bonaughtown, 6 miles, and 'arrived early'."
+    }
+   ],
+   "derived": true,
+   "inference": {
+    "step": "The lower bound is Chamberlain's 'about 7 a. m., July 2' (stated); the upper bound is Sykes's 'about 8 a. m. on the latter date', where 'the latter date' of his sentence on July 1 and 2 is July 2 (read, not stated as a date).",
+    "from": [
+     "C-003-P7-c1",
+     "C-003-P7-c2"
+    ]
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "The plan lists 05:00 and 08:00 (head of column) and recommends 'head at 08:00 near Power's Hill'. The Official Records give five hours for the same morning: 5 a.m. (Slocum), 6.15 a.m. not yet up (Seth Williams, a dispatch of the time), about 7 (Chamberlain, Barnes; Meade: by 7), about 8 (Sykes; one battery) and noon (Crawford's division). The dispatch of the morning is the best class of writing and has the Fifth Corps not yet at the army's headquarters at 6.15; the corps' own commanders put the first division at about 7 and the corps commander at about 8. Slocum's 5 a.m. is one report written 51 days after, by a man on the right of the line, and runs against the dispatch; it is kept, not chosen. The arrival was spread over hours, which is why the default is the window between about 7 and about 8, drawn at 7.",
+  "who": "Seth Williams, Meade's assistant adjutant general, wrote from the field to Butterfield. Chamberlain commanded a regiment of the first division and wrote four days after; Barnes commanded that division; Sykes commanded the corps; Meade the army; Crawford the third division. Slocum commanded the Twelfth Corps and the right wing, where the Fifth was first placed, and A. S. Williams his first division; Rice was in the same brigade as Chamberlain. Gibbs was a battery commander; Bachelder, the 1913 volume and the New York volume were not present.",
+  "when": "The dispatch is of 2 July at 6.15 a.m. (the sender's own time). Chamberlain 6 Jul and Gibbs 4 Jul are within a week; Sykes 31 Jul (29 days); Barnes 24 Aug, Slocum 23 Aug and A. S. Williams 22 Aug (51 to 53 days); Meade 1 Oct (91 days). The books are 10 to 50 years later.",
+  "where": "The dispatch was written at the army's headquarters on Cemetery Hill; Slocum's right wing lay on Culp's Hill and east of the turnpike, where the Fifth was first placed ('on the right of the Twelfth Corps'), a different stretch of the line from the one Williams's dispatch watched. Chamberlain, Barnes and Sykes were with their own troops. Whether headquarters could have known of troops standing on the far right at 5 or 6 a.m. is not stated.",
+  "how_knew": "Williams, Chamberlain, Barnes, Sykes, Crawford and Gibbs state their own corps' or unit's movements; Slocum and A. S. Williams state what they saw come up on their flank; Meade's 'by 7 a.m.' is his own report of the army's concentration, not a timed observation.",
+  "clock": "All the witnesses are Union and no correction is applied. The plan's note of about 20 minutes between the armies' clocks concerns the two armies and plays no part here. 'About 7' and 'about 8' are read as plus or minus a quarter hour; Meade's 'by 7 a.m.' is an upper bound; the dispatch is a lower bound (not yet there at 6.15).",
+  "independence": "Chamberlain, Barnes and Rice belong to one division, and Barnes may have drawn on his brigades' reports, so the 'about 7' is two reports close to each other plus Meade's relayed 'by 7'. Slocum and A. S. Williams are one wing, and the second gives no hour. Sykes's 8 a.m. is echoed by the 1913 volume and the New York volume, which name no source and are counted with him; Gibbs is a separate report of a battery. The dispatch stands alone."
+ },
+ "source_panel_text": "The Fifth Corps came up over several hours on Jul 2: its first division at about 7 a.m. (Chamberlain, Barnes, Meade), Sykes at about 8, the Third Division at noon. A headquarters dispatch at 6.15 a.m. still had it 'momentarily expected', so Slocum's 5 a.m. was not chosen. The plan's 05:00 and 08:00 stay listed; six other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "8 a.m. holds as the upper end of the window and as Sykes's own hour; it is not the head of the column, which the corps' own reports put at about 7, and 'near Powers Hill' rests on one book of 1873. The plan's 05:00 stays listed."
+  },
+  "first_delegated": {
+   "holds": "yes",
+   "note": "The window 07:00-08:00 holds. The research adds the headquarters dispatch of 6.15 a.m. (the Fifth not yet up), Barnes (about 7), A. S. Williams and Rice (consistent with an early arrival on the right) and Crawford's noon; class weighted, tier inferred (the upper bound reads Sykes's 'latter date' as July 2)."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-003 row)",
+   "must_change": false,
+   "note": "computed: delegated-decision row line 13 names this conflict; the row's default window 07:00-08:00 is unchanged; add class weighted and the new positions."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0104.md",
+   "must_change": false,
+   "note": "computed: register entry names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-003",
+   "must_change": true,
+   "note": "computed: decision log line 31 names this conflict; record the resolved default (window 07:00-08:00, weighted, inferred) as a delegated decision; the PENDING OWNER text is superseded."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-B.md",
+   "must_change": false,
+   "note": "computed: gate file names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "gate",
+   "ref": "tools/bt/gates/oob_layer_lib.mjs",
+   "must_change": false,
+   "note": "computed: gate file names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "us-5c",
+   "must_change": true,
+   "note": "gate printed_clock default 1863-07-02T08:00 (the plan's recommended default), earliest 05:00, latest 08:00; the row also prints 'lead regiments about 07:00 (CHAM)'. The default becomes the window 07:00-08:00 drawn at 07:00; the earliest 05:00 stays (Slocum, selectable, never lowered) and the latest 08:00 is unchanged. Report only; the integration step reconciles the gate spec and re-runs Q04, Q05, Q06."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-056",
+   "must_change": true,
+   "note": "Seed row 'Jul 2 ~05:00' (EPP: arrives about 05:00; FREE cites OR p. 592 for about 08:00): carries the window 07:00-08:00 as default, 05:00 selectable with Slocum's report."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-070",
+   "must_change": false,
+   "note": "The earlier shard audit of the same arrival (named in the first-pass notes); check the hour against the window."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04",
+   "must_change": true,
+   "note": "Report only, no gate changed: the unit row's default hour moves from 08:00 to 07:00 inside its window 05:00-08:00; the floor 05:00 must not be lowered (the plan's 05:00 is a documented selectable value) and must not rise without the owner's decision."
+  },
+  {
+   "kind": "test",
+   "ref": "docs/battle-theatre/app/tests/scenario-defaults.test.mjs line 55",
+   "must_change": false,
+   "note": "Asserts the default text for C-003 matches /07:00/: consistent with the window 07:00-08:00."
+  },
+  {
+   "kind": "test",
+   "ref": "docs/battle-theatre/app/tests/arrival.spec.mjs lines 95-99",
+   "must_change": false,
+   "note": "Tests that the 20th Maine appears only from the chosen C-003 time (05:00 or 08:00 options); the options stay."
+  },
+  {
+   "kind": "test",
+   "ref": "tests claims.test.mjs line 160, daypos.test.mjs line 22, history.test.mjs line 26, ledgerE.test.mjs line 25 and tools/bt/gates/oob_layer_lib.mjs line 39 (choice v1 text 08:00 (head of column))",
+   "must_change": false,
+   "note": "Sample scenarios pick the option text '08:00 (head of column)'; the option stays selectable, no change."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-003)",
+   "must_change": true,
+   "note": "C-003-DEFAULT 'window 07:00-08:00 Jul 2 (head of column); 05:00 kept flagged' stands in hour; 'head of column' should read 'the corps comes up'; add class weighted and tier inferred."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/pos_C/specs_01_vcorps_1d.py line 23 and specs_05_hq_staff_part3.py lines 50 and 54",
+   "must_change": false,
+   "note": "Specs name C-003 as the conflict of the V Corps claims (Sykes 8 a.m.; Williams 6.15; Meade p. 115); no change."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/history/arrivals.json us-5c default_basis and tools/bt/arrivals_data.py line 187",
+   "must_change": true,
+   "note": "default_basis cites the plan's default 'head at 08:00 near Power's Hill' (PENDING OWNER); it should cite this resolution (window 07:00-08:00, weighted)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/history/ARRIVALS-NOTES.md line 65",
+   "must_change": false,
+   "note": "Notes that the row prints the 07:00 'lead regiments (CHAM)'; consistent."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "EPP, FREE and the plan's other web sources for 05:00 and 08:00 (the row prints no keys; the seed row T2-056 names EPP and Freeman)",
+   "query": "the web page of EPP and the source it gives for 05:00: not among the hosts reachable for this research; Freeman (R. E. Lee) was not read for this hour",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Official Records 27/1, reports of the Fifth Corps (R187-R222) and the Twelfth Corps (R271-R330) by regex",
+   "query": "Fifth|5th Corps within 200 characters of arrived|came up|reached|joined|relieved|massed|in position and a. m.|o'clock|daylight|daybreak; only Slocum, Sykes, Barnes, Chamberlain, Rice, Gibbs, Crawford and A. S. Williams give an hour or an order of events; Tilton, Sweitzer, Vincent, Ayres, Burbank and Garrard give none for the morning arrival",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "JCCW-1865-C012 (Joint Committee testimony of 1864)",
+   "query": "Fifth corps|Sykes|Crawford within 250 characters of arrived|reached|got up|came up and o'clock|a. m.|morning; Hunt and Meade mention the Fifth corps near the Baltimore pike without an hour; Crawford's testimony (quoted in the Southern Historical Society Papers as noon) was not found by regex",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "GBG-COMPILER and ADAMS-SENTINEL issues of July 1863 and the other weeklies of the ledger",
+   "query": "not searched for the Fifth Corps' hour: the weeklies name no corps hours in the passages read for C-001; not read page by page for this conflict",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Page image of Barnes's report (OR 27/1 p. 600, archive.org scan)",
+   "query": "the day digit of \"morning of July 2\" is OCR \"Jidy 3\" in the text layer; the page image was not viewed, so the day is not taken from this passage",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report or diary of the Fifth Corps' first troops (Sweitzer's or Vincent's brigade, the 20th Maine's or 44th New York's own notes, the corps' signal or headquarters log) giving the hour they reached the position on the right would settle 5 a.m. against about 7. A page image of Barnes's report showing 'July 2' would add a third group for 7 a.m. The sources behind the plan's 05:00 and 08:00 would be weighed on their own."
+}

@@ -1,0 +1,977 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-014",
+ "topic": "Prisoners taken, 20th Maine front",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-014",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Prisoners taken, 20th Maine front | 218-368; 400+25 | 218-368 range shown | 400+25",
+  "values": [
+   "218-368",
+   "400+25"
+  ],
+  "recommended_default": "218-368 range shown",
+  "selectable_alternatives": [
+   "400+25"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-014-DEFAULT",
+  "default_label": "range 368-425 (Barnes 368; Chamberlain 400+25); 500+ brigade-wide shown separately",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-014-S1",
+   "C-014-S2",
+   "C-014-S3",
+   "C-014-S4",
+   "C-014-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Two reports of 1863 by officers of the 20th Maine's own command give the prisoners sent to the rear after its counter-charge: Barnes 368 (24 August) and Chamberlain 400 (6 July); the 25 of the night advance and the over 500 of the brigade are separate counts."
+ },
+ "default": {
+  "mode": "range",
+  "positions": [
+   "C-014-P2",
+   "C-014-P3"
+  ],
+  "label": "368 to 400 prisoners sent to the rear after the 20th Maine's counter-charge (the 25 of the night are separate)",
+  "basis_text": "The prisoners sent to the rear in front of the 20th Maine after its counter-charge on Jul 2, per Barnes (368, division report of 24 August 1863) and Chamberlain (400, regimental report of 6 July 1863). The 25 prisoners of the night advance and the over 500 of the whole brigade are counted apart.",
+  "range": {
+   "low": 368,
+   "high": 400,
+   "basis": "Barnes's 368 and Chamberlain's \"four hundred\": the two reports of 1863 on the 20th Maine's front; lower figures (302, over 300, at most 238) and the brigade's over 500 stay listed"
+  },
+  "note": "A range with no headline figure: the two best-class counts differ by 32 and neither explains the other."
+ },
+ "positions": [
+  {
+   "id": "C-014-P1",
+   "origin": "pdf_value",
+   "pdf_label": "218-368",
+   "scenario_ids": [
+    "C-014-S1"
+   ],
+   "label": "218 to 368 prisoners (the plan's range; the low end has no source)",
+   "kind": "count_range",
+   "value": {
+    "low": 218,
+    "high": 368
+   },
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No writer gives 218; the high end, 368, is Barnes's figure and is listed alone. The nearest figure is Oates's ceiling of 238 for two regiments, which is a ceiling, not a count."
+   },
+   "failed_lookups": [
+    {
+     "where": "all local non-lead texts of the ledger (Official Records, books and papers, Park Service texts)",
+     "query": "218 within 300 characters of prisoners, in both orders, and \"two hundred and eighteen\"; the only hits are an unrelated militia report, a page number and a budget table",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "Stone Sentinels (the page the plan names, SS2)",
+     "query": "the page and its source for 218; a web page is only a lead and the host is not among those reachable for this research",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1 reports of Barnes, Rice, Chamberlain, Fisher and Crawford; OR27-2 reports of Oates, Campbell, Bane, Bryan and Scruggs",
+     "query": "any count of 218 prisoners: none; the counts are 368, 400 and 25, over 500 (brigade) and over 30 (night)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "support": []
+  },
+  {
+   "id": "C-014-P11",
+   "origin": "pdf_default",
+   "pdf_label": "218-368 range shown",
+   "scenario_ids": [
+    "C-014-S3"
+   ],
+   "label": "The plan's recommended default: 218 to 368 shown as a range (no source for 218)",
+   "kind": "count_range",
+   "value": {
+    "low": 218,
+    "high": 368
+   },
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "The plan's own default, the same range as the first value: no writer gives 218, and it leaves out Chamberlain's 400, the colonel's own count."
+   },
+   "failed_lookups": [
+    {
+     "where": "all local non-lead texts of the ledger",
+     "query": "the same searches as the value 218-368: no source for 218 and none that gives the range",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "support": []
+  },
+  {
+   "id": "C-014-P2",
+   "origin": "research",
+   "label": "368 prisoners sent to the rear after the 20th Maine's counter-charge (Barnes's report)",
+   "kind": "count",
+   "value": {
+    "n": 368
+   },
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-014-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R189",
+     "page": "603",
+     "page_basis": "scan_leaf",
+     "text_offset": 2118306,
+     "quote": "368 prisoners, including 1 colonel, 1 lieutenant-colonel, and a dozen other officers of lesser rank were sent to the rear",
+     "witness": {
+      "name": "James Barnes",
+      "role": "Brigadier General, commanding the 1st Division, V Corps (the 20th Maine's division)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-24",
+      "kind": "official_report"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "barnes",
+     "exact": true,
+     "states": {
+      "numbers": [
+       368
+      ]
+     },
+     "note": "Barnes, report of 24 August 1863 (53 days after): after the 20th Maine's bayonet charge, \"368 prisoners, including 1 colonel, 1 lieutenant-colonel, and a dozen other officers of lesser rank were sent to the rear\". He says the record of Vincent's brigade is \"drawn principally from the report of its commander\"; he was not at the ledge and does not say how the 368 was counted."
+    }
+   ]
+  },
+  {
+   "id": "C-014-P3",
+   "origin": "research",
+   "label": "400 prisoners sent to the rear in front of the 20th Maine (Chamberlain's report)",
+   "kind": "count",
+   "value": {
+    "n": 400
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-014-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "625",
+     "page_basis": "scan_leaf",
+     "text_offset": 2193302,
+     "quote": "Four hundred prisoners, including two field and several line officers, were sent to the rear. These were mainly from the Fifteenth and Forty-seventh Alabama Regiments, with some of the Fourth and Fifth Texas",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, commanding the 20th Maine Infantry",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": true,
+     "states": {
+      "numbers": [
+       400
+      ]
+     },
+     "note": "Chamberlain, report of 6 July 1863 (four days after), after his regiment's bayonet charge and return to its position: \"Four hundred prisoners, including two field and several line officers, were sent to the rear\", mainly from the 15th and 47th Alabama with some of the 4th and 5th Texas. A round figure; he does not say how it was counted or whether wounded men are in it."
+    },
+    {
+     "id": "C-014-P3-c2",
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page": "113",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 114 follows the passage)",
+     "text_offset": 238951,
+     "quote": "Vincent's other regiments took their full share, and a total of four hundred for the brigade does not seem excessive",
+     "witness": {
+      "name": "Oliver W. Norton",
+      "role": "Private, 83rd Pennsylvania, Vincent's brigade (book of 1913)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "norton",
+     "exact": false,
+     "states": {
+      "numbers": [
+       400
+      ]
+     },
+     "note": "Norton, 1913 (50 years after), answering Oates: he reads the 400 as a total \"for the brigade\", since the prisoners included men of the 4th and 48th Alabama and the 4th and 5th Texas and the brigade's other regiments \"took their full share\". It is the only place a writer says what the 400 counts; Chamberlain's report says they were sent to the rear in front of his regiment."
+    }
+   ]
+  },
+  {
+   "id": "C-014-P4",
+   "origin": "pdf_value",
+   "pdf_label": "400+25",
+   "scenario_ids": [
+    "C-014-S2"
+   ],
+   "label": "400 plus 25: the counter-charge and the night advance up Great Round Top (Chamberlain's report)",
+   "kind": "count",
+   "value": {
+    "parts": [
+     400,
+     25
+    ]
+   },
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "The 25 were taken in the night advance, hours after the counter-charge; they are a separate count, shown beside the 368 to 400 and not added to it."
+   },
+   "support": [
+    {
+     "id": "C-014-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "625",
+     "page_basis": "scan_leaf",
+     "text_offset": 2193302,
+     "quote": "Four hundred prisoners, including two field and several line officers, were sent to the rear",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, commanding the 20th Maine Infantry",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": true,
+     "states": {
+      "numbers": [
+       400
+      ]
+     },
+     "note": "Chamberlain, report of 6 July 1863: the 400 sent to the rear after the counter-charge; with the 25 of the night advance this is the plan's \"400+25\"."
+    },
+    {
+     "id": "C-014-P4-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "625",
+     "page_basis": "scan_leaf",
+     "text_offset": 2195180,
+     "quote": "In the silent advance in the darkness we laid hold of 25 prisoners, among them a staff officer of General",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, commanding the 20th Maine Infantry",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": true,
+     "states": {
+      "numbers": [
+       25
+      ]
+     },
+     "note": "Chamberlain, same report: the regiment's night advance up Great Round Top, ordered by Rice after dark with about 200 men, \"laid hold of 25 prisoners\", among them a staff officer of General Law. A separate event, hours after the counter-charge."
+    }
+   ]
+  },
+  {
+   "id": "C-014-P5",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-014-S4",
+    "C-014-DEFAULT"
+   ],
+   "label": "368 to 425: Barnes's figure up to Chamberlain's 400 plus 25 (first pass)",
+   "kind": "count_range",
+   "value": {
+    "low": 368,
+    "high": 425
+   },
+   "derived": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "inference": {
+    "step": "The low end is Barnes's 368; the high end is Chamberlain's 400 and 25 added (425). The sum joins the counter-charge and the night advance, which are different events.",
+    "from": [
+     "C-014-P5-c1",
+     "C-014-P4-c1",
+     "C-014-P4-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Its top adds the 25 of the night advance to the 400 of the counter-charge; the two counts are kept apart, so the shown range stops at 400."
+   },
+   "support": [
+    {
+     "id": "C-014-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R189",
+     "page": "603",
+     "page_basis": "scan_leaf",
+     "text_offset": 2118306,
+     "quote": "368 prisoners, including 1 colonel, 1 lieutenant-colonel, and a dozen other officers of lesser rank were sent to the rear",
+     "witness": {
+      "name": "James Barnes",
+      "role": "Brigadier General, commanding the 1st Division, V Corps (the 20th Maine's division)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-24",
+      "kind": "official_report"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "barnes",
+     "exact": false,
+     "states": {
+      "numbers": [
+       368
+      ]
+     },
+     "note": "Barnes: the low end of the first pass's range 368-425."
+    },
+    {
+     "id": "C-014-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "625",
+     "page_basis": "scan_leaf",
+     "text_offset": 2193302,
+     "quote": "Four hundred prisoners, including two field and several line officers, were sent to the rear",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, commanding the 20th Maine Infantry",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": true,
+     "states": {
+      "numbers": [
+       400
+      ]
+     },
+     "note": "Chamberlain, report of 6 July 1863: the 400 sent to the rear after the counter-charge; with the 25 of the night advance this is the plan's \"400+25\"."
+    },
+    {
+     "id": "C-014-P4-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "625",
+     "page_basis": "scan_leaf",
+     "text_offset": 2195180,
+     "quote": "In the silent advance in the darkness we laid hold of 25 prisoners, among them a staff officer of General",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, commanding the 20th Maine Infantry",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": true,
+     "states": {
+      "numbers": [
+       25
+      ]
+     },
+     "note": "Chamberlain, same report: the regiment's night advance up Great Round Top, ordered by Rice after dark with about 200 men, \"laid hold of 25 prisoners\", among them a staff officer of General Law. A separate event, hours after the counter-charge."
+    }
+   ]
+  },
+  {
+   "id": "C-014-P6",
+   "origin": "research",
+   "label": "302 prisoners (the regiment's own monument of 1886)",
+   "kind": "count",
+   "value": {
+    "n": 302
+   },
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "inference": {
+    "step": "The inscription states 302; it is taken as the survivors' own count of 1886, which names no source and rests on no record found.",
+    "from": [
+     "C-014-P6-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "A count by survivors 23 years later, with no source named; the reports of 1863 by the colonel and the brigade give 368 to 400, though the lower figure is the regiment's own."
+   },
+   "support": [
+    {
+     "id": "C-014-P6-c1",
+     "source": "ME-GB-1898",
+     "source_class": "book",
+     "page": "249",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 249 stands before the inscription)",
+     "text_offset": 680877,
+     "quote": "REPULSED THE ATTACK OF THE EXTREME RIGHT OF LoNGSTREET'S CORPS AND CHARGED IN TURN CAPTURING 302 PRISONERS",
+     "witness": {
+      "name": "Survivors of the 20th Maine (monument committee)",
+      "role": "Inscription of the regiment's monument of 1886 on Little Round Top, printed in Maine at Gettysburg (1898)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1886",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "monument",
+     "exact": true,
+     "states": {
+      "numbers": [
+       302
+      ]
+     },
+     "note": "The inscription of the 20th Maine's own monument, set up by the survivors in 1886 (23 years after) and printed in the Maine volume of 1898: the regiment, \"forming the extreme left of the national line of battle on the 2nd day of July 1863\", repulsed the attack and \"charged in turn capturing 302 prisoners\". It names no source for the figure."
+    }
+   ]
+  },
+  {
+   "id": "C-014-P7",
+   "origin": "research",
+   "label": "Over 300 prisoners (Melcher 1888, Gerrish 1882, Minnigh 1892)",
+   "kind": "count",
+   "value": {
+    "n": 300
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "memoir_only"
+   ],
+   "inference": {
+    "step": "Three later writers, two of them men of the regiment, say \"over three hundred\"; the figure is read as a round count of 300 or more, which each states without a source.",
+    "from": [
+     "C-014-P7-c1",
+     "C-014-P7-c2",
+     "C-014-P7-c3"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "Three later accounts, two by men of the regiment, give \"over 300\" with no source; the colonel's report of four days after and Barnes's count are of a better class."
+   },
+   "support": [
+    {
+     "id": "C-014-P7-c1",
+     "source": "BL-3",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the article begins on page 314 by the contents list of the volume; the OCR text has no page heads near the passage, so the printed page was not read",
+     "text_offset": 1326588,
+     "quote": "fell into our hands, [...] over three hundred prisoners and all the wounded",
+     "witness": {
+      "name": "H. S. Melcher",
+      "role": "Lieutenant, 20th Maine, in the counter-charge (article in Battles and Leaders, vol. 3)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1888",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "melcher",
+     "exact": true,
+     "states": {
+      "numbers": [
+       300
+      ]
+     },
+     "note": "Melcher, Battles and Leaders (1888, 25 years after): Bulger, the 47th Alabama's lieutenant colonel, \"fell into our hands, with over three hundred prisoners and all the wounded\"; the regiment returned with its prisoners. In the same paragraph he says Company B's men made over one hundred of the fugitives surrender. He gives no way of counting."
+    },
+    {
+     "id": "C-014-P7-c2",
+     "source": "GERRISH-1882-C013",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the passage stands between the running heads of pages 110 and 112 of the text; the printed page was not read on the page image",
+     "text_offset": 200753,
+     "quote": "We captured over three hundred prisoners, and a detachment sent out to bury the dead found fifty dead rebels",
+     "witness": {
+      "name": "Theodore Gerrish",
+      "role": "Private, 20th Maine (book of 1882)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1882",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "gerrish",
+     "exact": false,
+     "states": {
+      "numbers": [
+       300
+      ]
+     },
+     "note": "Gerrish, Army Life (1882, 19 years after), a private of the 20th Maine: \"We captured over three hundred prisoners\", and a burying party found fifty dead where they had fought. He says in the previous lines that a band of men from Company B \"capture at least a hundred prisoners\"."
+    },
+    {
+     "id": "C-014-P7-c3",
+     "source": "MINNIGH-1892-SCAN-A",
+     "source_class": "book",
+     "page": "36",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 36 stands before the passage)",
+     "text_offset": 52666,
+     "quote": "they rushed against Laivs' soldiers, who were driven from the valley, leaving over 300 prisoners",
+     "witness": {
+      "name": "Luther W. Minnigh",
+      "role": "Author of a visitors' guide to Gettysburg (1892)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1892",
+      "kind": "later_history"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "minnigh",
+     "exact": false,
+     "states": {
+      "numbers": [
+       300
+      ]
+     },
+     "note": "Minnigh, guidebook of 1892: after the 20th Maine's counter-charge the Confederates were driven from the valley \"leaving over 300 prisoners\". No source named."
+    }
+   ]
+  },
+  {
+   "id": "C-014-P8",
+   "origin": "research",
+   "label": "Over 500 prisoners for the whole brigade (Rice's report)",
+   "kind": "count",
+   "value": {
+    "n": 500
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It counts all four regiments of the brigade and the evening advance, not the 20th Maine's front alone."
+   },
+   "support": [
+    {
+     "id": "C-014-P8-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R195",
+     "page": "618",
+     "page_basis": "scan_leaf",
+     "text_offset": 2171765,
+     "quote": "had taken and sent to the rear over 500 prisoners, including 2 colonels and 15 commissioned officers, together with over 1,000 stand of arms belonging to the enemy",
+     "witness": {
+      "name": "James C. Rice",
+      "role": "Colonel, commanding the Third Brigade (the 20th Maine's brigade) after Vincent fell",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "rice",
+     "exact": true,
+     "states": {
+      "numbers": [
+       500
+      ]
+     },
+     "note": "Rice, report of 31 July 1863 (29 days after): by 9 o'clock in the evening the brigade \"had taken and sent to the rear over 500 prisoners, including 2 colonels and 15 commissioned officers\". This counts the whole brigade (four regiments, the counter-charge and the evening advance), not the 20th Maine alone; Barnes repeats it from Rice."
+    }
+   ]
+  },
+  {
+   "id": "C-014-P9",
+   "origin": "research",
+   "label": "At most 238 from the 15th and 47th Alabama (84 of the 15th unwounded), by Oates from muster rolls",
+   "kind": "count_range",
+   "value": {
+    "low": 84,
+    "high": 238
+   },
+   "derived": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "memoir_only",
+    "contradicted"
+   ],
+   "inference": {
+    "step": "Oates writes that the 15th's rolls show 84 captured without wounds and that all 154 men of the 47th's seven companies added would give 238; the range is those two figures. His report of 1863 puts the 15th's missing, dead and wounded included, at 90.",
+    "from": [
+     "C-014-P9-c1",
+     "C-014-P9-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It counts the unwounded men of two Alabama regiments from rolls seen only through a book of 1905; the Union reports count all prisoners sent to the rear, which included Texans and others."
+   },
+   "support": [
+    {
+     "id": "C-014-P9-c1",
+     "source": "OATES-1905-C016",
+     "source_class": "book",
+     "page": "216",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 216 stands before the passage)",
+     "text_offset": 591346,
+     "quote": "I have examined the muster rolls of the companies of the Fifteenth, made soon after the battle, in which the names were given of the captured without wounds, and there was a total of but eighty-four [...] If every man in the seven companies of the Forty-seventh which went into the action (only one hundred and fifty-four) were included it would make but two hundred and thirty-eight",
+     "witness": {
+      "name": "William C. Oates",
+      "role": "Colonel, commanding the 15th Alabama Infantry",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1905",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "oates",
+     "exact": true,
+     "states": {
+      "numbers": [
+       84,
+       154,
+       238
+      ]
+     },
+     "note": "Oates, The War between the Union and the Confederacy (1905, 42 years after), answering Captain Prince's \"four hundred prisoners\" of 1889: the 15th Alabama's muster rolls, made soon after the battle, show 84 captured without wounds; even if every man of the 47th's seven companies (154) were counted, the two regiments would give but 238, and at least a hundred and twenty of the 47th escaped. He calls 400 \"egregiously mistaken\". The rolls were not seen; this is his account of them."
+    },
+    {
+     "id": "C-014-P9-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R444",
+     "page": "393",
+     "page_basis": "scan_leaf",
+     "text_offset": 1454500,
+     "quote": "My loss was, as near as can now be ascertained, as follows, to wit: 17 killed upon the field, 54 wounded and brought off the field, and 90 missing, most of whom are either killed or wounded",
+     "witness": {
+      "name": "William C. Oates",
+      "role": "Colonel, commanding the 15th Alabama Infantry",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-08",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "oates",
+     "exact": false,
+     "states": {
+      "numbers": [
+       17,
+       54,
+       90
+      ]
+     },
+     "note": "Oates's own report of 8 August 1863 (the print reads \"Gates\"): the 15th Alabama lost 17 killed, 54 wounded and 90 missing, \"most of whom are either killed or wounded\". The whole regiment's missing, dead and wounded included, number 90; it cannot have yielded most of 400 prisoners."
+    }
+   ]
+  },
+  {
+   "id": "C-014-P10",
+   "origin": "research",
+   "label": "Over 30 prisoners in the night ascent of Great Round Top (Fisher; Crawford) by three regiments",
+   "kind": "count",
+   "value": {
+    "n": 30
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It is the night count for three regiments climbing together; it does not count the 20th Maine's counter-charge, and Chamberlain's own part of it is the 25."
+   },
+   "support": [
+    {
+     "id": "C-014-P10-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R220",
+     "page": "658",
+     "page_basis": "scan_leaf",
+     "text_offset": 2308548,
+     "quote": "at 10 p. m. ascended the hill, which was occupied by a full brigade of the enemy. We went up steadily in line of battle, taking over 30 prisoners in our ascent",
+     "witness": {
+      "name": "Joseph W. Fisher",
+      "role": "Colonel, commanding the Third Brigade, 3rd Division (Pennsylvania Reserves), V Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "fisher",
+     "exact": true,
+     "states": {
+      "numbers": [
+       30
+      ]
+     },
+     "note": "Fisher, report of 9 July 1863: with the 5th and 12th Reserves and the 20th Maine he went up Great Round Top at 10 p. m. in line of battle \"taking over 30 prisoners in our ascent\". The night's count for three regiments; Chamberlain's 25 is his own regiment's part."
+    }
+   ]
+  }
+ ],
+ "weighing": {
+  "summary": "The 20th Maine's counter-charge sent prisoners to the rear: the colonel who led it says four hundred (6 July 1863), the division commander writing from the brigade's reports says 368 (24 August). Rice's over 500 is the whole brigade to 9 p. m.; Fisher's over 30 and Chamberlain's 25 are the night advance. Against them stand the regiment's own survivors (302 on the monument of 1886, over 300 in Melcher, Gerrish and Minnigh) and Oates, who argues from Confederate muster rolls that the 15th and 47th Alabama together could give at most 238, 84 of the 15th being unwounded captures; his report of 1863 has the 15th's missing, dead and wounded included, at 90. The reports of 1863 outrank the later figures, so 368 to 400 is the default, weighted, not settled: the figure a Confederate commander gives for his own regiment does not fit \"mainly from the 15th and 47th Alabama\", and nobody says how 368 or 400 was counted.",
+  "who": "Chamberlain commanded the regiment and was at the ledge; Rice commanded the brigade there; Barnes commanded the division and says he drew the story of the brigade from Rice's report, so he relays. Melcher, Gerrish and the monument committee were men of the regiment; Minnigh wrote a guide. Fisher led the brigade that came up at dusk. Oates commanded the 15th Alabama, the regiment that fought the 20th Maine, and wrote both a report of 1863 and the book of 1905; Norton, a private of the brigade, defends the 400 as a brigade total.",
+  "when": "Chamberlain wrote four days after, Rice 29 days, Barnes 53 days (all reports, the best class); the monument and the Maine volume are 23 and 35 years after; Gerrish 19, Melcher 25, Minnigh 29 years; Oates's report is 37 days after (8 August 1863) and his book 42 years. A report of the time outranks later figures; the lower figures of the regiment's own men (302, over 300) are later memory but come from men who were there.",
+  "where": "Chamberlain, Rice, Melcher and Gerrish stood on the ledge or in the charge and saw the prisoners gathered; Barnes was elsewhere and relays; Oates was on the other side of the ledge and counts from rolls he examined afterward; Fisher came up at dusk.",
+  "how_knew": "Chamberlain and Rice give no method for their counts. Barnes names Rice's report as his base and gives no method for 368. Oates names the muster rolls of the 15th and the 154 men of the 47th's seven companies. The monument and the three later writers name no source.",
+  "clock": "Not applicable to the counts, but the 25 and the over 30 belong to the night (Chamberlain's advance began after dark and Fisher's at 10), the others to the counter-charge in the late afternoon. The reported difference between the armies' clocks is not applied and bears on no figure.",
+  "independence": "368 and 400 are two counts from one chain (the regiment's own tally); Barnes's report is built on the brigade's, and Chamberlain's 400 is repeated by Prince (1889), the Maine volume (1898) and Norton's reading of it; so each is flagged single-source. The three later \"over 300\" are three writers who name no source and are flagged memoir-only. Oates is one witness, and his 1863 report and 1905 book are one line."
+ },
+ "source_panel_text": "368 to 400 prisoners were sent to the rear after the 20th Maine's counter-charge on Jul 2: Barnes's report says 368, Chamberlain's own report four hundred; his 25 more at night are counted apart. The regiment's monument says 302; Oates, from Confederate rolls, argues for far fewer. The plan's 218 has no source. Nine other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "The range 218 to 368 does not hold: its low end has no source (the only nearby figure is Oates's ceiling of 238 for two regiments) and it leaves out Chamberlain's 400, the colonel's own count. Its high end, 368, is Barnes's figure and is kept."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "The first pass's 368 and 400 hold. Its high end of 425 adds the 25 taken in the night advance to the 400 of the counter-charge, two different events, so the shown range stops at 400 and the 25 stay a separate value. The first pass called 368 and 400 plus 25 documented; they are, as claims in reports, but nobody says how they were counted and Oates's evidence points lower."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T2-165",
+   "must_change": true,
+   "note": "Row \"Jul 2 ~17:30\" says \"Prisoners 218-368 (SS2) vs 400 plus 25 on the night advance (Chamberlain)\" with the 218 and the SS2 attribution unsourced; under this resolution the figure is 368 to 400 sent to the rear (Barnes, Chamberlain) with the 25 separate, and 218 has no source."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-215",
+   "must_change": false,
+   "note": "Row \"Jul 2 ~21:00\": the night advance takes 25 prisoners (Chamberlain): unchanged; Fisher adds over 30 for three regiments."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-223",
+   "must_change": false,
+   "note": "Row \"Jul 2 ~22:00\": Chamberlain's night advance (25 prisoners): unchanged."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-014)",
+   "must_change": true,
+   "note": "default_scenario_id C-014-DEFAULT, \"range 368-425 (Barnes 368; Chamberlain 400+25); 500+ brigade-wide shown separately\": the high end becomes 400 with the 25 shown beside it, and the new values (302, over 300, at most 238, over 30) are added as selectable scenarios."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-014)",
+   "must_change": true,
+   "note": "First delegated default: the same change as the app copy."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/build_arrivals.py line 730 (unit_conflicts: C-014 on us-5c-1d-vincent-20me) and tools/bt/conflicts_structured_data.py",
+   "must_change": false,
+   "note": "They name the conflict for the 20th Maine's unit and carry the PDF values; no row of arrivals.json carries C-014 and no gate reads the prisoner count."
+  },
+  {
+   "kind": "gate",
+   "ref": "CF-1 to CF-8 (GATE-SPEC.md line 785 and GATE-SPEC-A.md line 466)",
+   "must_change": false,
+   "note": "The conflict gate asks that every value be selectable and the default flagged where it has fewer than two independent non-lead sources; both default positions carry the single-source flag."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-014 row)",
+   "must_change": true,
+   "note": "The row says Barnes 368, Chamberlain 400+25, Rice 500+ and 218 unsourced; the reconciliation (range 368-400, the 25 apart, the survivors' 302 and Oates's rolls) is recorded by the integration step."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0103.md",
+   "must_change": false,
+   "note": "Names C-014 among items resting on participant reports written weeks to months after the event; unchanged."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0109.md",
+   "must_change": true,
+   "note": "The entry says the plan's floor 218 was not found and Barnes gives 368 (+25) and Chamberlain 400 (+25); Barnes does not give 25, which is Chamberlain's night count; the entry should follow this resolution."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-014",
+   "must_change": false,
+   "note": "Log line stays PENDING OWNER; this is a delegated default."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "all local non-lead texts of the ledger",
+   "query": "218 within 300 characters of prisoners (and \"two hundred and eighteen\") in both orders; and any count of prisoners taken by the 20th Maine other than 368, 400, 25, 302, over 300, over 500 and over 30",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-1 reports of Ward-side units; OR27-2 reports of Campbell (47th Alabama), Bane (4th Texas), Bryan (5th Texas), Scruggs (4th Alabama)",
+   "query": "a Confederate count of men captured or missing in the fight against the 20th Maine: Campbell gives about one third of his men killed and wounded and no missing; Bane, Bryan and Scruggs give no count of prisoners; only Oates gives missing (90, most dead or wounded)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Stone Sentinels (SS2), Prince 1889 address, Chamberlain 1889 address, regimental muster rolls of the 15th and 47th Alabama",
+   "query": "the web page the plan names, the address in which Prince repeated the 400, and the rolls Oates examined: not local and not among the reachable hosts",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "The Confederate muster rolls or the Union provost's receipt for the prisoners delivered to the rear on 2-3 July 1863 would give a count that does not depend on Chamberlain's or Barnes's word. A report of the 47th Alabama or the Texas regiments with a missing figure would test Chamberlain's \"mainly from the Fifteenth and Forty-seventh\". The source behind the plan's 218 would add that value."
+}

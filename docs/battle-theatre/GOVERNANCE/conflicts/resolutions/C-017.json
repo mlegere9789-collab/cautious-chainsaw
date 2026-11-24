@@ -1,0 +1,660 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-017",
+ "topic": "Who replaced Sickles",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-017",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Who replaced Sickles | Birney; Hancock | Birney (corps), Hancock overseeing the | sector | Hancock",
+  "values": [
+   "Birney",
+   "Hancock"
+  ],
+  "recommended_default": "Birney (corps), Hancock overseeing the sector",
+  "selectable_alternatives": [
+   "Hancock"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-017-DEFAULT",
+  "default_label": "Birney (corps), Hancock overseeing the sector",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-017-S1",
+   "C-017-S2",
+   "C-017-S3",
+   "C-017-DEFAULT"
+  ]
+ },
+ "class": "settled",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Hancock's report (Official Records 27/1, p. 370): Meade, told that Sickles was wounded, 'directed me to assume command of the Third Corps in addition to that of my own' and the immediate command of the Third passed to Birney. Birney (7 Aug 1863, p. 483), Sickles and Humphreys (sworn, Feb and Mar 1864) and Meade's report (p. 116) put Birney in command of the corps; Hancock and Gibbon (p. 416), and the note of the order of battle, have Hancock put over it. French came later (orders of 7 Jul)."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-017-P3"
+  ],
+  "label": "Birney (corps), Hancock overseeing the sector: Birney commanded the corps, Hancock was placed over it",
+  "note": "The two answers are to two questions: who held the corps (Birney, from about 6 p.m. on 2 July) and who was placed in command above him (Hancock, by Meade's order the same evening, with the Second Corps left to Gibbon). 'Overseeing the sector' is the plan's word for Hancock's command; the sources say 'command of the Third Corps in addition to that of my own'. French, ordered on 7 July, is the later commander."
+ },
+ "positions": [
+  {
+   "id": "C-017-P1",
+   "origin": "pdf_value",
+   "pdf_label": "Birney",
+   "scenario_ids": [
+    "C-017-S1"
+   ],
+   "source_keys": [],
+   "label": "Birney: Major General David B. Birney took the immediate command of the Third Corps when Sickles fell",
+   "kind": "person",
+   "value": {
+    "text": "Birney"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-017-P1-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "370",
+     "page_basis": "scan_leaf",
+     "text_offset": 1292922,
+     "quote": "directed me to assume command of the Third Corps in addition to that of my own. By this arrangement, the immediate command of the Second Corps devolved again upon General Gibbon, and that of the Third upon General Birney",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding Second Corps; ordered by Meade to take command of the Third Corps as well",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-24",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hancock",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "Birney"
+      ]
+     },
+     "note": "Hancock's report (date blank in the print; forwarded before 24 Oct 1863): Meade told him Sickles was wounded and 'directed me to assume command of the Third Corps in addition to that of my own'; the immediate command of the Third passed to Birney. 'Overseeing the sector' is the plan's phrase, not Hancock's."
+    },
+    {
+     "id": "C-017-P1-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R133",
+     "page": "483",
+     "page_basis": "scan_leaf",
+     "text_offset": 1691811,
+     "quote": "At 6 o'clock I found Major-General Sickles seriously wounded, and, at his request, took command of the troops",
+     "witness": {
+      "name": "David B. Birney",
+      "role": "Major General, commanding First Division, Third Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "birney",
+     "exact": false,
+     "states": {
+      "times": [
+       "06:00"
+      ]
+     },
+     "note": "Birney's report of 7 Aug 1863: at 6 o'clock he found Sickles seriously wounded and, at Sickles' request, took command of the troops; he then ordered Humphreys' change of front."
+    },
+    {
+     "id": "C-017-P1-c3",
+     "source": "JCCW-1865-V1-C039",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer; sworn testimony of 26 Feb 1864",
+     "text_offset": 1400181,
+     "quote": "The command of the 3d corps then devolved on Major General Birney",
+     "witness": {
+      "name": "Daniel E. Sickles",
+      "role": "Major General, commanding Third Corps; wounded on 2 July",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-02-26",
+      "kind": "early_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "sickles",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "Birney"
+      ]
+     },
+     "note": "Sickles, sworn before the Joint Committee, 26 Feb 1864: after he was wounded the command of the Third Corps devolved on Birney, who 'continued in command of the corps' for the rest of the campaign."
+    },
+    {
+     "id": "C-017-P1-c4",
+     "source": "JCCW-1865-V1-C039",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer; sworn testimony of 21 Mar 1864",
+     "text_offset": 1815107,
+     "quote": "I received an order from General Birney informing me that General Sickles was wounded, and that he had succeeded to the command of the corps",
+     "witness": {
+      "name": "Andrew A. Humphreys",
+      "role": "Brigadier General, commanding Second Division, Third Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-21",
+      "kind": "early_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "humphreys",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "Birney"
+      ]
+     },
+     "note": "Humphreys, sworn 21 Mar 1864: at the height of the fight he received Birney's order saying Sickles was wounded and that Birney had succeeded to the command of the corps."
+    },
+    {
+     "id": "C-017-P1-c5",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "116",
+     "page_basis": "scan_leaf",
+     "text_offset": 393308,
+     "quote": "the stubborn resistance of the Third Corps, under Major-General Birney",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "Birney"
+      ]
+     },
+     "note": "Meade's report of the battle (1 Oct 1863): 'the Third Corps, under Major-General Birney (Major-General Sickles having been wounded early in the action)'."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "True for the immediate command of the corps, and part of the default: Birney held the corps from about 6 p.m. on 2 July, with Hancock placed over it by Meade the same evening."
+   }
+  },
+  {
+   "id": "C-017-P2",
+   "origin": "pdf_value",
+   "pdf_label": "Hancock",
+   "scenario_ids": [
+    "C-017-S2"
+   ],
+   "source_keys": [],
+   "label": "Hancock: Meade directed Hancock to take command of the Third Corps in addition to the Second",
+   "kind": "person",
+   "value": {
+    "text": "Hancock"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-017-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "370",
+     "page_basis": "scan_leaf",
+     "text_offset": 1292922,
+     "quote": "directed me to assume command of the Third Corps in addition to that of my own. By this arrangement, the immediate command of the Second Corps devolved again upon General Gibbon, and that of the Third upon General Birney",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding Second Corps; ordered by Meade to take command of the Third Corps as well",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-24",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hancock",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "Birney"
+      ]
+     },
+     "note": "Hancock's report (date blank in the print; forwarded before 24 Oct 1863): Meade told him Sickles was wounded and 'directed me to assume command of the Third Corps in addition to that of my own'; the immediate command of the Third passed to Birney. 'Overseeing the sector' is the plan's phrase, not Hancock's."
+    },
+    {
+     "id": "C-017-P2-c2",
+     "source": "JCCW-1865-V1-C039",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer; sworn testimony of 22 Mar 1864",
+     "text_offset": 1884111,
+     "quote": "he sent word to me to go and take command of the 3d corps. I then turned the command of the 2d corps over to General Gibbon",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding Second Corps; ordered by Meade to take command of the Third Corps as well",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-22",
+      "kind": "early_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hancock",
+     "exact": true,
+     "states": {},
+     "note": "Hancock, sworn 22 Mar 1864: Meade, told that Sickles was wounded 'so as to be unable to continue in command', sent word to him to take command of the Third Corps; he turned the Second over to Gibbon and met Birney, 'then in command of General Sickles's corps'."
+    },
+    {
+     "id": "C-017-P2-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R098",
+     "page": "416",
+     "page_basis": "scan_leaf",
+     "text_offset": 1456894,
+     "quote": "during the battle of the 2d, when General Hancock was ordered to take command of the Third Corps",
+     "witness": {
+      "name": "John Gibbon",
+      "role": "Brigadier General, commanding Second Division, Second Corps; in command of the Second Corps when Hancock went to the Third",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "gibbon",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "Hancock"
+      ]
+     },
+     "note": "Gibbon's report of 7 Aug 1863: he was twice placed in command of the Second Corps, 'again during the battle of the 2d, when General Hancock was ordered to take command of the Third Corps'."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "True for the command above the corps, and part of the default: Meade placed Hancock over the Third Corps with the Second, with Birney in immediate command of the Third."
+   }
+  },
+  {
+   "id": "C-017-P3",
+   "origin": "pdf_default",
+   "pdf_label": "Birney (corps), Hancock overseeing the sector",
+   "scenario_ids": [
+    "C-017-S3",
+    "C-017-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "Birney (corps), Hancock overseeing the sector: Birney in immediate command, Hancock placed over the Third Corps by Meade",
+   "kind": "category",
+   "value": {
+    "text": "Birney in immediate command of the Third Corps; Hancock, by Meade's order, in command of the Third Corps in addition to the Second"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-017-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "370",
+     "page_basis": "scan_leaf",
+     "text_offset": 1292922,
+     "quote": "directed me to assume command of the Third Corps in addition to that of my own. By this arrangement, the immediate command of the Second Corps devolved again upon General Gibbon, and that of the Third upon General Birney",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding Second Corps; ordered by Meade to take command of the Third Corps as well",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-24",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hancock",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "Birney"
+      ]
+     },
+     "note": "Hancock's report (date blank in the print; forwarded before 24 Oct 1863): Meade told him Sickles was wounded and 'directed me to assume command of the Third Corps in addition to that of my own'; the immediate command of the Third passed to Birney. 'Overseeing the sector' is the plan's phrase, not Hancock's."
+    },
+    {
+     "id": "C-017-P3-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R098",
+     "page": "416",
+     "page_basis": "scan_leaf",
+     "text_offset": 1456935,
+     "quote": "General Hancock was ordered to take command of the Third Corps",
+     "witness": {
+      "name": "John Gibbon",
+      "role": "Brigadier General, commanding Second Division, Second Corps; in command of the Second Corps when Hancock went to the Third",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "gibbon",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Hancock"
+      ]
+     },
+     "note": "Gibbon: Hancock ordered to take command of the Third Corps; independent of Hancock on the order, silent on Birney."
+    },
+    {
+     "id": "C-017-P3-c3",
+     "source": "JCCW-1865-V1-C039",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer; sworn testimony of 21 Mar 1864",
+     "text_offset": 1815107,
+     "quote": "I received an order from General Birney informing me that General Sickles was wounded, and that he had succeeded to the command of the corps",
+     "witness": {
+      "name": "Andrew A. Humphreys",
+      "role": "Brigadier General, commanding Second Division, Third Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-21",
+      "kind": "early_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "humphreys",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Birney"
+      ]
+     },
+     "note": "Humphreys: Birney in command of the corps; independent of Hancock."
+    },
+    {
+     "id": "C-017-P3-c4",
+     "source": "JCCW-1865-V1-C039",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer; sworn testimony of 26 Feb 1864",
+     "text_offset": 1400181,
+     "quote": "The command of the 3d corps then devolved on Major General Birney",
+     "witness": {
+      "name": "Daniel E. Sickles",
+      "role": "Major General, commanding Third Corps; wounded on 2 July",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-02-26",
+      "kind": "early_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "sickles",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Birney"
+      ]
+     },
+     "note": "Sickles: Birney in command after him."
+    }
+   ]
+  },
+  {
+   "id": "C-017-P4",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "French: Major General William H. French, ordered to the Third Corps on 7 Jul 1863, the later commander",
+   "kind": "person",
+   "value": {
+    "text": "French"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "different_event",
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-017-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R134",
+     "page": "488",
+     "page_basis": "scan_leaf",
+     "text_offset": 1701195,
+     "quote": "by virtue of orders received from headquarters Army of the Potomac, dated July 7, at Frederick, Md., I joined the Third Army Corps",
+     "witness": {
+      "name": "William H. French",
+      "role": "Major General; ordered to the Third Corps on 7 July 1863",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "french",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-07"
+      ]
+     },
+     "note": "French's report of 1 Oct 1863: ordered to the Third Corps by orders dated 7 July at Frederick; he signs as commanding the Third Corps on 12 July (OR27-3 p. 665); Birney signs as commanding the Third Corps on 7 July (OR27-3 p. 586)."
+    },
+    {
+     "id": "C-017-P4-c2",
+     "source": "OR27-3",
+     "source_class": "primary",
+     "part": "OR27-3-D1395",
+     "page": "665",
+     "page_basis": "scan_leaf",
+     "text_offset": 1769554,
+     "quote": "WM. H. FRENCH, Major-General, Commanding Third Corps",
+     "witness": {
+      "name": "William H. French",
+      "role": "Major General; ordered to the Third Corps on 7 July 1863",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "french",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "French"
+      ]
+     },
+     "note": "French's dispatch to Humphreys of 12 July 1863, signed as commanding the Third Corps (OR27-3 p. 665)."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "French came to the corps after the battle (orders of 7 July); the conflict asks who took the corps when Sickles fell on 2 July, which was Birney, with Hancock over him."
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "The sources do not conflict. Birney, Sickles, Humphreys and Meade say Birney commanded the Third Corps when Sickles fell; Hancock and Gibbon (and the note to the order of battle in the Official Records) say Meade put Hancock in command of the Third Corps in addition to his own; Hancock says in one sentence that the immediate command of the Second passed to Gibbon and that of the Third to Birney. Both are true at different levels: Birney held the corps, Hancock was placed over it. Birney's own report says Hancock reached him about 7.30 with a brigade 'at his request' he assigned a position, which fits Hancock acting as the senior officer on the left and Birney as the corps commander. French, ordered to the corps on 7 July, is the later successor, not a rival: Birney signs as commanding the Third Corps on 7 July and French on 12 July. Settled: every other value is explained by the level of command.",
+  "who": "Birney commanded the division that held the left of the corps and took the corps; Sickles was the wounded commander; Humphreys commanded the other division; Hancock was the man Meade placed over the corps; Gibbon took the Second Corps; Meade gave the order; French came on 7 July.",
+  "when": "Birney and Gibbon: 7 Aug 1863 (five weeks); Meade: 1 Oct 1863; Hancock's report: before 24 Oct 1863; the Joint Committee testimony of Sickles (26 Feb 1864), Humphreys (21 Mar 1864) and Hancock (22 Mar 1864) is eight months after, under oath; French: 1 Oct 1863. The note of the order of battle was compiled for the Official Records (1889).",
+  "where": "Sickles lay wounded near the Trostle house about 6 p.m.; Birney found him there; Humphreys was in his division's line; Hancock was at the Second Corps position and rode to the left; Meade was at his headquarters on the Taneytown road.",
+  "how_knew": "Birney acted at Sickles' request; Humphreys received Birney's order; Hancock received Meade's; Gibbon took over the Second Corps from Hancock; Sickles was told by Birney's report and his own handing over; Meade gave the order.",
+  "clock": "Not applicable to the point: who held command. Times named in the sources (Birney: 6 o'clock; Hancock to Birney about 7.30) are Union clock readings and are not used to decide between persons.",
+  "independence": "Birney's, Sickles', Humphreys', Hancock's, Gibbon's and Meade's statements are six lines of knowledge; Hancock's report and his testimony of 1864 are one line (his own), and Gibbon's relays the order. No source says someone else commanded the Third Corps after Sickles fell."
+ },
+ "source_panel_text": "Birney held the immediate command of the Third Corps when Sickles fell on Jul 2 (Birney, Sickles, Humphreys and Meade say so); Meade put Hancock over the corps in addition to his own (Hancock, Gibbon). Both are true at different levels. French, ordered on Jul 7, came later. Three other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "yes",
+   "note": "'Birney (corps), Hancock overseeing the sector' holds as the two levels of command; 'overseeing the sector' is the plan's phrase for Meade's order that Hancock take command of the Third Corps in addition to his own."
+  },
+  "first_delegated": {
+   "holds": "yes",
+   "note": "The first pass kept the plan's default with the OR passages; read in context and with the sworn testimony of 1864 it stands. French (later commander, 7 July) is added as a value."
+  }
+ },
+ "failed_searches": [
+  {
+   "where": "OR27-3 (dispatches of 2 and 3 July) and OR27-1 (Meade, Hancock, Birney, Sickles, Humphreys, Gibbon, Warren)",
+   "query": "Meade's written order or dispatch assigning Hancock to the Third Corps, with the hour, and any order making Birney's command 'temporary': 'Hancock' near 'Third Corps' or '3d Corps' with command, assume, ordered, devolved; only the later accounts of the order (Hancock, Gibbon, the Organization note) found; no text of the order and no hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "ledger texts (BL-3, NJ-TOOMBS, PIERCE, Pennsylvania and New York volumes)",
+   "query": "who commanded the Third Corps after Sickles with Hancock's name: later narratives repeat Hancock 'placed in command of the Third Corps with his own' and Birney 'in temporary command'; none contradicts; none adds an hour for the order",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Official Records 27/1 and 27/3 (Third Corps reports: Ward, Graham, de Trobriand, Carr, Brewster)",
+   "query": "a statement that Hancock, not Birney, gave the Third Corps' orders on the evening of 2 July: none found; Ward and Graham report to Birney, Humphreys to Birney's order",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "Meade's written order of 2 July placing Hancock over the Third Corps (with its hour) or a report that Birney was relieved of the immediate command that evening would change the account; none has been found.",
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-017 row)",
+   "must_change": true,
+   "note": "The first delegated row (Birney (corps), Hancock overseeing the sector, documented) is confirmed with the same default; the value French (later commander) is added as a selectable scenario."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-UNITS-HQ-04 row)",
+   "must_change": false,
+   "note": "New evidence row: default unchanged; this resolution agrees."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 972 row)",
+   "must_change": false,
+   "note": "Section note of the unit-headquarters decisions; no value."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-017",
+   "must_change": true,
+   "note": "Decision-log line (PENDING OWNER) names the plan's default; the resolution confirms it (settled, documented) and records French as a later commander."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "us-3c",
+   "must_change": false,
+   "note": "III Corps row (arrival 20:00 on 1 Jul to 07:00 on 2 Jul) carries C-017 as a topic_other_cell link with the cell 'Jul 7 French replaces Sickles', marked 'different event'; this resolution agrees: French is the later commander (P4), Birney the immediate command from 2 July. No change."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/src/data.mjs line 40 and app/data/conflict-defaults.json (C-017)",
+   "must_change": false,
+   "note": "The labels 'Birney; Hancock', 'Birney (corps), Hancock overseeing the sector' and 'Hancock' and the default stay; the integration step adds the scenario French (later commander) beside them."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/arrivals_data.py line 155 (C-017 topic_other_cell note)",
+   "must_change": false,
+   "note": "The note ('different event, see notes') matches this resolution; no change."
+  }
+ ]
+}

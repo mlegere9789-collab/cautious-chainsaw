@@ -1,0 +1,1095 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-010",
+ "topic": "Sickles’ advance to the Peach Orchard",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-010",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Sickles’ advance to the Peach Orchard | noon; 14:00; 16:00 | 14:00 | noon, 16:00",
+  "values": [
+   "noon",
+   "14:00",
+   "16:00"
+  ],
+  "recommended_default": "14:00",
+  "selectable_alternatives": [
+   "noon",
+   "16:00"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-010-DEFAULT",
+  "default_label": "about 14:00 forming line (Hunt p.234); window to 16:00",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-010-S1",
+   "C-010-S2",
+   "C-010-S3",
+   "C-010-S4",
+   "C-010-S5",
+   "C-010-DEFAULT"
+  ]
+ },
+ "class": "irreducible",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Reports of 1863 and testimony of 1864 by officers of the Third and Second Corps give the move to the Emmitsburg road at about 2 (Craig, Hunt, Austin, De Trobriand), about 3 (Meade 1863, Hancock) and 4 (Gibbon, Humphreys, Hazard); two witnesses (Craig, Humphreys) describe two moves. Randolph dates the announcement between 1 and 2 p. m."
+ },
+ "default": {
+  "mode": "window",
+  "positions": [
+   "C-010-P2",
+   "C-010-P4"
+  ],
+  "label": "About 14:00 to 16:00 on Jul 2: the Third Corps moves up to the Emmitsburg road and the peach orchard",
+  "basis_text": "Lower bound: about 2 p. m., when Graham's brigade moved to the brick house on the road and Hunt found Sickles's line formed in the peach orchard (Craig, Hunt, Austin, De Trobriand). Upper bound: about 4 p. m., when Humphreys's division moved up to the road and Gibbon and Hazard saw the Third Corps advance. The two bounds are two moves of one advance.",
+  "animation": {
+   "at": "1863-07-02T14:00",
+   "rule": "earliest_documented",
+   "note": "The picture starts the Third Corps's move to the road at 14:00, the earliest hour at which a unit of the corps is documented moving to it, and has Humphreys's division close up to the road about 16:00. Nothing is drawn on the road before 14:00; the noon forward move of Humphreys's division short of the road stays selectable."
+  },
+  "note": "A window, not a single hour: the witnesses give 2, 3 and 4 for what they call the advance and nothing in the rubric separates them."
+ },
+ "positions": [
+  {
+   "id": "C-010-P1",
+   "origin": "pdf_value",
+   "pdf_label": "noon",
+   "scenario_ids": [
+    "C-010-S1"
+   ],
+   "label": "Noon: Humphreys's division is formed 400-500 yards forward of its night position (Humphreys)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T12:00",
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "This is the first forward move of one division, 400-500 yards to a line short of the Emmitsburg road; the same men put the move to the road a little after 4, and the peach orchard line about 2."
+   },
+   "support": [
+    {
+     "id": "C-010-P1-c1",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "390",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 391 follows the passage)",
+     "text_offset": 1804951,
+     "quote": "Early in the morning of the 2d of July my division was massed on the left of the 2d corps [...] About 12 o'clock, or a little after, by direction of General Sickles, my division was formed some 400 or 500 yards in front of the position in which it had remained during the night",
+     "witness": {
+      "name": "Andrew A. Humphreys",
+      "role": "Brigadier General, commanding the 2nd Division, III Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-21",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "humphreys",
+     "exact": true,
+     "states": {
+      "times": [
+       "12:00"
+      ],
+      "dates": [
+       "07-02"
+      ],
+      "numbers": [
+       400,
+       500
+      ]
+     },
+     "note": "Humphreys, sworn testimony of 21 March 1864 before the Joint Committee: about 12 o'clock or a little after, by Sickles's direction, his division was formed 400 or 500 yards in front of its night position. He puts the move to the Emmitsburg road itself a little after 4 (see the 16:00 value), so noon is the first of two forward moves of his division."
+    },
+    {
+     "id": "C-010-P1-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R158",
+     "page": "531",
+     "page_basis": "scan_leaf",
+     "text_offset": 1852597,
+     "quote": "Shortly after midday, I was ordered to form my division in line of battle, my left joining the right of the First Division of the Third Corps, Major-General Birney commanding",
+     "witness": {
+      "name": "Andrew A. Humphreys",
+      "role": "Brigadier General, commanding the 2nd Division, III Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-16",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "soon_after",
+     "group": "humphreys",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Shortly after midday"
+      ]
+     },
+     "note": "Humphreys, report of 16 August 1863 (45 days after): shortly after midday he was ordered to form his division in line, its left joining Birney's right, at the foot of the westerly slope below the Emmitsburg road. He gives the hour as \"midday\" in words, not as a clock figure; the same man gives 12 o'clock in 1864."
+    },
+    {
+     "id": "C-010-P1-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R169",
+     "page": "558",
+     "page_basis": "scan_leaf",
+     "text_offset": 1955497,
+     "quote": "At about 1 o'clock on the afternoon of the 2d, I received orders from the brigadier-general commanding the division to move the [...] to the front, and form [...] of battle in rear of the First Bri- gade (then going into position on the right of the First Division)",
+     "witness": {
+      "name": "William R. Brewster",
+      "role": "Colonel, 73rd New York, commanding the Second (Excelsior) Brigade, 2nd Division, III Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-15",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "brewster",
+     "exact": false,
+     "states": {
+      "times": [
+       "13:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Brewster, report of 15 August 1863: about 1 p. m. on the 2d he was ordered by Humphreys to move his brigade to the front and form line in rear of Carr's brigade, which was then going into position. This is the same formation Humphreys dates shortly after midday, one hour later in the brigade commander's account."
+    },
+    {
+     "id": "C-010-P1-c4",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R170",
+     "page": "563",
+     "page_basis": "scan_leaf",
+     "text_offset": 1972715,
+     "quote": "At 8 a. m. of the 2d, the regiment was formed in line of battle, and remained in this position until 1 p. m., when orders were received to advance, halting in rear of the First Brigade and acting as its support",
+     "witness": {
+      "name": "William H. Hugo",
+      "role": "Major, 70th New York (1st Excelsior), Second Brigade, 2nd Division, III Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-14",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hugo",
+     "exact": false,
+     "states": {
+      "times": [
+       "13:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Hugo, report of 14 August 1863: at 1 p. m. orders to advance came; the regiment halted in rear of the First Brigade as its support. An \"advance\" here is the same formation of the division behind Carr's line, not the move to the Emmitsburg road, which he dates 4 o'clock when the regiment engaged."
+    }
+   ]
+  },
+  {
+   "id": "C-010-P2",
+   "origin": "pdf_value",
+   "pdf_label": "14:00",
+   "scenario_ids": [
+    "C-010-S2",
+    "C-010-S4",
+    "C-010-DEFAULT"
+   ],
+   "label": "About 14:00: Graham's brigade moves to the road at the peach orchard; Sickles's line stands there (Craig, Hunt)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T14:00",
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-010-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R139",
+     "page": "500",
+     "page_basis": "scan_leaf",
+     "text_offset": 1743002,
+     "quote": "2d, we moved with the balance of the brigade [...] remained in this position until 2 p. m. We then moved forward with the brigade to a point near the brick house on the Emmitsburg road",
+     "witness": {
+      "name": "Calvin A. Craig",
+      "role": "Colonel, 105th Pennsylvania (Graham's brigade, 1st Division, III Corps)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-11",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "craig",
+     "exact": true,
+     "states": {
+      "times": [
+       "14:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Craig, report of 11 July 1863 (nine days after): until 2 p. m. the regiment stayed in column in rear of the 57th; \"We then moved forward with the brigade\" to a point near the brick house on the Emmitsburg road, where it deployed under heavy artillery fire. This is Graham's brigade, which held the peach orchard; Craig has a second move at 4 p. m."
+    },
+    {
+     "id": "C-010-P2-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R028",
+     "page": "234",
+     "page_basis": "scan_leaf",
+     "text_offset": 773211,
+     "quote": "About 2 p. m. General Sickles formed his corps in line to meet an attack from this direction, his right resting on the Emmitsburg road, in a peach orchard, in advance of the center of our left",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery, Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-27",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hunt",
+     "exact": true,
+     "states": {
+      "times": [
+       "14:00"
+      ],
+      "phrases": [
+       "peach orchard"
+      ]
+     },
+     "note": "Hunt, report of 27 September 1863 (87 days after): about 2 p. m. Sickles formed his corps in line, the right on the Emmitsburg road in a peach orchard, in advance of the center of the left. Hunt says he reached the ground at this time and found Randolph placing his battery on the right, so he saw the line as it stood; he does not describe the move."
+    },
+    {
+     "id": "C-010-P2-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R172",
+     "page": "565",
+     "page_basis": "scan_leaf",
+     "text_offset": 1980608,
+     "quote": "ordered to the front about 10 a. m. of the 2d [...] At 2 p. m. we were ordered to advance across an open field in line",
+     "witness": {
+      "name": "John S. Austin",
+      "role": "Colonel, 72nd New York, Excelsior (Brewster's) Brigade, 2nd Division, III Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-15",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "austin",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Austin, report of 15 August 1863: at 2 p. m. the 72nd New York, the left regiment of the Excelsior Brigade, was ordered to advance across an open field in line of battle, its line parallel to the main road and in rear of the peach orchard; it stayed in line about two hours before falling back. This is Humphreys's division, a part of which was already forward at 2."
+    },
+    {
+     "id": "C-010-P2-c4",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R152",
+     "page": "519",
+     "page_basis": "scan_leaf",
+     "text_offset": 1811839,
+     "quote": "About 2 p. m. the same day, a line of battle was formed in expec- tation of an impending attack from the enemy on our left",
+     "witness": {
+      "name": "P. Regis de Trobriand",
+      "role": "Colonel, 55th New York, commanding the Third Brigade, 1st Division, III Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "trobriand",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:00"
+      ]
+     },
+     "note": "De Trobriand, report (dated July 1863, day not printed): about 2 p. m. of the 2d a line of battle was formed in expectation of an attack on the left, after he joined Birney about 10 o'clock. It dates the forming of the line, not the move to the road."
+    }
+   ]
+  },
+  {
+   "id": "C-010-P3",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-010-S5"
+   ],
+   "label": "About 15:00: Meade finds Sickles advancing; Hancock sees the Third Corps advance (Meade, Hancock, Birney)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T15:00",
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "It lies inside the window and is the middle of the movement: Meade and Hancock saw the corps advancing, not the order, and Gibbon, beside Hancock, says 4."
+   },
+   "support": [
+    {
+     "id": "C-010-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "115-116",
+     "page_basis": "scan_leaf",
+     "text_offset": 389835,
+     "quote": "arriving there at 1 a. m. of the 2d [...] By 7 a. m. the Second and Fifth Corps, with the rest of the Third, had reached the ground [...] the enemy was massing his troops on an exterior ridge [...] At 3 p. m. the Sixth Corps arrived [...] About 3 p. m. I rode out to the extreme [...] Major-General Sickles, commanding the Third Corps, not fully apprehending the instructions in regard to the position to be occupied, had advanced, or rather was in the act of advancing, his corps some half a mile or three-quarters of a mile in front of the line of the Second Corps",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General, commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "meade",
+     "exact": true,
+     "states": {
+      "times": [
+       "15:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Meade, report of 1 October 1863 (91 days after): about 3 p. m. he rode out to the extreme left and found Sickles \"had advanced, or rather was in the act of advancing\" his corps half a mile or three-quarters of a mile in front of the Second Corps's line. It dates Meade's arrival, with the advance in progress."
+    },
+    {
+     "id": "C-010-P3-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "369",
+     "page_basis": "scan_leaf",
+     "text_offset": 1287757,
+     "quote": "took place about 7 a. m. of the 2d [...] no severe fighting took place until about 3 p. m., when the Third Corps advanced from its position toward the Emmitsburg road and became heavily engaged",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding the Second Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-24",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hancock",
+     "exact": true,
+     "states": {
+      "times": [
+       "15:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Hancock, report (the date line is blank in the printed text; an addendum of 24 October 1863 corrects it, so it was written by then): about 3 p. m. the Third Corps advanced from its position toward the Emmitsburg road and became heavily engaged. The Second Corps lay beside the Third; Hancock's own division commander Gibbon says 4 o'clock."
+    },
+    {
+     "id": "C-010-P3-c3",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "366",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 367, General Meade, follows soon after)",
+     "text_offset": 1700018,
+     "quote": "About half past two o'clock in the afternoon the columns of the enemy could be plainly seen from the left of my position, and at [...] o'clock I ordered Clark's rifled battery to open upon them",
+     "witness": {
+      "name": "David B. Birney",
+      "role": "Major General, commanding the 1st Division, III Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-07",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "birney",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:30"
+      ]
+     },
+     "note": "Birney, sworn testimony of 7 March 1864: after the reconnaissance, about half past two the enemy's columns could be seen from his left, and at three he had Clark's battery open; General Meade then rode down with Sickles. It shows his advanced line and the battery standing by three; it does not date the move."
+    },
+    {
+     "id": "C-010-P3-c4",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R185",
+     "page": "589",
+     "page_basis": "scan_leaf",
+     "text_offset": 2067651,
+     "quote": "remaining there without firing until 3 p. m. , when it was ordered to the front. We moved up and took a position near the Emmitsburg",
+     "witness": {
+      "name": "Benjamin Freeborn",
+      "role": "Lieutenant, Battery E, 1st Rhode Island Light Artillery",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-28",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "freeborn",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ]
+     },
+     "note": "Freeborn, report of 28 July 1863: his battery was ordered to the front at 3 p. m. and took position near the Emmitsburg road. It dates one battery's move."
+    }
+   ]
+  },
+  {
+   "id": "C-010-P4",
+   "origin": "pdf_value",
+   "pdf_label": "16:00",
+   "scenario_ids": [
+    "C-010-S3"
+   ],
+   "label": "About 16:00: the Third Corps advances; Humphreys's division moves up to the road (Gibbon, Humphreys, Hazard, Craig)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T16:00",
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-010-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R098",
+     "page": "416",
+     "page_basis": "scan_leaf",
+     "text_offset": 1457023,
+     "quote": "arrived upon the ground on the morning of the 2d [...] At 4 o'clock the Third Corps advanced, and, swinging [...] left flank, took up a position along the Emmitsburg road",
+     "witness": {
+      "name": "John Gibbon",
+      "role": "Brigadier General, commanding the 2nd Division, II Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "gibbon",
+     "exact": true,
+     "states": {
+      "times": [
+       "16:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Gibbon, report of 7 August 1863 (36 days after): \"At 4 o'clock the Third Corps advanced, and, swinging round its left flank, took up a position along the Emmitsburg road.\" He stood on Cemetery Ridge beside the Third Corps and says the division was already in the order he describes at 4 p. m."
+    },
+    {
+     "id": "C-010-P4-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R158",
+     "page": "532",
+     "page_basis": "scan_leaf",
+     "text_offset": 1855890,
+     "quote": "About 4 p. m., in compliance with General Sickles' orders, I moved my division forward, so that the first line ran along the Emmitsburg road",
+     "witness": {
+      "name": "Andrew A. Humphreys",
+      "role": "Brigadier General, commanding the 2nd Division, III Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-16",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "humphreys",
+     "exact": true,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Humphreys, report of 16 August 1863: about 4 p. m., by Sickles's orders, he moved his division forward so that the first line ran along the Emmitsburg road a short distance behind the crest. His sworn account of 1864 says \"perhaps a little after 4 o'clock\"."
+    },
+    {
+     "id": "C-010-P4-c3",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "391",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 391 stands before the passage)",
+     "text_offset": 1809572,
+     "quote": "Perhaps a little after 4 o'clock I received orders from General Sickles to move up near the Emmettsburg road [...] I immediately moved my command forward, placing my first brigade close up to the Emmettsburg road",
+     "witness": {
+      "name": "Andrew A. Humphreys",
+      "role": "Brigadier General, commanding the 2nd Division, III Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-21",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "lower",
+     "group": "humphreys",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Humphreys, sworn testimony of 21 March 1864: perhaps a little after 4 o'clock he received Sickles's orders to move up near the Emmitsburg road and at once placed his first brigade close up to it, fifty feet or so below the crest. It is the same man's later account of the same move."
+    },
+    {
+     "id": "C-010-P4-c4",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R132",
+     "page": "478",
+     "page_basis": "scan_leaf",
+     "text_offset": 1674090,
+     "quote": "About 4 p. m. the Third Corps advanced to the Emmitsburg road, and, upon being repulsed, our lines were opened upon by the enemy with artillery",
+     "witness": {
+      "name": "John G. Hazard",
+      "role": "Captain, 1st Rhode Island Light Artillery, commanding the Artillery Brigade, II Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-01",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hazard",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Hazard, report of 1 August 1863, from the Second Corps's artillery on Cemetery Ridge: about 4 p. m. the Third Corps advanced to the Emmitsburg road. Two batteries on that line were seen opening later. A watcher's hour of the advance, not an order."
+    },
+    {
+     "id": "C-010-P4-c5",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R139",
+     "page": "500",
+     "page_basis": "scan_leaf",
+     "text_offset": 1744550,
+     "quote": "At 4 p. m. we again moved forward near the brick house and im- mediataly in its rear",
+     "witness": {
+      "name": "Calvin A. Craig",
+      "role": "Colonel, 105th Pennsylvania (Graham's brigade, 1st Division, III Corps)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-11",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "craig",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Craig, same report: a second forward move of his regiment at 4 p. m., to fill a vacancy in the front line a little beyond the Emmitsburg road, as the enemy's infantry came out of the woods. It shows the line closing up toward and across the road at 4, after the 2 p. m. move to the brick house."
+    }
+   ]
+  },
+  {
+   "id": "C-010-P5",
+   "origin": "research",
+   "label": "About 15:30: Birney opens fire from the new line (\"say at 3.30 p. m.\", Birney's report; with 15:00 in the first pass)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T15:30"
+   },
+   "approx": true,
+   "derived": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "inference": {
+    "step": "Birney's \"say at 3.30 p. m.\" dates the first fire of Clark's and Smith's batteries after he had changed front; it is read as a time by which his line stood, not as the time of the move. His sworn account of 1864 says three o'clock.",
+    "from": [
+     "C-010-P5-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It dates the opening of fire, which came after the move; Birney's own later account says three o'clock and he hedges this one with \"say\"."
+   },
+   "support": [
+    {
+     "id": "C-010-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R133",
+     "page": "483",
+     "page_basis": "scan_leaf",
+     "text_offset": 1689485,
+     "quote": "I now opened (say at 3.30 p. m.) with Clark's and Smith's batteries upon the columns of the enemy moving toward our left, parallel with the Emmitsburg road",
+     "witness": {
+      "name": "David B. Birney",
+      "role": "Major General, commanding the 1st Division, III Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "birney",
+     "exact": true,
+     "states": {
+      "times": [
+       "15:30"
+      ]
+     },
+     "note": "Birney, report of 7 August 1863: after changing front he opened \"(say at 3.30 p. m.)\" with Clark's and Smith's batteries. He puts the first fire a half hour after his sworn account of 1864 (three o'clock) and hedges it with \"say\"."
+    }
+   ]
+  },
+  {
+   "id": "C-010-P6",
+   "origin": "research",
+   "label": "A few minutes before 16:00: Meade arrives and finds Sickles already far in advance (Meade's testimony of 1864)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T16:00"
+   },
+   "approx": true,
+   "derived": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "contradicted"
+   ],
+   "inference": {
+    "step": "Meade swore that he reached the left a few minutes before 4 o'clock and found the corps already in an advanced position; the advance is read as finished by about 16:00. His report of 1863 puts the same arrival at about 3 p. m.",
+    "from": [
+     "C-010-P6-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "It times Meade's arrival, which his own report puts an hour earlier; it sets a latest limit for the advance, which is what the window's end already is."
+   },
+   "support": [
+    {
+     "id": "C-010-P6-c1",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "332",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 332 stands before the passage)",
+     "text_offset": 1549376,
+     "quote": "When I arrived upon the ground, which I did a few minutes before 4 o'clock in the afternoon, I found that General Sickles had taken up a position very much in advance of what it had been my intention that he should take",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General, commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-05",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "upper",
+     "group": "meade",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Meade, sworn testimony of 5 March 1864 (the dateline in the printed text reads 1863; the Committee sat in 1864): he arrived on the ground a few minutes before 4 o'clock and found Sickles already in a position far in advance. His report of 1863 puts the same arrival at about 3 p. m."
+    }
+   ]
+  },
+  {
+   "id": "C-010-P7",
+   "origin": "research",
+   "label": "About 13:00: the Third Corps is in position (Longstreet, 1896, from two signal messages)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T13:00"
+   },
+   "approx": true,
+   "derived": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "memoir_only",
+    "contradicted"
+   ],
+   "inference": {
+    "step": "Longstreet reasons from two signal messages he prints as 11.45 and 12.55 that the Third Corps was in position at one o'clock; the Official Records print the second as 11.55 a. m. and both report skirmishing a mile west of Round Top, not the corps's advance.",
+    "from": [
+     "C-010-P7-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "misprint",
+    "text": "Longstreet misreads a signal message of 11.55 as 12.55 and takes skirmishing for the corps coming into line; no Union writer puts the line on the road at one."
+   },
+   "support": [
+    {
+     "id": "C-010-P7-c1",
+     "source": "LONGSTREET-1896",
+     "source_class": "book",
+     "page": "366",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 367 follows the passage)",
+     "text_offset": 843216,
+     "quote": "There is no room for doubt of the accuracy of these re- ports, which go to show that it was one o'clock in the afternoon when the Third Corps, upon which the First Corps was to form, was in position",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General, commanding the First Corps, Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1896",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "longstreet",
+     "exact": true,
+     "states": {
+      "times": [
+       "13:00"
+      ]
+     },
+     "note": "Longstreet, From Manassas to Appomattox (1896, 33 years after): from two signal messages he quotes, which he prints as 11.45 and 12.55, he concludes the Third Corps was in position at one o'clock. The second message stands in the Official Records as 11.55 a. m. and reports skirmishers giving way a mile west of Round Top; neither names the advance of the corps."
+    }
+   ]
+  },
+  {
+   "id": "C-010-P8",
+   "origin": "research",
+   "label": "Between 13:00 and 14:00: Sickles tells his chief of artillery he is about to change his line (Randolph)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T13:00",
+    "to": "1863-07-02T14:00"
+   },
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It dates the notice that the move was coming, not the move; it shows the order was given by 14:00 and nothing earlier than 13:00 is documented for it."
+   },
+   "support": [
+    {
+     "id": "C-010-P8-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R181",
+     "page": "581",
+     "page_basis": "scan_leaf",
+     "text_offset": 2036000,
+     "quote": "Early on the morning of July 2, Randolph's and Clark's batteries were placed in position on the line held by General Birney's division [...] Between 1 and 2 p. m. Major-General Sickles notified me that he was about to change his line, throwing his right forward",
+     "witness": {
+      "name": "George E. Randolph",
+      "role": "Captain, 1st Rhode Island Light Artillery, commanding the Artillery Brigade, III Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-02",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "window",
+     "group": "randolph",
+     "exact": true,
+     "states": {
+      "times": [
+       "13:00",
+       "14:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Randolph, report of 2 September 1863 (62 days after), the corps's own chief of artillery: between 1 and 2 p. m. Sickles told him he was about to change his line, throwing his right forward to the high ground, from Round Top on the left to a peach orchard on the Emmitsburg road and thence along the road to a second orchard. It dates the announcement, not the move; Clark's battery was placed about 2 p. m."
+    }
+   ]
+  }
+ ],
+ "weighing": {
+  "summary": "The witnesses date \"the advance\" at about 2 (Hunt, the 105th Pennsylvania of Graham's brigade, the 72nd New York, De Trobriand), about 3 (Meade's report, Hancock, Birney's battery, Freeborn) and 4 (Gibbon, Hazard, Humphreys, a second move of the 105th). Two of them describe two moves themselves: Craig has the brigade forward to the brick house at 2 and forward again at 4; Humphreys has his division formed 400-500 yards forward about noon and moved up to the road a little after 4. Randolph, the corps's chief of artillery, says Sickles told him between 1 and 2 that he was about to change his line. The advance was therefore a sequence, begun about 14:00 on the left and in the peach orchard and closed up to the road by Humphreys's division about 16:00, which no witness states as such; the instants the witnesses give are a single count from different places. The record is divided on one hour: irreducible, shown as a window. Noon is the first move of one division, short of the road.",
+  "who": "Craig, Austin, Brewster, Hugo and De Trobriand were at or with the Third Corps's regiments and brigades; Humphreys and Birney commanded the divisions and Randolph the corps's artillery; Hunt arrived at about 2 and saw the line. Meade and Hancock came from outside the Third Corps; Gibbon and Hazard watched from Cemetery Ridge. Longstreet wrote 33 years later from Confederate headquarters. Sickles gave no hour in his testimony of 26 February 1864 and wrote no report.",
+  "when": "Craig 9 days after, Freeborn 26, Gibbon 36, Birney's report 36, Austin and Humphreys's report 44-45, Randolph 62, Hunt 87, Meade's report 91 days after; Humphreys's, Birney's and Meade's sworn testimony about eight months after (Humphreys 1864 agrees with his 1863 report; Birney's three o'clock of 1864 is half an hour earlier than his \"say 3.30\" of 1863; Meade's \"a few minutes before 4\" of 1864 is an hour later than his \"about 3 p. m.\" of 1863). Reports of the best class outrank Longstreet's of 1896. Hancock's report has no printed date; it was written by 24 October 1863.",
+  "where": "Those on the road or in the line saw the moves of their own units (Craig at 2 and 4; Humphreys at noon and a little after 4). Those on Cemetery Ridge (Gibbon, Hazard, Hancock) saw the corps's line come up to the road, a movement that took about two hours from one end to the other; a watcher's hour is the hour he looked. Meade's hours are of his arrival, not of the move.",
+  "how_knew": "Craig, Austin, Humphreys, Brewster, Hugo and Birney knew by their own orders; Randolph by Sickles's own notice to him; Hunt, Meade, Gibbon, Hancock and Hazard by sight. Longstreet reasoned from two signal messages he misread.",
+  "clock": "All Union hours are on the army's clock; the reported 20-minute difference with the Confederate clock is not applied and bears on no Union report. \"About 3\" and \"4 o'clock\" carry round figures that may stand for a quarter hour either side; \"a few minutes before 4\" and \"a little after 4\" are not the same hour but are not 3 either.",
+  "independence": "Each bound rests on several writers who did not copy one another: about 2 on Craig, Hunt, Austin and De Trobriand (four regiments, a division commander of artillery and a brigade commander); about 4 on Gibbon, Hazard, Humphreys and Craig. Humphreys's report and testimony are one man, Meade's two accounts are one man, Birney's two are one man. Brewster and Hugo date the formation of the same division, not the advance. Longstreet stands alone on 13:00 and is wrong on the message."
+ },
+ "source_panel_text": "About 14:00 to 16:00 on Jul 2: the Third Corps moved up to the Emmitsburg road in stages. Craig's and Hunt's reports put the first move and the peach orchard line at about 2 p. m.; Humphreys, Gibbon and Hazard put the last at about 4; Meade and Hancock saw it about 3. Noon is Humphreys's first, shorter move. Six other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "14:00 holds as the start of the move to the road and the peach orchard line (Craig, Hunt, Austin), but not as the single hour of the advance: Gibbon, Humphreys and Hazard put the move to the road at 4 and Meade and Hancock saw it at about 3. It is the lower bound of the window, not the whole."
+  },
+  "first_delegated": {
+   "holds": "yes",
+   "note": "The first pass chose about 14:00 forming line (Hunt, p. 234) with a window to 16:00; that holds and is now supported by Craig (2 p. m., moved forward to the road), Austin, De Trobriand and Randolph, and bounded by Humphreys and Gibbon at 4. The first pass's 15:00 and 15:30 stay as selectable values (Hancock and Meade; Birney's guns); noon is shown to be a different, earlier move."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T2-094",
+   "must_change": true,
+   "note": "Row \"Jul 2 ~noon or 14:00\", Sickles's III Corps advance to the Emmitsburg Road line about 1,500 yards without informing Meade, tier documented, conflict note \"Noon (SS2, Humphreys) vs 14:00 (Phifer) vs 'aft...'\" (sources web leads). Under this resolution the advance to the road is a window of about 14:00 to 16:00 with noon the first, shorter move; the row's window, its attribution of noon to the advance itself and its tier basis must follow."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-093",
+   "must_change": true,
+   "note": "Row \"Jul 2 ~noon\": Humphreys's division moves forward about noon 400-500 yards in front of its night position, \"Humphreys's own later 16:00 estimate is judged too late\". Humphreys's sworn testimony (noon) and report (about 4 p. m. to the road) show two moves: the 16:00 is the move to the road, not an error; the row's judgement must follow."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-109",
+   "must_change": false,
+   "note": "Berdan reports to Birney and Sickles about 14:00: unchanged (the reconnaissance report is C-009)."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-120",
+   "must_change": false,
+   "note": "Row \"Jul 2 ~15:00\": Union artillery opens on Longstreet's arriving divisions as Meade talks with Sickles: consistent with Meade's report (about 3) and Birney's three o'clock; his testimony of 1864 says a few minutes before 4."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-132",
+   "must_change": false,
+   "note": "Hart's battery ordered forward at 16:00: consistent with the last move to the road; unchanged."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "us-3c",
+   "must_change": false,
+   "note": "The arrivals row of the III Corps carries C-010 as a topic cell (key position \"Jul 2 about 12:00-14:00 advance to Emmitsburg Road\"); its gate is the printed arrival clock (Jul 1 20:00 to Jul 2 07:00) and does not read this value. The cell text names 12:00-14:00 and should read 14:00-16:00 with noon as a first move of one division."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-010)",
+   "must_change": true,
+   "note": "default_scenario_id C-010-DEFAULT, \"about 14:00 forming line (Hunt p.234); window to 16:00\": the value stands; the label and positions are replaced by the window with its basis, and the new values (about 13:00 to 14:00, 15:30, before 16:00, 13:00) are added as selectable scenarios."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/placement.json lines 480 and 3916 and docs/battle-theatre/app/tools/placement-clauses.mjs line 160",
+   "must_change": true,
+   "note": "The clause says C-010 (noon / 14:00 / 16:00) \"is not applied because its 16:00 value lies outside the printed window\" (step-off 12:00, arrival 14:00 of a road unit). Under this resolution the default window is 14:00 to 16:00 and noon is a separate earlier move; the integration step must reconcile the clause, not this note."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-010)",
+   "must_change": true,
+   "note": "First delegated default: the same change as the app copy."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04, Q05, Q06 (arrivals row us-3c)",
+   "must_change": false,
+   "note": "No gate floor reads the advance hour; the arrival gate of the III Corps is the printed clock of Jul 1 20:00 to Jul 2 07:00."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/arrivals_data.py line 154, tools/bt/conflicts_structured_data.py line 15, tools/bt/positions_C_summary.py line 208, tools/bt/positions_data_B_II_hancock.py line 51, tools/bt/seed_register_data.py line 45, tools/bt/pos_C/specs_05_hq_staff_part3.py line 61",
+   "must_change": false,
+   "note": "These carry the topic cell and text (\"about 12:00-14:00\" in the arrivals cell; Meade about 3 p.m. in the position summary); reconciled by the integration step with the cell above."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-010 row)",
+   "must_change": true,
+   "note": "The row says Hunt is the only witness for 14:00; Craig, Austin, De Trobriand and Randolph also give 2 p. m. or between 1 and 2; the reconciliation is recorded by the integration step."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0011.md",
+   "must_change": true,
+   "note": "The entry (\"Sickles advance default 14:00\", tier inferred, \"OR not read\") is stale: the Official Records and the Joint Committee volume were read; the resolution is irreducible, documented, window 14:00-16:00."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0104.md",
+   "must_change": false,
+   "note": "Entry lists Hancock p. 369 (15:00) and Birney p. 483 (15:30) as values the plan omits: both are carried as positions."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-010",
+   "must_change": false,
+   "note": "Log line stays PENDING OWNER; this is a delegated default."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "JCCW-1865-C012 (Sickles, testimony of 26 February 1864)",
+   "query": "any clock reading for the advance of the Third Corps: he says he waited for orders, \"determined to wait no longer\", made his dispositions on the advanced line and was called to the consultation when the cannon announced the battle; no hour is printed",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-1 (reports of Ward R135, Sickles none, Graham none)",
+   "query": "a report of Sickles (he was wounded and wrote none) or of Graham (wounded and taken); Ward's report gives no hour for the move to the road",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-1, regimental reports of Graham's and Ward's brigades (Tippin, Nelson, Danks, Bowen, Madill, Taylor, Moore, Higgins)",
+   "query": "an hour for the move to the road: Tippin has \"after remaining in this position some time ... moved farther to the front ... nearly two hours\" without a clock reading; the others give none",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "all local non-lead texts of the ledger",
+   "query": "(Sickles|Third Corps).{0,300}(advanc|moved forward).{0,300}(noon|12 m|twelve o'clock) for the advance to the Emmitsburg road itself (not the first move of Humphreys's division): no writer of the time gives noon for it",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Bachelder papers, Phifer, Stone Sentinels (SS2), Hessler, the Sickles letters of 1891",
+   "query": "the web pages and books the plan names for noon and 14:00; not local and not among the reachable hosts",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report, order or diary of 1863 that dates the order to advance (Sickles's staff, Meade's headquarters log, the Third Corps's circulars) or the movement of Graham's brigade and Humphreys's division by the clock would narrow the window. A document showing that Humphreys's noon move was already an advance to the road, or that Meade's \"a few minutes before 4\" described a move begun after 3, would move the bounds."
+}

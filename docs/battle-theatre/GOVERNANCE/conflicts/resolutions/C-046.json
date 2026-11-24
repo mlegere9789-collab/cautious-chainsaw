@@ -1,0 +1,1264 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-046",
+ "topic": "Dead counts (battle)",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-046",
+ "event_date": "1863-07-03",
+ "pdf_row": {
+  "page": 63,
+  "text": "Dead counts (battle) | several totals in the notes | range shown | all",
+  "values": [
+   "several totals in the notes"
+  ],
+  "recommended_default": "range shown",
+  "selectable_alternatives": [
+   "all"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-046-DEFAULT",
+  "default_label": "range with declared basis: OR returns plus the full source spread; no headline number",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-046-S1",
+   "C-046-S2",
+   "C-046-DEFAULT"
+  ]
+ },
+ "class": "irreducible",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "The returns of the two armies in the Official Records (Union killed 3,155 in the revised statement, Confederate killed 2,592 in the editors' compilation), Fox's roll count of Union killed or died of wounds (5,291, 1889) and Weaver's report of 19 Mar 1864 (Union bodies 3,512; rebel bodies buried not less than 7,000); these count different things, so a range per army is shown."
+ },
+ "default": {
+  "mode": "range",
+  "positions": [
+   "C-046-P7",
+   "C-046-P8",
+   "C-046-P12",
+   "C-046-P16"
+  ],
+  "label": "Dead, by army: Union 3,155 killed to 5,291 with died of wounds; Confederate 2,592 killed to 7,000+ buried",
+  "basis_text": "Per army, from the lowest to the highest count a source of the time or an official compilation gives: Union from the revised return (killed on the field, 3,155) to the regimental rolls (killed and died of wounds, 5,291); Confederate from the Official Records' return (killed on the field, 2,592) to Weaver's estimate of bodies buried (7,000 at least). The armies are not added; the two ends of the Confederate range count different things.",
+  "range": {
+   "low": 2592,
+   "high": 7000,
+   "basis": "the lowest and highest single-army counts among the four default positions (Confederate killed by the return; Confederate bodies buried, a floor \"not less than\"); the Union range, 3,155 to 5,291, lies inside it and is stated in the label"
+  },
+  "animation": {
+   "at": null,
+   "rule": "follows_printed_strength",
+   "note": "No dead total drives the picture: the soldiers instanced follow the printed unit strength (DEC-008) and each unit's share of losses is a procedural split of its printed loss; the army-level dead counts here are shown as ranges and are not a claim about a unit."
+  },
+  "note": "Counts of dead are of different things (killed on the field; killed or died of wounds; bodies buried): they are listed side by side. The plan's 8,000, 8,900 and 3,100 plus 4,700 have no source and stay selectable."
+ },
+ "positions": [
+  {
+   "id": "C-046-P1",
+   "origin": "pdf_value",
+   "pdf_label": "several totals in the notes",
+   "scenario_ids": [
+    "C-046-S1"
+   ],
+   "source_keys": [],
+   "label": "The plan's \"several totals in the notes\" (8,000; 8,900; 3,100 and 4,700; 3,155; 4,708; 3,903), each listed below",
+   "kind": "category",
+   "value": {
+    "text": "several totals in the notes: about 8,000 killed outright; 8,900 on the field on 4 July; more than 3,100 Union and 4,700 Confederate battle deaths; Union 3,155; Confederate 4,708 or 3,903 killed"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "plausible-procedural",
+   "stance": "selectable",
+   "flags": [
+    "weak"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all, primary, book and official classes; regex for the number and for the words eight thousand, nine thousand, dead, killed outright)",
+     "query": "the figure as the plan prints it: no passage of the Official Records, the 1860s-1900s books or the Park Service texts gives it; the only large count of dead found is Weaver's \"not less than seven thousand bodies\" (Confederate, 1864)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "dead|killed|buried with 8,000, 8,900, 8,9xx, 3,100, 4,700 near Gettysburg: no hit",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "This is the plan's own heading for its totals; each total is a value of its own below, with its source or its failed search."
+   },
+   "procedural_basis": "the plan's own wording: it names several totals in its notes and fixes none; the totals are separate positions"
+  },
+  {
+   "id": "C-046-P2",
+   "origin": "pdf_default",
+   "pdf_label": "range shown",
+   "scenario_ids": [
+    "C-046-S2",
+    "C-046-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "Range shown with a declared basis, no single figure, army by army (the plan's default)",
+   "kind": "category",
+   "value": {
+    "text": "range shown with a declared basis; no headline number"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "plausible-procedural",
+   "stance": "selectable",
+   "flags": [
+    "weak"
+   ],
+   "failed_lookups": [
+    {
+     "where": "PLAN.md and the plan, p. 63",
+     "query": "a source that states a dead count as a range: none; the plan's notes on the register state the rule (a range, not a single figure)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "equal_standing",
+    "text": "This is the rule of display (the plan, p. 63); the range and its basis are the default below, per army."
+   },
+   "procedural_basis": "the display rule of the plan (notes on the register, p. 63: where the default is a range, the viewer shows the range) and of DEC-003 and DEC-008"
+  },
+  {
+   "id": "C-046-P3",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 8,000 killed outright (the plan's note, from a web page)",
+   "kind": "count",
+   "value": {
+    "n": 8000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all, primary, book and official classes; regex for the number and for the words eight thousand, nine thousand, dead, killed outright)",
+     "query": "the figure as the plan prints it: no passage of the Official Records, the 1860s-1900s books or the Park Service texts gives it; the only large count of dead found is Weaver's \"not less than seven thousand bodies\" (Confederate, 1864)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "dead|killed|buried with 8,000, 8,900, 8,9xx, 3,100, 4,700 near Gettysburg: no hit",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No report, return or book read gives about 8,000 killed outright; it is a web figure of the plan's notes (both armies together)."
+   }
+  },
+  {
+   "id": "C-046-P4",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 8,900 dead on the field on 4 July (the plan's note, from a web page)",
+   "kind": "count",
+   "value": {
+    "n": 8900
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all, primary, book and official classes; regex for the number and for the words eight thousand, nine thousand, dead, killed outright)",
+     "query": "the figure as the plan prints it: no passage of the Official Records, the 1860s-1900s books or the Park Service texts gives it; the only large count of dead found is Weaver's \"not less than seven thousand bodies\" (Confederate, 1864)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "dead|killed|buried with 8,000, 8,900, 8,9xx, 3,100, 4,700 near Gettysburg: no hit",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No source read gives 8,900 dead on the field; the nearest are Weaver's 3,512 Union bodies and \"not less than seven thousand\" Confederate bodies (1864)."
+   }
+  },
+  {
+   "id": "C-046-P5",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "More than 3,100 Union and 4,700 Confederate battle deaths (the plan's note, from a web page)",
+   "kind": "count",
+   "value": {
+    "parts": [
+     3100,
+     4700
+    ]
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all, primary, book and official classes; regex for the number and for the words eight thousand, nine thousand, dead, killed outright)",
+     "query": "the figure as the plan prints it: no passage of the Official Records, the 1860s-1900s books or the Park Service texts gives it; the only large count of dead found is Weaver's \"not less than seven thousand bodies\" (Confederate, 1864)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "dead|killed|buried with 8,000, 8,900, 8,9xx, 3,100, 4,700 near Gettysburg: no hit",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No source read gives 3,100 and 4,700; the Union return says 3,155 killed, and 4,700 matches the later Busey and Martin figure (4,708), not read here."
+   }
+  },
+  {
+   "id": "C-046-P6",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union: 2,834 killed (Meade's first return, Oct 1863; replaced in the Official Records by a revised statement)",
+   "kind": "count",
+   "value": {
+    "n": 2834
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "118",
+     "page_basis": "scan_leaf",
+     "text_offset": 402192,
+     "quote": "amounting, as will be seen by the accompanying return, to 2,834 killed, 13,709 [13,713] wounded, and 6,643 missing",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade-first",
+     "exact": true,
+     "states": {
+      "numbers": [
+       2834,
+       13709,
+       13713,
+       6643
+      ]
+     },
+     "note": "Meade's report of 1 Oct 1863 (p. 118) gives 2,834 killed, 13,709 [13,713] wounded and 6,643 missing, 23,186 [23,190]. A footnote of the volume reads \"Reference is to table on p. 113; but see revised statement\" (p. 187): the Official Records themselves replace it. Halleck's report (p. 17) gives the same figures with the same footnote."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "118",
+     "page_basis": "scan_leaf",
+     "text_offset": 402594,
+     "quote": "Reference is to table on p. 113 ; but see revised statem",
+     "witness": {
+      "name": "War Department compilers of the Official Records",
+      "role": "Editors of Ser. I vol. 27 part 1 (1889)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1889-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "or-editors",
+     "exact": false,
+     "states": {
+      "numbers": [
+       113
+      ],
+      "phrases": [
+       "but see revised statem"
+      ]
+     },
+     "note": "The editors' footnote to Meade's figure (p. 118; the same note at p. 17 reads \"But see revised statement, p. 187\"): the first return was replaced by a revised statement."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "The Official Records print this first return and then replace it with a revised statement (p. 187): 3,155 killed. The Comte de Paris still called it official in 1877."
+   }
+  },
+  {
+   "id": "C-046-P7",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union: 3,155 killed on the field (the revised return, Official Records p. 187; mortally wounded not counted)",
+   "kind": "count",
+   "value": {
+    "n": 3155
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "support": [
+    {
+     "source": "LIVERMORE-1900-C046",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (the table of Gettysburg, p. 102 of the book)",
+     "text_offset": 209468,
+     "quote": "Killed, 3155. Wounded, 14,529. Total, 17,684",
+     "witness": {
+      "name": "Thomas L. Livermore",
+      "role": "Compiler of Numbers and Losses; a former Union officer, not a witness of the battle",
+      "side": "union"
+     },
+     "written": {
+      "date": "1900-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "or-union-return",
+     "exact": true,
+     "states": {
+      "numbers": [
+       3155,
+       14529,
+       17684
+      ]
+     },
+     "note": "Livermore (1900), Gettysburg table: Union killed 3,155, wounded 14,529, missing 5,365, from the Official Records return (he cites 43 W. R., 187). Killed means those killed or dying on the field, mortally wounded counted with the wounded."
+    },
+    {
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (the Federal casualties table, about p. 362 by the running heads)",
+     "text_offset": 1174460,
+     "quote": "Aggregate 3,155 14,529 5,365 23,049",
+     "witness": {
+      "name": "Edward P. Alexander",
+      "role": "Confederate artillery officer present at Gettysburg, writing in 1907",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "or-union-return",
+     "exact": true,
+     "states": {
+      "numbers": [
+       3155,
+       14529,
+       5365,
+       23049
+      ]
+     },
+     "note": "Alexander's table of Federal casualties at Gettysburg by division, aggregate 3,155 killed, 14,529 wounded, 5,365 missing, 23,049: the same return."
+    },
+    {
+     "source": "NY-GB-1900",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (p. 91-92 of the book)",
+     "text_offset": 313643,
+     "quote": "The official returns of the Army of the Potomac show 3,155 killed",
+     "witness": {
+      "name": "New York Monuments Commission",
+      "role": "State commission; the final report on the battlefield of Gettysburg (1900)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1900-01-01",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "or-union-return",
+     "exact": true,
+     "states": {
+      "numbers": [
+       3155
+      ]
+     },
+     "note": "The state commission (1900): \"official returns of the Army of the Potomac show 3,155 killed\", and, of both armies, \"the number returned as killed embraces only those who were killed or died on the field\"."
+    },
+    {
+     "source": "NY-GB-1900",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (p. 92 of the book)",
+     "text_offset": 313462,
+     "quote": "In both armies the casualties as stated include the mortally wounded with the wounded, and the number returned as killed embraces only those who were killed or died on the field",
+     "witness": {
+      "name": "New York Monuments Commission",
+      "role": "State commission; the final report on the battlefield of Gettysburg (1900)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1900-01-01",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "or-union-return",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "killed or died on the field"
+      ]
+     },
+     "note": "What the returned figure \"killed\" counts in both armies: those killed or who died on the field; those who died later of their wounds stand in the wounded."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ]
+  },
+  {
+   "id": "C-046-P8",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union: 5,291 killed or died of wounds (Fox, from the regimental rolls, 1889)",
+   "kind": "count",
+   "value": {
+    "n": 5291
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "support": [
+    {
+     "source": "FOX-1889-C046",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (chapter II, p. 25 of the book)",
+     "text_offset": 87744,
+     "quote": "it appears that 5,291 men lost their lives, fighting for the Union on that field",
+     "witness": {
+      "name": "William F. Fox",
+      "role": "Union officer and compiler of Regimental Losses in the American Civil War (1889)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1889-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "fox",
+     "exact": true,
+     "states": {
+      "numbers": [
+       5291
+      ]
+     },
+     "note": "Fox, from the rolls of every regiment engaged \"name by name\": 5,291 killed or died of wounds on the Union side. His table adds the killed (3,063 in the revised figures he had then) to those who died of wounds. The text of the local scan and of two others of the book read 5,291; the books that quote him print 5,091."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ]
+  },
+  {
+   "id": "C-046-P9",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union: 5,091 killed or mortally wounded (as the New York commission prints Fox)",
+   "kind": "count",
+   "value": {
+    "n": 5091
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "NY-GB-1900",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (p. 92 of the book)",
+     "text_offset": 313805,
+     "quote": "show that 5,091 of their number were killed or mortally wounded on that field",
+     "witness": {
+      "name": "New York Monuments Commission",
+      "role": "State commission; the final report on the battlefield of Gettysburg (1900)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1900-01-01",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "nygb-fox",
+     "exact": true,
+     "states": {
+      "numbers": [
+       5091
+      ]
+     },
+     "note": "The commission cites Fox (Regimental Losses, 1888) for the rolls and prints 5,091 where Fox's book prints 5,291 (two clean scans of the book and its own table, which sums to 5,291). The same figure, 5,091, stands in volume 3 of the same work (p. 1372). The 5,091 is a misprint of Fox's count or a reading nobody checked."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "contradicted"
+   ],
+   "reason_not_chosen": {
+    "kind": "misprint",
+    "text": "The New York volumes print 5,091 where Fox's own text and table (two clean scans) give 5,291; the commission's figure is a misprint of Fox's."
+   },
+   "inference": {
+    "step": "The commission prints 5,091 and names Fox's Regimental Losses as its source; Fox's text and the sum of his table give 5,291, so the printed figure is read as a misprint of Fox's count.",
+    "from": [
+     "C-046-P8"
+    ]
+   }
+  },
+  {
+   "id": "C-046-P10",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union: 3,512 bodies removed to the National Cemetery and by Boston (Weaver, March 1864; 979 unnamed)",
+   "kind": "count",
+   "value": {
+    "n": 3512
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "CEM-REPORT-1867",
+     "source_class": "primary",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 161 of the 1867 report (by the running heads); no page marks in the text layer",
+     "text_offset": 216607,
+     "quote": "makes the total number of removals thirty-five hundred and twelve (3,512) bodies",
+     "witness": {
+      "name": "Samuel Weaver",
+      "role": "Superintendent of the disinterment of the Union dead on the battlefield, report of 19 Mar 1864 to David Wills",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-19",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "weaver",
+     "exact": true,
+     "states": {
+      "numbers": [
+       3512
+      ]
+     },
+     "note": "Weaver: 3,354 bodies to the National Cemetery plus 158 Massachusetts bodies taken up by the city of Boston, 3,512 in all, of which 979 nameless. Counts bodies removed, not men killed."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It counts bodies taken up from the field by one contractor, not men killed: it leaves out the wounded who died in hospitals elsewhere and may include the sick who died there."
+   }
+  },
+  {
+   "id": "C-046-P11",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: 2,396 killed (Guild's own return, Sept 1863; infantry and artillery)",
+   "kind": "count",
+   "value": {
+    "n": 2396
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R427",
+     "page": "334",
+     "page_basis": "scan_leaf",
+     "text_offset": 1258626,
+     "quote": "Grand total Army of Northern Virginia (Dr. Guild's report) 2,396 11,882 14,278",
+     "witness": {
+      "name": "Lafayette Guild",
+      "role": "Surgeon, Medical Director of the Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-09-01",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "guild",
+     "exact": true,
+     "states": {
+      "numbers": [
+       2396,
+       11882,
+       14278
+      ]
+     },
+     "note": "Guild's own return of killed and wounded (p. 334; transmitted 1 Sep 1863): 2,396 killed, 11,882 wounded, 14,278. Infantry and artillery; the cavalry is tabulated apart, no missing column. The volume's errata (p. 2) restate these figures."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "Guild's own medical return of the dead on the field, without the cavalry; the Official Records' aggregate (2,592) is the fuller count and is the low end of the range shown."
+   }
+  },
+  {
+   "id": "C-046-P12",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: 2,592 killed (the Official Records' return from commanders' reports; slightly wounded not counted)",
+   "kind": "count",
+   "value": {
+    "n": 2592
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "support": [
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R427",
+     "page": "346",
+     "page_basis": "scan_leaf",
+     "text_offset": 1280384,
+     "quote": "Grand total . 910 809 837 36 4,339 3,823 4,407 140 3,290 1,305 1,491 64 2,592 12,709",
+     "witness": {
+      "name": "War Department compilers of the Official Records",
+      "role": "Editors of Ser. I vol. 27 part 2 (1889), who compiled the Addenda return from commanders' reports",
+      "side": "other"
+     },
+     "written": {
+      "date": "1889-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "or-conf-compile",
+     "exact": true,
+     "states": {
+      "numbers": [
+       910,
+       809,
+       837,
+       36,
+       2592,
+       12709
+      ]
+     },
+     "note": "The Recapitulation of the Addenda return (p. 346): killed 910 (First Corps) + 809 (Second) + 837 (Third) + 36 (cavalry) = 2,592; wounded 12,709; missing 5,150 (the text layer reads 5,160); total 20,451. The editors say of it (p. 338) that figures from brigade, division and corps commanders were generally adopted and that \"the compilation can only be regarded as approximative\"."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R427",
+     "page": "338",
+     "page_basis": "scan_leaf",
+     "text_offset": 1264324,
+     "quote": "the compilation can only be regarded as approximative",
+     "witness": {
+      "name": "War Department compilers of the Official Records",
+      "role": "Editors of Ser. I vol. 27 part 2 (1889), who compiled the Addenda return from commanders' reports",
+      "side": "other"
+     },
+     "written": {
+      "date": "1889-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "or-conf-compile",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "regarded as approximative"
+      ]
+     },
+     "note": "The editors' own caution on the Confederate return (p. 338)."
+    },
+    {
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (the Confederate casualties table, about p. 361-362 by the running heads)",
+     "text_offset": 1172949,
+     "quote": "Aggregate 2,592 12,709 5,150 20,451 Livermore's Estimate 3,903 18,735 5,425 28,063",
+     "witness": {
+      "name": "Edward P. Alexander",
+      "role": "Confederate artillery officer present at Gettysburg, writing in 1907",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "or-conf-compile",
+     "exact": true,
+     "states": {
+      "numbers": [
+       2592,
+       12709,
+       5150,
+       20451,
+       3903,
+       18735,
+       5425,
+       28063
+      ]
+     },
+     "note": "Alexander's table, headed \"From Report of Surgeon Guild, excluding slightly wounded and missing\": aggregate 2,592 killed, 12,709 wounded, 5,150 missing, 20,451; beside it \"Livermore's Estimate 3,903 18,735 5,425 28,063\"."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ]
+  },
+  {
+   "id": "C-046-P13",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: 2,665 killed (the \"official figures\" given by the Comte de Paris, 1877)",
+   "kind": "count",
+   "value": {
+    "n": 2665
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "SHSP-05",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 207 of Southern Historical Society Papers vol. 5; no page marks in the text layer",
+     "text_offset": 634699,
+     "quote": "For the Confederates: Killed, 2,665; wounded, 12,599; missing, 7,464. Total, 22,728",
+     "witness": {
+      "name": "Louis Philippe d'Orleans, Comte de Paris",
+      "role": "Historian of the war, who served on the Union staff in 1861-62 and was not at Gettysburg",
+      "side": "other"
+     },
+     "written": {
+      "date": "1877-12-04",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "paris-1877",
+     "exact": true,
+     "states": {
+      "numbers": [
+       2665,
+       12599,
+       7464,
+       22728
+      ]
+     },
+     "note": "The Comte de Paris, 4 Dec 1877: \"the official figures\" for the Confederates, 2,665 killed, 12,599 wounded, 7,464 missing, 22,728 (and for the Union 2,834, 13,709, 6,643, 23,186). He says the Confederate figures come from the returns then in his hands; the returns and the date of these figures are not given."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "A later historian's figure from returns not named, between the Official Records' 2,592 and the estimates; it lies inside the range shown."
+   },
+   "inference": {
+    "step": "The Comte de Paris gives 2,665 killed as official figures from returns in his hands in 1877; he names no return, so it is taken as a report of a count, not the count.",
+    "from": [
+     "C-046-P12"
+    ]
+   }
+  },
+  {
+   "id": "C-046-P14",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: 3,903 killed (Livermore's estimate, 1900: the return plus an assumed 1,311 to match the Union ratio)",
+   "kind": "count",
+   "value": {
+    "n": 3903
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (the Confederate casualties table, about p. 361-362 by the running heads)",
+     "text_offset": 1172949,
+     "quote": "Aggregate 2,592 12,709 5,150 20,451 Livermore's Estimate 3,903 18,735 5,425 28,063",
+     "witness": {
+      "name": "Edward P. Alexander",
+      "role": "Confederate artillery officer present at Gettysburg, writing in 1907",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "or-conf-compile",
+     "exact": true,
+     "states": {
+      "numbers": [
+       2592,
+       12709,
+       5150,
+       20451,
+       3903,
+       18735,
+       5425,
+       28063
+      ]
+     },
+     "note": "Alexander's table, headed \"From Report of Surgeon Guild, excluding slightly wounded and missing\": aggregate 2,592 killed, 12,709 wounded, 5,150 missing, 20,451; beside it \"Livermore's Estimate 3,903 18,735 5,425 28,063\"."
+    },
+    {
+     "source": "LIVERMORE-1900-C046",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (note to the Gettysburg table, p. 103)",
+     "text_offset": 213578,
+     "quote": "It is certainly within bounds to assume that on the Confederate side the proportion was the average of 1 to 4.8",
+     "witness": {
+      "name": "Thomas L. Livermore",
+      "role": "Compiler of Numbers and Losses; a former Union officer, not a witness of the battle",
+      "side": "union"
+     },
+     "written": {
+      "date": "1900-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "livermore",
+     "exact": false,
+     "states": {
+      "numbers": [
+       1,
+       4.8
+      ]
+     },
+     "note": "Livermore's own method for his Confederate figure: to the 6,802 wounded captured he adds the wounded the Confederate returns did not count and 1,311 killed \"to equal the average proportion of killed to wounded\" (1 to 4.8), so his 3,903 killed is the return (2,592) plus an assumed 1,311."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "Livermore's computed estimate (the return plus 1,311 assumed from the ratio of killed to wounded); it lies inside the range shown and is not a count."
+   },
+   "inference": {
+    "step": "Livermore adds to the return's 2,592 killed an assumed 1,311 so that killed stand to wounded as 1 to 4.8, the proportion he takes from the Union side (and \"within bounds\" for the Confederates); the figure is computed, not counted.",
+    "from": [
+     "C-046-P12"
+    ]
+   }
+  },
+  {
+   "id": "C-046-P15",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: 4,708 killed (Busey and Martin, quoted by the plan; the print source not read)",
+   "kind": "count",
+   "value": {
+    "n": 4708
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all)",
+     "query": "4,708 or 4708 with killed: no hit outside the project's working files (leads)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "Busey and Martin, Regimental Strengths and Losses at Gettysburg",
+     "query": "the print source: not in the library and not on the reachable hosts",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "Busey and Martin (a modern print work) is quoted by the plan but is not in the library; no earlier source gives 4,708."
+   }
+  },
+  {
+   "id": "C-046-P16",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: not less than 7,000 bodies buried on the field and at the hospitals (Weaver's estimate, March 1864)",
+   "kind": "count",
+   "value": {
+    "n": 7000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "support": [
+    {
+     "source": "CEM-REPORT-1867",
+     "source_class": "primary",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 163 of the 1867 report (by the running heads); no page marks in the text layer",
+     "text_offset": 225203,
+     "quote": "I place the number at not less than seven thousand bodies",
+     "witness": {
+      "name": "Samuel Weaver",
+      "role": "Superintendent of the disinterment of the Union dead on the battlefield, report of 19 Mar 1864 to David Wills",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-19",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "weaver",
+     "exact": true,
+     "states": {
+      "numbers": [
+       7000
+      ]
+     },
+     "note": "Weaver (19 Mar 1864): \"I have been making a careful estimate, from time to time, as I went over the field, of the rebel bodies buried on this battle field and at the hospitals, and I place the number at not less than seven thousand bodies.\" An estimate by the man who opened the graves; it counts bodies buried (killed and died of wounds there), not the killed of a return. He also says \"more than three thousand rebel graves\" were opened in the search for Union dead."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak"
+   ]
+  },
+  {
+   "id": "C-046-P17",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Both armies: about 10,000 killed or died of wounds (the Park Service, 2018)",
+   "kind": "count",
+   "value": {
+    "n": 10000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "NPS-CLR-ROT-V1",
+     "source_class": "official",
+     "page": "35",
+     "page_basis": "pdf_marker",
+     "text_offset": 68808,
+     "quote": "of which 10,000 were killed or died of wounds",
+     "witness": {
+      "name": "National Park Service",
+      "role": "Cultural Landscape Report for Gettysburg National Military Park, Record of Treatment (2018)",
+      "side": "institution"
+     },
+     "written": {
+      "date": "2018-01-01",
+      "kind": "institutional"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "nps",
+     "exact": true,
+     "states": {
+      "numbers": [
+       10000
+      ]
+     },
+     "note": "The Park Service text: \"the Union and Confederate armies suffered a total of 51,000 casualties, of which 10,000 were killed or died of wounds, 30,000 were wounded, and 11,000 were captured or reported missing.\" Rounded to thousands, both armies together."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It is one rounded figure for both armies together and counts the died of wounds; it cannot be split by army and is shown beside the army figures."
+   },
+   "inference": {
+    "step": "The Park Service rounds both armies' killed and died of wounds to 10,000, which fits the Union 5,291 plus a Confederate figure near 4,700 to 5,000 (the New York commission's remark that the Confederate dead would equal the Union's); it names no source.",
+    "from": [
+     "C-046-P8",
+     "C-046-P16"
+    ]
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "The sources do not give one dead count; they give different counts. (1) Killed on the field, by the armies' returns: Union 3,155 (the revised return; the first return said 2,834) and Confederate 2,592 (the Official Records' compilation; Guild's own table 2,396); in both armies the mortally wounded stand with the wounded. (2) Killed or died of wounds: Union 5,291 (Fox, from the regimental rolls); for the Confederates no roll count exists, only estimates (Livermore 3,903, the plan's Busey and Martin 4,708) and Weaver's 1864 estimate of the rebel bodies buried on the field and at the hospitals, not less than 7,000. (3) Bodies taken up: Union 3,512 (Weaver). (4) The plan's totals of 8,000, 8,900 and 3,100 plus 4,700 have no source in the record. The Union figures differ because they count different things and are explained by it (settled in kind). The Confederate figures differ in what they count and also in size, and no source separates a count from an estimate: the best witnesses disagree and no rule in the rubric ranks them, so the conflict is irreducible and the default is a range per army.",
+  "who": "Meade and Guild signed returns of their armies (relayed from corps returns). The Official Records' Confederate aggregate was compiled in 1889 by War Department editors, who call it approximative. Fox compiled the rolls of the Union regiments; Livermore computed; Weaver opened the graves and counted. Alexander, the Comte de Paris and the New York commission relay the returns.",
+  "when": "Meade 1 Oct 1863, revised in the volume of 1889; Guild 1 Sep 1863; Weaver 19 Mar 1864; the Comte de Paris 1877; Fox 1889; Livermore 1900; the New York commission 1900; Alexander 1907; the Park Service 2018. By the rule a return or report of the time outranks a table compiled later, and a table of returns outranks a history; the records of the time (returns, Weaver) are therefore the ones carrying the range, and the later compilations are listed with what they count.",
+  "where": "Weaver stood on the field for the five months of the disinterment and says how he knew; his count of bodies is a count of graves opened and Confederate burials he estimates. The returns of both armies were made from regimental reports, the Confederate one with no return from Jenkins' brigade and with the slightly wounded excluded (Lee's order of 14 May 1863, as the New York volume says), so it is known to be short. The Union return counts as killed only those killed or dying on the field.",
+  "how_knew": "The Union return is a count from nominal lists; the Confederate return is the sum of commanders' reports, with the editors' caution. Fox's 5,291 is a name-by-name count of regimental rolls. Weaver's 7,000 is an estimate made \"from time to time, as I went over the field\". Livermore's 3,903 is computed from a ratio. The NPS 10,000 is rounded. Which digit Fox prints (5,291 or 5,091) was checked in three scans of his book and in his table, which sums to 5,291; the 5,091 of the New York volumes is not Fox's.",
+  "clock": "not applicable: these are counts. The dates are the dates of the returns and reports.",
+  "independence": "Groups: the Union return (Livermore, Alexander and the New York commission repeat it: one line), Meade's first return (with Halleck), Fox (rolls), Weaver, Guild, the Official Records' Confederate compilation (Alexander and Livermore repeat it), Livermore's estimate, the Comte de Paris, the Park Service. Each default end therefore rests on one line of knowledge and carries a single_source flag; no two independent counts of the same thing were found for the Confederate dead."
+ },
+ "source_panel_text": "No single figure: the dead are counted three ways. Killed on the field by the returns: Union 3,155, Confederate 2,592. With those who died of wounds: Union 5,291 (Fox), Confederate unknown, \"not less than 7,000\" buried (Weaver, 1864). The plan's 8,000 and 8,900 have no source. 13 other values listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "yes",
+   "note": "The plan's recommended default, a range with no single figure, holds; it is carried per army with a declared basis. The plan's own totals (8,000; 8,900; 3,100 plus 4,700) have no source in the record."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "A range with a declared basis and no headline holds. Its basis does not: it called 2,592 \"Guild's return\" (Guild's own figure is 2,396; 2,592 is the editors' compilation of 1889) and read \"every PDF total secondary\", whereas the Union return (3,155), Fox's 5,291 and Weaver's estimate are in the library. The Union killed column of the return, called unreadable, is read by the arithmetic 246 officers and 2,909 men in the second scan."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-046 row)",
+   "must_change": true,
+   "note": "Row names \"range with declared basis: OR returns plus the full source spread\" and Guild 2,592; the basis is now per army and Guild's own figure is 2,396. Not edited here."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0118.md",
+   "must_change": true,
+   "note": "The register entry says the OR supplies Guild's Confederate killed 2,592 and that the Union killed column is unreadable; both are corrected here (2,592 is the editors' compilation; the Union 3,155 is read). Not edited here."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-008",
+   "must_change": false,
+   "note": "Item 1 draws the printed Stone Sentinels total of a unit and applies the army-level spread; nothing in this resolution moves a printed unit strength. Consequence for the crowd counts, reported not edited: see owner_note."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-023",
+   "must_change": false,
+   "note": "Line 296 states C-046/C-047 as a range with declared basis, no headline number, instancing by printed strength: unchanged."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-046",
+   "must_change": true,
+   "note": "Line 74 shows C-046 as PENDING OWNER; the integration step records the resolved default (range per army, class irreducible, tier documented). Not edited here."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md",
+   "must_change": false,
+   "note": "Names C-046 among the range defaults the viewer shows as a range; consistent with this resolution."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-B.md",
+   "must_change": false,
+   "note": "Table row on ranges with a declared basis (C-046, C-047): consistent; no gate value is changed."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md",
+   "must_change": false,
+   "note": "CF rule that a range default is shown as a range: consistent."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-150",
+   "must_change": true,
+   "note": "Row Jul 4 morning carries \"Dead-count conflict: about 8,000 killed outright vs 8,900 on the field vs more than 3,100 Union and 4,700 Confederate battle deaths\": none of the three has a source; the row should carry the counts above beside them. Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-219",
+   "must_change": true,
+   "note": "Casualty-totals row names Busey and Martin 4,708 killed; the library holds the Union return (3,155) and Fox (5,291). Not edited here."
+  },
+  {
+   "kind": "app_code",
+   "ref": "docs/battle-theatre/app/src/history/casualties.mjs and app/data/casualty-sources.json",
+   "must_change": false,
+   "note": "The fate fractions use only the PDF B.1 sources; the Confederate return (2,592 / 12,709 / 5,150, readable in Livermore and Alexander) could be added as a source and would lower the lowest killed fraction from 13.9 to 12.7 per cent. Reported only; not edited here."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-046)",
+   "must_change": true,
+   "note": "Carries default scenario C-046-DEFAULT; the integration step replaces the label with the per-army range and keeps the three scenarios."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+   "query": "a dead total of 8,000, 8,900, 8,9xx, 3,100 plus 4,700, or \"dead on the field\" for either army: no hit; the Union return's killed column is scrambled in the first scan and read by arithmetic (246 officers + 2,909 men = 3,155) in the second scan, which the validator cannot cite",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "whole local ledger (find_passage.py --all, primary, book and official classes)",
+   "query": "eight|nine|seven thousand dead|killed|bodies; 8,000|8,900|9,000|10,000 dead|killed; nearly eight thousand: only Weaver (7,000 rebel bodies) and the Park Service (10,000, both armies) found",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "BUSEY-MARTIN (Regimental Strengths and Losses at Gettysburg, print)",
+   "query": "4,708 and 4,708 killed: not in the library and not on a reachable host",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "archive.org page image of OR27 part 1 p. 187 and p. 193 (the Union return)",
+   "query": "the BookReader image redirect to ia903205.us.archive.org: CONNECT tunnel failed, 403; the Union killed cell was read in the second scan's text, not seen",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "www.nps.gov and www.npshistory.com",
+   "query": "a Park Service page that states a dead count and cites its source: the Cultural Landscape Reports give \"10,000 killed or died of wounds\" and \"3,320 Confederate soldiers were removed\" with no source for the totals",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A count of the Confederate killed and died of wounds from rolls (the Confederate counterpart of Fox), or the returns of the Confederate hospitals; Busey and Martin read at the source; or the page image of the Union return. Any would narrow the Confederate range.",
+ "owner_note": "DEC-008 consequence, reported and not edited: the man-by-man picture takes a unit's printed total and a procedural split of killed, wounded and missing from army-level fractions (casualty-sources.json). The killed fraction there is the killed-on-the-field fraction (Union 3,155 of 23,049 = 13.7 per cent; Confederate 13.9 to 20.3 per cent from the PDF sources). If the owner chooses the killed-or-died-of-wounds count for the Union (5,291), the fraction of those who lie dead would be about 23 per cent of the army loss, not 13.7; the Confederate Official Records return would give 12.7 per cent. No crowd count (one soldier per unit strength) changes, only the share of drawn men who fall dead rather than wounded."
+}

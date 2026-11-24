@@ -1,0 +1,701 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-032",
+ "topic": "East Cavalry Field fight",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-032",
+ "event_date": "1863-07-03",
+ "pdf_row": {
+  "page": 62,
+  "text": "East Cavalry Field fight | 13:00; 15:00 | 13:00 | 15:00",
+  "values": [
+   "13:00",
+   "15:00"
+  ],
+  "recommended_default": "13:00",
+  "selectable_alternatives": [
+   "15:00"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-032-DEFAULT",
+  "default_label": "about noon (OR)",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-032-S1",
+   "C-032-S2",
+   "C-032-S3",
+   "C-032-S4",
+   "C-032-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "inferred",
+ "basis": {
+  "kind": "official_records",
+  "text": "Green's report of 8 July 1863 dates the engagement at 2 p.m.; Rawle (1878) and Storrs (1889), Union participants, put the first skirmish line and the first shot at about two. The plan's 13:00 is McIntosh's arrival, noon is Gregg's warning, 15:00 the main mounted clash."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-032-P5"
+  ],
+  "label": "About 14:00: the engagement begins (Green 2 p.m., McIntosh's skirmish line about two)",
+  "animation": {
+   "at": "1863-07-03T14:00",
+   "rule": "best_supported",
+   "note": "The fight is drawn from 14:00, the hour of Green's exact report and of two Union participants. Earlier skirmishing and a first artillery contact on Custer's front (10:00 to noon) and the main mounted clash (about 15:00) stay selectable; no unit appears before its arrival."
+  }
+ },
+ "positions": [
+  {
+   "id": "C-032-P1",
+   "origin": "pdf_value",
+   "label": "13:00: McIntosh arrives and engages (the plan's default)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T13:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "tier": "inferred",
+   "clock": "union",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-032-P1-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R378",
+     "page": "1050",
+     "page_basis": "scan_leaf",
+     "text_offset": 3703082,
+     "quote": "I moved with my brigade at 1 p.m., July 3, 1863, to relieve Brigadier-General Custer's brigade [...] Hearing that the enemy were advancing from three directions, I immediately placed the First New Jersey Cavalry",
+     "witness": {
+      "name": "John B. McIntosh",
+      "role": "Colonel, Third Pennsylvania Cavalry, commanding the First Brigade, Second Division (Gregg's), on the field",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "mcintosh",
+     "exact": true,
+     "states": {
+      "times": [
+       "13:00"
+      ],
+      "dates": [
+       "07-03"
+      ]
+     },
+     "note": "McIntosh, a month after: he moved at 1 p.m. to relieve Custer; hearing the enemy were advancing he placed the First New Jersey at once and it was 'immediately engaged'. A move and an arrival, then the engagement, in one report; the report gives no hour for the first fire."
+    },
+    {
+     "id": "C-032-P1-c2",
+     "source": "RAWLE-1878",
+     "source_class": "book",
+     "page": "14",
+     "page_basis": "as_read",
+     "text_offset": 26718,
+     "quote": "When Mcintosh, with his command, came upon the ground shortly before one o'clock, for the purpose of relieving Custer",
+     "witness": {
+      "name": "William Brooke-Rawle",
+      "role": "Captain, Third Pennsylvania Cavalry, in McIntosh's brigade; wrote in 1878",
+      "side": "union"
+     },
+     "written": {
+      "date": "1878",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "upper",
+     "group": "rawle",
+     "exact": false,
+     "states": {
+      "times": [
+       "13:00"
+      ]
+     },
+     "note": "Rawle: McIntosh reached the ground shortly before one o'clock. The same author puts the first skirmish line about two.",
+     "page_note": "printed page 14 read from the text (15 begins a few lines later)"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "McIntosh's 1 p.m. is his move and arrival; the first skirmish line went out about two, and the Confederate engagement is dated 2 p.m. by Green."
+   },
+   "pdf_label": "13:00",
+   "scenario_ids": [
+    "C-032-S1",
+    "C-032-S3"
+   ],
+   "approx": true,
+   "derived": true,
+   "inference": {
+    "step": "McIntosh moved at 1 p.m. and was engaged on arriving; Rawle puts his arrival shortly before one. The first fire is read as soon after, though Rawle and Green put it about two.",
+    "from": [
+     "C-032-P1-c1",
+     "C-032-P1-c2"
+    ]
+   }
+  },
+  {
+   "id": "C-032-P2",
+   "origin": "pdf_value",
+   "label": "15:00: the main mounted clash (Rawle)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T15:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "tier": "inferred",
+   "clock": "union",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-032-P2-c1",
+     "source": "RAWLE-1878",
+     "source_class": "book",
+     "page": "20",
+     "page_basis": "as_read",
+     "text_offset": 42697,
+     "quote": "It was more than even their gallantry could stand, and the First Virginia fell back on the supports which were fast advancing to its assistance. This was about three o'clock",
+     "witness": {
+      "name": "William Brooke-Rawle",
+      "role": "Captain, Third Pennsylvania Cavalry, in McIntosh's brigade; wrote in 1878",
+      "side": "union"
+     },
+     "written": {
+      "date": "1878",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "rawle",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ]
+     },
+     "note": "Rawle: the First Virginia's attack was thrown back about three o'clock, as another brigade appeared at the Stallsmith farm, with Pickett then moving up to his assault. The hour of the main mounted clash, an hour after the fight began.",
+     "page_note": "printed page 20 read from the text (21 begins after the next lines)"
+    },
+    {
+     "id": "C-032-P2-c2",
+     "source": "RAWLE-1884",
+     "source_class": "book",
+     "page": "22",
+     "page_basis": "as_read",
+     "text_offset": 42308,
+     "quote": "According to the writer's diary this was about three o'clock",
+     "witness": {
+      "name": "William Brooke-Rawle",
+      "role": "Captain, Third Pennsylvania Cavalry; wrote the address in 1884 and cites his diary of 1863",
+      "side": "union"
+     },
+     "written": {
+      "date": "1884",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "rawle",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ]
+     },
+     "note": "Rawle's address of 1884, in a note to the same event: 'According to the writer's diary this was about three o'clock.' The diary itself is not in the library; this is the writer's statement of it.",
+     "page_note": "printed page 22 read from the text (the page number follows the note)"
+    }
+   ],
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Rawle dates the charge and its repulse about three, an hour or more into the fight; it is not the start."
+   },
+   "pdf_label": "15:00",
+   "scenario_ids": [
+    "C-032-S2"
+   ],
+   "approx": true,
+   "derived": true,
+   "inference": {
+    "step": "Rawle says the First Virginia fell back about three o'clock after the fight had been hot for an hour; the hour of the clash is read as the plan's 15:00, not as the start.",
+    "from": [
+     "C-032-P2-c1",
+     "C-032-P2-c2"
+    ]
+   }
+  },
+  {
+   "id": "C-032-P3",
+   "origin": "first_delegated",
+   "label": "About noon: Pleasonton, Gregg's noon dispatch",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T12:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "tier": "inferred",
+   "clock": "union",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-032-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R336",
+     "page": "916",
+     "page_basis": "scan_leaf",
+     "text_offset": 3225857,
+     "quote": "About noon the enemy threw a heavy force of cavalry against this position",
+     "witness": {
+      "name": "Alfred Pleasonton",
+      "role": "Major General commanding the Cavalry Corps (at corps headquarters; relays Gregg's report)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-31",
+      "kind": "official_report"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "about",
+     "group": "pleasonton",
+     "exact": false,
+     "states": {
+      "times": [
+       "12:00"
+      ]
+     },
+     "note": "Pleasonton, nine weeks later, summarising: about noon the enemy threw a heavy force of cavalry against Gregg's position, an attack met and defeated by Gregg. He does not say how he knew the hour; Gregg's own report says the attack came after a noon dispatch."
+    },
+    {
+     "id": "C-032-P3-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R344",
+     "page": "956",
+     "page_basis": "scan_leaf",
+     "text_offset": 3367572,
+     "quote": "At 12 m. I received a copy of a dispatch from the commander of the Eleventh Army Corps to the major-general commanding the Army of the Potomac, that large columns of the enemy's cavalry were moving toward the right of our line",
+     "witness": {
+      "name": "David McM. Gregg",
+      "role": "Brigadier General, commanding the Second Cavalry Division, on the field",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-25",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "gregg",
+     "exact": false,
+     "states": {
+      "times": [
+       "12:00"
+      ]
+     },
+     "note": "Gregg, three weeks after: at 12 m. he was handed the Eleventh Corps dispatch that large columns of Confederate cavalry were moving toward the right of the line; a strong line of skirmishers then showed that the cavalry had gained the right and was about to attack. The hour is the dispatch, not the first fire."
+    }
+   ],
+   "flags": [
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Pleasonton relays an hour without saying how he knew; Gregg's noon is the dispatch that warned him, with the enemy's skirmishers shown and the attack still to come."
+   },
+   "scenario_ids": [
+    "C-032-S4",
+    "C-032-DEFAULT"
+   ],
+   "approx": true,
+   "derived": true,
+   "inference": {
+    "step": "Gregg received at 12 m. the warning that large columns of cavalry were moving to the right; Pleasonton, summarising, places the attack about noon. The first fire is read at or soon after the warning.",
+    "from": [
+     "C-032-P3-c1",
+     "C-032-P3-c2"
+    ]
+   }
+  },
+  {
+   "id": "C-032-P4",
+   "origin": "research",
+   "label": "10:00: first contact on Custer's front (Custer's report, Fifth Michigan)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T10:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "tier": "inferred",
+   "clock": "union",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-032-P4-c1",
+     "source": "MI-GB-1889",
+     "source_class": "book",
+     "page": "144",
+     "page_basis": "as_read",
+     "text_offset": 278924,
+     "quote": "Everything remained, quiet until 10 A. M., when the enemy appeared on my right flank and opened upon me with a battery of six guns",
+     "witness": {
+      "name": "George A. Custer",
+      "role": "Brigadier General, commanding the Michigan Cavalry Brigade (Second Brigade, Third Division) on the field; quoted from his report by Kidd in 1889",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "custer",
+     "exact": false,
+     "states": {
+      "times": [
+       "10:00"
+      ]
+     },
+     "note": "Custer's own report, as quoted by Kidd in 1889 (the report is not in the Official Records volume read here): quiet until 10 A.M., when the enemy appeared on his right flank and opened with a battery of six guns. The date of the report is not given in the quotation.",
+     "page_note": "printed page 144 read from the running heads of the quoted passage (145 follows within the quotation)"
+    },
+    {
+     "id": "C-032-P4-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R361",
+     "page": "998",
+     "page_basis": "scan_leaf",
+     "text_offset": 3515676,
+     "quote": "3. — At 10 a. m. moved out, and met the enemy on the right, at Gettysburg",
+     "witness": {
+      "name": "George A. Custer (the Fifth Michigan Cavalry summary in his brigade report)",
+      "role": "Brigadier General commanding the Michigan Cavalry Brigade; the entry is for the Fifth Michigan Cavalry",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "custer",
+     "exact": false,
+     "states": {
+      "times": [
+       "10:00"
+      ]
+     },
+     "note": "The Fifth Michigan Cavalry's entry for July 3 in Custer's brigade report: 'At 10 a. m. moved out, and met the enemy on the right, at Gettysburg'. The same brigade, the same hour; the report heading in the text layer is garbled and the date of the whole report is given in the record only as September 1863."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "contradicted"
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "Both Michigan statements are from one brigade; Storrs, of the same brigade, and Rawle put the first shot at 2, and Green dates the engagement 2 p.m."
+   },
+   "derived": true,
+   "inference": {
+    "step": "Custer says quiet until 10 A.M. when a battery opened on his right flank; read as the first contact of the day, which Rawle and Kidd doubt (Kidd suggests the copied report misread 1 o'clock as 10).",
+    "from": [
+     "C-032-P4-c1",
+     "C-032-P4-c2"
+    ]
+   }
+  },
+  {
+   "id": "C-032-P5",
+   "origin": "research",
+   "label": "About 14:00: the engagement begins (Green: 2 p.m.; McIntosh's skirmish line about two)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T14:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "tier": "inferred",
+   "clock": "unspecified",
+   "stance": "default",
+   "support": [
+    {
+     "id": "C-032-P5-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R479",
+     "page": "497",
+     "page_basis": "scan_leaf",
+     "text_offset": 1852262,
+     "quote": "commenced at 'Z p. m. by the dismounted sharp- shooters",
+     "witness": {
+      "name": "C. A. Green",
+      "role": "Captain, Louisiana Guard Artillery, commanding a section of two Parrott guns with Hampton's brigade",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-08",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "green",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "commenced at"
+      ]
+     },
+     "note": "Green, five days after, with his guns on the field: 'The engagement commenced at 2 p. m. by the dismounted sharpshooters on both sides.' The text layer of the first scan prints a letter, 'Z', for the digit; the text layer of the second scan of the same volume (SCAN2-C005, unproofread, no page marks) prints 2: 'The engagement commenced at 2 p. m. by the dismounted sharp-'. The page image could not be fetched, so the digit rests on the two text layers and is flagged. His report does not name the day in this sentence; it follows 'Thursday evening, July 2' and 'until morning', and precedes 'Saturday evening, July 4'."
+    },
+    {
+     "id": "C-032-P5-c2",
+     "source": "RAWLE-1878",
+     "source_class": "book",
+     "page": "17",
+     "page_basis": "as_read",
+     "text_offset": 33420,
+     "quote": "Accordingly, about two o'clock he ordered Major Beaumont to deploy a strong skirmish line of the First New Jersey, and move it forward [...] This movement was a signal for the deployment of a skirmish line from Rummel's barn",
+     "witness": {
+      "name": "William Brooke-Rawle",
+      "role": "Captain, Third Pennsylvania Cavalry, in McIntosh's brigade (author of the pamphlet); wrote in 1878",
+      "side": "union"
+     },
+     "written": {
+      "date": "1878",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "rawle",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:00"
+      ]
+     },
+     "note": "Rawle, 15 years later: McIntosh, waiting after relieving Custer, ordered a strong skirmish line of the First New Jersey forward about two o'clock; this drew out the Confederate skirmish line from the Rummel barn and the fight began.",
+     "page_note": "printed page 17 read from the text (the page number 17 stands inside the preceding sentence)"
+    },
+    {
+     "id": "C-032-P5-c3",
+     "source": "MI-GB-1889",
+     "source_class": "book",
+     "page": "147",
+     "page_basis": "as_read",
+     "text_offset": 286575,
+     "quote": "He states that the first shot was not fired till some time after his recall, and he is sure it was not earlier than 2 o'clock",
+     "witness": {
+      "name": "Charles E. Storrs",
+      "role": "Major, 6th Michigan Cavalry, commanding a squadron sent out in front of Custer's position (reported by Kidd in 1889)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1889",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "lower",
+     "group": "storrs",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:00"
+      ]
+     },
+     "note": "Storrs, a squadron commander of Custer's brigade, as given by Kidd in his address of 12 June 1889: recalled about noon (he is sure later than 12 m.), the first shot not fired until some time after, 'not earlier than 2 o'clock'. A recollection of 26 years, relayed by Kidd; a lower bound.",
+     "page_note": "printed page 147 of Michigan at Gettysburg read from the running heads (146 and 148 stand before and after)"
+    },
+    {
+     "id": "C-032-P5-c4",
+     "source": "NY-GB-1900",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 285732,
+     "quote": "it was 2 o’clock before the forces were seriously engaged",
+     "witness": {
+      "name": "unnamed author of the New York volume (a history)",
+      "role": "Chapter of New York at Gettysburg (1900), not a participant",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1900",
+      "kind": "later_history"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "ny-gb",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:00"
+      ]
+     },
+     "note": "A history of 1900: Fitz Lee's and Hampton's brigades reached the field about 11 o'clock and their artillery opened on Custer, 'but it was 2 o'clock before the forces were seriously engaged'. No source named.",
+     "page_note": "no printed page marks in the text layer; the passage is in the chapter on the cavalry fight of July 3"
+    }
+   ],
+   "derived": true,
+   "inference": {
+    "step": "Green (Confederate, July 1863) dates the engagement at 2 p.m. in a report that runs from July 2 to 4; Rawle and Storrs, of the Union side, put the first shot and the first skirmish line at about two. The day is read from the order of Green's report.",
+    "from": [
+     "C-032-P5-c1",
+     "C-032-P5-c2",
+     "C-032-P5-c3"
+    ]
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "Green, the only report of the time with a clock reading for the start, says 2 p.m.; two Union participants (Rawle, Storrs) say about two and not earlier; 13:00, noon and 15:00 date McIntosh's arrival, Gregg's warning and the main mounted clash; Custer's 10 a.m. is contradicted by his own squadron commander. Class weighted: the evidence favours 14:00 but the Union reports of 1863 give no hour for the first fire.",
+  "who": "Green fired a Confederate section in the fight; McIntosh and Gregg commanded on the Union side; Pleasonton was at corps headquarters; Custer commanded the brigade on the field; Rawle and Storrs were officers in the fight and wrote or spoke years later (1878, 1889). Stuart's report gives no hour; the reports of Fitz Lee, Chambliss, Ferguson and W. H. F. Lee are not printed.",
+  "when": "Green wrote 5 days after, Gregg 22, McIntosh 32, Pleasonton 59 days after; Rawle 15 years and Storrs 26 years after. The best class of writing (reports of the time) gives Green 2 p.m., McIntosh 1 p.m. as a move, Gregg noon as a dispatch, Pleasonton about noon as a relay; the later participants Rawle and Storrs agree with Green.",
+  "where": "Green's guns were on the Confederate side near the Rummel buildings; McIntosh was with the First New Jersey on the Union right; Storrs was in front of Custer's position; Gregg was at the right of the line. They saw different parts of a front half a mile wide, and the Confederate artillery and skirmishers may have opened earlier on Custer's front than the main engagement.",
+  "how_knew": "Green gives a clock reading from the field; McIntosh gives the hour of his own move; Gregg the hour of a dispatch handed to him; Rawle and Storrs recall hours across many years, Rawle partly from a diary.",
+  "clock": "Green uses the Confederate clock, the Union writers the Union clock; the reported difference of about 20 minutes is not applied and is too small to join noon and 14:00.",
+  "independence": "Green (Confederate) is independent of the Union writers; McIntosh and Rawle (of McIntosh's brigade) are separate writers of the same brigade; Storrs and Custer are of the Michigan brigade; Pleasonton relays Gregg. Three groups carry 14:00 (Green, Rawle, Storrs); one group each carries 13:00, noon, 10:00 and 15:00."
+ },
+ "source_panel_text": "About 14:00 on Jul 3: Green (Confederate artillery, report of 8 July 1863) says the engagement began at 2 p.m.; two Union officers, Rawle and Storrs, say about two. 13:00 is McIntosh's arrival, noon Gregg's warning, 15:00 the main charge, 10:00 Custer's early contact. Four other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "13:00 is when McIntosh moved and arrived; the first skirmish line and the first fire come about an hour later. It stays selectable."
+  },
+  "first_delegated": {
+   "holds": "no",
+   "note": "About noon rests on Pleasonton's relay and on Gregg's noon dispatch, which is a warning, not the start of the fight; it also ignores Green's 2 p.m. and the Union participants who agree. It stays selectable."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-032 row)",
+   "must_change": true,
+   "note": "computed: delegated-decision row line 42 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-032",
+   "must_change": true,
+   "note": "computed: decision log line 60 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-079",
+   "must_change": true,
+   "note": "Row 'Jul 3 ~13:00' (Rummel farm; 1st Va attacks, Custer's 7th Michigan at a fence): the fight 'in earnest' is about 14:00 to 15:00 under this resolution; 13:00 is McIntosh's arrival. Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-063",
+   "must_change": true,
+   "note": "Row 'Jul 3 ~11:00 (HistoryNet: just before noon)' (Stuart fires four signal guns on Cress Ridge): no report read gives the signal guns an hour; if kept, it should carry its own source and not the start of the fight. Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-085",
+   "must_change": false,
+   "note": "Row 'Jul 3 ~13:30-13:45' (McIntosh's right, Miller's 3rd Pa and 1st NJ; flank attacks; the Confederates withdraw): later than the start; the hours come from the same plan sources. Review against the default 14:00 after integration; no change required by this resolution alone."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-083",
+   "must_change": false,
+   "note": "Row 'Jul 3 after the 7th Mich falls back' (Hampton's charge, Custer and Town leading the 1st Mich; Hampton wounded): about 15:00 (Rawle) is selectable and consistent. No change required."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-032)",
+   "must_change": true,
+   "note": "holds the first delegated default C-032-DEFAULT (about noon, OR); the default becomes about 14:00 and noon, 10:00, 13:00, 15:00 are relabelled. Not edited here."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/positions_D/70_cavalry.py and 52_early_division.py (cf ecf_hour C-032)",
+   "must_change": true,
+   "note": "the position notes say the ledger default is 13:00 against Pleasonton about noon and read Green's hour from the first scan; Green's 2 p.m. is confirmed by the second scan and is the default here. Not edited here."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-2 Stuart R565 (pp. 697-699), Hampton R567 (pp. 721-725)",
+   "query": "a clock reading for the start of the fight: Stuart gives none; Hampton gives about 4.30 for a later order to report to Stuart while the sharpshooters were engaged",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2 index and Rawle 1878 (Confederate reports)",
+   "query": "reports of Fitz Lee, Chambliss, Ferguson (Jenkins) or W. H. F. Lee for July 3: none is listed in the index and Rawle says none is among the printed Confederate records",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "archive.org page image of OR vol. 27 part 2, p. 497 (Green's report)",
+   "query": "the digit of the hour in Green's sentence (scan 1 prints Z, scan 2 prints 2): the page image was not fetched for this volume; the same kind of archive.org page image URL was refused by the proxy for another volume (C-030)",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-1 (Custer's report of the fight) and archive.org page images",
+   "query": "Custer's full report with its date: only the quotation in Kidd 1889 and the Fifth Michigan entry were found; the page image of OR27-1 and of the 1889 volume could not be fetched",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "all local books and papers, OR27-1 to OR27-3",
+   "query": "a source that states 15:00 as the start of the fight at East Cavalry Field: only Rawle's about three for the repulse of the First Virginia and the plan's 15:00 itself",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Stuart's printed report (OR27-2 p. 697)",
+   "query": "the sentence Kidd attributes to Stuart, that he left Gettysburg about noon: not in the printed report",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "The reports of Fitz Lee, Chambliss, Ferguson or W. H. F. Lee for July 3 with a clock reading, Custer's report in full with its date, a page image of Green's report, or a Union signal message timed on the field would settle or move the hour."
+}

@@ -1,0 +1,2313 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-047",
+ "topic": "Strength and casualty totals",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-047",
+ "event_date": "1863-07-03",
+ "pdf_row": {
+  "page": 63,
+  "text": "Strength and casualty totals | several totals in the notes | range shown | all",
+  "values": [
+   "several totals in the notes"
+  ],
+  "recommended_default": "range shown",
+  "selectable_alternatives": [
+   "all"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-047-DEFAULT",
+  "default_label": "printed unit strength figure drives instancing (DEC-008 item 1); army-level spread shown as range",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-047-S1",
+   "C-047-S2",
+   "C-047-DEFAULT"
+  ]
+ },
+ "class": "irreducible",
+ "tier": "inferred",
+ "basis": {
+  "kind": "official_records",
+  "text": "The returns of the two armies in the Official Records (Union 23,049 lost in the revised return; Confederate 20,451 in the editors' compilation of 1889) and Meade's aggregate of a little over 100,000; the strengths of Lee's army rest on Taylor's and Early's readings of the return of 31 May and on Livermore's computations, which are estimates (inferred)."
+ },
+ "default": {
+  "mode": "unresolved_set",
+  "positions": [
+   "C-047-P14",
+   "C-047-P15",
+   "C-047-P20",
+   "C-047-P24",
+   "C-047-P27",
+   "C-047-P30",
+   "C-047-P33"
+  ],
+  "label": "Side by side: Union 83,289-100,000+ men, 23,049 lost; Confederate 62,000-75,992 men, 20,451-28,063 lost",
+  "basis_text": "Strength and casualties of each army are shown as claims side by side, each with what it counts. Union: effectives engaged by Livermore (83,289) to the aggregate of the return before the march (a little over 100,000); casualties by the revised return (23,049). Confederate: effectives at Gettysburg by Taylor (62,000) to Livermore's computation (75,992); casualties by the Official Records' compilation (20,451) to Livermore's estimate (28,063). The returns of 1863 are the documented ends; the others are computed estimates.",
+  "range": {
+   "low": 20451,
+   "high": 100000,
+   "basis": "not one quantity: the smallest and largest of the seven figures in the set (a Confederate casualty total and a Union aggregate); each army and each measure keeps its own range in the label and in the positions"
+  },
+  "animation": {
+   "at": null,
+   "rule": "follows_printed_strength",
+   "note": "No army total drives the picture: the soldiers instanced follow the printed strength of each unit (DEC-008 item 1) and the army-level figures here are shown as ranges and are not a claim about a unit."
+  },
+  "note": "Strengths and casualties count different things (aggregate, present for duty, effectives, engaged; returned, compiled, estimated); the viewer shows each with its meaning. The plan's web figures have no source and stay selectable."
+ },
+ "positions": [
+  {
+   "id": "C-047-P1",
+   "origin": "pdf_value",
+   "pdf_label": "several totals in the notes",
+   "scenario_ids": [
+    "C-047-S1"
+   ],
+   "source_keys": [],
+   "label": "The plan's \"several totals in the notes\" (strengths and casualties of B.1), each listed below",
+   "kind": "category",
+   "value": {
+    "text": "several totals in the notes: Union and Confederate strength (Wikipedia, FortWiki, Stone Sentinels) and casualties (Wikipedia, Stone Sentinels, Busey and Martin, Civil War Medicine)"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "plausible-procedural",
+   "stance": "selectable",
+   "flags": [
+    "weak"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all, primary, book and official classes; regex for the figure)",
+     "query": "the figure as the plan prints it: no passage of the Official Records, the 1860s-1900s books or the Park Service texts gives it",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "the figure near Gettysburg, strength, present, engaged, casualties, aggregate: no hit",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "This is the plan's own heading for the totals of its table B.1; each total is a value of its own below, with its source or its failed search."
+   },
+   "procedural_basis": "the plan's own wording: it lists several totals in its notes and fixes none; each is a separate position"
+  },
+  {
+   "id": "C-047-P2",
+   "origin": "pdf_default",
+   "pdf_label": "range shown",
+   "scenario_ids": [
+    "C-047-S2",
+    "C-047-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "Range shown with a declared basis, no single figure, army by army (the plan's default)",
+   "kind": "category",
+   "value": {
+    "text": "range shown with a declared basis; no headline number"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "plausible-procedural",
+   "stance": "selectable",
+   "flags": [
+    "weak"
+   ],
+   "failed_lookups": [
+    {
+     "where": "PLAN.md and the plan, p. 63",
+     "query": "a source that states a strength or casualty total as a range: none; the plan's notes on the register state the rule, and DEC-008 item 1 the instancing rule",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "equal_standing",
+    "text": "This is the rule of display (the plan, p. 63); the figures and their bases are the default below, per army and per measure."
+   },
+   "procedural_basis": "the display rule of the plan (notes on the register, p. 63) and of DEC-003 and DEC-008: strengths and casualties are ranges with a declared basis; soldiers instanced follow the printed unit strength"
+  },
+  {
+   "id": "C-047-P3",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union strength 93,500 to 104,256 with 360 guns (Wikipedia, in the plan)",
+   "kind": "count_range",
+   "value": {
+    "low": 93500,
+    "high": 104256
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all, primary, book and official classes; regex for the figure)",
+     "query": "the figure as the plan prints it: no passage of the Official Records, the 1860s-1900s books or the Park Service texts gives it",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "the figure near Gettysburg, strength, present, engaged, casualties, aggregate: no hit",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No report, return or book read gives this range; it is a web figure of the plan's table B.1."
+   }
+  },
+  {
+   "id": "C-047-P4",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union 93,921 engaged (the plan's \"Various\" summary table, from FortWiki)",
+   "kind": "count",
+   "value": {
+    "n": 93921
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all, primary, book and official classes; regex for the figure)",
+     "query": "the figure as the plan prints it: no passage of the Official Records, the 1860s-1900s books or the Park Service texts gives it",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "the figure near Gettysburg, strength, present, engaged, casualties, aggregate: no hit",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No source read gives 93,921; it is a web table of the plan."
+   }
+  },
+  {
+   "id": "C-047-P5",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union 91,699 present for duty equipped (Stone Sentinels, in the plan)",
+   "kind": "count",
+   "value": {
+    "n": 91699
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all, primary, book and official classes; regex for the figure)",
+     "query": "the figure as the plan prints it: no passage of the Official Records, the 1860s-1900s books or the Park Service texts gives it",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "the figure near Gettysburg, strength, present, engaged, casualties, aggregate: no hit",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No source read gives 91,699; Stone Sentinels is a web page, and the plan notes copy errors in its tables."
+   }
+  },
+  {
+   "id": "C-047-P6",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate strength 65,000 to 75,000, possibly 80,000, with 270 guns (Wikipedia, in the plan)",
+   "kind": "count_range",
+   "value": {
+    "low": 65000,
+    "high": 75000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all, primary, book and official classes; regex for the figure)",
+     "query": "the figure as the plan prints it: no passage of the Official Records, the 1860s-1900s books or the Park Service texts gives it",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "the figure near Gettysburg, strength, present, engaged, casualties, aggregate: no hit",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No report or book read gives this range as stated; the estimates found run from 54,000 to about 76,000 (see the figures below)."
+   }
+  },
+  {
+   "id": "C-047-P7",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate 71,699 engaged (the plan's \"Various\" summary table, from FortWiki)",
+   "kind": "count",
+   "value": {
+    "n": 71699
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all, primary, book and official classes; regex for the figure)",
+     "query": "the figure as the plan prints it: no passage of the Official Records, the 1860s-1900s books or the Park Service texts gives it",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "the figure near Gettysburg, strength, present, engaged, casualties, aggregate: no hit",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No source read gives 71,699; it is a web table of the plan."
+   }
+  },
+  {
+   "id": "C-047-P8",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate 68,612 present for duty equipped (Stone Sentinels, in the plan)",
+   "kind": "count",
+   "value": {
+    "n": 68612
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all, primary, book and official classes; regex for the figure)",
+     "query": "the figure as the plan prints it: no passage of the Official Records, the 1860s-1900s books or the Park Service texts gives it",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "the figure near Gettysburg, strength, present, engaged, casualties, aggregate: no hit",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No source read gives 68,612; the nearest return figure is 68,352 effectives on 31 May 1863 (Taylor)."
+   }
+  },
+  {
+   "id": "C-047-P9",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union casualties 23,055 (Wikipedia: 3,155 killed, 14,531 wounded, 5,369 missing)",
+   "kind": "count",
+   "value": {
+    "n": 23055
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all, primary, book and official classes; regex for the figure)",
+     "query": "the figure as the plan prints it: no passage of the Official Records, the 1860s-1900s books or the Park Service texts gives it",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "the figure near Gettysburg, strength, present, engaged, casualties, aggregate: no hit",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "The Official Records return reads 14,529 wounded and 5,365 missing, 23,049; no source read gives 14,531 and 5,369."
+   }
+  },
+  {
+   "id": "C-047-P10",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union casualties 22,822, 24 per cent (Stone Sentinels, in the plan)",
+   "kind": "count",
+   "value": {
+    "n": 22822
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all, primary, book and official classes; regex for the figure)",
+     "query": "the figure as the plan prints it: no passage of the Official Records, the 1860s-1900s books or the Park Service texts gives it",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "the figure near Gettysburg, strength, present, engaged, casualties, aggregate: no hit",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No source read gives 22,822; it is a web figure."
+   }
+  },
+  {
+   "id": "C-047-P11",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate casualties 22,709, 33 per cent, flagged under-reported (Stone Sentinels, in the plan)",
+   "kind": "count",
+   "value": {
+    "n": 22709
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all, primary, book and official classes; regex for the figure)",
+     "query": "the figure as the plan prints it: no passage of the Official Records, the 1860s-1900s books or the Park Service texts gives it",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "the figure near Gettysburg, strength, present, engaged, casualties, aggregate: no hit",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No source read gives 22,709; it is a web figure the plan itself flags as under-reported."
+   }
+  },
+  {
+   "id": "C-047-P12",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate casualties 23,231: 4,708 killed, 12,693 wounded, 5,830 missing (Busey and Martin, quoted by the plan)",
+   "kind": "count",
+   "value": {
+    "n": 23231
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all)",
+     "query": "23,231 or 23231 with casualties: no hit outside the project's working files (leads)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "Busey and Martin, Regimental Strengths and Losses at Gettysburg",
+     "query": "the print source: not in the library and not on the reachable hosts",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "Busey and Martin is a modern print work quoted by the plan and not in the library; no earlier source gives 23,231."
+   }
+  },
+  {
+   "id": "C-047-P13",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate casualties up to 28,000 (Wikipedia's range 23,000 to 28,000, in the plan)",
+   "kind": "count_range",
+   "value": {
+    "low": 23000,
+    "high": 28000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "failed_lookups": [
+    {
+     "where": "whole local ledger (find_passage.py --all, primary, book and official classes; regex for the figure)",
+     "query": "the figure as the plan prints it: no passage of the Official Records, the 1860s-1900s books or the Park Service texts gives it",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "the figure near Gettysburg, strength, present, engaged, casualties, aggregate: no hit",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No source read gives the range as stated; Livermore's estimate of 28,063 is the figure it resembles."
+   }
+  },
+  {
+   "id": "C-047-P14",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union: an aggregate of a little over 100,000 (the most recent return before 28 June, Meade's report of Oct 1863)",
+   "kind": "count",
+   "value": {
+    "n": 100000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "114",
+     "page_basis": "scan_leaf",
+     "text_offset": 383386,
+     "quote": "My own army, of which the most recent return showed an aggregate of a little over 100,000",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade-aggregate",
+     "exact": true,
+     "states": {
+      "numbers": [
+       100000
+      ]
+     },
+     "note": "Meade, report of 1 Oct 1863 (p. 114): the army \"situated in and around Frederick\" had a return showing \"an aggregate of a little over 100,000\"; he put Lee at \"over 100,000 strong, of all arms\" (an estimate). An aggregate counts every man on the return, present or not for duty; it is the high end of the Union figures, not the men engaged."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ]
+  },
+  {
+   "id": "C-047-P15",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union: 83,289 effectives engaged (Livermore's estimate, 1900, from the returns of 30 June)",
+   "kind": "count",
+   "value": {
+    "n": 83289
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "default",
+   "support": [
+    {
+     "source": "LIVERMORE-1900-C046",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (p. 102 of the book)",
+     "text_offset": 209352,
+     "quote": "Effectives estimated at 93 per cent, of infantry and artillery and 85 per cent, of cavalry 83,289",
+     "witness": {
+      "name": "Thomas L. Livermore",
+      "role": "Compiler of Numbers and Losses; a former Union officer, not a witness of the battle",
+      "side": "union"
+     },
+     "written": {
+      "date": "1900-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "livermore",
+     "exact": true,
+     "states": {
+      "numbers": [
+       93,
+       85,
+       83289
+      ]
+     },
+     "note": "Livermore (1900): infantry and artillery present for duty 87,312, less 17 regiments (9,058) not engaged = 78,254, plus cavalry 12,369, taken at 93 per cent (infantry and artillery) and 85 per cent (cavalry): 83,289 effectives. A computed estimate from the returns of 30 June."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "inference": {
+    "step": "Livermore takes the present-for-duty returns of 30 June, deducts regiments he judges not engaged, and counts 93 per cent of the infantry and artillery and 85 per cent of the cavalry as effective; the figure is his computation, not a count.",
+    "from": [
+     "C-047-P14"
+    ]
+   }
+  },
+  {
+   "id": "C-047-P16",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union: about 75,000 fighting men (the Comte de Paris, 1877), or about 81,000 if stragglers are not deducted",
+   "kind": "count_range",
+   "value": {
+    "low": 75000,
+    "high": 81000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "SHSP-05",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 206-207 of Southern Historical Society Papers vol. 5; no page marks in the text layer",
+     "text_offset": 632448,
+     "quote": "Meade brought about 75,000 blue-bellies against Lee's 54,000 grey-backs",
+     "witness": {
+      "name": "Louis Philippe d'Orleans, Comte de Paris",
+      "role": "Historian of the war, who served on the Union staff in 1861-62 and was not at Gettysburg",
+      "side": "other"
+     },
+     "written": {
+      "date": "1877-12-04",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "about",
+     "group": "paris-1877",
+     "exact": false,
+     "states": {
+      "numbers": [
+       75000,
+       54000
+      ]
+     },
+     "note": "The Comte de Paris deducts 6,000 stragglers (Union) and 2,500 (Confederate) and both cavalries: about 75,000 against 54,000; with no notice of the stragglers, 81,000 against somewhat less than 57,000. He calls even the larger figures \"above the mark\"."
+    },
+    {
+     "source": "SHSP-05",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 206-207 of Southern Historical Society Papers vol. 5; no page marks in the text layer",
+     "text_offset": 632621,
+     "quote": "the figures would be 81,000 against [...] what less than 57,000",
+     "witness": {
+      "name": "Louis Philippe d'Orleans, Comte de Paris",
+      "role": "Historian of the war, who served on the Union staff in 1861-62 and was not at Gettysburg",
+      "side": "other"
+     },
+     "written": {
+      "date": "1877-12-04",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "paris-1877",
+     "exact": false,
+     "states": {
+      "numbers": [
+       81000,
+       57000
+      ]
+     },
+     "note": "\"If we were to take no notice of the stragglers, the figures would be 81,000 against somewhat less than 57,000\"; he adds that these figures \"are certainly, on both sides, above the mark\"."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "He counts infantry and artillery on the field of the infantry battle, net of stragglers and cavalry; the other figures count a return."
+   },
+   "inference": {
+    "step": "The Comte de Paris starts from the returns, deducts the stragglers and the cavalry, and gives the net; the figures are his computation.",
+    "from": [
+     "C-047-P14"
+    ]
+   }
+  },
+  {
+   "id": "C-047-P17",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union: about 58,000 effectives of the corps at the council of 2 July evening (Meade's memorandum)",
+   "kind": "count",
+   "value": {
+    "n": 58000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "74",
+     "page_basis": "scan_leaf",
+     "text_offset": 261545,
+     "quote": "Effective strength about 9,000, 13,500, 9,000, 6,000, 8,500, 6,000, 7,000 ; total, 58,000",
+     "witness": {
+      "name": "Meade's chief of staff",
+      "role": "Pencil memorandum found among General Meade's papers, minutes of the council of 2 July",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "staff_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "about",
+     "group": "council-memo",
+     "exact": true,
+     "states": {
+      "numbers": [
+       9000,
+       13500,
+       6000,
+       8500,
+       7000,
+       58000
+      ]
+     },
+     "note": "The council memorandum (p. 74): seven figures and \"total, 58,000\". It does not say which corps each figure is, or whether it counts infantry only; it was written after two days of fighting."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It counts the effectives of seven corps at the council on the evening of 2 July, after the loss of the first two days; it is not the army's strength."
+   }
+  },
+  {
+   "id": "C-047-P18",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union: 93,693 effectives (the Park Service seminar paper of 2010)",
+   "kind": "count",
+   "value": {
+    "n": 93693
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "NPS-SEM10-ATKINSON-C044",
+     "source_class": "official",
+     "page": "9",
+     "page_basis": "pdf_marker",
+     "text_offset": 33236,
+     "quote": "Meade fought the battle with 93,693 effectives and suffered a total loss of 22,807 soldiers",
+     "witness": {
+      "name": "Matthew Atkinson",
+      "role": "Park historian, Gettysburg National Military Park (Papers of the 2010 Gettysburg Seminar)",
+      "side": "institution"
+     },
+     "written": {
+      "date": "2010-01-01",
+      "kind": "institutional"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "atkinson",
+     "exact": true,
+     "states": {
+      "numbers": [
+       93693,
+       22807
+      ]
+     },
+     "note": "Atkinson (2010): Meade \"93,693 effectives\", total loss 22,807 (3,149 killed, 14,501 wounded, 5,157 captured); he gives a note number and no source in the sentence."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "A modern seminar paper that names no return; the figures it gives for losses (22,807) match no return in the Official Records, which read 23,049."
+   },
+   "inference": {
+    "step": "The Park Service paper states the figure without a source; it is taken as a report that the figure is in use, not as a count.",
+    "from": [
+     "C-047-P14"
+    ]
+   }
+  },
+  {
+   "id": "C-047-P19",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: 68,352 effectives on 31 May 1863 (Lee's return, as Taylor copied it)",
+   "kind": "count",
+   "value": {
+    "n": 68352
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "SHSP-04",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 84-85 of Southern Historical Society Papers vol. 4; no page marks in the text layer",
+     "text_offset": 209960,
+     "quote": "On the 31st May our effective strength as 68,352 ; but one brigade, Pettigrew's, joined the army after this",
+     "witness": {
+      "name": "Walter H. Taylor",
+      "role": "Colonel, Lee's adjutant general, who copied the army's returns at the War Department; articles of 1877 and book of 1906",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877-08-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "lee-return-may31",
+     "exact": true,
+     "states": {
+      "numbers": [
+       31,
+       68352
+      ]
+     },
+     "note": "Taylor, Lee's adjutant, who \"took copies of the original returns\" at the War Department: 68,352 effectives on 31 May (the nearest return to the advance); a letter of 1877. Early reads the same return as \"a few hundred over sixty-eight thousand\"."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It counts the army before the march (31 May); two cavalry brigades and part of Pickett's division did not reach the field, so the army engaged was smaller."
+   },
+   "inference": {
+    "step": "The figure is Taylor's 1877 copy of the return of 31 May; the return itself is not in the volumes read, so the position stands on a witness's report of the return.",
+    "from": []
+   }
+  },
+  {
+   "id": "C-047-P20",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: 62,000 effectives at Gettysburg, cavalry included (Taylor, 1877)",
+   "kind": "count",
+   "value": {
+    "n": 62000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "default",
+   "support": [
+    {
+     "source": "SHSP-04",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 85 of Southern Historical Society Papers vol. 4; no page marks in the text layer",
+     "text_offset": 210389,
+     "quote": "reduced General Lee's effective strength at Gettysburg, including Stuart's cavalry, to sixty-two thousand (62,000) men",
+     "witness": {
+      "name": "Walter H. Taylor",
+      "role": "Colonel, Lee's adjutant general, who copied the army's returns at the War Department; articles of 1877 and book of 1906",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877-08-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "lee-return-may31",
+     "exact": true,
+     "states": {
+      "numbers": [
+       62000
+      ]
+     },
+     "note": "Taylor (1877): from 68,352 he deducts the brigades left behind and arrives at 62,000 \"including Stuart's cavalry\". Early writes of Taylor's figure: \"Colonel Taylor puts General Lee's strength at Gettysburg at 62,000 effectives, and his estimate is repeated by General Heth\"."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "inference": {
+    "step": "Taylor deducts from the return of 31 May the brigades that were not at Gettysburg (Corse, Robertson, Jones) and adds Pettigrew; the figure is his reasoning from the return, not a return.",
+    "from": [
+     "C-047-P19"
+    ]
+   }
+  },
+  {
+   "id": "C-047-P21",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: under 60,000 effectives (Early, 1877; he leaves out the two cavalry brigades left in the passes)",
+   "kind": "count",
+   "value": {
+    "n": 60000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "SHSP-04",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 51 of Southern Historical Society Papers vol. 4; no page marks in the text layer",
+     "text_offset": 125235,
+     "quote": "The force with which Gen. Lee invaded Pennsylvania was really under 60,000 effectives",
+     "witness": {
+      "name": "Jubal A. Early",
+      "role": "Lieutenant General, commanded a division of Ewell's corps at Gettysburg; letters of 1877",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877-01-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "early",
+     "exact": true,
+     "states": {
+      "numbers": [
+       60000
+      ]
+     },
+     "note": "Early (letter of 1877): \"under 60,000 effectives\". In his second paper he explains the difference from Taylor's 62,000: \"he includes in his estimate the two cavalry brigades of Robertson and Jones ... whilst I exclude\" them."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "tolerance",
+    "text": "An upper bound (\"under 60,000\") that differs from Taylor's 62,000 only by the two cavalry brigades left behind; both are estimates from the same return."
+   },
+   "inference": {
+    "step": "Early takes the return of 31 May and excludes the brigades that did not reach the field, arriving at less than 60,000; it is his computation.",
+    "from": [
+     "C-047-P19"
+    ]
+   }
+  },
+  {
+   "id": "C-047-P22",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: 67,000 including all the cavalry (Taylor, 1906): 53,500 infantry, 9,000 cavalry, 4,500 artillery",
+   "kind": "count",
+   "value": {
+    "n": 67000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "TAYLOR-GENLEE-1906-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks)",
+     "text_offset": 665246,
+     "quote": "General Lee had at Gettysburg, including all the cavalry, 67,000 men",
+     "witness": {
+      "name": "Walter H. Taylor",
+      "role": "Colonel, Lee's adjutant general, who copied the army's returns at the War Department; articles of 1877 and book of 1906",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1906-01-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "computed",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "lee-return-may31",
+     "exact": true,
+     "states": {
+      "numbers": [
+       67000
+      ]
+     },
+     "note": "Taylor, General Lee (1906), after reasoning from a return of 74,451 effectives: 67,000 including all the cavalry, \"of course this number was not available to him at any one time\"."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "Taylor's later reckoning (1906) counts all the cavalry, including the brigades that arrived only on 3 July; his own earlier figure (1877) was 62,000."
+   },
+   "inference": {
+    "step": "Taylor reasons from the effective return he cites to a Gettysburg figure that includes every cavalry brigade; it is computed.",
+    "from": [
+     "C-047-P19"
+    ]
+   }
+  },
+  {
+   "id": "C-047-P23",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: 75,000, as Longstreet estimated the whole army at the start of the march (quoted by Oates, 1905)",
+   "kind": "count",
+   "value": {
+    "n": 75000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "OATES-1905-C016",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks)",
+     "text_offset": 519615,
+     "quote": "as estimated by General Longstreet, 75,000 men",
+     "witness": {
+      "name": "William C. Oates",
+      "role": "Confederate colonel, writing in 1905 what Longstreet estimated",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1905-01-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet-estimate",
+     "exact": true,
+     "states": {
+      "numbers": [
+       75000
+      ]
+     },
+     "note": "Oates (1905): 39 brigades of infantry, 7 of cavalry and 287 guns, \"aggregating, as estimated by General Longstreet, 75,000 men\". Oates does not give the place in Longstreet."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "An estimate of the whole army at the start of the march relayed at second hand, by a man who was not on the staff; the returns of Taylor and Early are lower and name their returns."
+   },
+   "inference": {
+    "step": "Oates reports Longstreet's estimate of the aggregate of the army at the start of the march; no return is cited.",
+    "from": []
+   }
+  },
+  {
+   "id": "C-047-P24",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: 75,992 effectives, or 77,707 engaged (Livermore, 1900: the returns of 31 May and 31 July)",
+   "kind": "count_range",
+   "value": {
+    "low": 75992,
+    "high": 77707
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "default",
+   "support": [
+    {
+     "source": "LIVERMORE-1900-C046",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (p. 103 of the book)",
+     "text_offset": 211724,
+     "quote": "and 85 per cent, of cavalry l 75,992 Deduct losses prior to Gettysburg",
+     "witness": {
+      "name": "Thomas L. Livermore",
+      "role": "Compiler of Numbers and Losses; a former Union officer, not a witness of the battle",
+      "side": "union"
+     },
+     "written": {
+      "date": "1900-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "livermore",
+     "exact": true,
+     "states": {
+      "numbers": [
+       85,
+       75992
+      ]
+     },
+     "note": "Livermore: infantry and artillery present for duty 31 May 64,167, plus Davis's and Pettigrew's brigades 6,262, plus cavalry 12,346, taken at 93 and 85 per cent: 75,992 effectives."
+    },
+    {
+     "source": "LIVERMORE-1900-C046",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (note 1 to the table, p. 103)",
+     "text_offset": 212857,
+     "quote": "Add losses at Gettysburg as above ............ 28,070 Total engaged ......... f ......... 77,707",
+     "witness": {
+      "name": "Thomas L. Livermore",
+      "role": "Compiler of Numbers and Losses; a former Union officer, not a witness of the battle",
+      "side": "union"
+     },
+     "written": {
+      "date": "1900-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "livermore",
+     "exact": true,
+     "states": {
+      "numbers": [
+       28070,
+       77707
+      ]
+     },
+     "note": "Livermore's second computation from the returns of 31 July: the men present then, plus his estimate of the losses at Gettysburg (28,070 with his additions), 77,707 engaged."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "inference": {
+    "step": "Livermore computes the effectives from the returns of 31 May (and, separately, of 31 July plus losses) with his percentages; both figures are computed, and the second rests on his own enlarged loss figure.",
+    "from": [
+     "C-047-P19"
+    ]
+   }
+  },
+  {
+   "id": "C-047-P25",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: about 54,000 net of stragglers and cavalry, under 57,000 without (the Comte de Paris)",
+   "kind": "count_range",
+   "value": {
+    "low": 54000,
+    "high": 57000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "SHSP-05",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 206-207 of Southern Historical Society Papers vol. 5; no page marks in the text layer",
+     "text_offset": 632448,
+     "quote": "Meade brought about 75,000 blue-bellies against Lee's 54,000 grey-backs",
+     "witness": {
+      "name": "Louis Philippe d'Orleans, Comte de Paris",
+      "role": "Historian of the war, who served on the Union staff in 1861-62 and was not at Gettysburg",
+      "side": "other"
+     },
+     "written": {
+      "date": "1877-12-04",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "about",
+     "group": "paris-1877",
+     "exact": false,
+     "states": {
+      "numbers": [
+       75000,
+       54000
+      ]
+     }
+    },
+    {
+     "source": "SHSP-05",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 206-207 of Southern Historical Society Papers vol. 5; no page marks in the text layer",
+     "text_offset": 632621,
+     "quote": "the figures would be 81,000 against [...] what less than 57,000",
+     "witness": {
+      "name": "Louis Philippe d'Orleans, Comte de Paris",
+      "role": "Historian of the war, who served on the Union staff in 1861-62 and was not at Gettysburg",
+      "side": "other"
+     },
+     "written": {
+      "date": "1877-12-04",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "paris-1877",
+     "exact": false,
+     "states": {
+      "numbers": [
+       81000,
+       57000
+      ]
+     },
+     "note": "\"If we were to take no notice of the stragglers, the figures would be 81,000 against somewhat less than 57,000\"; he adds that these figures \"are certainly, on both sides, above the mark\"."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It counts the infantry and artillery on the field, net of stragglers and of both cavalries, so it is lower than every figure that counts a return."
+   },
+   "inference": {
+    "step": "The Comte de Paris deducts 2,500 stragglers and the cavalry from the returns; the 57,000 is his figure with no notice of stragglers (\"somewhat less than 57,000\").",
+    "from": [
+     "C-047-P19"
+    ]
+   }
+  },
+  {
+   "id": "C-047-P26",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: 70,136 effectives (the Park Service seminar paper of 2010)",
+   "kind": "count",
+   "value": {
+    "n": 70136
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "NPS-SEM10-ATKINSON-C044",
+     "source_class": "official",
+     "page": "9",
+     "page_basis": "pdf_marker",
+     "text_offset": 33049,
+     "quote": "Lee entered Pennsylvania with 70,136 effectives",
+     "witness": {
+      "name": "Matthew Atkinson",
+      "role": "Park historian, Gettysburg National Military Park (Papers of the 2010 Gettysburg Seminar)",
+      "side": "institution"
+     },
+     "written": {
+      "date": "2010-01-01",
+      "kind": "institutional"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "atkinson",
+     "exact": true,
+     "states": {
+      "numbers": [
+       70136
+      ]
+     },
+     "note": "Atkinson (2010): \"Lee entered Pennsylvania with 70,136 effectives\"; no source named in the sentence."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "A modern seminar paper that names no return and counts the army entering Pennsylvania, not the army at Gettysburg."
+   },
+   "inference": {
+    "step": "The Park Service paper states the figure without a source; it is taken as a report that the figure is in use.",
+    "from": [
+     "C-047-P19"
+    ]
+   }
+  },
+  {
+   "id": "C-047-P27",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union casualties 23,049: 3,155 killed, 14,529 wounded, 5,365 missing (the revised return of the Official Records)",
+   "kind": "count",
+   "value": {
+    "n": 23049
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "support": [
+    {
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (the Federal casualties table, about p. 362 by the running heads)",
+     "text_offset": 1174460,
+     "quote": "Aggregate 3,155 14,529 5,365 23,049",
+     "witness": {
+      "name": "Edward P. Alexander",
+      "role": "Confederate artillery officer present at Gettysburg, writing in 1907",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "or-union-return",
+     "exact": true,
+     "states": {
+      "numbers": [
+       3155,
+       14529,
+       5365,
+       23049
+      ]
+     },
+     "note": "Alexander's table of Federal casualties at Gettysburg by division, aggregate 3,155 killed, 14,529 wounded, 5,365 missing, 23,049: the same return."
+    },
+    {
+     "source": "LIVERMORE-1900-C046",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (the table of Gettysburg, p. 102 of the book)",
+     "text_offset": 209468,
+     "quote": "Killed, 3155. Wounded, 14,529. Total, 17,684",
+     "witness": {
+      "name": "Thomas L. Livermore",
+      "role": "Compiler of Numbers and Losses; a former Union officer, not a witness of the battle",
+      "side": "union"
+     },
+     "written": {
+      "date": "1900-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "or-union-return",
+     "exact": true,
+     "states": {
+      "numbers": [
+       3155,
+       14529,
+       17684
+      ]
+     },
+     "note": "Livermore (1900), Gettysburg table: Union killed 3,155, wounded 14,529, missing 5,365, from the Official Records return (he cites 43 W. R., 187). Killed means those killed or dying on the field, mortally wounded counted with the wounded."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ]
+  },
+  {
+   "id": "C-047-P28",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union casualties 23,186 (Meade's first return, Oct 1863: 2,834 killed, 13,709 wounded, 6,643 missing)",
+   "kind": "count",
+   "value": {
+    "n": 23186
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "118",
+     "page_basis": "scan_leaf",
+     "text_offset": 402192,
+     "quote": "amounting, as will be seen by the accompanying return, to 2,834 killed, 13,709 [13,713] wounded, and 6,643 missing ; in all, 23,186 [23,190]",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade-first",
+     "exact": true,
+     "states": {
+      "numbers": [
+       2834,
+       13709,
+       13713,
+       6643,
+       23186,
+       23190
+      ]
+     },
+     "note": "Meade's first return (p. 118; the same in Halleck's report, p. 17), replaced by the revised statement of p. 187 (the volume's footnote says so)."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "The Official Records print this first return and replace it by a revised statement (p. 187): 23,049. Meade's own figures are the earlier count."
+   }
+  },
+  {
+   "id": "C-047-P29",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union casualties 22,807: 3,149 killed, 14,501 wounded, 5,157 captured (the Park Service seminar paper of 2010)",
+   "kind": "count",
+   "value": {
+    "n": 22807
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "NPS-SEM10-ATKINSON-C044",
+     "source_class": "official",
+     "page": "9",
+     "page_basis": "pdf_marker",
+     "text_offset": 33236,
+     "quote": "Meade fought the battle with 93,693 effectives and suffered a total loss of 22,807 soldiers",
+     "witness": {
+      "name": "Matthew Atkinson",
+      "role": "Park historian, Gettysburg National Military Park (Papers of the 2010 Gettysburg Seminar)",
+      "side": "institution"
+     },
+     "written": {
+      "date": "2010-01-01",
+      "kind": "institutional"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "atkinson",
+     "exact": true,
+     "states": {
+      "numbers": [
+       93693,
+       22807
+      ]
+     }
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "A modern paper that names no return; no return reads 3,149 killed, 14,501 wounded and 5,157 captured (the Official Records read 3,155, 14,529 and 5,365)."
+   },
+   "inference": {
+    "step": "The paper gives the totals without a source; they are taken as a report of a figure in use.",
+    "from": [
+     "C-047-P27"
+    ]
+   }
+  },
+  {
+   "id": "C-047-P30",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate casualties 20,451 (the Official Records' return from commanders' reports; slightly wounded not counted)",
+   "kind": "count",
+   "value": {
+    "n": 20451
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "support": [
+    {
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (the Confederate casualties table, about p. 361-362 by the running heads)",
+     "text_offset": 1172949,
+     "quote": "Aggregate 2,592 12,709 5,150 20,451 Livermore's Estimate 3,903 18,735 5,425 28,063",
+     "witness": {
+      "name": "Edward P. Alexander",
+      "role": "Confederate artillery officer present at Gettysburg, writing in 1907",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "or-conf-compile",
+     "exact": true,
+     "states": {
+      "numbers": [
+       2592,
+       12709,
+       5150,
+       20451,
+       3903,
+       18735,
+       5425,
+       28063
+      ]
+     },
+     "note": "Alexander's table, headed \"From Report of Surgeon Guild, excluding slightly wounded and missing\": aggregate 2,592 killed, 12,709 wounded, 5,150 missing, 20,451; beside it \"Livermore's Estimate 3,903 18,735 5,425 28,063\"."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R427",
+     "page": "338",
+     "page_basis": "scan_leaf",
+     "text_offset": 1264324,
+     "quote": "the compilation can only be regarded as approximative",
+     "witness": {
+      "name": "War Department compilers of the Official Records",
+      "role": "Editors of Ser. I vol. 27 part 2 (1889), who compiled the Addenda return from commanders' reports",
+      "side": "other"
+     },
+     "written": {
+      "date": "1889-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "or-conf-compile",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "regarded as approximative"
+      ]
+     },
+     "note": "The editors' own caution on the Confederate return (p. 338)."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ]
+  },
+  {
+   "id": "C-047-P31",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: 14,278 killed and wounded (Guild's own return, Sept 1863; infantry and artillery, no missing column)",
+   "kind": "count",
+   "value": {
+    "n": 14278
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R427",
+     "page": "334",
+     "page_basis": "scan_leaf",
+     "text_offset": 1258626,
+     "quote": "Grand total Army of Northern Virginia (Dr. Guild's report) 2,396 11,882 14,278",
+     "witness": {
+      "name": "Lafayette Guild",
+      "role": "Surgeon, Medical Director of the Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-09-01",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "guild",
+     "exact": true,
+     "states": {
+      "numbers": [
+       2396,
+       11882,
+       14278
+      ]
+     },
+     "note": "Guild's own return of killed and wounded (p. 334; transmitted 1 Sep 1863): 2,396 killed, 11,882 wounded, 14,278. Infantry and artillery; the cavalry is tabulated apart, no missing column. The volume's errata (p. 2) restate these figures."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Guild's own return counts killed and wounded of the infantry and artillery only; it has no column for the missing and leaves out the cavalry."
+   }
+  },
+  {
+   "id": "C-047-P32",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate casualties 22,728: 2,665 killed, 12,599 wounded, 7,464 missing (the Comte de Paris, 1877)",
+   "kind": "count",
+   "value": {
+    "n": 22728
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "SHSP-05",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 207 of Southern Historical Society Papers vol. 5; no page marks in the text layer",
+     "text_offset": 634699,
+     "quote": "For the Confederates: Killed, 2,665; wounded, 12,599; missing, 7,464. Total, 22,728",
+     "witness": {
+      "name": "Louis Philippe d'Orleans, Comte de Paris",
+      "role": "Historian of the war, who served on the Union staff in 1861-62 and was not at Gettysburg",
+      "side": "other"
+     },
+     "written": {
+      "date": "1877-12-04",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "paris-1877",
+     "exact": true,
+     "states": {
+      "numbers": [
+       2665,
+       12599,
+       7464,
+       22728
+      ]
+     },
+     "note": "The Comte de Paris, 4 Dec 1877: \"the official figures\" for the Confederates, 2,665 killed, 12,599 wounded, 7,464 missing, 22,728 (and for the Union 2,834, 13,709, 6,643, 23,186). He says the Confederate figures come from the returns then in his hands; the returns and the date of these figures are not given."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "A later historian's figure from returns not named, between the Official Records' 20,451 and the estimates; it lies inside the range shown."
+   },
+   "inference": {
+    "step": "The Comte de Paris gives the totals as \"official figures\" from returns he had in 1877, naming none; he adds that about 700 were lost between 3 and 18 July.",
+    "from": [
+     "C-047-P30"
+    ]
+   }
+  },
+  {
+   "id": "C-047-P33",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate casualties 28,063: 3,903 killed, 18,735 wounded, 5,425 missing (Livermore's estimate, 1900)",
+   "kind": "count",
+   "value": {
+    "n": 28063
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "default",
+   "support": [
+    {
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (the Confederate casualties table, about p. 361-362 by the running heads)",
+     "text_offset": 1172949,
+     "quote": "Aggregate 2,592 12,709 5,150 20,451 Livermore's Estimate 3,903 18,735 5,425 28,063",
+     "witness": {
+      "name": "Edward P. Alexander",
+      "role": "Confederate artillery officer present at Gettysburg, writing in 1907",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "or-conf-compile",
+     "exact": true,
+     "states": {
+      "numbers": [
+       2592,
+       12709,
+       5150,
+       20451,
+       3903,
+       18735,
+       5425,
+       28063
+      ]
+     },
+     "note": "Alexander's table, headed \"From Report of Surgeon Guild, excluding slightly wounded and missing\": aggregate 2,592 killed, 12,709 wounded, 5,150 missing, 20,451; beside it \"Livermore's Estimate 3,903 18,735 5,425 28,063\"."
+    },
+    {
+     "source": "LIVERMORE-1900-C046",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (note to the Gettysburg table, p. 103)",
+     "text_offset": 213578,
+     "quote": "It is certainly within bounds to assume that on the Confederate side the proportion was the average of 1 to 4.8",
+     "witness": {
+      "name": "Thomas L. Livermore",
+      "role": "Compiler of Numbers and Losses; a former Union officer, not a witness of the battle",
+      "side": "union"
+     },
+     "written": {
+      "date": "1900-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "livermore",
+     "exact": false,
+     "states": {
+      "numbers": [
+       1,
+       4.8
+      ]
+     },
+     "note": "Livermore's own method for his Confederate figure: to the 6,802 wounded captured he adds the wounded the Confederate returns did not count and 1,311 killed \"to equal the average proportion of killed to wounded\" (1 to 4.8), so his 3,903 killed is the return (2,592) plus an assumed 1,311."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "inference": {
+    "step": "Livermore adds to the return of 20,451 the 6,026 wounded captured by the Union army above the 770 the returns report left behind, 275 captured in excess, and 1,311 killed assumed so that killed stand to wounded as 1 to 4.8; 20,451 + 6,026 + 275 + 1,311 = 28,063. A computed estimate.",
+    "from": [
+     "C-047-P30"
+    ]
+   }
+  },
+  {
+   "id": "C-047-P34",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate casualties 22,557: 4,559 killed, 12,355 wounded, 5,643 captured (the Park Service seminar paper of 2010)",
+   "kind": "count",
+   "value": {
+    "n": 22557
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "NPS-SEM10-ATKINSON-C044",
+     "source_class": "official",
+     "page": "9",
+     "page_basis": "pdf_marker",
+     "text_offset": 33098,
+     "quote": "His army suffered a loss of at least 22,557 soldiers, or 32 percent of his forces, with 4,559 killed, 12,355 wounded, and 5,643 captured",
+     "witness": {
+      "name": "Matthew Atkinson",
+      "role": "Park historian, Gettysburg National Military Park (Papers of the 2010 Gettysburg Seminar)",
+      "side": "institution"
+     },
+     "written": {
+      "date": "2010-01-01",
+      "kind": "institutional"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "atkinson",
+     "exact": true,
+     "states": {
+      "numbers": [
+       22557,
+       4559,
+       12355,
+       5643
+      ]
+     }
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "A modern paper that names no return; it lies inside the range shown."
+   },
+   "inference": {
+    "step": "The paper gives the totals without a source; they are taken as a report of a figure in use.",
+    "from": [
+     "C-047-P30"
+    ]
+   }
+  },
+  {
+   "id": "C-047-P35",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union: 105,000 effective at Gettysburg (Taylor's estimate of the enemy, 1877)",
+   "kind": "count",
+   "value": {
+    "n": 105000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "SHSP-04",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 89 of Southern Historical Society Papers vol. 4; no page marks in the text layer",
+     "text_offset": 214337,
+     "quote": "62,000, and the Army of the Potomac at 105,000, effective, at Gettysburg",
+     "witness": {
+      "name": "Walter H. Taylor",
+      "role": "Colonel, Lee's adjutant general, who copied the army's returns at the War Department; articles of 1877 and book of 1906",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877-08-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "taylor-1877",
+     "exact": true,
+     "states": {
+      "numbers": [
+       62000,
+       105000
+      ]
+     },
+     "note": "Taylor ends his memorandum: he puts \"the Army of Northern Virginia at 62,000, and the Army of the Potomac at 105,000, effective, at Gettysburg\". An enemy's estimate with no return named."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "A Confederate officer's estimate of the Union army with no return cited; Meade's own return says an aggregate of a little over 100,000, and the effectives engaged were fewer."
+   },
+   "inference": {
+    "step": "Taylor gives the Union effectives as an estimate beside his own figure; no return is named, so it is taken as a report of an estimate.",
+    "from": [
+     "C-047-P14"
+    ]
+   }
+  },
+  {
+   "id": "C-047-P36",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: 60,000 effective men, as Lee himself put it before the march (Allan, 1877)",
+   "kind": "count",
+   "value": {
+    "n": 60000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "SHSP-04",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 41 of Southern Historical Society Papers vol. 4; no page marks in the text layer",
+     "text_offset": 99428,
+     "quote": "General Lee's own statement to General Early, myself and others, in which he placed his strength, when about to move north- ward, in June, 1863, at 60,000 effective men",
+     "witness": {
+      "name": "William Allan",
+      "role": "Colonel on Ewell's staff, later historian of the Army of Northern Virginia; paper of 1877",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877-01-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "lee-statement",
+     "exact": true,
+     "states": {
+      "numbers": [
+       1863,
+       60000
+      ]
+     },
+     "note": "Allan (1877) recalls Lee's own statement of about 60,000 effective men when about to move north in June 1863, and cites Early's reply to Badeau (1870). It is the one figure attributed to Lee himself, remembered fourteen years later; Allan also says Lee \"could hardly have taken over 60,000\" of the 68,352 on the return."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "A statement of Lee in June 1863 as remembered by Allan in 1877, with no return; Taylor's 62,000 and Early's under 60,000 read the return of 31 May."
+   },
+   "inference": {
+    "step": "Allan reports from memory what Lee said before the march; it agrees with the readings of the return of 31 May by Taylor and Early within about 2,000.",
+    "from": [
+     "C-047-P19"
+    ]
+   }
+  },
+  {
+   "id": "C-047-P37",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Confederate: 61,000 (Taylor) and 55,000 (Venable), the statements of two staff officers to Lee in 1865",
+   "kind": "count_range",
+   "value": {
+    "low": 55000,
+    "high": 61000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "SHSP-04",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 41 of Southern Historical Society Papers vol. 4; no page marks in the text layer",
+     "text_offset": 100313,
+     "quote": "The former places the Confederate strength of all arms on that battle- field at 61,000 ; the latter at 55,000",
+     "witness": {
+      "name": "William Allan",
+      "role": "Colonel on Ewell's staff, later historian of the Army of Northern Virginia; paper of 1877",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877-01-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "lee-staff-1865",
+     "exact": true,
+     "states": {
+      "numbers": [
+       61000,
+       55000
+      ]
+     },
+     "note": "Allan (1877), from his copy of the statements that Colonel Taylor and Colonel Venable sent Lee in 1865 for the history he meant to write: Taylor 61,000, Venable 55,000, all arms. Taylor's later figures are 62,000 (1877) and 67,000 (1906)."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "Two staff officers' statements of 1865 as copied by Allan; no return named. They bracket the estimates by Taylor and Early from the return."
+   },
+   "inference": {
+    "step": "Allan reproduces from his copy two staff officers' figures of 1865; they are estimates made twenty-two months after the battle.",
+    "from": [
+     "C-047-P19"
+    ]
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "The totals differ because they count different things and, for the Confederates, because the record itself is incomplete. Union casualties: the Official Records' revised return, 23,049 (3,155 killed, 14,529 wounded, 5,365 missing), replaced Meade's first return of 1863 (23,186); nothing else read is a return, and the plan's 23,055 and 22,822 have no source. Confederate casualties: the Official Records' compilation of 1889 from commanders' reports, 20,451, is known to be short (slightly wounded not counted, one brigade not reporting); Guild's own table is 14,278 killed and wounded; the Comte de Paris gives 22,728; Livermore's estimate adds the wounded the Union army captured and a ratio, 28,063. Strengths: Meade's report gives an aggregate of a little over 100,000 for his army (a return, all men); Livermore computes 83,289 effectives engaged; the Comte de Paris 75,000 net of stragglers and cavalry. For Lee, Taylor copied the return of 31 May (68,352 effectives) and reasons to 62,000 at Gettysburg, Early to under 60,000, Taylor later to 67,000, Longstreet (second hand) 75,000, Livermore 75,992, the Comte de Paris 54,000. The best witnesses disagree, and what each counts differs (return, aggregate, effectives, engaged), so no source or rule separates them: the conflict is irreducible and the default is the set of claims, army by army, with what each counts.",
+  "who": "Meade and Guild signed returns of their armies; the Official Records' Confederate return was compiled in 1889 by War Department editors, who call it approximative. Taylor (Lee's adjutant) and Early (a division commander) knew the Confederate returns at first hand and wrote in 1877 to settle the strength; the Comte de Paris, Livermore and Alexander compiled from the returns; Oates relays Longstreet; the Park Service paper of 2010 names no source.",
+  "when": "Meade 1 Oct 1863 (and the revised statement in the volume of 1889); Guild 1 Sep 1863; Early and Taylor 1877; the Comte de Paris Dec 1877; Livermore 1900; Alexander 1907; Taylor 1906; the Park Service 2010. By the rule a return or report of the time outranks a compiled table, a table a history, a history a memoir; the Union and Confederate returns are therefore the documented ends, and the later estimates are inferred.",
+  "where": "Taylor and Early were with Lee's army and had the returns in hand; Meade wrote from his headquarters. The returns count at different dates: the Union returns of 30 June and 4 July, the Confederate return of 31 May (the nearest to the march; two cavalry brigades and part of Pickett's division did not arrive).",
+  "how_knew": "Meade and Guild gave returns made up from corps returns; Taylor copied the original return at the War Department; Early and Taylor reasoned from it to the army at Gettysburg; Livermore computed with fixed percentages (93 per cent of infantry and artillery, 85 per cent of cavalry); the Comte de Paris subtracted stragglers. The Confederate casualty returns exclude the slightly wounded (Lee's order of 14 May 1863, as the New York commission says) and had no return from Jenkins' brigade.",
+  "clock": "not applicable: these are counts; the dates are the dates of the returns and reports.",
+  "independence": "Groups: Meade's aggregate and his first return (one report), the revised Union return (Livermore and Alexander repeat it), Livermore's computations, Taylor's copy of the return of 31 May (Taylor's two figures, 62,000 and 67,000, and Early's which reasons from it: one line of knowledge, the return), the Comte de Paris, Guild, the Official Records' Confederate compilation (Alexander repeats it), Oates relaying Longstreet, the council memorandum, the Park Service paper. Every figure rests on one line and carries a single_source flag."
+ },
+ "source_panel_text": "No single figure. Union: 23,049 lost (the revised return); 83,289 effectives engaged (Livermore) to an aggregate of over 100,000 (Meade). Confederate: 20,451 lost (the returns, short) to 28,063 (Livermore's estimate); 62,000 (Taylor) to 75,992 (Livermore) effectives. Each counts something different. 30 other values listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "yes",
+   "note": "The plan's recommended default, a range with no single figure, holds; the plan's own figures (Wikipedia, FortWiki, Stone Sentinels, Busey and Martin) have no source in the record."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "The rule (printed unit strength drives instancing; army-level spread shown as a range) holds. Its basis does not: the Union return 23,049 is read in the second scan (246 officers + 2,909 men killed), \"Guild 2,592/12,709\" is the editors' compilation (Guild's own table is 2,396 and 11,882), and the strength tables are not unreadable but stand in Livermore, Taylor and Early."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-047 row)",
+   "must_change": true,
+   "note": "Row names OR Union casualties 23,049 (OCR single cell) and \"Guild 2,592/12,709\"; both corrected here. Not edited here."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-G22 row)",
+   "must_change": false,
+   "note": "Row names C-047; read, the instancing rule is unchanged."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 5 row)",
+   "must_change": false,
+   "note": "Row names C-047; read, nothing to change."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 7 row)",
+   "must_change": false,
+   "note": "Row names C-047; read, nothing to change."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0119.md",
+   "must_change": true,
+   "note": "Register entry says the OR strength tables are unreadable and that the legible council memorandum gives 58,000; the strengths now stand in Livermore, Taylor and Early, and the 58,000 counts seven corps after two days. Not edited here."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0120.md",
+   "must_change": false,
+   "note": "Names C-047 in passing (the epilogue conflicts); nothing to change."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-008",
+   "must_change": false,
+   "note": "Item 1: the man-by-man picture uses the printed Stone Sentinels unit total; this resolution moves no printed strength. Consequence reported in owner_note."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-023",
+   "must_change": false,
+   "note": "Line 296: C-046/C-047 range with declared basis, no headline number, instancing by printed strength: unchanged."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-024",
+   "must_change": false,
+   "note": "Names C-047; read, nothing to change."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-047",
+   "must_change": true,
+   "note": "Line 75 shows C-047 as PENDING OWNER; the integration step records the resolved default (a set of claims side by side, class irreducible, tier inferred). Not edited here."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md",
+   "must_change": false,
+   "note": "Names C-047 among the range defaults shown as a range; consistent."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-B.md",
+   "must_change": false,
+   "note": "Ranges with a declared basis (C-046, C-047): consistent; no gate value is changed."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md",
+   "must_change": false,
+   "note": "CF rule that a range default is shown as a range: consistent."
+  },
+  {
+   "kind": "gate",
+   "ref": "tools/bt/gates/q19_claims.py",
+   "must_change": false,
+   "note": "Gate runner that names C-047; read, it holds no strength or casualty value that this resolution changes."
+  },
+  {
+   "kind": "app_code",
+   "ref": "docs/battle-theatre/app/src/history/casualties.mjs and app/data/casualty-sources.json",
+   "must_change": false,
+   "note": "The fate fractions and the high end of a unit's loss range use the PDF B.1 sources only (Union 22,822 to 23,055; Confederate 22,709 to 28,063); the documented Union return (23,049) lies inside, and the Confederate return (20,451) lies below the low end. Reported, not edited."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-047)",
+   "must_change": true,
+   "note": "Carries default scenario C-047-DEFAULT; the integration step replaces the label with the side-by-side set and keeps the three scenarios."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1 pp. 151-153 (Abstract from returns of the Army of the Potomac, June 30) in both scans",
+   "query": "the army totals of present for duty, aggregate present and present for duty equipped: the table columns are scrambled in the text of both scans, so no total is cited; Livermore's computation from them (87,312 + 12,369) is cited instead",
+   "outcome": "failed",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2 pp. 291-292 (Abstract from returns of the Army of Northern Virginia, July 20 and 31) and OR27-3 p. 1065 (July)",
+   "query": "the army aggregate: table columns scrambled; the field return of 31 May that Taylor and Early cite is not in the volumes read",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "whole local ledger (find_passage.py --all, primary, book and official classes)",
+   "query": "Union 93,921, 91,699, 104,256; Confederate 71,699, 68,612, 23,231, 22,709, 22,822: no hit outside the project's working files (leads)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "BUSEY-MARTIN (Regimental Strengths and Losses at Gettysburg, print)",
+   "query": "not in the library and not on a reachable host",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "archive.org page images of OR27 part 1 pp. 151-153 and 187",
+   "query": "the BookReader image redirect to ia903205.us.archive.org: CONNECT tunnel failed, 403; the returns were not seen as images",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "The field return of 31 May 1863 and the Confederate returns of 30 June read at the source (the War Department originals Taylor and Early copied), the page images of the Union returns of 30 June, or Busey and Martin read at the source.",
+ "owner_note": "DEC-008 consequence, reported and not edited: the soldiers instanced follow the printed unit strengths (the plan's Stone Sentinels tables, about 160,000 equipped in all: 91,699 Union and 68,612 Confederate). No documented army figure matches those printed totals: the documented Union figures are 83,289 effectives engaged and an aggregate of a little over 100,000, and the Confederate figures run from 62,000 to 75,992 effectives (68,352 on 31 May). Adding the ends of the ranges gives about 145,000 to 176,000 for both armies, so the drawn crowd of about 160,000 lies inside the range; but the Confederate printed total (68,612) is above Taylor's 62,000 and Early's under 60,000 and the Union total (91,699) is above Livermore's 83,289. The crowd count rests on the printed unit figures, which the sources here neither confirm nor refute for any single unit. This resolution does not change a count."
+}

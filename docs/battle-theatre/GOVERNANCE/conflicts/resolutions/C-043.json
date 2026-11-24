@@ -1,0 +1,874 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-043",
+ "topic": "Union retreat order Jul 1",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-043",
+ "event_date": "1863-07-01",
+ "pdf_row": {
+  "page": 63,
+  "text": "Union retreat order Jul 1 | 15:45; 16:00; 16:30; 17:00 | 16:00 | other three",
+  "values": [
+   "15:45",
+   "16:00",
+   "16:30",
+   "17:00"
+  ],
+  "recommended_default": "16:00",
+  "selectable_alternatives": [
+   "other three"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-043-DEFAULT",
+  "default_label": "16:00 inside documented window 15:45-17:00",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-043-S1",
+   "C-043-S2",
+   "C-043-S3",
+   "C-043-S4",
+   "C-043-S5",
+   "C-043-S6",
+   "C-043-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Two reports of the officers who gave the orders, in the Official Records: Wadsworth (4 Jul 1863, p. 266) 'at 3.45 o'clock I ordered the command to retire'; Howard (31 Aug 1863, p. 704) 'At 4.10 p. m. ... I sent a positive order to the commanders of the First and Eleventh Corps to fall back'. They are two orders at two levels, ten-odd minutes of clock apart; 'about 4' is Howard's conditional word and the enemy's advance; 'nearly 5' is Robinson's receipt of the order; 4.30 dates a regiment's fall-back and the columns' arrival on Cemetery Hill."
+ },
+ "default": {
+  "mode": "window",
+  "positions": [
+   "C-043-P1",
+   "C-043-P7"
+  ],
+  "label": "15:45 to 16:10: Wadsworth ordered the First Division back at 3.45; Howard ordered both corps back at 4.10",
+  "basis_text": "The two ends are two orders with clock readings, both by the officer who gave them: Wadsworth for his division (3.45, report of 4 Jul 1863) and Howard for the First and Eleventh Corps (4.10, report of 31 Aug 1863). Everything else the plan lists is the same retreat seen at another moment: Howard's conditional word about 4, the enemy's advance about 4, a regiment's fall-back at about 4.30 and Robinson's receipt nearly 5. No clock correction is applied.",
+  "animation": {
+   "at": "1863-07-01T15:45",
+   "rule": "earliest_documented",
+   "note": "The first retirement is drawn at 15:45, the earliest order with a clock reading (Wadsworth's division, which was the right of the First Corps); the corps-wide order of 16:10 and the later hours stay selectable. This is an order, not an arrival: the printed arrival on Cemetery Hill stays as the gates have it."
+  },
+  "note": "The retreat was not one order: it was ordered at two levels within about twenty-five minutes and received last by Robinson's division. A single instant would hide that."
+ },
+ "positions": [
+  {
+   "id": "C-043-P1",
+   "origin": "pdf_value",
+   "pdf_label": "15:45",
+   "scenario_ids": [
+    "C-043-S1"
+   ],
+   "source_keys": [],
+   "label": "15:45: Wadsworth orders the First Division to retire (his report of 4 Jul 1863)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T15:45",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-043-P1-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R032",
+     "page": "266",
+     "page_basis": "scan_leaf",
+     "text_offset": 905602,
+     "quote": "at 3.45 o'clock I ordered the command to retire",
+     "witness": {
+      "name": "James S. Wadsworth",
+      "role": "Brigadier General, commanding First Division, First Corps; on McPherson and Seminary Ridges",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "wadsworth",
+     "exact": true,
+     "states": {
+      "times": [
+       "15:45"
+      ]
+     },
+     "note": "Wadsworth's report of 4 July 1863 (Doubleday's report, p. 251, prints the same sentence as Wadsworth's): after Schurz fell back about 2.30 and he was 'outflanked on both right and left, heavily pressed in front', 'at 3.45 o'clock I ordered the command to retire'. Order given by the writer for his own division."
+    },
+    {
+     "id": "C-043-P1-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R032",
+     "page": "265",
+     "page_basis": "scan_leaf",
+     "text_offset": 901306,
+     "quote": "On the morning of July 1, at 8 a. m., the division moved from Marsh Creek on Gettysburg",
+     "witness": {
+      "name": "James S. Wadsworth",
+      "role": "Brigadier General, commanding First Division, First Corps; on McPherson and Seminary Ridges",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "wadsworth",
+     "exact": true,
+     "states": {
+      "times": [
+       "08:00"
+      ],
+      "dates": [
+       "07-01"
+      ]
+     },
+     "note": "Dates the day of the 3.45 sentence: the same report, the opening of its account of 1 July."
+    }
+   ]
+  },
+  {
+   "id": "C-043-P2",
+   "origin": "pdf_value",
+   "pdf_label": "16:00",
+   "scenario_ids": [
+    "C-043-S2"
+   ],
+   "source_keys": [],
+   "label": "About 16:00: Howard's word to Doubleday to fall back if he must; Doubleday's enemy advance 'about 4 p. m.'",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T16:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [],
+   "support": [
+    {
+     "id": "C-043-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "704",
+     "page_basis": "scan_leaf",
+     "text_offset": 2454016,
+     "quote": "About 4 p. m. I sent word to General Doubleday that, if he could not hold out longer, he must fall back, fighting, to Cemetery Hill",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding Eleventh Corps and, after Reynolds fell, the field",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "howard",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Howard's report: about 4 p.m. he sent word to Doubleday that if he could not hold out longer he must fall back to Cemetery Hill: a conditional word, ten minutes before the 'positive order' at 4.10."
+    },
+    {
+     "id": "C-043-P2-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R029",
+     "page": "250",
+     "page_basis": "scan_leaf",
+     "text_offset": 838716,
+     "quote": "About 4 p. m. the enemy, having been strongly re-enforced",
+     "witness": {
+      "name": "Abner Doubleday",
+      "role": "Major General, commanding the First Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-12-14",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "doubleday",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Doubleday's report (14 Dec 1863): about 4 p.m. the enemy advanced in force; 'It became necessary to retreat'; this dates the enemy's advance, not his order."
+    },
+    {
+     "id": "C-043-P2-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R029",
+     "page": "250",
+     "page_basis": "scan_leaf",
+     "text_offset": 839832,
+     "quote": "I now gave orders to fall back, this and Meredith's brigades covering the movement",
+     "witness": {
+      "name": "Abner Doubleday",
+      "role": "Major General, commanding the First Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-12-14",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "doubleday",
+     "exact": false,
+     "states": {},
+     "note": "Doubleday's own order to fall back, given after the advance 'about 4 p. m.': no clock reading of its own. He adds that the division commanders' statements 'are slightly conflicting'."
+    }
+   ],
+   "inference": {
+    "step": "Howard's 'About 4 p. m.' word to Doubleday permits a fall-back but is conditional; Doubleday's 'About 4 p. m.' dates the enemy's advance and his order followed it with no clock reading. Both place a fall-back order about 16:00, not at a stated minute.",
+    "from": [
+     "C-043-P2-c1",
+     "C-043-P2-c2",
+     "C-043-P2-c3"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Howard's 4 p.m. word to Doubleday is conditional and Doubleday gives no hour for his own order; the orders with a clock reading are Wadsworth's 3.45 and Howard's 4.10."
+   }
+  },
+  {
+   "id": "C-043-P3",
+   "origin": "pdf_value",
+   "pdf_label": "16:30",
+   "scenario_ids": [
+    "C-043-S3"
+   ],
+   "source_keys": [],
+   "label": "About 16:30: a regiment ordered back at the seminary (McFarland); columns reach Cemetery Hill (Howard)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T16:30",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [
+    "single_source",
+    "different_event"
+   ],
+   "support": [
+    {
+     "id": "C-043-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R060",
+     "page": "328",
+     "page_basis": "scan_leaf",
+     "text_offset": 1131581,
+     "quote": "I ordered the shattered remnants of as brave a regiment as ever entered the field to fall back [...] At this instant, 4.30 p. m., I was hit by a flank fire in both legs",
+     "witness": {
+      "name": "George F. McFarland",
+      "role": "Lieutenant Colonel, 151st Pennsylvania (Biddle's brigade); wounded at the seminary",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-15",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "mcfarland",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:30"
+      ]
+     },
+     "note": "McFarland's report (Juniata County, Pa., 15 Mar 1864, written from his recovery): he ordered the remnant of his regiment back and was hit 'at this instant, 4.30 p. m.' about 20 paces from the seminary: a regimental fall-back order at about 16:30."
+    },
+    {
+     "id": "C-043-P3-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "704",
+     "page_basis": "scan_leaf",
+     "text_offset": 2456093,
+     "quote": "At 4.30 p. m. the columns reached Cemetery Hill, the enemy pressing hard",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding Eleventh Corps and, after Reynolds fell, the field",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "howard",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:30"
+      ]
+     },
+     "note": "Howard's report: the retiring columns reached Cemetery Hill at 4.30: the retreat was then in progress; this dates arrival on the hill, not an order."
+    }
+   ],
+   "inference": {
+    "step": "McFarland's 4.30 is the minute he was hit, just after he ordered his regiment back; Howard's 4.30 is the arrival of the columns on Cemetery Hill. Neither is a general order; a regiment's fall-back order fell about 16:25 to 16:30, and the retiring columns were on the hill at 4.30.",
+    "from": [
+     "C-043-P3-c1",
+     "C-043-P3-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "No report gives a general order at 4.30. The hour dates a regiment's fall-back at the seminary and the columns' arrival on Cemetery Hill, both after the orders of 3.45 and 4.10."
+   }
+  },
+  {
+   "id": "C-043-P4",
+   "origin": "pdf_value",
+   "pdf_label": "17:00",
+   "scenario_ids": [
+    "C-043-S4"
+   ],
+   "source_keys": [],
+   "label": "About 17:00: Robinson's division receives its order to withdraw, 'nearly 5 p. m.' (his report)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T17:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-043-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R043",
+     "page": "290",
+     "page_basis": "scan_leaf",
+     "text_offset": 991698,
+     "quote": "from about noon until nearly 5 p. m., when I received orders to withdraw. These orders not being received until all other troops (except Stewart's battery) had commenced moving to the rear",
+     "witness": {
+      "name": "John C. Robinson",
+      "role": "Brigadier General, commanding Second Division, First Corps, on the right near the Mummasburg road",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-18",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "about",
+     "group": "robinson",
+     "exact": true,
+     "states": {
+      "times": [
+       "17:00"
+      ]
+     },
+     "note": "Robinson's report (headed 'Jvly 18, 1863'; the OCR prints the month oddly): his division got its order 'nearly 5 p. m.', after 'all other troops (except Stewart's battery) had commenced moving to the rear'. It dates the receipt of the order by the last division, not the giving of the order."
+    },
+    {
+     "id": "C-043-P4-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R043",
+     "page": "289",
+     "page_basis": "scan_leaf",
+     "text_offset": 988986,
+     "quote": "On the morning of Wednesday, the 1st, the division marched from Emmitsburg",
+     "witness": {
+      "name": "John C. Robinson",
+      "role": "Brigadier General, commanding Second Division, First Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-18",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "robinson",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-01"
+      ]
+     },
+     "note": "Dates the day of the 'nearly 5 p. m.' sentence: the same report, headed 'Hdqrs. Second Division, First Army Corps, July 18, 1863'."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Robinson says his division received its order after all other troops had begun to move; 'nearly 5 p. m.' is the last order to reach the field, not the retreat order."
+   }
+  },
+  {
+   "id": "C-043-P5",
+   "origin": "pdf_default",
+   "pdf_label": "16:00",
+   "scenario_ids": [
+    "C-043-S5"
+   ],
+   "source_keys": [],
+   "label": "16:00: the plan's recommended default (Howard's 'about 4 p. m.' word; Doubleday)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T16:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [],
+   "support": [
+    {
+     "id": "C-043-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "704",
+     "page_basis": "scan_leaf",
+     "text_offset": 2454016,
+     "quote": "About 4 p. m. I sent word to General Doubleday that, if he could not hold out longer, he must fall back, fighting, to Cemetery Hill",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding Eleventh Corps and, after Reynolds fell, the field",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "howard",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Howard's conditional word about 4 p.m."
+    },
+    {
+     "id": "C-043-P5-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R029",
+     "page": "250",
+     "page_basis": "scan_leaf",
+     "text_offset": 838716,
+     "quote": "About 4 p. m. the enemy, having been strongly re-enforced",
+     "witness": {
+      "name": "Abner Doubleday",
+      "role": "Major General, commanding the First Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-12-14",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "doubleday",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Doubleday: the enemy's advance about 4 p.m., after which he gave orders to fall back."
+    }
+   ],
+   "inference": {
+    "step": "The plan's 16:00 matches the two 'About 4 p. m.' statements (Howard's conditional word, Doubleday's enemy advance); neither is an order with a clock reading.",
+    "from": [
+     "C-043-P5-c1",
+     "C-043-P5-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "'About 4 p. m.' is Howard's conditional word to Doubleday and the time of the enemy's advance; the orders with a clock reading are Wadsworth's 3.45 and Howard's 4.10."
+   }
+  },
+  {
+   "id": "C-043-P6",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-043-S6",
+    "C-043-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "15:45 to 17:00 with 16:00 inside: the first delegated window (Wadsworth to Robinson)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-01T15:45",
+    "to": "1863-07-01T17:00",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-043-P6-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R032",
+     "page": "266",
+     "page_basis": "scan_leaf",
+     "text_offset": 905602,
+     "quote": "at 3.45 o'clock I ordered the command to retire",
+     "witness": {
+      "name": "James S. Wadsworth",
+      "role": "Brigadier General, commanding First Division, First Corps; on McPherson and Seminary Ridges",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "wadsworth",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:45"
+      ]
+     },
+     "note": "Wadsworth's report of 4 July 1863 (Doubleday's report, p. 251, prints the same sentence as Wadsworth's): after Schurz fell back about 2.30 and he was 'outflanked on both right and left, heavily pressed in front', 'at 3.45 o'clock I ordered the command to retire'. Order given by the writer for his own division."
+    },
+    {
+     "id": "C-043-P6-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R043",
+     "page": "290",
+     "page_basis": "scan_leaf",
+     "text_offset": 991698,
+     "quote": "from about noon until nearly 5 p. m., when I received orders to withdraw",
+     "witness": {
+      "name": "John C. Robinson",
+      "role": "Brigadier General, commanding Second Division, First Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-18",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "about",
+     "group": "robinson",
+     "exact": false,
+     "states": {
+      "times": [
+       "17:00"
+      ]
+     },
+     "note": "The late end of the window: Robinson's 'nearly 5 p. m.'."
+    }
+   ],
+   "inference": {
+    "step": "The first pass joined the earliest order with a clock reading (Wadsworth, 3.45) to the latest receipt of an order (Robinson, nearly 5); the span contains the orders and the receipt, not one order.",
+    "from": [
+     "C-043-P6-c1",
+     "C-043-P6-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Its late end is the receipt of the order by the last division. A window from 15:45 to 17:00 mixes two orders, the stragglers' receipt and the retreat itself."
+   }
+  },
+  {
+   "id": "C-043-P7",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "16:10: Howard's positive order to the First and Eleventh Corps to fall back (his report)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T16:10",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-043-P7-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "704",
+     "page_basis": "scan_leaf",
+     "text_offset": 2455244,
+     "quote": "At 4.10 p. m., finding that I could hold out no longer, and that the troops were already giving way, I sent a positive order to the commanders of the First and Eleventh Corps to fall back gradually",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding Eleventh Corps and, after Reynolds fell, the field",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "howard",
+     "exact": true,
+     "states": {
+      "times": [
+       "16:10"
+      ]
+     },
+     "note": "Howard's report of 31 Aug 1863: his 'positive order' to the commanders of both corps to fall back, given because 'the troops were already giving way'; an order of the commander of the field to two corps."
+    },
+    {
+     "id": "C-043-P7-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "701",
+     "page_basis": "scan_leaf",
+     "text_offset": 2443246,
+     "quote": "At 3.30 a. m. July 1, orders were received from your headquarters to move the Eleventh Corps",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding Eleventh Corps and, after Reynolds fell, the field",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "howard",
+     "exact": true,
+     "states": {
+      "times": [
+       "03:30"
+      ],
+      "dates": [
+       "07-01"
+      ]
+     },
+     "note": "Dates the day of the 4.10 sentence: the same report narrates 1 July in order from this line."
+    }
+   ]
+  }
+ ],
+ "weighing": {
+  "summary": "The reports name two orders with clock readings, each given by the writer: Wadsworth's order to his division at 3.45 (written 4 Jul 1863) and Howard's positive order to both corps at 4.10 (written 31 Aug 1863). Everything else in the plan is the same retreat at another moment: 'about 4 p. m.' is Howard's conditional word to Doubleday (ten minutes before the positive order) and the enemy's advance in Doubleday's report, which then 'gave orders to fall back' with no clock reading; 'nearly 5 p. m.' is when Robinson's division received its order after all other troops had begun to move; 4.30 is the minute a regimental commander was hit just after ordering his men back, and the minute Howard puts the columns on Cemetery Hill. No report gives a general order at 4.30. The first delegated pass found these as 'different orders' but kept one hour inside a wide window; the window of this resolution is the span of the two orders themselves. Weighted, not settled: nothing says which order the picture should follow, only that both are documented.",
+  "who": "Wadsworth commanded the First Division and gave its order; Howard commanded the field and gave the order to both corps; Doubleday commanded the First Corps; Robinson commanded the Second Division and received his order late; McFarland commanded the 151st Pennsylvania.",
+  "when": "Wadsworth wrote on 4 Jul 1863 (three days, rank 5); Howard on 31 Aug 1863 (61 days, rank 4); Doubleday on 14 Dec 1863; McFarland on 15 Mar 1864; Robinson on 18 Jul 1863 (the date in his heading). Doubleday prints Wadsworth's sentence as 'General Wadsworth says' (p. 251): the same words, one line.",
+  "where": "Wadsworth was on the ridge west of the seminary; Howard on Cemetery Hill (he sent aides); Doubleday at the seminary, superintending the final movement; Robinson on the right near the Mummasburg road; McFarland near the seminary.",
+  "how_knew": "Wadsworth and Howard each gave their own orders; Doubleday his own; Robinson received his; McFarland gave his regiment's.",
+  "clock": "All the Union writers use the Union clock. The plan's note that the two armies' clocks reportedly differed by about 20 minutes is not applied; an Eleventh Corps clock and a First Corps clock might differ by minutes, which could explain a quarter-hour between 3.45 and 4.10 but is not shown.",
+  "independence": "Wadsworth's 3.45 is one line (Doubleday prints it as Wadsworth's); Howard's 4.10 and his about-4 word are one writer's report, and the same text is reprinted in Battles and Leaders; the two default orders are separate lines. Each default order has a single non-lead source and is flagged single-source."
+ },
+ "source_panel_text": "About 15:45 to 16:10 on Jul 1: Wadsworth's report has him ordering his division back at 3.45; Howard's report has his positive order to both corps at 4.10. 'About 4' is Howard's conditional word, 'nearly 5' is when Robinson's division received its order, and 4.30 dates a regiment's fall-back. Five other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "16:00 is not an order with a clock reading: 'about 4' is Howard's conditional word and the enemy's advance. The orders are 3.45 (Wadsworth) and 4.10 (Howard); 16:00 stays selectable, labelled inferred."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "The first pass named the different orders but kept one hour (16:00) inside a window from 15:45 to 17:00, whose late end is Robinson's receipt of an order, not an order. The window of this resolution ends at Howard's 4.10; 16:30 is not 'secondary only': a regiment's fall-back and the columns' arrival fall then."
+  }
+ },
+ "failed_searches": [
+  {
+   "where": "OR27-1 (reports of Wadsworth, Doubleday, Howard, Robinson, Rowley, Schurz, Meade, Biddle, Gates, Stone, Coulter, Dana, McFarland, Cooper, Wainwright)",
+   "query": "order to retire/fall back/withdraw/retreat near 3.30, 3.45, 4, 4.10, 4.30, 5, 'nearly 5', 'about 4' and the words for them: only Wadsworth 3.45, Howard 4.10 and about 4, McFarland 4.30 (regiment), Robinson nearly 5, Doubleday about 4 for the enemy's advance; Schurz gives no hour for Howard's order reaching him; Rowley none",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "ledger texts (ws9 books, state volumes, town books, Park Service pages)",
+   "query": "'retreat' or 'fall back' with an hour near 4 and 4.30 in the First and Eleventh Corps narratives (Meade's Life and Letters has 'It was now half-past three o'clock. Before the retreat Howard had sent word to Schurz to fall back, but this order was not received until the corps was in full retreat'; New York at Gettysburg repeats Howard's 4.30): later histories only, none an order with a clock reading",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "the plan's 16:30 ('W-FD', the seed row's Wikipedia-derived value)",
+   "query": "a general retreat order at 16:30; the source is a web page that was not read (lead); no report gives a retreat order at 4.30",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A dated order, message or journal of 1 July (Howard's or Doubleday's staff, Wadsworth's or Schurz's aides) with a clock reading for the general order, or a report by Howard's staff stating the hour the order reached Schurz and Doubleday, would move the late end of the window or fix a single instant.",
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-043 row)",
+   "must_change": true,
+   "note": "The first delegated row (16:00 inside the window 15:45-17:00, documented) is superseded: default window 15:45 to 16:10, weighted, documented, single-source orders."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-RZ-11 row)",
+   "must_change": false,
+   "note": "Realization rules link C-043 as a conflict that reaches path stops; values and ids stay."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL03-02 row)",
+   "must_change": false,
+   "note": "Applies the first default (16:00) to T1-151 and T1-156; the integration step restates both with this window."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0117.md",
+   "must_change": true,
+   "note": "Register entry for the retreat order follows this resolution (two documented orders; 16:30 not a general order)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-043",
+   "must_change": true,
+   "note": "Decision-log line names the PDF default 16:00 (PENDING OWNER); recorded by the integration step."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-B.md",
+   "must_change": false,
+   "note": "Names C-043 among the conflicts that reach path stops; no value."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md",
+   "must_change": false,
+   "note": "Names C-043 as a path-stop conflict; the arrival at Cemetery Hill stays as printed (17:00) and is not changed."
+  },
+  {
+   "kind": "gate",
+   "ref": "tools/bt/gates/oob_layer_lib.mjs",
+   "must_change": false,
+   "note": "Uses C-043 choice v3 (17:00) as a sample scenario; 17:00 stays selectable."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-151",
+   "must_change": true,
+   "note": "Seed row 'Jul 1 about 15:45' (Wadsworth's retirement) with 'RETREAT: 15:45 / 16:00 / 16:30 / 17:00'; the default window becomes 15:45 to 16:10 and the row's values are labelled by what each is (order, word, regiment, receipt). Row not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-156",
+   "must_change": true,
+   "note": "The delegated default was applied to the same event (Doubleday's order): the window becomes 15:45 to 16:10; Doubleday's order has no clock reading of its own."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/placement.json and app/tools/placement-clauses.mjs (C-043, PO-03: dep 15:45, arrival printed 17:00)",
+   "must_change": false,
+   "note": "The I Corps retreat clause already departs at 15:45 and keeps the printed arrival 17:00; the default 15:45 is the same; the choices v0-v3 (15:45, 16:00, 16:30, 17:00) all stay selectable."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-043)",
+   "must_change": true,
+   "note": "default_scenario_id C-043-DEFAULT '16:00 inside documented window 15:45-17:00' becomes the window 15:45 to 16:10; the integration step edits it."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "us-1c",
+   "must_change": false,
+   "note": "I Corps row carries C-043 as a topic_other_cell link ('15:45-17:00 retreat through town'); the arrival gate (10:00-10:20) is not affected; no change."
+  },
+  {
+   "kind": "test",
+   "ref": "docs/battle-theatre/app/tests/claims.test.mjs, daypos.test.mjs, history.test.mjs, ledgerE.test.mjs (choices C-043 v3 = 17:00)",
+   "must_change": false,
+   "note": "Tests choose the 17:00 option as a scenario; it stays selectable."
+  }
+ ]
+}

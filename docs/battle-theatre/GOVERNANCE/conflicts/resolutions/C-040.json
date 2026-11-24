@@ -1,0 +1,784 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-040",
+ "topic": "Reynolds’ death",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-040",
+ "event_date": "1863-07-01",
+ "pdf_row": {
+  "page": 63,
+  "text": "Reynolds’ death | 10:15; 10:30; 10:40-10:50 | 10:30 | other two",
+  "values": [
+   "10:15",
+   "10:30",
+   "10:40-10:50"
+  ],
+  "recommended_default": "10:30",
+  "selectable_alternatives": [
+   "other two"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-040-DEFAULT",
+  "default_label": "window 10:15-11:15 (OR values mutually inconsistent)",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-040-S1",
+   "C-040-S2",
+   "C-040-S3",
+   "C-040-S4",
+   "C-040-S5",
+   "C-040-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Wadsworth, commanding the division on the field, wrote on 4 Jul 1863 that 'at this time (about 10.15 a. m.) our gallant leader fell' (Official Records 27/1, p. 266); Doubleday's report of 14 Dec 1863 gives about 10.15 for the same event (p. 245). Howard's 11.15 (dispatch of 5 p.m., p. 696) is a reckoning from news that reached him about 11.30 (p. 702). Weld, Reynolds' aide, rode to Meade about 10:00, so Reynolds was alive then. No source gives 10:30 or 10:40-10:50."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-040-P1"
+  ],
+  "label": "About 10:15: Wadsworth's report of 4 Jul 1863 and Doubleday's report; Howard's 11.15 is a later reckoning",
+  "note": "Both 10.15 readings come from officers of the First Corps and are hedged ('about'); the default carries about a quarter of an hour either way. One officer's account (Hall's battery, ordered in by Reynolds, 'opened ... at 10.45') would put the fall after 10.45 if its clock is exact; that tension is why the class is weighted and why 11:15 stays selectable."
+ },
+ "positions": [
+  {
+   "id": "C-040-P1",
+   "origin": "pdf_value",
+   "pdf_label": "10:15",
+   "scenario_ids": [
+    "C-040-S1"
+   ],
+   "source_keys": [],
+   "label": "About 10:15: Wadsworth's report of 4 Jul 1863 and Doubleday's report; Reynolds alive about 10:00 (Weld)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T10:15",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-040-P1-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R032",
+     "page": "266",
+     "page_basis": "scan_leaf",
+     "text_offset": 902559,
+     "quote": "at this time (about 10. 15 a. m.) our gallant leader fell, mortally wounded",
+     "witness": {
+      "name": "James S. Wadsworth",
+      "role": "Brigadier General, commanding First Division, First Corps; on McPherson Ridge with the leading brigades",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "about",
+     "group": "first-corps",
+     "exact": true,
+     "states": {
+      "times": [
+       "10:15"
+      ]
+     },
+     "note": "Wadsworth's report of 4 July 1863: Cutler's brigade, Hall's battery and Meredith's brigade came up the Cashtown road about 10 a.m.; the right 'became sharply engaged before the line was formed, and at this time (about 10.15 a. m.) our gallant leader fell'. He does not say whether he saw it."
+    },
+    {
+     "id": "C-040-P1-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R032",
+     "page": "265",
+     "page_basis": "scan_leaf",
+     "text_offset": 901306,
+     "quote": "On the morning of July 1, at 8 a. m., the division moved from Marsh Creek on Gettysburg",
+     "witness": {
+      "name": "James S. Wadsworth",
+      "role": "Brigadier General, commanding First Division, First Corps; on McPherson Ridge with the leading brigades",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "first-corps",
+     "exact": true,
+     "states": {
+      "times": [
+       "08:00"
+      ],
+      "dates": [
+       "07-01"
+      ]
+     },
+     "note": "Dates the day of the 10.15 sentence: the same report, the opening of its account of 1 July."
+    },
+    {
+     "id": "C-040-P1-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R029",
+     "page": "245",
+     "page_basis": "scan_leaf",
+     "text_offset": 818142,
+     "quote": "This melancholy event occurred in the beginning of the attack referred to, about 10.15 a. m.",
+     "witness": {
+      "name": "Abner Doubleday",
+      "role": "Major General; commanded the First Division, then the First Corps from Reynolds' death",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-12-14",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "about",
+     "group": "first-corps",
+     "exact": false,
+     "states": {
+      "times": [
+       "10:15"
+      ]
+     },
+     "note": "Doubleday's report (14 Dec 1863): after the Iron Brigade's counter-stroke he 'learned ... that our brave and lamented commander, Major-General Reynolds, had just been shot'. He gives the same hour with the same hedge as Wadsworth, whose report was written five months earlier; independence is not shown, so the two are one group."
+    },
+    {
+     "id": "C-040-P1-c4",
+     "source": "WELD-1912-C040",
+     "source_class": "book",
+     "page": "230",
+     "page_basis": "as_read",
+     "text_offset": 508803,
+     "quote": "I delivered the message to General Meade at 11.20, having been an hour and twenty minutes on my way",
+     "witness": {
+      "name": "Stephen M. Weld",
+      "role": "Aide on Reynolds' staff; with him that morning, then sent riding to Meade at Taneytown",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "weld",
+     "exact": false,
+     "states": {
+      "times": [
+       "11:20"
+      ],
+      "numbers": [
+       20
+      ]
+     },
+     "note": "Weld's diary entry for 1 July (written within the month; the day of writing is not stated): Reynolds sent him to Meade; he delivered the message at 11.20 after an hour and twenty minutes, so he left Reynolds about 10:00 and Reynolds was alive then. It gives no hour for the death."
+    }
+   ]
+  },
+  {
+   "id": "C-040-P2",
+   "origin": "pdf_value",
+   "pdf_label": "10:30",
+   "scenario_ids": [
+    "C-040-S2"
+   ],
+   "source_keys": [],
+   "label": "10:30: the plan's value; no writer gives it",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T10:30",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced"
+   ],
+   "support": [],
+   "failed_lookups": [
+    {
+     "where": "OR27-1, OR27-2, OR27-3 and the ledger texts",
+     "query": "Reynolds (and 'General Reynolds', 'our leader', 'the corps commander') with fell, killed, shot, mortally within 350 characters of 10.30, 10:30, half past ten, 'half-past ten'; the Official Records (all parts) and every non-lead text of the ledger",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "timeline seed row T1-099 and OR27-2 p. 649",
+     "query": "the plan names no source for this row (conflict register row C-040 prints none); the seed row T1-099 cites 'Doubleday OR; W-Rey estimate' for 10:15 only; the one 10.30 in the record near the event is Davis's 'About 10.30 o'clock a line of battle was formed' (OR27-2 p. 649), a Confederate brigade's deployment, not the death",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No report, letter or book found gives 10:30 for Reynolds' fall and the plan names no source for it. The reports put it at about 10:15 and the later hours at 11:15 and 11:30."
+   }
+  },
+  {
+   "id": "C-040-P3",
+   "origin": "pdf_value",
+   "pdf_label": "10:40-10:50",
+   "scenario_ids": [
+    "C-040-S3"
+   ],
+   "source_keys": [],
+   "label": "10:40 to 10:50: the plan's value; no writer gives it",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-01T10:40",
+    "to": "1863-07-01T10:50",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced"
+   ],
+   "support": [],
+   "failed_lookups": [
+    {
+     "where": "OR27-1, OR27-2, OR27-3 and the ledger texts",
+     "query": "Reynolds fell/killed/shot within 350 characters of 10.40, 10.45, 10.50, 'ten forty-five', 'a quarter to eleven'; the Official Records (all parts) and every non-lead text of the ledger",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1 pp. 359 and 696",
+     "query": "the only 10.45 readings near the event are Howard's 'Reynolds attacked the enemy ... about 10.45 a. m.' (OR27-1 p. 696) and Hall's 'We opened upon this battery ... at 10.45 a. m.' (p. 359); the first dates the start of the fight, the second Hall's first fire; neither states the death",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No writer found gives 10:40 to 10:50 for the fall. The only 10.45 readings in the record date other events (Howard's 'attacked the enemy', Hall's opening of fire)."
+   }
+  },
+  {
+   "id": "C-040-P4",
+   "origin": "pdf_default",
+   "pdf_label": "10:30",
+   "scenario_ids": [
+    "C-040-S4"
+   ],
+   "source_keys": [],
+   "label": "10:30: the plan's recommended default; a stand-in with no source",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T10:30",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "plausible-procedural",
+   "stance": "selectable",
+   "flags": [
+    "unsourced"
+   ],
+   "support": [],
+   "procedural_basis": "The plan recommended 10:30 as a middle value between its 10:15 and its 10:40-10:50; the first delegated pass kept it as a marked stand-in because the Official Records do not carry it. It stands in for a clock reading no witness gave.",
+   "failed_lookups": [
+    {
+     "where": "OR27-1, OR27-2, OR27-3 and the ledger texts",
+     "query": "Reynolds fell/killed/shot within 350 characters of 10.30, 10:30, half past ten; the Official Records (all parts) and every non-lead text of the ledger",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "The plan's 10:30 is a stand-in between its other two values; no witness gives it. A first-hand hour (about 10:15, Wadsworth) has been found."
+   }
+  },
+  {
+   "id": "C-040-P5",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-040-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "About 10:15 to 11:15: the first delegated window (Wadsworth and Doubleday to Howard's dispatch)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-01T10:15",
+    "to": "1863-07-01T11:15",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-040-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R032",
+     "page": "266",
+     "page_basis": "scan_leaf",
+     "text_offset": 902559,
+     "quote": "at this time (about 10. 15 a. m.) our gallant leader fell, mortally wounded",
+     "witness": {
+      "name": "James S. Wadsworth",
+      "role": "Brigadier General, commanding First Division, First Corps; on McPherson Ridge with the leading brigades",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "about",
+     "group": "first-corps",
+     "exact": false,
+     "states": {
+      "times": [
+       "10:15"
+      ]
+     },
+     "note": "The early end of the window."
+    },
+    {
+     "id": "C-040-P5-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "696",
+     "page_basis": "scan_leaf",
+     "text_offset": 2433777,
+     "quote": "July 1, 1863—5 p. m. [...] General Reynolds was killed at 11.15 a. m.",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding Eleventh Corps; not at the fighting on McPherson Ridge when Reynolds fell",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-01",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "howard",
+     "exact": false,
+     "states": {
+      "times": [
+       "11:15",
+       "17:00"
+      ],
+      "dates": [
+       "07-01"
+      ]
+     },
+     "note": "The late end of the window: Howard's note of 5 p.m."
+    }
+   ],
+   "inference": {
+    "step": "The window joins the earliest reading of a witness on the field (Wadsworth, about 10.15) to the latest hour for the death itself (Howard's note, 11.15). It is the span between two statements, not a statement.",
+    "from": [
+     "C-040-P5-c1",
+     "C-040-P5-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "elsewhere",
+    "text": "Its late end is Howard's 11.15, written by an officer who was not at the fighting and who says the news reached him about 11.30; the officers on the field give about 10.15. The window is wider than the record."
+   }
+  },
+  {
+   "id": "C-040-P6",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-040-S5"
+   ],
+   "source_keys": [],
+   "label": "11:15: Howard's note of 5 p.m., 'General Reynolds was killed at 11.15 a. m.'",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T11:15",
+    "approx": false,
+    "note": "a clock reading in a dispatch, not an observation of the fall"
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-040-P6-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "696",
+     "page_basis": "scan_leaf",
+     "text_offset": 2433777,
+     "quote": "July 1, 1863—5 p. m. [...] General Reynolds was killed at 11.15 a. m.",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding Eleventh Corps; not at the fighting on McPherson Ridge when Reynolds fell",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-01",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "howard",
+     "exact": true,
+     "states": {
+      "times": [
+       "11:15",
+       "17:00"
+      ],
+      "dates": [
+       "07-01"
+      ]
+     },
+     "note": "Howard's note to Meade, headed 'Hdqrs. Eleventh Corps ... July 1, 1863-5 p. m.' (p. 696). He reached the field about 11.30 on his own account (p. 702) and was told of the death then; the 11.15 is a reckoning from the news."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "elsewhere",
+    "text": "Howard was not at the fighting and learned of the death about 11.30; his dispatch of the day outranks later writings but not Wadsworth, who was on the field and wrote three days later, and it contradicts Weld's ride."
+   }
+  },
+  {
+   "id": "C-040-P7",
+   "origin": "first_delegated",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 11:30: when the news reached Howard (his report; Schurz): a different event from the fall",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T11:30",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "different_event"
+   ],
+   "support": [
+    {
+     "id": "C-040-P7-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "702",
+     "page_basis": "scan_leaf",
+     "text_offset": 2445666,
+     "quote": "His aide-de-camp, Major [William] Riddle, brought the sad tidings of his death. This was about 11.30 a. m.",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding Eleventh Corps; not at the fighting on McPherson Ridge when Reynolds fell",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-31",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "howard",
+     "exact": true,
+     "states": {
+      "times": [
+       "11:30"
+      ]
+     },
+     "note": "Howard's report of 31 Aug 1863: Major Riddle brought the news of the death 'about 11.30 a. m.'; this dates the news reaching Howard on Cemetery Hill, not the fall."
+    },
+    {
+     "id": "C-040-P7-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R253",
+     "page": "727",
+     "page_basis": "scan_leaf",
+     "text_offset": 2539207,
+     "quote": "where I ariived about 11.30 o'clock, finding you upon an eminence east of the cemetery of Gettysburg [...] You informed me that General Reynolds had just been killed",
+     "witness": {
+      "name": "Carl Schurz",
+      "role": "Major General, commanding the Third Division, Eleventh Corps, then the corps; reached Cemetery Hill about 11.30",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-20",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "schurz",
+     "exact": true,
+     "states": {
+      "times": [
+       "11:30"
+      ]
+     },
+     "note": "Schurz's report (20 Aug 1863): he reached Howard about 11.30 and was told that Reynolds 'had just been killed'. His clock agrees with Howard's for the news; 'just' places the death shortly before."
+    },
+    {
+     "id": "C-040-P7-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "701",
+     "page_basis": "scan_leaf",
+     "text_offset": 2443246,
+     "quote": "At 3.30 a. m. July 1, orders were received from your headquarters to move the Eleventh Corps",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding Eleventh Corps; not at the fighting on McPherson Ridge when Reynolds fell",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-31",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "howard",
+     "exact": true,
+     "states": {
+      "times": [
+       "03:30"
+      ],
+      "dates": [
+       "07-01"
+      ]
+     },
+     "note": "Dates the day of the 11.30 sentence: the same report."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "11:30 is when Howard was told, not when Reynolds fell; Howard's report and Schurz both put the news about 11:30, and Schurz says Reynolds had 'just' been killed."
+   }
+  },
+  {
+   "id": "C-040-P8",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 10:00: a speech of 1913 puts the fall at the first volley, as the Iron Brigade came in about 10 a.m.",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T10:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "support": [
+    {
+     "id": "C-040-P8-c1",
+     "source": "IN-1913",
+     "source_class": "book",
+     "page": "43",
+     "page_basis": "as_read",
+     "text_offset": 85248,
+     "quote": "These troops got into the battle about 10 a. m., and at the first volley from Archer's brigade General Reynolds fell mortally wounded",
+     "witness": {
+      "name": "Unnamed speaker, printed in Indiana at the fiftieth anniversary of the battle of Gettysburg",
+      "role": "Not named in the passage read; speaker at the anniversary in 1913",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913-07-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "indiana-1913",
+     "exact": false,
+     "states": {
+      "times": [
+       "10:00"
+      ]
+     },
+     "note": "The passage dates the entry of Cutler's and Meredith's brigades 'about 10 a. m.' and puts the death at the first volley; the hour for the death itself is inferred."
+    }
+   ],
+   "inference": {
+    "step": "The speaker dates the troops' entry into the battle about 10 a.m. and says Reynolds fell 'at the first volley'; the fall is therefore about 10:00 to 10:15. No hour is given for the fall.",
+    "from": [
+     "C-040-P8-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "A speech of 1913 with no named speaker and no basis; it dates the troops' arrival, not the fall. The reports of 1863 give about 10.15, inside the same 'about'."
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "Howard's note of 5 p.m. is a better class of writing (a dispatch of the day) than Wadsworth's report of three days later, but its writer was elsewhere and relays news, so on this point the vantage of the man on the field outweighs the class. Two reports of the First Corps, Wadsworth's of 4 Jul 1863 and Doubleday's of 14 Dec 1863, put the fall of Reynolds at about 10.15 a.m. Howard's note of 5 p.m. says 11.15, but Howard was in the town, learned of the death about 11.30 (his report; Schurz agrees on the hour of the news and says Reynolds had 'just' been killed), so 11.15 is a reckoning from news, not an observation. Weld's diary shows Reynolds alive about 10:00: sent with a message, he reached Meade at 11.20 after an hour and twenty minutes. No source gives 10:30 or 10:40 to 10:50; the first values of the plan are unsourced. One tension is not removed: Hall's report (Wainwright prints it) says Reynolds ordered his battery into position and that it opened at 10.45, which, if exact, puts Reynolds alive after 10:45; Hall's hour is the opening of his own fire, not an hour for the death, and it is carried as a reason the default is weighted, not settled.",
+  "who": "Wadsworth commanded the division whose brigades Reynolds was placing; Doubleday took the corps when Reynolds fell; Weld was Reynolds' aide; Howard commanded the Eleventh Corps, which was still on the road; Schurz arrived with the news. Hall commanded the Maine battery Reynolds placed.",
+  "when": "Howard's note: afternoon of 1 Jul 1863 (dispatch). Wadsworth: 4 Jul 1863 (three days). Weld: diary of July 1863, published 1912. Howard's report: 31 Aug 1863. Schurz: 20 Aug 1863. Doubleday: 14 Dec 1863. By rank Howard's dispatch (rank 6) outranks Wadsworth's report (rank 5), but its writer was elsewhere and relays; the writer on the field who says the hour wins on vantage, and the dispatch is contradicted by Weld's ride only for the lower bound.",
+  "where": "Wadsworth was on McPherson Ridge with the leading brigades; Doubleday arrived behind the left wing and 'learned' of the death a little later; Weld left Reynolds about 10:00 and met the news on his way back; Howard and Schurz were at the cemetery, three-quarters of a mile away.",
+  "how_knew": "Wadsworth gives the hour in a parenthesis and does not say whether he saw the fall; Doubleday learned it; Howard was told; Weld saw Reynolds alive. None quotes a watch for the fall.",
+  "clock": "All the Union writers use the Union clock; the 20-minute difference between the two armies' clocks (an unnamed estimate) is not applied. Heth's report puts Reynolds' death among the first shells of Pegram's guns, with no clock reading for it (a Confederate account of the cause).",
+  "independence": "One group carries about 10.15: Wadsworth and Doubleday, whose hours and hedge are identical; independence is not shown, so the default is marked single-source. Weld, a separate witness, shows only that Reynolds was alive at about 10:00. The values 11:15 and 11:30 both come from Howard (and Schurz for the news hour)."
+ },
+ "source_panel_text": "About 10:15 on Jul 1: Wadsworth's report of 4 Jul 1863 puts Reynolds' fall 'about 10.15 a. m.' and Doubleday's report repeats it. Howard's note of 5 p.m. says 11.15, but he was not at the fighting and was told about 11.30. The plan's 10:30 and 10:40-10:50 have no source. Six other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "The plan's 10:30 is not stated by any writer; the reports put the fall at about 10:15 and the next stated hours are 11:15 and 11:30. It stays selectable as a stand-in."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "The window 10:15-11:15 contains the default, but its late end is Howard's reckoning, written by an officer who was not on the field; the officers there give about 10:15. The two OR values added by the first pass (11:15, 11:30) stay selectable; 11:30 is when Howard was told."
+  }
+ },
+ "failed_searches": [
+  {
+   "where": "OR27-1, OR27-2, OR27-3 (all parts)",
+   "query": "Reynolds near fell, killed, shot, mortally, death, wounded within 350 characters of 9, 10, 11 with a. m. or o'clock (digits, decimals, 'about', 'half past'); only Wadsworth 10.15, Doubleday 10.15, Howard 11.15 and 11.30, Schurz 11.30, Meade (Howard 'arrived about this time, 11.30') and Buford (3.20 p.m., 'early this morning'); Pettigrew, Heth, Archer: no hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "ledger texts (ws9, town, conflicts: books, state volumes, Park Service pages)",
+   "query": "Reynolds within 300 characters of fell/killed/shot and 10, 10.15, 10.30, 10.45, 11, 11.15 (both orders); hits are Scott (1927) quoting Doubleday, Powell (1896) 'At 11.30 the Eleventh Corps arrived', Indiana 1913, Biddle (1880) 'by his watch about 11.30' for the news; no other first-hand hour for the fall",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Hoke (1887, quoting a staff officer of Meade) and the Joint Committee volume (Meade)",
+   "query": "the hour Meade first heard of the death: Hoke prints 11.20 for Reynolds' message and 1.10 for the order to Hancock 'having heard of Reynolds' death' (Butterfield 1.10 p.m.); no hour for the fall in either",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Illinois monuments at Gettysburg (1892) and Cheney (9th New York Cavalry, 1901)",
+   "query": "the shards cite Beveridge (about 10) and Cheney (10:15 a.m.); Beveridge was not found with a tolerant search of the OCR text for 'about 10' near Reynolds, and Cheney's book was not fetched; neither is cited",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A statement by a witness at the place with a clock or watch reading for the fall (Reynolds' staff: Rosengarten, Riddle, Wilson, Mitchell; Meredith or an Iron Brigade colonel; the Hall battery log) or a dated note of 1 to 2 July that fixes it, would narrow or move the default; a primary source that puts Hall's firing at 10.45 and Reynolds alive then would move it toward 11:15.",
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-040 row)",
+   "must_change": true,
+   "note": "The first delegated row (window 10:15-11:15, documented) is superseded: default about 10:15, weighted, documented, single-source flag."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL02-02 row)",
+   "must_change": false,
+   "note": "Applies the first default to T1-099; the integration step restates T1-099 with the single default about 10:15 and keeps the window as a selectable value."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL02-04 row)",
+   "must_change": false,
+   "note": "Time-gap and clock rules of the tl-02 closing; no value of this conflict."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL02-05 row)",
+   "must_change": false,
+   "note": "Scenario additions on T1-099 (about 10:00, 10:15 of the New York narrative, rifle volley, sharp-shooter); kept as selectable values."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0115.md",
+   "must_change": true,
+   "note": "Register entry (plausible-procedural, PENDING OWNER) lists the five values; it follows this resolution (default about 10:15, documented, single-source; 10:30 and 10:40-10:50 stand-ins with no source)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-023",
+   "must_change": false,
+   "note": "Decision-log heading DEC-023 names the id only in a list; no value."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-040",
+   "must_change": true,
+   "note": "Decision-log line (PENDING OWNER) names the PDF default 10:30; the resolution's default about 10:15 is recorded by the integration step."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-099",
+   "must_change": true,
+   "note": "Seed window 'Jul 1 about 10:15 (see conflict range)': the delegated window 10:15-11:15 applied here becomes the single default about 10:15; the other values stay selectable. Row not edited here."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "us-1c",
+   "must_change": false,
+   "note": "I Corps: head about 10:00, vanguard (Wadsworth) at McPherson Ridge about 10:20; the arrivals row cites C-040 only for Reynolds' death. Wadsworth, Mansfield and Robinson say the brigades came up about 10 a.m., so the default 10:15 for the fall lies inside the row's window; no change."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-040)",
+   "must_change": true,
+   "note": "default_scenario_id C-040-DEFAULT 'window 10:15-11:15' becomes the single default about 10:15; positions P5-P8 added as scenarios; edited by the integration step."
+  }
+ ]
+}

@@ -1,0 +1,1012 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-022",
+ "topic": "VI Corps",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-022",
+ "pdf_row": {
+  "page": 62,
+  "text": "VI Corps | head about 14:00; main body about 17:00 | head 14:00, main body 17:00 | each",
+  "values": [
+   "head about 14:00",
+   "main body about 17:00"
+  ],
+  "recommended_default": "head 14:00, main body 17:00",
+  "selectable_alternatives": [
+   "each"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-022-DEFAULT",
+  "default_label": "head 15:00-16:00, first brigades in action about 17:00",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-022-S1",
+   "C-022-S2",
+   "C-022-S3",
+   "C-022-DEFAULT"
+  ]
+ },
+ "event_date": "1863-07-02",
+ "class": "weighted",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Meade's dispatch headed 3 p.m. on July 2 has the Sixth Corps 'just coming in' and his report says it arrived at 3; Wright has it at Gettysburg about 4 and halting two hours; Grant, Bartlett and Howe have brigades on the left about 5. Sedgwick's testimony of 1864 says he arrived about 2."
+ },
+ "default": {
+  "mode": "window",
+  "positions": [
+   "C-022-P8"
+  ],
+  "label": "Window 15:00-17:00 on Jul 2: head about 15:00, the corps at Gettysburg about 16:00, brigades on the left about 17:00",
+  "basis_text": "Lower bound: Meade's dispatch headed 3 p.m. (the Sixth Corps just coming in) and his report (arrived at 3), with Kohler's regiment about 3. Middle: Wright (about 4, a halt of about two hours). Upper bound: Grant (about 5 p.m. July 2), Bartlett (a little after 5) and Howe (5) on the left center. Sedgwick's own 2 p.m. is earlier and stays selectable.",
+  "animation": {
+   "at": "1863-07-02T15:00",
+   "rule": "best_supported",
+   "note": "The head is drawn arriving at 15:00, the hour of the army commander's dispatch; Sedgwick's about 14:00 is the earliest hour any writer gives and sets the floor of the arrival gate (selectable, not lowered); the main body is drawn at Gettysburg about 16:00 and on the left about 17:00."
+  },
+  "note": "The plan's pair (head 14:00, main body 17:00) is half right: 17:00 holds for the brigades on the left, but the head came in about an hour after 14:00 by the army commander's dispatch."
+ },
+ "positions": [
+  {
+   "id": "C-022-P1",
+   "origin": "pdf_value",
+   "pdf_label": "head about 14:00",
+   "scenario_ids": [
+    "C-022-S1"
+   ],
+   "source_keys": [],
+   "label": "Head about 14:00: Sedgwick reaches Gettysburg about 2 p.m. (his testimony of 1864)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T14:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-022-P1-c1",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "460",
+     "page_basis": "as_read",
+     "page_note": "printed page 460 read from the running head '460 ARMY OF THE POTOMAC' before the passage; the text layer has no other page marks; sworn testimony of 8 April 1864 before the Joint Committee on the Conduct of the War (281 days after the day)",
+     "text_offset": 2112492,
+     "quote": "I arrived at Gettysburg about 2 o'clock on the afternoon of the 2d of July, having marched thirty-five miles from 7 o'clock the evening previous",
+     "witness": {
+      "name": "John Sedgwick",
+      "role": "Major General commanding the Sixth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-04-08",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "sedgwick",
+     "exact": true,
+     "states": {
+      "times": [
+       "14:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Sedgwick's testimony: 'I arrived at Gettysburg about 2 o'clock on the afternoon of the 2d of July'; he reported to Meade's headquarters, found Meade out at the Third Corps' position, waited a few minutes and received his orders. His own report of 8 Aug 1863 says only 'afternoon'."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "Sedgwick's 2 p.m. is one recollection 281 days later (his own report says only 'afternoon'); Meade's dispatch headed 3 p.m. has the corps 'just coming in', and Sedgwick found Meade out at the front."
+   }
+  },
+  {
+   "id": "C-022-P2",
+   "origin": "pdf_value",
+   "pdf_label": "main body about 17:00",
+   "scenario_ids": [
+    "C-022-S2"
+   ],
+   "source_keys": [],
+   "label": "Main body about 17:00: the brigades reach the left center (Grant, Bartlett, Howe)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T17:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-022-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R230",
+     "page": "678",
+     "page_basis": "scan_leaf",
+     "text_offset": 2376232,
+     "quote": "The brigade arrived near the scene of action at about 5 p. m. July 2",
+     "witness": {
+      "name": "Lewis A. Grant",
+      "role": "Colonel commanding the Second Brigade (the Vermont brigade), Second Division, Sixth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-03",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "grant",
+     "exact": true,
+     "states": {
+      "times": [
+       "17:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The Vermont brigade (Second Division), 'near the scene of action' about 5 p.m. on July 2, and very soon moved out to the left center. The same record's first dateline (June 6) is a heading error; this report is dated 3 Aug 1863."
+    },
+    {
+     "id": "C-022-P2-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R226",
+     "page": "671",
+     "page_basis": "scan_leaf",
+     "text_offset": 2352048,
+     "quote": "The brigade arrived on the field a little after 5 p. m.",
+     "witness": {
+      "name": "Joseph J. Bartlett",
+      "role": "Brigadier General commanding the Second Brigade, First Division, Sixth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "soon_after",
+     "group": "bartlett",
+     "exact": false,
+     "states": {
+      "times": [
+       "17:00"
+      ]
+     },
+     "note": "Bartlett's brigade (First Division): on the field a little after 5 p.m., formed as a support near the left of the line; his report speaks of 'the evening of July 2'."
+    },
+    {
+     "id": "C-022-P2-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R229",
+     "page": "675",
+     "page_basis": "scan_leaf",
+     "text_offset": 2367162,
+     "quote": "reached the field at Gettysburg at 5 p. m., 33 miles distant",
+     "witness": {
+      "name": "Albion P. Howe",
+      "role": "Brigadier General commanding the Second Division, Sixth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "howe",
+     "exact": false,
+     "states": {
+      "times": [
+       "17:00"
+      ]
+     },
+     "note": "Howe's Second Division: reached the field at 5 p.m. (the text layer reads the day as 'July 3' and the sentence is not used for the day; the page image was not viewed)."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "About 5 p.m. is the upper end of the window: the brigades that came up to the left after the corps' halt at Gettysburg, not the corps' first arrival."
+   }
+  },
+  {
+   "id": "C-022-P3",
+   "origin": "pdf_default",
+   "pdf_label": "head 14:00, main body 17:00",
+   "scenario_ids": [
+    "C-022-S3"
+   ],
+   "source_keys": [],
+   "label": "The plan's default: head 14:00, main body 17:00",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T14:00",
+    "to": "1863-07-02T17:00"
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-022-P3-c1",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "460",
+     "page_basis": "as_read",
+     "page_note": "printed page 460 read from the running head '460 ARMY OF THE POTOMAC' before the passage; the text layer has no other page marks; sworn testimony of 8 April 1864 before the Joint Committee on the Conduct of the War (281 days after the day)",
+     "text_offset": 2112492,
+     "quote": "I arrived at Gettysburg about 2 o'clock on the afternoon of the 2d of July, having marched thirty-five miles from 7 o'clock the evening previous",
+     "witness": {
+      "name": "John Sedgwick",
+      "role": "Major General commanding the Sixth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-04-08",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "sedgwick",
+     "exact": true,
+     "states": {
+      "times": [
+       "14:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Sedgwick's testimony: 'I arrived at Gettysburg about 2 o'clock on the afternoon of the 2d of July'; he reported to Meade's headquarters, found Meade out at the Third Corps' position, waited a few minutes and received his orders. His own report of 8 Aug 1863 says only 'afternoon'."
+    },
+    {
+     "id": "C-022-P3-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R230",
+     "page": "678",
+     "page_basis": "scan_leaf",
+     "text_offset": 2376232,
+     "quote": "The brigade arrived near the scene of action at about 5 p. m. July 2",
+     "witness": {
+      "name": "Lewis A. Grant",
+      "role": "Colonel commanding the Second Brigade (the Vermont brigade), Second Division, Sixth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-03",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "grant",
+     "exact": true,
+     "states": {
+      "times": [
+       "17:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The Vermont brigade (Second Division), 'near the scene of action' about 5 p.m. on July 2, and very soon moved out to the left center. The same record's first dateline (June 6) is a heading error; this report is dated 3 Aug 1863."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "The 17:00 end holds (brigades on the left); the 14:00 head rests on Sedgwick's testimony alone and is outweighed by Meade's dispatch headed 3 p.m. and his report."
+   }
+  },
+  {
+   "id": "C-022-P4",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-022-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "Head 15:00-16:00, first brigades in action about 17:00 (the first delegated pass)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T15:00",
+    "to": "1863-07-02T16:00"
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-022-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "72",
+     "page_basis": "scan_leaf",
+     "text_offset": 256691,
+     "quote": "NEAR GETTYSBURG, Pa., July 2, 1863—3 p. m. [...] The Sixth Corps is just coming in, very much worn out",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade",
+     "exact": true,
+     "states": {
+      "times": [
+       "15:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Meade to Halleck, headed 3 p.m. on July 2 (received in Washington on July 3 at 10.20 a.m.): 'The Sixth Corps is just coming in, very much worn out'. The sender's own hour."
+    },
+    {
+     "id": "C-022-P4-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R224",
+     "page": "665",
+     "page_basis": "scan_leaf",
+     "text_offset": 2332404,
+     "quote": "the corps was pushed on to Gettysburg, where it arrived about 4 p. m.",
+     "witness": {
+      "name": "Horatio G. Wright",
+      "role": "Brigadier General commanding the First Division, Sixth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "wright",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Wright, 36 days after: the corps arrived at Gettysburg about 4 p.m. and halted there for about two hours before orders came to move up to support the left center (the sentences that follow)."
+    }
+   ],
+   "derived": true,
+   "inference": {
+    "step": "The lower end is Meade's dispatch headed 3 p.m. ('just coming in'); the upper end is Wright's 'about 4 p. m.' for the corps' arrival at Gettysburg, where the day is read from the report's account of the march from 9 p. m. on 1 July (the quote itself has no date).",
+    "from": [
+     "C-022-P4-c1",
+     "C-022-P4-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "The first delegated head window lies inside the default window, which adds the brigades' arrival on the left about 5 p.m. (Grant, Bartlett, Howe)."
+   }
+  },
+  {
+   "id": "C-022-P5",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 15:00: the corps is \"just coming in\" (Meade's dispatch headed 3 p.m.; his report; Kohler)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T15:00",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-022-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "72",
+     "page_basis": "scan_leaf",
+     "text_offset": 256691,
+     "quote": "NEAR GETTYSBURG, Pa., July 2, 1863—3 p. m. [...] The Sixth Corps is just coming in, very much worn out",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade",
+     "exact": true,
+     "states": {
+      "times": [
+       "15:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Meade to Halleck, headed 3 p.m. on July 2 (received in Washington on July 3 at 10.20 a.m.): 'The Sixth Corps is just coming in, very much worn out'. The sender's own hour."
+    },
+    {
+     "id": "C-022-P5-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "116",
+     "page_basis": "scan_leaf",
+     "text_offset": 391447,
+     "quote": "At 3 p. m. the Sixth Corps arrived",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ]
+     },
+     "note": "Meade's report: at 3 p.m. the Sixth Corps arrived, after a march of 33 miles accomplished from 9 p.m. the day before; on its arrival being reported he directed the Fifth Corps to the left and the Sixth to take its place in reserve on the right."
+    },
+    {
+     "id": "C-022-P5-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R235",
+     "page": "686",
+     "page_basis": "scan_leaf",
+     "text_offset": 2401522,
+     "quote": "On July 1, about 9 p. m., the regiment started from near Manchester [...] the following day arrived in the vicinity of the battle-field, to the left of Gettysburg, about 3 p. m.",
+     "witness": {
+      "name": "John B. Kohler",
+      "role": "Major, Ninety-eighth Pennsylvania (Shaler's brigade, Third Division, Sixth Corps)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-01",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "kohler",
+     "exact": false,
+     "states": {
+      "times": [
+       "21:00",
+       "15:00"
+      ]
+     },
+     "note": "A regiment of the Third Division, about 3 p.m. 'in the vicinity of the battle-field, to the left of Gettysburg'; the day is 'the following day' of July 1."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "3 p.m. is the lower end of the default window: the head of the corps coming in, from the army commander's dispatch and report."
+   }
+  },
+  {
+   "id": "C-022-P6",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 16:00: the corps reaches Gettysburg and halts about two hours (Wright; a battery)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T16:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-022-P6-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R224",
+     "page": "665",
+     "page_basis": "scan_leaf",
+     "text_offset": 2332404,
+     "quote": "the corps was pushed on to Gettysburg, where it arrived about 4 p. m.",
+     "witness": {
+      "name": "Horatio G. Wright",
+      "role": "Brigadier General commanding the First Division, Sixth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "wright",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Wright, 36 days after: the corps arrived at Gettysburg about 4 p.m. and halted there for about two hours before orders came to move up to support the left center (the sentences that follow)."
+    },
+    {
+     "id": "C-022-P6-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R224",
+     "page": "665",
+     "page_basis": "scan_leaf",
+     "text_offset": 2332560,
+     "quote": "The corps here halted for about two hours, when orders came for it to move up with all dispatch, and support the Second, Third, and Fifth Corps, then actively engaged on the left center of the line",
+     "witness": {
+      "name": "Horatio G. Wright",
+      "role": "Brigadier General commanding the First Division, Sixth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "wright",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "halted for about two hours"
+      ]
+     },
+     "note": "The halt of about two hours at Gettysburg between the arrival and the move to the left."
+    },
+    {
+     "id": "C-022-P6-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R242",
+     "page": "695",
+     "page_basis": "scan_leaf",
+     "text_offset": 2430225,
+     "quote": "arrived at Gettysburg at 4 p. m.; 35 miles",
+     "witness": {
+      "name": "George W. Adams",
+      "role": "Captain, Battery G, First Rhode Island Light Artillery (Sixth Corps artillery brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-14",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "adams",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "A battery of the corps artillery; an itinerary line (the day heading 'July 2' stands in the line before the quote and is not part of it)."
+    }
+   ],
+   "derived": true,
+   "inference": {
+    "step": "Wright and the battery commander give 4 p.m. for the arrival at Gettysburg; neither quote carries the day, which is read from their accounts of the march begun at 9 p. m. on the night of 1 July.",
+    "from": [
+     "C-022-P6-c1",
+     "C-022-P6-c3"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "About 4 p.m. lies inside the window: the corps at Gettysburg, between the head at 3 and the brigades on the left about 5."
+   }
+  },
+  {
+   "id": "C-022-P7",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "The afternoon of Jul 2, no hour (Sedgwick's report of 1863)",
+   "kind": "period",
+   "value": {
+    "text": "on the afternoon of July 2",
+    "date": "1863-07-02",
+    "part_of_day": "afternoon"
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-022-P7-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R223",
+     "page": "663",
+     "page_basis": "scan_leaf",
+     "text_offset": 2324980,
+     "quote": "This command arrived on the field of Gettysburg on the afternoon of July 2",
+     "witness": {
+      "name": "John Sedgwick",
+      "role": "Major General commanding the Sixth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-08",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "sedgwick-report",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "on the afternoon of July 2"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Sedgwick's report of 8 Aug 1863, after a march of more than 30 miles; no hour."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "unclear_expression",
+    "text": "Sedgwick's own report says only 'on the afternoon of July 2': no clock time, so it cannot drive the picture."
+   }
+  },
+  {
+   "id": "C-022-P9",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 22:00: the First New York Battery of the corps artillery reaches the field (Cowan)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T22:00",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-022-P9-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R239",
+     "page": "690",
+     "page_basis": "scan_leaf",
+     "text_offset": 2413444,
+     "quote": "I arrived near the battle-field of Gettysburg at 10 p. m. the 2d, having followed the leading brigade of the Third Division",
+     "witness": {
+      "name": "Andrew Cowan",
+      "role": "Captain, First New York Battery (Sixth Corps artillery brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-15",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "cowan",
+     "exact": true,
+     "states": {
+      "times": [
+       "22:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The First New York Battery of the corps artillery brigade, behind the leading brigade of the Third Division, about ten at night."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "This is one battery of the corps artillery, which came up at night behind the infantry; the question is the arrival of the corps' infantry."
+   }
+  },
+  {
+   "id": "C-022-P8",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Window 15:00-17:00 on Jul 2: head about 15:00, the corps at Gettysburg about 16:00, the brigades on the left about 17:00",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T15:00",
+    "to": "1863-07-02T17:00"
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-022-P8-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "72",
+     "page_basis": "scan_leaf",
+     "text_offset": 256691,
+     "quote": "NEAR GETTYSBURG, Pa., July 2, 1863—3 p. m. [...] The Sixth Corps is just coming in, very much worn out",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade",
+     "exact": true,
+     "states": {
+      "times": [
+       "15:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Meade to Halleck, headed 3 p.m. on July 2 (received in Washington on July 3 at 10.20 a.m.): 'The Sixth Corps is just coming in, very much worn out'. The sender's own hour."
+    },
+    {
+     "id": "C-022-P8-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R230",
+     "page": "678",
+     "page_basis": "scan_leaf",
+     "text_offset": 2376232,
+     "quote": "The brigade arrived near the scene of action at about 5 p. m. July 2",
+     "witness": {
+      "name": "Lewis A. Grant",
+      "role": "Colonel commanding the Second Brigade (the Vermont brigade), Second Division, Sixth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-03",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "grant",
+     "exact": true,
+     "states": {
+      "times": [
+       "17:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The Vermont brigade (Second Division), 'near the scene of action' about 5 p.m. on July 2, and very soon moved out to the left center. The same record's first dateline (June 6) is a heading error; this report is dated 3 Aug 1863."
+    }
+   ]
+  }
+ ],
+ "weighing": {
+  "summary": "The plan gives the head about 14:00 and the main body about 17:00. The record gives a spread over the afternoon. Sedgwick, testifying in 1864, put his own arrival at Gettysburg at about 2 p.m. Meade's dispatch to Halleck, headed 3 p.m., has the Sixth Corps 'just coming in', and his report says it arrived at 3; a major of the Third Division puts his regiment near the field about 3. Wright has the corps at Gettysburg about 4 and halting about two hours before it moved up to the left; Grant, Bartlett and Howe have brigades on the left about 5 and a little after. A dispatch of the time is the best class of writing, so the head is put at about 15:00; Sedgwick's 2 p.m. is one memory 281 days later, his own report of 1863 says only 'afternoon', and he found Meade out at the front, who rode out about 3 p.m. The window 15:00-17:00 shows the head, the corps at Gettysburg and the brigades on the left.",
+  "who": "Meade commanded the army and wrote the dispatch at his headquarters; Sedgwick commanded the corps and testified about his own arrival; Wright and Howe commanded divisions; Grant, Bartlett, Kohler, Adams and Cowan commanded a brigade, a regiment and two batteries and give their own movements.",
+  "when": "Meade's dispatch is of 2 July at 3 p.m. (his own hour). Kohler wrote 1 Aug, Grant 3 Aug, Bartlett 6 Aug, Wright and Howe 7 Aug, Sedgwick 8 Aug, Adams 14 Aug, Cowan 15 Aug 1863; Meade's report 1 Oct 1863; Sedgwick's testimony 8 Apr 1864.",
+  "where": "The army headquarters was at the Leister house behind the cemetery; Sedgwick reports having gone there on arrival and found Meade out at the front. Wright's 'arrived' is at Gettysburg, where the corps halted; Grant, Bartlett and Howe date the arrival on the left, after the move up. These are two places and two moments, which is why the first arrival (about 3 or 4) and the 5 p.m. do not contradict each other.",
+  "how_knew": "Meade saw the head come in and wrote it the same hour; Sedgwick's hour is his own recollection of his arrival; Wright, Grant, Bartlett, Howe, Kohler, Adams and Cowan state their own units' movements.",
+  "clock": "All the witnesses are Union and no correction is applied (the plan's note of about 20 minutes between the armies' clocks plays no part here). 'About 2', 'about 3', 'about 4' and 'about 5' are read as plus or minus a quarter hour; Meade's '3 p. m.' is the hour of his dispatch.",
+  "independence": "Meade's dispatch and report are one line (the lower end is flagged single_source where it stands alone). Sedgwick's testimony stands alone for 2 p.m. Wright and Adams (the artillery) are two reports for the 4 p.m.; Grant, Bartlett and Howe are three brigade and division commanders for the 5 p.m. and are independent of each other as reports, but the three brigades marched in one column. Kohler is a separate regiment."
+ },
+ "source_panel_text": "The Sixth Corps came in on Jul 2 after a march of about 35 miles: Meade's dispatch headed 3 p.m. has it 'just coming in', Wright puts it at Gettysburg about 4, and brigades reached the left about 5. Sedgwick's later memory of about 2 p.m. is the earliest hour and stays listed. Eight other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "17:00 holds for the brigades on the left; the head at 14:00 rests on Sedgwick's testimony of 1864 alone, and Meade's dispatch of 3 p.m. puts the head about an hour later. Found in the Joint Committee testimony, which the first pass did not read."
+  },
+  "first_delegated": {
+   "holds": "yes",
+   "note": "Head 15:00-16:00 and first brigades about 17:00 hold. The research adds Sedgwick's 14:00 (testimony), Kohler, Adams' battery and Cowan's 22:00, and sets Meade's dispatch as the lower bound; class weighted, tier documented."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-022 row)",
+   "must_change": true,
+   "note": "computed: delegated-decision row line 32 names this conflict; the row 'head 15:00-16:00, first brigades in action about 17:00' becomes the window 15:00-17:00 (the first record stays as history)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0104.md",
+   "must_change": true,
+   "note": "computed: register entry names this conflict; its statement that 'C-022 head at 14:00 is earlier than any OR witness' needs the Joint Committee testimony of Sedgwick (about 2 p.m.), which is a documented source, though not the Official Records."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0105.md",
+   "must_change": true,
+   "note": "computed: register entry names this conflict; its statement that 'C-022 head at 14:00 is earlier than any OR witness' needs the Joint Committee testimony of Sedgwick (about 2 p.m.), which is a documented source, though not the Official Records."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-022",
+   "must_change": true,
+   "note": "computed: decision log line 50 names this conflict; record the resolved default (window 15:00-17:00, weighted, documented) as a delegated decision; the PENDING OWNER text is superseded."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-191",
+   "must_change": false,
+   "note": "computed: tl-04.jsonl line 19 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "us-6c",
+   "must_change": true,
+   "note": "gate printed_clock default 1863-07-02T14:00 (the plan's recommended default), earliest 14:00, latest 17:00: the default becomes 15:00 (window 15:00-17:00); the earliest 14:00 stays (Sedgwick, documented, selectable; never lowered) and the latest 17:00 holds. Report only; the integration step reconciles the gate spec and re-runs Q04, Q05, Q06."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-108",
+   "must_change": true,
+   "note": "The VI Corps arrival row named by the first pass as contradicted by the Official Records (head about 14:00): the head's hour becomes 15:00 with 14:00 documented by Sedgwick's testimony; read the row before changing."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-191, T2-016",
+   "must_change": false,
+   "note": "Rows of the night march from Manchester (about 20:00 start; 30-35 miles); unaffected."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04",
+   "must_change": true,
+   "note": "Report only, no gate changed: the unit row's default hour moves from 14:00 to 15:00 inside its window 14:00-17:00; the floor 14:00 must not be lowered or raised by this resolution."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-022) and placement-claims.json lines 7225, 7258",
+   "must_change": true,
+   "note": "C-022-DEFAULT 'head 15:00-16:00, first brigades in action about 17:00' becomes the window 15:00-17:00; add class weighted and tier documented; the placement claims name C-022 as the conflict of the VI Corps claims."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/pos_C/specs_03_vicorps.py lines 11 and 14",
+   "must_change": false,
+   "note": "Specs list C-022 with the claims of Sedgwick, Meade 3 p.m. and Wright 4 p.m.; no change."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/history/arrivals.json us-6c default_basis and tools/bt/arrivals_data.py line 203",
+   "must_change": true,
+   "note": "default_basis cites the plan's default 'head 14:00, main body 17:00' (PENDING OWNER); it should cite this resolution (window 15:00-17:00, weighted)."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "the plan's sources for the VI Corps row (the row prints no keys; the seed row T2-108 names Stone Sentinels)",
+   "query": "the Stone Sentinels July 2 page and any source it gives for 14:00 and 17:00: not among the hosts reachable for this research",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Official Records 27/3 (correspondence of 2 July 1863)",
+   "query": "Sixth Corps / Sedgwick within 300 characters of Gettysburg|Taneytown and a. m.|p. m.|o'clock in dispatches dated 1-2 July; no dispatch of Sedgwick or of Butterfield found that dates the head's arrival",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Official Records 27/1: reports R223-R242 (Sixth Corps) by regex",
+   "query": "a. m.|p. m.|o'clock|noon near arrived|reached|came|position and Gettysburg|field; hours found are cited; Torbert, Upton, Russell, Shaler, Rogers, Nevin, Moody and others give no arrival hour or only a later one (Shaler: formed in line at 7 p.m.)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Page image of Neill's report (OR 27/1 p. 680, archive.org scan) and of Howe's day digit (p. 675)",
+   "query": "Neill's hour is OCR \"Gp. m.\" (probably 6 p. m.) and Howe's day is OCR \"July 3\" for 2 July; the page images were not viewed, so neither is used as a quoted state",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "JCCW-1865-C012 (Joint Committee testimony of 1864): Meade, Butterfield, Hunt and others",
+   "query": "Sixth corps within 250 characters of arrived|coming in|came up and o'clock|afternoon; only Sedgwick's testimony gives an hour; Meade says he went out \"as soon as I heard that the 6th corps had arrived\" without one",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A log, diary or report of the corps' leading brigade or of Sedgwick's staff giving the hour the head crossed the Rock Creek bridge or reached Gettysburg would settle 14:00 against 15:00. A page image of Howe's and Neill's reports, and the sources behind the plan's 14:00 and 17:00, would be weighed on their own."
+}

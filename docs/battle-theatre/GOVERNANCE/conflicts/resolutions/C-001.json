@@ -1,0 +1,1145 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-001",
+ "topic": "Meade reaches Gettysburg (Jul 1-2)",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-001",
+ "pdf_row": {
+  "page": 62,
+  "text": "Meade reaches Gettysburg (Jul 1-2) | after midnight (SS1, W-D1); about 04:00 | (EPP) | about 01:00, then a pre-dawn inspection of | the line | both",
+  "values": [
+   "after midnight (SS1, W-D1)",
+   "about 04:00 (EPP)"
+  ],
+  "recommended_default": "about 01:00, then a pre-dawn inspection of the line",
+  "selectable_alternatives": [
+   "both"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-001-DEFAULT",
+  "default_label": "about 01:00 on Jul 2, inspection of the line at first light",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-001-S1",
+   "C-001-S2",
+   "C-001-S3",
+   "C-001-S4",
+   "C-001-DEFAULT"
+  ]
+ },
+ "event_date": "1863-07-02",
+ "class": "irreducible",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Two commanders' reports of 1863 who were with the army's headquarters that night disagree by an hour: Meade (report of 1 Oct 1863, p. 115) says he reached the field at 1 a.m. of the 2d; Hunt (27 Sep 1863, p. 232) says the commanding general reached Gettysburg about 2 a.m. Howard and Stannard (reports of 1863) have him on the field riding the line at about 3 a.m."
+ },
+ "default": {
+  "mode": "window",
+  "positions": [
+   "C-001-P9"
+  ],
+  "label": "Between about 01:00 (Meade) and about 02:00 (Hunt) on Jul 2; drawn at 01:00",
+  "basis_text": "Lower bound: Meade's own report (arriving at 1 a.m. of the 2d, 1 Oct 1863). Upper bound: Hunt's report (about 2 a.m., 27 Sep 1863). Howard's and Stannard's reports of 1863 (about 3 a.m., Meade already there) and Haskell's letter (Meade on the road at midnight) bracket the window from outside.",
+  "animation": {
+   "at": "1863-07-02T01:00",
+   "rule": "earliest_documented",
+   "note": "01:00 is the earliest hour any first-hand writer gives for the arrival (Meade himself); Haskell's letter has Meade still on the road at midnight, so nothing earlier is source-supported. Hunt's about 02:00 stays selectable."
+  },
+  "note": "Meade's hour is his own arrival, but Hunt was in the same party; nothing in the record separates two reports of the same rank, so the window is shown and neither end is struck."
+ },
+ "positions": [
+  {
+   "id": "C-001-P1",
+   "origin": "pdf_value",
+   "pdf_label": "after midnight (SS1, W-D1)",
+   "scenario_ids": [
+    "C-001-S1"
+   ],
+   "source_keys": [
+    "SS1",
+    "W-D1"
+   ],
+   "label": "After midnight on Jul 2 (the plan's first value; Hunt 1887, Pleasonton 1879)",
+   "kind": "period",
+   "value": {
+    "text": "after midnight",
+    "date": "1863-07-02",
+    "part_of_day": "night"
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "memoir_only"
+   ],
+   "support": [
+    {
+     "id": "C-001-P1-c1",
+     "source": "BL-3",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 292 by the running heads (290 before, 293 just after the passage; the head of 292 is lost in the text layer); Hunt's own article 'The Second Day at Gettysburg', where he writes 'We left Taneytown' for the party",
+     "text_offset": 1253806,
+     "quote": "reached Gettysburg after midnight",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery of the Army of the Potomac, at army headquarters",
+      "side": "union"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "lower",
+     "group": "hunt87",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "after midnight"
+      ]
+     },
+     "note": "Hunt, 24 years after his report, says only 'after midnight'; the sentence before it (the OCR of the departure hour is damaged) gives a departure about 11 p.m."
+    },
+    {
+     "id": "C-001-P1-c2",
+     "source": "ANNALS-1879-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 454 by the running head ('454 ANNALS OF THE WAR', OCR '4:54:') before the passage; page 455 follows it",
+     "text_offset": 1363510,
+     "quote": "arrived at General Howard's head quarters on Cemetery Hill after midnight",
+     "witness": {
+      "name": "Alfred Pleasonton",
+      "role": "Major General commanding the Cavalry Corps, in Meade's party that night",
+      "side": "union"
+     },
+     "written": {
+      "date": "1879",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "lower",
+     "group": "pleasonton",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "after midnight"
+      ]
+     },
+     "note": "Pleasonton, 'The Campaign of Gettysburg' (1879): Meade was detained until after dark, 'we proceeded to Gettysburg, and arrived at General Howard's head quarters on Cemetery Hill after midnight'."
+    }
+   ],
+   "derived": true,
+   "inference": {
+    "step": "The day (2 July) comes from the context of both passages, which describe the night of 1-2 July. Two men who rode with Meade (Hunt 1887, Pleasonton 1879) say the party reached Gettysburg or Howard's headquarters 'after midnight'; read as a lower bound, with no clock, it is true of every hour from 00:00 on.",
+    "from": [
+     "C-001-P1-c1",
+     "C-001-P1-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "'After midnight' gives no hour, only a lower bound: Meade's 1 a.m. and Hunt's about 2 a.m. both fall after it. It cannot drive the picture."
+   }
+  },
+  {
+   "id": "C-001-P2",
+   "origin": "pdf_value",
+   "pdf_label": "about 04:00 (EPP)",
+   "scenario_ids": [
+    "C-001-S2"
+   ],
+   "source_keys": [
+    "EPP"
+   ],
+   "label": "About 04:00 (the plan's second value, one terse timeline page)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T04:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only",
+    "contradicted"
+   ],
+   "support": [],
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "No report, letter or book found gives 04:00 for Meade's arrival, and two reports of 1863 have him already on the field and riding the line with Howard at about 3 a.m."
+   },
+   "failed_lookups": [
+    {
+     "where": "EPP (J. F. Epperson timeline, the plan's key; a web page)",
+     "query": "the page itself and the source it gives for 04:00: not among the hosts reachable for this research, and a web page is only a pointer",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "all local non-lead texts of the ledger (Official Records 27/1-3, the weeklies and books of the library, the Park Service texts)",
+     "query": "Meade / commanding general / headquarters within 150 characters of arrived|reached|came and 4 a. m. / four o'clock / 4 o'clock (both orders); 0 hits that date Meade's arrival",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "Gettysburg Compiler and Adams Sentinel issues of 7, 13, 14, 20 and 21 July 1863 (local texts)",
+     "query": "Meade within 200 characters of arrived|reached|came|midnight|o'clock|a. m. and night|morning|Thursday|2d",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ]
+  },
+  {
+   "id": "C-001-P3",
+   "origin": "pdf_default",
+   "pdf_label": "about 01:00, then a pre-dawn inspection of the line",
+   "scenario_ids": [
+    "C-001-S3",
+    "C-001-S4",
+    "C-001-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "About 01:00 on Jul 2 (Meade's own report), then the inspection of the line",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T01:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-001-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "115",
+     "page_basis": "scan_leaf",
+     "text_offset": 389835,
+     "quote": "arriving there at 1 a. m. of the 2d",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade",
+     "exact": true,
+     "states": {
+      "times": [
+       "01:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Meade's report of operations, dated 1 Oct 1863: he left Taneytown at 10 p.m. of the 1st and reached the field at 1 a.m. of the 2d. Both scans of the volume read '1 a. m.' (second scan: OR27-1-SCAN2-C018)."
+    },
+    {
+     "id": "C-001-P3-c2",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the text layer carries no printed page numbers; the passage stands in 'Testimony of Major General George G. Meade. Washington, April 4, 1864' of the Joint Committee on the Conduct of the War (the same words are quoted in the committee's report earlier in the volume). Sworn testimony given 276 days after the day; counted with Meade's report as one line of knowledge.",
+     "text_offset": 2009064,
+     "quote": "I having arrived there at 1 o'clock",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-04-04",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade",
+     "exact": true,
+     "states": {
+      "times": [
+       "01:00"
+      ]
+     },
+     "note": "Meade says Butterfield did not join him on the field until 9 or 10 on the morning of the 2d, 'I having arrived there at one o'clock'."
+    },
+    {
+     "id": "C-001-P3-c3",
+     "source": "BACH-WHATTOSEE-1873",
+     "source_class": "book",
+     "page": "50",
+     "page_basis": "as_read",
+     "page_note": "printed page 50 read from the running head '50 GETTYSBURG' just before the passage; page 51 follows it",
+     "text_offset": 79550,
+     "quote": "General Meade, accompanied by his staff and General Pleasanton, arrived at one o'clock on the morning of the 2d",
+     "witness": {
+      "name": "John B. Bachelder",
+      "role": "Battlefield historian and artist; not a participant",
+      "side": "union"
+     },
+     "written": {
+      "date": "1873",
+      "kind": "later_history"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade",
+     "exact": false,
+     "states": {
+      "times": [
+       "01:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Bachelder names no source for the hour; it agrees with Meade's printed report and is counted with it, not as a second witness."
+    },
+    {
+     "id": "C-001-P3-c4",
+     "source": "BL-3",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 292 by the running heads (the head of 292 is lost in the text layer: 290 stands well before and '293 THE SECOND DAY AT GETTYSBURG' just after the caption); the volume is the third of Battles and Leaders",
+     "text_offset": 1258703,
+     "quote": "General Meade arrived at Cemetery Hill at one o'clock in the morning of July 2d",
+     "witness": {
+      "name": "Editors of Battles and Leaders (caption of a photograph)",
+      "role": "Editors of the magazine series of 1887-1888; not participants",
+      "side": "union"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "later_history"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade",
+     "exact": false,
+     "states": {
+      "times": [
+       "01:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "A caption, not a witness; no source named; counted with Meade."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "Meade's 1 a.m. is the lower end of the window the record allows; Hunt, equally placed, says about 2 a.m., so the window shows both ends and the picture is drawn at 01:00."
+   }
+  },
+  {
+   "id": "C-001-P4",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 02:00 on Jul 2: the commanding general reaches Gettysburg (Hunt's report)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T02:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-001-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R028",
+     "page": "232",
+     "page_basis": "scan_leaf",
+     "text_offset": 762427,
+     "quote": "reached Gettysburg about 2 a. m. of the 2d",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery of the Army of the Potomac, at army headquarters",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-27",
+      "kind": "official_report"
+     },
+     "vantage": "staff_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hunt",
+     "exact": true,
+     "states": {
+      "times": [
+       "02:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Hunt's report: the commanding general left Taneytown on the night of the 1st and reached Gettysburg about 2 a.m. of the 2d, and soon after his arrival told Hunt to see to the artillery. Both scans read '2 a. m.' (second scan: OR27-1-SCAN2-C018)."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "Hunt's about 2 a.m. is the upper end of the window; it rests on one report and is hedged with 'about', while Meade gives his own arrival as 1 a.m. Both stay."
+   }
+  },
+  {
+   "id": "C-001-P5",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 03:00: Meade, already arrived, meets Howard at the cemetery gate and rides over the position",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T03:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-001-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "705",
+     "page_basis": "scan_leaf",
+     "text_offset": 2459536,
+     "quote": "On the morning of July 2, about 3 a. m., the commanding general, who had previously arrived, met me at the cemetery gate",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General commanding the Eleventh Corps, on Cemetery Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-31",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "howard",
+     "exact": true,
+     "states": {
+      "times": [
+       "03:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Howard's report of 31 Aug 1863: at about 3 a.m. the commanding general, 'who had previously arrived', met him at the cemetery gate, questioned him and rode with him over the position."
+    },
+    {
+     "id": "C-001-P5-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R069",
+     "page": "349",
+     "page_basis": "scan_leaf",
+     "text_offset": 1208965,
+     "quote": "met Major- General Meade, in company with Major-General Howard, near my command about 3 a. m. of the 2d instant",
+     "witness": {
+      "name": "George J. Stannard",
+      "role": "Brigadier General commanding the Third Brigade, Third Division, First Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "stannard",
+     "exact": true,
+     "states": {
+      "times": [
+       "03:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Stannard's report of 4 Jul 1863: as general field officer he met Meade with Howard near his brigade about 3 a.m. of the 2d."
+    },
+    {
+     "id": "C-001-P5-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R028",
+     "page": "232",
+     "page_basis": "scan_leaf",
+     "text_offset": 762646,
+     "quote": "I examined the positions at Cemetery Hill, so far as the darkness would permit, and then accompanied the general and Major-General Howard in an inspection of the west front",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery of the Army of the Potomac, at army headquarters",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-27",
+      "kind": "official_report"
+     },
+     "vantage": "staff_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hunt",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "darkness would permit"
+      ]
+     },
+     "note": "Hunt: soon after Meade's arrival he examined Cemetery Hill as far as the darkness permitted and then rode with Meade and Howard along the west front; no hour is given for the ride."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Howard and Stannard date a meeting after Meade had arrived ('who had previously arrived'); it is the first night ride over the line, not the arrival."
+   }
+  },
+  {
+   "id": "C-001-P6",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "First light on Jul 2: Meade begins his own inspection of the position (sunrise 04:35)",
+   "kind": "period",
+   "value": {
+    "text": "So soon as it was light",
+    "date": "1863-07-02",
+    "part_of_day": "dawn"
+   },
+   "approx": false,
+   "clock": "unspecified",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-001-P6-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "115",
+     "page_basis": "scan_leaf",
+     "text_offset": 389835,
+     "quote": "arriving there at 1 a. m. of the 2d. So soon as it was light, I proceeded to inspect the position occupied",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "So soon as it was light"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Meade's own inspection began 'so soon as it was light'; no clock is given. Sunrise was 04:35."
+    },
+    {
+     "id": "C-001-P6-c2",
+     "source": "ANNALS-1879-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 454 (see the other citation of this text)",
+     "text_offset": 1363597,
+     "quote": "At daylight on the morning of the 2d of July, General Meade requested me to ride over the position with him",
+     "witness": {
+      "name": "Alfred Pleasonton",
+      "role": "Major General commanding the Cavalry Corps, in Meade's party that night",
+      "side": "union"
+     },
+     "written": {
+      "date": "1879",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "pleasonton",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "At daylight"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Pleasonton rode with Meade from daylight until ten o'clock."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "This is the daylight inspection that follows the arrival; it carries no clock and is a later act than the arrival the conflict is about."
+   }
+  },
+  {
+   "id": "C-001-P7",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About midnight: Meade enters the cemetery (three later books: 1892, 1913, 1914)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T00:00",
+    "approx": true,
+    "tolerance_min": 30
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "weak",
+    "memoir_only",
+    "contradicted"
+   ],
+   "support": [
+    {
+     "id": "C-001-P7-c1",
+     "source": "MEADE-LL-v2",
+     "source_class": "book",
+     "page": "61",
+     "page_basis": "as_read",
+     "page_note": "printed page 61 read from the running heads (61 before, 62 after the passage)",
+     "text_offset": 176753,
+     "quote": "Just before midnight General Meade, entering at the rear of the little cemetery on Cemetery Hill",
+     "witness": {
+      "name": "Author of the chapter on the battle in Life and Letters of General Meade (edited by his son George Meade)",
+      "role": "Compiler of 1913; the chapter names no source for the hour",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "later_history"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "upper",
+     "group": "ll1913",
+     "exact": false,
+     "states": {
+      "times": [
+       "00:00"
+      ]
+     },
+     "note": "No source is named for 'just before midnight'."
+    },
+    {
+     "id": "C-001-P7-c2",
+     "source": "VT-GB-1914",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the text layer has no printed page numbers near the passage and the page could not be read; the sentence puts Stannard's meeting with Meade at three in the morning, and the quote keeps the OCR spelling 'niet' for 'met'",
+     "text_offset": 12650,
+     "quote": "he niet the Commander of the Army, who having arrived at midnight",
+     "witness": {
+      "name": "Author of the Vermont Gettysburg commission volume of 1914",
+      "role": "Compiler; the passage follows Stannard but names no source for the hour",
+      "side": "union"
+     },
+     "written": {
+      "date": "1914",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "vt1914",
+     "exact": false,
+     "states": {
+      "times": [
+       "00:00"
+      ]
+     },
+     "note": "The sentence about Stannard's meeting with Meade at three o'clock in the morning (Stannard's own report says about 3 a.m.) adds that Meade had arrived at midnight, with no source."
+    },
+    {
+     "id": "C-001-P7-c3",
+     "source": "MINNIGH-1892-SCAN-A",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the sentence is split by a page head in the text layer ('GETTYSBURG: WHAT THEY DID HERE. 25'); the passage lies on pages 24-25 of the first scan; the fragments skipped by [...] are the page head and the OCR word 'Staif' (staff)",
+     "text_offset": 38642,
+     "quote": "The Commander-in-Chief and [...] arrived [...] at midnight, and established his headquarters on the west side of the Taneytown road",
+     "witness": {
+      "name": "Luther W. Minnigh",
+      "role": "Gettysburg guide-book writer; not a participant",
+      "side": "union"
+     },
+     "written": {
+      "date": "1892",
+      "kind": "later_history"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "minnigh",
+     "exact": false,
+     "states": {
+      "times": [
+       "00:00"
+      ]
+     },
+     "note": "A guide book of 1892; no source named."
+    }
+   ],
+   "derived": true,
+   "inference": {
+    "step": "The day (2 July) comes from the context of the passages, which describe the night of 1-2 July. Three later books (1892, 1913, 1914) say Meade arrived at, or just before, midnight; none names a source, so the hour is taken as their claim only and as nothing the writers observed.",
+    "from": [
+     "C-001-P7-c1",
+     "C-001-P7-c2",
+     "C-001-P7-c3"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "Later books with no named source, against Meade's own report (1 a.m.) and a letter written in July 1863 that has Meade still riding to the field at midnight."
+   }
+  },
+  {
+   "id": "C-001-P8",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Midnight: Meade and staff pass Gibbon's headquarters on the way to the field (Haskell's letter)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T00:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "different_event"
+   ],
+   "support": [
+    {
+     "id": "C-001-P8-c1",
+     "source": "HASKELL-1908",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 18 by the page marks [18] before and [19] after the passage; the letter bears no date and, according to the note of the editor of the State Register printed with it, was written 'during the same month as the battle'",
+     "text_offset": 43632,
+     "quote": "At midnight Gen. Meade and staff rode by Gen. Gibbon's Head Quarters, on their way to the field [...] At three o'clock, A. M., of the second of July",
+     "witness": {
+      "name": "Frank A. Haskell",
+      "role": "Lieutenant, aide to General Gibbon, Second Corps (later Colonel)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "haskell",
+     "exact": true,
+     "states": {
+      "times": [
+       "00:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Haskell, on Gibbon's staff, saw Meade and his staff ride by Gibbon's headquarters at midnight 'on their way to the field'. Hancock's report (p. 369) puts the Second Corps' bivouac that night about 3 miles in rear of the town."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Haskell says Meade rode by the Second Corps' camp at midnight 'on their way to the field': he had not yet arrived. It bounds the arrival from below."
+   }
+  },
+  {
+   "id": "C-001-P9",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Between about 01:00 (Meade) and about 02:00 (Hunt) on Jul 2; drawn at 01:00",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T01:00",
+    "to": "1863-07-02T02:00"
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-001-P9-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "115",
+     "page_basis": "scan_leaf",
+     "text_offset": 389835,
+     "quote": "arriving there at 1 a. m. of the 2d",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade",
+     "exact": true,
+     "states": {
+      "times": [
+       "01:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Meade's report of operations, dated 1 Oct 1863: he left Taneytown at 10 p.m. of the 1st and reached the field at 1 a.m. of the 2d. Both scans of the volume read '1 a. m.' (second scan: OR27-1-SCAN2-C018)."
+    },
+    {
+     "id": "C-001-P9-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R028",
+     "page": "232",
+     "page_basis": "scan_leaf",
+     "text_offset": 762427,
+     "quote": "reached Gettysburg about 2 a. m. of the 2d",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery of the Army of the Potomac, at army headquarters",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-27",
+      "kind": "official_report"
+     },
+     "vantage": "staff_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hunt",
+     "exact": true,
+     "states": {
+      "times": [
+       "02:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Hunt's report: the commanding general left Taneytown on the night of the 1st and reached Gettysburg about 2 a.m. of the 2d, and soon after his arrival told Hunt to see to the artillery. Both scans read '2 a. m.' (second scan: OR27-1-SCAN2-C018)."
+    }
+   ]
+  }
+ ],
+ "weighing": {
+  "summary": "Two reports of 1863, both by men at army headquarters that night, give different hours: Meade 1 a.m. (he left Taneytown at 10 p.m.), Hunt about 2 a.m. They are of the same rank (official reports written 87 and 91 days after), each by a man who was there, each on the Union clock; Hunt hedges with 'about', Meade gives a round hour. Nothing in the rubric separates them, so the class is irreducible and the default is the window between them. Howard and Stannard (about 3 a.m., Meade already arrived) fix the upper limit from outside; Haskell's letter (Meade rode by Gibbon's camp at midnight, on the way) fixes the lower limit; 'after midnight' (Hunt 1887, Pleasonton 1879) is only a lower bound. The later books that say 'at or just before midnight' name no source and are contradicted by Haskell; the plan's 04:00 has no source and is contradicted by Howard and Stannard.",
+  "who": "Meade commanded the army and gives his own arrival; Hunt was chief of artillery at headquarters and says Meade 'soon after his arrival' sent him to see to the artillery, and in his article of 1887 writes 'we left Taneytown' for the party; Howard, Stannard and Haskell were on the field or at the Second Corps' camp; Pleasonton rode with Meade. Bachelder (1873), the editors of Battles and Leaders (1887), Minnigh (1892), the 1913 Life and Letters and the Vermont volume (1914) were not witnesses of the hour and name no source.",
+  "when": "Meade wrote on 1 Oct 1863 (91 days after) and testified on 4 Apr 1864; Hunt wrote on 27 Sep 1863 (87 days); Howard on 31 Aug 1863 (60 days); Stannard on 4 Jul 1863 (2 days); Haskell in July 1863. Hunt 1887 and Pleasonton 1879 are 24 and 16 years after and give only 'after midnight'. The books of 1873-1914 are 10 to 51 years after.",
+  "where": "Meade, Hunt and Pleasonton were in the party that rode from Taneytown; Meade says 'the field', Hunt 'Gettysburg', Pleasonton 'General Howard's head quarters on Cemetery Hill' The sources do not say that these are different spots, and none states that the hour differs by place; the one hour between Meade and Hunt is therefore not explained away.",
+  "how_knew": "Meade: his own movements (own_orders). Hunt: present at headquarters, eyewitness of the arrival ('soon after his arrival, he directed me'), with 'about'. Howard and Stannard: they met Meade. Haskell: he saw the party pass. The later books give no basis.",
+  "clock": "All the Union witnesses use the Union clock; the plan's note that the two armies' clocks differed by about 20 minutes plays no part (every witness here is Union) and no correction is applied. Meade's 'at 1 a. m.' and Hunt's 'about 2 a. m.' are round hours; the quarter-hour reading of a round hour does not close an hour's gap. The departure hours also differ (Meade 10 p.m. in his report; Hunt in 1887 about 11 p.m., the word before the hour being damaged in the text; a writer in the Official Records volume, p. 130, says 'as he states, at 11 p. m.'): the ride took one to three hours on any reading.",
+  "independence": "Meade's report, his testimony, Bachelder, the Battles and Leaders caption and the 1913 book's 'as he states' all lead back to Meade's own hour and are counted as one line (the lower end is flagged single_source). Hunt's report and his article are one line (the upper end is flagged single_source). Together they make two groups for the window. Howard and Stannard are two independent reports of the 3 a.m. meeting. Haskell stands alone for the midnight passage. Pleasonton (1879) and Hunt (1887) are two postwar writers for 'after midnight'. Hunt, Pleasonton and Meade rode together and are not independent of each other's memory of the night."
+ },
+ "source_panel_text": "Meade reached the field about 01:00 on Jul 2 by his own report; Hunt's report says about 02:00. Both are reports of 1863 by men at headquarters, so the record is divided by an hour and the window stands, drawn at 01:00. By about 03:00 Howard and Stannard had him riding the line. The plan's 04:00 has no source. Eight other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "About 01:00 holds as the lower end and as the drawn instant (Meade's own report). The plan's 'pre-dawn inspection' is also documented, in the dark at about 03:00 (Howard, Stannard, Hunt), though Meade's own inspection began at first light; the plan's 04:00 and the single hour are not the whole record, since Hunt says about 02:00."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "About 01:00 and the first-light inspection hold as quoted. The first delegated default left Hunt's about 02:00 out as a mere scenario; two witnesses of the same rank disagree, so the default is the window 01:00-02:00 (still drawn at 01:00), class irreducible, tier documented."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-001 row)",
+   "must_change": true,
+   "note": "computed: delegated-decision row line 11 names this conflict; row 'about 01:00 on Jul 2' is superseded by the window 01:00-02:00 drawn at 01:00 (the first record stays as history)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-G22 row)",
+   "must_change": false,
+   "note": "computed: delegated-decision row line 867 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL04-02 row)",
+   "must_change": false,
+   "note": "computed: delegated-decision row line 801 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-UNITS-HQ-01 row)",
+   "must_change": false,
+   "note": "computed: delegated-decision row line 976 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 5 row)",
+   "must_change": true,
+   "note": "computed: delegated-decision row line 5 names this conflict; row 'about 01:00 on Jul 2' is superseded by the window 01:00-02:00 drawn at 01:00 (the first record stays as history)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 7 row)",
+   "must_change": false,
+   "note": "computed: delegated-decision row line 7 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 972 row)",
+   "must_change": false,
+   "note": "computed: delegated-decision row line 972 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0103.md",
+   "must_change": false,
+   "note": "computed: register entry names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0104.md",
+   "must_change": true,
+   "note": "computed: register entry names this conflict; Hunt's about 02:00, listed as 'documented but not in the plan', is now the upper end of the default window."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0120.md",
+   "must_change": false,
+   "note": "computed: register entry names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-023",
+   "must_change": true,
+   "note": "computed: decision log line 295 names this conflict; record the resolved default (window 01:00-02:00, irreducible) as a delegated decision; PENDING OWNER text superseded."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-001",
+   "must_change": true,
+   "note": "computed: decision log line 340 names this conflict; record the resolved default (window 01:00-02:00, irreducible) as a delegated decision; PENDING OWNER text superseded."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md",
+   "must_change": false,
+   "note": "computed: gate file names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-B.md",
+   "must_change": false,
+   "note": "computed: gate file names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md",
+   "must_change": false,
+   "note": "computed: gate file names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "gate",
+   "ref": "tools/bt/gates/q19_claims.py",
+   "must_change": false,
+   "note": "computed: gate file names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-221",
+   "must_change": false,
+   "note": "computed: tl-04.jsonl line 49 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "us-aop-hq",
+   "must_change": true,
+   "note": "printed_clock default 1863-07-02T01:00 (stays as the drawn instant), earliest 00:00, latest 04:00. The record documents 01:00 (Meade) to about 02:00 (Hunt) as the window and has Meade on the field by about 03:00 (Howard, Stannard); 04:00 has no source and is contradicted. The 'latest' 04:00 and the 'earliest' 00:00 rest on the plan's values; report only, no gate lowered. A floor moves only to an earlier documented time, so 00:00 (a lower bound by Haskell's letter) stays; the integration step reconciles the latest."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-039",
+   "must_change": true,
+   "note": "Window 'Jul 2 ~00:00-01:00' with default_iso 00:30 (timeline_windows.jsonl): 00:30 is earlier than any first-hand hour for the arrival (Meade 01:00); the window becomes 01:00-02:00, drawn at 01:00. Row not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-222",
+   "must_change": false,
+   "note": "Humphreys' arrival (C-002), same night; unaffected by this resolution."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04",
+   "must_change": true,
+   "note": "Report only, no gate changed: the headquarters row has no entity drawn (a headquarters entry, never drawn); if it is ever drawn its floor must not be earlier than the documented 01:00 and the 04:00 latest has no source."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-001)",
+   "must_change": true,
+   "note": "The default scenario C-001-DEFAULT 'about 01:00 on Jul 2, inspection of the line at first light' becomes the window 01:00-02:00 drawn at 01:00; the PDF values stay selectable."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/placement.json lines 2008 and 2038 (headquarters entries at the Evergreen gatehouse, 00:00 and 04:00)",
+   "must_change": true,
+   "note": "The two headquarters entries carry the plan's values 'after midnight' (00:00) and about 04:00 (EPP); the 04:00 entry is unsourced and contradicted by Howard and Stannard; they stay selectable."
+  },
+  {
+   "kind": "app_code",
+   "ref": "docs/battle-theatre/app/tools/placement-clauses.mjs lines 47-48",
+   "must_change": false,
+   "note": "Builds the two headquarters clauses; nothing to change in code, the data it writes does."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/history/arrivals.json us-aop-hq and tools/bt/arrivals_data.py line 55-60",
+   "must_change": true,
+   "note": "default_basis cites the PDF recommended default 'PENDING OWNER' and the range 00:00-01:00; it should cite this resolution (window 01:00-02:00, class irreducible)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/app/HISTORY-LAYER-NOTES.md lines 959-960",
+   "must_change": false,
+   "note": "Notes the two headquarters entries; text only."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "EPP, SS1 and W-D1 (the plan's web pages: Epperson timeline, Stone Sentinels July 1 timeline, Wikipedia first day)",
+   "query": "the pages and any source they give for \"after midnight\" and \"about 04:00\"; hosts not among those reachable for this research; web pages are pointers only",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "all local non-lead texts of the ledger",
+   "query": "Meade / commanding general / headquarters within 150 characters of arrived|reached|came and 4 a. m. / four o'clock (both orders)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Gettysburg Compiler and Adams Sentinel issues of 7-21 July 1863",
+   "query": "Meade within 200 characters of arrived|reached|came|midnight|o'clock|a. m. and night|morning|Thursday|2d",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "CA-1863 (Chronicling America pages of July 1863) and the other weeklies of the ledger",
+   "query": "Meade arrived at one|two|three o'clock on the morning of the 2d: the families need a part (issue) per search; none searched page by page",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Official Records 27/1-3: reports of Warren, Butterfield, Williams, Slocum, Sykes, Hancock, Gibbon, Humphreys",
+   "query": "commanding general / General Meade within 150 characters of arrived|reached|joined|came and midnight|a. m.|o'clock; only Meade, Hunt, Howard and Stannard give an hour; Halleck says only \"during the night\"",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "JCCW-1865-C012 (testimony of Hunt, Warren, Butterfield, Doubleday, Sickles and others, 1864)",
+   "query": "Meade/general commanding within 100 characters of about|at one|two|three o'clock; only Meade's own testimony gives the hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A note, log or letter written on 1-2 July 1863 by someone with Meade (Butterfield, Williams, Biddle, Meade's own letter of 2 July) that gives an hour would settle between 01:00 and about 02:00. A page image of Hunt's report reading a digit other than 2, or a source behind Epperson's 04:00, or behind the 'midnight' of the later books, would change the window."
+}

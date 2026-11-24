@@ -1,0 +1,672 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-031",
+ "topic": "Culp’s Hill, final charge Jul 3",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-031",
+ "event_date": "1863-07-03",
+ "pdf_row": {
+  "page": 62,
+  "text": "Culp’s Hill, final charge Jul 3 | 10:00; noon | 10:00 | noon",
+  "values": [
+   "10:00",
+   "noon"
+  ],
+  "recommended_default": "10:00",
+  "selectable_alternatives": [
+   "noon"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-031-DEFAULT",
+  "default_label": "10:00 (Ruger p.781); 10:30 also documented",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-031-S1",
+   "C-031-S2",
+   "C-031-S3",
+   "C-031-S4",
+   "C-031-DEFAULT"
+  ]
+ },
+ "class": "settled",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Geary, Kane, Rickards, Greene and Slocum (reports of July and August 1863) put the last Confederate charge and the enemy's retirement at 10.25 to about 10.30; the plan's 10:00 dates the Union counter-attack (Ruger, Hunt) and noon the end of all firing (Maulsby, Williams)."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-031-P3"
+  ],
+  "label": "About 10:30: the last Confederate charge (from 10:25) is beaten back and the enemy retires",
+  "animation": {
+   "at": "1863-07-03T10:30",
+   "rule": "best_supported",
+   "note": "The last charge begins at 10:25 (Geary) and is over by about 10:30; the firing dies away to about noon (Maulsby, Williams). 10:00 and 12:00 stay selectable as the counter-attack and the end of all firing."
+  }
+ },
+ "positions": [
+  {
+   "id": "C-031-P1",
+   "origin": "pdf_value",
+   "label": "10:00: Ruger orders the counter-attack; Hunt: the infantry retake the works",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T10:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "tier": "inferred",
+   "clock": "union",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-031-P1-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R273",
+     "page": "781",
+     "page_basis": "scan_leaf",
+     "text_offset": 2734395,
+     "quote": "This state of things continued until about 10 a. m., the enemy maintaining the attack with great constancy",
+     "witness": {
+      "name": "Thomas H. Ruger",
+      "role": "Brigadier General, commanding the First Division, Twelfth Corps (the right of the line); wrote on 5 Dec 1863",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-12-05",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "ruger",
+     "exact": false,
+     "states": {
+      "times": [
+       "10:00"
+      ]
+     },
+     "note": "Ruger: until about 10 a.m. the enemy kept up the attack; in the next sentence 'at this time I received orders to try the enemy on the right of the line of breastworks' with two regiments. So his 10 a.m. dates the start of the Union counter-attack (Colgrove's charge), not the end of the Confederate charge."
+    },
+    {
+     "id": "C-031-P1-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R028",
+     "page": "238",
+     "page_basis": "scan_leaf",
+     "text_offset": 787472,
+     "quote": "continued firing at intervals until 10 a. m.",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, Chief of Artillery, Army of the Potomac (relays what the batteries and the Twelfth Corps reported)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-27",
+      "kind": "official_report"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hunt",
+     "exact": false,
+     "states": {
+      "times": [
+       "10:00"
+      ]
+     },
+     "note": "Hunt, of the batteries on the hill behind the right: they continued firing at intervals until 10 a.m., 'when the infantry succeeded in driving out the enemy and reoccupied their positions' (the text layer misprints 'when' in the quoted tail, so the quote stops before it). The recovery of the works, not the last charge."
+    },
+    {
+     "id": "C-031-P1-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "121",
+     "page_basis": "scan_leaf",
+     "text_offset": 410960,
+     "quote": "at early daylight a spirited contest commenced, which continued until after 10 a. m.",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac (at his headquarters)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "lower",
+     "group": "meade",
+     "exact": false,
+     "states": {
+      "times": [
+       "10:00"
+      ]
+     },
+     "note": "Meade: the contest on the right began at early daylight and continued until after 10 a.m. A lower bound, which 10.30 satisfies."
+    }
+   ],
+   "flags": [
+    "different_event"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Ruger, Hunt and Meade date the end of the long defence and the Union counter-attack at about 10; the last Confederate charge came at 10.25 to 10.30, after it."
+   },
+   "pdf_label": "10:00",
+   "scenario_ids": [
+    "C-031-S1",
+    "C-031-S3",
+    "C-031-DEFAULT"
+   ],
+   "approx": true,
+   "derived": true,
+   "inference": {
+    "step": "Ruger, Hunt and Meade all say about 10 a.m. for the point at which the defensive fight gave way to the Union counter-attack; none says the last charge ended then, so 10:00 is read as that earlier event.",
+    "from": [
+     "C-031-P1-c1",
+     "C-031-P1-c2",
+     "C-031-P1-c3"
+    ]
+   }
+  },
+  {
+   "id": "C-031-P2",
+   "origin": "pdf_value",
+   "label": "Noon: the enemy's fire wholly ceased on the right (Maulsby, Williams)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T12:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "tier": "documented",
+   "clock": "unspecified",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-031-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R283",
+     "page": "806",
+     "page_basis": "scan_leaf",
+     "text_offset": 2829033,
+     "quote": "which it did until the enemy's fire wholly ceased, about 12 m.",
+     "witness": {
+      "name": "William P. Maulsby",
+      "role": "Colonel, 1st Potomac Home Brigade Maryland Infantry (Lockwood's brigade), in the rifle-pits on the right",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "maulsby",
+     "exact": true,
+     "states": {
+      "times": [
+       "12:00"
+      ]
+     },
+     "note": "Maulsby, the next day, from the rifle-pits on the right: his regiment held the front of the pits until the enemy's fire wholly ceased, about noon. This is the end of all firing on his front, after the last charge, not the charge."
+    },
+    {
+     "id": "C-031-P2-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R283",
+     "page": "806",
+     "page_basis": "scan_leaf",
+     "text_offset": 2827936,
+     "quote": "about 4 a. m. the 3d instant this regiment was ordered to attack a position of the enemy on the right",
+     "witness": {
+      "name": "William P. Maulsby",
+      "role": "Colonel, 1st Potomac Home Brigade Maryland Infantry",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "maulsby",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-03"
+      ]
+     },
+     "note": "Names the day of the passage (the 3d instant) that leads to the noon of the next lines."
+    },
+    {
+     "id": "C-031-P2-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R483",
+     "page": "513",
+     "page_basis": "scan_leaf",
+     "text_offset": 1912570,
+     "quote": "at intervals until 12 m. , when the major-general commanding ordered the brigade to take",
+     "witness": {
+      "name": "J. M. Williams",
+      "role": "Colonel, commanding Nicholls' (Louisiana) brigade, Johnson's division, in the Confederate line before the hill",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-28",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "williams",
+     "exact": false,
+     "states": {
+      "times": [
+       "12:00"
+      ]
+     },
+     "note": "Williams (Confederate), from the line: his brigade engaged the enemy for four hours from early light 'almost without cessation, and at intervals until 12 m.', when the division commander ordered it back to the ravine. The end of his firing and his move, not a charge. His report is dated 28 August 1863."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Maulsby and Williams (a Confederate) put the end of all firing, and the Confederate withdrawal, at about 12 m.; the last charge was over about an hour and a half before."
+   },
+   "pdf_label": "noon",
+   "scenario_ids": [
+    "C-031-S2"
+   ],
+   "approx": true
+  },
+  {
+   "id": "C-031-P3",
+   "origin": "first_delegated",
+   "label": "About 10:30: the last Confederate charge (from 10:25) is beaten back and the enemy retires",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T10:30",
+    "approx": true,
+    "tolerance_min": 10
+   },
+   "tier": "documented",
+   "clock": "union",
+   "stance": "default",
+   "support": [
+    {
+     "id": "C-031-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R307",
+     "page": "857",
+     "page_basis": "scan_leaf",
+     "text_offset": 3018317,
+     "quote": "The First Brigade returned to our support at 1.30 a. m. on the 3d, [...] continued until 10.30 a. m., when the enemy retired",
+     "witness": {
+      "name": "George S. Greene",
+      "role": "Brigadier General, commanding the Third Brigade, Second Division, Twelfth Corps, in the works on the crest of Culp's Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "greene",
+     "exact": true,
+     "states": {
+      "times": [
+       "01:30",
+       "10:30"
+      ],
+      "dates": [
+       "07-03"
+      ]
+     },
+     "note": "Greene, nine days after, in the works: the attack, begun at 4 a.m., 'continued until 10.30 a. m., when the enemy retired'. The day is named at the start of the sentence."
+    },
+    {
+     "id": "C-031-P3-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R293",
+     "page": "830",
+     "page_basis": "scan_leaf",
+     "text_offset": 2919158,
+     "quote": "At 10.25 o'clock two brigades of Johnson's division, having formed in column by regiments, charged upon our line on the right",
+     "witness": {
+      "name": "John W. Geary",
+      "role": "Brigadier General, commanding the Second Division, Twelfth Corps (the division on the crest)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-29",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "geary",
+     "exact": true,
+     "states": {
+      "times": [
+       "10:25"
+      ]
+     },
+     "note": "Geary: the last charge of Johnson's division began at 10.25; the next lines call it 'the last charge'."
+    },
+    {
+     "id": "C-031-P3-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R293",
+     "page": "830",
+     "page_basis": "scan_leaf",
+     "text_offset": 2920875,
+     "quote": "This final charge, made at 10.30 a. m., which was so eminently successful to us, resulted in the rout of the enemy",
+     "witness": {
+      "name": "John W. Geary",
+      "role": "Brigadier General, commanding the Second Division, Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-29",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "geary",
+     "exact": true,
+     "states": {
+      "times": [
+       "10:30"
+      ]
+     },
+     "note": "Geary again, in his summary: the final charge, made at 10.30 a.m., ended in the rout of the enemy. Same writer: one line of knowledge."
+    },
+    {
+     "id": "C-031-P3-c4",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R302",
+     "page": "847",
+     "page_basis": "scan_leaf",
+     "text_offset": 2982868,
+     "quote": "until about 10.30 o'clock, when the enemy made their last determined effort by charging in column of regi- ments. Their advance was Steuart's brigade, of Johnson's division",
+     "witness": {
+      "name": "Thomas L. Kane",
+      "role": "Brigadier General, commanding the Second Brigade, Second Division, Twelfth Corps (the right of the line, where the charge struck)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "kane",
+     "exact": false,
+     "states": {
+      "times": [
+       "10:30"
+      ]
+     },
+     "note": "Kane, three days after, on the right of the line: after seven hours of fire, until about 10.30 the enemy made their last determined effort, led by Steuart's brigade. It dates the charge; his next lines say that after this repulse the battle was over, with a desultory fire for some time."
+    },
+    {
+     "id": "C-031-P3-c5",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R304",
+     "page": "852",
+     "page_basis": "scan_leaf",
+     "text_offset": 3000516,
+     "quote": "About 10.30 a. m. the enemy advanced to charge us, Steuart's bri- gade leading",
+     "witness": {
+      "name": "William Rickards, jr.",
+      "role": "Colonel, 29th Pennsylvania Infantry (Kane's brigade), in the line",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "rickards",
+     "exact": false,
+     "states": {
+      "times": [
+       "10:30"
+      ]
+     },
+     "note": "Rickards, the next day, from his regiment: about 10.30 the enemy advanced to charge, Steuart's brigade leading."
+    },
+    {
+     "id": "C-031-P3-c6",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R271",
+     "page": "761",
+     "page_basis": "scan_leaf",
+     "text_offset": 2660785,
+     "quote": "The engagement continued until 10.30 a. m., and resulted in our regaining possession of our entire line of intrenchments",
+     "witness": {
+      "name": "Henry W. Slocum",
+      "role": "Major General commanding the Twelfth Corps (at the corps headquarters near Power's Hill)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08",
+      "kind": "official_report"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "slocum",
+     "exact": false,
+     "states": {
+      "times": [
+       "10:30"
+      ]
+     },
+     "note": "Slocum's report (the day of the month of the dateline is unreadable in the text layer, 'August, 33, 1863'): the engagement continued until 10.30 and ended in our regaining the whole line. The corps commander's summary; it draws on his division and brigade reports, so it is a separate group but not an independent eyewitness."
+    }
+   ],
+   "scenario_ids": [
+    "C-031-S4"
+   ],
+   "approx": true
+  },
+  {
+   "id": "C-031-P4",
+   "origin": "research",
+   "label": "About 11:00 (Pierce, 1914)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T11:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "tier": "inferred",
+   "clock": "unspecified",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-031-P4-c1",
+     "source": "PIERCE-F-1914",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 396484,
+     "quote": "from daylight until eleven o'clock, when his heroic troops are finally driven back completely repulsed",
+     "witness": {
+      "name": "Francis Marshal Pierce",
+      "role": "Author of a history of the battle, 1914 (not a participant)",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1914",
+      "kind": "later_history"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "pierce",
+     "exact": false,
+     "states": {
+      "times": [
+       "11:00"
+      ]
+     },
+     "note": "Pierce in 1914: Johnson is left alone from daylight until eleven o'clock, when his troops are finally driven back. No source named; the reports of 1863 do not give eleven.",
+     "page_note": "the text has no printed page marks in the layer; the passage is in the narrative of the third day, chapter on Culp's Hill"
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "A history of 1914 by a non-participant, no source named; the reports of 1863 give 10.30 for the last charge and the retreat."
+   },
+   "derived": true,
+   "inference": {
+    "step": "Pierce says Johnson held from daylight until eleven o'clock, when he was finally driven back; a later history documents only what its author wrote.",
+    "from": [
+     "C-031-P4-c1"
+    ]
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "The reports of 1863 agree on 10.25 to about 10.30 for the last Confederate charge and the retirement; 10:00 is the Union counter-attack and 12 m. the end of all firing, so the three figures date three moments of one morning. Class settled.",
+  "who": "Geary commanded the division on the crest and Kane the brigade the charge struck; Greene, Rickards and Ruger were in the works; Slocum and Hunt wrote from the rear and relay. Maulsby was in the rifle-pits; Williams, the only Confederate with an hour, was in the line before the hill. Johnson gives no hour.",
+  "when": "All the main witnesses wrote within five months, and most within a month: Rickards 4 Jul, Maulsby 4 Jul, Kane 6 Jul, Greene 12 Jul, Geary 29 Jul, Williams 28 Aug, Slocum Aug, Hunt 27 Sep, Meade 1 Oct, Ruger 5 Dec 1863. Pierce (1914) is a later history. The written-down rank gives the best class to the 10.30 witnesses (reports within a month), and Ruger and Hunt, the 10:00 witnesses, wrote months later and relay.",
+  "where": "Kane's brigade took the last charge on the right of the line; Geary commanded the division; Greene was beside them. Ruger's division was on the right and he gives the hour of his own order. Hunt and Slocum were behind the hill.",
+  "how_knew": "Geary, Kane, Greene and Rickards saw the charge and give a clock reading; Slocum and Hunt report what their officers told them.",
+  "clock": "All hours are Union clock except Williams, who is Confederate. The reported difference of about 20 minutes is not applied; it would not join 10:30 and noon.",
+  "independence": "Geary and Kane are two independent eyewitnesses, as are Greene, Rickards and Maulsby; Slocum draws on his division reports; Hunt on his battery officers; Williams is the one Confederate and stands alone for noon on his side. Pierce is later and unsourced."
+ },
+ "source_panel_text": "About 10:30 on Jul 3: Geary and Kane, reports of July 1863, put the last Confederate charge at 10.25 to about 10.30, and Greene says the enemy then retired. The plan's 10:00 dates the Union counter-attack (Ruger, Hunt); noon is when all firing stopped (Maulsby). Three other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "10:00 is when the Union counter-attack began and the works were retaken (Ruger, Hunt, Meade); the last Confederate charge came at 10.25 to about 10.30. It stays selectable as that event."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "Its added 10:30 holds and becomes the default; its default 10:00 (Ruger, p. 781) dates the counter-attack, not the last charge. The tier documented holds for 10:30 (Greene, Geary, Kane)."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-031 row)",
+   "must_change": true,
+   "note": "read: this record holds the old default (10:00, Ruger p. 781; 10:30 also documented); under this resolution the default is about 10:30 (class settled, tier documented) and 10:00 is labelled the counter-attack. Not edited here. "
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-F3-02 row)",
+   "must_change": true,
+   "note": "read: this record holds the old default (10:00, Ruger p. 781; 10:30 also documented); under this resolution the default is about 10:30 (class settled, tier documented) and 10:00 is labelled the counter-attack. Not edited here. "
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 339 row)",
+   "must_change": true,
+   "note": "read: this record holds the old default (10:00, Ruger p. 781; 10:30 also documented); under this resolution the default is about 10:30 (class settled, tier documented) and 10:00 is labelled the counter-attack. Not edited here. "
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-031",
+   "must_change": true,
+   "note": "read: this record holds the old default (10:00, Ruger p. 781; 10:30 also documented); under this resolution the default is about 10:30 (class settled, tier documented) and 10:00 is labelled the counter-attack. Not edited here. "
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-057",
+   "must_change": true,
+   "note": "Row 'Jul 3 ~10:00' (Spangler's meadow; Walker's and Daniel's attack on Greene, Steuart on Candy and Kane; 'Final Confederate attacks, beaten back'; cites Wikipedia): the final attacks are about 10:25 to 10:30 under this resolution, not 10:00. Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-044",
+   "must_change": false,
+   "note": "Row 'Jul 3 morning (~06:00-11:00)', Johnson's division with Daniel, Smith, O'Neal against Greene: the window ends about 11:00 and holds the last charge at 10:30. No change required."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-047",
+   "must_change": false,
+   "note": "Row 'Jul 3 morning (hour not given)', Ruger's skirmish order and Colgrove's charge: Ruger's 'about 10 a. m.' dates the order (position C-031-P1); a row hour could cite it. No change required."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-031)",
+   "must_change": true,
+   "note": "holds the first delegated default scenario C-031-DEFAULT (10:00, Ruger p. 781); the default becomes about 10:30 and 10:00 and noon are relabelled. Not edited here."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/structures_data_schedule.py scen c031_default_10_00",
+   "must_change": true,
+   "note": "Holds win 07-03 10:00 for the S-056 wall (src 'B.2.5 C-031 recommended default 10:00'); the end hour of the fight under this resolution is about 10:30, with 10:00 and noon selectable. Not edited here."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-2 R481 Johnson, R482 Steuart, R488 Walker, R495 Jones, R496 to R503 regimental reports of Johnson's division",
+   "query": "a clock reading for the last Confederate charge or the retreat on the morning of Jul 3: Johnson says only that no further assault was made and that he held his position until 10 o'clock that night; the other reports were searched by clock words (a. m., o'clock, noon, 10 to 12) and not read to the end",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2 reports of Daniel's, O'Neal's (Rodes's division) and Smith's brigades (R-numbers of the index)",
+   "query": "any hour for the charge: no report of these brigades was read",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "all local books and papers (find_passage --all, class primary, book, official)",
+   "query": "Culp, Johnson, Steuart, Stonewall Brigade, Greene, Geary, Kane within 250 characters of 10 or 11 o'clock or a. m. and retired, repulsed, charge, ceased: only Pierce 1914 (eleven o'clock) was new",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report of Johnson's, Steuart's, Walker's or Rodes's division that gives an hour with its clock for the last charge, or a signal or telegraph message timed on the morning of Jul 3, would test the Union hours; a contradiction among Union reports on 10.30 would reopen the class."
+}

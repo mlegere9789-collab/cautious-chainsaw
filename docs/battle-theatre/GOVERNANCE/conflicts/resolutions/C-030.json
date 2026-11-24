@@ -1,0 +1,1060 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-030",
+ "topic": "Infantry step-off",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-030",
+ "event_date": "1863-07-03",
+ "pdf_row": {
+  "page": 62,
+  "text": "Infantry step-off | 14:00; 15:00 | 15:00 | 14:00",
+  "values": [
+   "14:00",
+   "15:00"
+  ],
+  "recommended_default": "15:00",
+  "selectable_alternatives": [
+   "14:00"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-030-DEFAULT",
+  "default_label": "about 15:00 (OR range 14:30-16:30 shown)",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-030-S1",
+   "C-030-S2",
+   "C-030-S3",
+   "C-030-S4",
+   "C-030-DEFAULT"
+  ]
+ },
+ "class": "irreducible",
+ "tier": "inferred",
+ "basis": {
+  "kind": "official_records",
+  "text": "Reports of July and August 1863 by officers who saw or made the advance disagree: Alexander, at the guns, has Pickett allowed to advance at 13:50; Eshleman about 30 minutes after a signal between 1 and 2; Peyton 14:30; Hall, Webb, Davis 15:00 exactly; Harrow, Hunt, Haskell about 15:00."
+ },
+ "default": {
+  "mode": "window",
+  "positions": [
+   "C-030-P7",
+   "C-030-P2"
+  ],
+  "label": "Between about 13:30 and 15:00; drawn at 15:00 (most witnesses)",
+  "basis_text": "Lower end: Eshleman (about 30 minutes after a signal ordered between 1 and 2; with the signal at 1.00 by Alexander's watch, about 13:30), with Alexander (13:50) and Peyton (14:30) inside. Upper end: Hall, Webb and Davis (3 o'clock), Harrow, Hunt and Haskell (about 3). Readings of 16:00 to 17:00 (Lang, Meade, Hays, Smyth) are an hour late on the opening of the guns and stay selectable.",
+  "animation": {
+   "at": "1863-07-03T15:00",
+   "rule": "best_supported",
+   "note": "The march is drawn from 15:00, the hour given by the largest number of independent reports of the best class, on both sides (Hall, Webb, Davis, with Harrow, Hunt, Haskell about 15:00). It is a drawing choice, not a settlement: 13:50 and 14:30 stay selectable and the window is shown. It is not earlier than any source-supported time."
+  },
+  "note": "The record is divided by a whole hour on how long the guns fired; the window carries both."
+ },
+ "positions": [
+  {
+   "id": "C-030-P1",
+   "origin": "pdf_value",
+   "label": "14:00 (the plan)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T14:00"
+   },
+   "tier": "inferred",
+   "clock": "confederate",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-030-P1-c1",
+     "source": "TAYLOR-GENLEE-1906-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 467467,
+     "quote": "it was not until 1 p.m., eight hours later, that the artillery of the First Corps opened fire, and not until 2 p.m. that the infantry advanced",
+     "witness": {
+      "name": "Walter H. Taylor",
+      "role": "Colonel, adjutant general to General Lee; wrote in 1906",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1906",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "taylor",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:00"
+      ],
+      "numbers": [
+       1,
+       2,
+       8
+      ]
+     },
+     "note": "Taylor, 43 years later, in a defence of Lee against Longstreet: the guns at 1 p.m., the infantry at 2 p.m. A round-hour recollection with no source named; it is about the Jul 3 plan (the Second Corps engaged at daylight) and is the only text found that gives the plan's 14:00.",
+     "page_note": "the book has no printed page in the text layer; the passage is in the chapter answering Longstreet on the third day"
+    }
+   ],
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "One recollection of 1906 by a staff officer, round hour, no source named. It lies inside the window and stays selectable."
+   },
+   "pdf_label": "14:00",
+   "scenario_ids": [
+    "C-030-S1"
+   ],
+   "approx": false,
+   "derived": true,
+   "inference": {
+    "step": "Taylor states 2 p.m. for the advance of the infantry; as a recollection of 1906 it documents that he said so, not the fact, so the value is inferred at most.",
+    "from": [
+     "C-030-P1-c1"
+    ]
+   }
+  },
+  {
+   "id": "C-030-P2",
+   "origin": "pdf_value",
+   "label": "15:00: the infantry leave the woods (Union and Confederate reports)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T15:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "tier": "documented",
+   "clock": "unspecified",
+   "stance": "default",
+   "support": [
+    {
+     "id": "C-030-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R109",
+     "page": "437",
+     "page_basis": "scan_leaf",
+     "text_offset": 1531830,
+     "quote": "At 3 o'clock exactly the fire of the enemy slackened, and his first line of battle advanced from the woods in front",
+     "witness": {
+      "name": "Norman J. Hall",
+      "role": "Colonel, 7th Michigan Infantry, commanding the Third Brigade, Second Division, Second Corps (at the wall south of the Angle)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hall",
+     "exact": true,
+     "states": {
+      "times": [
+       "15:00"
+      ],
+      "dates": []
+     },
+     "note": "Hall, 14 days after the fight, at the wall: the enemy's first line came out of the woods at 3 o'clock exactly. The woods edge is the Confederate start line, so this is the step-off as seen from the Union line."
+    },
+    {
+     "id": "C-030-P2-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R104",
+     "page": "428",
+     "page_basis": "scan_leaf",
+     "text_offset": 1498101,
+     "quote": "JULY 3. About 1 p. m. the enemy opened with more than twenty batteries upon our line. [...] At 3 o'clock the enemy's line of battle left the woods in our front",
+     "witness": {
+      "name": "Alexander S. Webb",
+      "role": "Brigadier General, commanding the Second (Philadelphia) Brigade, Second Division, Second Corps, at the Angle",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-13",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "webb",
+     "exact": true,
+     "states": {
+      "times": [
+       "13:00",
+       "15:00"
+      ],
+      "dates": [
+       "07-03"
+      ]
+     },
+     "note": "Webb, 10 days after the fight, at the point struck: the line left the woods at 3 o'clock. Same division as Hall; a separate report by a separate observer."
+    },
+    {
+     "id": "C-030-P2-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R099",
+     "page": "420",
+     "page_basis": "scan_leaf",
+     "text_offset": 1473868,
+     "quote": "until nearly 3 p. m., when his infantry columns moved from the woods, 1,000 yards in front",
+     "witness": {
+      "name": "William Harrow",
+      "role": "Brigadier General, commanded the First Brigade, Second Division, Second Corps on Jul 3 (the report is of the division)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-16",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "harrow",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ]
+     },
+     "note": "Harrow: the cannonade lasted until nearly 3 p.m., when the infantry columns moved from the woods. 'Nearly 3' is a lower-bound hedge (a few minutes before 15:00)."
+    },
+    {
+     "id": "C-030-P2-c4",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R553",
+     "page": "651",
+     "page_basis": "scan_leaf",
+     "text_offset": 2421577,
+     "quote": "at 3 o'clock, and the order to move forward was given and promptly obeyed",
+     "witness": {
+      "name": "Joseph R. Davis",
+      "role": "Brigadier General, commanding a brigade of Heth's division (Pettigrew's command), which moved in line with Pickett",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-26",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "davis",
+     "exact": true,
+     "states": {
+      "times": [
+       "15:00"
+      ]
+     },
+     "note": "Davis (Confederate, in the advancing line): the sentence is 'The artillery ceased firing at 3 o'clock, and the order to move forward was given and promptly obeyed' (the text layer garbles 'firing' as 'hring', so the quote starts after it). He dates the order to his division, which was to keep dressed on Pickett's, not Pickett's own order. Report of 26 Aug 1863 (54 days)."
+    },
+    {
+     "id": "C-030-P2-c5",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R028",
+     "page": "239",
+     "page_basis": "scan_leaf",
+     "text_offset": 793751,
+     "quote": "About 3 p. m., and soon after the enemy's fire had ceased, he formed a column of attack in the edge of the woods in front of the Second Corps",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, Chief of Artillery, Army of the Potomac (on the line, ordering the batteries)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-27",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hunt",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ]
+     },
+     "note": "Hunt: about 3 p.m. the enemy formed his column of attack at the edge of the woods. This dates the forming, a little before the advance; Hunt also stopped the Union fire about 2.30 (p. 239), so it is a check on the order of events, not the step-off itself."
+    },
+    {
+     "id": "C-030-P2-c6",
+     "source": "HASKELL-1908",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 168965,
+     "quote": "At three o'clock almost precisely the last shot hummed, and bounded and fell, and the cannonade was over",
+     "witness": {
+      "name": "Frank A. Haskell",
+      "role": "Lieutenant, aide-de-camp to Brigadier General Gibbon, Second Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "staff_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "haskell",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ]
+     },
+     "note": "Haskell's private letter to his brother, written in July 1863 (the note of A. J. Turner on the pamphlet says the same month as the battle; no day given): the cannonade ended at 3 almost precisely, then a pause, then the report that the infantry was advancing. It dates the end of the guns, a few minutes before the infantry were seen.",
+     "page_note": "printed page 109-110 of the 1908 reprint, read in the text ([ 109], [iio] marks)"
+    }
+   ],
+   "pdf_label": "15:00",
+   "scenario_ids": [
+    "C-030-S2",
+    "C-030-S3",
+    "C-030-DEFAULT"
+   ],
+   "approx": true
+  },
+  {
+   "id": "C-030-P4",
+   "origin": "first_delegated",
+   "label": "14:30: Peyton, Garnett's brigade (on a clock that opens the guns at 1.30)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T14:30"
+   },
+   "tier": "documented",
+   "clock": "confederate",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-030-P4-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R441",
+     "page": "385-386",
+     "page_basis": "scan_leaf",
+     "text_offset": 1425096,
+     "quote": "At 2.30 p. m. , the artillery fire having to some extent abated, [...] order to advance was given, first by Major-General Pickett in person",
+     "witness": {
+      "name": "Charles S. Peyton",
+      "role": "Major, 19th Virginia Infantry, commanding Garnett's brigade, Pickett's division, in the line",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "peyton",
+     "exact": true,
+     "states": {
+      "times": [
+       "14:30"
+      ],
+      "dates": []
+     },
+     "note": "Peyton, six days after, in the line: at 2.30 p.m., the artillery fire having abated, the order to advance was given, first by Pickett in person. A page head of the volume stands inside the sentence, so [...] skips it."
+    },
+    {
+     "id": "C-030-P4-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R441",
+     "page": "385",
+     "page_basis": "scan_leaf",
+     "text_offset": 1424607,
+     "quote": "cannonading, which opened at 1.30 p. m., and was kept up without intermission for one hour",
+     "witness": {
+      "name": "Charles S. Peyton",
+      "role": "Major, 19th Virginia Infantry, commanding Garnett's brigade",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "peyton",
+     "exact": false,
+     "states": {
+      "times": [
+       "13:30"
+      ],
+      "numbers": [
+       1
+      ]
+     },
+     "note": "The same report dates the opening of the cannonade at 1.30 and its length at one hour. Alexander (his watch), Walton, Cabell, Hill, Meade, Harrow and others put the opening at about 1 p.m., so Peyton's clock stands about 30 minutes later than theirs, and his one hour is shorter than their two."
+    },
+    {
+     "id": "C-030-P4-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R441",
+     "page": "385",
+     "page_basis": "scan_leaf",
+     "text_offset": 1424068,
+     "quote": "I have the honor to report the part taken by this brigade in the late battle near Gettysburg, Pa., July 3",
+     "witness": {
+      "name": "Charles S. Peyton",
+      "role": "Major, 19th Virginia Infantry, commanding Garnett's brigade",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "peyton",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-03"
+      ]
+     },
+     "note": "The opening sentence of the report names the day of the whole report."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "unclear_clock"
+   ],
+   "reason_not_chosen": {
+    "kind": "clock",
+    "text": "Peyton dates the guns 1.30 where the others say about 1; on his clock the order came about an hour after the guns, which is the others' 14:00 to 14:15. Inside the window."
+   },
+   "scenario_ids": [
+    "C-030-S4"
+   ]
+  },
+  {
+   "id": "C-030-P5",
+   "origin": "first_delegated",
+   "label": "About 16:00: Lang, and Meade's \"about three hours\"",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T16:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "tier": "inferred",
+   "clock": "unspecified",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-030-P5-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R545",
+     "page": "632",
+     "page_basis": "scan_leaf",
+     "text_offset": 2350490,
+     "quote": "which lasted till nearly 4 p. m., when Pickett's division, of [...] corps, charged the enemy's position",
+     "witness": {
+      "name": "David Lang",
+      "role": "Colonel, 8th Florida Infantry, commanding Perry's brigade (Anderson's division), behind the guns",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "lang",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Lang (Perry's brigade, in the rear line): the bombardment lasted till nearly 4 p.m., when Pickett's division charged. He puts the start of the bombardment at 'nearly 2 p.m.', an hour later than the reports that date it at 1; the day of the month of his dateline is unreadable in the text layer ('Jtdy -M'), so only the month is given."
+    },
+    {
+     "id": "C-030-P5-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "74",
+     "page_basis": "scan_leaf",
+     "text_offset": 263405,
+     "quote": "The enemy opened at 1 p. m. from [...] 150 guns, concentrated upon my left and center, continuing without intermission for about three hours, at the expiration of which time he assaulted my left center twice",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac (at his headquarters behind the line)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-03",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "about",
+     "group": "meade",
+     "exact": false,
+     "states": {
+      "times": [
+       "13:00"
+      ],
+      "numbers": [
+       150,
+       3
+      ]
+     },
+     "note": "Meade's dispatch to Halleck of 8.35 p.m. on the day (received next morning): guns opened at 1 p.m., about three hours, then the assault. A round estimate of a length, from headquarters; 13:00 plus about three hours is 16:00, a computation."
+    }
+   ],
+   "flags": [
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "elsewhere",
+    "text": "Neither writer was in the advancing line: Lang stood in a rear brigade and starts the guns at nearly 2; Meade, at headquarters, gives a round three hours. The line reports and Hill put the guns' end near 3."
+   },
+   "scenario_ids": [
+    "C-030-S4"
+   ],
+   "derived": true,
+   "inference": {
+    "step": "Lang says Pickett charged when the bombardment ended, nearly 4; Meade's guns at 1 p.m. plus about three hours is 16:00. Neither names the hour of the step-off.",
+    "from": [
+     "C-030-P5-c1",
+     "C-030-P5-c2"
+    ]
+   }
+  },
+  {
+   "id": "C-030-P6",
+   "origin": "first_delegated",
+   "label": "16:30: Hays's division (guns from nearly 2 to 4.30)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T16:30"
+   },
+   "tier": "documented",
+   "clock": "union",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-030-P6-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R115",
+     "page": "454",
+     "page_basis": "scan_leaf",
+     "text_offset": 1592216,
+     "quote": "It was continued uninterruptedly until 4.30 o'clock, when a heavy column of the enemy moved forward in three lines",
+     "witness": {
+      "name": "Alexander Hays",
+      "role": "Brigadier General, commanding the Third Division, Second Corps (on the line south of Smyth's and Webb's front)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-08",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hays",
+     "exact": true,
+     "states": {
+      "times": [
+       "16:30"
+      ]
+     },
+     "note": "Hays: the fire ran until 4.30 when a heavy column moved forward. In the same report the fire began at 'nearly 2 p. m.', an hour later than the reports that date it at 1."
+    },
+    {
+     "id": "C-030-P6-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R115",
+     "page": "454",
+     "page_basis": "scan_leaf",
+     "text_offset": 1591726,
+     "quote": "About 11 a. m. an entire lull occurred, which was continued until nearly 2 p. m.",
+     "witness": {
+      "name": "Alexander Hays",
+      "role": "Brigadier General, commanding the Third Division, Second Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-08",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hays",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:00"
+      ]
+     },
+     "note": "Hays's own start hour for the cannonade: nearly 2 p.m., against 1 p.m. in the other reports."
+    },
+    {
+     "id": "C-030-P6-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R115",
+     "page": "454",
+     "page_basis": "scan_leaf",
+     "text_offset": 1591473,
+     "quote": "The daylight of the 3d was a signal for renewed hostilities",
+     "witness": {
+      "name": "Alexander Hays",
+      "role": "Brigadier General, commanding the Third Division, Second Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-08",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hays",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-03"
+      ]
+     },
+     "note": "Names the day of the passage that follows (the lull until nearly 2 p.m. and the guns)."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "contradicted"
+   ],
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "Hays starts the guns at nearly 2 p.m.; Webb, Hall, Harrow, Hunt, Hill, Alexander and Cabell put the start at 1. His whole timing runs about an hour late; Hays's own division, on the same line, is the only one with 4.30."
+   },
+   "scenario_ids": [
+    "C-030-S4"
+   ]
+  },
+  {
+   "id": "C-030-P7",
+   "origin": "research",
+   "label": "About 13:30 to 14:30: Eshleman (about 30 minutes after the signal)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-03T13:30",
+    "to": "1863-07-03T14:30"
+   },
+   "tier": "inferred",
+   "clock": "confederate",
+   "stance": "default",
+   "support": [
+    {
+     "id": "C-030-P7-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R466",
+     "page": "435",
+     "page_basis": "scan_leaf",
+     "text_offset": 1611704,
+     "quote": "thirty minutes after the signal guns had been fired, our in- fantry moved forward over the plateau in our front",
+     "witness": {
+      "name": "B. F. Eshleman",
+      "role": "Major, commanding the Washington Artillery battalion, at the Peach Orchard",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-11",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "eshleman",
+     "exact": false,
+     "states": {
+      "numbers": [
+       30
+      ]
+     },
+     "note": "Eshleman, 39 days after: about thirty minutes after the signal guns the infantry moved forward over the plateau in his front. The text layer garbles 'About' in front of 'thirty', so the quote starts after it."
+    },
+    {
+     "id": "C-030-P7-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R466",
+     "page": "434",
+     "page_basis": "scan_leaf",
+     "text_offset": 1610944,
+     "quote": "you ordered me to give the signal for open- ing along the entire line",
+     "witness": {
+      "name": "B. F. Eshleman",
+      "role": "Major, commanding the Washington Artillery battalion",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-11",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "eshleman",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "give the signal for opening along the entire line"
+      ]
+     },
+     "note": "The sentence begins 'Between 1 and 2 p. m.' (the text layer garbles 'Between' into symbols, so the quote starts after it and the hours are not claimed as stated by the quote). His own signal order was therefore between 13:00 and 14:00, and the infantry moved about 30 minutes later."
+    },
+    {
+     "id": "C-030-P7-c3",
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 1113150,
+     "quote": "It was just 1 P.M. by my watch when the signal guns were fired and the cannonade opened",
+     "witness": {
+      "name": "E. Porter Alexander",
+      "role": "Colonel, commanding the artillery battalion that gave the signal for Pickett to advance",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "alexander-memoir",
+     "exact": false,
+     "states": {
+      "times": [
+       "13:00"
+      ]
+     },
+     "note": "Alexander in 1907, by his own watch: signal guns at 1 p.m. This fixes the 'signal' that Eshleman counts from, if Eshleman's signal is the same one.",
+     "page_note": "printed page 422 read from the text (the running head GETTYSBURG: THIRD DAY 423 follows in the next lines)"
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "derived": true,
+   "inference": {
+    "step": "Eshleman says he gave the signal on an order between 1 and 2 p.m. and that the infantry moved about thirty minutes after the signal guns; Alexander's own watch puts the signal at 1.00, so the reading is about 13:30, up to 14:30 if the signal came at 2.",
+    "from": [
+     "C-030-P7-c1",
+     "C-030-P7-c2",
+     "C-030-P7-c3"
+    ]
+   }
+  },
+  {
+   "id": "C-030-P8",
+   "origin": "research",
+   "label": "About 13:50: Alexander (report and memoir)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T13:50",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "tier": "inferred",
+   "clock": "confederate",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-030-P8-c1",
+     "source": "SHSP-04",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 622560,
+     "quote": "he recalled the order and allowed the division then just approaching (at ten minutes to 2) to advance",
+     "witness": {
+      "name": "E. Porter Alexander",
+      "role": "Colonel, commanding the artillery that gave the signal for Pickett to advance; stood at the guns when Longstreet came up",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-10",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "alexander-report",
+     "exact": false,
+     "states": {
+      "times": [
+       "13:50"
+      ]
+     },
+     "note": "Alexander's report, printed in SHSP vol. 4 (1877) from the manuscript: Longstreet, at his guns, recalled his order to stop Pickett and let the division, then just approaching the guns, advance, at ten minutes to 2. The dateline in the text layer reads 'August 10th, 1868'; I could not fetch the page image (archive.org page images are refused by the proxy), so the year is taken as 1863 from 'Camp near Orange C. H.' (the army's camp that August) and flagged. If it were 1868 the report would rank as 3 not 4 and nothing in the default changes.",
+     "page_note": "printed page 239 (the running head Official Reports of the Battle of Gettysburg. 239 stands in the preceding sentence)"
+    },
+    {
+     "id": "C-030-P8-c2",
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 1116632,
+     "quote": "It was doubtless 1.50 or later, but I did not look at my watch again",
+     "witness": {
+      "name": "E. Porter Alexander",
+      "role": "Colonel, commanding the artillery battalion that gave the signal for Pickett to advance",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "alexander-report",
+     "exact": false,
+     "states": {
+      "times": [
+       "13:50"
+      ]
+     },
+     "note": "Alexander in 1907, of the moment Longstreet joined him after Pickett said 'I am going to move forward': 'doubtless 1.50 or later', and Garnett's brigade emerged from the wood soon after. Same writer as the report; one line of knowledge.",
+     "page_note": "printed page 424 read from the running head of the text (MILITARY MEMOIRS 424 stands in the preceding sentence)"
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "Alexander's ten minutes to 2 is when Pickett's division reached his guns and was allowed to go on, so the step-off was a little earlier or at that hour. It lies inside the window."
+   },
+   "derived": true,
+   "inference": {
+    "step": "The report says the division was just approaching the guns at ten minutes to 2 when Longstreet let it advance; the division stood about 300 yards behind the guns, so the step-off falls at about that hour.",
+    "from": [
+     "C-030-P8-c1",
+     "C-030-P8-c2"
+    ]
+   }
+  },
+  {
+   "id": "C-030-P9",
+   "origin": "research",
+   "label": "About 17:00: Smyth, Hays's division (guns from 2 to 5)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T17:00",
+    "approx": true,
+    "tolerance_min": 30
+   },
+   "tier": "inferred",
+   "clock": "union",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-030-P9-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R123",
+     "page": "465",
+     "page_basis": "scan_leaf",
+     "text_offset": 1629712,
+     "quote": "At 2 p. m. a most terrific cannonading was opened upon our front [...] continued without intermission until 5 p. m.",
+     "witness": {
+      "name": "Thomas A. Smyth",
+      "role": "Colonel, 1st Delaware, commanding the Second Brigade, Third Division, Second Corps (Hays's division)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "smyth",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:00",
+       "17:00"
+      ]
+     },
+     "note": "Smyth, in Hays's division: the cannonade began at 2 p.m. and went on until 5 p.m.; 'as the fire slackened, their infantry moved upon our position'. The text layer garbles a word inside the sentence, so the quote is the clause that holds the hour."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "contradicted"
+   ],
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "Smyth is in Hays's division and begins the guns at 2 p.m., an hour after the other reports; the infantry were across the field and repulsed before 5 by every other report."
+   },
+   "derived": true,
+   "inference": {
+    "step": "Smyth says the guns ran until 5 p.m. and that the infantry moved when the fire slackened; the step-off is read as the end of his guns.",
+    "from": [
+     "C-030-P9-c1"
+    ]
+   },
+   "approx": true
+  }
+ ],
+ "weighing": {
+  "summary": "Writers of the same rank disagree. Alexander (at the guns, by his watch), Eshleman and Peyton put the infantry out between about 13:30 and 14:30, the guns having lasted about an hour; Hall, Webb, Davis, Harrow, Hunt, Haskell and Hill put the guns at 1 to 3 and the infantry out at 3. Hays, Smyth, Lang and Meade run later still. No clock offset explains it: the difference between Alexander (13:50) and the 3 o'clock reports is 70 minutes, the armies' reported difference about 20. Nothing in the rank rules separates them, so the record is divided.",
+  "who": "All the main witnesses are officers of rank who were there: Hall and Webb at the wall, Harrow and Hunt on the line, Davis in the line that advanced, Peyton leading Garnett's brigade, Alexander and Eshleman commanding the guns that gave the signal. Pickett wrote no report in the Official Records; Longstreet's report (p. 359) dates Pickett's readiness about 2 p.m. and gives no step-off hour. Lee's report gives two hours of guns and no hour. Bachelder (1870, 1904) prints Webb and the 3 o'clock and is not a separate witness.",
+  "when": "Meade's dispatch of 8.35 p.m. on the day is the highest rank (an order or dispatch of the day), but it gives a round length of the guns (about three hours) from headquarters, not an hour for the step-off, and the reports of the line outweigh it on that point. Hall, Webb, Harrow, Peyton, Hays, Smyth wrote within 6 to 17 days; Eshleman, Davis, Alexander (if August 1863) within 3 months; Hunt and Hill later in 1863. Haskell's private letter is of July 1863. All are of the best classes. The later memoirs (Alexander 1907, Taylor 1906) are lower and are used only for what they add: Alexander's memoir agrees with his report; Taylor's 2 p.m. stands alone.",
+  "where": "Hall and Webb saw the line leave the woods from the Angle; Harrow and Hunt from the line; Davis, Peyton and Alexander from the Confederate side, but not at the same point of the front: Peyton on the left of Pickett's division, Alexander at the guns on the right centre, Eshleman at the Peach Orchard. Divisions could have started at different minutes, which would explain some but not an hour.",
+  "how_knew": "Alexander looked at his watch for the signal and wrote his notes at 1.25 and 1.40; the others give round hours or estimates. Peyton's own report dates the guns 1.30 and their length one hour, which no one else does.",
+  "clock": "Union reports use the Union clock, Confederate the Confederate; the reported difference of about 20 minutes is not applied. It is too small to join 13:50 and 15:00; Peyton's clock, 30 minutes later than the others' on the opening of the guns, would bring his 14:30 to about 14:00 on theirs, still an hour before 15:00.",
+  "independence": "Hall, Webb and Harrow are three reports from one division and saw the same advance; I count them as three observers but note that they stood together. Davis, Hunt, Hill and Haskell are separate lines. Alexander's report and memoir are one line; Hays and Smyth one division; Bachelder copies Webb. Within these lines both sides carry at least two independent writers."
+ },
+ "source_panel_text": "Between about 13:30 and 15:00 on Jul 3; drawn at 15:00. Hall, Webb and Davis (reports of 1863) say the infantry left the woods at 3; Alexander, at the guns, says 13:50, Peyton 14:30. The record is divided by an hour on how long the guns fired. 14:00, 16:00 to 17:00 and others stay selectable.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "15:00 stays as the upper end and the drawn instant: Hall, Webb and Davis give it exactly. It does not hold as the one value: Alexander, Eshleman and Peyton put the step-off earlier. The plan's 14:00 rests on a recollection of 1906 only."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "About 15:00 holds as the drawn instant. The range 14:30-16:30 does not: it omits the earlier readings of Alexander and Eshleman and keeps 16:00 and 16:30, which come from writers whose guns start an hour late (Lang, Hays). Class irreducible, tier inferred, not documented."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-030 row)",
+   "must_change": true,
+   "note": "computed: delegated-decision row line 40 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-030",
+   "must_change": true,
+   "note": "computed: decision log line 58 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-100",
+   "must_change": true,
+   "note": "Row 'Jul 3 ~14:00 (W-PC) or near 15:00' (Pickett orders the advance; preferred ~15:00 inferred; cites Wikipedia and Eshleman): the resolution is the window about 13:30 to 15:00, drawn at 15:00, class irreducible, tier inferred; the row's 'about 13:30 if Eshleman is read literally' is position C-030-P7. Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-103",
+   "must_change": true,
+   "note": "Row 'Jul 3 ~15:00 anchor (range 14:00-15:30)': the anchor stays 15:00 as the drawn instant, but the range should read about 13:30 to 15:00 with the later 16:00 to 17:00 values selectable. Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-101",
+   "must_change": true,
+   "note": "Row 'Jul 3 ~14:45 (formation)': Pickett's line-up is before the step-off; with a step-off from 13:30 the formation hour would be earlier (the line was up before 13:50, Alexander). Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-110",
+   "must_change": false,
+   "note": "Row 'Jul 3 15:30-16:15 (ABT map)', fences at the Emmitsburg road: depends on the step-off hour plus the march of three-quarters of a mile; it follows the selected step-off and needs no change to the default instant 15:00."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-030)",
+   "must_change": true,
+   "note": "holds scenario C-030-DEFAULT (about 15:00, OR range 14:30-16:30); the default becomes the window 13:30 to 15:00 drawn at 15:00 and the scenarios gain 13:30-14:30, 13:50 and 17:00. Not edited here."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/structures_data_schedule.py (B.2.5 C-030 infantry step-off default 15:00)",
+   "must_change": false,
+   "note": "The drawn instant 15:00 is unchanged; the alternatives list should add 13:50 and 14:30. No change to the default."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-2 (Longstreet R430 pp. 358-360; Lee R426 pp. 317-320)",
+   "query": "a clock reading for the step-off in the two commanders' reports: Longstreet gives about 2 p.m. for Pickett's report that the troops were in order, then the guns; Lee gives about two hours of guns; neither names the step-off hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2 index (Pickett, Garnett, Kemper, Armistead, Pettigrew, Trimble, Fry, Marshall)",
+   "query": "a report by the division commander or by a brigade commander of the charging line: the index lists none by Pickett, Kemper, Garnett or Armistead; the reports of Pettigrew's and Trimble's brigades were not read in full",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2 R537 Wilcox, R558 Lane, R561 Lowrance, R548 Lane (artillery)",
+   "query": "an hour for the step-off or for the end of the guns: only regex searches for a clock near Pickett, artillery, cannon and bombard were run; the four reports were not read to the end",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "archive.org page image of SHSP vol. 4 (southernhistoricv4sout), the dateline of Alexander's report",
+   "query": "the year printed in the dateline (the text layer reads 1868): the page image URL redirects to a host the proxy refuses",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "FREMANTLE-1864, LONGSTREET-1896, BL-3, SHSP-04/05/06, BACH-REPULSE-1870, ME-GB-1898, VT-GB-1914",
+   "query": "regex for 1, 2, 3 and 4 o'clock or p.m. within 250 characters of Pickett, charge, assault, advance, cannonade: nothing that dates the step-off except those cited; Bachelder and the state volumes repeat Webb or give about 3 without naming a source; Fremantle says it was about 2.30 when he set out and that the attack had been repulsed when he reached Longstreet, which is a check against 15:00 but gives no step-off hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A page image of Alexander's report showing the year, a report by a brigade commander of Pickett's division or by Pickett giving an hour with his clock, or a Union signal or telegraph message timed during the advance would narrow or settle the window."
+}

@@ -1,0 +1,415 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-036",
+ "topic": "Williamsport date",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-036",
+ "event_date": "1863-07-06",
+ "pdf_row": {
+  "page": 62,
+  "text": "Williamsport date | Jul 6; Jul 7 | Jul 6 | Jul 7",
+  "values": [
+   "Jul 6",
+   "Jul 7"
+  ],
+  "recommended_default": "Jul 6",
+  "selectable_alternatives": [
+   "Jul 7"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-036-DEFAULT",
+  "default_label": "Jul 6 (documented); Jul 7 shown with the contradiction",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-036-S1",
+   "C-036-S2",
+   "C-036-S3",
+   "C-036-DEFAULT"
+  ]
+ },
+ "class": "settled",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Reports of 1863 by Buford, Merritt, Murchison and Pendleton, and Buford's dispatch of 7 July (\"yesterday\"), from both sides, all date the attack on Williamsport 6 July; no source gives 7 July for the fight."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-036-P1"
+  ],
+  "label": "6 July 1863: Buford's division attacks Williamsport; Imboden's defenders repulse it",
+  "animation": {
+   "at": "1863-07-06T00:00",
+   "rule": "best_supported",
+   "note": "The day, not an hour, is settled: the picture puts the fight on 6 July. The hours differ (Imboden about 13:30 first contact, Buford about 17:00); the animation takes no clock from this resolution and the 7 July value stays selectable."
+  },
+  "note": "The plan's 7 July has no source; it coincides with other events of 7 July (Buford's dispatch, the army's arrival at Hagerstown, fighting at Boonsborough and Funkstown), none of them the fight."
+ },
+ "positions": [
+  {
+   "id": "C-036-P1",
+   "origin": "pdf_value",
+   "pdf_label": "Jul 6",
+   "scenario_ids": [
+    "C-036-S1",
+    "C-036-S3",
+    "C-036-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "6 July 1863 (the plan's value and recommended default, and the first pass's default)",
+   "kind": "date",
+   "value": {
+    "date": "1863-07-06"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R337",
+     "page": "928",
+     "page_basis": "scan_leaf",
+     "text_offset": 3263319,
+     "quote": "July 6, the whole division (the Reserve Brigade having joined the night before) marched at 4 a. m. toward Williamsport, to destroy the enemy's trains [...] At about 5 p. m., when near Saint James' College, the enemy's pickets were discovered, driven in, and preparations made to capture the town",
+     "witness": {
+      "name": "John Buford",
+      "role": "Brigadier General, commanding the First Cavalry Division, which attacked Williamsport",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-29",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "buford",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-06"
+      ],
+      "times": [
+       "04:00",
+       "17:00"
+      ]
+     },
+     "note": "Buford's report of the campaign, dated 29 Aug 1863 (p. 928): the day is 6 July; the division marched at 4 a.m., met the enemy's pickets about 5 p.m. and fought until dark. The hour is another matter (Imboden gives about 1:30 p.m.); the date is the same."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R340",
+     "page": "943",
+     "page_basis": "scan_leaf",
+     "text_offset": 3320525,
+     "quote": "On the 6th instant we were engaged with the rest of the division fighting the enemy near Williamsport",
+     "witness": {
+      "name": "Wesley Merritt",
+      "role": "Brigadier General, commanding the Reserve Brigade of Buford's division",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-18",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "merritt",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-06"
+      ]
+     },
+     "note": "Merritt, report dated 18 Jul 1863 (p. 943), 12 days after the fight. A brigade commander of the same division who wrote his own account; the wording is his own, not Buford's."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R475",
+     "page": "488",
+     "page_basis": "scan_leaf",
+     "text_offset": 1815956,
+     "quote": "On Monday [July 6], the enemy advanced on Williamsport, by the Hagerstown and Boonsborough roads, with cavalry and artillery",
+     "witness": {
+      "name": "Kenneth M. Murchison",
+      "role": "Colonel, 54th North Carolina Infantry, defending Williamsport under Imboden",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-05",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "murchison",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-06"
+      ]
+     },
+     "note": "Murchison, report of 5 Aug 1863 (p. 488): his regiment took part in the defence. \"[July 6]\" is the bracket of the published volume after the weekday \"Monday\"; 6 July 1863 was a Monday. Of 7 July he writes separately \"Tuesday (July 7), I was ordered by General Lee to cross to the south bank of the Potomac\"."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R428",
+     "page": "353",
+     "page_basis": "scan_leaf",
+     "text_offset": 1309271,
+     "quote": "on the 6th, did excellent service in repelling an attack of the enemy",
+     "witness": {
+      "name": "William N. Pendleton",
+      "role": "Brigadier General, chief of artillery of the Army of Northern Virginia; batteries under his command defended Williamsport",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-09-12",
+      "kind": "official_report"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "pendleton",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-06"
+      ]
+     },
+     "note": "Pendleton, report of 12 Sep 1863 (p. 353): the batteries with Imboden arrived at Williamsport \"late on the 5th, and, on the 6th, did excellent service in repelling an attack of the enemy\"."
+    },
+    {
+     "source": "BL-3",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 426-427 (Battles and Leaders, vol. 3); no page marks in the text layer",
+     "text_offset": 1790748,
+     "quote": "Early on the morning of the 6th I received intelligence of the approach from Frederick of a large body of cavalry",
+     "witness": {
+      "name": "John D. Imboden",
+      "role": "Brigadier General, commanding the force that guarded the wagon train at Williamsport",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1887-01-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "imboden-1887",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-06"
+      ]
+     },
+     "note": "Imboden, \"The Confederate Retreat from Gettysburg\", 1887: he learned early on the 6th of the approach of Buford and Kilpatrick, and writes that the enemy appeared in front about half past one o'clock. It gives the same day as the reports of 1863; his hour differs from Buford's about 5 p.m. (not this conflict)."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R337",
+     "page": "925",
+     "page_basis": "scan_leaf",
+     "text_offset": 3252559,
+     "quote": "I attempted to take Williamsport yesterday, but found too large a force of infantry and artillery",
+     "witness": {
+      "name": "John Buford",
+      "role": "Brigadier General, commanding the First Cavalry Division, which attacked Williamsport",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-07",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "buford",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "yesterday"
+      ]
+     },
+     "note": "Buford's note to General French, dated 7 July 1863 (received 11:45 p.m.; the year is bracketed by the editors), p. 925: \"I attempted to take Williamsport yesterday ... After a long fight, I withdrew.\" Written on the 7th about the 6th; it does not itself print the day number, so it is cited as support, not as an exact statement of the date."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "81",
+     "page_basis": "scan_leaf",
+     "text_offset": 286272,
+     "quote": "General Buford reports that he attacked Williamsport yesterday",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac, at Frederick",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-07",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "buford",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "yesterday"
+      ]
+     },
+     "note": "Meade to Halleck, Frederick, 7 July 1863, 3:10 p.m., p. 81: Buford \"attacked Williamsport yesterday\". It relays Buford's own dispatch."
+    }
+   ],
+   "flags": [],
+   "stance": "default"
+  },
+  {
+   "id": "C-036-P2",
+   "origin": "pdf_value",
+   "pdf_label": "Jul 7",
+   "scenario_ids": [
+    "C-036-S2"
+   ],
+   "source_keys": [],
+   "label": "7 July 1863 (the plan's alternative)",
+   "kind": "date",
+   "value": {
+    "date": "1863-07-07"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "flags": [
+    "unsourced",
+    "contradicted"
+   ],
+   "stance": "selectable",
+   "failed_lookups": [
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "(July 7|the 7th|Tuesday).{0,300}(attack|fight|engag).{0,200}Williamsport and the reverse order: every hit dates the attack on 6 July; the 7th appears as the day Buford wrote, the army reached Hagerstown, Merritt fought at Boonsborough and the 6th U.S. Cavalry met the 7th Virginia near Funkstown",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "whole local ledger of books and papers (find_passage.py --all, primary, book and official classes)",
+     "query": "Williamsport ... (wagoners|teamsters|Imboden) ... (July 7|the 7th|Tuesday): no passage dates the fight on 7 July; Longstreet (1896) says \"On the 6th and 7th the commands were up\" for the army, not the fight",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "Wikipedia (the plan's W-RET, a lead) and the Stone Sentinels page",
+     "query": "the pages the plan names for 7 July: not read (a lead is not cited; no non-lead source found that states it)",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "Buford, Merritt, Murchison and Pendleton all date the fight 6 July; Buford wrote of it on the 7th as \"yesterday\". No source found gives 7 July."
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "Every writer who dates the attack on Williamsport gives 6 July: Buford and Merritt for the Union cavalry, Murchison and Pendleton for the Confederates who defended the town, and Imboden in 1887 (Lee's reports of 31 Jul 1863 and 20 Jan 1864 also give the 6th, but the first scan prints the digit damaged and the page image could not be fetched, so Lee is not cited); and Buford wrote on 7 July that he attempted the town \"yesterday\". No source found gives 7 July for the fight. The plan's 7 July matches other events of that day (Buford's dispatch and Meade's wire written on the 7th, p. 925 and p. 81; the army reaching Hagerstown on the morning of the 7th, Pendleton p. 353; fighting at Boonsborough on the 7th and 8th, Merritt p. 944; the 6th U.S. Cavalry meeting the 7th Virginia near Funkstown on the evening of the 7th, W. E. Jones p. 754), but no source says that is the origin of the plan's value. The default is 6 July: settled.",
+  "who": "Buford commanded the attacking division and Merritt one of its brigades; Murchison was a regimental commander in the defence; Pendleton, chief of artillery, wrote of the batteries with Imboden; Imboden commanded the defence. Meade was at Frederick and relayed Buford.",
+  "when": "Buford's dispatch and Meade's wire are of 7 July (rank 6, the day after); Merritt 18 Jul, Murchison 5 Aug, Buford 29 Aug, Pendleton 12 Sep (reports, ranks 5 and 4); Imboden 1887 (a memoir). The owner's rule (dispatch of the day, then report, then memoir) puts the contemporaneous writings first, and they agree with the later ones.",
+  "where": "Both sides were at the fight: Buford, Merritt, Murchison and Imboden. Pendleton was with the army and relays. The hours differ widely (Imboden about 1:30 p.m. first contact; Buford about 5 p.m.; Murchison \"night coming on\" after two hours), which is a question of the hour and not of the date; the date does not change.",
+  "how_knew": "Buford, Merritt, Murchison and Imboden were in the action; Pendleton wrote from reports; Meade relayed Buford. Lee's sentence (p. 309) reads \"Gth\" in the first scan and \"6th\" in the second scan; the page image was not seen, so it is left uncited and the conclusion does not rest on it (four other independent writers give the same day).",
+  "clock": "not applicable to a date. The Union and Confederate clocks differ by about 20 minutes, which cannot move an afternoon fight to another day.",
+  "independence": "Groups: Buford (his report, his dispatch of 7 Jul, and Meade's wire that relays it), Merritt, Murchison, Pendleton (a relay of the batteries' reports), and Imboden's memoir. At least four independent lines of knowledge from both sides give 6 July."
+ },
+ "source_panel_text": "6 July 1863: Buford's report puts the attack on Williamsport on the 6th, and Merritt, Murchison and Pendleton agree, from both sides; Buford wrote on the 7th that he tried the town \"yesterday\". No source gives 7 July for the fight. One other value is listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "yes",
+   "note": "The plan's recommended Jul 6 is what the reports of both armies give."
+  },
+  "first_delegated": {
+   "holds": "yes",
+   "note": "Jul 6 documented, Jul 7 shown as contradicted: confirmed; the first pass read Buford and Kilpatrick only, and Merritt, Murchison, Pendleton and Imboden now agree. The first pass said Jul 7 is \"secondary only\"; no secondary or primary source found states it."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-036 row)",
+   "must_change": false,
+   "note": "Row line 46 gives Jul 6 documented with Jul 7 contradicted: the same default; only the class (settled) and the added sources are new. Not edited here."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-036",
+   "must_change": true,
+   "note": "Line 64 shows C-036 as PENDING OWNER; the integration step records the resolved default (Jul 6, settled, documented). Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-186",
+   "must_change": false,
+   "note": "Seed row \"Jul 6 ~16:00 (or Jul 7)\": the date Jul 6 is confirmed; the hour ~16:00 is a separate point (Imboden about 13:30, Buford about 17:00, Kilpatrick 18:00) and not decided here. The \"(or Jul 7)\" is selectable and unsourced."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-190",
+   "must_change": true,
+   "note": "Seed row \"Jul 7 ~17:00 Williamsport, Buford (6th US Cav) vs Imboden\" duplicates the fight of 6 July under 7 July; no source found gives a second fight at Williamsport on the 7th (Jones, p. 754, has the 6th U.S. Cavalry meeting the 7th Virginia near Funkstown on the evening of the 7th). Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-181",
+   "must_change": false,
+   "note": "Row Jul 6 Williamsport (Imboden, Jones, flooded Potomac): consistent with the default; read, nothing to change."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-036)",
+   "must_change": false,
+   "note": "Carries default scenario C-036-DEFAULT (Jul 6, Jul 7 shown with the contradiction): the same default; the integration step adds the class and the source panel text."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1, OR27-2, OR27-3 (regex, with the 7th, July 7 and Tuesday forms)",
+   "query": "a report or letter that places the Williamsport attack on 7 July",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "whole local ledger (find_passage.py --all, books and papers)",
+   "query": "Williamsport ... wagoners|teamsters|Imboden ... July 7|the 7th|Tuesday",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "www.nps.gov and the Wikipedia and Stone Sentinels pages the plan names (W-RET, ST-WAGON)",
+   "query": "the source of the plan's 7 July; not read, since a web page is a lead and could not document a value",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report or letter of 1863 that states the attack on Williamsport fell on 7 July (no such text was found); it would have to outweigh both armies' reports of the 6th; the page image of Lee's p. 309 would add one more reading of the 6th."
+}

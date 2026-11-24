@@ -1,0 +1,1042 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-028",
+ "topic": "Hunt’s guns open Jul 3",
+ "pdf_row": {
+  "page": 62,
+  "text": "Hunt’s guns open Jul 3 | 04:30; 05:30 | 05:30 | 04:30",
+  "values": [
+   "04:30",
+   "05:30"
+  ],
+  "recommended_default": "05:30",
+  "selectable_alternatives": [
+   "04:30"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-028-DEFAULT",
+  "default_label": "two events: 04:30 batteries open (Hunt p.237), 05:30 retained as its own event",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-028-S1",
+   "C-028-S2",
+   "C-028-S3",
+   "C-028-DEFAULT"
+  ]
+ },
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-028",
+ "event_date": "1863-07-03",
+ "positions": [
+  {
+   "id": "C-028-P1",
+   "origin": "pdf_value",
+   "pdf_label": "04:30",
+   "scenario_ids": [
+    "C-028-S1"
+   ],
+   "label": "04:30: Muhlenberg's and Kinzie's batteries open for fifteen minutes (Hunt, Muhlenberg)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T04:30",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-028-P1-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R314",
+     "page": "870",
+     "page_basis": "scan_leaf",
+     "text_offset": 3067781,
+     "quote": "At 4.30 a. m. the two [...] batteries (ten guns) [...] opened, and fired for fifteen minutes without intermission at a range of from 600 to 800 yards",
+     "witness": {
+      "name": "Edward D. Muhlenberg",
+      "role": "First Lieutenant, 4th U. S. Artillery, commanding the Artillery Brigade of the Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "muhlenberg",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:30"
+      ],
+      "numbers": [
+       4.3,
+       10,
+       15,
+       600,
+       800
+      ]
+     },
+     "note": "His own twenty guns (two rifle batteries and two 12-pounder batteries), posted at 1 a. m. on the 3d; the report is dated 'August, [day blank], 1863'. The month of the fight is not in the sentence."
+    },
+    {
+     "id": "C-028-P1-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R028",
+     "page": "237",
+     "page_basis": "scan_leaf",
+     "text_offset": 787072,
+     "quote": "At 4.30 a. m. these batteries opened, and fired without intermission for fifteen minutes into the wood [...] at 5.30 a. m. all the",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery of the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-27",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "muhlenberg",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:30",
+       "05:30"
+      ],
+      "numbers": [
+       4.3,
+       15,
+       5.3
+      ]
+     },
+     "note": "'These batteries' are Muhlenberg's (F, 4th U. S.) and Kinzie's (K, 5th U. S.), posted at 1 a. m.; Rigby's battery is added soon after daylight and at 5.30 all the batteries open. Hunt's sentences, numbers and range match those of Muhlenberg's report, so they are counted as one line of knowledge. The hour of the day (the 3d) comes from 'At 1 a. m. of the 3d' before it."
+    }
+   ],
+   "inference": {
+    "step": "Muhlenberg and Hunt put the first fire of the batteries posted at 1 a. m. on the 3d at 4.30 a. m.; the day, 3 July, is not in the sentences but follows from 'At 1 a. m. of the 3d' and 'the morning of the 3d' before them.",
+    "from": [
+     "C-028-P1-c1",
+     "C-028-P1-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "equal_standing",
+    "text": "The later bound of the first fire. Greene, Packer and Slocum, also eyewitnesses or the corps commander, put it at 4 a. m.; the record is divided between 4.00 and 4.30."
+   }
+  },
+  {
+   "id": "C-028-P2",
+   "origin": "pdf_value",
+   "pdf_label": "05:30",
+   "scenario_ids": [
+    "C-028-S2",
+    "C-028-S3"
+   ],
+   "label": "05:30: all the batteries open, firing at intervals to 10:00 (the plan's default)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T05:30",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "default",
+   "flags": [
+    "single_source"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-028-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R028",
+     "page": "237",
+     "page_basis": "scan_leaf",
+     "text_offset": 787072,
+     "quote": "At 4.30 a. m. these batteries opened, and fired without intermission for fifteen minutes into the wood [...] at 5.30 a. m. all the",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery of the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-27",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "muhlenberg",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:30",
+       "05:30"
+      ],
+      "numbers": [
+       4.3,
+       15,
+       5.3
+      ]
+     },
+     "note": "'These batteries' are Muhlenberg's (F, 4th U. S.) and Kinzie's (K, 5th U. S.), posted at 1 a. m.; Rigby's battery is added soon after daylight and at 5.30 all the batteries open. Hunt's sentences, numbers and range match those of Muhlenberg's report, so they are counted as one line of knowledge. The hour of the day (the 3d) comes from 'At 1 a. m. of the 3d' before it."
+    },
+    {
+     "id": "C-028-P2-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R314",
+     "page": "870",
+     "page_basis": "scan_leaf",
+     "text_offset": 3068073,
+     "quote": "Commenced at 5.30 a. m., and continued firing at intervals until 10 a. m.",
+     "witness": {
+      "name": "Edward D. Muhlenberg",
+      "role": "First Lieutenant, 4th U. S. Artillery, commanding the Artillery Brigade of the Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "muhlenberg",
+     "exact": false,
+     "states": {
+      "times": [
+       "05:30",
+       "10:00"
+      ],
+      "numbers": [
+       5.3,
+       10
+      ]
+     },
+     "note": "The second firing, after the fifteen minutes of the first; it follows 'ceased firing, and allowed infantry to take part'."
+    }
+   ],
+   "inference": {
+    "step": "Hunt has Rigby's battery placed soon after daylight and, at 5.30 a. m., all the batteries open and fire at intervals until 10 a. m.; Muhlenberg has the firing commenced again at 5.30 a. m. The day is the same morning of the 3d.",
+    "from": [
+     "C-028-P2-c1",
+     "C-028-P2-c2"
+    ]
+   }
+  },
+  {
+   "id": "C-028-P3",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-028-DEFAULT"
+   ],
+   "label": "Two events: 04:30 two batteries open, 05:30 all batteries (the first delegated default)",
+   "kind": "category",
+   "value": {
+    "text": "two events: first fire at 04:30, all batteries at 05:30"
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-028-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R028",
+     "page": "237",
+     "page_basis": "scan_leaf",
+     "text_offset": 787072,
+     "quote": "At 4.30 a. m. these batteries opened, and fired without intermission for fifteen minutes into the wood [...] at 5.30 a. m. all the",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery of the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-27",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "muhlenberg",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:30",
+       "05:30"
+      ],
+      "numbers": [
+       4.3,
+       15,
+       5.3
+      ]
+     },
+     "note": "'These batteries' are Muhlenberg's (F, 4th U. S.) and Kinzie's (K, 5th U. S.), posted at 1 a. m.; Rigby's battery is added soon after daylight and at 5.30 all the batteries open. Hunt's sentences, numbers and range match those of Muhlenberg's report, so they are counted as one line of knowledge. The hour of the day (the 3d) comes from 'At 1 a. m. of the 3d' before it."
+    }
+   ],
+   "inference": {
+    "step": "Hunt's report gives both hours in one passage: the batteries posted at 1 a. m. open at 4.30 a. m. and fire fifteen minutes, and at 5.30 a. m. all the batteries open; the first pass read them as two events.",
+    "from": [
+     "C-028-P3-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "equal_standing",
+    "text": "Right that there are two events. But its first event is 04:30 alone, while Greene, Packer and Slocum put the first fire at 4 a. m.; the default keeps the first event as a window."
+   }
+  },
+  {
+   "id": "C-028-P4",
+   "origin": "research",
+   "label": "04:00: the first fire opens the battle (Packer, Greene, Slocum)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T04:00",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-028-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R275",
+     "page": "791",
+     "page_basis": "scan_leaf",
+     "text_offset": 2773009,
+     "quote": "4 a. m. July 3, the battle opened upon our side by twenty pieces of artillery",
+     "witness": {
+      "name": "Warren W. Packer",
+      "role": "Colonel, 5th Connecticut, Third Brigade, First Division, Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-21",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "packer",
+     "exact": true,
+     "states": {
+      "times": [
+       "04:00"
+      ],
+      "numbers": [
+       4,
+       3,
+       20
+      ],
+      "dates": [
+       "07-03"
+      ]
+     },
+     "note": "His regiment lay in reserve on the crest. 'Twenty pieces' is the number of Muhlenberg's guns (two rifle and two 12-pounder batteries, ten guns each); the report is dated 21 Jul 1863."
+    },
+    {
+     "id": "C-028-P4-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R307",
+     "page": "857",
+     "page_basis": "scan_leaf",
+     "text_offset": 3018449,
+     "quote": "At 4 a. m. our artillery, which had been posted to attack the enemy in the intrenchments of Kane's brigade and Williams' division, opened",
+     "witness": {
+      "name": "George S. Greene",
+      "role": "Brigadier General, commanding the Third Brigade, Second Division, Twelfth Corps, on Culp's Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "greene",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:00"
+      ],
+      "numbers": [
+       4
+      ]
+     },
+     "note": "Written 12 Jul 1863 by the commander of the brigade whose line the guns fired across."
+    },
+    {
+     "id": "C-028-P4-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R271",
+     "page": "761",
+     "page_basis": "scan_leaf",
+     "text_offset": 2659743,
+     "quote": "was placed in position during the night by Lieutenant-Colonel Best, and opened the battle at 4 a. m. on the following morning",
+     "witness": {
+      "name": "Henry W. Slocum",
+      "role": "Major General, commanding the Twelfth Corps and the right wing",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "slocum",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:00"
+      ],
+      "numbers": [
+       4
+      ]
+     },
+     "note": "Names Battery F, 4th U. S.; K, 5th U. S.; M, 1st New York; and Knap's Pennsylvania battery, put in position during the night by Lieutenant-Colonel Best (Hunt names Muhlenberg's and Kinzie's batteries and Knap's and Winegar's). The report is of August 1863."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "equal_standing",
+    "text": "The earlier bound of the first fire: three reports of 1863 (Packer, Greene, Slocum) give 4 a. m.; Muhlenberg, who commanded the guns, and Hunt give 4.30. Nothing in the reports decides between them."
+   }
+  },
+  {
+   "id": "C-028-P5",
+   "origin": "research",
+   "label": "03:30: the artillery and infantry attack of Geary's division",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T03:30",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "different_event"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-028-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R293",
+     "page": "828",
+     "page_basis": "scan_leaf",
+     "text_offset": 2911272,
+     "quote": "at 3.30 a. m. (early dawn) a simultaneous attack was made by artillery and the infantry of the Second",
+     "witness": {
+      "name": "John W. Geary",
+      "role": "Brigadier General, commanding the Second Division, Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-29",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "geary",
+     "exact": false,
+     "states": {
+      "times": [
+       "03:30"
+      ],
+      "numbers": [
+       3.3
+      ]
+     },
+     "note": "His division's attack: the artillery and the infantry of the Second and Third Brigades together; his artillery fire went on 'for ten minutes'. Kane (3.30) and Rickards (3 and 3.30) have the Confederates opening fire on their lines at those hours, so 3.30 is also the infantry fight."
+    }
+   ],
+   "inference": {
+    "step": "Geary dates a simultaneous artillery and infantry attack of his division at 3.30 a. m. (early dawn); the day, 3 July, follows from the report around it (the night of the 2d and the daylight attack arranged with Slocum and Williams).",
+    "from": [
+     "C-028-P5-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Geary's division attack, begun as the enemy opened on Kane's and Rickards's lines (3 to 3.30); the guns Hunt posted are timed at 4 or 4.30 by five reports."
+   }
+  },
+  {
+   "id": "C-028-P6",
+   "origin": "research",
+   "label": "03:45: a battery opens on the enemy in the First Division's works (Candy)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T03:45",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "different_event"
+   ],
+   "support": [
+    {
+     "id": "C-028-P6-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R294",
+     "page": "836",
+     "page_basis": "scan_leaf",
+     "text_offset": 2944456,
+     "quote": "3.45 a. m. [July 3], when the enemy were opened upon by a battery placed for the purpose of shelling them",
+     "witness": {
+      "name": "Charles Candy",
+      "role": "Colonel, 66th Ohio, commanding the First Brigade, Second Division, Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "candy",
+     "exact": true,
+     "states": {
+      "times": [
+       "03:45"
+      ],
+      "numbers": [
+       3.45
+      ],
+      "dates": [
+       "07-03"
+      ]
+     },
+     "note": "'[July 3]' is the editor's bracket in the Official Records print. He does not say which battery; after several rounds the 147th Pennsylvania was ordered forward."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Candy does not say which battery; his brigade lay in front of Muhlenberg's guns. It is earlier than any gun commander's hour and one brigade's reading of the first shells."
+   }
+  },
+  {
+   "id": "C-028-P7",
+   "origin": "research",
+   "label": "About daylight: the first artillery and musketry fire (Steuart; Williams: at daylight, fifteen minutes)",
+   "kind": "period",
+   "value": {
+    "text": "about daylight",
+    "date": "1863-07-03",
+    "part_of_day": "dawn"
+   },
+   "approx": false,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-028-P7-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R482",
+     "page": "511",
+     "page_basis": "scan_leaf",
+     "text_offset": 1902246,
+     "quote": "about daylight, [...] when the enemy opened a terrific fire of artillery and a very heavy fire of musketry upon us",
+     "witness": {
+      "name": "George H. Steuart",
+      "role": "Brigadier General, commanding the brigade in the captured works on Culp's Hill",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "steuart",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "about daylight"
+      ]
+     },
+     "note": "Confederate side, from the works the guns fired upon; his brigade rested from about 11 p. m. till daylight. The day is in the editor's bracket (garbled in the text layer, so it is not part of the quote)."
+    },
+    {
+     "id": "C-028-P7-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R272",
+     "page": "775",
+     "page_basis": "scan_leaf",
+     "text_offset": 2715510,
+     "quote": "The artillery opened with a tremendous fire at daylight, [...] which was continued by arrangement for fifteen minutes",
+     "witness": {
+      "name": "Alpheus S. Williams",
+      "role": "Brigadier General, commanding the First Division and the Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-22",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "williams",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "at daylight"
+      ],
+      "numbers": [
+       15
+      ]
+     },
+     "note": "His arrangement for the attack: heavy artillery fire, infantry feints, then Geary's assault; the enemy attacked before it came."
+    }
+   ],
+   "inference": {
+    "step": "Steuart (Confederate) has the enemy open a terrific fire of artillery at about daylight; Williams has his artillery open with a tremendous fire at daylight and last fifteen minutes. Daylight is no clock reading; sunrise on the 3d was 04:36.",
+    "from": [
+     "C-028-P7-c1",
+     "C-028-P7-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "unclear_expression",
+    "text": "No clock reading: 'daylight' covers the whole span from about 04:00 to sunrise at 04:36; it agrees with the window and does not narrow it."
+   }
+  },
+  {
+   "id": "C-028-P8",
+   "origin": "research",
+   "label": "04:00 to 04:30: the first fire (Greene, Packer, Slocum; Muhlenberg, Hunt)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-03T04:00",
+    "to": "1863-07-03T04:30"
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "default",
+   "flags": [],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-028-P8-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R275",
+     "page": "791",
+     "page_basis": "scan_leaf",
+     "text_offset": 2773009,
+     "quote": "4 a. m. July 3, the battle opened upon our side by twenty pieces of artillery",
+     "witness": {
+      "name": "Warren W. Packer",
+      "role": "Colonel, 5th Connecticut, Third Brigade, First Division, Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-21",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "packer",
+     "exact": true,
+     "states": {
+      "times": [
+       "04:00"
+      ],
+      "numbers": [
+       4,
+       3,
+       20
+      ],
+      "dates": [
+       "07-03"
+      ]
+     },
+     "note": "His regiment lay in reserve on the crest. 'Twenty pieces' is the number of Muhlenberg's guns (two rifle and two 12-pounder batteries, ten guns each); the report is dated 21 Jul 1863."
+    },
+    {
+     "id": "C-028-P8-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R307",
+     "page": "857",
+     "page_basis": "scan_leaf",
+     "text_offset": 3018449,
+     "quote": "At 4 a. m. our artillery, which had been posted to attack the enemy in the intrenchments of Kane's brigade and Williams' division, opened",
+     "witness": {
+      "name": "George S. Greene",
+      "role": "Brigadier General, commanding the Third Brigade, Second Division, Twelfth Corps, on Culp's Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "greene",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:00"
+      ],
+      "numbers": [
+       4
+      ]
+     },
+     "note": "Written 12 Jul 1863 by the commander of the brigade whose line the guns fired across."
+    },
+    {
+     "id": "C-028-P8-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R271",
+     "page": "761",
+     "page_basis": "scan_leaf",
+     "text_offset": 2659743,
+     "quote": "was placed in position during the night by Lieutenant-Colonel Best, and opened the battle at 4 a. m. on the following morning",
+     "witness": {
+      "name": "Henry W. Slocum",
+      "role": "Major General, commanding the Twelfth Corps and the right wing",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "slocum",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:00"
+      ],
+      "numbers": [
+       4
+      ]
+     },
+     "note": "Names Battery F, 4th U. S.; K, 5th U. S.; M, 1st New York; and Knap's Pennsylvania battery, put in position during the night by Lieutenant-Colonel Best (Hunt names Muhlenberg's and Kinzie's batteries and Knap's and Winegar's). The report is of August 1863."
+    },
+    {
+     "id": "C-028-P8-c4",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R314",
+     "page": "870",
+     "page_basis": "scan_leaf",
+     "text_offset": 3067781,
+     "quote": "At 4.30 a. m. the two [...] batteries (ten guns) [...] opened, and fired for fifteen minutes without intermission at a range of from 600 to 800 yards",
+     "witness": {
+      "name": "Edward D. Muhlenberg",
+      "role": "First Lieutenant, 4th U. S. Artillery, commanding the Artillery Brigade of the Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "muhlenberg",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:30"
+      ],
+      "numbers": [
+       4.3,
+       10,
+       15,
+       600,
+       800
+      ]
+     },
+     "note": "His own twenty guns (two rifle batteries and two 12-pounder batteries), posted at 1 a. m. on the 3d; the report is dated 'August, [day blank], 1863'. The month of the fight is not in the sentence."
+    },
+    {
+     "id": "C-028-P8-c5",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R028",
+     "page": "237",
+     "page_basis": "scan_leaf",
+     "text_offset": 787072,
+     "quote": "At 4.30 a. m. these batteries opened, and fired without intermission for fifteen minutes into the wood [...] at 5.30 a. m. all the",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery of the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-27",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "muhlenberg",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:30",
+       "05:30"
+      ],
+      "numbers": [
+       4.3,
+       15,
+       5.3
+      ]
+     },
+     "note": "'These batteries' are Muhlenberg's (F, 4th U. S.) and Kinzie's (K, 5th U. S.), posted at 1 a. m.; Rigby's battery is added soon after daylight and at 5.30 all the batteries open. Hunt's sentences, numbers and range match those of Muhlenberg's report, so they are counted as one line of knowledge. The hour of the day (the 3d) comes from 'At 1 a. m. of the 3d' before it."
+    }
+   ],
+   "inference": {
+    "step": "Three reports (Packer, Greene, Slocum) say 4 a. m. and the gun commander and the chief of artillery (Muhlenberg, Hunt) say 4.30 a. m. for the same twenty guns; the window runs from the first hour to the second. The day, 3 July, is stated by Packer.",
+    "from": [
+     "C-028-P8-c1",
+     "C-028-P8-c2",
+     "C-028-P8-c3",
+     "C-028-P8-c4"
+    ]
+   }
+  }
+ ],
+ "class": "irreducible",
+ "tier": "inferred",
+ "basis": {
+  "kind": "official_records",
+  "text": "Packer (21 Jul 1863), Greene (12 Jul) and Slocum (Aug) put the artillery's first fire at 4 a. m.; Muhlenberg, who commanded the guns, and Hunt (27 Sep) put it at 4.30 a. m. for fifteen minutes; both then have all the batteries open at 5.30 a. m. and fire at intervals to 10 a. m."
+ },
+ "default": {
+  "mode": "unresolved_set",
+  "positions": [
+   "C-028-P8",
+   "C-028-P2"
+  ],
+  "label": "First fire 04:00 to 04:30 (reports differ); all batteries open at 05:30",
+  "basis_text": "two events of the same guns: the first fire, put at 4 a. m. by Packer, Greene and Slocum and at 4.30 a. m. by Muhlenberg and Hunt, and the general fire, put at 5.30 a. m. by Hunt and Muhlenberg.",
+  "animation": {
+   "at": "1863-07-03T04:30",
+   "rule": "range_end",
+   "note": "The batteries open at the later end of the first-fire window, 04:30, the hour the commander of the guns and the chief of artillery give; nothing is drawn earlier than 04:00 (three reports) and the earlier readings stay selectable. The general fire follows at 05:30. The infantry fight at Culp's Hill begins before either (3 to 3.30 a. m., Kane, Rickards, Geary) and is not an artillery time."
+  },
+  "note": "The plan's two values are two events of the same guns, not rival values for one event: 05:30 is the general fire, 04:30 or 04:00 the first fifteen minutes."
+ },
+ "weighing": {
+  "summary": "The plan's 04:30 and 05:30 are both in Hunt's report and mean different things: at 4.30 the batteries Hunt had posted opposite the Twelfth Corps's centre (Muhlenberg's and Kinzie's, in the plan's words Hunt's guns) fire fifteen minutes into the wood, and at 5.30, with Rigby's battery added, all the batteries open and fire at intervals to 10. So 05:30 is not a rival for the first fire. For the first fire the record is divided by half an hour among writers of the same class: Muhlenberg, who commanded the guns, and Hunt say 4.30; Packer, Greene and Slocum say 4 a. m.; Geary says 3.30 (early dawn) and Candy 3.45 for the fire on their front; Steuart and Williams say daylight. Nothing separates the 4 a. m. reports from the 4.30 ones, so the first fire is a window and the conflict is irreducible; the general fire at 5.30 is carried by Hunt and Muhlenberg alone.",
+  "who": "Muhlenberg commanded the Twelfth Corps's artillery brigade, whose twenty guns opened; Hunt commanded the artillery of the army and posted the batteries. Greene commanded the infantry brigade whose line the guns fired across; Packer's regiment lay in reserve on the same crest; Slocum commanded the wing. Geary and Candy commanded the division and a brigade on the ground the guns shelled; Steuart held the works the guns shelled.",
+  "when": "Candy wrote on 6 Jul 1863, Greene on 12 Jul, Packer on 21 Jul, Geary on 29 Jul, Williams on 22 Aug, Hunt on 27 Sep; Muhlenberg and Slocum in August, Steuart in 1863: all days to weeks after, none a diary of the day. They rank alike.",
+  "where": "Muhlenberg and Hunt were at the guns or the army's artillery headquarters; Greene, Packer, Geary and Candy were on the infantry line the guns fired over, in the dark of the early morning, when an a. m. hour is an estimate; Slocum was at the corps headquarters on the hill, beside Knap's battery.",
+  "how_knew": "Muhlenberg and Hunt give the hours of orders they gave (posted at 1 a. m., opened 4.30); Greene, Packer and Slocum say what they saw or were told; none says he looked at a watch. Hunt's figures match Muhlenberg's and are counted with them.",
+  "clock": "All the Union writers; Steuart is Confederate. The Union and Confederate clocks reportedly differed by about 20 minutes; it is not applied. A half-hour spread between two sets of Union writers is not that difference; '4 a. m.' may be a round figure for a time near 4.30, and the dark makes an hour an estimate.",
+  "independence": "The 4.30 hour rests on one line of knowledge (Muhlenberg; Hunt relays him). The 4 a. m. hour rests on three separate reports (Packer, Greene, Slocum; Slocum from his own headquarters, Greene and Packer from the line). The 5.30 hour rests on Hunt and Muhlenberg together. Geary, Candy and Steuart are single witnesses."
+ },
+ "source_panel_text": "Union batteries on Culp's Hill, Jul 3: the first fire is put at 4 a.m. by Packer, Greene and Slocum and at 4.30 by Muhlenberg (who commanded the guns) and Hunt; at 5.30 all batteries opened (Hunt). So 04:30 and 05:30 are two events, and the first fire is shown as 04:00-04:30. Five other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "05:30 is a true hour but it is the general fire, not the first fire; the plan's other value 04:30 is the first fire of the batteries Hunt placed (or 04:00 on three other reports). The plan treats them as rivals; they are two events, and both stay."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "Two events (04:30 first fire, 05:30 general fire) holds. Its first event is 04:30 alone: Packer, Greene and Slocum put it at 4 a. m., so the first fire is a window of 04:00 to 04:30, and the conflict is irreducible rather than documented."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T2-247",
+   "must_change": true,
+   "note": "Row 'Jul 3 ~04:30 [DAWN]' (Muhlenberg's and Kinzie's batteries open on the wood for about 15 minutes): first fire becomes the window 04:00 to 04:30; the 04:30 row stays as the later end. Row not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-036",
+   "must_change": true,
+   "note": "Row 'Jul 3 04:30 TWILIGHT' (same event): same change."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-242",
+   "must_change": true,
+   "note": "Row 'Jul 3 ~03:30 to 04:30' (Union artillery of five batteries, 24 guns per a soldier's letter, opens on Steuart's brigade for 30 minutes to several hours; accounts differ): the window of 04:00 to 04:30 for the first fire, and the 05:30 general fire, fit the Official Records; 24 guns is not in them (Muhlenberg has 20 guns)."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-237",
+   "must_change": false,
+   "note": "Row 'Jul 3 ~01:00' (Muhlenberg's and Kinzie's batteries posted opposite the XII Corps centre): matches Hunt and Muhlenberg (1 a. m. on the 3d)."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-020",
+   "must_change": false,
+   "note": "Row 'Jul 3 ~01:00 NIGHT' (same batteries posted): same."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-022",
+   "must_change": false,
+   "note": "Row 'Jul 3 overnight' (Muhlenberg's batteries along the Pike, Rigby on Powers Hill, another on McAllister Hill): Hunt has Rigby's battery placed soon after daylight, not overnight; the place is the row's own gap, not this conflict's."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-233",
+   "must_change": false,
+   "note": "Row 'Jul 2 night' (Muhlenberg along the Pike; Rigby on Powers Hill): the posting of 1 a. m. on the 3d, not Jul 2 night; no hour change for this conflict."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-039",
+   "must_change": false,
+   "note": "Row 'Jul 3 ~05:00-05:30 (hour not given)' (Steuart's dawn attack; open gap; the dawn attack hour 04:30 Hunt vs 05:30): the Confederate infantry fight began about 3 to 3.30 a. m. (Kane, Rickards) and Steuart has the Union fire at about daylight; this resolution does not date Steuart's attack."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "us-12c",
+   "must_change": false,
+   "note": "XII Corps row carries C-028 as 'Jul 3 04:30 artillery opens' in its key positions; the arrival gate (Jul 1 17:30) is not touched."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json C-028",
+   "must_change": true,
+   "note": "default_scenario_id C-028-DEFAULT: label becomes the window 04:00 to 04:30 for the first fire with 05:30 as the general fire; the plan's 04:30 and 05:30 stay scenarios."
+  },
+  {
+   "kind": "other",
+   "ref": "tools/bt/arrivals_data.py line 222 (row us-12c) and tools/bt/or27_claims.py line 225 (claim check e, C-028/C-029/C-030)",
+   "must_change": false,
+   "note": "Name the plan cell 'Jul 3 04:30 artillery opens'; claim check e reads Hunt's hours."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-028 row)",
+   "must_change": true,
+   "note": "Row line 38 (two events, documented): class irreducible, tier inferred, with the first fire as a window."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-028 and DEC-005",
+   "must_change": true,
+   "note": "Line 56 (DEC-C-028, PENDING OWNER) and line 11 (DEC-005, contradictory defaults inside the PDF, C-028 among them): the plan's 05:30 default is the general fire, not a contradiction of the first fire."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md line 972 (section on the undrawn units: C-004, C-028 and C-029 are linked to the Artillery Reserve claims)",
+   "must_change": false,
+   "note": "Method note that links C-028 to the artillery claims of the undrawn units; the default of the conflict does not change what it says."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0008.md",
+   "must_change": true,
+   "note": "Entry lists 'C-028 Hunt guns 05:30 vs 04:30/04:00' among internal contradictions of the PDF: they are two events of the same guns (04:00 to 04:30 first fire, 05:30 general fire), so the entry's description is to be updated."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "Reports of the batteries (Knap, Winegar, Kinzie, Rigby; Best made none that was found) and of the First Division brigades (Ruger R273, Colgrove R286, Lockwood R282) in OR27-1",
+   "query": "a clock reading for the first fire between 4 and 4.30, or a statement that it was before 4: only Muhlenberg, Hunt, Slocum, Greene, Packer, Candy and Geary give hours; the other reports say daylight or give none",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2 (Johnson R481, Steuart R482, Walker R488, Nadenbousch R489, Ewell R467)",
+   "query": "an hour for the Union artillery fire of the morning: none; Steuart has it about daylight, Walker at daylight Steuart 'hotly engaged'; Ewell's report has Johnson's attack too late",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "NPS-HB9-1954 and NPS-HB9-1962, Spangler's Spring study",
+   "query": "an hour for the first artillery fire on the 3d: none; they say the Union cannonade at dawn without a clock",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "books and papers (Bachelder, Minnigh, Meade 1913, Pennsylvania and Maine at Gettysburg, Lossing)",
+   "query": "an hour for the first fire other than 4 a. m. (Maine at Gettysburg: twenty guns; Lossing: four o'clock) and 4.30 (Pennsylvania at Gettysburg, quoting Muhlenberg); none of them names a source beyond the reports",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Stone Sentinels (the plan's HN-Thunder and Wikipedia Culp's Hill pages cited by the earlier corrections)",
+   "query": "the pages themselves: not read; the host is not among the hosts reachable for this research",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A diary or report of the morning of 3 July by an officer of Muhlenberg's, Kinzie's, Knap's or Winegar's battery or of Best's staff that gives the hour of the first round, or a report of the Confederate defenders (Johnson's staff, the First Maryland Battalion) that gives the hour the Union guns opened. It would narrow the window."
+}

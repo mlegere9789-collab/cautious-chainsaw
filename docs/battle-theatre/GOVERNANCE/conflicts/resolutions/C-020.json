@@ -1,0 +1,940 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-020",
+ "topic": "East Cemetery Hill assault",
+ "pdf_row": {
+  "page": 62,
+  "text": "East Cemetery Hill assault | 19:30; 20:00; 20:00-21:00 | 19:30 | 20:00, 20:00-21:00",
+  "values": [
+   "19:30",
+   "20:00",
+   "20:00-21:00"
+  ],
+  "recommended_default": "19:30",
+  "selectable_alternatives": [
+   "20:00",
+   "20:00-21:00"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-020-DEFAULT",
+  "default_label": "about 20:00, window 19:30-20:00 (Hays, Ricketts, Osborn, Wiedrich)",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-020-S1",
+   "C-020-S2",
+   "C-020-S3",
+   "C-020-S4",
+   "C-020-S5",
+   "C-020-DEFAULT"
+  ]
+ },
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-020",
+ "event_date": "1863-07-02",
+ "positions": [
+  {
+   "id": "C-020-P1",
+   "origin": "pdf_value",
+   "pdf_label": "19:30",
+   "scenario_ids": [
+    "C-020-S1",
+    "C-020-S4"
+   ],
+   "label": "19:30: the plan's first value and its recommended default (timeline web pages)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T19:30",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "lead_only",
+    "unsourced"
+   ],
+   "support": [],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No writer gives 19:30. Hays's order was a little before 8 p. m. and Early says the advance began after sunset (19:32); the plan's pages are web pages."
+   },
+   "failed_lookups": [
+    {
+     "where": "Stone Sentinels July 2 timeline and Wikipedia (the plan's SS2 and W-ECH for 19:30 in seed row T2-198)",
+     "query": "the pages themselves and the source each gives for 19:30; the hosts are not among the hosts reachable for this research and a web page is only a pointer",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1 and OR27-2 (all reports of the Eleventh Corps, the artillery on Cemetery Hill, Early's division and the reports of Hays and Hoke's brigade)",
+     "query": "a clock reading of 7.30, half past seven or 19:30 within 300 characters of Cemetery Hill, Hays, Hoke, Avery, Wiedrich or Ricketts, with attack, charge or advance: none; the one 7.30 p. m. hit is a signal message about cavalry on the right (Swain)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "ledger books and papers (Southern Historical Society Papers, Alexander, Howard, Minnigh, Early 1912, the state volumes of New York and Pennsylvania)",
+     "query": "half past seven, 7.30, seven thirty with the names of the two brigades and the batteries, books only: none",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ]
+  },
+  {
+   "id": "C-020-P2",
+   "origin": "pdf_value",
+   "pdf_label": "20:00",
+   "scenario_ids": [
+    "C-020-S2",
+    "C-020-S5"
+   ],
+   "label": "About 20:00: Hays's and Hoke's brigades go up East Cemetery Hill and charge the batteries",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T20:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-020-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R328",
+     "page": "894",
+     "page_basis": "scan_leaf",
+     "text_offset": 3155932,
+     "quote": "On July 2, my battery moved from Taneytown to Gettysburg [...] At about 8 p. m. a heavy column of the enemy charged on my battery",
+     "witness": {
+      "name": "R. Bruce Ricketts",
+      "role": "Captain, commanding Batteries F and G, 1st Pennsylvania Light Artillery, posted on Cemetery Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-30",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "ricketts",
+     "exact": true,
+     "states": {
+      "times": [
+       "20:00"
+      ],
+      "numbers": [
+       2,
+       8
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The battery attacked. The charge reached the guns, which his gunners then fought hand to hand; the report is dated 30 Aug 1863. The second scan of the volume (OR27-1-SCAN2-C018) reads the same 8 p. m."
+    },
+    {
+     "id": "C-020-P2-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R265",
+     "page": "751-752",
+     "page_basis": "scan_leaf",
+     "text_offset": 2630498,
+     "quote": "Thursday, July 2, from early in the morning [...] About 8 p. m. the enemy charged on the battery with a brigade of infantry",
+     "witness": {
+      "name": "Michael Wiedrich",
+      "role": "Captain, commanding Battery I, 1st New York Light Artillery, posted on Cemetery Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "wiedrich",
+     "exact": true,
+     "states": {
+      "times": [
+       "20:00"
+      ],
+      "numbers": [
+       2,
+       8
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The battery next to Ricketts, attacked in the same rush; the report is undated in the print and was written for Osborn, who dates his own 29 Jul 1863. The second scan reads 8 p. m."
+    },
+    {
+     "id": "C-020-P2-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R473",
+     "page": "484",
+     "page_basis": "scan_leaf",
+     "text_offset": 1802390,
+     "quote": "until 8 p. m. on the next day, July 2, when the brigade moved forward to the attack",
+     "witness": {
+      "name": "Archibald C. Godwin",
+      "role": "Colonel, 57th North Carolina, commanding Hoke's (Avery's) brigade",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-30",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "godwin",
+     "exact": true,
+     "states": {
+      "times": [
+       "20:00"
+      ],
+      "numbers": [
+       8,
+       2
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Hoke's brigade, the left of the two brigades sent against the hill. The dateline of the text layer is garbled (reads July 30 and 1863 with damage); it follows Hays's report of 4 Aug in the volume only by the order of printing. The second scan reads 8 p. m."
+    },
+    {
+     "id": "C-020-P2-c4",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R472",
+     "page": "480",
+     "page_basis": "scan_leaf",
+     "text_offset": 1785664,
+     "quote": "In this field we remained the entire day of July 2 [...] A little before 8 p. m. I was ordered to advance with my own and Hoke's brigade on my left",
+     "witness": {
+      "name": "Harry T. Hays",
+      "role": "Brigadier General, commanding the Louisiana brigade, which led the assault",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "upper",
+     "group": "hays",
+     "exact": false,
+     "states": {
+      "times": [
+       "20:00"
+      ],
+      "numbers": [
+       2,
+       8
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The order to advance, a little before 8 p. m.: the step-off, not the arrival at the guns, and an upper bound. Hays then moved forward, came under fire, crossed two lines and reached the crest."
+    },
+    {
+     "id": "C-020-P2-c5",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R470",
+     "page": "470",
+     "page_basis": "scan_leaf",
+     "text_offset": 1751299,
+     "quote": "Accordingly, as soon as Johnson became warmly engaged, which was a little before dusk, I ordered Hays and Avery to advance and carry the works on the heights in front",
+     "witness": {
+      "name": "Jubal A. Early",
+      "role": "Major General, commanding the division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-22",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "upper",
+     "group": "early",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "a little before dusk"
+      ]
+     },
+     "note": "No clock reading and no day in the quote; a description of when the order was given, tied to Johnson's attack on Culp's Hill. It places the step-off near dusk, which at Gettysburg began after sunset at 19:32."
+    },
+    {
+     "id": "C-020-P2-c6",
+     "source": "EARLY-1912-C041",
+     "source_class": "book",
+     "part": null,
+     "page": "272",
+     "page_basis": "as_read",
+     "text_offset": 666965,
+     "quote": "Before Johnson was heard fairly engaged it was after sunset, and Hays and Avery then moved forward on the low ridge in their front",
+     "page_note": "printed page 272 read from the running head BATTLE OF GETTYSBURG on that page of the text",
+     "witness": {
+      "name": "Jubal A. Early",
+      "role": "Lieutenant General; wrote as the former division commander",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1912",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "lower",
+     "group": "early-narrative",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "after sunset"
+      ]
+     },
+     "note": "The narrative as printed in 1912 (page 272); a later writing by the same man as P2-c5 and not independent of it. It fixes the step-off after sunset (19:32). The same page has Early ordered by Ewell 'a little before sunset' to advance as soon as Johnson was engaged."
+    },
+    {
+     "id": "C-020-P2-c7",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R071",
+     "page": "358",
+     "page_basis": "scan_leaf",
+     "text_offset": 1247589,
+     "quote": "About dusk they again opened from a knoll on our left and front, distant 1,800 yards, which fire was followed by a strong attack upon our position",
+     "witness": {
+      "name": "Charles S. Wainwright",
+      "role": "Colonel, chief of artillery, First Corps; commanded the guns on the east side of Cemetery Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "wainwright",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "About dusk"
+      ]
+     },
+     "note": "Hunt's report of 27 Sep 1863 (p. 234) repeats this passage with 'About sunset' for 'About dusk'; it is the same line of knowledge and is not cited separately. No clock reading and no day in the quote."
+    }
+   ]
+  },
+  {
+   "id": "C-020-P3",
+   "origin": "pdf_value",
+   "pdf_label": "20:00-21:00",
+   "scenario_ids": [
+    "C-020-S3"
+   ],
+   "label": "20:00 to 21:00: the hour of the assault as two Union generals date it (between 8 and 9, about 9)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T20:00",
+    "to": "1863-07-02T21:00"
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-020-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R253",
+     "page": "731",
+     "page_basis": "scan_leaf",
+     "text_offset": 2556284,
+     "quote": "between 8 and 9 p. m., we suddenly heard a rapid musketry fire on the eminence immediately east of the cemetery, where Captain Wiedrich's battery stood",
+     "witness": {
+      "name": "Carl Schurz",
+      "role": "Major General, commanding the Third Division, Eleventh Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-20",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "window",
+     "group": "schurz",
+     "exact": true,
+     "states": {
+      "times": [
+       "20:00",
+       "21:00"
+      ],
+      "numbers": [
+       8,
+       9
+      ]
+     },
+     "note": "Heard from where he stood: he then led two regiments across the road to the battery. The day is given by the report around the passage (the fighting on the right at 9 o'clock on the same evening), not by the quote."
+    },
+    {
+     "id": "C-020-P3-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R250",
+     "page": "722",
+     "page_basis": "scan_leaf",
+     "text_offset": 2521046,
+     "quote": "At about 9 p. m. the Louisiana Brigade (Tigers) made a vigorous charge upon the First Brigade of my division, and Wiedrich's battery",
+     "witness": {
+      "name": "Adolph von Steinwehr",
+      "role": "Brigadier General, commanding the Second Division, Eleventh Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-30",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "steinwehr",
+     "exact": false,
+     "states": {
+      "times": [
+       "21:00"
+      ],
+      "numbers": [
+       9
+      ]
+     },
+     "note": "Written 59 days after. His First Brigade (Coster) stood in support of Wiedrich's battery and was charged with it, yet he puts the charge an hour after the battery commanders. One of the two writers who put it at about 9 rather than about 8. The second scan reads 9 p. m."
+    }
+   ],
+   "inference": {
+    "step": "Schurz states the window (between 8 and 9 p. m.) for the firing at Wiedrich's battery; the day, 2 July, is not in the quoted sentence but follows from the report around it, which dates the fighting on his right at 9 o'clock that same evening to the second day.",
+    "from": [
+     "C-020-P3-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "Schurz (between 8 and 9) and Steinwehr (about 9) are two estimates; the two battery commanders charged, Osborn and both Confederate brigade commanders say about 8, which is the lower end."
+   }
+  },
+  {
+   "id": "C-020-P4",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-020-DEFAULT"
+   ],
+   "label": "About 20:00, window 19:30 to 20:00 (the first delegated default)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T19:30",
+    "to": "1863-07-02T20:00"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-020-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R264",
+     "page": "749",
+     "page_basis": "scan_leaf",
+     "text_offset": 2622502,
+     "quote": "Between 7 and 8 o'clock in the evening, a rebel brigade charged from the town upon the hill and upon Captain Wiedrich's battery",
+     "witness": {
+      "name": "Thomas W. Osborn",
+      "role": "Major, commanding the artillery brigade of the Eleventh Corps, on Cemetery Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-29",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "window",
+     "group": "osborn",
+     "exact": true,
+     "states": {
+      "times": [
+       "19:00",
+       "20:00"
+      ],
+      "numbers": [
+       7,
+       8
+      ]
+     },
+     "note": "The day (the evening of the 2d) is given by the report around the passage, not in the quote: the paragraph before says 'on the morning of the 2d'."
+    },
+    {
+     "id": "C-020-P2-c4",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R472",
+     "page": "480",
+     "page_basis": "scan_leaf",
+     "text_offset": 1785664,
+     "quote": "In this field we remained the entire day of July 2 [...] A little before 8 p. m. I was ordered to advance with my own and Hoke's brigade on my left",
+     "witness": {
+      "name": "Harry T. Hays",
+      "role": "Brigadier General, commanding the Louisiana brigade, which led the assault",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "upper",
+     "group": "hays",
+     "exact": false,
+     "states": {
+      "times": [
+       "20:00"
+      ],
+      "numbers": [
+       2,
+       8
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The order to advance, a little before 8 p. m.: the step-off, not the arrival at the guns, and an upper bound. Hays then moved forward, came under fire, crossed two lines and reached the crest."
+    },
+    {
+     "id": "C-020-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R328",
+     "page": "894",
+     "page_basis": "scan_leaf",
+     "text_offset": 3155932,
+     "quote": "On July 2, my battery moved from Taneytown to Gettysburg [...] At about 8 p. m. a heavy column of the enemy charged on my battery",
+     "witness": {
+      "name": "R. Bruce Ricketts",
+      "role": "Captain, commanding Batteries F and G, 1st Pennsylvania Light Artillery, posted on Cemetery Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-30",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "ricketts",
+     "exact": true,
+     "states": {
+      "times": [
+       "20:00"
+      ],
+      "numbers": [
+       2,
+       8
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The battery attacked. The charge reached the guns, which his gunners then fought hand to hand; the report is dated 30 Aug 1863. The second scan of the volume (OR27-1-SCAN2-C018) reads the same 8 p. m."
+    }
+   ],
+   "inference": {
+    "step": "The window is read from Osborn (between 19:00 and 20:00), Hays (a little before 20:00) and Ricketts (about 20:00); its lower end 19:30 is the plan's value, not an hour any of them gives.",
+    "from": [
+     "C-020-P5-c1",
+     "C-020-P2-c4",
+     "C-020-P2-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "tolerance",
+    "text": "The upper end, 20:00, is what Ricketts, Wiedrich, Hays and Godwin give; the lower end 19:30 is the plan's own and no writer states it. Kept as the spread of the better witnesses."
+   }
+  },
+  {
+   "id": "C-020-P5",
+   "origin": "research",
+   "label": "Between 19:00 and 20:00: the corps artillery chief on the hill (Osborn)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T19:00",
+    "to": "1863-07-02T20:00"
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-020-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R264",
+     "page": "749",
+     "page_basis": "scan_leaf",
+     "text_offset": 2622502,
+     "quote": "Between 7 and 8 o'clock in the evening, a rebel brigade charged from the town upon the hill and upon Captain Wiedrich's battery",
+     "witness": {
+      "name": "Thomas W. Osborn",
+      "role": "Major, commanding the artillery brigade of the Eleventh Corps, on Cemetery Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-29",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "window",
+     "group": "osborn",
+     "exact": true,
+     "states": {
+      "times": [
+       "19:00",
+       "20:00"
+      ],
+      "numbers": [
+       7,
+       8
+      ]
+     },
+     "note": "The day (the evening of the 2d) is given by the report around the passage, not in the quote: the paragraph before says 'on the morning of the 2d'."
+    }
+   ],
+   "inference": {
+    "step": "Osborn states the window (between 7 and 8 o'clock in the evening); the day, 2 July, is not in the quoted sentence but follows from the report, which puts the heavy attack on the left of the line and the silencing of the enemy guns before it.",
+    "from": [
+     "C-020-P5-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "tolerance",
+    "text": "Osborn's 'between 7 and 8' ends at the hour the others give; no one else puts the charge in its first half and Hays gave the order to advance only a little before 8."
+   }
+  },
+  {
+   "id": "C-020-P6",
+   "origin": "research",
+   "label": "About 19:00: the enemy appears in force (a regiment report of 1863; a guide book of 1892; Howard 1907, after seven)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T19:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "different_event"
+   ],
+   "support": [
+    {
+     "id": "C-020-P6-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R249",
+     "page": "720",
+     "page_basis": "scan_leaf",
+     "text_offset": 2514178,
+     "quote": "until 7 p. m. July 2, during which time heavy skirmishing was going on between the regiment and the enemy's sharpshooters. At about 7 p. m. the enemy appeared in force",
+     "witness": {
+      "name": "John M. Lutz",
+      "role": "Captain, commanding the 107th Ohio, Ames's division, on the right front of the hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "lutz",
+     "exact": true,
+     "states": {
+      "times": [
+       "19:00"
+      ],
+      "numbers": [
+       7,
+       2
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Two days after the fight. He says the enemy appeared in force at about 7 and that his regiment, retiring behind the wall in front of a battery, then met a desperate charge; the engagement lasted about one hour and a half. It dates the first appearance, not the charge."
+    },
+    {
+     "id": "C-020-P6-c2",
+     "source": "MINNIGH-1892-SCAN-A",
+     "source_class": "book",
+     "part": null,
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 58100,
+     "quote": "At about seven o'clock Early advanced Hays' and Hoke's brigades which were to storm East Cemetery Hill",
+     "page_note": "the text has no page marks; the guide is read in the raw text of the first scan, page not read",
+     "witness": {
+      "name": "Luther W. Minnigh",
+      "role": "author of a guide book to the field",
+      "side": "other"
+     },
+     "written": {
+      "date": "1892",
+      "kind": "later_history"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "minnigh",
+     "exact": false,
+     "states": {
+      "times": [
+       "19:00"
+      ],
+      "numbers": [
+       7
+      ]
+     },
+     "note": "A guide book of 1892 that gives no source; the same text is in the second scan of the book (MINNIGH-1892-SCAN-B), so it counts once."
+    },
+    {
+     "id": "C-020-P6-c3",
+     "source": "HOWARD-1907-C039",
+     "source_class": "book",
+     "part": null,
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 841599,
+     "quote": "It was after seven o'clock when the first cry, shrill and ominous, was heard in front of Ames's division",
+     "page_note": "printed page 428 stands in the running text before the passage (the text has no page marks)",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General; commanded the Eleventh Corps and the field on Cemetery Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "lower",
+     "group": "howard",
+     "exact": false,
+     "states": {
+      "times": [
+       "19:00"
+      ],
+      "numbers": [
+       7
+      ]
+     },
+     "note": "Written 44 years later; a lower bound ('after seven'), not an hour. In the same paragraph he puts Early's start 'at least an hour' after Johnson's and 'just at dusk'."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Lutz dates the enemy's first appearance in force, before the charge on the battery; Howard says only 'after seven'; the guide book gives no source and is 29 years later."
+   }
+  }
+ ],
+ "class": "weighted",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Ricketts and Wiedrich, whose batteries on East Cemetery Hill were charged, wrote in 1863 that it was about 8 p. m.; Godwin, who commanded Hoke's brigade in the assault, wrote that it moved forward to the attack at 8 p. m., and Hays that he was ordered to advance a little before 8 p. m. (Official Records 27/1 pp. 894, 751-752; 27/2 pp. 480, 484)."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-020-P2"
+  ],
+  "label": "About 20:00: the infantry assault goes up East Cemetery Hill and charges the batteries",
+  "animation": {
+   "at": "1863-07-02T20:00",
+   "rule": "best_supported",
+   "note": "The charge on the batteries (Ricketts and Wiedrich, about 8 p. m.) and the advance of both brigades (Godwin, 8 p. m.; Hays, ordered a little before 8 p. m.) fall together at about 20:00. No writer gives the minute of the step-off, so nothing is drawn earlier than sunset (19:32; Early: it was after sunset when Hays and Avery moved forward) and the walk from the ravine to the guns is fitted to end in the charge at about 20:00. The earlier readings stay selectable."
+  },
+  "note": "The hour is rounded by every witness (about 8, a little before 8) and the two Union division commanders say 8 to 9 and about 9."
+ },
+ "weighing": {
+  "summary": "The plan lists 19:30, 20:00 and 20:00 to 21:00. The best witnesses cluster at about 20:00: two battery commanders whose guns were charged (Ricketts, Wiedrich: about 8 p. m.), the commander of the left-hand brigade (Godwin: moved forward to the attack at 8 p. m.) and the brigade commander who led (Hays: ordered to advance a little before 8 p. m.), with Early's own account that it was dusk and after sunset (19:32). Osborn (corps artillery chief) gives between 7 and 8, ending at the same hour. Schurz (between 8 and 9) and Steinwehr (about 9), division commanders near the hill, give a later hour; Lutz (about 7), Minnigh and Howard (after seven) give an earlier first appearance of the enemy. No writer gives 19:30. The disagreement is one of rounding and place of observation, not of two best-class witnesses against each other, so the conflict is weighted, not irreducible: about 20:00, documented by two battery commanders and a brigade commander of the other side.",
+  "who": "Ricketts and Wiedrich were captains commanding the batteries that were charged; Osborn commanded the corps artillery on the same hill; Godwin and Hays commanded the two brigades that made the assault; Early commanded the division and ordered it forward; Schurz and Steinwehr commanded divisions of the Eleventh Corps (Steinwehr's First Brigade supported Wiedrich's battery); Lutz commanded a regiment of Ames's division in front of it. Howard commanded the corps. Minnigh wrote a guide book and did not take part.",
+  "when": "Lutz wrote on 4 Jul 1863, two days after; Osborn on 29 Jul; Godwin on 30 Jul; Hays on 4 Aug; Schurz on 20 Aug; Early on 22 Aug; Ricketts and Steinwehr on 30 Aug (reports of 28 to 59 days). Wiedrich's report is undated in the print and was made for Osborn. Howard wrote in 1907 and Early's narrative was printed in 1912; Minnigh published in 1892. A report of 1863 outweighs all three later writers and none of them contradicts the reports of 8: Howard's 'after seven' is a lower bound.",
+  "where": "Ricketts and Wiedrich stood at the guns the infantry charged and Osborn on the same hill, so they saw the charge arrive. Hays and Godwin were in the line that stepped off from the ravine and give the time of the order or the advance, which comes before the arrival by the minutes it took to cross the hollow and climb the hill. Schurz heard the firing from his own position before leading two regiments across the road; Steinwehr reports what reached his First Brigade at the battery. Both give a later hour than the battery commanders and neither says how he fixed it. Lutz was in front of the line and saw the enemy first.",
+  "how_knew": "Ricketts, Wiedrich, Osborn and Godwin saw it and give an hour with about; Hays and Early give the order they gave or received; Schurz heard the musketry; Steinwehr reports what reached his brigade; Howard wrote from memory of 1863 events 44 years later; Minnigh gives no source.",
+  "clock": "Every witness uses the hour as printed with no statement of the clock. The Union and Confederate clocks reportedly differed by about 20 minutes; that is not applied and is carried here only as uncertainty: Hays and Godwin (Confederate) say 8 p. m. and so do Ricketts and Wiedrich (Union), so a 20-minute difference would not change the default. The 'about' and 'a little before' readings keep a quarter hour either way.",
+  "independence": "The default rests on four separate groups: Ricketts, Wiedrich, Godwin and Hays each wrote their own report, from the two sides of the fight. Early (1863) and Early (1912) are one writer. Hunt repeats Wainwright. The two scans of Minnigh are one book. Osborn is the writer of the corps artillery report that Wiedrich's report was made for, but he gives his own hours."
+ },
+ "source_panel_text": "About 20:00 on Jul 2: the two Union battery commanders whose guns were charged (Ricketts, Wiedrich) and the two Confederate brigade commanders (Hays, Godwin) all give about 8 p.m. Two Union generals say 8 to 9 and about 9. No writer gives 19:30. Five other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "The plan's 19:30 is given by no writer: Hays ordered his brigade forward a little before 8 p. m. and Early says it was after sunset (19:32) when they moved. 19:30 stays selectable and marked as unsourced."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "About 20:00 holds. Its window 19:30 to 20:00 keeps the plan's 19:30 as a lower end that no writer states; Osborn's window is 19:00 to 20:00 and the step-off is described only as a little before 20:00. The window stays selectable."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T2-198",
+   "must_change": true,
+   "note": "Window 'Jul 2 ~19:30' (start 19:30 from SS2 and W-ECH, about 20:00 from EPP and W-D2, 20:00-21:00 from NPS12): the default start becomes about 20:00; the row's statement that Hays enters the batteries stays. Row not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-207",
+   "must_change": false,
+   "note": "Carroll's brigade retakes Ricketts's position at dusk ('About dark', Carroll, Official Records 27/1 p. 457, fight to about 10.20): follows the charge; the time is not changed by this resolution."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json C-020",
+   "must_change": true,
+   "note": "default_scenario_id C-020-DEFAULT (window 19:30-20:00) is replaced by about 20:00 (position C-020-P2); the plan's 19:30 and the window stay as scenarios."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-020 row)",
+   "must_change": true,
+   "note": "Row line 30 (about 20:00, window 19:30-20:00, documented) to be superseded: default about 20:00, class weighted, tier documented; first record kept as history."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0105.md",
+   "must_change": true,
+   "note": "Entry says the C-020 default 19:30 is not stated by any report read (Hays and Ricketts about 20:00): the default is now about 20:00 and the entry's text agrees; the entry's status line follows the integration step."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-020",
+   "must_change": true,
+   "note": "Line 48 (PENDING OWNER): to record the delegated default about 20:00 and the reversal of the plan's 19:30 as default."
+  },
+  {
+   "kind": "other",
+   "ref": "tools/bt/arrivals_data.py lines 330 and 337 (rows cs-2c and cs-2c-early, key_positions C-020)",
+   "must_change": false,
+   "note": "The two arrivals rows carry C-020 only as a key position ('19:30 East Cemetery Hill'); their arrival gates are of Jul 1 and are not moved. The text '19:30' in the key position follows the resolution."
+  },
+  {
+   "kind": "other",
+   "ref": "tools/bt/positions_D/52_early_division.py line 37",
+   "must_change": true,
+   "note": "Position note for Early's division quotes 'C-020 East Cemetery Hill assault 19:30 / 20:00 / 20:00-21:00'; the default is about 20:00."
+  },
+  {
+   "kind": "other",
+   "ref": "tools/bt/build_structures.py line 301 (PD-07, S-044)",
+   "must_change": true,
+   "note": "Printed default 19:30 and 'dusk attack, about 19:30-21:00' for the lunettes schedule; the evidence puts the charge on the batteries at about 20:00."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04",
+   "must_change": false,
+   "note": "No gate reads this value as an arrival floor; Q04 is not changed."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "Stone Sentinels (the plan's SS2), Wikipedia (W-ECH, W-D2) and the J. F. Epperson timeline (EPP)",
+   "query": "the pages for the East Cemetery Hill assault and the sources they give for 19:30, about 20:00 and 20:00-21:00; none of the hosts is among the hosts reachable for this research and a web page is only a pointer",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "NPS Civil War Series 16, section 12 (the plan's NPS12 for 20:00-21:00)",
+   "query": "the Park Service text itself: not found among the local Park Service texts (HB9 of 1954 and 1962 say only 'at dusk' and 'about dusk'); not fetched",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-1 and OR27-2, all reports",
+   "query": "7.30, half past seven, seven thirty near the attack on Cemetery Hill: none (the only 7.30 hit is Swain's signal message about cavalry)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "ledger books and papers",
+   "query": "half past seven with Hays, Hoke, Avery, Wiedrich, Ricketts: none; the books say at dusk, at about seven (Minnigh), after seven (Howard), about nine (Lossing for Early at Gettysburg is of a different battle)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Wiedrich in the first delegated pass ('Wiedrich about 8')",
+   "query": "found: Wiedrich's report (OR27-1 p. 751) says About 8 p. m. the enemy charged on the battery; it is cited here",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "GORDON-1903 (Reminiscences of the Civil War; Gordon's brigade was Early's reserve behind Hays and Avery)",
+   "query": "an hour for the assault: not fetched; the book was not read (the dossier lists it as reachable on archive.org); Gordon's own report (OR27-2) was read for the evening and gives none",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report or letter of 2 July or soon after that dates the Louisiana brigade's step-off or the charge on the batteries to the minute, a log of Early's or Ewell's headquarters, or a statement by Hays or Avery's staff of the hour the signal was given. A page image of a report that reads a digit other than 8 in Ricketts, Wiedrich, Godwin or Hays would also change it; the second scan agrees on every digit."
+}

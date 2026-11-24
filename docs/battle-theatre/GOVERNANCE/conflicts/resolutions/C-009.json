@@ -1,0 +1,845 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-009",
+ "topic": "Berdan’s reconnaissance start",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-009",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Berdan’s reconnaissance start | 11:00; 11:15; noon | 11:15 | 11:00, noon",
+  "values": [
+   "11:00",
+   "11:15",
+   "noon"
+  ],
+  "recommended_default": "11:15",
+  "selectable_alternatives": [
+   "11:00",
+   "noon"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-009-DEFAULT",
+  "default_label": "11:00 (Berdan own report)",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-009-S1",
+   "C-009-S2",
+   "C-009-S3",
+   "C-009-S4",
+   "C-009-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Berdan's report of 29 July 1863 (27 days after) puts Birney's order at about 11 a. m.; Birney's sworn account of 1864 puts his request at about 11. The order to the detachment is the start; no source gives the minute the men moved off."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-009-P1"
+  ],
+  "label": "About 11:00 on Jul 2: Berdan is ordered to send the detachment out",
+  "note": "The detachment is drawn leaving not before 11:00; contact is reported at 11:45 to 11:55 by the signal station. Noon and 11:15 stay selectable."
+ },
+ "positions": [
+  {
+   "id": "C-009-P1",
+   "origin": "pdf_value",
+   "pdf_label": "11:00",
+   "scenario_ids": [
+    "C-009-S1",
+    "C-009-DEFAULT"
+   ],
+   "label": "About 11:00: Berdan receives Birney's order and the detachment is sent out (Berdan's report; Birney's testimony)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T11:00",
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-009-P1-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R149",
+     "page": "515",
+     "page_basis": "scan_leaf",
+     "text_offset": 1795325,
+     "quote": "about 11 a. m. I received an order from him to send out another detachment of 100 sharpshooters farther to the left of our lines, and to take the Third Maine Volunteers as support",
+     "witness": {
+      "name": "Hiram Berdan",
+      "role": "Colonel, 1st US Sharpshooters, commanding the Sharpshooters of the division",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-29",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "berdan",
+     "exact": true,
+     "states": {
+      "times": [
+       "11:00"
+      ],
+      "numbers": [
+       100
+      ],
+      "phrases": [
+       "about 11 a. m. I received an order"
+      ]
+     },
+     "note": "Berdan, report of 29 July 1863 (27 days after): after the first detachment of 100 had been posted at about 7.30 a. m., he reported to Birney and \"about 11 a. m.\" received Birney's order for a second detachment of 100, with the Third Maine in support, to feel the enemy farther to the left. This is the hour he got the order, not the minute the men moved off; he gives no hour for that."
+    },
+    {
+     "id": "C-009-P1-c2",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "366",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 367, General Meade, follows the passage)",
+     "text_offset": 1699074,
+     "quote": "Upon the 2d of July I was ordered to relieve Geary's division of the 12th corps [...] About 11 o'clock, the firing with my skirmishers being very sharp, and seeming to increase, I asked permission of Major General Sickles to send a regiment and a battalion of sharpshooters to make a reconnoissance [...] I received from General Sickles permission to do so",
+     "witness": {
+      "name": "David B. Birney",
+      "role": "Major General, commanding the 1st Division, III Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-07",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "birney",
+     "exact": true,
+     "states": {
+      "times": [
+       "11:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Birney, sworn testimony of 7 March 1864 before the Joint Committee (eight months after): about 11 o'clock he asked Sickles for leave to send a regiment and a battalion of sharpshooters to reconnoitre, and got it. He names the hour of the request; the permission follows without a new hour. It is his second account and differs from his report of August 1863 (noon)."
+    }
+   ]
+  },
+  {
+   "id": "C-009-P2",
+   "origin": "pdf_value",
+   "pdf_label": "11:15",
+   "scenario_ids": [
+    "C-009-S2",
+    "C-009-S4"
+   ],
+   "label": "11:15 (the plan's recommended hour; no source found)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T11:15"
+   },
+   "clock": "unspecified",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No report, diary or book gives 11:15. The plan takes it from a terse web timeline it calls weak; it lies inside the quarter hour that Berdan's \"about 11\" allows, but nothing states it."
+   },
+   "failed_lookups": [
+    {
+     "where": "all local non-lead texts of the ledger (Official Records, books and papers, Park Service texts, the Joint Committee volume)",
+     "query": "(11[.:]15|quarter (past|after) eleven|eleven fifteen) within 400 characters of Berdan, sharpshooters or reconnaissance, in both orders; the only 11.15 near the subject is Colonel Craig of the 105th Pennsylvania, who was ordered to support the 63rd Pennsylvania skirmishers on the Emmitsburg road (a different movement)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "EPP timeline (the web page the plan names for 11:15)",
+     "query": "the page and its source for the hour; a web page is only a lead and the host is not among those reachable for this research",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, reports of Berdan (R149), Trepp (R150), Lakeman (R143), Ward (R135), Birney (R133)",
+     "query": "any clock reading between 11.00 and 11.30 for the order or the start of the detachment: only \"about 11 a. m.\" (Berdan) and \"At 12 m.\" (Birney)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "support": []
+  },
+  {
+   "id": "C-009-P3",
+   "origin": "pdf_value",
+   "pdf_label": "noon",
+   "scenario_ids": [
+    "C-009-S3"
+   ],
+   "label": "Noon: Birney's report (permission from Sickles) and Hunt's report (detachment sent)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T12:00"
+   },
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "contradicted"
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "Birney's own sworn account of 1864 says about 11, Berdan who got the order says about 11, and a signal message of 11.55 already has the skirmishers falling back; Hunt did not see it sent."
+   },
+   "support": [
+    {
+     "id": "C-009-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R133",
+     "page": "482",
+     "page_basis": "scan_leaf",
+     "text_offset": 1686572,
+     "quote": "On the morning of July 2 [...] At 12 m., believing from the constant fire of the enemy that a movement was being made toward the left, I received permission from Major-General Sickles to send 100 of Berdan's Sharpshooters",
+     "witness": {
+      "name": "David B. Birney",
+      "role": "Major General, commanding the 1st Division, III Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "birney",
+     "exact": true,
+     "states": {
+      "times": [
+       "12:00"
+      ],
+      "numbers": [
+       100
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Birney, report of 7 August 1863 (36 days after): \"At 12 m.\" he received Sickles's permission to send 100 of Berdan's sharpshooters with the Third Maine. It is the hour of the permission by his report; his sworn account of 1864 says about 11."
+    },
+    {
+     "id": "C-009-P3-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R028",
+     "page": "234",
+     "page_basis": "scan_leaf",
+     "text_offset": 772933,
+     "quote": "About 12 m. a detachment of Berdan's Sharpshooters was sent into the woods near the point where the enemy's crest opposite the left of our army cuts the Emmitsburg road",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery, Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-27",
+      "kind": "official_report"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hunt",
+     "exact": true,
+     "states": {
+      "times": [
+       "12:00"
+      ],
+      "phrases": [
+       "About 12 m."
+      ]
+     },
+     "note": "Hunt, report of 27 September 1863 (87 days after): \"About 12 m.\" a detachment of Berdan's sharpshooters \"was sent\" into the woods. In the next paragraph he says he reached the ground about 2 p. m., so he did not see it sent; he names no source for the hour."
+    },
+    {
+     "id": "C-009-P3-c3",
+     "source": "STEVENS-1892-C009",
+     "source_class": "book",
+     "page": "303",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 303 stands just before the paragraph)",
+     "text_offset": 714892,
+     "quote": "about noon Gen. [...] after further consulta- tion with Gen. Sickles, ordered the colonel to take a detach- ment of 100 Sharpshooters",
+     "witness": {
+      "name": "Charles A. Stevens",
+      "role": "Captain, historian of Berdan's Sharpshooters (book of 1892)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1892",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "about",
+     "group": "birney",
+     "exact": false,
+     "states": {
+      "times": [
+       "12:00"
+      ],
+      "numbers": [
+       100
+      ]
+     },
+     "note": "Stevens, regimental history of 1892 (29 years after): \"about noon\" Birney, after consulting Sickles, ordered Berdan out. He names no source for the hour and it matches Birney's report; it is counted with Birney, not as a second witness."
+    }
+   ]
+  },
+  {
+   "id": "C-009-P4",
+   "origin": "research",
+   "label": "About 11:30: the detachment advances into the woods (New York at Gettysburg, 1900)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T11:30",
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "derived": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "inference": {
+    "step": "The commission's narrative of 1900 states about 11:30 a. m. for the advance into the woods and names no source; it is taken as the author's reading of the record, which is Berdan's about 11 for the order and the signal messages at 11.45 and 11.55.",
+    "from": [
+     "C-009-P4-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "A writer of 1900 names no source for 11:30. It falls between Berdan's order at about 11 and the signal messages of 11.45, so it does not contradict them but adds no witness."
+   },
+   "support": [
+    {
+     "id": "C-009-P4-c1",
+     "source": "NY-GB-1900",
+     "source_class": "book",
+     "page": "38",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 38 stands before the passage)",
+     "text_offset": 119226,
+     "quote": "This detachment advanced about 11:30 a. m., and entered the woods situated some distance west of the Emmitsburg Road",
+     "witness": {
+      "name": "Author of the battle narrative, New York at Gettysburg, vol. 1 (name not read in the lines cited)",
+      "role": "Writer for the New York Monuments Commission, 1900",
+      "side": "union"
+     },
+     "written": {
+      "date": "1900",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "ny1900",
+     "exact": true,
+     "states": {
+      "times": [
+       "11:30"
+      ],
+      "phrases": [
+       "about 11:30"
+      ]
+     },
+     "note": "The commission's narrative of 1900 (37 years after) says the force under Berdan \"advanced about 11:30 a. m.\" and entered the woods west of the Emmitsburg road. It names no source for the hour and no witness; it puts the advance after Hunt had left Sickles."
+    }
+   ]
+  },
+  {
+   "id": "C-009-P5",
+   "origin": "research",
+   "label": "11:45 to 11:55: the signal station reports skirmishing a mile west; our skirmishers give way",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T11:45",
+    "to": "1863-07-02T11:55"
+   },
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "These messages time the skirmishing seen from the Round Top station, not the order or the start of the detachment, and they do not name the sharpshooters; they show the start was no later than about 11:55."
+   },
+   "support": [
+    {
+     "id": "C-009-P5-c1",
+     "source": "OR27-3",
+     "source_class": "primary",
+     "part": "OR27-3-D1010",
+     "page": "487",
+     "page_basis": "scan_leaf",
+     "text_offset": 1298826,
+     "quote": "July 2, 1863—11.45 a. m. [...] Enemy's skirmishers are advancing from the west, 1 mile from here.",
+     "witness": {
+      "name": "A. B. Jerome",
+      "role": "First Lieutenant, signal officer at the Round Top station",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "jerome",
+     "exact": true,
+     "states": {
+      "times": [
+       "11:45"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Signal message of the day from the mountain station on the left of the line to Butterfield: at 11.45 a. m. the enemy's skirmishers are advancing from the west, one mile from the station. It does not name the sharpshooters."
+    },
+    {
+     "id": "C-009-P5-c2",
+     "source": "OR27-3",
+     "source_class": "primary",
+     "part": "OR27-3-D1011",
+     "page": "488",
+     "page_basis": "scan_leaf",
+     "text_offset": 1299067,
+     "quote": "Round Top Mountain Signal Station, July 2, 1863—11.55 a. m. [...] The rebels are in force, and our skirmishers give way. One mile west of Round Top signal station, the woods are full of them.",
+     "witness": {
+      "name": "A. B. Jerome",
+      "role": "First Lieutenant, signal officer at the Round Top station",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "jerome",
+     "exact": true,
+     "states": {
+      "times": [
+       "11:55"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Signal message of the day from the Round Top station to Butterfield, 11.55 a. m.: the rebels are in force, our skirmishers give way, the woods a mile west are full of them. It does not name the sharpshooters, and the corps' picket line was also out in that direction, so it is read as a bound on the start, not as the detachment itself."
+    }
+   ]
+  },
+  {
+   "id": "C-009-P6",
+   "origin": "research",
+   "label": "Before 9:00: Wilcox puts the fight with the Third Maine and the Sharpshooters before his brigade's 9 a.m. line",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T09:00"
+   },
+   "approx": true,
+   "derived": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "contradicted"
+   ],
+   "inference": {
+    "step": "Wilcox writes that the brigade \"now (9 a. m.)\" took its line after the 15-20 minute fight with the Third Maine and the First New York Sharpshooters; the fight is therefore read as before 9 a. m. by his count. His sentence dates the line, not the fight.",
+    "from": [
+     "C-009-P6-c1",
+     "C-009-P6-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "No other writer puts the fight before about 11: Berdan, Birney, Hunt and the signal station of the day all place it between about 11 and noon. Wilcox's 9 a.m. stands alone."
+   },
+   "support": [
+    {
+     "id": "C-009-P6-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R537",
+     "page": "617",
+     "page_basis": "scan_leaf",
+     "text_offset": 2293478,
+     "quote": "The brigade now (9 a. m.) took its position in line of battle on the right of the division and the extreme right of the army",
+     "witness": {
+      "name": "Cadmus M. Wilcox",
+      "role": "Brigadier General, commanding a brigade of Anderson's division (10th and 11th Alabama among them)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "wilcox",
+     "exact": false,
+     "states": {
+      "times": [
+       "09:00"
+      ]
+     },
+     "note": "Wilcox, report of 17 July 1863 (15 days after): just before this sentence he describes the fight of the 10th Alabama with \"the Third Maine and the First New York Sharpshooters\"; the sentence puts the brigade into its line of battle at 9 a. m., after that fight. It does not give the hour of the fight itself."
+    },
+    {
+     "id": "C-009-P6-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R537",
+     "page": "617",
+     "page_basis": "scan_leaf",
+     "text_offset": 2292560,
+     "quote": "soon encountered a strong line of skirmishers. These were driven back upon their supports, two regiments of infantry [...] the Third Maine",
+     "witness": {
+      "name": "Cadmus M. Wilcox",
+      "role": "Brigadier General, commanding a brigade of Anderson's division (10th and 11th Alabama among them)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "wilcox",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Third Maine"
+      ]
+     },
+     "note": "Wilcox, same report: the 10th Alabama's skirmishers drove the Union line back on the Third Maine and the First New York Sharpshooters in a fight of fifteen or twenty minutes; his regiments lost 10 killed and 28 wounded (10th) and 18 wounded (11th). This is the same fight as the reconnaissance: the two Union units are named."
+    }
+   ]
+  },
+  {
+   "id": "C-009-P7",
+   "origin": "research",
+   "label": "About noon: two sharpshooters' diary entries have the reconnaissance under way or over",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T12:00",
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "derived": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "inference": {
+    "step": "Marble's diary entry headed 12 o'clock has the sharpshooters and the Third Maine advancing in skirmish line; Garrett's entry headed noon says the fight is over. Both are read as printed in 1902; the hour is the heading of each entry, which is not necessarily the hour of the events.",
+    "from": [
+     "C-009-P7-c1",
+     "C-009-P7-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Both entries show the reconnaissance already under way or finished at the noon heading, so they bound the start before noon; they do not state when it began."
+   },
+   "support": [
+    {
+     "id": "C-009-P7-c1",
+     "source": "NY-GB-1902-v3",
+     "source_class": "book",
+     "page": "1071",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads (the head of page 1071 stands before the diary extracts)",
+     "text_offset": 477921,
+     "quote": "Thursday, July 2d, 12 o'clock, m. [...] Just on my left the sharpshooters, with the Third Maine, are advancing in line of skirmishers and volley after volley is fired from both sides",
+     "witness": {
+      "name": "F. E. Marble",
+      "role": "Captain, 1st US Sharpshooters (diary entry of 2 July 1863, seen only as printed by Buchanan)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "marble",
+     "exact": false,
+     "states": {
+      "times": [
+       "12:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Diary of Captain Marble, commanding two companies on the skirmish line in front of the line, entry headed 12 o'clock, quoted by Buchanan in 1889 (printed 1902). He sees the sharpshooters and the Third Maine advancing in skirmish line on his left. The original diary was not seen; the entry is read as printed."
+    },
+    {
+     "id": "C-009-P7-c2",
+     "source": "NY-GB-1902-v3",
+     "source_class": "book",
+     "page": "1071",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads (the head of page 1071 stands before the diary extracts)",
+     "text_offset": 477368,
+     "quote": "2d July, noon. We have just come out of the fight. Part of our regiment, with the Third Maine, went out on a reconnoissance and ran on a snag",
+     "witness": {
+      "name": "F. E. Garrett",
+      "role": "Private or non-commissioned member, Company D, 1st US Sharpshooters (diary entry of 2 July 1863, seen only as printed by Buchanan)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "garrett",
+     "exact": false,
+     "states": {
+      "times": [
+       "12:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Diary of F. E. Garrett of Company D, entry headed noon, quoted by Buchanan: part of the regiment with the Third Maine went out on a reconnaissance and has come out of the fight. The original diary was not seen; the entry is read as printed. Garrett's \"noon\" is not necessarily the hour of writing."
+    }
+   ]
+  },
+  {
+   "id": "C-009-P8",
+   "origin": "research",
+   "label": "Between 11 and 12: the Third Maine advances into the wood (Maine at Gettysburg, 1898)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T11:00",
+    "to": "1863-07-02T12:00"
+   },
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "inference": {
+    "step": "The Maine commission's volume gives between 11 and 12 o'clock for the regiment's advance into the wood after crossing three-quarters of a mile of open field; the order to move came before that, so the window is read as after the order.",
+    "from": [
+     "C-009-P8-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "The window times the regiment entering the wood, after the order and the march across the field, not the order or the start; it agrees with an order about 11."
+   },
+   "support": [
+    {
+     "id": "C-009-P8-c1",
+     "source": "ME-GB-1898",
+     "source_class": "book",
+     "page": "128",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads (the head of page 128 stands before the passage)",
+     "text_offset": 347555,
+     "quote": "It was between 11 and 12 o'clock when the regiment advanced into the thick coverts of oak and chestnut",
+     "witness": {
+      "name": "Author of the chapter on the Third Maine, Maine at Gettysburg (name not read)",
+      "role": "Writer for the Maine Gettysburg commission, 1898",
+      "side": "union"
+     },
+     "written": {
+      "date": "1898",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "window",
+     "group": "me1898",
+     "exact": true,
+     "states": {
+      "times": [
+       "11:00",
+       "12:00"
+      ]
+     },
+     "note": "The Maine commission's volume of 1898 (35 years after) says that after the Third Maine crossed three-quarters of a mile of open field it was between 11 and 12 o'clock when it advanced into the wood. It says earlier that Ward ordered Lakeman out \"as the forenoon advanced\". It cites Lakeman and a statement of Lieutenant Johnson of 1888/1889 for the fight, not for this hour."
+    }
+   ]
+  }
+ ],
+ "weighing": {
+  "summary": "Berdan, who received the order, says about 11 a.m. Birney, who gave it, said about 11 in sworn testimony of 1864 but wrote 12 m. in his report of 1863; Hunt's about 12 m. is a second-hand hour from a man who reached the ground about 2. A signal station reported the enemy's skirmishers advancing at 11.45 and the rebels in force, our skirmishers giving way, at 11.55; two sharpshooters' diary entries headed noon have the fight on or over. Noon as the start sits badly with all of that. The start is taken to mean the order to the detachment: about 11:00, weighted, documented by Berdan's own report. No source states the minute the men stepped off; Wilcox's 9 a.m. is one stray hour.",
+  "who": "Berdan commanded the detachment and received the order; Birney gave it (on Sickles's leave); Hunt was at headquarters and reached the ground about 2 p. m., so he relays. Jerome was the signal officer on Round Top and saw the skirmishing. Wilcox commanded the Alabama brigade that met the detachment. Marble and Garrett were sharpshooters; Buchanan, who printed their diary entries in 1889, was a lieutenant of the same regiment. The Maine commission's volume (1898) and the New York commission's narrative (1900) are later writers who name no witness for their hours.",
+  "when": "Berdan wrote 27 days after (rank 5), Birney's report 36 days after and his testimony eight months after, Hunt 87 days after, Wilcox 15 days after: all reports of the best class. The signal messages are of the day (rank 6). The diary entries are of the day but are seen only as printed 26 to 39 years later. Stevens (1892), the Maine volume (1898) and the New York narrative (1900) are later. The better class of writing than Berdan's report is only the signal messages, and they do not name the detachment; they do not contradict about 11 and they are why noon cannot be the start.",
+  "where": "Berdan was with the detachment and got the order; Birney was on the line and sent it; Hunt was elsewhere at the time. Jerome watched from the left end of the line, a mile from the woods. Wilcox was in his own line to the west.",
+  "how_knew": "Berdan and Birney knew by the order itself (given and received). Hunt names no source. Jerome saw the skirmishing. The diarists were in it. The two commission writers name no source.",
+  "clock": "All the Union writers use the army's clock (signal messages carry their own stamped times). Wilcox's is the Confederate clock; the reported 20-minute difference between the armies is not applied and could not turn 9 into 11 in any case. \"At 12 m.\" is a round figure that may stand for the quarter hour around it; \"about 11\" is read as 11:00 plus or minus 15 minutes, which is why 11:15 is not excluded but is not stated by anyone either.",
+  "independence": "11:00 rests on two groups: Berdan's report and Birney's testimony (two men, one gave the order and one took it; neither copies the other), so no flag. Noon rests on Birney's report and Hunt (who did not see it); Stevens is counted with Birney. Birney's two accounts contradict each other, and the later one agrees with Berdan. The signal messages are one line. Wilcox's 9 a.m. is one man. The Maine and New York volumes of 1898 and 1900 are later writers whose own sources are not named."
+ },
+ "source_panel_text": "About 11:00 on Jul 2: Colonel Berdan's own report has the order about 11 a.m., and Birney's sworn account of 1864 puts his request at about 11. Birney's earlier report and Hunt's say noon, but a signal station reported skirmishing at 11:45 and 11:55. 11:15 has no source. Seven other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "11:15 does not hold: no report, diary or book gives it; the plan's timeline note ties it to a terse web timeline it calls weak. It lies inside the quarter hour of Berdan's \"about 11\" but is stated by nobody, so it stays selectable and unsourced."
+  },
+  "first_delegated": {
+   "holds": "yes",
+   "note": "11:00 holds, and is now also supported by Birney's sworn account of 1864 and bounded by the signal messages of the day. The first pass called noon documented from Birney and Hunt; as claims they are, but Birney's own later account moves to 11, Hunt did not see it sent, and the 11.55 message is hard to square with a noon start."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T2-087",
+   "must_change": true,
+   "note": "Row window \"Jul 2 ~11:00-11:15\", tier documented, text \"EPP gives 11:15; Berdan's report about 11:00; Birney's report about noon\". Under this resolution the default is about 11:00 (Berdan; Birney 1864); 11:15 has no source and Birney's two accounts give noon and about 11. The window's upper bound, the 11:15 attribution and the omission of Birney's testimony must follow."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-091",
+   "must_change": false,
+   "note": "Firefight about noon and after in Pitzer's Woods (20-25 minutes, Wilcox): consistent with the signal messages of 11.45 and 11.55; no change."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-109",
+   "must_change": false,
+   "note": "Berdan reports to Birney/Sickles about 14:00: Berdan's \"about 2 o'clock\"; unchanged."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "us-3c-1d",
+   "must_change": false,
+   "note": "The arrivals row carries C-009 as a topic cell (key position \"Jul 2 11:00 Berdan to Pitzer's Woods\"); its arrival gate is the printed clock of Jul 1 20:00 and does not read this value."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-009)",
+   "must_change": false,
+   "note": "default_scenario_id C-009-DEFAULT, label \"11:00 (Berdan own report)\", tier documented: the value and tier stand; the new values (11:30, 11:45-11:55, before 9:00, about noon, 11-12) are added as selectable scenarios and the label may add Birney's testimony."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-009)",
+   "must_change": false,
+   "note": "First delegated default: same value and tier; the scenarios of the research are added."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/arrivals_data.py line 160 and tools/bt/conflicts_structured_data.py line 14",
+   "must_change": false,
+   "note": "They carry the topic cell and the PDF values; not changed by this resolution."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-009 row)",
+   "must_change": true,
+   "note": "The row says Birney and Hunt noon documented and 11:15 only a timeline site; the reconciliation (Birney's testimony of 1864 says about 11; signal messages of 11.45 and 11.55) is recorded by the integration step."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0105.md",
+   "must_change": true,
+   "note": "The entry says C-009 default 11:15 has no primary source (Berdan 11:00, Birney and Hunt 12:00); it should add Birney's testimony of 1864 and the signal messages."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-009",
+   "must_change": false,
+   "note": "Log line stays PENDING OWNER; this resolution is a delegated default."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1, OR27-2",
+   "query": "reports of Briscoe (Birney's staff officer who went with the reconnaissance), Forney, Sanders and Herbert (Alabama regiments) and any other report giving a clock reading for the order or start of the detachment: none exists in the Official Records (Briscoe appears only in other men's reports)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "all local non-lead texts of the ledger",
+   "query": "(Berdan|sharpshooters|Third Maine).{0,300}(half past (ten|eleven)|10.30|11.30|ten o'clock) in both orders: only the New York narrative of 1900 (about 11:30) and the Maine volume of 1898 (between 11 and 12)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "JCCW-1865-C012 (Joint Committee volume)",
+   "query": "Berdan, sharpshooters and reconnoissance: Birney (p. 366) and Hunt (p. 449) only; Sickles's and Meade's testimony give no hour for the detachment",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Stevens 1892 (acquired), Buchanan 1889 in NY-GB-1902-v3",
+   "query": "hours near the reconnaissance: Stevens says about noon with no source; Buchanan prints the reports and two diary entries and says the exact time is of no consequence",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Bachelder papers, Berdan or Birney letters, original diaries of Marble and Garrett, the signal station log",
+   "query": "not read: not local and not among the reachable hosts",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report, letter or diary of 1863 that gives the hour the detachment moved off (Briscoe, Lakeman's papers, Ward's staff, the original diaries of Marble or Garrett, the signal station log) would replace Berdan's order hour as the start. Evidence that the signal messages of 11.45 and 11.55 describe another skirmish, or an original source for Birney's 12 m., would move the default toward noon."
+}

@@ -1,0 +1,957 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-027",
+ "topic": "Buford’s destination",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-027",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Buford’s destination | Taneytown; Westminster; Emmitsburg | Westminster, marked unresolved | others",
+  "values": [
+   "Taneytown",
+   "Westminster",
+   "Emmitsburg"
+  ],
+  "recommended_default": "Westminster, marked unresolved",
+  "selectable_alternatives": [
+   "others"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-027-DEFAULT",
+  "default_label": "Jul 3: Westminster (documented); Jul 2 night: place unresolved, marked",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-027-S1",
+   "C-027-S2",
+   "C-027-S3",
+   "C-027-S4",
+   "C-027-DEFAULT"
+  ]
+ },
+ "class": "settled",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Buford (27 Aug 1863, OR 27/1 p. 928; the second scan of the volume prints the date 'July 2'), Devin (6 Aug, p. 939) and Calef (27 Jul, p. 1032) put Gamble's and Devin's brigades at Taneytown on the night of 2 July and at Westminster on 3 July; Butterfield's order of 2 July (OR 27/3 p. 1086) and Pleasonton (31 Aug, p. 914) give Westminster, to guard the trains, as the destination. Merritt (18 Jul, p. 943) marched the Reserve Brigade to Emmitsburg on 2 July."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-027-P7"
+  ],
+  "label": "Taneytown on the night of 2 July, Westminster on 3 July (the Reserve Brigade: Emmitsburg)",
+  "note": "Three questions: where the division spent the night of 2 July (Taneytown), where it was sent (Westminster, to guard the trains, reached on 3 July), and where its Reserve Brigade went (Emmitsburg, Merritt). Each source states one of these for its own unit and day."
+ },
+ "positions": [
+  {
+   "id": "C-027-P1",
+   "origin": "pdf_value",
+   "pdf_label": "Taneytown",
+   "scenario_ids": [
+    "C-027-S1"
+   ],
+   "source_keys": [],
+   "label": "Taneytown: Gamble's and Devin's brigades bivouacked there on the night of 2 July (Buford, Devin, Calef)",
+   "kind": "place",
+   "value": {
+    "text": "Taneytown"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-027-P1-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R337",
+     "page": "928",
+     "page_basis": "scan_leaf",
+     "text_offset": 3262978,
+     "quote": "it moved to Taneytown, and bivouacked [...] The next day, July 3, it moved to Westminster, to guard the trains of the army at that point",
+     "witness": {
+      "name": "John Buford",
+      "role": "Brigadier General, commanding the First Cavalry Division (Gamble's and Devin's brigades and the Reserve Brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-27",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "buford",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-03"
+      ],
+      "phrases": [
+       "Taneytown",
+       "Westminster"
+      ]
+     },
+     "note": "Buford's report of 27 Aug 1863 (the date label before the Taneytown sentence is garbled in the first scan of the volume, here cited; the second scan, read separately, prints 'July 2, the division became engaged with the enemy's sharpshooters ... relieved by General Sickles' corps'): relieved by Sickles' corps the division 'moved to Taneytown, and bivouacked for the night'; 'The next day, July 3, it moved to Westminster, to guard the trains of the army at that point'."
+    },
+    {
+     "id": "C-027-P1-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R339",
+     "page": "939",
+     "page_basis": "scan_leaf",
+     "text_offset": 3303891,
+     "quote": "The next morning, July 2, while I was engaged reconnoitering [...] we were ordered to march to Taneytown, where we bivouacked, and marched the next morning, July 3, to Westminster",
+     "witness": {
+      "name": "Thomas C. Devin",
+      "role": "Colonel, commanding Second Brigade, First Cavalry Division",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-06",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "devin",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02",
+       "07-03"
+      ],
+      "phrases": [
+       "Taneytown",
+       "Westminster"
+      ]
+     },
+     "note": "Devin's report of 6 Aug 1863 (Second Brigade): after the Third Corps came into position 'we were ordered to march to Taneytown, where we bivouacked, and marched the next morning, July 3, to Westminster'."
+    },
+    {
+     "id": "C-027-P1-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R374",
+     "page": "1032",
+     "page_basis": "scan_leaf",
+     "text_offset": 3640752,
+     "quote": "continuation on the morning of the 2d. We had hardly got into position when an order came from General Buford for me to follow with my battery the First Brigade, of his division, and march with it to Taneytown, Md. , for supplies and forage. Reached Taneytown about 4 p. m.",
+     "witness": {
+      "name": "John H. Calef",
+      "role": "Lieutenant, commanding Battery A, Second U. S. Artillery, with Gamble's brigade",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-27",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "calef",
+     "exact": true,
+     "states": {
+      "times": [
+       "16:00"
+      ],
+      "phrases": [
+       "Taneytown"
+      ]
+     },
+     "note": "Calef's report (27 Jul 1863): on the morning of the 2d an order came from Buford to follow the First Brigade to Taneytown 'for supplies and forage'; 'Reached Taneytown about 4 p. m.'; July 3 marched from Taneytown to Westminster."
+    },
+    {
+     "id": "C-027-P1-c4",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R007",
+     "page": "145",
+     "page_basis": "scan_leaf",
+     "text_offset": 499796,
+     "quote": "July 2. — The Second, Fifth, and Sixth Corps [...] marched from Gettysburg to Taneytown",
+     "witness": {
+      "name": "Staff of the Army of the Potomac (Itinerary of the Army of the Potomac, compiled 31 Jul 1863)",
+      "role": "Compiled day-by-day itinerary of the army, from the reports to headquarters",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "reference_table"
+     },
+     "vantage": "not_stated",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "itinerary",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "Taneytown"
+      ]
+     },
+     "note": "The Itinerary of the Army of the Potomac (headquarters, compiled by 31 Jul 1863): a compilation from unit reports, counted as one line with them, not as an independent witness."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "True for the night of 2 July and part of the default: the division's brigades went to Taneytown first and on to Westminster the next day."
+   }
+  },
+  {
+   "id": "C-027-P2",
+   "origin": "pdf_value",
+   "pdf_label": "Westminster",
+   "scenario_ids": [
+    "C-027-S2"
+   ],
+   "source_keys": [],
+   "label": "Westminster: the destination ordered on 2 July and reached on 3 July (Pleasonton, Butterfield, Buford, Devin)",
+   "kind": "place",
+   "value": {
+    "text": "Westminster"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-027-P2-c1",
+     "source": "OR27-3",
+     "source_class": "primary",
+     "part": "OR27-3-D2100",
+     "page": "1086",
+     "page_basis": "scan_leaf",
+     "text_offset": 2978869,
+     "quote": "July 2, 1863. Commanding Officer Cavalry Corps: The major-general commanding directs that General Buford collect all the trains in the vicinity of Taneytown and take them down to Westminster",
+     "witness": {
+      "name": "Daniel Butterfield",
+      "role": "Major General, Chief of Staff of the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "staff_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "butterfield",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "Westminster",
+       "Taneytown"
+      ]
+     },
+     "note": "Butterfield for Meade, 2 July: Buford is to collect the trains near Taneytown and take them down to Westminster. A second note of 12.50 p.m. refers to 'the permission to Buford to go to Westminster' (p. 490)."
+    },
+    {
+     "id": "C-027-P2-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R336",
+     "page": "914",
+     "page_basis": "scan_leaf",
+     "text_offset": 3221463,
+     "quote": "On July 2, Buford's division held a position on our left at Gettysburg until relieved by the Third Corps, when it was directed to take post at Westminster, to assist in guarding the army trains at that point",
+     "witness": {
+      "name": "Alfred Pleasonton",
+      "role": "Major General, commanding the Cavalry Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "pleasonton",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "Westminster"
+      ]
+     },
+     "note": "Pleasonton's report of the Cavalry Corps (31 Aug 1863): Buford's division, relieved by the Third Corps on 2 July, 'was directed to take post at Westminster, to assist in guarding the army trains'."
+    },
+    {
+     "id": "C-027-P2-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R337",
+     "page": "928",
+     "page_basis": "scan_leaf",
+     "text_offset": 3262978,
+     "quote": "it moved to Taneytown, and bivouacked [...] The next day, July 3, it moved to Westminster, to guard the trains of the army at that point",
+     "witness": {
+      "name": "John Buford",
+      "role": "Brigadier General, commanding the First Cavalry Division (Gamble's and Devin's brigades and the Reserve Brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-27",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "buford",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-03"
+      ],
+      "phrases": [
+       "Taneytown",
+       "Westminster"
+      ]
+     },
+     "note": "Buford's report of 27 Aug 1863 (the date label before the Taneytown sentence is garbled in the first scan of the volume, here cited; the second scan, read separately, prints 'July 2, the division became engaged with the enemy's sharpshooters ... relieved by General Sickles' corps'): relieved by Sickles' corps the division 'moved to Taneytown, and bivouacked for the night'; 'The next day, July 3, it moved to Westminster, to guard the trains of the army at that point'."
+    },
+    {
+     "id": "C-027-P2-c4",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R339",
+     "page": "939",
+     "page_basis": "scan_leaf",
+     "text_offset": 3303891,
+     "quote": "The next morning, July 2, while I was engaged reconnoitering [...] we were ordered to march to Taneytown, where we bivouacked, and marched the next morning, July 3, to Westminster",
+     "witness": {
+      "name": "Thomas C. Devin",
+      "role": "Colonel, commanding Second Brigade, First Cavalry Division",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-06",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "devin",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02",
+       "07-03"
+      ],
+      "phrases": [
+       "Taneytown",
+       "Westminster"
+      ]
+     },
+     "note": "Devin's report of 6 Aug 1863 (Second Brigade): after the Third Corps came into position 'we were ordered to march to Taneytown, where we bivouacked, and marched the next morning, July 3, to Westminster'."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "True as the destination and the place of 3 July, and part of the default; the brigades did not go there on 2 July but to Taneytown, which was the first stage."
+   }
+  },
+  {
+   "id": "C-027-P3",
+   "origin": "pdf_value",
+   "pdf_label": "Emmitsburg",
+   "scenario_ids": [
+    "C-027-S3"
+   ],
+   "source_keys": [],
+   "label": "Emmitsburg: Merritt's Reserve Brigade marched there on 2 July (Merritt, Pleasonton)",
+   "kind": "place",
+   "value": {
+    "text": "Emmitsburg"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-027-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R340",
+     "page": "943",
+     "page_basis": "scan_leaf",
+     "text_offset": 3318884,
+     "quote": "On the 2d instant, we marched to Emmitsburg, where Lieutenant Thompson was killed or captured",
+     "witness": {
+      "name": "Wesley Merritt",
+      "role": "Brigadier General, commanding the Cavalry Reserve Brigade",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-18",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "merritt",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "Emmitsburg"
+      ]
+     },
+     "note": "Merritt's report of 18 Jul 1863 (Reserve Brigade, 'Near Petersville, Md.'): from Mechanicstown 'On the 2d instant, we marched to Emmitsburg'; on the 3d he marched toward the field 'in compliance with orders received from corps headquarters'."
+    },
+    {
+     "id": "C-027-P3-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R007",
+     "page": "145",
+     "page_basis": "scan_leaf",
+     "text_offset": 500212,
+     "quote": "Merritt's reserve brigade from Mechanicstown to Emmitsburg. July 3",
+     "witness": {
+      "name": "Staff of the Army of the Potomac (Itinerary of the Army of the Potomac, compiled 31 Jul 1863)",
+      "role": "Compiled day-by-day itinerary of the army, from the reports to headquarters",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "reference_table"
+     },
+     "vantage": "not_stated",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "itinerary",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-03"
+      ],
+      "phrases": [
+       "Emmitsburg"
+      ]
+     },
+     "note": "The Itinerary of the Army of the Potomac (headquarters, compiled by 31 Jul 1863): a compilation from unit reports, counted as one line with them, not as an independent witness."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "place_of_observation",
+    "text": "True of the Reserve Brigade, one of Buford's three brigades, which marched from Mechanicstown to Emmitsburg on 2 July; Gamble's and Devin's brigades went to Taneytown."
+   }
+  },
+  {
+   "id": "C-027-P4",
+   "origin": "pdf_default",
+   "pdf_label": "Westminster, marked unresolved",
+   "scenario_ids": [
+    "C-027-S4"
+   ],
+   "source_keys": [],
+   "label": "Westminster, marked unresolved: the plan's recommended default",
+   "kind": "place",
+   "value": {
+    "text": "Westminster"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-027-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R337",
+     "page": "928",
+     "page_basis": "scan_leaf",
+     "text_offset": 3262978,
+     "quote": "it moved to Taneytown, and bivouacked [...] The next day, July 3, it moved to Westminster, to guard the trains of the army at that point",
+     "witness": {
+      "name": "John Buford",
+      "role": "Brigadier General, commanding the First Cavalry Division (Gamble's and Devin's brigades and the Reserve Brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-27",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "buford",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-03"
+      ],
+      "phrases": [
+       "Taneytown",
+       "Westminster"
+      ]
+     },
+     "note": "Buford's report of 27 Aug 1863 (the date label before the Taneytown sentence is garbled in the first scan of the volume, here cited; the second scan, read separately, prints 'July 2, the division became engaged with the enemy's sharpshooters ... relieved by General Sickles' corps'): relieved by Sickles' corps the division 'moved to Taneytown, and bivouacked for the night'; 'The next day, July 3, it moved to Westminster, to guard the trains of the army at that point'."
+    },
+    {
+     "id": "C-027-P4-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R336",
+     "page": "914",
+     "page_basis": "scan_leaf",
+     "text_offset": 3221463,
+     "quote": "On July 2, Buford's division held a position on our left at Gettysburg until relieved by the Third Corps, when it was directed to take post at Westminster, to assist in guarding the army trains at that point",
+     "witness": {
+      "name": "Alfred Pleasonton",
+      "role": "Major General, commanding the Cavalry Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "pleasonton",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "Westminster"
+      ]
+     },
+     "note": "Westminster as the destination."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Westminster is where the division was sent and reached on 3 July; the night of 2 July is Taneytown, so 'unresolved' is no longer needed."
+   }
+  },
+  {
+   "id": "C-027-P5",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-027-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "Jul 3: Westminster; Jul 2 night: place unresolved, marked: the first delegated default",
+   "kind": "category",
+   "value": {
+    "text": "Jul 3: Westminster; Jul 2 night: place unresolved"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [
+    "contradicted",
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-027-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R337",
+     "page": "928",
+     "page_basis": "scan_leaf",
+     "text_offset": 3263040,
+     "quote": "The next day, July 3, it moved to Westminster, to guard the trains of the army at that point",
+     "witness": {
+      "name": "John Buford",
+      "role": "Brigadier General, commanding the First Cavalry Division (Gamble's and Devin's brigades and the Reserve Brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-27",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "buford",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-03"
+      ],
+      "phrases": [
+       "Westminster"
+      ]
+     },
+     "note": "Buford: July 3 to Westminster."
+    }
+   ],
+   "inference": {
+    "step": "The first pass read Buford's report in the first scan, where the date before the Taneytown sentence is garbled, kept 3 July for Westminster and left the night of 2 July unresolved. The second scan reads 'July 2', and Devin and Calef state Taneytown for that night.",
+    "from": [
+     "C-027-P5-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "The night of 2 July is stated: Buford (second scan: 'July 2'), Devin and Calef put Gamble's and Devin's brigades at Taneytown. Only the Jul 3 half stands as written."
+   }
+  },
+  {
+   "id": "C-027-P6",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Westminster on the morning of 2 July: Colonel Patterson (102d Pennsylvania) reports to 'General Buford' there",
+   "kind": "place",
+   "value": {
+    "text": "Westminster"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [
+    "single_source",
+    "contradicted",
+    "weak"
+   ],
+   "support": [
+    {
+     "id": "C-027-P6-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R236",
+     "page": "687",
+     "page_basis": "scan_leaf",
+     "text_offset": 2404751,
+     "quote": "Arrived at the latter place on the morning of the 2d. Reported to General Buford, and received instructions to picket roads leading to Gettysburg, Emmitsburg, and Taneytown",
+     "witness": {
+      "name": "John W. Patterson",
+      "role": "Colonel, 102d Pennsylvania Infantry (guarding a supply train)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "patterson",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "Taneytown"
+      ]
+     },
+     "note": "Patterson (102d Pennsylvania, guarding a supply train; report of 4 Aug 1863): reached Westminster 'on the morning of the 2d' and reported there to 'General Buford'. He does not say which Buford; the division was at Gettysburg on the morning of 2 July."
+    }
+   ],
+   "inference": {
+    "step": "Patterson places a General Buford at Westminster on the morning of 2 July; read alone it would put Buford there a day early. The inference is only that Patterson's date or the officer is wrong or loose.",
+    "from": [
+     "C-027-P6-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "Buford, Devin and Calef put the division at Gettysburg on the morning of 2 July and at Taneytown that night; Meade's note of 12.50 p.m. speaks of giving Buford leave to go to Westminster, not of his being there."
+   }
+  },
+  {
+   "id": "C-027-P7",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Taneytown on the night of 2 July, then Westminster on 3 July (Gamble's and Devin's brigades)",
+   "kind": "category",
+   "value": {
+    "text": "Taneytown (night of 2 July), then Westminster (3 July)"
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-027-P7-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R337",
+     "page": "928",
+     "page_basis": "scan_leaf",
+     "text_offset": 3262978,
+     "quote": "it moved to Taneytown, and bivouacked [...] The next day, July 3, it moved to Westminster, to guard the trains of the army at that point",
+     "witness": {
+      "name": "John Buford",
+      "role": "Brigadier General, commanding the First Cavalry Division (Gamble's and Devin's brigades and the Reserve Brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-27",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "buford",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-03"
+      ],
+      "phrases": [
+       "Taneytown",
+       "Westminster"
+      ]
+     },
+     "note": "Buford's report of 27 Aug 1863 (the date label before the Taneytown sentence is garbled in the first scan of the volume, here cited; the second scan, read separately, prints 'July 2, the division became engaged with the enemy's sharpshooters ... relieved by General Sickles' corps'): relieved by Sickles' corps the division 'moved to Taneytown, and bivouacked for the night'; 'The next day, July 3, it moved to Westminster, to guard the trains of the army at that point'."
+    },
+    {
+     "id": "C-027-P7-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R339",
+     "page": "939",
+     "page_basis": "scan_leaf",
+     "text_offset": 3303891,
+     "quote": "The next morning, July 2, while I was engaged reconnoitering [...] we were ordered to march to Taneytown, where we bivouacked, and marched the next morning, July 3, to Westminster",
+     "witness": {
+      "name": "Thomas C. Devin",
+      "role": "Colonel, commanding Second Brigade, First Cavalry Division",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-06",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "devin",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02",
+       "07-03"
+      ],
+      "phrases": [
+       "Taneytown",
+       "Westminster"
+      ]
+     },
+     "note": "Devin's report of 6 Aug 1863 (Second Brigade): after the Third Corps came into position 'we were ordered to march to Taneytown, where we bivouacked, and marched the next morning, July 3, to Westminster'."
+    },
+    {
+     "id": "C-027-P7-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R374",
+     "page": "1032",
+     "page_basis": "scan_leaf",
+     "text_offset": 3640752,
+     "quote": "continuation on the morning of the 2d. We had hardly got into position when an order came from General Buford for me to follow with my battery the First Brigade, of his division, and march with it to Taneytown, Md. , for supplies and forage. Reached Taneytown about 4 p. m.",
+     "witness": {
+      "name": "John H. Calef",
+      "role": "Lieutenant, commanding Battery A, Second U. S. Artillery, with Gamble's brigade",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-27",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "calef",
+     "exact": true,
+     "states": {
+      "times": [
+       "16:00"
+      ],
+      "phrases": [
+       "Taneytown"
+      ]
+     },
+     "note": "Calef's report (27 Jul 1863): on the morning of the 2d an order came from Buford to follow the First Brigade to Taneytown 'for supplies and forage'; 'Reached Taneytown about 4 p. m.'; July 3 marched from Taneytown to Westminster."
+    },
+    {
+     "id": "C-027-P7-c4",
+     "source": "OR27-3",
+     "source_class": "primary",
+     "part": "OR27-3-D2100",
+     "page": "1086",
+     "page_basis": "scan_leaf",
+     "text_offset": 2978869,
+     "quote": "July 2, 1863. Commanding Officer Cavalry Corps: The major-general commanding directs that General Buford collect all the trains in the vicinity of Taneytown and take them down to Westminster",
+     "witness": {
+      "name": "Daniel Butterfield",
+      "role": "Major General, Chief of Staff of the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "staff_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "butterfield",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "Taneytown",
+       "Westminster"
+      ]
+     },
+     "note": "The order that explains the two stages: collect the trains at Taneytown and take them down to Westminster."
+    }
+   ]
+  }
+ ],
+ "weighing": {
+  "summary": "The sources answer three questions. Where did Gamble's and Devin's brigades spend the night of 2 July? At Taneytown: Buford, Devin and Calef each say so for their own unit (Calef 'about 4 p. m.'). Where was the division sent? To Westminster, to guard the trains: Butterfield's order of 2 July and Pleasonton's report say so, and Buford, Devin and Calef say the brigades reached Westminster on 3 July. Where did Merritt's Reserve Brigade go on 2 July? To Emmitsburg, by Merritt's own report. The first pass left the night of 2 July unresolved because the date label in the first scan of Buford's report is garbled; the second scan reads 'July 2', and Devin and Calef need no scan. One source disagrees: Colonel Patterson (a train guard) says he reported to 'General Buford' at Westminster on the morning of 2 July; the division was at Gettysburg until the Third Corps relieved it, so that date is wrong or loose.",
+  "who": "Buford commanded the division; Devin commanded the Second Brigade and Calef a battery of the First; Merritt commanded the Reserve Brigade; Pleasonton commanded the Cavalry Corps; Butterfield was Meade's chief of staff and wrote the order; Patterson commanded an infantry regiment guarding a train; Gamble's own report gives no place for 2 July.",
+  "when": "Calef 27 Jul 1863, Merritt 18 Jul, Devin 6 Aug, Buford 27 Aug, Pleasonton 31 Aug, Patterson 4 Aug; Butterfield's order is of the day. All are within two months. The order of the day outranks the reports on what was ordered; each report outranks the others on its own unit.",
+  "where": "Buford, Devin and Calef were with their units; Merritt at Emmitsburg; Pleasonton and Butterfield at corps and army headquarters; Patterson at Westminster.",
+  "how_knew": "Each unit commander states where his own command went; Butterfield wrote the order; Pleasonton directed the movement; Patterson speaks of a meeting at Westminster.",
+  "clock": "Calef's 'about 4 p. m.' at Taneytown is a Union clock reading; no other hour is used. The 20-minute clock difference is not applied and does not touch the point.",
+  "independence": "Buford, Devin, Calef and Merritt are separate units and separate lines of knowledge; Pleasonton and Butterfield are orders; the Itinerary is a compilation from the reports, counted with them."
+ },
+ "source_panel_text": "On Jul 2 Buford's brigades (Gamble, Devin) went to Taneytown for the night (Buford, Devin, Calef) and on Jul 3 to Westminster to guard the trains (ordered Jul 2); Merritt's Reserve Brigade went to Emmitsburg. The three places answer different questions. One train guard has Buford at Westminster on the morning of Jul 2; four other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "'Westminster' holds for 3 July and as the destination ordered on 2 July; 'marked unresolved' is no longer needed for the night of 2 July, which is Taneytown."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "Jul 3 Westminster holds; 'Jul 2 night: place unresolved' does not: Taneytown is stated by Buford (second scan), Devin and Calef, so the night is resolved."
+  }
+ },
+ "failed_searches": [
+  {
+   "where": "OR27-1 (Gamble, Devin, Calef, Kilpatrick, Gregg, Buford, Pleasonton, Merritt)",
+   "query": "Gamble's report for the night of 2 July (Taneytown, Westminster, Emmitsburg, 'bivouac', 'relieved'): Gamble gives no place; Kilpatrick's and Gregg's reports concern other divisions",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-3 (dispatches of 1 to 3 July)",
+   "query": "Meade's or Pleasonton's order sending Buford to Taneytown (not only to Westminster) or naming Emmitsburg for the Reserve Brigade on 2 July: only Butterfield's 12.50 p.m. note and the order to take the trains from Taneytown down to Westminster found; Pleasonton's order of 1 July to Merritt concerns Emmitsburg on 1 July",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "ledger texts (state volumes, Park Service pages, books)",
+   "query": "Buford at Taneytown, Westminster or Emmitsburg on 2 July with an hour: the later histories repeat the Official Records; none adds an hour for the move; the page image of the first scan was not viewed because the second scan reads the date",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "Gamble's or Buford's own order of 2 July naming the destination with its hour, or a journal of Gamble's brigade for the night of 2 July, would settle which hour the brigades left Gettysburg and whether any part of them stopped elsewhere.",
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-027 row)",
+   "must_change": true,
+   "note": "The first delegated row (Jul 3 Westminster; Jul 2 night unresolved, documented) is superseded: Taneytown for the night of 2 July is stated, so the default becomes Taneytown (night of 2 July) then Westminster (3 July)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL04-02 row)",
+   "must_change": true,
+   "note": "Carries the night at Taneytown beside the default 'unresolved' (T1-217); this resolution makes Taneytown the default for that night."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-027",
+   "must_change": true,
+   "note": "Decision-log line names the plan's default 'Westminster, marked unresolved' (PENDING OWNER); recorded by the integration step."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-217",
+   "must_change": true,
+   "note": "Seed row 'Jul 1 NIGHT' (open gap: where the division spends the night and when it is relieved); the night of 1 July is Buford's 'left of our position'; the default for the move on 2 July is Taneytown that night, Westminster on 3 July. Row not edited here."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "us-cav-1d",
+   "must_change": true,
+   "note": "Cavalry Corps, 1st Division: the row carries C-027 as a topic_other_cell link ('Jul 2: after noon at Taneytown / Westminster / Emmitsburg (sources conflict)') in night_positions; the cell becomes 'Taneytown on the night of 2 July, Westminster on 3 July; the Reserve Brigade at Emmitsburg'. The arrival gate (30 Jun 11:00) is unaffected."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-040",
+   "must_change": false,
+   "note": "Seed row 'Jul 3 morning': Buford 'sent to guard trains: Emmitsburg, Taneytown or Westminster (sources differ on place and day)': the division was at Westminster on 3 July (Buford, Devin, Calef); the Reserve Brigade was at Emmitsburg on 2 July and marched toward the field on 3 July. Row not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-092",
+   "must_change": false,
+   "note": "Seed row 'Jul 2 about noon' (Buford withdrawn, relieved by Sickles' corps): consistent with Butterfield's 12.50 p.m. notes; the move is to Taneytown that day, Westminster the next."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-027)",
+   "must_change": true,
+   "note": "default_scenario_id C-027-DEFAULT 'Jul 3: Westminster (documented); Jul 2 night: place unresolved, marked' becomes Taneytown (night of 2 July) then Westminster (3 July); the integration step edits it."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/arrivals_data.py line 228 (C-027 topic_other_cell note)",
+   "must_change": true,
+   "note": "The note ('Jul 2: after noon at Taneytown / Westminster / Emmitsburg (sources conflict)') must follow the new default."
+  }
+ ]
+}

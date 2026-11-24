@@ -1,0 +1,1140 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-025",
+ "topic": "Geary back to Culp’s Hill",
+ "pdf_row": {
+  "page": 62,
+  "text": "Geary back to Culp’s Hill | overnight; 23:00; 04:00 | window 02:00-04:00 | each",
+  "values": [
+   "overnight",
+   "23:00",
+   "04:00"
+  ],
+  "recommended_default": "window 02:00-04:00",
+  "selectable_alternatives": [
+   "each"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-025-DEFAULT",
+  "default_label": "night Jul 2-3, evening to about 01:30 (OR returns)",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-025-S1",
+   "C-025-S2",
+   "C-025-S3",
+   "C-025-S4",
+   "C-025-S5",
+   "C-025-DEFAULT"
+  ]
+ },
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-025",
+ "event_date": "1863-07-02",
+ "positions": [
+  {
+   "id": "C-025-P1",
+   "origin": "pdf_value",
+   "pdf_label": "overnight",
+   "scenario_ids": [
+    "C-025-S1"
+   ],
+   "label": "Overnight: Geary's division returns during the night of Jul 2-3, no hour",
+   "kind": "period",
+   "value": {
+    "text": "during the night",
+    "date": "1863-07-02",
+    "part_of_day": "night"
+   },
+   "approx": false,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-025-P1-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "117",
+     "page_basis": "scan_leaf",
+     "text_offset": 395163,
+     "quote": "On the morning of the 3d, General Geary, having returned during the night, attacked at early dawn the enemy",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General, commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "having returned during the night"
+      ]
+     },
+     "note": "Slocum repeats the same sentence on page 764 of his report, so it is one line of knowledge, Slocum's. The day is in the sentence only as 'the 3d'."
+    },
+    {
+     "id": "C-025-P1-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R302",
+     "page": "847",
+     "page_basis": "scan_leaf",
+     "text_offset": 2983348,
+     "quote": "fired on in the woods on Thursday night",
+     "witness": {
+      "name": "Thomas L. Kane",
+      "role": "Brigadier General, commanding the Second Brigade, Second Division, Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "kane",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Thursday night"
+      ]
+     },
+     "note": "From the list of missing: those missing since the brigade was fired on in the woods on Thursday night (2 Jul)."
+    },
+    {
+     "id": "C-025-P1-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R271",
+     "page": "761",
+     "page_basis": "scan_leaf",
+     "text_offset": 2659259,
+     "quote": "ordered back to his original position. It was nearly midnight before this movement was fully completed",
+     "witness": {
+      "name": "Henry W. Slocum",
+      "role": "Major General, commanding the Twelfth Corps and the right wing",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "slocum",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "nearly midnight"
+      ]
+     },
+     "note": "'This movement' is the return of the First Division and of Geary's two brigades together; the report is of August 1863 (the day is blank in the print, the first dateline reads August 33). The hour of the last brigade in line is given by Geary (1 a. m.) and Greene (1.30 a. m.)."
+    },
+    {
+     "id": "C-025-P1-c4",
+     "source": "NPS-HB9-1954",
+     "source_class": "official",
+     "part": null,
+     "page": "25",
+     "page_basis": "pdf_marker",
+     "text_offset": 33218,
+     "quote": "previous evening to help defend Sickles' position at the Peach Orchard, were now countermarching, under cover of darkness, to reoccupy their ground",
+     "witness": {
+      "name": "Frederick Tilberg",
+      "role": "Park Service historian, handbook of 1954",
+      "side": "institution"
+     },
+     "written": {
+      "date": "1954",
+      "kind": "institutional"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "nps-hb9",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "under cover of darkness"
+      ]
+     },
+     "note": "A Park Service handbook (the plan's 'overnight'); it follows the reports and names no hour."
+    }
+   ],
+   "inference": {
+    "step": "Meade and Slocum say Geary returned during the night and attacked at early dawn on the 3d; Kane has his brigade fired on in the woods on Thursday night (2 Jul): the night is that of 2 to 3 Jul.",
+    "from": [
+     "C-025-P1-c1",
+     "C-025-P1-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "rounding",
+    "text": "The same night, with no hour. The reports give 9 p. m. for the order to Kane's brigade and 1 a. m. and 1.30 a. m. for the First Brigade, and the default keeps those."
+   }
+  },
+  {
+   "id": "C-025-P2",
+   "origin": "pdf_value",
+   "pdf_label": "23:00",
+   "scenario_ids": [
+    "C-025-S2"
+   ],
+   "label": "23:00: the return (one timeline page)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T23:00",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "lead_only",
+    "unsourced"
+   ],
+   "support": [],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No writer gives 23:00. The nearest are Slocum's 'nearly midnight' for the whole movement and Greene's about 10 for Kane's brigade; the First Brigade is at 1 a. m. and 1.30 a. m."
+   },
+   "failed_lookups": [
+    {
+     "where": "J. F. Epperson timeline (the plan's EPP)",
+     "query": "the page for about 23:00 for the return of Candy and Kane (seed row T2-230); the host is not among the hosts reachable for this research and a web page is only a pointer",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1 (Geary R293, Kane R302, Candy R294, Greene R307, Slocum R271, Williams R272, Ruger R273, Colgrove R286)",
+     "query": "23, eleven o'clock, 11 p. m., 11.00 with return or reoccupied: none; the hours are 9 p. m., about 10, nearly midnight, 12 p. m., 1 a. m., 1.30 a. m.",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "ledger books and papers (Meade 1913 letters, Bachelder, Pennsylvania and New York at Gettysburg, NPS Rock Creek and Spangler's Spring studies)",
+     "query": "eleven o'clock or 11 p. m. for Geary, Kane or Candy: none; Bachelder has the First Division and Kane's and Candy's brigades return 'before midnight' and Meade's son has Candy back about one o'clock",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ]
+  },
+  {
+   "id": "C-025-P3",
+   "origin": "pdf_value",
+   "pdf_label": "04:00",
+   "scenario_ids": [
+    "C-025-S3"
+   ],
+   "label": "04:00: the return (a Civil War News article); the hour of the morning action",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T04:00",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "different_event",
+    "weak"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-025-P3-c1",
+     "source": "HISTORY-ADAMS-1886",
+     "source_class": "book",
+     "part": null,
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 515773,
+     "quote": "At 4 o'clock on the morning of the 3d of July, Gen. Geary, who had been ordered away to the support of Sickles, having returned during the night",
+     "page_note": "the text has no page marks; the printed page was not read",
+     "witness": {
+      "name": "History of Cumberland and Adams Counties (compilers)",
+      "role": "county history of 1886",
+      "side": "other"
+     },
+     "written": {
+      "date": "1886",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "adams-1886",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:00"
+      ],
+      "numbers": [
+       4,
+       3
+      ],
+      "dates": [
+       "07-03"
+      ]
+     },
+     "note": "The 4 o'clock is the hour of the morning action (Greene: artillery opened at 4 a. m.), and 'having returned during the night' is the return."
+    },
+    {
+     "id": "C-025-P3-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R307",
+     "page": "857",
+     "page_basis": "scan_leaf",
+     "text_offset": 3018449,
+     "quote": "At 4 a. m. our artillery, which had been posted to attack the enemy in the intrenchments of Kane's brigade and Williams' division, opened",
+     "witness": {
+      "name": "George S. Greene",
+      "role": "Brigadier General, commanding the Third Brigade, Second Division, Twelfth Corps; held the works on Culp's Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "greene",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:00"
+      ],
+      "numbers": [
+       4
+      ]
+     },
+     "note": "The morning action: the artillery opened at 4 a. m. on 3 Jul; Geary says 3.30 a. m. and Candy 3.45 a. m. The same brigade was in the line by then."
+    }
+   ],
+   "inference": {
+    "step": "The county history has Geary at 4 o'clock on the morning of the 3d 'having returned during the night', and Greene has the artillery opening at 4 a. m.: 4 o'clock is the hour of the morning action, which began after the division was back.",
+    "from": [
+     "C-025-P3-c1",
+     "C-025-P3-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "4 a. m. is when the artillery opened and the morning fighting began (Greene; Slocum; Geary 3.30, Candy 3.45), after the return: the brigades were in line by 1.30 a. m."
+   },
+   "failed_lookups": [
+    {
+     "where": "Civil War News (the plan's CWN-SPG)",
+     "query": "the article on Spangler's Spring for about 04:00 for the return; not a local text and the host is not among the hosts reachable for this research",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    }
+   ]
+  },
+  {
+   "id": "C-025-P4",
+   "origin": "pdf_default",
+   "pdf_label": "window 02:00-04:00",
+   "scenario_ids": [
+    "C-025-S4"
+   ],
+   "label": "02:00 to 04:00: the plan's animation window for the return",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-03T02:00",
+    "to": "1863-07-03T04:00"
+   },
+   "approx": false,
+   "clock": "unspecified",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "contradicted"
+   ],
+   "support": [],
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "Every report of the return is at or before 1.30 a. m. (Geary 9 p. m. and 1 a. m., Greene about 10 p. m. and 1.30 a. m.); 2 to 4 a. m. is when the attack was being arranged and begun."
+   },
+   "failed_lookups": [
+    {
+     "where": "OR27-1 (Geary, Kane, Candy, Greene, Slocum, Williams, Ruger, Colgrove)",
+     "query": "a return of Geary's brigades between 2 and 4 a. m. (2 a. m., two o'clock, 3 a. m., three o'clock with return, reoccupy, in position): none; 3.30 a. m. (Geary), 3.45 (Candy) and 4 a. m. (Greene, Slocum) are the opening of the morning action",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "J. F. Epperson timeline and Civil War News (the plan's note 'treat 02:00-04:00 as the animation window')",
+     "query": "the pages themselves: not read; the plan gives the window as its own choice, not as a source's hour",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    }
+   ]
+  },
+  {
+   "id": "C-025-P5",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-025-S5",
+    "C-025-DEFAULT"
+   ],
+   "label": "Night of Jul 2-3: the order to return at 21:00 to the First Brigade in line at about 01:30",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T21:00",
+    "to": "1863-07-03T01:30"
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "default",
+   "flags": [],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-025-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R293",
+     "page": "827",
+     "page_basis": "scan_leaf",
+     "text_offset": 2907920,
+     "quote": "At 9 p. m. I ordered Kane's brigade to return to its original position and Candy's to follow it",
+     "witness": {
+      "name": "John W. Geary",
+      "role": "Brigadier General, commanding the Second Division, Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-29",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "geary",
+     "exact": true,
+     "states": {
+      "times": [
+       "21:00"
+      ],
+      "numbers": [
+       9
+      ]
+     },
+     "note": "The order, given after Greene's fight of about three hours had ended; Kane's brigade then entered the woods and was fired on within 200 yards of the breastworks. The day is not in the sentence: the report is of the second day (the attack on Greene at dusk is the paragraph before it)."
+    },
+    {
+     "id": "C-025-P5-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R302",
+     "page": "847",
+     "page_basis": "scan_leaf",
+     "text_offset": 2981201,
+     "quote": "At twilight we were removed to the batteries on the turnpike, and shortly after ordered to return to our former position",
+     "witness": {
+      "name": "Thomas L. Kane",
+      "role": "Brigadier General, commanding the Second Brigade, Second Division, Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "soon_after",
+     "group": "kane",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "At twilight",
+       "shortly after"
+      ]
+     },
+     "note": "Kane puts the order shortly after twilight (sunset was at 19:32); Geary puts it at 9 p. m. Both are hedged or round."
+    },
+    {
+     "id": "C-025-P5-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R307",
+     "page": "857",
+     "page_basis": "scan_leaf",
+     "text_offset": 3017787,
+     "quote": "About 10 o'clock I was informed that General Kane, with his brigade, was returning to his position",
+     "witness": {
+      "name": "George S. Greene",
+      "role": "Brigadier General, commanding the Third Brigade, Second Division, Twelfth Corps; held the works on Culp's Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "greene",
+     "exact": false,
+     "states": {
+      "times": [
+       "22:00"
+      ],
+      "numbers": [
+       10
+      ]
+     },
+     "note": "Greene was told Kane was coming back and sent a staff officer to warn him that the enemy were in his intrenchments; the hour is 'about'."
+    },
+    {
+     "id": "C-025-P5-c4",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R271",
+     "page": "761",
+     "page_basis": "scan_leaf",
+     "text_offset": 2659259,
+     "quote": "ordered back to his original position. It was nearly midnight before this movement was fully completed",
+     "witness": {
+      "name": "Henry W. Slocum",
+      "role": "Major General, commanding the Twelfth Corps and the right wing",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "slocum",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "nearly midnight"
+      ]
+     },
+     "note": "'This movement' is the return of the First Division and of Geary's two brigades together; the report is of August 1863 (the day is blank in the print, the first dateline reads August 33). The hour of the last brigade in line is given by Geary (1 a. m.) and Greene (1.30 a. m.)."
+    },
+    {
+     "id": "C-025-P5-c5",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R294",
+     "page": "836",
+     "page_basis": "scan_leaf",
+     "text_offset": 2943335,
+     "quote": "until about 7 p. m. the 2d instant [...] Remained in position until about 12 p. m. ; ordered up to the former position on the right of the First Corps",
+     "witness": {
+      "name": "Charles Candy",
+      "role": "Colonel, 66th Ohio, commanding the First Brigade, Second Division, Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "candy",
+     "exact": false,
+     "states": {
+      "times": [
+       "19:00"
+      ],
+      "numbers": [
+       7,
+       2,
+       12
+      ]
+     },
+     "note": "'12 p. m.' is read as midnight: it follows the 7 p. m. departure and the brigade stood east of Rock Creek in between; it is not a clock the parser reads that way. He then formed in rear of the Third Brigade and stayed until 3.45 a. m. on the 3d."
+    },
+    {
+     "id": "C-025-P5-c6",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R293",
+     "page": "827",
+     "page_basis": "scan_leaf",
+     "text_offset": 2909512,
+     "quote": "At 1 a. m. on the 3d, the First Brigade, which had been held in readiness on the turnpike, was placed in position on the right of Kane's brigade",
+     "witness": {
+      "name": "John W. Geary",
+      "role": "Brigadier General, commanding the Second Division, Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-29",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "geary",
+     "exact": true,
+     "states": {
+      "times": [
+       "01:00"
+      ],
+      "numbers": [
+       1,
+       3
+      ]
+     },
+     "note": "Candy's brigade (the First) placed in line; before it was held on the turnpike. 'On the 3d' has no month in the sentence."
+    },
+    {
+     "id": "C-025-P5-c7",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R307",
+     "page": "857",
+     "page_basis": "scan_leaf",
+     "text_offset": 3018317,
+     "quote": "The First Brigade returned to our support at 1.30 a. m. on the 3d",
+     "witness": {
+      "name": "George S. Greene",
+      "role": "Brigadier General, commanding the Third Brigade, Second Division, Twelfth Corps; held the works on Culp's Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "greene",
+     "exact": true,
+     "states": {
+      "times": [
+       "01:30"
+      ],
+      "numbers": [
+       1.3,
+       3
+      ]
+     },
+     "note": "Candy's brigade came to Greene's support (not yet in the old works, which the enemy held). The report is dated 12 Jul 1863."
+    }
+   ],
+   "inference": {
+    "step": "The window runs from Geary's order to return (9 p. m.; Kane's brigade then met fire at the works and was back by about ten o'clock, Greene) to the last brigade in line (Candy's: 1 a. m. Geary, 1.30 a. m. Greene). The day, 2 to 3 July, is not in the quoted sentences but follows from the report, which is of the evening of the 2d and the morning of the 3d.",
+    "from": [
+     "C-025-P5-c1",
+     "C-025-P5-c3",
+     "C-025-P5-c6",
+     "C-025-P5-c7"
+    ]
+   }
+  },
+  {
+   "id": "C-025-P6",
+   "origin": "research",
+   "label": "About 22:00: Kane's brigade is back at the works (Greene)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T22:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-025-P6-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R307",
+     "page": "857",
+     "page_basis": "scan_leaf",
+     "text_offset": 3017787,
+     "quote": "About 10 o'clock I was informed that General Kane, with his brigade, was returning to his position",
+     "witness": {
+      "name": "George S. Greene",
+      "role": "Brigadier General, commanding the Third Brigade, Second Division, Twelfth Corps; held the works on Culp's Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "greene",
+     "exact": true,
+     "states": {
+      "times": [
+       "22:00"
+      ],
+      "numbers": [
+       10
+      ]
+     },
+     "note": "Greene was told Kane was coming back and sent a staff officer to warn him that the enemy were in his intrenchments; the hour is 'about'."
+    },
+    {
+     "id": "C-025-P6-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R293",
+     "page": "827",
+     "page_basis": "scan_leaf",
+     "text_offset": 2907920,
+     "quote": "At 9 p. m. I ordered Kane's brigade to return to its original position and Candy's to follow it",
+     "witness": {
+      "name": "John W. Geary",
+      "role": "Brigadier General, commanding the Second Division, Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-29",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "geary",
+     "exact": false,
+     "states": {
+      "times": [
+       "21:00"
+      ],
+      "numbers": [
+       9
+      ]
+     },
+     "note": "The order, given after Greene's fight of about three hours had ended; Kane's brigade then entered the woods and was fired on within 200 yards of the breastworks. The day is not in the sentence: the report is of the second day (the attack on Greene at dusk is the paragraph before it)."
+    },
+    {
+     "id": "C-025-P6-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R272",
+     "page": "774",
+     "page_basis": "scan_leaf",
+     "text_offset": 2713818,
+     "quote": "subsequently by Kane's brigade returning to its position, General Greene succeeded in repulsing the enemy from his immediate front",
+     "witness": {
+      "name": "Alpheus S. Williams",
+      "role": "Brigadier General, commanding the Twelfth Corps at the dateline (First Division headquarters), reporting to Slocum",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-22",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "williams",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Kane's brigade returning to its position"
+      ]
+     },
+     "note": "Kane's brigade came back during the three hours' night conflict and helped end it; the First Division and Lockwood's brigade reached the field behind the breastworks about the time the attacks on Greene were discontinued."
+    }
+   ],
+   "inference": {
+    "step": "Greene is told at about 10 o'clock that Kane is returning to his position; Geary ordered it at 9 p. m. and Williams has Kane's brigade returning during the night conflict. The day is not in the sentence.",
+    "from": [
+     "C-025-P6-c1",
+     "C-025-P6-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "place_of_observation",
+    "text": "One brigade (Kane's) coming back to the right of Greene's line, the early end of the return; the default window includes it and runs to the last brigade."
+   }
+  },
+  {
+   "id": "C-025-P7",
+   "origin": "research",
+   "label": "Nearly midnight: the movement fully completed (Slocum)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T23:45",
+    "to": "1863-07-03T00:00"
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "different_event"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-025-P7-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R271",
+     "page": "761",
+     "page_basis": "scan_leaf",
+     "text_offset": 2659259,
+     "quote": "ordered back to his original position. It was nearly midnight before this movement was fully completed",
+     "witness": {
+      "name": "Henry W. Slocum",
+      "role": "Major General, commanding the Twelfth Corps and the right wing",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "slocum",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "nearly midnight"
+      ]
+     },
+     "note": "'This movement' is the return of the First Division and of Geary's two brigades together; the report is of August 1863 (the day is blank in the print, the first dateline reads August 33). The hour of the last brigade in line is given by Geary (1 a. m.) and Greene (1.30 a. m.)."
+    }
+   ],
+   "inference": {
+    "step": "'Nearly' an hour is read as that hour minus up to fifteen minutes; Slocum's 'nearly midnight' therefore stands for 23:45 to 24:00.",
+    "from": [
+     "C-025-P7-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Slocum dates the end of the whole return, the First Division and two brigades together; Geary and Greene, who were in the line, put the last brigade in at 1 a. m. and 1.30 a. m."
+   }
+  },
+  {
+   "id": "C-025-P8",
+   "origin": "research",
+   "label": "About midnight to 01:30: Candy's brigade ordered up, in position at 1 a. m., back at 1.30 a. m.",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-03T00:00",
+    "to": "1863-07-03T01:30"
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "different_event"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-025-P8-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R294",
+     "page": "836",
+     "page_basis": "scan_leaf",
+     "text_offset": 2943335,
+     "quote": "until about 7 p. m. the 2d instant [...] Remained in position until about 12 p. m. ; ordered up to the former position on the right of the First Corps",
+     "witness": {
+      "name": "Charles Candy",
+      "role": "Colonel, 66th Ohio, commanding the First Brigade, Second Division, Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "candy",
+     "exact": false,
+     "states": {
+      "times": [
+       "19:00"
+      ],
+      "numbers": [
+       7,
+       2,
+       12
+      ]
+     },
+     "note": "'12 p. m.' is read as midnight: it follows the 7 p. m. departure and the brigade stood east of Rock Creek in between; it is not a clock the parser reads that way. He then formed in rear of the Third Brigade and stayed until 3.45 a. m. on the 3d."
+    },
+    {
+     "id": "C-025-P8-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R293",
+     "page": "827",
+     "page_basis": "scan_leaf",
+     "text_offset": 2909512,
+     "quote": "At 1 a. m. on the 3d, the First Brigade, which had been held in readiness on the turnpike, was placed in position on the right of Kane's brigade",
+     "witness": {
+      "name": "John W. Geary",
+      "role": "Brigadier General, commanding the Second Division, Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-29",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "geary",
+     "exact": true,
+     "states": {
+      "times": [
+       "01:00"
+      ],
+      "numbers": [
+       1,
+       3
+      ]
+     },
+     "note": "Candy's brigade (the First) placed in line; before it was held on the turnpike. 'On the 3d' has no month in the sentence."
+    },
+    {
+     "id": "C-025-P8-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R307",
+     "page": "857",
+     "page_basis": "scan_leaf",
+     "text_offset": 3018317,
+     "quote": "The First Brigade returned to our support at 1.30 a. m. on the 3d",
+     "witness": {
+      "name": "George S. Greene",
+      "role": "Brigadier General, commanding the Third Brigade, Second Division, Twelfth Corps; held the works on Culp's Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "greene",
+     "exact": true,
+     "states": {
+      "times": [
+       "01:30"
+      ],
+      "numbers": [
+       1.3,
+       3
+      ]
+     },
+     "note": "Candy's brigade came to Greene's support (not yet in the old works, which the enemy held). The report is dated 12 Jul 1863."
+    }
+   ],
+   "inference": {
+    "step": "Candy says the brigade was ordered up at about 12 p. m. (midnight), Geary has it placed in line at 1 a. m. and Greene has it back at 1.30 a. m.; the window runs from the first to the last of the three. Candy's '12 p. m.' is read as midnight.",
+    "from": [
+     "C-025-P8-c1",
+     "C-025-P8-c2",
+     "C-025-P8-c3"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "place_of_observation",
+    "text": "The upper end of the default window and one brigade (Candy's) only; Kane's brigade was back about three hours earlier."
+   }
+  }
+ ],
+ "class": "weighted",
+ "tier": "inferred",
+ "basis": {
+  "kind": "official_records",
+  "text": "Geary (report of 29 Jul 1863) ordered Kane's brigade back at 9 p. m. and placed Candy's in line at 1 a. m. on the 3d; Greene (12 Jul 1863) was told at about 10 o'clock that Kane was returning and had the First Brigade back at 1.30 a. m.; Candy has it ordered up at about midnight; Slocum has the movement complete nearly at midnight."
+ },
+ "default": {
+  "mode": "window",
+  "positions": [
+   "C-025-P5"
+  ],
+  "label": "Night of Jul 2-3: ordered back 21:00, Kane about 22:00, last brigade in line 01:00 to 01:30",
+  "basis_text": "the lower end is Geary's order to return at 9 p. m.; the upper end is the First Brigade back at 1.30 a. m. (Greene), in line at 1 a. m. (Geary).",
+  "animation": {
+   "at": "1863-07-02T21:00",
+   "rule": "earliest_documented",
+   "note": "Geary's order to return at 21:00 starts the march of Kane's brigade; Kane's brigade is at the works (met by fire) before about 22:00 (Greene) and Candy's brigade follows, in line at 1 a. m. to 1.30 a. m. Nothing is drawn before the order. The plan's 02:00 to 04:00 stays selectable but lies after every report of the return."
+  },
+  "note": "The record gives hours per brigade (Kane's about 22:00, Candy's 01:00 to 01:30) and one corps-level 'nearly midnight'; the window is their span, not a mean."
+ },
+ "weighing": {
+  "summary": "The plan's window 02:00 to 04:00 matches no report of the return: the writers who were there give 9 p. m. (Geary's order), about 10 (Kane's brigade back, Greene), about 12 p. m. (Candy's brigade ordered up), 1 a. m. (Geary: Candy's in line) and 1.30 a. m. (Greene), and Slocum has the whole movement complete nearly at midnight. The 04:00 of the plan is the hour the artillery opened for the morning attack (Greene, Slocum), after the return; 23:00 has no source. The reports differ because they date different acts and brigades: the order (Geary), the arrival of the first brigade (Kane's, about 10), the last brigade ordered up (Candy), placed in line (Geary) and back at Greene's support (Greene), and the corps commander's 'movement completed'. The default is the span from the order to the last brigade in line.",
+  "who": "Geary commanded the division and gave the orders; Kane and Candy commanded the two brigades that returned; Greene held the works and the right of the line; Slocum and Williams were above them, Slocum commanding the right wing and Williams the corps at the dateline (Slocum was at the council at headquarters in the evening). The county history of 1886 and the Park Service handbook were not there.",
+  "when": "Kane and Candy wrote on 6 Jul, Greene on 12 Jul, Geary on 29 Jul, Williams on 22 Aug, Slocum in August and Meade on 1 Oct 1863, all within weeks to months; the county history is of 1886 and the handbook of 1954. The reports of the officers who gave or carried out the orders outweigh the later books.",
+  "where": "Greene was in the works with the enemy in front of his right when Kane and Candy came; Kane was in the woods near the works when fired on; Candy was east of Rock Creek until ordered up. Geary was at the turnpike with the First Brigade held in readiness. Slocum and Williams were at the headquarters of the army.",
+  "how_knew": "Geary, Kane, Candy and Greene give hours for their own orders and movements; Slocum and Williams give the end of the movement as they learned it; Meade repeats Slocum. The books name no source.",
+  "clock": "All the writers are Union; none says whose clock. The hours are not corrected for the reported 20-minute difference between the armies' clocks, which would not move a midnight to the 02:00 to 04:00 window. 'About', 'nearly' and 'shortly after' keep their tolerance. Candy's '12 p. m.' is read as midnight.",
+  "independence": "The default rests on four separate reports (Geary, Greene, Kane, Candy) of the units that moved; Slocum and Williams give the corps' view; Meade repeats Slocum. The county history and the Park Service handbook name no source and are not independent of the reports."
+ },
+ "source_panel_text": "Night of Jul 2-3: Geary ordered Kane's brigade back at 9 p.m.; Greene says Kane was returning about 10 and the First Brigade was back at 1.30 a.m. (reports of July 1863). The plan's 02:00-04:00 matches no report of the return; 04:00 is when the artillery opened. Seven other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "The plan's window 02:00 to 04:00 lies after every report of the return (the last brigade in line at 1 a. m. and 1.30 a. m.); it is the time of the dawn attack. It stays selectable and is marked as contradicted."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "The night of Jul 2-3 from the evening to about 01:30 holds. Its 'evening' lower end is read here as Geary's order at 21:00; the hours per brigade are added (Kane about 22:00, Candy 01:00 to 01:30), and 'nearly midnight' (Slocum) is kept as its own value."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T2-230",
+   "must_change": true,
+   "note": "Row 'Jul 2 ~23:00' (Ruger's division finds the old position held; Candy and Kane return; a gap between Geary and Ruger): its note 'Treat 02:00-04:00 as the animation window for Geary's return' is replaced by the span 21:00 to 01:30; 23:00 (EPP) and about 04:00 (CWN) stay as scenarios. Row not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-026",
+   "must_change": true,
+   "note": "Row 'Jul 3 overnight' (Geary misreads orders, marches down the Baltimore Pike, then returns to his works; exact hour of return: gap): the hour is now documented by brigade (Kane about 22:00, Candy 01:00 to 01:30). Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-175",
+   "must_change": false,
+   "note": "Row 'Jul 2 ~18:00' (Slocum pulls five brigades from Culp's Hill; Geary goes the wrong way down the Baltimore Pike): the departure, not the return; Geary says orders came at 7 p. m."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-181",
+   "must_change": false,
+   "note": "Row 'Jul 2 ~18:30' (Greene's brigade alone after the departure): precedes the return."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-004",
+   "must_change": false,
+   "note": "Carry-over of T2-181 (Greene alone from about 18:30): precedes the return."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-039",
+   "must_change": false,
+   "note": "Row 'Jul 3 ~05:00-05:30 (hour not given)' (Steuart's dawn attack before Geary's counterattack; open gap, hour disputed): follows the return; the artillery opened at 3.30 to 4.30 a. m. (Geary 3.30, Candy 3.45, Greene and Slocum 4, Hunt 4.30), which bears on that row's own conflict (C-028 and others)."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "us-12c",
+   "must_change": false,
+   "note": "XII Corps: printed_clock default Jul 1 17:30 (arrival); the row carries C-025 only as 'return overnight' in its night positions. The arrival gate is not touched by this resolution."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json C-025",
+   "must_change": true,
+   "note": "default_scenario_id C-025-DEFAULT (night Jul 2-3, evening to about 01:30): the label gains the hours (21:00 order, Kane about 22:00, last brigade 01:00 to 01:30); the plan's window stays a scenario."
+  },
+  {
+   "kind": "other",
+   "ref": "tools/bt/arrivals_data.py line 222 (row us-12c, night_positions 'return overnight')",
+   "must_change": false,
+   "note": "Names the plan cell; no hour is carried."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-025 row)",
+   "must_change": true,
+   "note": "Row line 35 (documented; every OR return time is evening to 01:30): the class is weighted and the tier inferred (the day is inferred from the report); the span stays."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-025",
+   "must_change": false,
+   "note": "Line 53 (PENDING OWNER): to record the delegated default and that the plan's window is contradicted."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "J. F. Epperson timeline (EPP), Civil War News (CWN-SPG), NPS Handbook 9 as the plan cites it",
+   "query": "the pages for about 23:00 and about 04:00 and the plan's note 'treat 02:00-04:00 as the animation window': the first two are web pages not among the hosts reachable for this research; the handbook (local, 1954 and 1962) says only 'under cover of darkness'",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-1 (Geary R293, Kane R302, Candy R294, Greene R307, Slocum R271, Williams R272, Ruger R273, Colgrove R286, Lockwood R282)",
+   "query": "an hour for Geary's brigades back in position at 2, 3 or 4 a. m., or 11 p. m.: none; Colgrove's and Ruger's reports give the First Division's return without an hour of Geary's",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Kane's report (R302)",
+   "query": "an hour for the order to return: none; he says 'at twilight' and 'shortly after' (Geary: 9 p. m.)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Williams, first scan of the volume (OR27-1 p. 775)",
+   "query": "the hour at which he learned the works were held: the text layer reads 'nearly 15J o'clock at night'; the second scan reads 12; no page image was viewed, so no citation rests on it",
+   "outcome": "failed",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "ledger books and papers (Meade's Life and Letters, Bachelder, Pennsylvania at Gettysburg, New York at Gettysburg, Toombs, NPS Spangler's Spring and Rock Creek studies)",
+   "query": "a source other than the reports for an hour of the return: Bachelder (1889) has Kane's and Candy's brigades and Ruger return before midnight; Meade's son has Candy at about one o'clock after 'midnight before these arrangements were completed'; both follow the reports",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A diary, regimental report or letter of 2 or 3 July that gives the hour Kane's brigade or Candy's brigade reached the works (for example the reports of the regiments of Geary's division not in the Official Records), or a page image of the Official Records that reads a digit other than those cited. A source behind the plan's 23:00 or 04:00 for the return would be added as a value."
+}

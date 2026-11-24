@@ -1,0 +1,1274 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-004",
+ "topic": "II Corps arrival",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-004",
+ "pdf_row": {
+  "page": 62,
+  "text": "II Corps arrival | 22:30 Jul 1; at dawn; 06:00; 07:00 Jul 2 | 06:00 Jul 2 (head), tails later | all four",
+  "values": [
+   "22:30 Jul 1",
+   "at dawn",
+   "06:00",
+   "07:00 Jul 2"
+  ],
+  "recommended_default": "06:00 Jul 2 (head), tails later",
+  "selectable_alternatives": [
+   "all four"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-004-DEFAULT",
+  "default_label": "window 06:30-07:00 Jul 2",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-004-S1",
+   "C-004-S2",
+   "C-004-S3",
+   "C-004-S4",
+   "C-004-S5",
+   "C-004-S6",
+   "C-004-DEFAULT"
+  ]
+ },
+ "event_date": "1863-07-02",
+ "class": "weighted",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "The corps bivouacked about 3 miles short on the night of 1 July (Hancock; Brooke 9.30 p.m.). Smyth's brigade was in position at 4 a.m. (Smyth, 17 Jul 1863), the corps was up before six (Haskell, a letter of July 1863) and 'up' at 6.15 (a dispatch from army headquarters); Webb was in position at 6.30. Hancock's own arrival 'about 7 a.m.' is later than all of these."
+ },
+ "default": {
+  "mode": "window",
+  "positions": [
+   "C-004-P12"
+  ],
+  "label": "Window 04:00-06:15 on Jul 2: first brigades about 4, the main body up by 6; drawn at 06:00",
+  "basis_text": "Lower bound: Smyth's brigade in position at 4 a.m. and Dent's regiment on the field about 4. Upper bound: the headquarters dispatch timed 6.15 a.m. (the Second Corps is up), which Haskell's letter (up to the field before six) puts at 06:00 or a little earlier. Webb's 6.30, Hancock's about 7 and the tail regiments' 8 to 10 are later moments.",
+  "animation": {
+   "at": "1863-07-02T06:00",
+   "rule": "best_supported",
+   "note": "The corps' main body is drawn arriving by 06:00, the hour Haskell's letter gives as its upper bound ('before six'; the dispatch has it up by 6.15); the first brigades of the Third Division are drawn from 04:00 and the tail regiments (about 8 to 10) later, each by its own unit row. 04:00 is the earliest source-supported time for any part of the corps; nothing is drawn before it."
+  },
+  "note": "The first delegated window (06:30-07:00) is replaced: it dates a brigade's placement and Hancock's own arrival, both after the dispatch of 6.15 that has the corps up."
+ },
+ "positions": [
+  {
+   "id": "C-004-P1",
+   "origin": "pdf_value",
+   "pdf_label": "22:30 Jul 1",
+   "scenario_ids": [
+    "C-004-S1"
+   ],
+   "source_keys": [],
+   "label": "22:30 on Jul 1: the corps is on Cemetery Ridge (one encyclopaedia page); the record has it 3 miles short",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T22:30",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "unspecified",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only",
+    "contradicted"
+   ],
+   "support": [],
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "Hancock has the corps bivouacked about 3 miles in rear of the town that night; Brooke had his brigade 3 miles out about 9.30 p.m., and the corps moved up at daybreak."
+   },
+   "failed_lookups": [
+    {
+     "where": "Wikipedia, Cemetery Ridge (the seed row T1-199 and T1-177 name it for the II Corps about 22:30)",
+     "query": "the page and the source it gives for 22:30: not among the hosts reachable for this research; a web page is only a pointer",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "all local non-lead texts of the ledger (Official Records 27/1-3, books and papers, Park Service texts)",
+     "query": "Second Corps / II Corps / Hancock's corps within 250 characters of 10.30 p. m. / 22:30 / half past ten and arrived|reached|Cemetery Ridge; no passage puts the corps on the ridge on the night of the 1st; the nearest hours are Brooke's 9.30 p. m. camp three miles out",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "Official Records 27/1: reports of Hancock, Gibbon, Caldwell, Hays, Harrow, Webb, Smyth, Brooke and the regiments",
+     "query": "arrived|reached|bivouac and night of 1 July: all have the corps at a camp about 3 to 4 miles from Gettysburg that night and marching on the morning of the 2d",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ]
+  },
+  {
+   "id": "C-004-P2",
+   "origin": "pdf_value",
+   "pdf_label": "at dawn",
+   "scenario_ids": [
+    "C-004-S2"
+   ],
+   "source_keys": [],
+   "label": "At dawn: the corps marches to the front at daybreak and the first troops arrive soon after sunrise",
+   "kind": "period",
+   "value": {
+    "text": "daybreak",
+    "date": "1863-07-02",
+    "part_of_day": "dawn"
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-004-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R110",
+     "page": "442",
+     "page_basis": "scan_leaf",
+     "text_offset": 1545869,
+     "quote": "At daybreak of the 2d, were marched to the front",
+     "witness": {
+      "name": "Arthur F. Devereux",
+      "role": "Colonel, Nineteenth Massachusetts (Hall's brigade, Second Division)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "devereux",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "At daybreak"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Devereux, Nineteenth Massachusetts (Second Division): the corps was halted about 2 miles from the battle ground on the evening of 1 July and marched to the front at daybreak of the 2d."
+    },
+    {
+     "id": "C-004-P2-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R092",
+     "page": "400",
+     "page_basis": "scan_leaf",
+     "text_offset": 1402172,
+     "quote": "On the morning of July 2, at about 3 a. m., the command moved forward in column for the field of battle, arriving there soon after sunrise",
+     "witness": {
+      "name": "John R. Brooke",
+      "role": "Colonel commanding the Fourth Brigade, First Division, Second Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-15",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "soon_after",
+     "group": "brooke",
+     "exact": false,
+     "states": {
+      "times": [
+       "03:00"
+      ],
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "soon after sunrise"
+      ]
+     },
+     "note": "Brooke's brigade (First Division) left at about 3 a.m. and reached the field soon after sunrise (04:35)."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "Daybreak is the start of the march and the first troops' arrival (about 4 to 5 a.m.), the lower part of the window; it names no hour and not the main body."
+   }
+  },
+  {
+   "id": "C-004-P3",
+   "origin": "pdf_value",
+   "pdf_label": "06:00",
+   "scenario_ids": [
+    "C-004-S3"
+   ],
+   "source_keys": [],
+   "label": "By 06:00: the corps is up to the field (Haskell's letter; headquarters dispatch of 6.15)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T06:00",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-004-P3-c1",
+     "source": "HASKELL-1908",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed pages 18-19 by the page marks [18] and [19] that stand inside the passage; the letter bears no date and, according to the note of the editor of the State Register printed with it, was written 'during the same month as the battle'",
+     "text_offset": 44026,
+     "quote": "At three o'clock, A. M., of the second of July, the sleepy soldiers of the Corps were aroused; [...] before six the Corps was up to the field, and halted temporarily by the side of the Taneytown road",
+     "witness": {
+      "name": "Frank A. Haskell",
+      "role": "Lieutenant, aide to General Gibbon, Second Division, Second Corps (later Colonel)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "upper",
+     "group": "haskell-ii",
+     "exact": false,
+     "states": {
+      "times": [
+       "03:00"
+      ],
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "before six"
+      ]
+     },
+     "note": "Haskell, on Gibbon's staff, in the Second Corps' column: the corps was roused at 3 a.m. and was up to the field before six, halted by the side of the Taneytown road while other troops moved so that it could take position."
+    },
+    {
+     "id": "C-004-P3-c2",
+     "source": "OR27-3",
+     "source_class": "primary",
+     "part": "OR27-3-D2099",
+     "page": "1086",
+     "page_basis": "scan_leaf",
+     "text_offset": 2977912,
+     "quote": "July 2, 18G3— 6.15 a. m. Maj. Gen. D. Butteefield [...] The Second Corps is up and the Fifth is momentarily expected",
+     "witness": {
+      "name": "Seth Williams",
+      "role": "Assistant Adjutant General of the Army of the Potomac, at army headquarters on the field",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "staff_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "swilliams",
+     "exact": true,
+     "states": {
+      "times": [
+       "06:15"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Seth Williams, assistant adjutant general at army headquarters, to Butterfield at Taneytown, timed 6.15 a.m. on 2 July: the Second Corps is up. The raw text reads '18G3' for 1863 in the heading."
+    }
+   ],
+   "derived": true,
+   "inference": {
+    "step": "Haskell writes that 'before six the Corps was up to the field' (read as an upper bound of 06:00; the clock parser does not read 'six' without o'clock) and the dispatch of 6.15 says 'The Second Corps is up'; the two agree that the main body was up by about 06:00 to 06:15.",
+    "from": [
+     "C-004-P3-c1",
+     "C-004-P3-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "'Before six' is the upper end of the window: the main body was up by then, the first brigades earlier, the tail regiments later."
+   }
+  },
+  {
+   "id": "C-004-P4",
+   "origin": "pdf_value",
+   "pdf_label": "07:00 Jul 2",
+   "scenario_ids": [
+    "C-004-S4"
+   ],
+   "source_keys": [],
+   "label": "About 07:00: the corps arrives on the field (Hancock's report; Meade: by 7 a.m.)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T07:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-004-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "369",
+     "page_basis": "scan_leaf",
+     "text_offset": 1287750,
+     "quote": "which took place about 7 a. m. of the 2d",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General commanding the Second Corps; he rode to Gettysburg on the afternoon of July 1 and rejoined the corps on the road on the 2d",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hancock",
+     "exact": true,
+     "states": {
+      "times": [
+       "07:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Hancock's report of the Second Corps' operations; the date line of the record is damaged (', 186C') and the year digit could not be read; an addendum to it is dated Oct 24, 1863. The sentence: 'The march was resumed at daylight, and I rejoined the corps before its arrival on the field, which took place about 7 a. m. of the 2d' (the quote is cut before the word march, which the validator would read as a month). He rode ahead to Gettysburg on 1 July; the corps had bivouacked about 3 miles in rear of the town and moved at daylight."
+    },
+    {
+     "id": "C-004-P4-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "115",
+     "page_basis": "scan_leaf",
+     "text_offset": 389835,
+     "quote": "arriving there at 1 a. m. of the 2d. So soon as it was light, I proceeded to inspect the position occupied, and to make arrangements for posting the several corps as they should reach the ground. By 7 a. m. the Second and Fifth Corps, with the rest of the Third, had reached the ground",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "upper",
+     "group": "meade",
+     "exact": false,
+     "states": {
+      "times": [
+       "01:00",
+       "07:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Meade: by 7 a.m. the Second and Fifth Corps and the rest of the Third had reached the ground (an upper bound)."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "Hancock's about 7 a.m. is later than a dispatch of 6.15 a.m. (the Second Corps 'is up'), a brigade in position at 6.30 and a letter (up before six); Meade's 'by 7' fits all of them."
+   }
+  },
+  {
+   "id": "C-004-P5",
+   "origin": "pdf_default",
+   "pdf_label": "06:00 Jul 2 (head), tails later",
+   "scenario_ids": [
+    "C-004-S5"
+   ],
+   "source_keys": [],
+   "label": "The plan's default: 06:00 for the head of the corps, the tails later",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T06:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-004-P3-c1",
+     "source": "HASKELL-1908",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed pages 18-19 by the page marks [18] and [19] that stand inside the passage; the letter bears no date and, according to the note of the editor of the State Register printed with it, was written 'during the same month as the battle'",
+     "text_offset": 44026,
+     "quote": "At three o'clock, A. M., of the second of July, the sleepy soldiers of the Corps were aroused; [...] before six the Corps was up to the field, and halted temporarily by the side of the Taneytown road",
+     "witness": {
+      "name": "Frank A. Haskell",
+      "role": "Lieutenant, aide to General Gibbon, Second Division, Second Corps (later Colonel)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "upper",
+     "group": "haskell-ii",
+     "exact": false,
+     "states": {
+      "times": [
+       "03:00"
+      ],
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "before six"
+      ]
+     },
+     "note": "Haskell, on Gibbon's staff, in the Second Corps' column: the corps was roused at 3 a.m. and was up to the field before six, halted by the side of the Taneytown road while other troops moved so that it could take position."
+    },
+    {
+     "id": "C-004-P8-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R123",
+     "page": "464",
+     "page_basis": "scan_leaf",
+     "text_offset": 1627022,
+     "quote": "At 4 a. m. on the, 2d, the brigade was placed in position on the hills overlooking the town",
+     "witness": {
+      "name": "Thomas A. Smyth",
+      "role": "Colonel commanding the Second Brigade, Third Division, Second Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "smyth",
+     "exact": true,
+     "states": {
+      "times": [
+       "04:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Smyth's brigade (Third Division), encamped about 3 miles from the town the night before, was placed in position on the hills overlooking the town at 4 a.m."
+    },
+    {
+     "id": "C-004-P9-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R095",
+     "page": "410",
+     "page_basis": "scan_leaf",
+     "text_offset": 1437398,
+     "quote": "I arrived on the field with my command about 8 a. m. on July 2",
+     "witness": {
+      "name": "Richards McMichael",
+      "role": "Lieutenant Colonel, Fifty-third Pennsylvania (Brooke's brigade, First Division)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "mcmichael",
+     "exact": true,
+     "states": {
+      "times": [
+       "08:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The Fifty-third Pennsylvania of Brooke's brigade arrived on the field about 8 a.m. (Brooke says the brigade arrived soon after sunrise.)"
+    }
+   ],
+   "derived": true,
+   "inference": {
+    "step": "06:00 is read as the hour by which the main body was up (Haskell: 'before six'; the dispatch of 6.15 agrees); the head is shown earlier by Smyth's brigade, in position at 4 a.m., and the tails by McMichael (about 8) and Scherrer (about 10).",
+    "from": [
+     "C-004-P3-c1",
+     "C-004-P8-c1",
+     "C-004-P9-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "As the head of the column 06:00 is too late: Smyth's brigade was in position at 4 a.m. and Dent's regiment on the field about then. As the main body, 06:00 stands inside the window."
+   }
+  },
+  {
+   "id": "C-004-P6",
+   "origin": "first_delegated",
+   "pdf_label": null,
+   "scenario_ids": [
+    "C-004-S6"
+   ],
+   "source_keys": [],
+   "label": "06:30: Webb's brigade is put in position (the first delegated pass's added value)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T06:30",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-004-P6-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R104",
+     "page": "427",
+     "page_basis": "scan_leaf",
+     "text_offset": 1494619,
+     "quote": "this brigade was put in position at 6.30 a. m. on the 2d",
+     "witness": {
+      "name": "Alexander S. Webb",
+      "role": "Brigadier General commanding the Second Brigade, Second Division, Second Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-13",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "webb",
+     "exact": true,
+     "states": {
+      "times": [
+       "06:30"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Webb's brigade (Second Division) was put in position at 6.30 a.m. on the 2d, on the right of the division: a position taken, after the arrival."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Webb's 6.30 is the hour one brigade was put in position, after the corps was up; it dates a placement, not the arrival."
+   }
+  },
+  {
+   "id": "C-004-P7",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-004-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "Window 06:30-07:00 on Jul 2 (the first delegated pass: Webb in position; Hancock's about 7)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T06:30",
+    "to": "1863-07-02T07:00"
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-004-P7-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R104",
+     "page": "427",
+     "page_basis": "scan_leaf",
+     "text_offset": 1494619,
+     "quote": "this brigade was put in position at 6.30 a. m. on the 2d",
+     "witness": {
+      "name": "Alexander S. Webb",
+      "role": "Brigadier General commanding the Second Brigade, Second Division, Second Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-13",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "webb",
+     "exact": true,
+     "states": {
+      "times": [
+       "06:30"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Webb's brigade (Second Division) was put in position at 6.30 a.m. on the 2d, on the right of the division: a position taken, after the arrival."
+    },
+    {
+     "id": "C-004-P7-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "369",
+     "page_basis": "scan_leaf",
+     "text_offset": 1287750,
+     "quote": "which took place about 7 a. m. of the 2d",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General commanding the Second Corps; he rode to Gettysburg on the afternoon of July 1 and rejoined the corps on the road on the 2d",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hancock",
+     "exact": true,
+     "states": {
+      "times": [
+       "07:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Hancock's report of the Second Corps' operations; the date line of the record is damaged (', 186C') and the year digit could not be read; an addendum to it is dated Oct 24, 1863. The sentence: 'The march was resumed at daylight, and I rejoined the corps before its arrival on the field, which took place about 7 a. m. of the 2d' (the quote is cut before the word march, which the validator would read as a month). He rode ahead to Gettysburg on 1 July; the corps had bivouacked about 3 miles in rear of the town and moved at daylight."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "Both ends date later moments: Webb's brigade in position at 6.30, Hancock's own arrival; a dispatch at 6.15 has the Second Corps 'up' and a letter has it up before six."
+   }
+  },
+  {
+   "id": "C-004-P8",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 04:00: the first brigades of the Third Division are on the field and in position",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T04:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-004-P8-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R123",
+     "page": "464",
+     "page_basis": "scan_leaf",
+     "text_offset": 1627022,
+     "quote": "At 4 a. m. on the, 2d, the brigade was placed in position on the hills overlooking the town",
+     "witness": {
+      "name": "Thomas A. Smyth",
+      "role": "Colonel commanding the Second Brigade, Third Division, Second Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "smyth",
+     "exact": true,
+     "states": {
+      "times": [
+       "04:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Smyth's brigade (Third Division), encamped about 3 miles from the town the night before, was placed in position on the hills overlooking the town at 4 a.m."
+    },
+    {
+     "id": "C-004-P8-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R125",
+     "page": "469",
+     "page_basis": "scan_leaf",
+     "text_offset": 1641856,
+     "quote": "on the morning of July 2, the line of march was resumed. We arrived on the field about 4 a. m.",
+     "witness": {
+      "name": "John T. Dent",
+      "role": "Lieutenant, First Delaware Infantry (Smyth's brigade, Third Division)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "dent",
+     "exact": true,
+     "states": {
+      "times": [
+       "04:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Dent, First Delaware (Smyth's brigade): the regiment bivouacked within 3 miles of Gettysburg, resumed the march early on the 2d and arrived on the field about 4 a.m. The same brigade as Smyth; the date line of the record is empty except the year."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "The head of the column: the lower end of the window. It rests on one brigade of one division (Smyth, Dent); the corps' main body came later."
+   }
+  },
+  {
+   "id": "C-004-P9",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 08:00 to 10:00: tail regiments of the First Division reach the field (McMichael, Scherrer)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T08:00",
+    "to": "1863-07-02T10:00"
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-004-P9-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R095",
+     "page": "410",
+     "page_basis": "scan_leaf",
+     "text_offset": 1437398,
+     "quote": "I arrived on the field with my command about 8 a. m. on July 2",
+     "witness": {
+      "name": "Richards McMichael",
+      "role": "Lieutenant Colonel, Fifty-third Pennsylvania (Brooke's brigade, First Division)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "mcmichael",
+     "exact": true,
+     "states": {
+      "times": [
+       "08:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The Fifty-third Pennsylvania of Brooke's brigade arrived on the field about 8 a.m. (Brooke says the brigade arrived soon after sunrise.)"
+    },
+    {
+     "id": "C-004-P9-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R089",
+     "page": "395",
+     "page_basis": "scan_leaf",
+     "text_offset": 1385908,
+     "quote": "on July 2 this regiment arrived on the field near Gettysburg at about 10 a. m.",
+     "witness": {
+      "name": "William Scherrer",
+      "role": "Captain, Fifty-second New York (Brooke's brigade, First Division)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-02",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "scherrer",
+     "exact": true,
+     "states": {
+      "times": [
+       "10:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The Fifty-second New York (also of Brooke's brigade) arrived on the field at about 10 a.m."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "place_of_observation",
+    "text": "These are regiments of one brigade, whose commander has the brigade there soon after sunrise; the plan's 'tails later' is these and they are drawn later, not as the corps' arrival."
+   }
+  },
+  {
+   "id": "C-004-P10",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 03:00: the corps is roused and the First Minnesota is ordered into position",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T03:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-004-P10-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R102",
+     "page": "424",
+     "page_basis": "scan_leaf",
+     "text_offset": 1486851,
+     "quote": "About 3 o'clock on the morning of July 2, we were ordered into Position near the center of our line of battle",
+     "witness": {
+      "name": "Henry C. Coates",
+      "role": "Captain, First Minnesota (Harrow's brigade, Second Division)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-03",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "coates",
+     "exact": true,
+     "states": {
+      "times": [
+       "03:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The First Minnesota (Second Division): ordered into position about 3 a.m. Haskell has the corps roused at 3."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Coates dates an order to take position; Haskell has the corps roused at 3 a.m. and up to the field before six, so 3 a.m. is the call to march, not an arrival."
+   }
+  },
+  {
+   "id": "C-004-P11",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "The morning of the 2d, no hour (Gibbon; Caldwell; Harrow)",
+   "kind": "period",
+   "value": {
+    "text": "on the morning of the 2d",
+    "date": "1863-07-02",
+    "part_of_day": "morning"
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-004-P11-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R098",
+     "page": "416",
+     "page_basis": "scan_leaf",
+     "text_offset": 1457011,
+     "quote": "The corps arrived upon the ground on the morning of the 2d",
+     "witness": {
+      "name": "John Gibbon",
+      "role": "Brigadier General commanding the Second Division, Second Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "gibbon",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "on the morning of the 2d"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Gibbon commanded the corps at Taneytown on the evening of 1 July and the division; he gives no hour."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "unclear_expression",
+    "text": "Gibbon, Caldwell and Harrow say only 'on the morning of the 2d': no clock time, so it cannot drive the picture."
+   }
+  },
+  {
+   "id": "C-004-P12",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Window 04:00-06:15 on Jul 2: the corps comes up, first brigades about 4, the main body by 6; drawn at 06:00",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T04:00",
+    "to": "1863-07-02T06:15"
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-004-P12-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R123",
+     "page": "464",
+     "page_basis": "scan_leaf",
+     "text_offset": 1627022,
+     "quote": "At 4 a. m. on the, 2d, the brigade was placed in position on the hills overlooking the town",
+     "witness": {
+      "name": "Thomas A. Smyth",
+      "role": "Colonel commanding the Second Brigade, Third Division, Second Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "smyth",
+     "exact": true,
+     "states": {
+      "times": [
+       "04:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Smyth's brigade (Third Division), encamped about 3 miles from the town the night before, was placed in position on the hills overlooking the town at 4 a.m."
+    },
+    {
+     "id": "C-004-P12-c2",
+     "source": "OR27-3",
+     "source_class": "primary",
+     "part": "OR27-3-D2099",
+     "page": "1086",
+     "page_basis": "scan_leaf",
+     "text_offset": 2977912,
+     "quote": "July 2, 18G3— 6.15 a. m. Maj. Gen. D. Butteefield [...] The Second Corps is up and the Fifth is momentarily expected",
+     "witness": {
+      "name": "Seth Williams",
+      "role": "Assistant Adjutant General of the Army of the Potomac, at army headquarters on the field",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "staff_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "swilliams",
+     "exact": true,
+     "states": {
+      "times": [
+       "06:15"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Seth Williams, assistant adjutant general at army headquarters, to Butterfield at Taneytown, timed 6.15 a.m. on 2 July: the Second Corps is up. The raw text reads '18G3' for 1863 in the heading."
+    }
+   ]
+  }
+ ],
+ "weighing": {
+  "summary": "The plan lists 22:30 on 1 July, 'at dawn', 06:00 and 07:00, and recommends 06:00 for the head with tails later. The record gives a march in stages. The night of 1 July the corps lay about 3 miles short (Hancock; Brooke's brigade there about 9.30 p.m.), so 22:30 on the ridge is contradicted. Smyth's brigade was in position at 4 a.m. and Dent's regiment on the field about then; the First Division's first brigade came up soon after sunrise; a dispatch from army headquarters at 6.15 has the Second Corps 'up'; Haskell, in the column, has it up to the field before six; Webb was put in position at 6.30; Hancock puts the arrival about 7; two regiments of Brooke's brigade give about 8 and about 10. The dispatch is the best class of writing and, with Haskell, makes 06:00 an upper bound for the main body; Hancock's about 7 is outweighed by the dispatch of 6.15 and the letter, which have the corps up earlier (he rode ahead and rejoined the corps on the road, so his hour may be his own arrival); Webb's 6.30 is a placement after the arrival. The first troops were earlier than the plan's 06:00 'head'. So the default is the window 04:00-06:15, drawn at 06:00.",
+  "who": "Seth Williams wrote from army headquarters; Haskell rode with the corps on Gibbon's staff; Smyth, Webb and Brooke commanded brigades and give their own movements; Dent, Devereux, McMichael, Scherrer and Coates commanded or served in regiments; Hancock commanded the corps but rode on ahead on 1 July and rejoined it on the road. Meade gives an upper bound for the army.",
+  "when": "The dispatch is of 2 July 6.15 a.m. (the sender's own time). Haskell wrote in July 1863; Smyth, McMichael and Webb in July; Devereux 7 Jul; Coates 3 Aug, Scherrer 2 Aug, Gibbon 7 Aug, Brooke 15 Aug; Hancock's report is of 1863 or 1864 (the year digit is damaged); Meade 1 Oct 1863.",
+  "where": "Each brigade stood where it arrived: Smyth and Dent on the right near the Taneytown road, Brooke on the left of the Second Division, Webb on the ridge, Haskell by the Taneytown road, Hancock rejoining on the road. One corps arrives as several columns, so a unit's report dates a unit, not the corps.",
+  "how_knew": "Smyth, Webb, Brooke, Devereux and Dent give their own movements; Haskell saw the column; Hancock's 'about 7' is his own arrival back at the corps, not a timed observation of the head; the dispatch is a timed record.",
+  "clock": "All the witnesses are Union and no correction is applied (the plan's note of about 20 minutes between the armies' clocks plays no part here). 'About 4' and 'about 7' are read as plus or minus a quarter hour; 'before six' is an upper bound.",
+  "independence": "Smyth and Dent are one brigade (the lower bound rests on one brigade, flagged as such where it stands alone). Haskell and the dispatch are two independent records for the upper bound. Brooke, McMichael and Scherrer are one brigade giving three hours. Hancock and Meade are separate; Meade's 'by 7' relays reports. Gibbon, Caldwell and Harrow give no hour."
+ },
+ "source_panel_text": "The Second Corps came up in stages on Jul 2: its first brigades about 04:00, the main body up before six (Haskell's letter; a headquarters dispatch at 6.15 has it up), the last regiments about 8 to 10. Hancock's own about 07:00 is later. The plan's 22:30 on Jul 1 is contradicted: the corps lay three miles short. Eleven other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "06:00 holds as the hour by which the main body was up (the upper end of the window) and the tails were later; as the head of the column it is two hours late, since a brigade was in position at 4 a.m."
+  },
+  "first_delegated": {
+   "holds": "no",
+   "note": "The window 06:30-07:00 dates a brigade's placement (Webb, 6.30) and Hancock's own arrival (about 7); a dispatch of 6.15 and a letter of the time have the corps up by then. It stays selectable. 22:30 contradicted, 06:00 and dawn stated only as unit moments, as the first pass found."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-004 row)",
+   "must_change": true,
+   "note": "computed: delegated-decision row line 14 names this conflict; the row 'window 06:30-07:00 Jul 2' is superseded by 04:00-06:15 drawn at 06:00 (the first record stays as history)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL04-02 row)",
+   "must_change": false,
+   "note": "computed: delegated-decision row line 801 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 972 row)",
+   "must_change": false,
+   "note": "computed: delegated-decision row line 972 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0103.md",
+   "must_change": false,
+   "note": "computed: register entry names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0105.md",
+   "must_change": false,
+   "note": "computed: register entry names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-023",
+   "must_change": true,
+   "note": "computed: decision log line 296 names this conflict; record the resolved default (window 04:00-06:15, weighted, documented) as a delegated decision; the PENDING OWNER text is superseded."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-004",
+   "must_change": true,
+   "note": "computed: decision log line 32 names this conflict; record the resolved default (window 04:00-06:15, weighted, documented) as a delegated decision; the PENDING OWNER text is superseded."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-B.md",
+   "must_change": false,
+   "note": "computed: gate file names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "gate",
+   "ref": "tools/bt/gates/oob_layer_lib.mjs",
+   "must_change": false,
+   "note": "computed: gate file names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-199",
+   "must_change": false,
+   "note": "computed: tl-04.jsonl line 27 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "us-2c",
+   "must_change": true,
+   "note": "gate printed_clock default 1863-07-02T06:00 (the plan's recommended default), earliest 1863-07-01T22:30, latest 07:00: the default 06:00 stays as the drawn instant for the main body; the window is 04:00-06:15 and the documented earliest time of any part of the corps is 04:00. The earliest 22:30 on Jul 1 is the plan's value (contradicted, selectable); the integration step reconciles the floor in the open and may not lower it; the latest 07:00 (Hancock) holds as the later end. Report only, no gate changed."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "us-2c-2d",
+   "must_change": false,
+   "note": "II Corps, 2nd Division: earliest = default = latest 06:00 (EPP); the division's staff officer has it up before six and Webb in position at 6.30: 06:00 stands as an upper bound; report only."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-063",
+   "must_change": true,
+   "note": "Window Jul 2 ~06:00-07:00 (EPP 06:00 vs OR p. 369 via Freeman 07:00): 06:00 holds as the upper end of the window for the main body; 07:00 is Hancock's own arrival."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-194, T1-177, T2-017, T2-050",
+   "must_change": false,
+   "note": "Rows that carry the II Corps' 22:30 on Jul 1 or its place in the night's arrivals (T1-194 open gap, T2-017 dusk row); the 22:30 stays a contradicted selectable value."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04",
+   "must_change": true,
+   "note": "Report only, no gate changed: the main body's drawn time stays 06:00; the earliest source-supported time of a part of the corps is 04:00 (the Third Division's first brigade), so a unit row for that brigade could open at 04:00; the plan's 22:30 floor must not be raised or lowered by this resolution."
+  },
+  {
+   "kind": "test",
+   "ref": "docs/battle-theatre/app/tests/arrival.spec.mjs lines 79 and 82; daypos.test.mjs line 21; casualties.test.mjs line 86; claims.test.mjs line 160; tools/bt/gates/oob_layer_lib.mjs line 36",
+   "must_change": false,
+   "note": "They pick the options '22:30 Jul 1', 'at dawn' and '07:00 Jul 2' of C-004 and read the printed values; the options stay selectable, so nothing changes."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-004)",
+   "must_change": true,
+   "note": "C-004-DEFAULT 'window 06:30-07:00 Jul 2' becomes the window 04:00-06:15 drawn at 06:00; add class weighted and tier documented."
+  },
+  {
+   "kind": "app_code",
+   "ref": "docs/battle-theatre/app/src/history/arrivals.mjs line 46, src/history/stub.mjs line 14, tools/bt/realize/query.mjs, schema.mjs",
+   "must_change": false,
+   "note": "Mention C-004 only as scenario keys (v0, v1, delegated); nothing to change in code."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/app/HISTORY-LAYER-NOTES.md line 987 and docs/battle-theatre/app/data-contract.md lines 53, 115",
+   "must_change": false,
+   "note": "The 22:30 record entry and the sample scenario; text only."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/history/arrivals.json us-2c default_basis and tools/bt/arrivals_data.py line 121",
+   "must_change": true,
+   "note": "default_basis cites the plan's default '06:00 Jul 2 (head), tails later' (PENDING OWNER); it should cite this resolution (window 04:00-06:15, weighted)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/history/ARRIVALS-NOTES.md line 82",
+   "must_change": false,
+   "note": "Notes that the same EPP 06:00 value appears in us-2c and us-2c-2d; the research reads 06:00 as the main body's upper bound for both."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "Wikipedia Cemetery Ridge (22:30) and EPP (06:00), the plan's web sources for this row (the row prints no keys; the seed rows name them)",
+   "query": "the pages and the sources they give: not among the hosts reachable for this research",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "all local non-lead texts of the ledger",
+   "query": "Second Corps / II Corps / Hancock within 250 characters of 10.30 p. m. / 22:30 and arrived|reached|Cemetery Ridge; no hit that puts the corps on the ridge that night",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Official Records 27/1: Hancock, Gibbon, Caldwell, Hays, Harrow, Webb, Smyth, Carroll, Brooke and the regimental reports R078-R131",
+   "query": "regex for a. m./o'clock/daybreak/sunrise near arrived|reached|massed|position on the morning of the 2d; the hits are cited; Hays (R115), Caldwell, Harrow, Joslin, Heath, Coons and others give no hour for the arrival",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "JCCW-1865-C012 (Joint Committee testimony of 1864) and the weeklies of July 1863",
+   "query": "Second corps / Hancock within 250 characters of arrived|reached|o'clock on the morning of the 2d; Hunt's and Meade's testimony give no hour for the corps",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Freeman (R. E. Lee, vol. 3; the seed row T2-063 cites OR 27/1 p. 369 via Freeman) and Gibbon's Personal Recollections",
+   "query": "not read for this hour; Freeman repeats Hancock's report, Gibbon's book is not in the local library and was not fetched",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report, log or diary of the Third Division's brigades (Hays, Carroll, Smyth) or a signal or provost record giving the hour the head of the corps crossed the Taneytown road; a page image of Hancock's report with its date; the sources behind the plan's 22:30 and 06:00 would be weighed on their own."
+}
