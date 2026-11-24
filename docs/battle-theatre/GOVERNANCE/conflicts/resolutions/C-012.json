@@ -1,0 +1,852 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-012",
+ "topic": "Vincent’s lead over Law at Little Round Top",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-012",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Vincent’s lead over Law at Little Round Top | 10 minutes; 15 minutes | 10 minutes | 15 minutes",
+  "values": [
+   "10 minutes",
+   "15 minutes"
+  ],
+  "recommended_default": "10 minutes",
+  "selectable_alternatives": [
+   "15 minutes"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-012-DEFAULT",
+  "default_label": "10 minutes (PDF), marked plausible-procedural, no source",
+  "tier": "plausible-procedural",
+  "basis": "gap",
+  "scenario_ids": [
+   "C-012-S1",
+   "C-012-S2",
+   "C-012-S3",
+   "C-012-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "inferred",
+ "basis": {
+  "kind": "reminiscence",
+  "text": "Oates, who commanded the 15th Alabama, wrote in 1905 (printed again by Norton in 1913) that Vincent's brigade reached the ledge ten minutes before his regiment arrived. It is the only figure any witness gives; the reports of 1863 give none and say only that the line was scarcely formed when the attack came."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-012-P1"
+  ],
+  "label": "10 minutes: Vincent's brigade reached the ledge ten minutes before Oates's 15th Alabama arrived",
+  "value": 10,
+  "range": {
+   "low": 10,
+   "high": 15,
+   "basis": "the two figures of the plan's row; ten is stated by Oates (1905), fifteen has no source found"
+  },
+  "animation": {
+   "at": null,
+   "rule": "best_supported",
+   "note": "The picture shows Vincent's line formed on the ledge and the 15th and 47th Alabama coming up to it ten minutes later; the clock time of Vincent's arrival is not set by this row (the reports say about 4 p.m.), and the first attacks on the centre of the brigade come sooner than the flanking column."
+  },
+  "note": "Ten minutes is Oates's estimate, written 42 years after, for the flanking column; fifteen has no source; the other two values stay listed."
+ },
+ "positions": [
+  {
+   "id": "C-012-P1",
+   "origin": "pdf_value",
+   "pdf_label": "10 minutes",
+   "scenario_ids": [
+    "C-012-S1",
+    "C-012-S3",
+    "C-012-DEFAULT"
+   ],
+   "label": "10 minutes: Vincent's brigade reached the ledge ten minutes before Oates's 15th Alabama arrived (Oates, 1905)",
+   "kind": "duration",
+   "value": {
+    "minutes": 10
+   },
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "default",
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "inference": {
+    "step": "Oates (15th Alabama) wrote in 1905 that Vincent's brigade reached the ledge ten minutes before he did; the reports of 1863 give no figure but say the line was scarcely formed when the first attack came and that the flanking column came later, which agrees with a short lead and does not contradict ten minutes. The figure is taken as Oates's estimate of the lead over the flanking column, not of the first attack.",
+    "from": [
+     "C-012-P1-c1",
+     "C-012-P1-c2",
+     "C-012-P1-c5",
+     "C-012-P1-c6",
+     "C-012-P1-c7"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-012-P1-c1",
+     "source": "OATES-1905-C016",
+     "source_class": "book",
+     "page": "214",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 214 stands just before the paragraph, the head of 215 after the speech of Captain Nash)",
+     "text_offset": 584453,
+     "quote": "reached this position ten minutes before my arrival",
+     "witness": {
+      "name": "William C. Oates",
+      "role": "Colonel, 15th Alabama Infantry (Law's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1905",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "oates",
+     "exact": true,
+     "states": {
+      "numbers": [
+       10
+      ],
+      "phrases": [
+       "ten minutes before my arrival"
+      ]
+     },
+     "note": "Oates, describing the ledge of rocks at the foot of Little Round Top where his 15th Alabama met the 20th Maine: the whole of Vincent's brigade was there ten minutes before his regiment arrived. He does not say how he knew; he could not have seen the brigade arrive."
+    },
+    {
+     "id": "C-012-P1-c2",
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page": "89",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text; Norton prints Oates's text of 1905, so this is the same line of knowledge as the book of 1905",
+     "text_offset": 181829,
+     "quote": "reached this position ten minutes before my arrival",
+     "witness": {
+      "name": "William C. Oates (printed by Norton)",
+      "role": "Colonel, 15th Alabama Infantry (Law's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1905",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "oates",
+     "exact": true,
+     "states": {
+      "numbers": [
+       10
+      ],
+      "phrases": [
+       "ten minutes before my arrival"
+      ]
+     },
+     "note": "Norton, a private of Vincent's brigade, reprints Oates's chapter in full (1913, pp. 83-90) and makes no comment on this sentence."
+    },
+    {
+     "id": "C-012-P1-c3",
+     "source": "SHSP-06",
+     "source_class": "book",
+     "page": "175",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (Gettysburg: The Battle on the Right, pp. 172-182, Southern Historical Society Papers vol. 6)",
+     "text_offset": 527918,
+     "quote": "During my halt, which continued less than ten minutes",
+     "witness": {
+      "name": "William C. Oates",
+      "role": "Colonel, 15th Alabama Infantry (Law's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1878",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "oates",
+     "exact": false,
+     "states": {
+      "numbers": [
+       10
+      ],
+      "phrases": [
+       "less than ten minutes"
+      ]
+     },
+     "note": "Oates's first printed account (1878). The ten minutes here is the length of his halt on the top of Round Top; the account says nothing of Vincent's brigade arriving earlier."
+    },
+    {
+     "id": "C-012-P1-c4",
+     "source": "BL-3",
+     "source_class": "book",
+     "page": "314",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the text, not from the page image (the image could not be fetched): the page number 314 and the running head of the 20th Maine note stand before the start of the note, the running head of page 315 comes after this sentence, and the page between them holds about 7,000 characters",
+     "text_offset": 1322642,
+     "quote": "halting some ten minutes on the crest for rest. This halt proved fatal to the success of their undertaking, as it enabled our brigade (Vincent's)",
+     "witness": {
+      "name": "H. S. Melcher",
+      "role": "Officer of the 20th Maine Infantry (Vincent's brigade); article of 13 March 1885, condensed in Battles and Leaders",
+      "side": "union"
+     },
+     "written": {
+      "date": "1885-03-13",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "melcher",
+     "exact": false,
+     "states": {
+      "numbers": [
+       10
+      ],
+      "phrases": [
+       "some ten minutes on the crest for rest"
+      ]
+     },
+     "note": "Melcher of the 20th Maine: the two Alabama regiments halted some ten minutes on Round Top, and that halt let Vincent's brigade reach the hill in time. Ten minutes here is the length of the Alabamians' halt, not a count of Vincent's lead; his account of the Alabama march matches Oates's of 1878."
+    },
+    {
+     "id": "C-012-P1-c5",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R195",
+     "page": "617",
+     "page_basis": "scan_leaf",
+     "text_offset": 2166246,
+     "quote": "The brigade had scarcely formed line of battle and pushed forward its skirmishers when a division of the enemy's forces, under General Hood, made a desperate attack along the entire line of the brigade",
+     "witness": {
+      "name": "James C. Rice",
+      "role": "Colonel, 44th New York Infantry; took command of Vincent's brigade when Vincent fell",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "rice",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "scarcely formed line of battle"
+      ]
+     },
+     "note": "Rice, report of 31 July 1863: the first attack came when the line was scarcely formed. No figure."
+    },
+    {
+     "id": "C-012-P1-c6",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "623",
+     "page_basis": "scan_leaf",
+     "text_offset": 2186419,
+     "quote": "my formation was scarcely complete when the artillery was replaced by a vigorous infantry assault upon the center of our brigade to my right",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, 20th Maine Infantry (Vincent's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "scarcely complete"
+      ]
+     },
+     "note": "Chamberlain, report of 6 July 1863: the attack came first on the centre of the brigade, to the right of his regiment. No figure."
+    },
+    {
+     "id": "C-012-P1-c7",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "623",
+     "page_basis": "scan_leaf",
+     "text_offset": 2187027,
+     "quote": "a considerable body of the enemy moving by the flank in rear of their line engaged, and passing from the direction of the foot of Great Round Top through the valley toward the front of my left",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, 20th Maine Infantry (Vincent's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "foot of Great Round Top"
+      ]
+     },
+     "note": "Chamberlain: the flanking column that came against his left (Oates's 15th and 47th Alabama) was seen after the first attack was under way, so the lead over the flanking column is longer than over the first attackers."
+    },
+    {
+     "id": "C-012-P1-c8",
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page": "35",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the sentence begins on page 34 and this part is on page 35)",
+     "text_offset": 58122,
+     "quote": "brigade was all in position there and had thrown out skirmishers toward the southeast and the west before a single Confederate made his appearance",
+     "witness": {
+      "name": "Oliver Willcox Norton",
+      "role": "Private, 83d Pennsylvania Infantry (Vincent's brigade), 1863; author of the book of 1913",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "norton",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "before a single Confederate made his appearance"
+      ]
+     },
+     "note": "Norton's reading of the reports and of Warren's and Sykes's letters: the brigade was formed and had its skirmishers out before any Confederate appeared. No figure."
+    }
+   ],
+   "note": "The figure is the lead over the 15th Alabama (and the 47th) at the 20th Maine's ledge. The Union reports put the first attack, on the centre of the brigade, sooner after the line formed."
+  },
+  {
+   "id": "C-012-P2",
+   "origin": "pdf_value",
+   "pdf_label": "15 minutes",
+   "scenario_ids": [
+    "C-012-S2"
+   ],
+   "label": "15 minutes (the plan's second figure; no source found)",
+   "kind": "duration",
+   "value": {
+    "minutes": 15
+   },
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No report, diary or book found gives fifteen minutes. The plan takes it from a magazine page that could not be read here; the fifteen minutes in the sources time the gunfire before the advance."
+   },
+   "failed_lookups": [
+    {
+     "where": "all local non-lead texts of the ledger (Official Records, books and papers, Park Service texts)",
+     "query": "(fifteen minutes|15 minutes|quarter of an hour) within 350 characters of Vincent / Little Round Top / Round Top, in both orders, and the same with Chamberlain, Oates, Law and \"the Confederates\"; the only fifteen-minute figures near the subject time the artillery fire before the advance (Law, Battles and Leaders 3; Norton 1913, \"from fifteen minutes to half an hour\")",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1 (reports of the Third Brigade, of Barnes and of Sykes) and OR27-2 (reports of Law's brigade and of Robertson's)",
+     "query": "any interval in minutes between Vincent's brigade taking its place and the arrival of the Confederates: none is given; the reports give clock readings only (about 4 p.m. for the Union order, 4 to 4.30 p.m. for the Texan advance)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "warfarehistorynetwork.com (Phifer, the page the plan names for 15 minutes)",
+     "query": "the page itself and the source it gives for the figure; the host is not among the hosts reachable for this research and a web page is only a lead",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    }
+   ],
+   "note": "Kept as the plan prints it and shown as a gap: no source states it, and nothing stands in for the missing record."
+  },
+  {
+   "id": "C-012-P3",
+   "origin": "research",
+   "label": "About 45 minutes by the 83rd Pennsylvania's clock (2:30 to 3:15); its writer later said the times were wrong",
+   "kind": "duration",
+   "value": {
+    "minutes": 45
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [
+    "single_source",
+    "contradicted",
+    "unclear_clock"
+   ],
+   "inference": {
+    "step": "Woodward (83rd Pennsylvania) wrote that his regiment was ordered into position at about 2.30 p.m. and that the enemy engaged his skirmishers at 3.15 p.m.; 45 minutes is the difference of the two readings. It measures the lead over the first contact, not over Law's flanking column, and the clocks are disowned by their writer.",
+    "from": [
+     "C-012-P3-c1"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-012-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R201",
+     "page": "632",
+     "page_basis": "scan_leaf",
+     "text_offset": 2217099,
+     "quote": "At about 2.30 p. m. was ordered into position on our extreme left [...] At 3.15 p. m. the enemy advanced and engaged my skirmishers",
+     "witness": {
+      "name": "Orpheus S. Woodward",
+      "role": "Captain, commanding the 83rd Pennsylvania Infantry (Vincent's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "woodward",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:30",
+       "15:15"
+      ]
+     },
+     "note": "Woodward, report of 6 July 1863 (the text prints \"2. .30\"): two clock readings 45 minutes apart for the order into position and the first contact."
+    },
+    {
+     "id": "C-012-P3-c2",
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page": "246",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text",
+     "text_offset": 531456,
+     "quote": "Captain Woodward is mistaken about the time of the engagement",
+     "witness": {
+      "name": "Oliver Willcox Norton",
+      "role": "Private, 83d Pennsylvania Infantry (Vincent's brigade), 1863; author of the book of 1913",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "norton",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Woodward is mistaken about the time"
+      ]
+     },
+     "note": "Norton, who prints Woodward's report, judges the clock wrong and puts the attack on the brigade between 4:30 and 5 p.m."
+    },
+    {
+     "id": "C-012-P3-c3",
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page": "246",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text",
+     "text_offset": 532272,
+     "quote": "he admits his mistake in regard to the time, and authorizes me to correct that statement to accord with the facts",
+     "witness": {
+      "name": "Oliver Willcox Norton",
+      "role": "Private, 83d Pennsylvania Infantry (Vincent's brigade), 1863; author of the book of 1913",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "norton",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "admits his mistake in regard to the time"
+      ]
+     },
+     "note": "Woodward's own letter of 12 January 1912, as Norton reports it."
+    },
+    {
+     "id": "C-012-P3-c4",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R195",
+     "page": "616",
+     "page_basis": "scan_leaf",
+     "text_offset": 2164822,
+     "quote": "ordered into position at about 4 p. m. of the 2d instant, on the extreme left of our line of battle",
+     "witness": {
+      "name": "James C. Rice",
+      "role": "Colonel, 44th New York Infantry; took command of Vincent's brigade when Vincent fell",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "rice",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "The brigade commander's hour for the order into position."
+    },
+    {
+     "id": "C-012-P3-c5",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R198",
+     "page": "628",
+     "page_basis": "scan_leaf",
+     "text_offset": 2203913,
+     "quote": "About 4 p. m. we moved rapidly to the extreme left of our line of battle, and went into position",
+     "witness": {
+      "name": "Norval E. Welch",
+      "role": "Lieutenant Colonel, 16th Michigan Infantry (Vincent's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "welch",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "The 16th Michigan, same brigade: about 4 p.m."
+    },
+    {
+     "id": "C-012-P3-c6",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R202",
+     "page": "633",
+     "page_basis": "scan_leaf",
+     "text_offset": 2220442,
+     "quote": "until about 4 p. m. , when we were ordered to the front; immediately on arriving there became engaged",
+     "witness": {
+      "name": "William H. Lamont",
+      "role": "Major, 83rd Pennsylvania Infantry (Vincent's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-14",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "lamont",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "The 83rd Pennsylvania's own second report, of 14 August 1863: about 4 p.m., and engaged on arriving. It contradicts its commander's 2:30."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "Its commander's 2:30 and 3:15 are contradicted by his own regiment's second report and by the brigade's others (about 4 p.m.); in 1912 he told Norton the times were wrong."
+   }
+  },
+  {
+   "id": "C-012-P4",
+   "origin": "research",
+   "label": "A few minutes (the 44th New York's account of 1900; no figure given)",
+   "kind": "category",
+   "value": {
+    "text": "a few minutes"
+   },
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "inference": {
+    "step": "An officer of the brigade staff wrote in 1900 that the brigade reached Little Round Top a few minutes before the Confederates; Norton (1913) says the brigade was formed and had its skirmishers out before any Confederate appeared. Both say the lead was short and name no figure.",
+    "from": [
+     "C-012-P4-c1",
+     "C-012-P4-c2"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-012-P4-c1",
+     "source": "NY-GB-1900",
+     "source_class": "book",
+     "page": "370",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (New York at Gettysburg, vol. 1, p. 370)",
+     "text_offset": 1094837,
+     "quote": "The Third Brigade, by marching in double time, reached Little Round Top a few minutes before the Confederates",
+     "witness": {
+      "name": "Officer of the 44th New York (name not printed in the volume)",
+      "role": "Assistant inspector general of Vincent's brigade, by his own words; author of the regiment's chapter in New York at Gettysburg (1900)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1900",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "staff_present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "ny1900",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "a few minutes before the Confederates"
+      ]
+     },
+     "note": "The 44th New York's chapter, written 37 years after by an officer of the brigade staff: a few minutes, with no figure and no word on how he judged it."
+    },
+    {
+     "id": "C-012-P4-c2",
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page": "35",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the sentence begins on page 34 and this part is on page 35)",
+     "text_offset": 58122,
+     "quote": "brigade was all in position there and had thrown out skirmishers toward the southeast and the west before a single Confederate made his appearance",
+     "witness": {
+      "name": "Oliver Willcox Norton",
+      "role": "Private, 83d Pennsylvania Infantry (Vincent's brigade), 1863; author of the book of 1913",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "norton",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "before a single Confederate made his appearance"
+      ]
+     }
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "unclear_expression",
+    "text": "\"A few minutes\" is not a figure. It agrees with a short lead and with ten minutes, and is kept as the Union officer's own wording."
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "Only one witness puts a figure on the lead: Colonel Oates of the 15th Alabama, who wrote in 1905 that Vincent's brigade reached the ledge ten minutes before he did. The reports of 1863 give no figure; they say the line was scarcely formed when the attack came, which fits a short lead without measuring it. No source states fifteen minutes. The 83rd Pennsylvania's clocks give 45 minutes, but its writer later called them wrong, and a Union officer of 1900 says only \"a few minutes\". Ten is therefore the best-weighted figure, though it rests on one recollection: weighted, inferred. It is the lead over the flanking column that reached the 20th Maine's ledge; by the Union reports the first attack, on the centre of the brigade, came sooner after the line formed.",
+  "who": "Oates commanded the 15th Alabama and led the flanking column against the 20th Maine; he is the one man who stood at the ledge when it was reached and also gives the interval. He cannot have seen Vincent's brigade arrive, and he does not say how he knew. Rice (44th New York, then the brigade), Chamberlain (20th Maine), Welch (16th Michigan), Lamont and Woodward (83rd Pennsylvania) were officers of Vincent's brigade on the hill; the chapter of 1900 is by an officer of the brigade staff whose name the volume does not print. Norton, a private of the brigade, reprints Oates and reports Woodward's later correction; Melcher of the 20th Maine repeats a ten-minute halt of the Alabamians.",
+  "when": "The reports are of 6 July to 14 August 1863, 4 to 43 days after: the best class of writing there is, but none gives an interval. Oates's figure is of 1905, 42 years after, a recollection; Norton reprints it in 1913. In 1878 Oates wrote that his halt on Round Top lasted \"less than ten minutes\" and said nothing of Vincent's arrival; in 1885 Melcher printed \"some ten minutes\" for that halt and said it let Vincent's brigade arrive in time. The figure ten minutes was thus already in print for another interval, and whether the sentence of 1905 rests on a separate memory cannot be told from the record. Where a rejected value has the better class of writing (Woodward, 1863, against Oates, 1905), it loses because its writer withdrew it and three reports of the same brigade (Rice, Welch, Lamont) put the order at about 4 p.m.",
+  "where": "Oates was on the Confederate side of the ledge and saw the line only when his regiment was within forty or fifty steps of it. Rice, Chamberlain, Welch, Lamont and Woodward were on the hill with their regiments; Chamberlain's report shows the attack came first on the centre of the brigade and only later, from the foot of Great Round Top, on his left, so the lead over the flanking column is longer than the lead over the first attackers. A lead is also not the same for every regiment of the brigade.",
+  "how_knew": "Oates gives no basis for his figure. Rice and Chamberlain knew from their own commands; the writer of 1900 says only that he was on the brigade staff. Woodward gave two clock readings from his own watch; his later admission reaches us through Norton, who quotes a letter of 12 January 1912.",
+  "clock": "Oates's figure is a length of time, so no clock enters it. The clock readings of the day cannot decide ten against fifteen: Union reports say about 4 p.m. for the order into position, Norton reads the attack at 4:30 to 5, Bane (4th Texas) has the order to advance at about 4:30 p.m., and Oates's book has the guns opening at about 3:30; each carries an \"about\" as large as the interval itself. The reported difference of about 20 minutes between the two armies' clocks is not applied.",
+  "independence": "One line of knowledge states ten minutes: Oates (book of 1905 and its reprint by Norton; the halt of 1878 and Melcher's ten minutes concern another interval), so the figure is flagged single-source and memoir-only. Fifteen minutes has no witness. The 45 minutes rest on one report that its writer withdrew and that three reports of the brigade (Rice, Welch, Lamont) contradict. The chapter of 1900 is a second Union voice for a short lead, not for a figure."
+ },
+ "source_panel_text": "Ten minutes: Colonel Oates of the 15th Alabama wrote in 1905 that Vincent's brigade reached the ledge ten minutes before his regiment arrived. The reports of 1863 give no figure, only that the line was scarcely formed when the attack came. No source for fifteen minutes was found. Three other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "yes",
+   "note": "Ten minutes holds as the figure: it is the only one any witness gives (Oates, 1905). It holds as inferred, not documented: the plan's timeline row marks it documented and cites web pages (an encyclopaedia and magazine pages) that could not be read here, and the figure is the lead over the 15th Alabama at the 20th Maine's ledge, not over the first attackers."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "The figure holds, the marking does not. The first pass found no source and kept ten minutes as a marked stand-in; Oates's book of 1905 (printed again by Norton, 1913) states it, so it is inferred and the class weighted, not a gap. The first pass had searched the Official Records, which give no interval, and had not reached Law's essay, which gives none either."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T2-142",
+   "must_change": true,
+   "note": "Row text: \"Takes position about 10 minutes (W-LRT) or 15 minutes (Phifer) before the Confederates arrive\", tier documented, sources W-LRT, PHIF, SS2, HN-LRT (all leads), conflict note \"10 vs 15 minutes\". Under this resolution the default is ten minutes at inferred, drawn from Oates (1905) and Norton (1913), measured to the flanking column; the row's tier, its sources and its wording \"the Confederates\" must follow. The row's clock (about 16:30) is untouched."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-144",
+   "must_change": false,
+   "note": "Law's brigade first attacks, about 16:30 to 17:00, five regiments listed together. The ten minutes is the lead over the 15th and 47th Alabama reaching the ledge, not over the first attacks; no change to the row."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-012)",
+   "must_change": true,
+   "note": "default_scenario_id C-012-DEFAULT, label \"10 minutes (PDF), marked plausible-procedural, no source\" and the gap marking become the resolution's default (10 minutes, inferred, class weighted); the four scenarios stay selectable and the three new values (45 minutes, a few minutes) are added."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-012)",
+   "must_change": true,
+   "note": "First delegated default: same change as the app copy."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-012 row)",
+   "must_change": true,
+   "note": "The row says zero Official Records hits, both values unsourced, plausible-procedural; superseded by this resolution (record the reconciliation in the open, do not edit the old line)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md line 785 and GATE-SPEC-A.md line 467",
+   "must_change": true,
+   "note": "Both list C-012 among the eight plausible-procedural defaults (C-005, C-007, C-012, C-016, C-023, C-026, C-042, C-045); C-012 becomes inferred."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/timeline_verified.jsonl (T2-142 notes)",
+   "must_change": false,
+   "note": "The verified note \"lead-minutes remain secondary-only gaps\" is out of date (Oates 1905 is a primary participant's book), but the file is another workstream's and is left as it is."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/build_arrivals.py line 730 (unit_conflicts C-012: us-5c-1d-vincent, cs-1c-hood-law)",
+   "must_change": false,
+   "note": "Only links the conflict to the two units; the arrivals gates (Q04, Q05, Q06) read arrival windows and positions, not this lead, and no arrivals row carries C-012."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/or27_claims.py line 426 (claim check m4, NOT-FOUND-IN-OR)",
+   "must_change": false,
+   "note": "Still true: the Official Records give no interval. The figure is in Oates's book, not in the Official Records."
+  },
+  {
+   "kind": "gate",
+   "ref": "CF-1 to CF-8 (conflict gate)",
+   "must_change": false,
+   "note": "Every value stays selectable, the default is labelled, and ten minutes carries the flags single-source and memoir-only; no gate value is lowered or skipped."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1",
+   "query": "an interval in minutes between Vincent's brigade taking its place on Little Round Top and the first attack or the arrival of the Confederates, in the reports of Rice (R195), Chamberlain (R196), Welch (R198), Cormer (R200), Woodward (R201), Lamont (R202), Barnes (R189) and Sykes (R187): only clock readings and \"scarcely formed\" are given",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2",
+   "query": "minutes or clock readings for the arrival at Vincent's line, in the reports of Oates (R444), Perry (R445), Sheffield (R447), Scruggs (R443), Campbell (R446), Robertson (R452), Bane (R455), Bryan (R456) and Benning (R458): Oates's only minute figure (\"in less than five minutes\") is the effect of his fire",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "BL-3",
+   "query": "Law, \"The Struggle for Round Top\": any interval for Vincent's arrival; his minute figures are the ten minutes of Hamilton's ride to Longstreet and about fifteen minutes of artillery fire, and he says Vincent's brigade came as fresh troops on his right flank",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "POWELL-1896-C012",
+   "query": "the Fifth Corps history on Vincent's march and the attack: it follows Chamberlain's report (\"scarcely complete\") and gives no figure",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "JCCW-1865-C012",
+   "query": "\"Round Top\" and Vincent within 300 characters of minutes in the testimony and papers of the volume: no interval for Vincent's lead (the one hit is Crawford's own movement)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "CHAMBERLAIN-1915-C012",
+   "query": "Little Round Top, Vincent, Oates: the book is about the last campaign and mentions Gettysburg only in passing; no interval",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "NPS-CLR-LRT and the other Park Service texts on the Round Tops",
+   "query": "(Vincent|Chamberlain|Oates|Law) within 500 characters of \"minutes\" in both orders in 20 Park Service texts: only Oates's phrase \"in less than five minutes\" (the effect of his fire)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "en.wikipedia.org and warfarehistorynetwork.com (the pages the plan names for 10 and 15 minutes)",
+   "query": "the pages themselves and the sources they give for the figures; neither host is among the hosts reachable for this research and a web page is only a lead",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "archive.org",
+   "query": "the page image of Battles and Leaders vol. 3, page 314 (leaf image through the download endpoint), to confirm the printed page of the Melcher sentence: the proxy answered 403 to the connection",
+   "outcome": "failed",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Gettysburg National Military Park archive (Oates correspondence to the battlefield commission, 1905, cited in NPS-CLR-LRT p. 127) and the Bachelder papers",
+   "query": "letters of Oates, Chamberlain or Law of the 1880s and 1900s that give Vincent's lead in minutes: not online on the reachable hosts",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report, diary or letter of 1863 to 1864 that gives clock readings or minutes for both the arrival of Vincent's brigade and the first Confederate contact would replace the recollection of 1905. So would the earlier letters of Oates, Chamberlain or Law (Oates's correspondence to the battlefield commission, the Bachelder papers) if one of them gives the lead, or the sources behind the figures in the plan's two web pages: a figure of fifteen minutes with a source would move the default."
+}
