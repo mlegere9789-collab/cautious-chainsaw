@@ -1,0 +1,588 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-044",
+ "topic": "Camp Letterman opening",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-044",
+ "event_date": "1863-07-14",
+ "pdf_row": {
+  "page": 63,
+  "text": "Camp Letterman opening | Jul 20; Jul 22 | Jul 20 | Jul 22",
+  "values": [
+   "Jul 20",
+   "Jul 22"
+  ],
+  "recommended_default": "Jul 20",
+  "selectable_alternatives": [
+   "Jul 22"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-044-DEFAULT",
+  "default_label": "Jul 20",
+  "tier": "inferred",
+  "basis": "institutional",
+  "scenario_ids": [
+   "C-044-S1",
+   "C-044-S2",
+   "C-044-S3",
+   "C-044-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "inferred",
+ "basis": {
+  "kind": "secondary",
+  "text": "Duncan's history of the 1910s ('It was opened on July 22nd') and the nurse Sallie Myers in 1909 (quoted by a Park Service seminar paper of 2010) give 22 July without a source; the 1863 telegrams and letters bracket it (site chosen Jul 14, hospital tents arrived at the depot Jul 15, still 'being established' Jul 24, earliest dated transfers found Jul 24). No writing found gives 20 July."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-044-P2"
+  ],
+  "label": "Jul 22: the camp opens for patients (the earliest dated transfers found are Jul 24)",
+  "animation": {
+   "at": "1863-07-22T00:00",
+   "rule": "best_supported",
+   "note": "The camp stands as tents from about Jul 15 (Janes's site chosen on Jul 14; hospital tents arrived at the depot on Jul 15) and is shown receiving patients from Jul 22; the earliest dated transfers found into it are Jul 24 and the corps hospitals empty into it through about Jul 29. Jul 20 has no source and stays selectable; the picture does not show patients earlier than Jul 22."
+  },
+  "note": "A medical history of the 1910s and a nurse's article of 1909 each say Jul 22 without a source; the papers of 1863 only bracket the opening. Opening for patients, completion of the tents and the first transfers are different days."
+ },
+ "positions": [
+  {
+   "id": "C-044-P1",
+   "origin": "pdf_value",
+   "pdf_label": "Jul 20",
+   "scenario_ids": [
+    "C-044-S1",
+    "C-044-S3",
+    "C-044-DEFAULT"
+   ],
+   "label": "Jul 20: the plan's value and recommended default (a Park Service page and a Trust page, not read as text)",
+   "kind": "date",
+   "value": {
+    "date": "1863-07-20"
+   },
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "lead_only",
+    "unsourced"
+   ],
+   "support": [],
+   "failed_lookups": [
+    {
+     "where": "Park Service ranger programs page (https://www.nps.gov/thingstodo/gettysburg-ranger-programs.htm), the page the first pass reports as giving 'July 20 to November 19, 1863'",
+     "query": "fetched again 2026-11-24 (40,036 bytes, saved under tmp/library/conflicts/C-044): the word Letterman is not in the page as served, so the 20 July reading rests on a search-engine summary of the page that was never read as text",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "American Battlefield Trust page on Camp Letterman (the plan's ABT-CL, 20 Jul; over 400 tents) and Wikipedia / Civil War News pages (the plan's W-CL, CWN-CL)",
+     "query": "the pages and the sources they give for the opening day; the hosts refused the connection through the research proxy (HTTP 403 at the tunnel) and are not among the hosts reachable for this research",
+     "outcome": "blocked",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "all local non-lead texts (Official Records 27/1-3, Souder, Christian Commission 1863, Moore, Brockett, Bucklin, Duncan, Park Service texts, the Gettysburg weeklies of Jul-Dec 1863, the Medical and Surgical History Part I vol. II)",
+     "query": "Camp Letterman, the General Hospital and Letterman Hospital within 400 characters of 20 July / July 20 / 20th, and of opened, established, organized: no text gives 20 July for the opening",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No writing found gives 20 July; the Park Service page behind it could not be read as text. Writers who give a day say 22 July, and men were still 'establishing' the camp on 24 July."
+   }
+  },
+  {
+   "id": "C-044-P2",
+   "origin": "pdf_value",
+   "pdf_label": "Jul 22",
+   "scenario_ids": [
+    "C-044-S2"
+   ],
+   "label": "Jul 22: a medical history of the 1910s and a nurse's article of 1909; the 1863 record fits it",
+   "kind": "date",
+   "value": {
+    "date": "1863-07-22"
+   },
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "default",
+   "flags": [
+    "memoir_only"
+   ],
+   "support": [
+    {
+     "id": "C-044-P2-c1",
+     "source": "DUNCAN-MEDDEPT-CIVILWAR",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not read; the sentence stands in the chapter Gettysburg (chapter VII), under the paragraph on the hospital east of the town beside the York Pike; the reprint is undated (catalogued 191-?; the written date is the latest it can be: the Surgeon General's office letter of 19 Oct 1916 describes the bound reprints, and the text cites a source of 1911)",
+     "text_offset": 607811,
+     "quote": "It was opened on July 22nd and not closed until November 20, 1863",
+     "witness": {
+      "name": "Louis C. Duncan",
+      "role": "Captain, Medical Corps, US Army; medical historian, writing decades after the war (not a witness)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1916",
+      "kind": "later_history"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "duncan",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-22",
+       "11-20"
+      ],
+      "numbers": [
+       22,
+       20,
+       1863
+      ],
+      "phrases": [
+       "opened on July 22nd"
+      ]
+     },
+     "note": "A history of the 1910s, which says 'It was opened on July 22nd' in plain words and gives no source. The same sentence gives Nov 20 for the close; it names no document. It is the 'early medical historian' of the Park Service paper of 2010."
+    },
+    {
+     "id": "C-044-P2-c2",
+     "source": "NPS-SEM10-ATKINSON-C044",
+     "source_class": "official",
+     "page": "16",
+     "page_basis": "pdf_marker",
+     "text_offset": 55277,
+     "quote": "people took the soldiers into their houses and cared for them until Camp Letterman, the hospital camp, was opened on July 22",
+     "witness": {
+      "name": "Sally (Sallie) Myers",
+      "role": "Gettysburg schoolteacher and nurse in July 1863, later at Camp Letterman; quoted from her article 'Gettysburg's Memories of its Terrible Fourth', North American, 4 Jul 1909",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1909-07-04",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "myers",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-22"
+      ],
+      "phrases": [
+       "was opened on July 22"
+      ]
+     },
+     "note": "The Park Service paper (2010) reports this passage from a source it names; the original was not read for this research, so the citation stands on the paper, which prints it. A reminiscence of forty-six years; it says 'opened' and gives the day, with no source. The paper says Myers 'also noted' it, so the two dates (Duncan and Myers) are two writers who each say 22 July; whether Duncan drew on Myers or the reverse is not shown."
+    },
+    {
+     "id": "C-044-P2-c3",
+     "source": "NPS-SEM10-ATKINSON-C044",
+     "source_class": "official",
+     "page": "16",
+     "page_basis": "pdf_marker",
+     "text_offset": 55887,
+     "quote": "orders to move the patients in the 1st Corps hospitals were received on July 22",
+     "witness": {
+      "name": "William F. Norris",
+      "role": "Surgeon at a Gettysburg hospital (the Park Service paper places him with the First Corps hospitals); letters of July 1863 in the Park Service vertical files, quoted by the Park Service paper",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-26",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "norris",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-22"
+      ],
+      "phrases": [
+       "received on July 22"
+      ]
+     },
+     "note": "The Park Service paper (2010) reports this passage from a source it names; the original was not read for this research, so the citation stands on the paper, which prints it. The paper puts the orders at 22 July and says the move took place the next day and at the end of the week; Norris writes on 26 July that his hospital moved to the General Hospital that day. The sentence is the paper's summary, not Norris's own words; it says that move orders came on 22 July, not that the camp opened then."
+    },
+    {
+     "id": "C-044-P2-c4",
+     "source": "NPS-SEM10-ATKINSON-C044",
+     "source_class": "official",
+     "page": "16",
+     "page_basis": "pdf_marker",
+     "text_offset": 55543,
+     "quote": "soon all those who are not able to be moved far will be carried to the general hospital that is being established here",
+     "witness": {
+      "name": "William C. Way",
+      "role": "Chaplain, 24th Michigan Infantry; letter of 24 Jul 1863 printed in the Detroit Advertiser and Tribune of 30 Jul 1863, quoted by the Park Service paper",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-24",
+      "kind": "newspaper_1863"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "way",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "being established here"
+      ]
+     },
+     "note": "The Park Service paper (2010) reports this passage from a source it names; the original was not read for this research, so the citation stands on the paper, which prints it. On 24 July the general hospital 'is being established': not yet complete, and the transfers had not begun in numbers. This sets the earliest the camp could be called open as about 22 to 24 July and does not date the opening by itself. The newspaper itself was not read."
+    },
+    {
+     "id": "C-044-P2-c5",
+     "source": "OR27-3",
+     "source_class": "primary",
+     "part": "OR27-3-D1485",
+     "page": "700",
+     "page_basis": "scan_leaf",
+     "text_offset": 1854155,
+     "quote": "Have selected a fine site for the camp. Am anxiously awaiting the tents",
+     "witness": {
+      "name": "Henry Janes",
+      "role": "Surgeon, US Volunteers, in charge of the hospitals at Gettysburg",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-14",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "janes",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "selected a fine site"
+      ]
+     },
+     "note": "Telegram of 14 Jul 1863 from Gettysburg to Washington: the site is chosen and the tents have not come. The camp does not exist as a hospital on 14 Jul; this is a lower bound, not an opening. The sentence before it, on the 9th, is the same Janes: 'I shall be able to begin the permanent hospital soon, if I can get the hospital tents'."
+    },
+    {
+     "id": "C-044-P2-c6",
+     "source": "OR27-3",
+     "source_class": "primary",
+     "part": "OR27-3-D1503",
+     "page": "706",
+     "page_basis": "scan_leaf",
+     "text_offset": 1868973,
+     "quote": "The hospital tents arrived to-day, and are being put up",
+     "witness": {
+      "name": "W. G. Rankin",
+      "role": "Captain and depot quartermaster at Gettysburg; telegram to Colonel Ingalls, 15 Jul 1863",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-15",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "rankin",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "hospital tents arrived"
+      ]
+     },
+     "note": "A quartermaster's telegram about his depot: he does not say the tents are for the general hospital or where they are being put up; read with Janes's telegram of the day before ('awaiting the tents'), it is the likeliest meaning but it is an inference, not a statement. It puts the tents on the ground from 15 Jul, a week before 22 Jul."
+    },
+    {
+     "id": "C-044-P2-c7",
+     "source": "MSHWR-P1V2-1870",
+     "source_class": "primary",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer; the case stands in the chapter on wounds of the spine",
+     "text_offset": 3007360,
+     "quote": "He was treated in the field hospital until July 24th, when lie was sent to Camp Letterman Hospital",
+     "witness": {
+      "name": "Surgeon General's Office (case history of Private Luther Weaver, 126th New York; reported by Acting Assistant Surgeon H. H. Dutton)",
+      "role": "Case history in the Medical and Surgical History, Part I vol. II (1870), compiled from the surgeons' reports",
+      "side": "institution"
+     },
+     "written": {
+      "date": "1870",
+      "kind": "reference_table"
+     },
+     "vantage": "not_stated",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "mshwr",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-24"
+      ],
+      "phrases": [
+       "sent to Camp Letterman Hospital"
+      ]
+     },
+     "note": "One of three cases that name a transfer to Camp Letterman on 24 Jul (a second says 'transfen-ed to Camp Letterman on July 24th'; a third 27 Jul). Two other cases name 'Camp Letterman Hospital' for 6 Jul and for the day after a wound of 2 Jul: that cannot be literal (Janes was still awaiting tents on 14 Jul) and is read as the later name of the general hospital applied to whatever hospital held the man first. These cases show the camp receiving men by 24 Jul; they do not say it was the first day."
+    },
+    {
+     "id": "C-044-P2-c8",
+     "source": "SOUDER-LEAVES-1864",
+     "source_class": "primary",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 62 read from the running head 'LEAVES FROM THE' in the text; the letter is headed 'Gettysburg, July 27, 1863. Wednesday evening': 27 July 1863 was a Monday and the entry before it is 'Tuesday, 28th', so the date is taken as 29 July at the latest in the book's own order; the heading is inconsistent",
+     "text_offset": 73793,
+     "quote": "The Third and Fifth Corps are being brought into the General Hospital, which is near the railroad",
+     "witness": {
+      "name": "Emily B. Souder",
+      "role": "Nurse (Philadelphia volunteer) with the Second Corps hospital at Gettysburg; letter to her husband",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1863-07-29",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "souder",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "brought into the General Hospital"
+      ]
+     },
+     "note": "The corps hospitals are being merged into the General Hospital within the week of 22 to 29 July. It does not give an opening day. The Park Service paper dates this passage 27 July from the printed heading."
+    },
+    {
+     "id": "C-044-P2-c9",
+     "source": "USCC-1863",
+     "source_class": "primary",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page 80 read from the running head 'UNITED STATES CHRISTIAN COMMISSION' that stands in the paragraph before the passage",
+     "text_offset": 207331,
+     "quote": "July 28th, about the time of our removal to the General Hospital",
+     "witness": {
+      "name": "United States Christian Commission, Philadelphia office (annual report for 1863)",
+      "role": "Report of the Commission's work at Gettysburg, printed 1864",
+      "side": "institution"
+     },
+     "written": {
+      "date": "1864",
+      "kind": "early_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "uscc",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-28"
+      ],
+      "phrases": [
+       "removal to the General Hospital"
+      ]
+     },
+     "note": "By 28 July the Commission moved its tents to the General Hospital, so the camp was running; it says 'about the time'."
+    }
+   ],
+   "inference": {
+    "step": "Two later writers say the camp 'was opened on July 22' (Duncan, in the 1910s, and Myers, in 1909, the latter as printed by a Park Service paper), and neither gives a source. The 1863 papers do not state an opening but bracket it: the site was chosen and tents awaited on 14 Jul, the hospital tents arrived on 15 Jul, move orders for a corps hospital came on 22 Jul, the general hospital was still 'being established' on 24 Jul, the earliest dated transfers found into it are 24 Jul and the Christian Commission moved in about 28 Jul. 22 July sits inside that bracket; 20 July has no support.",
+    "from": [
+     "C-044-P2-c1",
+     "C-044-P2-c2",
+     "C-044-P2-c3",
+     "C-044-P2-c4",
+     "C-044-P2-c5",
+     "C-044-P2-c6",
+     "C-044-P2-c7",
+     "C-044-P2-c9"
+    ]
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "Two values: 20 July and 22 July. No writing found gives 20 July: the Park Service page that was reported for it could not be read as text (the word Letterman is not on the page as served) and the Trust page is not reachable. Two later writers say the camp 'was opened on July 22' (a medical history of the 1910s and a nurse in 1909, as printed by a Park Service paper of 2010 that calls the exact date 'hard to ascertain'); neither gives a source. The papers of 1863 do not state the opening but bracket it: the site was chosen and tents awaited on 14 Jul, tents arrived on 15 Jul, orders to move a corps hospital came on 22 Jul, the general hospital was still 'being established' on 24 Jul, the earliest dated transfers found are 24 Jul and the corps hospitals were merging into it by about 29 Jul. 22 July fits and 20 July has nothing; the opening day itself is not stated by a writer of the time, so the default is inferred, weighted.",
+  "who": "Duncan was a medical officer and historian, not a witness. Myers was a Gettysburg teacher who nursed in the town hospitals and at the camp: present, but writing in 1909. Norris (First Corps hospital surgeon), Way (chaplain of the 24th Michigan) and Souder (a nurse of the Second Corps hospital) were on the spot; Janes, who chose the site and ran the hospitals, and Rankin, the depot quartermaster, were the men who dealt with the tents. None of them states the day the camp opened.",
+  "when": "The 1863 witnesses wrote 14 Jul to 29 Jul, in the weeks of the establishing. The two writers who give 22 July wrote 46 years (Myers) and decades (Duncan, undated, 1910s) later. The rubric puts a contemporaneous letter or dispatch above a later history above a reminiscence; here the contemporaneous writings do not state the value, so the later ones are the only writers who give a day. They are weighed as a marker, not as a document: the tier is inferred, not documented.",
+  "where": "Janes, Rankin and Norris were at Gettysburg and wrote what they dealt with; Way and Souder were with hospitals that were being merged into the camp. The 22 July orders are for a First Corps hospital to move, which fits a camp ready to take men; they do not say the camp had opened that day. The earliest dated transfers found, of 24 July, were a move of men already in hospital: opening for patients, finishing the tents and the first transfers are different days, and 22 July is the opening for patients as the two later writers give it.",
+  "how_knew": "Janes and Rankin report what they did and received. Norris, Way and Souder saw the moves. Myers and Duncan do not say how they knew; the Park Service paper reports their sentences without saying where Duncan or Myers got the date. Neither the Trust, Wikipedia nor the Park Service ranger page could be read, so the sources behind 20 July are not known.",
+  "clock": "A date, not an hour; no clock correction applies. All the writers use the civil calendar of 1863. The Souder letter heading ('July 27 ... Wednesday evening') is inconsistent with the calendar; the entry before it is dated Tuesday the 28th, so it is read as 29 July.",
+  "independence": "Duncan and Myers are two writers but not shown to be independent (Duncan gives no source; Myers wrote in 1909 and may have drawn on the common memory of the town). The Park Service paper (2010) cites both and adds nothing to them. The papers of 1863 are independent of each other (Janes, Rankin, Norris, Way, Souder, the Christian Commission, the case histories) but none states the opening, so they test the date rather than carry it. The rest of the value (Jul 20) has no writer. The default therefore has two groups saying 22 July and several that fit; it carries the flag for later writers only."
+ },
+ "source_panel_text": "Jul 22: a medical history of the 1910s and a Gettysburg nurse in 1909 each say the camp opened on July 22; the 1863 telegrams and letters fit it (hospital tents arrived Jul 15, camp still 'being established' Jul 24). No writing found gives Jul 20. The other value is listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "The plan's B.2.5 recommended default is Jul 20; no source found gives it and the nearest primary evidence puts the camp still 'being established' on Jul 24. The plan's own table on p.55 ('Open Jul 22 with Jul 20 flagged') agrees with Jul 22."
+  },
+  "first_delegated": {
+   "holds": "no",
+   "note": "The first delegated default (Jul 20, inferred, institutional) rested on a Park Service page that was never read as text and that, when fetched again, does not mention the camp; Jul 22 is stated by two later writers and fits the 1863 record. Jul 20 stays selectable."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-044 row)",
+   "must_change": true,
+   "note": "Delegated-decision record naming C-044 (first default Jul 20, inferred, institutional): superseded by this resolution (default Jul 22, weighted, inferred); the first record is kept as history. Not edited here."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-CONF-PREP-03 row)",
+   "must_change": false,
+   "note": "Preparation row naming C-044; read it and set the value from this resolution. Not edited here."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 340 row)",
+   "must_change": true,
+   "note": "Delegated-decision record naming C-044 (first default Jul 20, inferred, institutional): superseded by this resolution (default Jul 22, weighted, inferred); the first record is kept as history. Not edited here."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0008.md",
+   "must_change": true,
+   "note": "Register entry EG-0008 (internal contradictions among PDF defaults) names C-044 (Jul 20 here, Jul 22 in the p.55 table). The research finds Jul 22 better supported and Jul 20 unsourced; the entry should cite this resolution. Not edited here."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-044",
+   "must_change": true,
+   "note": "DEC-C-044 reads \"Jul 20; Jul 22 ... Jul 20 PENDING OWNER\": to record the delegated default Jul 22 (weighted, inferred), reversible by the owner."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md line 11",
+   "must_change": false,
+   "note": "DEC-005 lists C-044 among the contradictory defaults inside the PDF (Jul 20 in B.2.5, Jul 22 in the B.2.3 conflict table). This resolution gives Jul 22 as the default, which agrees with the p.55 table and not with the B.2.5 recommendation. Not edited here."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md",
+   "must_change": false,
+   "note": "Gate spec A SS-7 and the Camp Letterman phase text (Open July 20 or 22, the two values of C-044, both selectable). No gate changed; the integration step updates the text and keeps both values selectable. The camp is a site state outside the clock (Q09/Q26), not an arrival."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md",
+   "must_change": false,
+   "note": "Gate spec text \"opening July 20 or 22 is C-044\"; no gate changed, report only."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-196",
+   "must_change": false,
+   "note": "Row of Jul 10 (Camp Letterman construction Jul 10-22); the tent evidence found here (site chosen Jul 14, hospital tents arrived Jul 15) fits it; mentions the C-044 opening only as a bound. Not edited."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-211",
+   "must_change": true,
+   "note": "Window \"Jul 20 or 22\" (Camp Letterman opens: Jul 20 ABT-CL or Jul 22 W-CL; CWN-CL; NPS essay: patients moved Jul 22-27): the default becomes Jul 22 with Jul 20 still selectable. The Park Service essay (NPS-ESSAY) is the Atkinson paper cited here and itself says the exact date is hard to ascertain. Row not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-217",
+   "must_change": false,
+   "note": "Row on the census of Aug 2 / Aug 6 / Aug 10 (Camp Letterman patient counts); carries C-044 only through the camp; no date of this conflict changes. Not edited."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (\"C-044\")",
+   "must_change": true,
+   "note": "Entry C-044: default_scenario_id C-044-DEFAULT, label Jul 20, tier inferred, basis institutional; the integration step sets Jul 22, weighted, inferred, basis secondary (a medical history of the 1910s and a nurse of 1909 reported by a Park Service paper, with the 1863 record fitting). Not edited here."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (\"C-044\")",
+   "must_change": true,
+   "note": "Same record as the app data, in the decisions file: first delegated default Jul 20 (inferred, institutional) is superseded. Not edited here."
+  },
+  {
+   "kind": "other",
+   "ref": "tools/bt/build_structures.py PD-02 and tools/bt/structures_data_schedule.py S-077 / structures_data_other.py (open_jul20, open_jul22 scenarios)",
+   "must_change": true,
+   "note": "State schedule S-077 carries the two opening scenarios; the default flag (printed default Jul 20, B.2.3 p.55 'Open Jul 22 with Jul 20 flagged') is settled by this resolution as Jul 22; both scenarios stay selectable. Not edited here."
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/conflicts_structured.json (\"C-044\")",
+   "must_change": false,
+   "note": "The PDF row as printed (Jul 20; Jul 22; recommended Jul 20); stays as printed, history of the plan."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "Park Service ranger programs page (nps.gov/thingstodo/gettysburg-ranger-programs.htm), fetched 2026-11-24",
+   "query": "Camp Letterman with July 20 / November 19: the page as served has no mention of Letterman; the reading 'July 20 to November 19, 1863' of the first pass is from a search-engine summary",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "battlefields.org (American Battlefield Trust, the plan's ABT-CL), en.wikipedia.org (W-CL), the Civil War News page (CWN-CL)",
+   "query": "the pages for the opening day and the source each gives; the connection was refused through the research proxy (HTTP 403 at the tunnel) and these hosts are not among the reachable hosts",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Official Records Ser. I vol. 27 parts 1 to 3 (Letterman's report p. 197-199, Cuyler, Vollum, Janes's telegrams of 9 and 14 Jul, Rankin of 15 Jul, circular of 5 Jul)",
+   "query": "Camp Letterman / general hospital / hospital tents with opened, established, July 20, July 22: no document states the day the general hospital opened; the telegrams give the site (14 Jul) and the tents (15 Jul) only",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Letterman's Medical Recollections (1866) and the Medical and Surgical History Part I vol. II (1870)",
+   "query": "an opening day for the Gettysburg general hospital: none; the Recollections do not name Camp Letterman in the text read, and the case histories name transfers to Camp Letterman on 24 and 27 Jul and, anachronistically, 6 Jul and 3 Jul",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "The Gettysburg Compiler and the Adams Sentinel, issues of 20 Jul to 29 Dec 1863; Sanitary Commission report of 1863",
+   "query": "General Hospital with opened, established, tents, York pike: the Compiler of 3 Aug says 761 wounded were removed to it by the Friday before (OCR garbled, not cited); the Sentinel of 18 Aug and 1 Sep describe it; none gives the opening day",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Chronicling America (loc.gov) full-text search of 25 Jul to 10 Aug 1863 for the general hospital at Gettysburg",
+   "query": "a dispatch of the days after 22 Jul announcing the opening: the loc.gov search returned an error and a truncated reply; no page was read",
+   "outcome": "failed",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Way, Detroit Advertiser and Tribune, 30 Jul and 7 Aug 1863; Myers, North American, 4 Jul 1909; Norris letters (Park Service vertical file); Bucklin, In Hospital and Camp",
+   "query": "the sources the Park Service paper quotes: the newspaper pages and the vertical file were not read (the newspapers are not local; the file is not published); Bucklin's book (read) gives no opening day",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A source behind the plan's 20 July (the Trust page, the ranger page or a Wikipedia source) that states 20 July in a text of 1863 would move the default. A writing of 1863 that says the general hospital 'was opened', 'opened' or 'received its first patients' on a named day (Janes's report to Letterman, a Sanitary or Christian Commission diary, the Detroit paper of 30 Jul 1863, the Norris letters, the Myers article of 1909) would replace the later writers' 22 July with a documented value."
+}
