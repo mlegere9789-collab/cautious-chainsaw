@@ -1,0 +1,19 @@
+# tl-VP-T3-141: Row T3-141 not yet verified or realized
+
+| Field | Content |
+|---|---|
+| ID | tl-VP-T3-141 |
+| Requirement IDs | R11, R04 |
+| Category | evidence missing (row not yet verified or realized) |
+| Seed rows | T3-141 |
+| Description | Seed row T3-141 (Jul 3 21:16 moonrise, tier inferred) is still seeded_unverified. The shard reading (tl-11) gave verdict "computed"; this is not a verification and the row has no visual realization record. Shard note: Moon figures match. "7/10 cumulus at 21:00" and wet surfaces are weather-timeline (secondary) values, not recomputed. |
+| Why literal 100% is not possible or blocked | The row stays seeded_unverified until a recorded primary-source check marks it verified (CLAUDE.md hard rule); it is not realized until a realization record passes gate Q17. Neither has happened. |
+| Evidence searched | Shard tl-11 results (timeline_verified.jsonl): citation ["ephemeris_1863.json events 1863-07-03 and per-minute table; ENV-NOTES.md"]; passage moonrise 1275.9 min = 21:15.9; illum 88.2 at rise; alt 7.1 az 109.5 at 22:00; alt 26.6 az 131.6 at 24:00; astronomical dusk 21:32.7. Reading status: claim_unsupported_by_or_text. |
+| Autonomous substitute applied | Row carried at its seed tier (inferred), marked unverified; any conflicting values carried as selectable scenarios, no default. |
+| Strongest evidence-based reconstruction | The shard citation above; nothing added. |
+| Confidence tier | inferred |
+| Competing values | - |
+| Product marking | Tier glyph on the event; unverified-row marker in the evidence layer. |
+| How it would be closed | An independent primary-source check recorded in timeline_corrections and the Decision Log, then a passing realization record (scene) for the row. |
+| Owner decision requested | - |
+| Status | open (proposed by tools/bt/propose_row_gaps.py) |

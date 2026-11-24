@@ -1,0 +1,19 @@
+# tl-VP-T2-236: Row T2-236 not yet realized
+
+| Field | Content |
+|---|---|
+| ID | tl-VP-T2-236 |
+| Requirement IDs | R11, R04 |
+| Category | evidence missing (row not yet verified or realized) |
+| Seed rows | T2-236 |
+| Description | Seed row T2-236 (Jul 2-3 night, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-09) gave verdict "supported". Shard note: Union half: Tyler (Artillery Reserve) p873 and Hunt p237 (night of the 2d spent repairing damages, replenishing chests, reorganizing batteries). Confederate half: Alexander p430 (audit). The audit paraphrase "seventy wagon-loads issued" is looser than Tyler's "Seventy wagons were unloaded"; use Tyler's wording. HUNT/ALEXR tags in the seed row are OR reports. |
+| Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |
+| Evidence searched | Shard tl-09 results (timeline_verified.jsonl): citation ["OR27-1-R315 Brig. Gen. Robert O. Tyler p.873", "OR27-2-R464 Col. E. Porter Alexander p.430"]; passage ["Lt. Gillett engaged the entire night issuing ammunition to the batteries of the several corps and the Reserve; seventy wagons unloaded and sent to rear morning of the 3d (exact wording: \"Seventy wagons were unloaded\")", "Battle of Gettysburg July 2 and 3: killed 19, wounded 114, missing 6, total. Reading status: verified_against_or_text. |
+| Autonomous substitute applied | Row carried at its seed tier (documented), marked unverified; any conflicting values carried as selectable scenarios, no default. |
+| Strongest evidence-based reconstruction | The shard citation above; nothing added. |
+| Confidence tier | documented |
+| Competing values | - |
+| Product marking | Tier glyph on the event; unverified-row marker in the evidence layer. |
+| How it would be closed | A passing realization record (scene) for the row. |
+| Owner decision requested | - |
+| Status | open (proposed by tools/bt/propose_row_gaps.py) |

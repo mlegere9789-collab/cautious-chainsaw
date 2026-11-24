@@ -1,0 +1,58 @@
+[
+ {
+  "source_id": "KIT-FILES",
+  "locator": "kit/cavalry_units.json cards and units (48 units with fields {} and weapon_assignment_ids [])",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no weapon field for 48 of 62 cards"
+ },
+ {
+  "source_id": "KIT-FILES",
+  "locator": "kit/weapons.json assignments (UA-*)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "cavalry assignments exist for 3IN, 8IL, 12IL, 6-8NY, 9NY, 17PA, 3WV, 10NY, 34VA, Michigan 5th/6th (assigned) and 1st/7th (gap) only"
+ },
+ {
+  "source_id": "KIT-FILES",
+  "locator": "kit/evidence/*.jsonl (arms rows)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "the kit evidence rows hold infantry corps only (us-1c, us-2c, us-3c); no cavalry unit row"
+ },
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 'armed with .{0,40}(carbines?|sabres?|pistols?|revolvers?)' (hits 1, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "OR27-1-R378 Lowell p. 1056: \"Only one-third of the regiment was armed with carbines\" (a regiment outside these 48 cards: not applied)"
+ },
+ {
+  "source_id": "OR-27-2",
+  "locator": "tools/bt/or27_find.py --part 2 'armed with .{0,40}(carbines?|sabres?|pistols?|revolvers?)' (hits 1, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no cavalry hit"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 'armed with .{0,40}(carbines?|sabres?|pistols?|revolvers?)' (hits 0, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no hit"
+ },
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 '(carbines?|revolvers?|pistols?) .{0,80}(regiment|Cavalry)|(Cavalry|regiment) .{0,80}(armed with|carbines?)' (hits 3, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no cavalry hit"
+ },
+ {
+  "source_id": "PRINT",
+  "locator": "Busey and Martin, Regimental Strengths and Losses; Coddington; Pfanz; Gottfried (library status PRINT: print-only)",
+  "date_searched": "2026-11-24",
+  "result": "unreachable",
+  "note": "print-only in the library status: no text is held, so the books could not be searched; they stay named as the sources that could settle the gap"
+ }
+]

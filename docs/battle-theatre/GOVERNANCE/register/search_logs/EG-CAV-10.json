@@ -1,0 +1,65 @@
+[
+ {
+  "source_id": "KIT-FILES",
+  "locator": "app/src/history/figures.mjs header and kit/kit_specs.json defaults (default.union.cavalry flag_or_instrument; default.union.officers; default.confederate.officers)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "figures.mjs: rank private for every figure; kit: flag_or_instrument bugle \"few\" for the Union default only; no officers per cavalry company, no trumpeter count, no Confederate cavalry instrument"
+ },
+ {
+  "source_id": "KIT-FILES",
+  "locator": "BIBLE/plan-clean.txt B.5 (lines 17195-17196) and B.6.15.4 (Guidons: \"inferred; gap\")",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "the company-officer count is \"not sourced\"; guidons \"unsourced in the notes\""
+ },
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 'trumpeters?|buglers?' (hits 4, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "found",
+  "note": "OR27-1-R343 Lieut. Nicholas Nolan p. 949 names \"Chief Bugler [Jacob K.] Schuck\" among men commended (a trumpeter existed; no number per company)"
+ },
+ {
+  "source_id": "OR-27-2",
+  "locator": "tools/bt/or27_find.py --part 2 'trumpeters?|buglers?' (hits 2, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no cavalry hit"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 'trumpeters?|buglers?' (hits 0, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no hit"
+ },
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 '(company|regimental|squadron) (officers|commanders)' (hits 33, of them in cavalry/horse-artillery reports 4)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "qualitative uses; no company officer count of a cavalry regiment"
+ },
+ {
+  "source_id": "OR-27-2",
+  "locator": "tools/bt/or27_find.py --part 2 '(company|regimental|squadron) (officers|commanders)' (hits 31, of them in cavalry/horse-artillery reports 3)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no count"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 '(company|regimental|squadron) (officers|commanders)' (hits 8, of them in cavalry/horse-artillery reports 1)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no count"
+ },
+ {
+  "source_id": "PRINT",
+  "locator": "Busey and Martin, Regimental Strengths and Losses; Coddington; Pfanz; Gottfried (library status PRINT: print-only)",
+  "date_searched": "2026-11-24",
+  "result": "unreachable",
+  "note": "print-only in the library status: no text is held, so the books could not be searched; they stay named as the sources that could settle the gap"
+ }
+]

@@ -3,12 +3,12 @@
  "counts": {
   "BLOCKED-INPUT": 0,
   "COVERED": 0,
-  "FAIL": 190,
+  "FAIL": 189,
   "N/A": 8,
   "NOT-RUN": 0,
-  "PASS": 120
+  "PASS": 121
  },
- "finished_utc": "2026-11-24T18:39:00Z",
+ "finished_utc": "2026-11-24T18:41:35Z",
  "gate": "Q20",
  "incomplete_reasons": [],
  "input_hashes": {
@@ -11169,20 +11169,20 @@
       "file": true,
       "id": "EG-FIG-0007",
       "in_index": true,
-      "link_level": "L1",
+      "link_level": "L1+search_log",
       "missing_fields": [],
       "open": true,
       "owner_q_ok": true,
-      "search_log": false,
+      "search_log": true,
       "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/colour-type-condition/default",
-   "pass": false,
-   "reason": "no regimental data for horse colour and type distributions and condition per regiment (the furniture is judged in Q20.3) exists in the repository; the product draws a flagged value and its gap EG-FIG-0007 is not covered: EG-FIG-0007: no dated search log register/search_logs/EG-FIG-0007.json (GATE-SPEC 1.4, L3 b)",
+   "pass": true,
+   "reason": "the product draws a flagged plausible-procedural value for horse colour and type distributions and condition per regiment (the furniture is judged in Q20.3); its gap EG-FIG-0007 is a complete open register entry with a dated search log",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -16382,7 +16382,7 @@
   "Q20.6: a time-keyed schedule of the cavalry states per unit does not exist in the product; the foot-contact test checks the structure of the gaits, not documented speeds (G-ANIM-07)"
  ],
  "renderer_class": "mixed",
- "run_id": "20261124T183850Z-Q20",
+ "run_id": "20261124T184124Z-Q20",
  "runnable_here": true,
  "runner_files": [
   "oob_layer_lib.mjs",
@@ -16392,7 +16392,7 @@
  ],
  "runner_version": "8be48779c99afe01",
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:38:50Z",
+ "started_utc": "2026-11-24T18:41:24Z",
  "thresholds": [],
  "tool_versions": {
   "node": "v22.23.4",
@@ -16428,10 +16428,10 @@
    "Q20.4": {
     "BLOCKED-INPUT": 0,
     "COVERED": 0,
-    "FAIL": 34,
+    "FAIL": 33,
     "N/A": 4,
     "NOT-RUN": 0,
-    "PASS": 22
+    "PASS": 23
    },
    "Q20.5": {
     "BLOCKED-INPUT": 0,
@@ -16451,12 +16451,12 @@
    }
   },
   "covered": 0,
-  "fail": 190,
+  "fail": 189,
   "items": 318,
   "n_a": 8,
-  "not_passing": 198,
+  "not_passing": 197,
   "not_run": 0,
-  "pass": 120
+  "pass": 121
  },
  "verdict": "FAIL",
  "verified_oob_table": {

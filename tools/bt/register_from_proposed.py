@@ -36,6 +36,17 @@ def rids_of(txt):
         if m not in out: out.append(m)
     return out
 
+ROWRE = re.compile(r'\bT\d-\d{3}\b')
+
+def rows_of(pid, title, f):
+    """Timeline rows an entry is explicitly about: ids in its file name, title, Seed rows, Category and Description fields.
+    Used only by link_subreqs.py to link rows to the entry (a link is not a pass)."""
+    out = []
+    for txt in (pid, title, f.get('Seed rows'), f.get('Category'), f.get('Description')):
+        for m in ROWRE.findall(txt or ''):
+            if m not in out: out.append(m)
+    return sorted(out)
+
 def norm(s): return re.sub(r'[^a-z0-9 ]', '', s.lower())
 
 def main():
@@ -75,6 +86,7 @@ def main():
                  'Status': 'open'}
         e = {'id': None, 'proposed_id': pid, 'proposed_file': 'register/' + rel}
         e['title'] = title
+        e['rows'] = rows_of(pid, title, f)
         e['rids'] = rids_of(f.get('Requirement IDs')) or rids_of(raw)
         e['cat'] = f.get('Category') or NS % rel
         e['desc'] = f.get('Description') or NS % rel
@@ -104,6 +116,12 @@ def main():
         e['id'] = 'EG-%04d' % nxt; nxt += 1
         titles.append((e['id'], nt)); rowsets[e['id']] = rowset
         new.append(e)
+    # backfill: entries integrated earlier get their `rows` from their proposal file (index metadata only; the entry md is untouched)
+    for e in idx:
+        pf = e.get('proposed_file')
+        if pf and 'rows' not in e and os.path.exists(os.path.join(G, pf)):
+            h1, f, _raw = parse(os.path.join(G, pf)); pid = e['proposed_id']
+            e['rows'] = rows_of(pid, re.sub(r'^' + re.escape(pid) + r':\s*', '', h1), f)
     for e in new:
         e2 = {k: v for k, v in e.items() if k not in ('tier_as_stated', 'rec', 'rids_note', 'proposed_file')}
         e2['proposed_id'] = e['proposed_id']; e2['proposed_file'] = e['proposed_file']

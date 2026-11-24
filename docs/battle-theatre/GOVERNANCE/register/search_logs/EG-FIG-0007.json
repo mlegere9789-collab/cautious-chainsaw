@@ -1,0 +1,58 @@
+[
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 '(bay|sorrel|gr[ae]y|white|black|roan|chestnut|dun|iron-gr[ae]y|piebald) (horse|mare|stallion|charger|steed)' (hits 3, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "\"Black Horse Tavern\" (a place name, R158 p. 531, R160 p. 543); no regimental horse colour"
+ },
+ {
+  "source_id": "OR-27-2",
+  "locator": "tools/bt/or27_find.py --part 2 '(bay|sorrel|gr[ae]y|white|black|roan|chestnut|dun|iron-gr[ae]y|piebald) (horse|mare|stallion|charger|steed)' (hits 3, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "Black Horse Tavern again (R442 p. 389, R464 p. 430); R481 Johnson p. 502 \"a fine white horse\" of the person supposed to be Milroy: one officer's mount, not a regiment"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 '(bay|sorrel|gr[ae]y|white|black|roan|chestnut|dun|iron-gr[ae]y|piebald) (horse|mare|stallion|charger|steed)' (hits 0, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no hit"
+ },
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 '(horses|mounts).{0,60}(hands high|pounds|weight|condition|broken down|worn out|jaded|fagged)' (hits 9, of them in cavalry/horse-artillery reports 3)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "condition only in words (Buford R337 p. 923 \"fagged out\"; Custer R361 p. 1003 \"completely worn out\"; Fuller R375 p. 1036); no size, colour or measured condition per regiment"
+ },
+ {
+  "source_id": "OR-27-2",
+  "locator": "tools/bt/or27_find.py --part 2 '(horses|mounts).{0,60}(hands high|pounds|weight|condition|broken down|worn out|jaded|fagged)' (hits 22, of them in cavalry/horse-artillery reports 2)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "condition in words (Stuart R565 p. 698 \"horses, already jaded\"; McIntosh R563 p. 675); no size or colour"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 '(horses|mounts).{0,60}(hands high|pounds|weight|condition|broken down|worn out|jaded|fagged)' (hits 10, of them in cavalry/horse-artillery reports 3)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "D0090 p. 48: the Confederate horses \"grass-fed, were broken down\" (words, no measure); no colour or size"
+ },
+ {
+  "source_id": "KIT-FILES",
+  "locator": "kit/cavalry_units.json horses table and horse_animation_rule",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no horse measurement, coat colour or marking in the kit data (register entry text)"
+ },
+ {
+  "source_id": "PRINT",
+  "locator": "Busey and Martin, Regimental Strengths and Losses; Coddington; Pfanz; Gottfried (library status PRINT: print-only)",
+  "date_searched": "2026-11-24",
+  "result": "unreachable",
+  "note": "print-only in the library status: no text is held, so the books could not be searched; they stay named as the sources that could settle the gap"
+ }
+]

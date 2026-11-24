@@ -1,0 +1,65 @@
+[
+ {
+  "source_id": "KIT-FILES",
+  "locator": "kit/kit_specs.json defaults[\"default.confederate.cavalry\"].fields (accoutrements, sidearm_sword, weapon)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "accoutrements: sash_yellow_cavalry, mcclellan_saddle_m1859; sidearm_sword: revolver_unspecified, lemat; no bridle, no halter, no sabre item"
+ },
+ {
+  "source_id": "KIT-FILES",
+  "locator": "BIBLE/plan-clean.txt B.6.15.4 \"Confederate cavalry gear\" (lines 20890-20935)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "Dress, Stuart's gear, Arms (no sabre named), Saddles \"Often captured McClellans\", Resources; no bridle"
+ },
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 '(sabres?|sabers?)' (hits 30, of them in cavalry/horse-artillery reports 12)",
+  "date_searched": "2026-11-24",
+  "result": "found",
+  "note": "OR27-1-R336 Pleasonton p. 912: \"We also took a large number of carbines, pistols, and sabers\" (from the Confederate cavalry at Brandy Station, June 9); p. 909 lists carbines 42, sabers 67 picked up on the field; qualitative, no regiment, not a kit source"
+ },
+ {
+  "source_id": "OR-27-2",
+  "locator": "tools/bt/or27_find.py --part 2 '(sabres?|sabers?)' (hits 28, of them in cavalry/horse-artillery reports 6)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no regimental Confederate sabre issue"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 '(sabres?|sabers?)' (hits 4, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no cavalry hit"
+ },
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 '(bridles?|saddles?|saddle-?cloths?|halters?)' (hits 3, of them in cavalry/horse-artillery reports 1)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "OR27-1-R366 Sawyer p. 1017: a saddle hit by a musket ball; no equipment description"
+ },
+ {
+  "source_id": "OR-27-2",
+  "locator": "tools/bt/or27_find.py --part 2 '(bridles?|saddles?|saddle-?cloths?|halters?)' (hits 38, of them in cavalry/horse-artillery reports 5)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no Confederate cavalry tack description"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 '(bridles?|saddles?|saddle-?cloths?|halters?)' (hits 19, of them in cavalry/horse-artillery reports 3)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no tack description"
+ },
+ {
+  "source_id": "PRINT",
+  "locator": "Busey and Martin, Regimental Strengths and Losses; Coddington; Pfanz; Gottfried (library status PRINT: print-only)",
+  "date_searched": "2026-11-24",
+  "result": "unreachable",
+  "note": "print-only in the library status: no text is held, so the books could not be searched; they stay named as the sources that could settle the gap"
+ }
+]

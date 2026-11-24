@@ -1,0 +1,19 @@
+# tl-VP-T1-027: Row T1-027 not yet realized
+
+| Field | Content |
+|---|---|
+| ID | tl-VP-T1-027 |
+| Requirement IDs | R11, R04 |
+| Category | evidence missing (row not yet verified or realized) |
+| Seed rows | T1-027 |
+| Description | Seed row T1-027 (Jun 28, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-01) gave verdict "supported". Shard note: Special Orders No. 98, Cav Corps, Jun 28 (OR27-3-D0840, p.376) assign Farnsworth the 1st and Custer the 2nd (Michigan) Brigade of the 3rd Division. OR Itinerary p.143 also dates this Jun 28. Supports the Jun 28 reading for Custer over the Jun 29 alternative. |
+| Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |
+| Evidence searched | Shard tl-01 results (timeline_verified.jsonl): citation Official Records Ser.I vol.27 pt.3 OR27-3-D0840 Orders.] Headquarters Army op the Potomac, -> The army wil p.376; Official Records Ser.I vol.27 pt.3 OR27-3-D0840 Orders.] Headquarters Army op the Potomac, -> The army wil p.376; passage Special Orders No. 98, Hdqrs Cavalry Corps, Frederick, June 28, 1863: Farnsworth and Custer assigned to the Third Division under Kilpatrick / Same order: Third Division organized in two brigades, Farnsworth the First (1st Vermont, 1st WVa, 18th PA, 5th NY), Custer the Second (Michigan). Reading status: verified_against_or_text. |
+| Autonomous substitute applied | Row carried at its seed tier (documented), marked unverified; any conflicting values carried as selectable scenarios, no default. |
+| Strongest evidence-based reconstruction | The shard citation above; nothing added. |
+| Confidence tier | documented |
+| Competing values | - |
+| Product marking | Tier glyph on the event; unverified-row marker in the evidence layer. |
+| How it would be closed | A passing realization record (scene) for the row. |
+| Owner decision requested | - |
+| Status | open (proposed by tools/bt/propose_row_gaps.py) |

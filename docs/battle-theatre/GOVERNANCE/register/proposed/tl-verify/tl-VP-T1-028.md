@@ -1,0 +1,19 @@
+# tl-VP-T1-028: Row T1-028 not yet verified or realized
+
+| Field | Content |
+|---|---|
+| ID | tl-VP-T1-028 |
+| Requirement IDs | R11, R04 |
+| Category | evidence missing (row not yet verified or realized) |
+| Seed rows | T1-028 |
+| Description | Seed row T1-028 (Jun 28, tier documented) is still seeded_unverified. The shard reading (tl-01) gave verdict "supported_partial"; this is not a verification and the row has no visual realization record. Shard note: Gordon (pt2 p.491-492): 1,200 militia, 20-mile march, bridge fired, town fire fought. Date: Early (pt2 p.466-467) has Gordon entering York the morning of the 28th, then Early riding out "a short time before night" and seeing the bridge smoke, and orders of the evening of the 29th afterward, so Jun 28 evening is a sequence inference, not a stated date. Militia 1,200 (Gordon) vs 1,300 (Early). |
+| Why literal 100% is not possible or blocked | The row stays seeded_unverified until a recorded primary-source check marks it verified (CLAUDE.md hard rule); it is not realized until a realization record passes gate Q17. Neither has happened. |
+| Evidence searched | Shard tl-01 results (timeline_verified.jsonl): citation Official Records Ser.I vol.27 pt.2 OR27-2-R477 Brig. Gen. J. B. Gordon p.491-492; Official Records Ser.I vol.27 pt.2 OR27-2-R470 Maj. Gen. Jubal A. Early p.466; passage Gordon (undated narrative): 1,200 militia, strongly intrenched, reported by their captured commanding officer; march of 20 miles; bridge fired by the enemy; Gordon formed his brigade around the burning buildings / Early dates the Wrightsville action to the evening of Jun 28 (Gordon entered York the . Reading status: verified_against_or_text. |
+| Autonomous substitute applied | Row carried at its seed tier (documented), marked unverified; any conflicting values carried as selectable scenarios, no default. |
+| Strongest evidence-based reconstruction | The shard citation above; nothing added. |
+| Confidence tier | documented |
+| Competing values | - |
+| Product marking | Tier glyph on the event; unverified-row marker in the evidence layer. |
+| How it would be closed | An independent primary-source check recorded in timeline_corrections and the Decision Log, then a passing realization record (scene) for the row. |
+| Owner decision requested | - |
+| Status | open (proposed by tools/bt/propose_row_gaps.py) |

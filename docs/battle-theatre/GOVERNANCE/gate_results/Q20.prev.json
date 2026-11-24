@@ -1,18 +1,16 @@
 {
  "command": "python3 tools/bt/gates/q20_cavalry.py",
  "counts": {
-  "BLOCKED-INPUT": 21,
+  "BLOCKED-INPUT": 0,
   "COVERED": 0,
-  "FAIL": 211,
+  "FAIL": 190,
   "N/A": 8,
   "NOT-RUN": 0,
-  "PASS": 78
+  "PASS": 120
  },
- "finished_utc": "2026-11-24T18:30:22Z",
+ "finished_utc": "2026-11-24T18:39:00Z",
  "gate": "Q20",
- "incomplete_reasons": [
-  "21 item(s) NOT-RUN or BLOCKED-INPUT"
- ],
+ "incomplete_reasons": [],
  "input_hashes": {
   "docs/battle-theatre/BIBLE/plan-clean.txt": "5515b8ce322c142bdadcfd1a97c2a68c066e27c971b226ef852aa54a2f9210e7",
   "docs/battle-theatre/app/data/cavalry-horses.json": "6667e405b8541d491c0030115b58d3a20417401177a99c4fbbe60c26ae689e93",
@@ -23,13 +21,13 @@
   "docs/battle-theatre/app/src/history/kit.mjs": "d693910a813342de0cca378ac9f98fea4706ed7b8b2cfd8900f2c530b2ecf2c9",
   "docs/battle-theatre/app/src/world-from-units.mjs": "b9c1d5cc691ef5266e9ce2edaf5707f6f0616bad81f6ef92ddb3e889b21fe5b9",
   "docs/battle-theatre/app/tests/anim3d-gaits.test.mjs": "6ecd22c745fe344a2400248e39eab502d6a598f9584fbc7a5ac573895f01dbdf",
-  "docs/battle-theatre/kit/cavalry_action_table.json": null,
+  "docs/battle-theatre/kit/cavalry_action_table.json": "733f8fa7d0e610a84d338d0977437dcd4dab609de186e57b1547c9ebcf5fb94d",
   "docs/battle-theatre/kit/cavalry_units.json": "04542360d10e34b929a787bb3dfd517fb345a97236f08b1368af5463d7e8c717",
   "docs/battle-theatre/kit/verified_oob.json": "a00dd340185de9045849503cd03a8f2b0ae7ec72e0692d3ef45d26b531e322eb",
   "docs/battle-theatre/kit/weapons.json": "412396eada9819f2a0185d771c6555f3025939607991f18b3db11461948a5d02",
   "tools/bt/gates/oob_layer_lib.mjs": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d",
   "tools/bt/gates/oobgates_common.py": "a592fe4a79459c8af1c5b0d3d4e7400f6be4faa60eb7ad568429be5c1c5d4730",
-  "tools/bt/gates/q20_cavalry.py": "8bfa2f221f7012e1f603557e71fa35520f479a62813510795d3ebbacdb5ffa19",
+  "tools/bt/gates/q20_cavalry.py": "cad8d50eccadf99874700aec4fd4268a77e504effccdfd84d728ac8930ba13ca",
   "tools/bt/gates/q20_layer.mjs": "2a4365d9d2d07c8fd56545936f6d6e1cce1ad2efb61f9f5553b0ea0da2196a1b"
  },
  "inputs": [
@@ -88,10 +86,10 @@
    "sha256": "6ecd22c745fe344a2400248e39eab502d6a598f9584fbc7a5ac573895f01dbdf"
   },
   {
-   "missing": true,
+   "bytes": 23042,
    "path": "docs/battle-theatre/kit/cavalry_action_table.json",
    "role": "table",
-   "sha256": null
+   "sha256": "733f8fa7d0e610a84d338d0977437dcd4dab609de186e57b1547c9ebcf5fb94d"
   },
   {
    "bytes": 138983,
@@ -124,10 +122,10 @@
    "sha256": "a592fe4a79459c8af1c5b0d3d4e7400f6be4faa60eb7ad568429be5c1c5d4730"
   },
   {
-   "bytes": 29504,
+   "bytes": 33289,
    "path": "tools/bt/gates/q20_cavalry.py",
    "role": "runner",
-   "sha256": "8bfa2f221f7012e1f603557e71fa35520f479a62813510795d3ebbacdb5ffa19"
+   "sha256": "cad8d50eccadf99874700aec4fd4268a77e504effccdfd84d728ac8930ba13ca"
   },
   {
    "bytes": 5486,
@@ -2567,14 +2565,29 @@
      "earliest": 44100,
      "latest": 44160
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "moving"
+    "conditions": [
+     {
+      "detail": "arrival default 44100, latest start 37440: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 44100) no later than the latest start the table allows for its first documented action (CAV-AT-01, p. 86: June 26)",
+      "ok": false
+     }
+    ],
+    "pages": [
+     86
+    ],
+    "render": "moving",
+    "rows_compared": [
+     "CAV-AT-01"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-01"
+    ]
    },
    "id": "Q20/Q20.2/cs-2c-early-35vacavalrybn/default",
    "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "reason": "presence: the unit is on the field (arrival default 44100) no later than the latest start the table allows for its first documented action (CAV-AT-01, p. 86: June 26): arrival default 44100, latest start 37440: the unit is not on the field when the documented action begins",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2872,14 +2885,34 @@
      "earliest": 45812,
      "latest": 45844
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "edge_only"
+    "conditions": [
+     {
+      "detail": "arrival default 45812, latest start 46080: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 45812) no later than the latest start the table allows for its first documented action (CAV-AT-08, p. 86: July 2, evening/dusk)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     86,
+     87
+    ],
+    "render": "edge_only",
+    "rows_compared": [
+     "CAV-AT-08",
+     "CAV-AT-11"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-02",
+     "CAV-AT-04",
+     "CAV-AT-08",
+     "CAV-AT-11"
+    ]
    },
    "id": "Q20/Q20.2/cs-cav-hampton-1nc/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-08, CAV-AT-11)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2897,14 +2930,34 @@
      "earliest": 45812,
      "latest": 45844
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "edge_only"
+    "conditions": [
+     {
+      "detail": "arrival default 45812, latest start 46080: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 45812) no later than the latest start the table allows for its first documented action (CAV-AT-08, p. 86: July 2, evening/dusk)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     86,
+     87
+    ],
+    "render": "edge_only",
+    "rows_compared": [
+     "CAV-AT-08",
+     "CAV-AT-11"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-02",
+     "CAV-AT-04",
+     "CAV-AT-08",
+     "CAV-AT-11"
+    ]
    },
    "id": "Q20/Q20.2/cs-cav-hampton-1sc/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-08, CAV-AT-11)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2922,14 +2975,34 @@
      "earliest": 45812,
      "latest": 45844
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "edge_only"
+    "conditions": [
+     {
+      "detail": "arrival default 45812, latest start 46080: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 45812) no later than the latest start the table allows for its first documented action (CAV-AT-08, p. 86: July 2, evening/dusk)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     86,
+     87
+    ],
+    "render": "edge_only",
+    "rows_compared": [
+     "CAV-AT-08",
+     "CAV-AT-11"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-02",
+     "CAV-AT-04",
+     "CAV-AT-08",
+     "CAV-AT-11"
+    ]
    },
    "id": "Q20/Q20.2/cs-cav-hampton-2sc/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-08, CAV-AT-11)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2947,14 +3020,34 @@
      "earliest": 45812,
      "latest": 45844
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "edge_only"
+    "conditions": [
+     {
+      "detail": "arrival default 45812, latest start 46080: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 45812) no later than the latest start the table allows for its first documented action (CAV-AT-08, p. 86: July 2, evening/dusk)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     86,
+     87
+    ],
+    "render": "edge_only",
+    "rows_compared": [
+     "CAV-AT-08",
+     "CAV-AT-11"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-02",
+     "CAV-AT-04",
+     "CAV-AT-08",
+     "CAV-AT-11"
+    ]
    },
    "id": "Q20/Q20.2/cs-cav-hampton-cobbslegion/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-08, CAV-AT-11)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2972,14 +3065,34 @@
      "earliest": 45812,
      "latest": 45844
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "edge_only"
+    "conditions": [
+     {
+      "detail": "arrival default 45812, latest start 46080: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 45812) no later than the latest start the table allows for its first documented action (CAV-AT-08, p. 86: July 2, evening/dusk)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     86,
+     87
+    ],
+    "render": "edge_only",
+    "rows_compared": [
+     "CAV-AT-08",
+     "CAV-AT-11"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-02",
+     "CAV-AT-04",
+     "CAV-AT-08",
+     "CAV-AT-11"
+    ]
    },
    "id": "Q20/Q20.2/cs-cav-hampton-jeffdavislegion/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-08, CAV-AT-11)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2997,14 +3110,34 @@
      "earliest": 45812,
      "latest": 45844
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "edge_only"
+    "conditions": [
+     {
+      "detail": "arrival default 45812, latest start 46080: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 45812) no later than the latest start the table allows for its first documented action (CAV-AT-08, p. 86: July 2, evening/dusk)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     86,
+     87
+    ],
+    "render": "edge_only",
+    "rows_compared": [
+     "CAV-AT-08",
+     "CAV-AT-11"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-02",
+     "CAV-AT-04",
+     "CAV-AT-08",
+     "CAV-AT-11"
+    ]
    },
    "id": "Q20/Q20.2/cs-cav-hampton-phillipslegion/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-08, CAV-AT-11)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -3474,14 +3607,31 @@
      "earliest": 46980,
      "latest": 46980
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "edge_only"
+    "conditions": [
+     {
+      "detail": "arrival default 46980, latest start 47100: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 46980) no later than the latest start the table allows for its first documented action (CAV-AT-12, p. 87: July 3, about 1-5 p.m.)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     87
+    ],
+    "render": "edge_only",
+    "rows_compared": [
+     "CAV-AT-12"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-12",
+     "CAV-AT-16",
+     "CAV-AT-17"
+    ]
    },
    "id": "Q20/Q20.2/us-cav-1d-merritt-1us/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-12)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -3499,14 +3649,31 @@
      "earliest": 46980,
      "latest": 46980
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "edge_only"
+    "conditions": [
+     {
+      "detail": "arrival default 46980, latest start 47100: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 46980) no later than the latest start the table allows for its first documented action (CAV-AT-12, p. 87: July 3, about 1-5 p.m.)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     87
+    ],
+    "render": "edge_only",
+    "rows_compared": [
+     "CAV-AT-12"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-12",
+     "CAV-AT-16",
+     "CAV-AT-17"
+    ]
    },
    "id": "Q20/Q20.2/us-cav-1d-merritt-2us/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-12)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -3524,14 +3691,31 @@
      "earliest": 46980,
      "latest": 46980
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "edge_only"
+    "conditions": [
+     {
+      "detail": "arrival default 46980, latest start 47100: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 46980) no later than the latest start the table allows for its first documented action (CAV-AT-12, p. 87: July 3, about 1-5 p.m.)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     87
+    ],
+    "render": "edge_only",
+    "rows_compared": [
+     "CAV-AT-12"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-12",
+     "CAV-AT-16",
+     "CAV-AT-17"
+    ]
    },
    "id": "Q20/Q20.2/us-cav-1d-merritt-5us/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-12)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -3549,14 +3733,31 @@
      "earliest": 46980,
      "latest": 46980
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "edge_only"
+    "conditions": [
+     {
+      "detail": "arrival default 46980, latest start 47100: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 46980) no later than the latest start the table allows for its first documented action (CAV-AT-12, p. 87: July 3, about 1-5 p.m.)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     87
+    ],
+    "render": "edge_only",
+    "rows_compared": [
+     "CAV-AT-12"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-12",
+     "CAV-AT-16",
+     "CAV-AT-17"
+    ]
    },
    "id": "Q20/Q20.2/us-cav-1d-merritt-6pa/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-12)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -3574,14 +3775,32 @@
      "earliest": 46980,
      "latest": 46980
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "edge_only"
+    "conditions": [
+     {
+      "detail": "arrival default 46980, latest start 47100: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 46980) no later than the latest start the table allows for its first documented action (CAV-AT-12, p. 87: July 3, about 1-5 p.m.)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     87
+    ],
+    "render": "edge_only",
+    "rows_compared": [
+     "CAV-AT-12"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-12",
+     "CAV-AT-13",
+     "CAV-AT-16",
+     "CAV-AT-17"
+    ]
    },
    "id": "Q20/Q20.2/us-cav-1d-merritt-6us/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-12)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -3599,14 +3818,33 @@
      "earliest": 45360,
      "latest": 45360
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "moving"
+    "conditions": [
+     {
+      "detail": "arrival default 45360, latest start 45360: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 45360) no later than the latest start the table allows for its first documented action (CAV-AT-09, p. 86: July 2, noon-about 10 p.m.)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     86,
+     87
+    ],
+    "render": "moving",
+    "rows_compared": [
+     "CAV-AT-09",
+     "CAV-AT-11"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-09",
+     "CAV-AT-11",
+     "CAV-AT-19"
+    ]
    },
    "id": "Q20/Q20.2/us-cav-2d-gregg-10ny/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-09, CAV-AT-11)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -3624,14 +3862,33 @@
      "earliest": 45360,
      "latest": 45360
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "moving"
+    "conditions": [
+     {
+      "detail": "arrival default 45360, latest start 45360: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 45360) no later than the latest start the table allows for its first documented action (CAV-AT-09, p. 86: July 2, noon-about 10 p.m.)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     86,
+     87
+    ],
+    "render": "moving",
+    "rows_compared": [
+     "CAV-AT-09",
+     "CAV-AT-11"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-09",
+     "CAV-AT-11",
+     "CAV-AT-19"
+    ]
    },
    "id": "Q20/Q20.2/us-cav-2d-gregg-16pa/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-09, CAV-AT-11)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -3649,14 +3906,33 @@
      "earliest": 45360,
      "latest": 45360
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "moving"
+    "conditions": [
+     {
+      "detail": "arrival default 45360, latest start 45360: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 45360) no later than the latest start the table allows for its first documented action (CAV-AT-09, p. 86: July 2, noon-about 10 p.m.)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     86,
+     87
+    ],
+    "render": "moving",
+    "rows_compared": [
+     "CAV-AT-09",
+     "CAV-AT-11"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-09",
+     "CAV-AT-11",
+     "CAV-AT-19"
+    ]
    },
    "id": "Q20/Q20.2/us-cav-2d-gregg-1me/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-09, CAV-AT-11)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -3674,14 +3950,33 @@
      "earliest": 45360,
      "latest": 45360
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "moving"
+    "conditions": [
+     {
+      "detail": "arrival default 45360, latest start 45360: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 45360) no later than the latest start the table allows for its first documented action (CAV-AT-09, p. 86: July 2, noon-about 10 p.m.)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     86,
+     87
+    ],
+    "render": "moving",
+    "rows_compared": [
+     "CAV-AT-09",
+     "CAV-AT-11"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-09",
+     "CAV-AT-11",
+     "CAV-AT-19"
+    ]
    },
    "id": "Q20/Q20.2/us-cav-2d-gregg-4pa/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-09, CAV-AT-11)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -3719,14 +4014,33 @@
      "earliest": 45360,
      "latest": 45360
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "moving"
+    "conditions": [
+     {
+      "detail": "arrival default 45360, latest start 45360: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 45360) no later than the latest start the table allows for its first documented action (CAV-AT-09, p. 86: July 2, noon-about 10 p.m.)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     86,
+     87
+    ],
+    "render": "moving",
+    "rows_compared": [
+     "CAV-AT-09",
+     "CAV-AT-11"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-09",
+     "CAV-AT-11",
+     "CAV-AT-19"
+    ]
    },
    "id": "Q20/Q20.2/us-cav-2d-mcintosh-1ma/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-09, CAV-AT-11)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -3744,14 +4058,33 @@
      "earliest": 45360,
      "latest": 45360
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "moving"
+    "conditions": [
+     {
+      "detail": "arrival default 45360, latest start 45360: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 45360) no later than the latest start the table allows for its first documented action (CAV-AT-09, p. 86: July 2, noon-about 10 p.m.)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     86,
+     87
+    ],
+    "render": "moving",
+    "rows_compared": [
+     "CAV-AT-09",
+     "CAV-AT-11"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-09",
+     "CAV-AT-11",
+     "CAV-AT-19"
+    ]
    },
    "id": "Q20/Q20.2/us-cav-2d-mcintosh-1md/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-09, CAV-AT-11)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -3769,14 +4102,33 @@
      "earliest": 45360,
      "latest": 45360
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "moving"
+    "conditions": [
+     {
+      "detail": "arrival default 45360, latest start 45360: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 45360) no later than the latest start the table allows for its first documented action (CAV-AT-09, p. 86: July 2, noon-about 10 p.m.)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     86,
+     87
+    ],
+    "render": "moving",
+    "rows_compared": [
+     "CAV-AT-09",
+     "CAV-AT-11"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-09",
+     "CAV-AT-11",
+     "CAV-AT-19"
+    ]
    },
    "id": "Q20/Q20.2/us-cav-2d-mcintosh-1nj/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-09, CAV-AT-11)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -3794,14 +4146,33 @@
      "earliest": 45360,
      "latest": 45360
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "moving"
+    "conditions": [
+     {
+      "detail": "arrival default 45360, latest start 45360: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 45360) no later than the latest start the table allows for its first documented action (CAV-AT-09, p. 86: July 2, noon-about 10 p.m.)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     86,
+     87
+    ],
+    "render": "moving",
+    "rows_compared": [
+     "CAV-AT-09",
+     "CAV-AT-11"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-09",
+     "CAV-AT-11",
+     "CAV-AT-19"
+    ]
    },
    "id": "Q20/Q20.2/us-cav-2d-mcintosh-1pa/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-09, CAV-AT-11)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -3819,14 +4190,33 @@
      "earliest": 45360,
      "latest": 45360
     },
-    "missing": "kit/cavalry_action_table.json",
-    "render": "moving"
+    "conditions": [
+     {
+      "detail": "arrival default 45360, latest start 45360: the unit is not on the field when the documented action begins",
+      "name": "the unit is on the field (arrival default 45360) no later than the latest start the table allows for its first documented action (CAV-AT-09, p. 86: July 2, noon-about 10 p.m.)",
+      "ok": true
+     }
+    ],
+    "pages": [
+     86,
+     87
+    ],
+    "render": "moving",
+    "rows_compared": [
+     "CAV-AT-09",
+     "CAV-AT-11"
+    ],
+    "rows_naming_the_unit": [
+     "CAV-AT-09",
+     "CAV-AT-11",
+     "CAV-AT-19"
+    ]
    },
    "id": "Q20/Q20.2/us-cav-2d-mcintosh-3pa/default",
-   "pass": false,
-   "reason": "input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit cannot be compared",
+   "pass": true,
+   "reason": "the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (CAV-AT-09, CAV-AT-11)",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -10738,24 +11128,24 @@
     "kit_horse_records": 6,
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-02",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/casualties/default",
-   "pass": false,
-   "reason": "no regimental data for horse casualties of every regiment exists in the repository; the product draws a flagged value and its gap EG-CAV-02 is not covered: EG-CAV-02: no such register entry",
+   "pass": true,
+   "reason": "the product draws a flagged plausible-procedural value for horse casualties of every regiment; its gap EG-CAV-02 is a complete open register entry with a dated search log",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -10817,9 +11207,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -10837,24 +11226,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/cs-2c-early-35vacavalrybn/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -11069,9 +11458,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -11089,24 +11477,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/cs-cav-hampton-1nc/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -11131,9 +11519,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -11151,24 +11538,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/cs-cav-hampton-1sc/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -11193,9 +11580,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -11213,24 +11599,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/cs-cav-hampton-2sc/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -11255,9 +11641,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -11275,24 +11660,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/cs-cav-hampton-cobbslegion/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -11317,9 +11702,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -11337,24 +11721,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/cs-cav-hampton-jeffdavislegion/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -11379,9 +11763,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -11399,24 +11782,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/cs-cav-hampton-phillipslegion/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -11764,9 +12147,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -11784,24 +12166,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/us-cav-1d-merritt-1us/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -11826,9 +12208,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -11846,24 +12227,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/us-cav-1d-merritt-2us/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -11888,9 +12269,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -11908,24 +12288,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/us-cav-1d-merritt-5us/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -11950,9 +12330,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -11970,24 +12349,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/us-cav-1d-merritt-6pa/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -12012,9 +12391,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -12032,24 +12410,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/us-cav-1d-merritt-6us/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -12074,9 +12452,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -12094,24 +12471,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/us-cav-2d-gregg-10ny/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -12136,9 +12513,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -12156,24 +12532,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/us-cav-2d-gregg-16pa/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -12198,9 +12574,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -12218,24 +12593,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/us-cav-2d-gregg-1me/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -12260,9 +12635,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -12280,24 +12654,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/us-cav-2d-gregg-4pa/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -12341,9 +12715,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -12361,24 +12734,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/us-cav-2d-mcintosh-1ma/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -12403,9 +12776,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -12423,24 +12795,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/us-cav-2d-mcintosh-1md/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -12465,9 +12837,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -12485,24 +12856,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/us-cav-2d-mcintosh-1nj/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -12527,9 +12898,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      }
     ],
     "dismount": null,
@@ -12547,24 +12917,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/us-cav-2d-mcintosh-1pa/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -12589,9 +12959,8 @@
       "ok": true
      },
      {
-      "detail": "EG-CAV-01: no such register entry",
       "name": "its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20)",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "counts {'n': 380, 'dismounted': 380, 'holders': 95, 'fighters': 285, 'mounted': 0}",
@@ -12632,24 +13001,24 @@
     },
     "register": [
      {
-      "fields_ok": false,
-      "file": false,
+      "fields_ok": true,
+      "file": true,
       "id": "EG-CAV-01",
-      "in_index": false,
-      "link_level": "L0",
+      "in_index": true,
+      "link_level": "L1+search_log",
       "missing_fields": [],
-      "open": false,
-      "owner_q_ok": false,
-      "search_log": false,
-      "status": null
+      "open": true,
+      "owner_q_ok": true,
+      "search_log": true,
+      "status": "open"
      }
     ]
    },
    "id": "Q20/Q20.4/us-cav-2d-mcintosh-3pa/default",
-   "pass": false,
-   "reason": "horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry",
+   "pass": true,
+   "reason": "one horse per drawn trooper, passing only against the flagged value whose register entry is complete",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -16010,11 +16379,10 @@
  ],
  "notes": [],
  "owed": [
-  "Q20.2 needs the B.6.15.3 action table of the cavalry (June 26 to July 16, conflicts as ranges) as a machine table, kit/cavalry_action_table.json, before any presence interval can be compared",
   "Q20.6: a time-keyed schedule of the cavalry states per unit does not exist in the product; the foot-contact test checks the structure of the gaits, not documented speeds (G-ANIM-07)"
  ],
  "renderer_class": "mixed",
- "run_id": "20261124T183013Z-Q20",
+ "run_id": "20261124T183850Z-Q20",
  "runnable_here": true,
  "runner_files": [
   "oob_layer_lib.mjs",
@@ -16022,16 +16390,16 @@
   "q20_cavalry.py",
   "q20_layer.mjs"
  ],
- "runner_version": "5aab00cb952ddeac",
+ "runner_version": "8be48779c99afe01",
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:30:13Z",
+ "started_utc": "2026-11-24T18:38:50Z",
  "thresholds": [],
  "tool_versions": {
   "node": "v22.23.4",
   "python": "3.13.18"
  },
  "totals": {
-  "blocked_input": 21,
+  "blocked_input": 0,
   "by_check": {
    "Q20.1": {
     "BLOCKED-INPUT": 0,
@@ -16042,12 +16410,12 @@
     "PASS": 58
    },
    "Q20.2": {
-    "BLOCKED-INPUT": 21,
+    "BLOCKED-INPUT": 0,
     "COVERED": 0,
-    "FAIL": 33,
+    "FAIL": 34,
     "N/A": 0,
     "NOT-RUN": 0,
-    "PASS": 4
+    "PASS": 24
    },
    "Q20.3": {
     "BLOCKED-INPUT": 0,
@@ -16060,10 +16428,10 @@
    "Q20.4": {
     "BLOCKED-INPUT": 0,
     "COVERED": 0,
-    "FAIL": 56,
+    "FAIL": 34,
     "N/A": 4,
     "NOT-RUN": 0,
-    "PASS": 0
+    "PASS": 22
    },
    "Q20.5": {
     "BLOCKED-INPUT": 0,
@@ -16083,12 +16451,12 @@
    }
   },
   "covered": 0,
-  "fail": 211,
+  "fail": 190,
   "items": 318,
   "n_a": 8,
-  "not_passing": 240,
+  "not_passing": 198,
   "not_run": 0,
-  "pass": 78
+  "pass": 120
  },
  "verdict": "FAIL",
  "verified_oob_table": {

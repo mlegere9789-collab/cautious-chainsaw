@@ -29,6 +29,10 @@ def main():
             if byid[i]['status'] != 'closed' and i not in out: out.append(i)
         return out
     links = J('subreq_links.json')
+    rowreg = {}   # timeline row -> open entries whose proposal names the row (register_index `rows`, set by register_from_proposed.py)
+    for e in reg:
+        for r in e.get('rows') or []:
+            if e['status'] != 'closed': rowreg.setdefault(r, []).append(e['id'])
     tv = {}
     for l in open(os.path.join(G, 'timeline_verified.jsonl'), encoding='utf-8'):
         r = json.loads(l); tv[r['id']] = resolve(r.get('register_refs'))
@@ -40,7 +44,7 @@ def main():
             if i not in want: want.append(i)
         m = re.match(r'Timeline row (T\d-\d+)', s['text'])
         if m:
-            for i in tv.get(m.group(1), []):
+            for i in tv.get(m.group(1), []) + rowreg.get(m.group(1), []):
                 if i not in want: want.append(i)
         if want != s['register_ids']:
             added += len(want) - len(s['register_ids']); changed += 1

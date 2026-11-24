@@ -1,0 +1,19 @@
+# tl-VP-T1-024: Row T1-024 not yet verified or realized
+
+| Field | Content |
+|---|---|
+| ID | tl-VP-T1-024 |
+| Requirement IDs | R11, R04 |
+| Category | source conflict (selectable scenario) |
+| Seed rows | T1-024 |
+| Description | Seed row T1-024 (Jun 28 ≈03:00 (or dawn), tier documented) is still seeded_unverified. The shard reading (tl-01) gave verdict "conflict"; this is not a verification and the row has no visual realization record. Shard note: Stuart (pt2 p.693): Hampton crossed early in the night, every piece over and the entire command in bivouac on Maryland soil before 12 o'clock that night (night of Jun 27); march resumed early on the 28th (p.694). Row has the crossing about 03:00 or dawn Jun 28. Stuart's date digit is OCR-damaged but the sequence fixes it. |
+| Why literal 100% is not possible or blocked | The row stays seeded_unverified until a recorded primary-source check marks it verified (CLAUDE.md hard rule); it is not realized until a realization record passes gate Q17. Neither has happened. |
+| Evidence searched | Shard tl-01 results (timeline_verified.jsonl): citation Official Records Ser.I vol.27 pt.2 OR27-2-R565 Maj. Gen. J. E. B. Stuart p.693; Official Records Ser.I vol.27 pt.2 OR27-2-R565 Maj. Gen. J. E. B. Stuart p.694; passage Stuart: Hampton's brigade crossed early in the night; by before 12 o'clock that night every piece was over and the entire command in bivouac on Maryland soil / Stuart: the march was resumed northward early on the 28th (OCR '2sth'). Reading status: verified_against_or_text. |
+| Autonomous substitute applied | Row carried at its seed tier (documented), marked unverified; any conflicting values carried as selectable scenarios, no default. |
+| Strongest evidence-based reconstruction | The shard citation above; nothing added. |
+| Confidence tier | documented |
+| Competing values | See the conflict register and the shard note. |
+| Product marking | Tier glyph on the event; unverified-row marker in the evidence layer. |
+| How it would be closed | An independent primary-source check recorded in timeline_corrections and the Decision Log, then a passing realization record (scene) for the row. |
+| Owner decision requested | Default view of competing values, where any (PENDING OWNER; none chosen here). |
+| Status | open (proposed by tools/bt/propose_row_gaps.py) |

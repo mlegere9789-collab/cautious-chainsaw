@@ -121,6 +121,60 @@ ENT = {
               S(1, P_KIL, (50, 7), 'found', 'day totals: OR27-1-R322 McMahon p. 889 "3 men killed, 5 wounded, and 13 horses killed"; R334 Ames p. 901 "14 horses killed" in two days; R374 Calef p. 1032 "horses killed" (OCR "1.3", read 13); R368 Capt. Robertson p. 1021 "23 horses killed" (Captain Daniels\' battery); the time of each loss is not printed'), PRINT_ROW]),
 }
 
+KIT = lambda loc, result, note: {'source_id': 'KIT-FILES', 'locator': loc, 'date_searched': DATE, 'result': result, 'note': note}
+ENT.update({
+ 9: dict(title='Confederate cavalry horse furniture (bridle) and sabre: no item in the kit', rids=['R04', 'R16'],
+         desc='Seven drawn Confederate cavalry units (Hampton\'s six regiments and the 35th Virginia Battalion) fail the manifest test of Q20.3: their accoutrements hold the McClellan saddle only (no bridle) and their sidearms no sabre. kit/kit_specs.json default.confederate.cavalry names a McClellan saddle ("often captured McClellans", flagged unverified), a yellow sash, revolvers (type not stated) and LeMats; the plan prints no Confederate bridle, halter or sabre (B.6.15.4).',
+         why='The plan and the kit evidence hold no Confederate cavalry bridle, halter or sabre item; "Specifics of Confederate cavalry arms by regiment were not found" (plan B.6.15.4).',
+         subst='None applied: no Confederate bridle or sabre is added to the kit without a source (the Union bridle of the Maine Cavalry reproduction standard is not a Confederate source). The seven units stay failing in Q20.3.',
+         recon='Confederate cavalry shown with the saddle and the arms the kit prints; the missing bridle and sabre are a visible gap. Candidate leads, not sources for the kit: OR27-1-R336 Pleasonton pp. 909 and 912 (carbines, pistols and sabers taken from the Confederate cavalry), and the McClellan saddle the plan calls often captured.',
+         marking='Unit card section "Dress and equipment": the Confederate cavalry bridle and sabre are listed as gaps with this id.', impact='Seven Confederate cavalry units: horse tack and sidearm.',
+         owner_q='Authorise a marked plausible-procedural Confederate bridle and sabre (captured Federal pattern), or supply a source for Confederate cavalry horse furniture and sabres.',
+         log=[KIT('kit/kit_specs.json defaults["default.confederate.cavalry"].fields (accoutrements, sidearm_sword, weapon)', 'negative', 'accoutrements: sash_yellow_cavalry, mcclellan_saddle_m1859; sidearm_sword: revolver_unspecified, lemat; no bridle, no halter, no sabre item'),
+              KIT('BIBLE/plan-clean.txt B.6.15.4 "Confederate cavalry gear" (lines 20890-20935)', 'negative', 'Dress, Stuart\'s gear, Arms (no sabre named), Saddles "Often captured McClellans", Resources; no bridle'),
+              S(1, '(sabres?|sabers?)', (30, 12), 'found', 'OR27-1-R336 Pleasonton p. 912: "We also took a large number of carbines, pistols, and sabers" (from the Confederate cavalry at Brandy Station, June 9); p. 909 lists carbines 42, sabers 67 picked up on the field; qualitative, no regiment, not a kit source'),
+              S(2, '(sabres?|sabers?)', (28, 6), 'negative', 'no regimental Confederate sabre issue'), S(3, '(sabres?|sabers?)', (4, 0), 'negative', 'no cavalry hit'),
+              S(1, '(bridles?|saddles?|saddle-?cloths?|halters?)', (3, 1), 'negative', 'OR27-1-R366 Sawyer p. 1017: a saddle hit by a musket ball; no equipment description'),
+              S(2, '(bridles?|saddles?|saddle-?cloths?|halters?)', (38, 5), 'negative', 'no Confederate cavalry tack description'), S(3, '(bridles?|saddles?|saddle-?cloths?|halters?)', (19, 3), 'negative', 'no tack description'), PRINT_ROW]),
+ 10: dict(title='Cavalry company officers, trumpeters and the Confederate bugle: no rank structure in the figure record', rids=['R04', 'R16'],
+          desc='The figure manifests give every cavalry figure the rank private and the role rifleman (history/figures.mjs: "the record has no rank structure: PDF B.5 10,000+ company officers, not sourced"). Fourteen drawn units fail the soldier-type test of Q20.3 (all Union units of Merritt, Gregg and McIntosh: no officer among the figures); the Confederate units hold no bugle. The kit holds the default officer records and the bugle item but no cavalry company-officer count, no trumpeter per company and no Confederate cavalry instrument share.',
+          why='No source in the kit or the plan gives officers or trumpeters per cavalry company; the plan calls the company-officer count not sourced (B.5) and the Confederate bugle is not in the cavalry gear table.',
+          subst='None applied: no officer or trumpeter rank is added to the cavalry manifests without a source; the Union units show bugles at the kit\'s "few" share (plausible-procedural) as private soldiers. The fourteen units stay failing in Q20.3.',
+          recon='Figures drawn as troopers; the absence of company officers and (for the Confederates) of the bugle is a visible gap. Candidate lead, not a kit source: OR27-1-R343 Nolan p. 949 names a Chief Bugler of a Reserve Brigade regiment, so trumpeters existed.',
+          marking='Unit card section "Soldier types": officers and trumpeters listed as a gap with this id.', impact='Fourteen drawn cavalry units: no officer figure; seven Confederate units: no bugle.',
+          owner_q='Authorise marked plausible-procedural company officers (printed company counts, officer ratio per company) and a trumpeter per company, or supply a source for the cavalry company organisation.',
+          log=[KIT('app/src/history/figures.mjs header and kit/kit_specs.json defaults (default.union.cavalry flag_or_instrument; default.union.officers; default.confederate.officers)', 'negative', 'figures.mjs: rank private for every figure; kit: flag_or_instrument bugle "few" for the Union default only; no officers per cavalry company, no trumpeter count, no Confederate cavalry instrument'),
+               KIT('BIBLE/plan-clean.txt B.5 (lines 17195-17196) and B.6.15.4 (Guidons: "inferred; gap")', 'negative', 'the company-officer count is "not sourced"; guidons "unsourced in the notes"'),
+               S(1, 'trumpeters?|buglers?', (4, 0), 'found', 'OR27-1-R343 Lieut. Nicholas Nolan p. 949 names "Chief Bugler [Jacob K.] Schuck" among men commended (a trumpeter existed; no number per company)'),
+               S(2, 'trumpeters?|buglers?', (2, 0), 'negative', 'no cavalry hit'), S(3, 'trumpeters?|buglers?', (0, 0), 'negative', 'no hit'),
+               S(1, '(company|regimental|squadron) (officers|commanders)', (33, 4), 'negative', 'qualitative uses; no company officer count of a cavalry regiment'), S(2, '(company|regimental|squadron) (officers|commanders)', (31, 3), 'negative', 'no count'), S(3, '(company|regimental|squadron) (officers|commanders)', (8, 1), 'negative', 'no count'), PRINT_ROW]),
+ 11: dict(title='Regimental arms of 48 cavalry kit cards: no regimental weapon record', rids=['R04', 'R16'],
+          desc='Forty-eight of the 62 cavalry kit cards (the Reserve Brigade, McIntosh, J. I. Gregg, Farnsworth\'s brigade, Hampton, F. Lee, Chambliss, Jenkins and the Confederate regiments of the orders of battle) carry no weapon field and inherit the army default (a plausible-procedural draw of carbine types). kit/weapons.json assigns arms to only fourteen cavalry units (Buford\'s regiments, the Michigan regiments, the 10th NY, the 34th Virginia).',
+          why='Regimental arms of these units are in no text acquired: the plan says "Specifics of Confederate cavalry arms by regiment were not found" and OR Ser. I vol. 27 names arms for single regiments only in passing.',
+          subst='None applied: the army default stays (marked plausible-procedural); no regimental weapon is entered without a source, so Q20.5 stays failing for the 48 cards.',
+          recon='Each of the 48 regiments is drawn with the default carbine mix of its army, tier plausible-procedural, and the missing regimental record is a visible gap.',
+          marking='Unit card section "Arms": "army default, regimental record not found" with this id.', impact='48 cavalry regiments: the carbine and sidearm mix is the army default.',
+          owner_q='Authorise acquisition of the print sources that carry regimental carbine returns (Ordnance returns, regimental histories), or accept the marked army default.',
+          log=[KIT('kit/cavalry_units.json cards and units (48 units with fields {} and weapon_assignment_ids [])', 'negative', 'no weapon field for 48 of 62 cards'),
+               KIT('kit/weapons.json assignments (UA-*)', 'negative', 'cavalry assignments exist for 3IN, 8IL, 12IL, 6-8NY, 9NY, 17PA, 3WV, 10NY, 34VA, Michigan 5th/6th (assigned) and 1st/7th (gap) only'),
+               KIT('kit/evidence/*.jsonl (arms rows)', 'negative', 'the kit evidence rows hold infantry corps only (us-1c, us-2c, us-3c); no cavalry unit row'),
+               S(1, 'armed with .{0,40}(carbines?|sabres?|pistols?|revolvers?)', (1, 0), 'negative', 'OR27-1-R378 Lowell p. 1056: "Only one-third of the regiment was armed with carbines" (a regiment outside these 48 cards: not applied)'),
+               S(2, 'armed with .{0,40}(carbines?|sabres?|pistols?|revolvers?)', (1, 0), 'negative', 'no cavalry hit'), S(3, 'armed with .{0,40}(carbines?|sabres?|pistols?|revolvers?)', (0, 0), 'negative', 'no hit'),
+               S(1, '(carbines?|revolvers?|pistols?) .{0,80}(regiment|Cavalry)|(Cavalry|regiment) .{0,80}(armed with|carbines?)', (3, 0), 'negative', 'no cavalry hit'), PRINT_ROW]),
+})
+
+
+# a search log for an entry that already exists in the register (EG-FIG-0007: horse colours, markings, size, harness; its register file is not touched here)
+EXTRA_LOGS = {
+ 'EG-FIG-0007': [S(1, '(bay|sorrel|gr[ae]y|white|black|roan|chestnut|dun|iron-gr[ae]y|piebald) (horse|mare|stallion|charger|steed)', (3, 0), 'negative', '"Black Horse Tavern" (a place name, R158 p. 531, R160 p. 543); no regimental horse colour'),
+                 S(2, '(bay|sorrel|gr[ae]y|white|black|roan|chestnut|dun|iron-gr[ae]y|piebald) (horse|mare|stallion|charger|steed)', (3, 0), 'negative', 'Black Horse Tavern again (R442 p. 389, R464 p. 430); R481 Johnson p. 502 "a fine white horse" of the person supposed to be Milroy: one officer\'s mount, not a regiment'),
+                 S(3, '(bay|sorrel|gr[ae]y|white|black|roan|chestnut|dun|iron-gr[ae]y|piebald) (horse|mare|stallion|charger|steed)', (0, 0), 'negative', 'no hit'),
+                 S(1, '(horses|mounts).{0,60}(hands high|pounds|weight|condition|broken down|worn out|jaded|fagged)', (9, 3), 'negative', 'condition only in words (Buford R337 p. 923 "fagged out"; Custer R361 p. 1003 "completely worn out"; Fuller R375 p. 1036); no size, colour or measured condition per regiment'),
+                 S(2, '(horses|mounts).{0,60}(hands high|pounds|weight|condition|broken down|worn out|jaded|fagged)', (22, 2), 'negative', 'condition in words (Stuart R565 p. 698 "horses, already jaded"; McIntosh R563 p. 675); no size or colour'),
+                 S(3, '(horses|mounts).{0,60}(hands high|pounds|weight|condition|broken down|worn out|jaded|fagged)', (10, 3), 'negative', 'D0090 p. 48: the Confederate horses "grass-fed, were broken down" (words, no measure); no colour or size'),
+                 KIT('kit/cavalry_units.json horses table and horse_animation_rule', 'negative', 'no horse measurement, coat colour or marking in the kit data (register entry text)'), PRINT_ROW],
+}
+
 
 def ws10(n):
     t = open(os.path.join(WS10, 'ws10-EG-CAV-%02d.md' % n), encoding='utf-8').read()
@@ -135,12 +189,15 @@ def main():
     for n in sorted(ENT):
         eid = 'EG-CAV-%02d' % n
         e = ENT[n]
-        title, f = ws10(n)
+        if 'title' in e:
+            title, f = e['title'], {'Description': e['desc'], 'Autonomous substitute applied': e['subst'], 'Product marking': e['marking']}
+        else:
+            title, f = ws10(n)
         tier = 'plausible-procedural'      # an 'open gap' tier of the shard maps to the weakest register tier, never promoted
         finds = [r for r in e['log'] if r['result'] == 'found']
-        searched = ('Run on %s on the acquired OR Ser. I vol. 27 text, parts 1-3 (library OR-27-1..3, tools/bt/or27_find.py): %d searches, %d with a relevant find (register/search_logs/%s.json holds each pattern, hit counts and result). '
+        searched = ('Run on %s on the acquired OR Ser. I vol. 27 text, parts 1-3 (library OR-27-1..3, tools/bt/or27_find.py) and on the kit and plan files: %d searches, %d with a relevant find (register/search_logs/%s.json holds each pattern, hit counts and result). '
                     'Earlier: kit/cavalry_units.json (horses, strengths, behaviour_states), history/positions ledgers A, D, E, kit/artillery_batteries.json losses. Print sources (Busey and Martin, Coddington, Pfanz) are print-only and could not be searched.') % (DATE, len(e['log']) - 1, len(finds), eid)
-        d = dict(id=eid, title=title, rids=['R01', 'R03'], cat='evidence missing', desc=f['Description'], why=e['why'], searched=searched, subst=f['Autonomous substitute applied'], recon=e['recon'], tier=tier,
+        d = dict(id=eid, title=title, rids=e.get('rids', ['R01', 'R03']), cat='evidence missing', desc=f['Description'], why=e['why'], searched=searched, subst=f['Autonomous substitute applied'], recon=e['recon'], tier=tier,
                  competing='-', marking=f['Product marking'], impact=e['impact'], owner_q=e['owner_q'], rec='Keep the marked model until a source is read; do not read the model as history.', status='open')
         body = '# %s: %s\n\n| Field | Content |\n|---|---|\n' % (eid, title) + ''.join('| %s | %s |\n' % r for r in [
             ('ID', eid), ('Requirement IDs', ', '.join(d['rids'])), ('Category', d['cat']), ('Description', d['desc']), ('Why literal 100% is not possible or blocked', d['why']), ('Evidence searched', d['searched']),
@@ -151,6 +208,8 @@ def main():
         json.dump(e['log'], open(os.path.join(SL, eid + '.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
         d['source_file'] = 'tools/bt/register_cavalry_gaps.py'
         idx = [x for x in idx if x.get('id') != eid] + [d]
+    for eid, rows in EXTRA_LOGS.items():
+        json.dump(rows, open(os.path.join(SL, eid + '.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
     json.dump(idx, open(ip, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
     print('registered', len(ENT), 'cavalry gaps; index', len(idx))
 
