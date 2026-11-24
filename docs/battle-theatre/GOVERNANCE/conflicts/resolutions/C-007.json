@@ -1,0 +1,1168 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-007",
+ "topic": "McLaws on the ridge",
+ "researched": "2026-11-24",
+ "researcher": "researcher-c007",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "McLaws on the ridge | 08:00; 08:30 | 08:00 | 08:30",
+  "values": [
+   "08:00",
+   "08:30"
+  ],
+  "recommended_default": "08:00",
+  "selectable_alternatives": [
+   "08:30"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-007-DEFAULT",
+  "default_label": "08:00 (PDF), marked plausible-procedural, gap",
+  "tier": "plausible-procedural",
+  "basis": "gap",
+  "scenario_ids": [
+   "C-007-S1",
+   "C-007-S2",
+   "C-007-S3",
+   "C-007-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "inferred",
+ "basis": {
+  "kind": "contemporaneous_other",
+  "text": "Fremantle's diary of 2 July 1863 (Longstreet placing McLaws's division at 7 a.m.) and Kershaw's report of 1 October 1863 (Official Records 27/2 p. 366: the leading brigade left camp about sunrise and reached the hill overlooking Gettysburg), read with McLaws's own statement (the head of his division reached Seminary Ridge before 8 a.m.), Alexander's window (6 to 8) and Freeman's estimates (head by 6, whole division 8 to 8:30)."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-007-P3"
+  ],
+  "label": "About 07:00: the head of McLaws's division on the ridge; the whole division up by 08:00 to 08:30",
+  "animation": {
+   "at": "1863-07-02T07:00",
+   "rule": "earliest_documented",
+   "note": "07:00 is the earliest hour a writer of the day gives for the division on the ground (Fremantle's diary); Freeman's computed 06:00 for the head stays selectable and is not the floor; the soldiers come in as a march from the bivouac 2 to 4 miles out, which began about sunrise (Kershaw), the head up by 07:00 and the whole division closed up by about 08:00 to 08:30 (P1, P2)"
+  },
+  "note": "The head of the division is shown on the ridge at 07:00 at the latest; the plan's 08:00 and 08:30 are the times the whole division was up. Kershaw's brigade led the column; McLaws and Lee met on the ridge and the division then lay behind it until the march to the right (Kershaw: 'until about noon'; the hour of Lee's order is C-008's)."
+ },
+ "positions": [
+  {
+   "id": "C-007-P1",
+   "origin": "pdf_value",
+   "pdf_label": "08:00",
+   "scenario_ids": [
+    "C-007-S1",
+    "C-007-S3",
+    "C-007-DEFAULT"
+   ],
+   "label": "08:00: McLaws's division behind Seminary Ridge (the plan's default; the whole division closed up)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T08:00",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "support": [
+    {
+     "id": "C-007-P1-c1",
+     "source": "TAYLOR-GENLEE-1906-C005",
+     "source_class": "book",
+     "page": "198",
+     "page_basis": "as_read",
+     "page_note": "Longstreet's letter from New Orleans of 20 April 1875 as Taylor prints it, General Lee (1906) pp. 197-198; the text layer prints 'Mj' for 'My'",
+     "text_offset": 439953,
+     "quote": "two divisions nor myself did not reach General Lee until 8 a.m. on the 2d",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1875-04-20",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet-letter-1875",
+     "exact": false,
+     "states": {
+      "times": [
+       "08:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Wrong for Longstreet himself (the diary of the day has him with Lee at 5 a.m.); Taylor remarks that it cannot be reconciled with Longstreet's book of 1896 ('at sunrise')."
+    },
+    {
+     "id": "C-007-P1-c2",
+     "source": "MEADE-LL-v2",
+     "source_class": "book",
+     "page": "69",
+     "page_basis": "as_read",
+     "page_note": "Life and Letters of George Gordon Meade vol. 2, narrative of the battle, p. 69; the page head 69 stands before the passage and the head of page 70 after it",
+     "text_offset": 199545,
+     "quote": "Longstreet's two divisions, commanded by McLaws and Hood, left at daylight their bivouac at the Chambersburg Road crossing of Marsh Creek, and about eight o'clock halted in the fields in the rear of the seminary",
+     "witness": {
+      "name": "Life and Letters of General Meade (narrative of the battle)",
+      "role": "a Union family narrative published in 1913; its source for the Confederate movements is not named",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "meade-1913",
+     "exact": false,
+     "states": {
+      "times": [
+       "08:00"
+      ],
+      "phrases": [
+       "about eight o'clock halted in the fields in the rear of the seminary"
+      ]
+     },
+     "note": "The source of the Confederate movements is not named; the hour matches the one Longstreet gave in 1875."
+    },
+    {
+     "id": "C-007-P1-c3",
+     "source": "FREEMAN-RELEE-V3-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "none",
+     "page_note": "printed page 554 of Appendix III-2, 'The Hour of Longstreet's Arrival, July 2, 1863': the page foot of the text layer before it reads \"558\" (a misread of 553), so the number 554 is inferred from that order, not read on the page image",
+     "text_offset": 1265217,
+     "quote": "As the road was little obstructed at that time, the head of McLaws's column was probably on the field by 6 a.m. That command, however, does not seem to have been well closed, and the other division was probably not in position until 8 or 8:30",
+     "witness": {
+      "name": "Douglas Southall Freeman",
+      "role": "historian, biographer of Lee (not a participant)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1935",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "unspecified",
+     "hedge": "upper",
+     "group": "freeman",
+     "exact": false,
+     "states": {
+      "times": [
+       "06:00",
+       "08:30"
+      ]
+     },
+     "note": "Freeman's own estimate, built on McLaws's order to move at sunrise, Kershaw's report ('only a slight detention') and Dickert's remark that the sun was long up when the brigade was roused. 'The other division' is McLaws's: his summary puts one division (Hood's, less Law's brigade) behind the ridge by 7 or 7:30, 'a second division there by 8 to 8:30' and the artillery by 9. These are the plan's 08:00 and 08:30."
+    }
+   ],
+   "flags": [
+    "memoir_only"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "place_of_observation",
+    "text": "08:00 is when the whole division was closed up behind the ridge (Longstreet 1875, the Meade narrative, Freeman), not when its head came; a diary of the day has the division placed by 7 a.m."
+   },
+   "inference": {
+    "step": "Longstreet wrote in 1875 that his two divisions did not reach Lee until 8 a.m.; the Meade narrative has them halting 'about eight o'clock' behind the seminary; Freeman puts the second division in position 'by 8 or 8:30'. Read together they date the closing up of McLaws's division, not the first arrival of its head: Longstreet's 8 a.m. is wrong for himself (the diary has him with Lee at 5), McLaws says the head came before 8, and Freeman says the column 'does not seem to have been well closed'.",
+    "from": [
+     "C-007-P1-c1",
+     "C-007-P1-c2",
+     "C-007-P1-c3"
+    ]
+   },
+   "note": "The plan's recommended default. No source dates the first arrival at 08:00; the three that give 8 o'clock all date the end of the arrival."
+  },
+  {
+   "id": "C-007-P2",
+   "origin": "pdf_value",
+   "pdf_label": "08:30",
+   "scenario_ids": [
+    "C-007-S2"
+   ],
+   "label": "08:30: the far end of Freeman's estimate for the whole division in position (the plan's later value)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T08:30",
+    "approx": true,
+    "tolerance_min": 0,
+    "note": "'8 or 8:30': the far end of Freeman's range"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "support": [
+    {
+     "id": "C-007-P2-c1",
+     "source": "FREEMAN-RELEE-V3-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "none",
+     "page_note": "printed page 554 of Appendix III-2, 'The Hour of Longstreet's Arrival, July 2, 1863': the page foot of the text layer before it reads \"558\" (a misread of 553), so the number 554 is inferred from that order, not read on the page image",
+     "text_offset": 1265217,
+     "quote": "As the road was little obstructed at that time, the head of McLaws's column was probably on the field by 6 a.m. That command, however, does not seem to have been well closed, and the other division was probably not in position until 8 or 8:30",
+     "witness": {
+      "name": "Douglas Southall Freeman",
+      "role": "historian, biographer of Lee (not a participant)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1935",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "unspecified",
+     "hedge": "upper",
+     "group": "freeman",
+     "exact": false,
+     "states": {
+      "times": [
+       "06:00",
+       "08:30"
+      ]
+     },
+     "note": "Freeman's own estimate, built on McLaws's order to move at sunrise, Kershaw's report ('only a slight detention') and Dickert's remark that the sun was long up when the brigade was roused. 'The other division' is McLaws's: his summary puts one division (Hood's, less Law's brigade) behind the ridge by 7 or 7:30, 'a second division there by 8 to 8:30' and the artillery by 9. These are the plan's 08:00 and 08:30."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "derived": true,
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "place_of_observation",
+    "text": "The far end of Freeman's own range ('8 or 8:30') for the whole division in position; no witness gives 8:30, and the head of the division was on the ridge long before."
+   },
+   "inference": {
+    "step": "Freeman says the division 'was probably not in position until 8 or 8:30' because the column 'does not seem to have been well closed'; 8:30 is the far end of that computed range, not a sighting.",
+    "from": [
+     "C-007-P2-c1"
+    ]
+   }
+  },
+  {
+   "id": "C-007-P3",
+   "origin": "research",
+   "label": "About 07:00: the head of McLaws's division on the ridge; the whole division up by 08:00 to 08:30",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T07:00",
+    "approx": true,
+    "note": "the diary's hour for the division being placed; the head came up before it, so 07:00 is an upper bound for the arrival and the instant the picture uses"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "support": [
+    {
+     "id": "C-007-P3-c1",
+     "source": "FREMANTLE-1863-GUT-C007",
+     "source_class": "primary",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the transcription of the Edinburgh edition of 1863 carries no page numbers; the same entry is on p. 257 of the American edition of 1864 (FREMANTLE-1864), where the text layer prints 'Y A. M.' and the page image (archive.org scan, PDF page 265) reads 'At 7 A. M.'",
+     "text_offset": 350804,
+     "quote": "2d July (Thursday).--We all got up at 3.30 A.M. [...] At 7 A.M. I rode over part of the ground with General Longstreet, and saw him disposing M'Laws's division for to-day's fight",
+     "witness": {
+      "name": "Arthur J. L. Fremantle",
+      "role": "Lieutenant Colonel, Coldstream Guards, British observer with Longstreet's staff",
+      "side": "other"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "fremantle",
+     "exact": false,
+     "states": {
+      "times": [
+       "07:00"
+      ],
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "disposing M'Laws's division"
+      ]
+     },
+     "note": "The diary was kept day by day (preface); its Gettysburg part first appeared in Blackwood's Magazine in 1863. The entry: up at 3.30, at the commanding position at 5 with Lee, Hill, Longstreet and Hood in conference, and at 7 riding over part of the ground with Longstreet, who was placing McLaws's division. It does not say that the division stood on the ridge or when it came; it says the division was being placed."
+    },
+    {
+     "id": "C-007-P3-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R432",
+     "page": "366",
+     "page_basis": "scan_leaf",
+     "text_offset": 1354230,
+     "quote": "we marched to a point on the Gettysburg road, some 2 miles from that place, going into camp at 12 p. m. The command was ordered to move at 4 o'clock on the morning of the 2d, but did not leave camp until about sunrise. We reached the hill overlooking Gettysburg, with only a slight detention from trains in the way, and moved to the right of the Third Corps, and were halted until about noon",
+     "witness": {
+      "name": "Joseph B. Kershaw",
+      "role": "Brigadier General commanding the South Carolina brigade of McLaws's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "kershaw",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:00",
+       "12:00"
+      ],
+      "dates": [
+       "07-02"
+      ],
+      "numbers": [
+       2
+      ],
+      "phrases": [
+       "did not leave camp until about sunrise",
+       "We reached the hill overlooking Gettysburg"
+      ]
+     },
+     "note": "Report of 1 October 1863, Official Records Ser. I vol. 27 pt. 2 p. 366 (report no. 432). The camp was about 2 miles from Gettysburg at midnight, the order to move was for 4 a.m., the march began about sunrise; no hour is given for reaching the hill overlooking Gettysburg ('halted until about noon'). Longstreet's report puts the division at Marsh Creek, 4 miles out."
+    },
+    {
+     "id": "C-007-P3-c3",
+     "source": "BL-3",
+     "source_class": "book",
+     "page": "331",
+     "page_basis": "as_read",
+     "page_note": "Kershaw, 'Kershaw's Brigade at Gettysburg', Battles and Leaders vol. 3 (the book is of 1888); the page number 331 stands in the text layer just after the passage",
+     "text_offset": 1387118,
+     "quote": "We encamped about midnight two miles from Gettysburg, on the left of the Chambersburg pike. On the 2d we were up and ready to move at 4 a. m., in obedience to orders, but, owing, as we understood at the time, to the occupancy of the road by trains of the Second Corps, Ewell's, did not march until about sunrise. [...] we reached the high grounds near Gettysburg, and moved to the right of the Third Corps, Kershaw's brigade being at the head of the column",
+     "witness": {
+      "name": "Joseph B. Kershaw",
+      "role": "Brigadier General commanding the South Carolina brigade of McLaws's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1888",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "kershaw",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:00"
+      ],
+      "numbers": [
+       2
+      ],
+      "phrases": [
+       "did not march until about sunrise",
+       "Kershaw's brigade being at the head of the column"
+      ]
+     },
+     "note": "The same witness as his report; it adds that his brigade led the column (so the head of McLaws's division is his brigade) and that the brigade then lay at the end of the lane to the Black Horse Tavern until noon or an hour after."
+    },
+    {
+     "id": "C-007-P3-c4",
+     "source": "SHSP-07-C005",
+     "source_class": "book",
+     "page": "68",
+     "page_basis": "as_read",
+     "page_note": "McLaws's address before the Georgia Historical Society, Southern Historical Society Papers vol. 7 (printed 1879; the editor says it was read some months before); the page head 68 stands before the passage and the head of page 69 after it",
+     "text_offset": 205437,
+     "quote": "orders from General Longstreet to continue the march at four A. M., but the order was afterwards countermanded, with directions not to leave until sunrise. The march was continued at a very early hour, and my command reached the hill overlooking Gettysburg early in the morning",
+     "witness": {
+      "name": "Lafayette McLaws",
+      "role": "Major General commanding the division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1879",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "mclaws",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:00"
+      ],
+      "phrases": [
+       "not to leave until sunrise",
+       "early in the morning"
+      ]
+     },
+     "note": "McLaws gives no clock for the arrival. His next sentences: the head of his column was halted within a hundred yards of Lee, who sent for him; Lee and Longstreet disagreed over the line his division was to take; he put his command under a line of woods; at about 1 p.m., by his recollection, Major Johnston came to guide the march."
+    },
+    {
+     "id": "C-007-P3-c5",
+     "source": "TAYLOR-GENLEE-1906-C005",
+     "source_class": "book",
+     "page": "197",
+     "page_basis": "as_read",
+     "page_note": "General Lee (1906) by Walter H. Taylor, p. 197; Taylor introduces it with 'General McLaws, in speaking of the movements of his division on that occasion, says' and gives no date for it (the book is of 1906)",
+     "text_offset": 438974,
+     "quote": "I received an order to move on at 4 a.m. of the 2d; but that order was countermanded and I was directed to move early. Not long after sunrise I moved forward, and before 8 a.m. the head of my division reached Seminary Ridge, where General Lee was in person",
+     "witness": {
+      "name": "Lafayette McLaws",
+      "role": "Major General commanding the division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1906",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "upper",
+     "group": "mclaws",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:00",
+       "08:00"
+      ],
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "before 8 a.m. the head of my division reached Seminary Ridge"
+      ]
+     },
+     "note": "McLaws's own statement as Taylor prints it; undated. It is the only text in the library that gives McLaws's hour for the head of his division on the ridge, and it gives an upper bound, not an hour."
+    },
+    {
+     "id": "C-007-P3-c6",
+     "source": "FREEMAN-RELEE-V3-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "none",
+     "page_note": "printed page 554 of Appendix III-2, 'The Hour of Longstreet's Arrival, July 2, 1863': the page foot of the text layer before it reads \"558\" (a misread of 553), so the number 554 is inferred from that order, not read on the page image",
+     "text_offset": 1265217,
+     "quote": "As the road was little obstructed at that time, the head of McLaws's column was probably on the field by 6 a.m. That command, however, does not seem to have been well closed, and the other division was probably not in position until 8 or 8:30",
+     "witness": {
+      "name": "Douglas Southall Freeman",
+      "role": "historian, biographer of Lee (not a participant)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1935",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "unspecified",
+     "hedge": "upper",
+     "group": "freeman",
+     "exact": false,
+     "states": {
+      "times": [
+       "06:00",
+       "08:30"
+      ]
+     },
+     "note": "Freeman's own estimate, built on McLaws's order to move at sunrise, Kershaw's report ('only a slight detention') and Dickert's remark that the sun was long up when the brigade was roused. 'The other division' is McLaws's: his summary puts one division (Hood's, less Law's brigade) behind the ridge by 7 or 7:30, 'a second division there by 8 to 8:30' and the artillery by 9. These are the plan's 08:00 and 08:30."
+    },
+    {
+     "id": "C-007-P3-c7",
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": "388",
+     "page_basis": "as_read",
+     "page_note": "Military Memoirs of a Confederate, chapter XVI (Gettysburg: the first day); the page head 388 stands before the passage and the head of page 389 after it",
+     "text_offset": 1022933,
+     "quote": "Marching again at dawn on the 2d, they arrived near the field between 6 and 8 A.M.",
+     "witness": {
+      "name": "E. Porter Alexander",
+      "role": "Colonel, commanding the reserve artillery battalion of the First Corps (it reached the field about 9 a.m.)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "window",
+     "group": "alexander",
+     "exact": false,
+     "states": {
+      "times": [
+       "06:00",
+       "08:00"
+      ],
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "between 6 and 8 A.M."
+      ]
+     },
+     "note": "Of Longstreet's troops (both divisions together). In his report of 3 August 1863 (OR 27/2 p. 429) Alexander gives only the reserve artillery's own arrival, 9 a.m."
+    },
+    {
+     "id": "C-007-P3-c8",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R430",
+     "page": "358",
+     "page_basis": "scan_leaf",
+     "text_offset": 1326578,
+     "quote": "McLaws' division, however, reached Marsh Creek, 4 miles from Gettysburg, a little after dark",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-27",
+      "kind": "official_report"
+     },
+     "vantage": "not_stated",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "soon_after",
+     "group": "longstreet-report-1863",
+     "exact": false,
+     "states": {
+      "numbers": [
+       4
+      ],
+      "phrases": [
+       "reached Marsh Creek, 4 miles from Gettysburg"
+      ]
+     },
+     "note": "Longstreet's report of 27 July 1863: the division at Marsh Creek, 4 miles out, on the evening of 1 July (Kershaw and McLaws put their arrival at about midnight); the report gives no morning hour for McLaws."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "stance": "default",
+   "inference": {
+    "step": "Fremantle's diary has Longstreet placing McLaws's division at 7 a.m., which needs the head of the division on the ground. Kershaw's report puts the start of the march about sunrise (04:35) from a camp about 2 miles from Gettysburg with his brigade at the head (his article of 1888), McLaws says the head of his division reached Seminary Ridge before 8 a.m., Freeman has the head on the field by 6 and Alexander has Longstreet's infantry up between 6 and 8; none gives a clock for the first arrival. So the head was up by about 07:00; earlier times are not documented and stay selectable.",
+    "from": [
+     "C-007-P3-c1",
+     "C-007-P3-c2",
+     "C-007-P3-c3",
+     "C-007-P3-c4",
+     "C-007-P3-c5",
+     "C-007-P3-c6",
+     "C-007-P3-c7",
+     "C-007-P3-c8"
+    ]
+   },
+   "note": "The hour 07:00 is stated once, in the diary; the bounds around it come from Kershaw, McLaws, Freeman and Alexander. The whole division was closed up about 08:00 to 08:30 (positions P1, P2)."
+  },
+  {
+   "id": "C-007-P4",
+   "origin": "research",
+   "label": "Before 08:00: the head of the division on Seminary Ridge (McLaws's own statement, undated)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T08:00",
+    "approx": true,
+    "tolerance_min": 0,
+    "note": "'before 8 a.m.': an upper bound"
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "id": "C-007-P4-c1",
+     "source": "TAYLOR-GENLEE-1906-C005",
+     "source_class": "book",
+     "page": "197",
+     "page_basis": "as_read",
+     "page_note": "General Lee (1906) by Walter H. Taylor, p. 197; Taylor introduces it with 'General McLaws, in speaking of the movements of his division on that occasion, says' and gives no date for it (the book is of 1906)",
+     "text_offset": 438974,
+     "quote": "I received an order to move on at 4 a.m. of the 2d; but that order was countermanded and I was directed to move early. Not long after sunrise I moved forward, and before 8 a.m. the head of my division reached Seminary Ridge, where General Lee was in person",
+     "witness": {
+      "name": "Lafayette McLaws",
+      "role": "Major General commanding the division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1906",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "upper",
+     "group": "mclaws",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:00",
+       "08:00"
+      ],
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "before 8 a.m. the head of my division reached Seminary Ridge"
+      ]
+     },
+     "note": "McLaws's own statement as Taylor prints it; undated. It is the only text in the library that gives McLaws's hour for the head of his division on the ridge, and it gives an upper bound, not an hour."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "tolerance",
+    "text": "An upper bound ('before 8 a.m.', McLaws, undated) that covers the default; it fixes no hour, and the diary of the day has the division being placed at 7."
+   },
+   "inference": {
+    "step": "McLaws says that not long after sunrise he moved forward and 'before 8 a.m. the head of my division reached Seminary Ridge, where General Lee was in person'; read as an upper bound for the head's arrival, since no hour is given.",
+    "from": [
+     "C-007-P4-c1"
+    ]
+   }
+  },
+  {
+   "id": "C-007-P5",
+   "origin": "research",
+   "label": "About 06:00: the head of the column on the field (Freeman's estimate of 1935)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T06:00",
+    "approx": true,
+    "tolerance_min": 0,
+    "note": "'by 6 a.m.': an upper bound (Freeman's estimate)"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "support": [
+    {
+     "id": "C-007-P5-c1",
+     "source": "FREEMAN-RELEE-V3-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "none",
+     "page_note": "printed page 554 of Appendix III-2, 'The Hour of Longstreet's Arrival, July 2, 1863': the page foot of the text layer before it reads \"558\" (a misread of 553), so the number 554 is inferred from that order, not read on the page image",
+     "text_offset": 1265217,
+     "quote": "As the road was little obstructed at that time, the head of McLaws's column was probably on the field by 6 a.m. That command, however, does not seem to have been well closed, and the other division was probably not in position until 8 or 8:30",
+     "witness": {
+      "name": "Douglas Southall Freeman",
+      "role": "historian, biographer of Lee (not a participant)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1935",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "unspecified",
+     "hedge": "upper",
+     "group": "freeman",
+     "exact": false,
+     "states": {
+      "times": [
+       "06:00",
+       "08:30"
+      ]
+     },
+     "note": "Freeman's own estimate, built on McLaws's order to move at sunrise, Kershaw's report ('only a slight detention') and Dickert's remark that the sun was long up when the brigade was roused. 'The other division' is McLaws's: his summary puts one division (Hood's, less Law's brigade) behind the ridge by 7 or 7:30, 'a second division there by 8 to 8:30' and the artillery by 9. These are the plan's 08:00 and 08:30."
+    },
+    {
+     "id": "C-007-P5-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R432",
+     "page": "366",
+     "page_basis": "scan_leaf",
+     "text_offset": 1354230,
+     "quote": "we marched to a point on the Gettysburg road, some 2 miles from that place, going into camp at 12 p. m. The command was ordered to move at 4 o'clock on the morning of the 2d, but did not leave camp until about sunrise. We reached the hill overlooking Gettysburg, with only a slight detention from trains in the way, and moved to the right of the Third Corps, and were halted until about noon",
+     "witness": {
+      "name": "Joseph B. Kershaw",
+      "role": "Brigadier General commanding the South Carolina brigade of McLaws's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "kershaw",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:00",
+       "12:00"
+      ],
+      "dates": [
+       "07-02"
+      ],
+      "numbers": [
+       2
+      ],
+      "phrases": [
+       "did not leave camp until about sunrise",
+       "We reached the hill overlooking Gettysburg"
+      ]
+     },
+     "note": "Report of 1 October 1863, Official Records Ser. I vol. 27 pt. 2 p. 366 (report no. 432). The camp was about 2 miles from Gettysburg at midnight, the order to move was for 4 a.m., the march began about sunrise; no hour is given for reaching the hill overlooking Gettysburg ('halted until about noon'). Longstreet's report puts the division at Marsh Creek, 4 miles out."
+    },
+    {
+     "id": "C-007-P5-c3",
+     "source": "DICKERT-1899-GUT-C007",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the Project Gutenberg transcription carries no page numbers; chapter XVIII, Battle of Gettysburg, July 2d",
+     "text_offset": 543465,
+     "quote": "When the troops were aroused from their slumbers on that beautiful clear morning of the 2d of July, the sun had long since shot its rays over the quaint old, now historic, town of Gettysburg",
+     "witness": {
+      "name": "D. Augustus Dickert",
+      "role": "Company H, Third South Carolina Infantry (Kershaw's brigade), later its captain",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1899",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "dickert-1899",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "the sun had long since shot its rays"
+      ]
+     },
+     "note": "Freeman cites this remark for a start after sunrise. It dates when the men were roused in camp, 32 years later; Kershaw's report of 1863 has the brigade up and ready at 4 and marching about sunrise. It states no arrival hour."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "derived": true,
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "A historian's estimate (1935) from a sunrise start and a road 'little obstructed'; no witness gives that hour. Kept as the earliest selectable time; the diary's 7 a.m. is better sourced."
+   },
+   "inference": {
+    "step": "Freeman reasons from McLaws's order to move at sunrise, Kershaw's 'only a slight detention from trains' and Dickert's remark that the sun was long up when the brigade was roused (a late start): 'the head of McLaws's column was probably on the field by 6 a.m.' It is a computation, not a sighting, and Dickert's remark would put the start later than Kershaw's report does.",
+    "from": [
+     "C-007-P5-c1",
+     "C-007-P5-c2",
+     "C-007-P5-c3"
+    ]
+   }
+  },
+  {
+   "id": "C-007-P6",
+   "origin": "research",
+   "label": "Between 06:00 and 08:00: Longstreet's two divisions near the field (Alexander, 1907)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T06:00",
+    "to": "1863-07-02T08:00",
+    "note": "both divisions together; 'near the field'"
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "id": "C-007-P6-c1",
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": "388",
+     "page_basis": "as_read",
+     "page_note": "Military Memoirs of a Confederate, chapter XVI (Gettysburg: the first day); the page head 388 stands before the passage and the head of page 389 after it",
+     "text_offset": 1022933,
+     "quote": "Marching again at dawn on the 2d, they arrived near the field between 6 and 8 A.M.",
+     "witness": {
+      "name": "E. Porter Alexander",
+      "role": "Colonel, commanding the reserve artillery battalion of the First Corps (it reached the field about 9 a.m.)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "window",
+     "group": "alexander",
+     "exact": false,
+     "states": {
+      "times": [
+       "06:00",
+       "08:00"
+      ],
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "between 6 and 8 A.M."
+      ]
+     },
+     "note": "Of Longstreet's troops (both divisions together). In his report of 3 August 1863 (OR 27/2 p. 429) Alexander gives only the reserve artillery's own arrival, 9 a.m."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "tolerance",
+    "text": "Alexander's window (1907) covers both divisions together and contains the default; he was with the artillery, which came up only about 9 a.m."
+   },
+   "inference": {
+    "step": "Alexander writes that Longstreet's troops, marching again at dawn, 'arrived near the field between 6 and 8 A.M.'; read as a window for the infantry of both divisions, not for McLaws's division alone, by a writer who was with the artillery behind them.",
+    "from": [
+     "C-007-P6-c1"
+    ]
+   }
+  },
+  {
+   "id": "C-007-P7",
+   "origin": "research",
+   "label": "At or before sunrise, about 04:35: McLaws's and Hood's commands on the ridge (Hood 1875, Longstreet 1896)",
+   "kind": "period",
+   "value": {
+    "text": "sunrise",
+    "date": "1863-07-02",
+    "part_of_day": "dawn",
+    "sunrise_local_mean_time": "04:35"
+   },
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "id": "C-007-P7-c1",
+     "source": "HOOD-1880-C005",
+     "source_class": "book",
+     "page": "56",
+     "page_basis": "as_read",
+     "page_note": "Hood's letter to Longstreet of 28 June 1875, written 'from memory' (Advance and Retreat, 1880, pp. 55-57); the page head 56 stands before the passage; the text layer prints 'modon' for 'motion', which the quote skips",
+     "text_offset": 130701,
+     "quote": "My troops, together with McLaws's Division, were put in [...] upon the most direct road to that point, which, after a hard march, we reached before or at sunrise on the 2d of July",
+     "witness": {
+      "name": "John B. Hood",
+      "role": "Major General commanding the division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1875-06-28",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "upper",
+     "group": "hood-letter-1875",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "before or at sunrise"
+      ]
+     },
+     "note": "Hood says his troops 'together with McLaws's Division' reached the town 'before or at sunrise'; Longstreet printed the letter in 1877 and again in 1896."
+    },
+    {
+     "id": "C-007-P7-c2",
+     "source": "LONGSTREET-1896",
+     "source_class": "book",
+     "page": "362",
+     "page_basis": "as_read",
+     "page_note": "From Manassas to Appomattox, chapter XXVII (Gettysburg, second day); the page number 362 stands in the text layer just after the passage",
+     "text_offset": 833686,
+     "quote": "After a time Generals McLaws and Hood, with their staffs, rode up, and at sunrise their commands",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1896",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet-1896",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "at sunrise"
+      ]
+     },
+     "note": "The sentence goes on 'filed off the road to the right and rested' (the text layer prints 'oif' for 'off'). Longstreet says McLaws and Hood rode up with their staffs."
+    },
+    {
+     "id": "C-007-P7-c3",
+     "source": "LONGSTREET-1896",
+     "source_class": "book",
+     "page": "378",
+     "page_basis": "as_read",
+     "page_note": "Longstreet arguing against the alleged order for a battle at sunrise; the passage follows the page head 378",
+     "text_offset": 869849,
+     "quote": "McLaws's division, part of Hood's, and the artillery, — about ten thousand men. These, after a hurried all-night's march, reached General Lee's head-quarters about sunrise of the 2d",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1896",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "longstreet-1896",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "about sunrise"
+      ]
+     },
+     "note": "Longstreet's own accounts disagree (8 a.m. in 1875, sunrise in 1896); the artillery he includes here reached the field about 9 a.m. (Alexander's report)."
+    }
+   ],
+   "flags": [
+    "memoir_only",
+    "contradicted"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "Kershaw's report of 1 October 1863 has his brigade, at the head of McLaws's division, leaving camp only about sunrise; Hood and Longstreet probably dated the generals, who rode ahead."
+   },
+   "inference": {
+    "step": "Hood (1875) says his troops 'together with McLaws's Division' reached the town 'before or at sunrise'; Longstreet (1896) says McLaws's and Hood's commands filed off the road 'at sunrise' and reached Lee's head-quarters 'about sunrise'; sunrise at Gettysburg on 2 July is 04:35 local mean time (the plan, B.2.1; Freeman gives 4:32).",
+    "from": [
+     "C-007-P7-c1",
+     "C-007-P7-c2",
+     "C-007-P7-c3"
+    ]
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "The sources agree on an early head and differ by what they measure. A diary of the day has Longstreet placing McLaws's division at 7 a.m.; Kershaw's report has the leading brigade leaving camp about sunrise and reaching the hill overlooking Gettysburg; McLaws says the head of his division reached Seminary Ridge before 8; Freeman estimates the head by 6 and the whole division in position by 8 to 8:30. The plan's 08:00 and 08:30 are Freeman's closing-up estimate and Longstreet's memory of 8 a.m. (1875), not the first arrival; sunrise is a later memory contradicted by Kershaw's report. Nobody gives a clock for the first arrival, so the default is an inference from the diary and the bounds.",
+  "who": "Fremantle (a British officer riding with Longstreet) and Kershaw (leading brigade) wrote what they saw or did. McLaws and Longstreet were present but wrote years later (McLaws's address 1879 and an undated statement printed by Taylor in 1906; Longstreet 1875 and 1896); Hood wrote in 1875. Alexander (1907), Dickert (1899), the Meade family narrative (1913) and Freeman (1935, computed) are later accounts by writers who were behind the column, in camp, or not there.",
+  "when": "Fremantle's entry is of 2 July 1863 (rank 5); Kershaw's report is dated 1 October 1863, 91 days after the event (rank 4). McLaws 1879 and the undated statement, Hood 1875, Longstreet 1875 and 1896, Alexander 1907 and Dickert 1899 are reminiscence (rank 2); the Meade narrative (1913) and Freeman (1935) are later history (rank 1). The two writings of the time outrank the rest, and the rest does not contradict them except Hood's and Longstreet's sunrise.",
+  "where": "Fremantle rode over the ground with Longstreet at 7 a.m. and saw the division placed; Kershaw marched at the head of the division; McLaws rode at the head of his column and reported to Lee on the ridge, and Freeman notes that Hood and McLaws 'rode ahead of their troops', so their hours may date their own arrival; Alexander was with the reserve artillery, which reached the field about 9 a.m.; Dickert was in the brigade, in camp; the Meade narrative and Freeman were not there.",
+  "how_knew": "Fremantle: eyewitness, a diary kept day by day (preface); he gives the hour and what he saw, not whether the division stood on the ridge. Kershaw: his own command; an hour for the start ('about sunrise') and none for the arrival. McLaws: eyewitness; 'early in the morning' (1879) and 'before 8 a.m.' (undated). Hood and Longstreet: memory, and Longstreet's accounts disagree (8 a.m. in 1875, sunrise in 1896; the diary has him with Lee at 5). Freeman computes from a sunrise start and a road 'little obstructed'. Alexander and the Meade narrative do not say how they knew. No writer gives a clock for the first arrival.",
+  "clock": "Kershaw, McLaws, Hood, Longstreet, Alexander and Dickert wrote on the Confederate clock; Fremantle's watch is not named; Freeman and the Meade narrative state none. The difference of about 20 minutes between the armies' clocks is not applied: it is small beside the hour or more between the default and the plan's 08:00. Sunrise on 2 July is about 04:35 local mean time (the plan; Freeman gives 4:32).",
+  "independence": "Groups: fremantle; kershaw (his report and his article of 1888); mclaws (his address and the statement in Taylor are one witness); freeman; alexander; longstreet-letter-1875; longstreet-1896; longstreet-report-1863; hood-letter-1875 (Longstreet printed it in 1877 and 1896, so his sunrise may rest on it); meade-1913; dickert-1899. The default rests on a diary of the day for its hour and on Kershaw, McLaws, Freeman and Alexander for the bounds; the hour 07:00 itself is stated once.",
+  "overrides": "No rejected value rests on a better class of writing than the default. Read and left aside as other events: Dickert's 'the sun had long since shot its rays' (the brigade roused in camp, which Kershaw's report of 1863 contradicts); Wilcox's report of 17 July 1863 (OR 27/2 p. 617: his brigade in line at 9 a.m. as the right of the army, and McLaws's division forming line at right angles to his own at about 2 p.m., the afternoon formation); Alexander's 9 a.m. (the artillery's arrival); the night halt (Longstreet's 'a little after dark' against Kershaw's and McLaws's midnight), which rows T2-037 and T2-038 carry."
+ },
+ "source_panel_text": "About 07:00: a British officer's diary of the day has Longstreet placing McLaws's division at 7 a.m., and McLaws himself says the head of his division reached the ridge before 8. The plan's 08:00 and 08:30 date the whole division closing up. No witness gives an hour for the first arrival. Six other values stay listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "08:00 is when the whole division was closed up (Longstreet 1875, the Meade narrative, Freeman's 8 to 8:30), so it holds as the end of the arrival; it does not hold as the first arrival, which McLaws puts before 8 and a diary of the day puts before 7. It stays selectable."
+  },
+  "first_delegated": {
+   "holds": "no",
+   "note": "The first pass kept 08:00 as a marked stand-in because it found no hour in the Official Records. The research found a diary of the day, Kershaw's report of the start, McLaws's own statements and Freeman's appendix, so the point is no longer a gap."
+  }
+ },
+ "readers": [
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-1c-mclaws",
+   "must_change": true,
+   "note": "gate default 08:00 becomes 07:00 and gate earliest 08:00 becomes 07:00 (the earliest hour a writer of the day gives for the division on the ground); gate latest 08:30 stays; 08:00 and 08:30 stay selectable as the closing up; Freeman's computed 06:00, 'before 08:00' and the sunrise memory become selectable scenarios and are not the floor (a floor moves only to an earlier time the record documents); default_basis 'C-007 recommended default 08:00' has to carry the new default"
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-1c",
+   "must_change": false,
+   "note": "the corps row prints 'McLaws 08:00 (range 08:00-08:30)' in its first-on-field cell and takes its gate latest 08:30 from it; that latest stays (P2 stays selectable); its default and earliest follow Hood (C-005), not McLaws"
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04",
+   "must_change": true,
+   "note": "named case \"Longstreet's divisions (McLaws, Hood)\" reads cs-1c-mclaws: the unit's absolute floor and default instant move from 08:00 to 07:00; to be reconciled in the open with a diary of the day as the evidence, no gate is lowered; 08:00, 08:30 and the earlier values stay selectable scenarios"
+  },
+  {
+   "kind": "gate",
+   "ref": "Q05/Q06",
+   "must_change": false,
+   "note": "speed and march-to-position: from a start about sunrise (04:35) the head needs about 1 mile an hour or less to be up by 07:00 from a camp 2 miles out (Kershaw) and under 2 miles an hour from a bivouac 4 miles out (Longstreet's report): inside the foot ranges (derived figures); re-run with the new default"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-072",
+   "must_change": true,
+   "note": "row 'Jul 2 ~08:00, behind Seminary Ridge, McLaws's division, arrives (EPP); Freeman estimates the second division by 08:00-08:30': the head about 07:00 (before 08:00 per McLaws) is the default; 08:00 and 08:30 are carried as the closing up; Freeman's own text puts the head by 6 a.m., which the row does not print"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-057",
+   "must_change": false,
+   "note": "row 'Jul 2 ~05:00, McLaws's division follows Hood' (EPP, single weak source): the column was marching from about sunrise (Kershaw), so 05:00 is a march in progress, not an arrival; 'follows Hood' is not stated by Kershaw; unchanged by this resolution"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-051",
+   "must_change": false,
+   "note": "row 'Jul 2 ~04:00, order to move at 04:00 changed to sunrise': consistent (Kershaw: ordered to move at 4, left about sunrise; McLaws: the order to continue at four was countermanded, 'not to leave until sunrise'); unchanged"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-037, T2-038",
+   "must_change": false,
+   "note": "the night halts (Marsh Creek about 4 miles out; Kershaw within about 2 miles): they give the distance the column had to cover (2 to 4 miles); the conflict between Longstreet's 'a little after dark' and midnight is not this conflict's; unchanged"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-064",
+   "must_change": false,
+   "note": "Hood's arrival row (C-005): Hood's division came before McLaws's head; no change from this resolution"
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-007)",
+   "must_change": true,
+   "note": "holds the first delegated default (C-007-DEFAULT, 08:00, plausible-procedural, gap): replace by the label and marking of this resolution (weighted, inferred) and add the research values (07:00, before 08:00, 06:00, 06:00 to 08:00, sunrise) as scenarios; 08:00 and 08:30 keep their labels"
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-007)",
+   "must_change": true,
+   "note": "the source of the app data above: the first delegated default is superseded by this resolution; the old scenarios stay"
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/arrivals_data.py (row cs-1c-mclaws, default_basis)",
+   "must_change": true,
+   "note": "the builder prints default_basis 'C-007 recommended default 08:00 (B.2.5; PENDING OWNER)'; it has to carry the new default and its basis"
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/positions_D/61_pender_anderson_artillery.py (claim for cs-1c-mclaws-barksdale, cf mclaws_ridge_hour C-007)",
+   "must_change": false,
+   "note": "the claim is Wilcox's 'about 2 p. m.' (OR 27/2 p. 617: McLaws's division forming line at right angles to his own): an afternoon formation, a different event from the morning arrival on the ridge; the tag names the wrong conflict and no value of C-007 comes from it"
+  },
+  {
+   "kind": "doc",
+   "ref": "GATE-SPEC.md, GATE-SPEC-A.md and decision_log.md",
+   "must_change": true,
+   "note": "they list C-007 among the eight plausible-procedural defaults; it is now weighted and inferred"
+  },
+  {
+   "kind": "test",
+   "ref": "docs/battle-theatre/app/tests and tests/governance (claims, daypos, history, ledgerE, unit)",
+   "must_change": false,
+   "note": "they choose conflict values by label ('08:00', '08:30'); the labels stay"
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1, OR27-2, OR27-3 (records 431-440 of part 2 for McLaws's division, with the reports of Longstreet, Alexander and Wilcox)",
+   "query": "a report of McLaws, Barksdale, Semmes or Wofford for Gettysburg (none is indexed); in the reports of Kershaw, Maffett, Nance, Cabell and the batteries: sunrise|daylight|daybreak|a. m.|o'clock for an arrival on Seminary Ridge on 2 July",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "all local non-lead texts of the ledger (Official Records, books and papers, Park Service texts)",
+   "query": "McLaws ... (before eight|before 8|8 a. m.|eight o'clock|seven o'clock|7 a. m.|six o'clock|6 a. m.|nine o'clock|sunrise|daylight|daybreak|dawn|early in the morning), and Barksdale|Semmes|Wofford|Kershaw ... Seminary Ridge|hill overlooking Gettysburg|Lee's head-quarters ... a. m.|o'clock|sunrise|morning: no hour for the first arrival other than the ones cited",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "SORREL-1905-C005 (Longstreet's chief of staff)",
+   "query": "McLaws ... the morning of 2 July; Seminary|Willoughby|Marsh Creek|before daylight|at dawn|daybreak|sunrise: no hour for McLaws's division",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "HOOD-1880-C005, POLLEY-1910-C005, ANNALS-1879-C005 and SHSP-04 to SHSP-12 (the controversy of 1877-79)",
+   "query": "McLaws with an hour for the morning of 2 July: the only hours found are Longstreet's 8 a.m. and the sunrise of Hood and Longstreet; Hood's and Polley's texts give none for McLaws",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Chronicling America pages, the Gettysburg Compiler and the Adams Sentinel of 1863 (CA-1863, GBG-COMPILER-1863, ADAMS-SENTINEL-1863)",
+   "query": "McLaws|M'Laws ... morning|sunrise|daybreak|daylight|o'clock|a. m.: the order of battle and Jacobs's note that the division 'came late on Wednesday', no hour of arrival on the ridge",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Park Service texts (tmp/library/web/nps and the NPS-* texts of the ledger)",
+   "query": "McLaws|Kershaw ... morning|sunrise|daybreak|dawn|a. m.|o'clock|Seminary Ridge",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "archive.org page images of the American edition of Fremantle (item threemonthsinsou00frem)",
+   "query": "the single page image n281 through the BookReader path: the image host ia801600.us.archive.org refused the connection with 403; the same scan was then read as a PDF through the archive.org cors path and page 257 (PDF page 265) looked at: it reads 'At 7 A. M.'",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "J. F. Epperson timeline (plan key EPP)",
+   "query": "the page itself: McLaws's division arrives behind Seminary Ridge about 08:00; its host is not among the hosts reachable for this research",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Hessler, The Peach Orchard (plan key HESS, cited by the plan for the McLaws row)",
+   "query": "the book: modern, in copyright, no local text; its footnotes point to the Official Records, which were read",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report, letter or diary of 2 July 1863 or of the weeks after it that gives an hour for the arrival of the head or the tail of McLaws's division on Seminary Ridge (a report of Semmes's, Barksdale's or Wofford's brigade, a diary or letter of a man of the four brigades or of Cabell's battalion, McLaws's own letters of July 1863); or a source that dates the scene in which Lee and Longstreet placed McLaws's division, which McLaws describes and Fremantle's 7 a.m. may be; or an hour in the Epperson timeline that rests on a source of the time.",
+ "owner_note": "The first delegated default (08:00, a marked stand-in) is replaced by an inferred value; nothing is deleted and 08:00 and 08:30 stay selectable. The floor of the arrival gate would move from 08:00 to 07:00, which a diary of the day documents for the division on the ground; Freeman's computed 06:00 and the sunrise memory are scenarios, not the floor. How the floor is reconciled is recorded by the integration step, in the open. C-005 and C-007 agree: the head of Hood's division (about 05:00) came before the head of McLaws's (by about 07:00)."
+}
