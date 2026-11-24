@@ -1,0 +1,514 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-038",
+ "topic": "Spangler Farm wounded",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-038",
+ "event_date": "1863-07-04",
+ "pdf_row": {
+  "page": 62,
+  "text": "Spangler Farm wounded | 1,000; 1,500; 1,800; 1,900; 2,000 | 1,500 | all",
+  "values": [
+   "1,000",
+   "1,500",
+   "1,800",
+   "1,900",
+   "2,000"
+  ],
+  "recommended_default": "1,500",
+  "selectable_alternatives": [
+   "all"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-038-DEFAULT",
+  "default_label": "range 1,000-2,000, all five values listed, no headline number",
+  "tier": "open gap",
+  "basis": "gap",
+  "scenario_ids": [
+   "C-038-S1",
+   "C-038-S2",
+   "C-038-S3",
+   "C-038-S4",
+   "C-038-S5",
+   "C-038-S6",
+   "C-038-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "documented",
+ "basis": {
+  "kind": "contemporaneous_other",
+  "text": "The report of J. H. Douglas, Associate Secretary of the U.S. Sanitary Commission, signed Washington, 15 Aug 1863: the Eleventh Corps hospital at George Spangler's house and farm 'contained 1,900 wounded, of whom 100 were said to be confederates', a table he calls 'approximative only'. No other count of this hospital was found."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-038-P4"
+  ],
+  "label": "About 1,900 wounded (1,800 Union, 100 said to be Confederate); range 1,000-2,000 shown",
+  "value": 1900,
+  "range": {
+   "low": 1000,
+   "high": 2000,
+   "basis": "the five values of the plan's row; only 1,800 and 1,900 have a source, both from one report, and they are the same count (Union only, and Union plus Confederate)"
+  },
+  "animation": {
+   "at": null,
+   "rule": "best_supported",
+   "note": "Draws about 1,900 wounded at the Eleventh Corps hospital as the peak load; the report does not date its count, so no day is claimed, and no wounded appear before the hospital opens on Jul 1."
+  }
+ },
+ "positions": [
+  {
+   "id": "C-038-P1",
+   "origin": "pdf_value",
+   "pdf_label": "1,000",
+   "scenario_ids": [
+    "C-038-S1"
+   ],
+   "source_keys": [],
+   "label": "About 1,000 wounded (the plan's low value)",
+   "kind": "count",
+   "value": {
+    "n": 1000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced"
+   ],
+   "failed_lookups": [
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "Spangler within 250 characters of 1,000 or hospital/wounded: only a bivouac farm near Emmitsburg (R060 p.326) and Lt. J. W. Spangler",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "whole local ledger (find_passage.py --all, with families)",
+     "query": "Spangler[^.]{0,250}(1,000) and the reverse order: no hit outside the project's own working files, which are leads",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "USSC-GETTYSBURG-1863 p.24",
+     "query": "Eleventh Corps hospital figure: 1,900 total and 1,800 Union; the figure 1,000 is not there",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No report, return or park text read gives 1,000 for this hospital; it is only listed by the plan and the first pass."
+   }
+  },
+  {
+   "id": "C-038-P2",
+   "origin": "pdf_value",
+   "pdf_label": "1,500",
+   "scenario_ids": [
+    "C-038-S2",
+    "C-038-S6"
+   ],
+   "source_keys": [],
+   "label": "About 1,500 wounded (the plan's recommended default)",
+   "kind": "count",
+   "value": {
+    "n": 1500
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced"
+   ],
+   "failed_lookups": [
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "Spangler within 250 characters of 1,500 or hospital/wounded: only a bivouac farm near Emmitsburg (R060 p.326) and Lt. J. W. Spangler",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "whole local ledger (find_passage.py --all, with families)",
+     "query": "Spangler[^.]{0,250}(1,500) and the reverse order: no hit outside the project's own working files, which are leads",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "USSC-GETTYSBURG-1863 p.24",
+     "query": "Eleventh Corps hospital figure: 1,900 total and 1,800 Union; the figure 1,500 is not there",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No source read gives 1,500 for this hospital; the only count of the time is 1,900, 1,800 of them Union."
+   }
+  },
+  {
+   "id": "C-038-P3",
+   "origin": "pdf_value",
+   "pdf_label": "1,800",
+   "scenario_ids": [
+    "C-038-S3"
+   ],
+   "source_keys": [],
+   "label": "1,800 Union wounded (the Union column of the same table that gives 1,900 in all)",
+   "kind": "count",
+   "value": {
+    "n": 1800
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "source": "USSC-GETTYSBURG-1863",
+     "source_class": "primary",
+     "page": "24",
+     "page_basis": "as_read",
+     "text_offset": 58305,
+     "quote": "Eleventh \" 1,800 \" 100 \" . . 1,900 Twelfth",
+     "witness": {
+      "name": "J. H. Douglas",
+      "role": "Associate Secretary of the U.S. Sanitary Commission, who visited the hospitals",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-15",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "douglas",
+     "exact": true,
+     "states": {
+      "numbers": [
+       1800,
+       100,
+       1900
+      ]
+     }
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It counts the Union wounded only; the same table adds 100 said to be Confederates and totals 1,900."
+   }
+  },
+  {
+   "id": "C-038-P4",
+   "origin": "pdf_value",
+   "pdf_label": "1,900",
+   "scenario_ids": [
+    "C-038-S4"
+   ],
+   "source_keys": [],
+   "label": "About 1,900 wounded, 100 of them said to be Confederates (Sanitary Commission, Aug 1863)",
+   "kind": "count",
+   "value": {
+    "n": 1900
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "source": "USSC-GETTYSBURG-1863",
+     "source_class": "primary",
+     "page": "24",
+     "page_basis": "as_read",
+     "text_offset": 57163,
+     "quote": "It contained 1,900 wounded, of whom 100 were said to be confederates",
+     "witness": {
+      "name": "J. H. Douglas",
+      "role": "Associate Secretary of the U.S. Sanitary Commission, who visited the hospitals",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-15",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "douglas",
+     "exact": true,
+     "states": {
+      "numbers": [
+       1900,
+       100
+      ]
+     }
+    },
+    {
+     "source": "USSC-GETTYSBURG-1863",
+     "source_class": "primary",
+     "page": "24",
+     "page_basis": "as_read",
+     "text_offset": 57791,
+     "quote": "These figures are approximative only, as that was all we sought for at the time",
+     "witness": {
+      "name": "J. H. Douglas",
+      "role": "Associate Secretary of the U.S. Sanitary Commission, who visited the hospitals",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-15",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "douglas",
+     "exact": true,
+     "states": {
+      "numbers": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "C-038-P5",
+   "origin": "pdf_value",
+   "pdf_label": "2,000",
+   "scenario_ids": [
+    "C-038-S5"
+   ],
+   "source_keys": [],
+   "label": "About 2,000 wounded (the plan's high value)",
+   "kind": "count",
+   "value": {
+    "n": 2000
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced"
+   ],
+   "failed_lookups": [
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "Spangler within 250 characters of 2,000 or hospital/wounded: only a bivouac farm near Emmitsburg (R060 p.326) and Lt. J. W. Spangler",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "whole local ledger (find_passage.py --all, with families)",
+     "query": "Spangler[^.]{0,250}(2,000) and the reverse order: no hit outside the project's own working files, which are leads",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "USSC-GETTYSBURG-1863 p.24",
+     "query": "Eleventh Corps hospital figure: 1,900 total and 1,800 Union; the figure 2,000 is not there",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No source read gives 2,000 for this hospital; it is only listed by the plan and the first pass."
+   }
+  },
+  {
+   "id": "C-038-P6",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-038-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "Range 1,000-2,000, all five values listed, no headline number (first delegated default)",
+   "kind": "count_range",
+   "value": {
+    "low": 1000,
+    "high": 2000,
+    "unit": "wounded"
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced"
+   ],
+   "failed_lookups": [
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (find_passage.py --regex)",
+     "query": "Spangler within 250 characters of 1,000-2,000 or hospital/wounded: only a bivouac farm near Emmitsburg (R060 p.326) and Lt. J. W. Spangler",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "whole local ledger (find_passage.py --all, with families)",
+     "query": "Spangler[^.]{0,250}(1,000-2,000) and the reverse order: no hit outside the project's own working files, which are leads",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "USSC-GETTYSBURG-1863 p.24",
+     "query": "Eleventh Corps hospital figure: 1,900 total and 1,800 Union; the figure 1,000-2,000 is not there",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "Written when no count was found; the Sanitary Commission's count of 1,900 (1,800 Union) has since been read, so a headline figure can be given."
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "One report of the time states a count for this hospital, 1,900 in all with 1,800 Union; the Union-only 1,800 is the same figure, not a rival. 1,000, 1,500 and 2,000 have no source in the library or among the sites reached. Ranked by writing: a report written six weeks after the battle beats unsourced values; no better-ranked source disagrees.",
+  "who": "J. H. Douglas was the Associate Secretary of the Sanitary Commission and writes to its General Secretary (Olmsted); he says he and six colleagues visited the hospitals. The 'Eleventh Corps hospital' is the Spangler farm's, not the XII Corps one (Bushman farm, 1,131 in the same table).",
+  "when": "Report signed 15 Aug 1863, 42 days after the battle; the counts are not dated, and the writer does not say on which day the visits were made. A hospital's census changed day by day, so the figure is a count at an unstated date, not the number admitted or the number who died.",
+  "where": "He was at the Gettysburg hospitals in the days after the battle (the text says the hospitals were visited by himself and others) and gives the figures as what he and the visitors saw or were told; the Confederate share is 'said to be'.",
+  "how_knew": "Eyewitness visits and what the surgeons told him; he calls the figures 'approximative only, as that was all we sought for at the time', so the number is a rough census of wounded present, not a count of men admitted or treated.",
+  "clock": "not applicable: a count, not a time.",
+  "independence": "One group (Douglas). The National Park Service texts read (boundary study 1988, record of treatment, Common Pride and Fame) say the farm was the Eleventh Corps hospital but give no count. The Scott book names the hospital and gives no count. The 1,800 and 1,900 are one table. The value therefore carries the single_source flag; the project's working files that repeat 1,900 are leads and are not counted."
+ },
+ "source_panel_text": "About 1,900 wounded, 100 of them said to be Confederates: the Sanitary Commission's report of Aug 15, 1863 gives the Eleventh Corps hospital at the Spangler farm 1,900 (1,800 Union), as a rough count at an unstated date. The plan's 1,000, 1,500 and 2,000 have no source found. All five values stay listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "The plan's 1,500 has no source; the only count of the time is 1,900 (1,800 Union), so 1,500 stays selectable but is not the default."
+  },
+  "first_delegated": {
+   "holds": "no",
+   "note": "The first delegated default found no count and gave a range with no headline; a count of the time exists (1,900 and 1,800 in one report), so a best-supported figure can be given, with the range kept visible."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-038 row)",
+   "must_change": true,
+   "note": "The default moves from 'range 1,000-2,000, no headline number, open gap' to about 1,900 (range kept visible), documented from the Sanitary Commission report; integration step to reconcile. computed: delegated-decision row line 48 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL03-02 row)",
+   "must_change": true,
+   "note": "The default moves from 'range 1,000-2,000, no headline number, open gap' to about 1,900 (range kept visible), documented from the Sanitary Commission report; integration step to reconcile. computed: delegated-decision row line 745 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL04-02 row)",
+   "must_change": true,
+   "note": "The default moves from 'range 1,000-2,000, no headline number, open gap' to about 1,900 (range kept visible), documented from the Sanitary Commission report; integration step to reconcile. computed: delegated-decision row line 801 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL04-09 row)",
+   "must_change": true,
+   "note": "The default moves from 'range 1,000-2,000, no headline number, open gap' to about 1,900 (range kept visible), documented from the Sanitary Commission report; integration step to reconcile. computed: delegated-decision row line 808 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-038",
+   "must_change": true,
+   "note": "The default moves from 'range 1,000-2,000, no headline number, open gap' to about 1,900 (range kept visible), documented from the Sanitary Commission report; integration step to reconcile. computed: decision log line 66 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md",
+   "must_change": true,
+   "note": "The default moves from 'range 1,000-2,000, no headline number, open gap' to about 1,900 (range kept visible), documented from the Sanitary Commission report; integration step to reconcile. computed: gate file names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md",
+   "must_change": true,
+   "note": "The default moves from 'range 1,000-2,000, no headline number, open gap' to about 1,900 (range kept visible), documented from the Sanitary Commission report; integration step to reconcile. computed: gate file names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-140",
+   "must_change": true,
+   "note": "The default moves from 'range 1,000-2,000, no headline number, open gap' to about 1,900 (range kept visible), documented from the Sanitary Commission report; integration step to reconcile. computed: tl-03.jsonl line 25 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-003",
+   "must_change": true,
+   "note": "The default moves from 'range 1,000-2,000, no headline number, open gap' to about 1,900 (range kept visible), documented from the Sanitary Commission report; integration step to reconcile. computed: tl-04.jsonl line 56 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-038)",
+   "must_change": true,
+   "note": "holds the first delegated default C-038-DEFAULT; to be replaced by the resolved default; every value stays selectable"
+  },
+  {
+   "kind": "other",
+   "ref": "tools/bt/build_structures.py (PD-09) and tools/bt/structures_data_other.py",
+   "must_change": true,
+   "note": "print the PDF default 1,500 and the lead figure about 1,900 treated; reconcile through the owner of those files"
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1, OR27-2, OR27-3 (Letterman, Howard, Schurz, von Steinwehr, Guild, Janes)",
+   "query": "Spangler near hospital|wounded|Eleventh Corps; Eleventh Corps near hospital: Letterman gives no hospital-by-hospital count; the only Spangler hits are unrelated",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "MSHWR-P1V2-1870, LETTERMAN-1866, USSC-GETTYSBURG-1863",
+   "query": "Spangler, Armstrong near Eleventh Corps hospital, Brinton near wounded|patients: only the Sanitary Commission report names the Spangler hospital and its count",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "local library --all --families",
+   "query": "regex Spangler within 250 characters of 1,000|1,500|1,800|1,900|2,000 (both orders): only the Sanitary Commission report, plus the project's own lead files",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "nps.gov (gett historyculture pages, three guessed Spangler farm addresses)",
+   "query": "spangler-farm.htm, spangler-farm-hospital.htm, places/george-spangler-farm.htm",
+   "outcome": "failed",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "npshistory.com gettysburg_seminars/6/essay9.htm",
+   "query": "Spangler hospital count in the 1990 seminar essay on the Army of the Potomac",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "archive.org storyofbattlesat00scot (SCOTT-STORY-1927)",
+   "query": "Spangler hospital count: names the Eleventh Corps hospital at George Spangler's, no count",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "historynet.com 'The War Came Knocking on Spangler's Barn Door', hmdb.org markers, Kirkwood 'Too Much for Human Endurance' (appendix of Spangler Farm wounded), Brinton diary",
+   "query": "pages and books named by a web search; not read, and web pages are leads in any case (one marker is said to give 1,400 for the corps hospitals)",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A dated hospital return or a surgeon's report (Brinton, Armstrong, the Eleventh Corps medical director) giving the census of the Spangler hospital on a named day; the Kirkwood book's appendix or Brinton's diary if read at the source; or a source for 1,000, 1,500 or 2,000. Counts on different days could turn the default into a dated series."
+}
