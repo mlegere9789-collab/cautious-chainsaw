@@ -289,6 +289,8 @@ def run_node(env, script, args=(), timeout=900, cwd=None, extra_env=None):
     for k in ('NODE_USE_ENV_PROXY', 'HTTPS_PROXY', 'HTTP_PROXY', 'https_proxy', 'http_proxy'):
         e.pop(k, None)
     e['BT_GATES_NO_NETWORK'] = '1'
+    if '--max-old-space-size' not in e.get('NODE_OPTIONS', ''):      # the dense Q04 scan over S* exhausted node's default heap; the full scan is kept whole, never sampled
+        e['NODE_OPTIONS'] = (e.get('NODE_OPTIONS', '') + ' --max-old-space-size=8192').strip()
     if extra_env:
         e.update(extra_env)
     p = subprocess.run(['node', script, *args], capture_output=True, text=True, timeout=timeout, cwd=cwd or env.root, env=e, encoding='utf-8')

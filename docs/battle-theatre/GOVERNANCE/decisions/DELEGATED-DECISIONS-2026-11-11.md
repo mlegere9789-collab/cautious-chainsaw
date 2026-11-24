@@ -1176,3 +1176,133 @@ Counts: class gap 2, irreducible 16, settled 5, weighted 24; tier documented 23,
 - C-023: no hour is recorded for Stuart or for his brigades; Hampton was at Hunterstown before sundown (Green, Hampton), so the arrival gate floor 19:32 of cs-cav-hampton is later than the record (resolution C-023, gate Q04.6). The floor is not moved; the owner decides.
 
 Q04 floors (Pickett 04:36, Stuart 19:32) are not moved by this decision. Where a new default is earlier than a Q04 floor, or a floor is later than the record, the resolution says so and the point is an owner decision (see the owner notes in the resolution files); no gate was lowered or edited. Every alternative stays selectable in the viewer with the reason it was not chosen.
+
+## Superseded by the conflict resolution of C-001 (2026-11-24) [reader-applied C-001 DD TED-DECISIONS-2026-11-11.md (line 5 row)]
+
+C-001 delegated resolution v2 (2026-11-24; class irreducible, tier documented; reversible by the owner; not an owner decision): Between about 01:00 (Meade) and about 02:00 (Hunt) on Jul 2; drawn at 01:00
+
+Row named by the reader: docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 5 row)
+
+What changes: computed: delegated-decision row line 5 names this conflict; row 'about 01:00 on Jul 2' is superseded by the window 01:00-02:00 drawn at 01:00 (the first record stays as history).
+
+The first record stays as history; the owner can reverse the resolution.
+
+## Superseded by the conflict resolution of C-005 (2026-11-24) [reader-applied C-005 DD SIONS-2026-11-11.md (row C-005, line 15)]
+
+C-005 delegated resolution v2 (2026-11-24; class weighted, tier inferred; reversible by the owner; not an owner decision): About 05:00 (sunrise to 05:30): Hood and the head of his division on the ridge; the tail could be up by 07:30
+
+Row named by the reader: docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (row C-005, line 15)
+
+What changes: records the first delegated default 06:30; the integration step records that this resolution supersedes it
+
+The first record stays as history; the owner can reverse the resolution.
+
+## Superseded by the conflict resolution of C-023 (2026-11-24) [reader-applied C-023 DD isions/DELEGATED-DECISIONS-2026-11-11.md]
+
+C-023 delegated resolution v2 (2026-11-24; class weighted, tier documented; reversible by the owner; not an owner decision): Afternoon of July 2 (no hour is recorded); Hampton fights at Hunterstown at sundown
+
+Row named by the reader: docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md
+
+What changes: line 33, C-023 row: the first-pass stand-in is replaced by this resolution
+
+The first record stays as history; the owner can reverse the resolution.
+
+## Superseded by the conflict resolution of C-024 (2026-11-24) [reader-applied C-024 DD SIONS-2026-11-11.md (DD-UNITS-HQ-03 row)]
+
+C-024 delegated resolution v2 (2026-11-24; class gap, tier plausible-procedural; reversible by the owner; not an owner decision): Jul 2 evening: from dusk (about 19:32) to nearly midnight; no source gives the start hour
+
+Row named by the reader: docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-UNITS-HQ-03 row)
+
+What changes: The row keeps the window 21:00 to 24:00 with Haskell as a narrower scenario; the resolution widens the lower bound to dusk (no source gives 21:00) and keeps Haskell's evening and two hours as support. (computed list entry).
+
+The first record stays as history; the owner can reverse the resolution.
+
+## Superseded by the conflict resolution of C-027 (2026-11-24) [reader-applied C-027 DD DECISIONS-2026-11-11.md (DD-TL04-02 row)]
+
+C-027 delegated resolution v2 (2026-11-24; class settled, tier documented; reversible by the owner; not an owner decision): Taneytown on the night of 2 July, Westminster on 3 July (the Reserve Brigade: Emmitsburg)
+
+Row named by the reader: docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL04-02 row)
+
+What changes: Carries the night at Taneytown beside the default 'unresolved' (T1-217); this resolution makes Taneytown the default for that night.
+
+The first record stays as history; the owner can reverse the resolution.
+
+## Superseded by the conflict resolution of C-031 (2026-11-24) [reader-applied C-031 DD D-DECISIONS-2026-11-11.md (DD-F3-02 row)]
+
+C-031 delegated resolution v2 (2026-11-24; class settled, tier documented; reversible by the owner; not an owner decision): About 10:30: the last Confederate charge (begun 10:25 to 10:30) is beaten back and the enemy retires
+
+Row named by the reader: docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-F3-02 row)
+
+What changes: read: this record holds the old default (10:00, Ruger p. 781; 10:30 also documented); under this resolution the default is about 10:30 (class settled, tier documented) and 10:00 is labelled the counter-attack. Not edited here.
+
+The first record stays as history; the owner can reverse the resolution.
+
+## Superseded by the conflict resolution of C-031 (2026-11-24) [reader-applied C-031 DD D-DECISIONS-2026-11-11.md (line 339 row)]
+
+C-031 delegated resolution v2 (2026-11-24; class settled, tier documented; reversible by the owner; not an owner decision): About 10:30: the last Confederate charge (begun 10:25 to 10:30) is beaten back and the enemy retires
+
+Row named by the reader: docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 339 row)
+
+What changes: read: this record holds the old default (10:00, Ruger p. 781; 10:30 also documented); under this resolution the default is about 10:30 (class settled, tier documented) and 10:00 is labelled the counter-attack. Not edited here.
+
+The first record stays as history; the owner can reverse the resolution.
+
+## Superseded by the conflict resolution of C-038 (2026-11-24) [reader-applied C-038 DD DECISIONS-2026-11-11.md (DD-TL03-02 row)]
+
+C-038 delegated resolution v2 (2026-11-24; class weighted, tier documented; reversible by the owner; not an owner decision): About 1,900 wounded (1,800 Union, 100 said to be Confederate); range 1,000-2,000 shown
+
+Row named by the reader: docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL03-02 row)
+
+What changes: The default moves from 'range 1,000-2,000, no headline number, open gap' to about 1,900 (range kept visible), documented from the Sanitary Commission report; integration step to reconcile. computed: delegated-decision row line 745 names this conflict; read it and set must_change if its value differs from this resolution
+
+The first record stays as history; the owner can reverse the resolution.
+
+## Superseded by the conflict resolution of C-038 (2026-11-24) [reader-applied C-038 DD DECISIONS-2026-11-11.md (DD-TL04-02 row)]
+
+C-038 delegated resolution v2 (2026-11-24; class weighted, tier documented; reversible by the owner; not an owner decision): About 1,900 wounded (1,800 Union, 100 said to be Confederate); range 1,000-2,000 shown
+
+Row named by the reader: docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL04-02 row)
+
+What changes: The default moves from 'range 1,000-2,000, no headline number, open gap' to about 1,900 (range kept visible), documented from the Sanitary Commission report; integration step to reconcile. computed: delegated-decision row line 801 names this conflict; read it and set must_change if its value differs from this resolution
+
+The first record stays as history; the owner can reverse the resolution.
+
+## Superseded by the conflict resolution of C-038 (2026-11-24) [reader-applied C-038 DD DECISIONS-2026-11-11.md (DD-TL04-09 row)]
+
+C-038 delegated resolution v2 (2026-11-24; class weighted, tier documented; reversible by the owner; not an owner decision): About 1,900 wounded (1,800 Union, 100 said to be Confederate); range 1,000-2,000 shown
+
+Row named by the reader: docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL04-09 row)
+
+What changes: The default moves from 'range 1,000-2,000, no headline number, open gap' to about 1,900 (range kept visible), documented from the Sanitary Commission report; integration step to reconcile. computed: delegated-decision row line 808 names this conflict; read it and set must_change if its value differs from this resolution
+
+The first record stays as history; the owner can reverse the resolution.
+
+## Superseded by the conflict resolution of C-039 (2026-11-24) [reader-applied C-039 DD SIONS-2026-11-11.md (DD-UNITS-HQ-02 row)]
+
+C-039 delegated resolution v2 (2026-11-24; class weighted, tier documented; reversible by the owner; not an owner decision): About 16:00 to 16:30: Howard's note of the day (4 p.m.) to Howard's report and Doubleday (about 4.30)
+
+Row named by the reader: docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-UNITS-HQ-02 row)
+
+What changes: Added 'about 15:30' as a scenario and kept the band 15:00-16:00; this resolution moves the default to 16:00-16:30 and carries about 15:30 as P7.
+
+The first record stays as history; the owner can reverse the resolution.
+
+## Superseded by the conflict resolution of C-041 (2026-11-24) [reader-applied C-041 DD DECISIONS-2026-11-11.md (DD-TL03-02 row)]
+
+C-041 delegated resolution v2 (2026-11-24; class irreducible, tier inferred; reversible by the owner; not an owner decision): About 13:30 to 14:00 on Jul 1; the picture uses 13:45 (the middle)
+
+Row named by the reader: docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL03-02 row)
+
+What changes: Applies C-041 14:00 inside 13:30-14:30 unchanged to T1-126; the integration step reconciles it with the window 13:30-14:00 and the 13:45 picture.
+
+The first record stays as history; the owner can reverse the resolution.
+
+## Superseded by the conflict resolution of C-044 (2026-11-24) [reader-applied C-044 DD D-DECISIONS-2026-11-11.md (line 340 row)]
+
+C-044 delegated resolution v2 (2026-11-24; class weighted, tier inferred; reversible by the owner; not an owner decision): Jul 22: the camp opens for patients (the earliest dated transfers found are Jul 24)
+
+Row named by the reader: docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 340 row)
+
+What changes: Delegated-decision record naming C-044 (first default Jul 20, inferred, institutional): superseded by this resolution (default Jul 22, weighted, inferred); the first record is kept as history. Not edited here.
+
+The first record stays as history; the owner can reverse the resolution.

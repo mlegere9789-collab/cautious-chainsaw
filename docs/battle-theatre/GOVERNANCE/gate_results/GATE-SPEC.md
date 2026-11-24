@@ -1366,3 +1366,67 @@ The quotation convention for the checks above is that of the header: a string be
 **Not run, and owed.** Any gate runner (none exists); any browser spec, the node suite and the locked jobs (the figures of SPEC-B 7.6 are quoted from that file and were not re-run); the mutation check `tools/bt/realize/mutate.mjs`; anything on a GPU. Owed by other workstreams: the verified OOB and battery tables, the claim ledger, the event-card and epilogue modules, the casualty and hospital layers, the town and camp-life layers and their evidence (OA10 to OA12), the library status rows of the medical works (`horde/requests/bt-gates-medical-library-status.md`), a documented camera position for any photograph, and the second Official Records witness. Owed by the owner: the caps (Q27), a real-GPU run (Q15, Q24 and the pictures of Q07, Q09, Q10, Q22), the purchase of print-only sources and, if the owner wants them, a recorded reading of R03.0000 and OA03 (A-54, A-41); the readings DD-G14 to DD-G19 stay reversible by the owner.
 
 **Written.** This file; the evidence folder `spec-evidence/`; DD-G16 to DD-G19 appended to `decisions/DELEGATED-DECISIONS-2026-11-11.md` with `>>`; the request note `horde/requests/bt-gates-medical-library-status.md`; `-- handled` lines appended with `>>` to `bt-gates-photomatch-third-pass.md`, `bt-gates-spec-b-delta-for-gate-spec.md` and `bt-gates-realizations-q17-rules.md`; one dated line appended to `progress.md`.
+
+## Conflict-resolution reconciliation for C-005 [reader-applied C-005 GS]
+
+C-005 delegated resolution v2 (2026-11-24; class weighted, tier inferred; reversible by the owner; not an owner decision): About 05:00 (sunrise to 05:30): Hood and the head of his division on the ridge; the tail could be up by 07:30
+
+Reader note: they list C-005 among the eight plausible-procedural defaults; it is now weighted and inferred
+
+No expected value, threshold or floor of this spec is changed or lowered; the counts printed above are the plan's and stay as printed; the v2 defaults are reconciled here in the open and the gates are re-run by tools/horde/after_task.py.
+
+## Conflict-resolution reconciliation for C-007 [reader-applied C-007 GS]
+
+C-007 delegated resolution v2 (2026-11-24; class weighted, tier inferred; reversible by the owner; not an owner decision): About 07:00: the head of McLaws's division on the ridge; the whole division up by 08:00 to 08:30
+
+Reader note: they list C-007 among the eight plausible-procedural defaults; it is now weighted and inferred
+
+No expected value, threshold or floor of this spec is changed or lowered; the counts printed above are the plan's and stay as printed; the v2 defaults are reconciled here in the open and the gates are re-run by tools/horde/after_task.py.
+
+## Conflict-resolution reconciliation for C-012 [reader-applied C-012 GS]
+
+C-012 delegated resolution v2 (2026-11-24; class weighted, tier inferred; reversible by the owner; not an owner decision): 10 minutes: Vincent's brigade reached the ledge ten minutes before Oates's 15th Alabama arrived
+
+Reader note: Both list C-012 among the eight plausible-procedural defaults (C-005, C-007, C-012, C-016, C-023, C-026, C-042, C-045); C-012 becomes inferred.
+
+No expected value, threshold or floor of this spec is changed or lowered; the counts printed above are the plan's and stay as printed; the v2 defaults are reconciled here in the open and the gates are re-run by tools/horde/after_task.py.
+
+## Conflict-resolution reconciliation for C-016 [reader-applied C-016 GS]
+
+C-016 delegated resolution v2 (2026-11-24; class weighted, tier inferred; reversible by the owner; not an owner decision): Little Round Top (western foot and slope, beside the 4th Texas)
+
+Reader note: Both list C-016 among the eight plausible-procedural defaults (C-005, C-007, C-012, C-016, C-023, C-026, C-042, C-045); C-016 becomes inferred.
+
+No expected value, threshold or floor of this spec is changed or lowered; the counts printed above are the plan's and stay as printed; the v2 defaults are reconciled here in the open and the gates are re-run by tools/horde/after_task.py.
+
+## Conflict-resolution reconciliation for C-006 [reader-applied C-006 GS]
+
+C-006 delegated resolution v2 (2026-11-24; class weighted, tier inferred; reversible by the owner; not an owner decision): By about 05:00 (first light to 05:15): Longstreet with Lee on Seminary Ridge
+
+Reader note: gate_results/Q19.json (lines 1094 and 4338) names conflict-defaults.json:$.conflicts.C-006 among the 47 entries it reads (data.conflict_defaults); GATE-SPEC U-17 ties the delegated default to Q02 and Q19. The entry changes its default and label (below); the gates are re-run by the integration step; nothing is lowered. GATE-SPEC.md line 785 and GATE-SPEC-A.md line 467 count C-006 among the 7 inferred defaults: it stays inferred (class weighted), so the count 7 does not change
+
+No expected value, threshold or floor of this spec is changed or lowered; the counts printed above are the plan's and stay as printed; the v2 defaults are reconciled here in the open and the gates are re-run by tools/horde/after_task.py.
+
+## Conflict-resolution reconciliation for C-018 [reader-applied C-018 GS]
+
+C-018 delegated resolution v2 (2026-11-24; class weighted, tier inferred; reversible by the owner; not an owner decision): No single stopper: Gibbon's regiments counter-charged, Wright's flanks failed him; the crest is Wright's claim
+
+Reader note: Names C-018 as one of the three open-gap defaults (CF-3: an open-gap default never passes). The default is no longer an open gap: it is a set of claims, class weighted, tier inferred. The gate spec expected values are to be reconciled in the open, not lowered.
+
+No expected value, threshold or floor of this spec is changed or lowered; the counts printed above are the plan's and stay as printed; the v2 defaults are reconciled here in the open and the gates are re-run by tools/horde/after_task.py.
+
+## Conflict-resolution reconciliation for C-037 [reader-applied C-037 GS]
+
+C-037 delegated resolution v2 (2026-11-24; class irreducible, tier inferred; reversible by the owner; not an owner decision): Wounded the evening of Jul 2; died between that night and about 08:00 on Jul 3; day and hour not settled
+
+Reader note: computed: names C-037 among the three open-gap defaults (C-018, C-037, C-038); the count of open gaps changes by one; reconcile in the open, no gate lowered. Q04 is not affected: no unit arrival depends on this date.
+
+No expected value, threshold or floor of this spec is changed or lowered; the counts printed above are the plan's and stay as printed; the v2 defaults are reconciled here in the open and the gates are re-run by tools/horde/after_task.py.
+
+## Conflict-resolution reconciliation for C-038 [reader-applied C-038 GS]
+
+C-038 delegated resolution v2 (2026-11-24; class weighted, tier documented; reversible by the owner; not an owner decision): About 1,900 wounded (1,800 Union, 100 said to be Confederate); range 1,000-2,000 shown
+
+Reader note: The default moves from 'range 1,000-2,000, no headline number, open gap' to about 1,900 (range kept visible), documented from the Sanitary Commission report; integration step to reconcile. computed: gate file names this conflict; read it and set must_change if its value differs from this resolution
+
+No expected value, threshold or floor of this spec is changed or lowered; the counts printed above are the plan's and stay as printed; the v2 defaults are reconciled here in the open and the gates are re-run by tools/horde/after_task.py.

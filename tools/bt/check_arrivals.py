@@ -270,7 +270,8 @@ def selftests():
     T(not P('cs-3c-heth', '1863-07-01T07:29') and P('cs-3c-heth', '1863-07-01T07:30'), 'Heth 07:30 Jul 1')
     T(P('cs-3c', '1863-07-01T07:30') and not P('cs-3c', '1863-07-01T07:29'), 'III Corps gate derived from divisions')
     T(not P('cs-1c-hood', '1863-07-02T05:29', 'earliest') and P('cs-1c-hood', '1863-07-02T05:30', 'earliest'), 'Hood earliest 05:30')
-    T(not P('cs-1c-hood', '1863-07-02T06:29') and P('cs-1c-hood', '1863-07-02T06:30'), 'Hood default 06:30')
+    # C-005 delegated resolution v2: the default instant is 05:00, earlier than the earliest gate 05:30 (not moved: owner decision), so the default is drawn at the floor 05:30
+    T(not P('cs-1c-hood', '1863-07-02T05:29') and P('cs-1c-hood', '1863-07-02T05:30') and not P('cs-1c-hood', '1863-07-02T05:29', 'default'), 'Hood default drawn at the 05:30 floor (C-005 v2)')
     T(not P('cs-1c-hood', '1863-07-02T07:29', 'latest') and P('cs-1c-hood', '1863-07-02T07:30', 'latest'), 'Hood latest 07:30')
     T(not P('cs-1c-res-art-alexander', '1863-07-02T08:59') and P('cs-1c-res-art-alexander', '1863-07-02T09:00'), 'Alexander default 09:00')
     T(P('cs-1c-res-art-alexander', '1863-07-02T07:00', 'earliest') and not P('cs-1c-res-art-alexander', '1863-07-02T06:59', 'earliest'), 'Alexander earliest 07:00')

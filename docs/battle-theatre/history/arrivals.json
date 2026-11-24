@@ -184,8 +184,8 @@
     "earliest": "1863-07-02T00:00",
     "default": "1863-07-02T01:00",
     "latest": "1863-07-02T04:00",
-    "default_basis": "C-001 recommended default 'about 01:00, then a pre-dawn inspection of the line' (B.2.5; PENDING OWNER). Row does not cite C-001.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-001; not an owner decision)",
+    "default_basis": "C-001 delegated resolution v2 (2026-11-24; irreducible, documented): window about 01:00 (Meade) to about 02:00 (Hunt) on Jul 2, drawn at 01:00 (earliest_documented). The plan's recommended default (about 01:00, then a pre-dawn inspection; B.2.5) and the 00:00 and 04:00 values stay selectable; 04:00 has no source and is contradicted (Howard, Stannard: Meade on the field by about 03:00). Floor 00:00 and latest 04:00 are the plan's and are not changed (owner decision). Row does not cite C-001.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-001, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null,
     "non_clock_statements": [],
     "lower_bound_uncertain": null,
@@ -227,8 +227,8 @@
     ],
     "upper_bounds": [],
     "basis": "clock times printed in the first-on-field cell",
-    "default_basis": "C-001 recommended default 'about 01:00, then a pre-dawn inspection of the line' (B.2.5; PENDING OWNER). Row does not cite C-001.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-001; not an owner decision)",
+    "default_basis": "C-001 delegated resolution v2 (2026-11-24; irreducible, documented): window about 01:00 (Meade) to about 02:00 (Hunt) on Jul 2, drawn at 01:00 (earliest_documented). The plan's recommended default (about 01:00, then a pre-dawn inspection; B.2.5) and the 00:00 and 04:00 values stay selectable; 04:00 has no source and is contradicted (Howard, Stannard: Meade on the field by about 03:00). Floor 00:00 and latest 04:00 are the plan's and are not changed (owner decision). Row does not cite C-001.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-001, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null
    },
    "night_positions": {
@@ -371,7 +371,7 @@
      "note": null,
      "topic": "Meade reaches Gettysburg (Jul 1-2)",
      "pdf_recommended_default": "about 01:00, then a pre-dawn inspection of the line",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "W-GC",
@@ -383,16 +383,25 @@
       "NPS-H1",
       "W-PC",
       "W-RET"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Between about 01:00 (Meade) and about 02:00 (Hunt) on Jul 2; drawn at 01:00",
+      "class": "irreducible",
+      "tier": "documented",
+      "animation_at": "1863-07-02T01:00",
+      "drawn_text": "01:00 Jul 2 (drawn instant, earliest_documented): Between about 01:00 (Meade) and about 02:00 (Hunt) on Jul 2; drawn at 01:00",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     },
     {
      "id": "C-024",
      "link": "topic_other_cell",
      "cell": "night_positions",
-     "note": "council of war '21:00 to midnight window'",
+     "note": "council of war: C-024 delegated resolution v2 window dusk (19:32) to nearly 24:00 (Gibbon: 'nearly 12 o'clock' is the end); the plan's '21:00 to midnight window' is superseded, no source gives 21:00; the row's printed clock default (C-001, 01:00) is unchanged",
      "topic": "Council of war (Union)",
      "pdf_recommended_default": "window 21:00-24:00",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "W-GC",
@@ -404,7 +413,16 @@
       "NPS-H1",
       "W-PC",
       "W-RET"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Jul 2 evening: from dusk (about 19:32) to nearly midnight; no source gives the start hour",
+      "class": "gap",
+      "tier": "plausible-procedural",
+      "animation_at": null,
+      "drawn_text": null,
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -412,6 +430,10 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [
+    "C-001 v2: about 02:00 (Hunt, OR 27/1 p.232) is the upper end of the resolution window; not printed in the cell, not a gate value.",
+    "C-024 v2: council window dusk (19:32) to nearly 24:00; see the conflicts link."
+   ],
    "spec_note_unparsed_first": null
   },
   {
@@ -535,24 +557,24 @@
      }
     ],
     "earliest": "1863-07-01T15:00",
-    "default": "1863-07-01T15:00",
+    "default": "1863-07-01T16:00",
     "latest": "1863-07-01T16:30",
-    "default_basis": "C-039 recommended default 'about 15:00-16:00' (a range; start used as gate) (B.2.5; PENDING OWNER). Row does not cite C-039.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-039; not an owner decision)",
+    "default_basis": "C-039 delegated resolution v2 (2026-11-24; weighted, documented): about 16:00 to 16:30 (Howard's note of the day, 4 p.m.; Howard's report and Doubleday about 4.30), drawn at 16:00 (best_supported). The earliest 15:00 (Hancock's report) and the latest 16:30 stay and 15:00 and about 15:30 stay selectable (P7); the plan's 'about 15:00-16:00' (start used as gate) is superseded. Row does not cite C-039.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-039, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null,
     "non_clock_statements": [],
     "lower_bound_uncertain": null,
     "pre_battle": null,
     "unresolved": false,
     "default_range": [
-     "1863-07-01T15:00",
-     "1863-07-01T16:00"
+     "1863-07-01T16:00",
+     "1863-07-01T16:30"
     ]
    },
    "gate": {
     "kind": "printed_clock",
     "earliest": "1863-07-01T15:00",
-    "default": "1863-07-01T15:00",
+    "default": "1863-07-01T16:00",
     "latest": "1863-07-01T16:30",
     "values": [
      {
@@ -586,12 +608,12 @@
      }
     ],
     "basis": "clock times printed in the first-on-field cell",
-    "default_basis": "C-039 recommended default 'about 15:00-16:00' (a range; start used as gate) (B.2.5; PENDING OWNER). Row does not cite C-039.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-039; not an owner decision)",
+    "default_basis": "C-039 delegated resolution v2 (2026-11-24; weighted, documented): about 16:00 to 16:30 (Howard's note of the day, 4 p.m.; Howard's report and Doubleday about 4.30), drawn at 16:00 (best_supported). The earliest 15:00 (Hancock's report) and the latest 16:30 stay and 15:00 and about 15:30 stay selectable (P7); the plan's 'about 15:00-16:00' (start used as gate) is superseded. Row does not cite C-039.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-039, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null,
     "default_range": [
-     "1863-07-01T15:00",
-     "1863-07-01T16:00"
+     "1863-07-01T16:00",
+     "1863-07-01T16:30"
     ]
    },
    "night_positions": {
@@ -665,7 +687,7 @@
      "note": null,
      "topic": "Hancock arrives Jul 1",
      "pdf_recommended_default": "about 15:00-16:00",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 63,
      "source_keys_in_row": [
       "BEALE",
@@ -673,7 +695,16 @@
       "CWN-HAN",
       "WHN-HAN",
       "SS1"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "About 16:00 to 16:30: Howard's note of the day (4 p.m.) to Howard's report and Doubleday (about 4.30)",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": "1863-07-01T16:00",
+      "drawn_text": "16:00 Jul 1 (drawn instant, best_supported): About 16:00 to 16:30: Howard's note of the day (4 p.m.) to Howard's report and Doubleday (about 4.30)",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -683,6 +714,7 @@
    "notes": [
     "person row: no troops of his own"
    ],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -941,13 +973,22 @@
      "note": "Reynolds killed 'about 10:15-10:50'",
      "topic": "Reynolds' death",
      "pdf_recommended_default": "10:30",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 63,
      "source_keys_in_row": [
       "SS1",
       "OR-DOUBLEDAY",
       "W-D1"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "About 10:15: Wadsworth's report of 4 Jul 1863 and Doubleday's report; Howard's 11.15 is a later reckoning",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": null,
+      "drawn_text": null,
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     },
     {
      "id": "C-043",
@@ -956,13 +997,22 @@
      "note": "'15:45-17:00 retreat through town'",
      "topic": "Union retreat order Jul 1",
      "pdf_recommended_default": "16:00",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 63,
      "source_keys_in_row": [
       "SS1",
       "OR-DOUBLEDAY",
       "W-D1"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "15:45 to 16:10: Wadsworth ordered the First Division back at 3.45; Howard ordered both corps back at 4.10",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": "1863-07-01T15:45",
+      "drawn_text": "15:45 Jul 1 (drawn instant, earliest_documented): 15:45 to 16:10: Wadsworth ordered the First Division back at 3.45; Howard ordered both corps back at 4.10",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -970,6 +1020,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -1175,6 +1226,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -1396,6 +1448,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -1587,6 +1640,7 @@
    "tier": "inferred",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -1806,6 +1860,7 @@
    "tier": "inferred",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -1923,8 +1978,8 @@
     "earliest": "1863-07-01T22:30",
     "default": "1863-07-02T06:00",
     "latest": "1863-07-02T07:00",
-    "default_basis": "C-004 recommended default '06:00 Jul 2 (head), tails later' (B.2.5; PENDING OWNER). The row says 'see the gate table below' and prints no C-id; C-004 is the only B.2.5 entry on II Corps arrival.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-004; not an owner decision)",
+    "default_basis": "C-004 delegated resolution v2 (2026-11-24; weighted, documented): window 04:00-06:15 on Jul 2 (first brigades about 04:00, the main body up by 06:00), drawn at 06:00 (best_supported). The plan's '06:00 Jul 2 (head), tails later' (B.2.5) is the drawn instant; the 22:30 Jul 1 floor is the plan's value (contradicted, selectable) and is not raised or lowered here (owner decision); the latest 07:00 (Hancock) holds. The row says 'see the gate table below' and prints no C-id; C-004 is the only B.2.5 entry on II Corps arrival.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-004, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null,
     "non_clock_statements": [
      {
@@ -1972,8 +2027,8 @@
     ],
     "upper_bounds": [],
     "basis": "clock times printed in the first-on-field cell",
-    "default_basis": "C-004 recommended default '06:00 Jul 2 (head), tails later' (B.2.5; PENDING OWNER). The row says 'see the gate table below' and prints no C-id; C-004 is the only B.2.5 entry on II Corps arrival.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-004; not an owner decision)",
+    "default_basis": "C-004 delegated resolution v2 (2026-11-24; weighted, documented): window 04:00-06:15 on Jul 2 (first brigades about 04:00, the main body up by 06:00), drawn at 06:00 (best_supported). The plan's '06:00 Jul 2 (head), tails later' (B.2.5) is the drawn instant; the 22:30 Jul 1 floor is the plan's value (contradicted, selectable) and is not raised or lowered here (owner decision); the latest 07:00 (Hancock) holds. The row says 'see the gate table below' and prints no C-id; C-004 is the only B.2.5 entry on II Corps arrival.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-004, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null
    },
    "night_positions": {
@@ -2124,14 +2179,23 @@
      "note": "row text: 'see the gate table below'",
      "topic": "II Corps arrival",
      "pdf_recommended_default": "06:00 Jul 2 (head), tails later",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "W-CEMR",
       "EPP",
       "FREE",
       "13MA"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Window 04:00-06:15 on Jul 2: first brigades about 4, the main body up by 6; drawn at 06:00",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": "1863-07-02T06:00",
+      "drawn_text": "06:00 Jul 2 (drawn instant, best_supported): Window 04:00-06:15 on Jul 2: first brigades about 4, the main body up by 6; drawn at 06:00",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -2139,6 +2203,9 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [
+    "C-004 v2: the first brigade of the Third Division about 04:00 is the documented earliest time of any part of the corps (not printed in the cell, not a gate value; the 22:30 floor is not raised or lowered)."
+   ],
    "spec_note_unparsed_first": null
   },
   {
@@ -2325,6 +2392,7 @@
    "tier": "inferred",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -2517,14 +2585,23 @@
      "note": "same EPP 06:00 value as the C-004 list; the row does not cite it",
      "topic": "II Corps arrival",
      "pdf_recommended_default": "06:00 Jul 2 (head), tails later",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "EPP",
       "W-D2",
       "NPS10",
       "WHN-CUSH"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Window 04:00-06:15 on Jul 2: first brigades about 4, the main body up by 6; drawn at 06:00",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": "1863-07-02T06:00",
+      "drawn_text": "06:00 Jul 2 (drawn instant, best_supported): Window 04:00-06:15 on Jul 2: first brigades about 4, the main body up by 6; drawn at 06:00",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -2532,6 +2609,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -2714,6 +2792,7 @@
    "notes": [
     "This row is printed twice (end of PDF p.59 and again complete on p.60); p.60 version used."
    ],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -2900,6 +2979,7 @@
    "tier": "open gap",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -3179,7 +3259,7 @@
      "note": "'Jul 2 about 12:00-14:00 advance to Emmitsburg Road'",
      "topic": "Sickles' advance to the Peach Orchard",
      "pdf_recommended_default": "14:00",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "SS1",
@@ -3187,7 +3267,16 @@
       "W-CEMR",
       "HESS",
       "W-RET"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "About 14:00 to 16:00 on Jul 2: the Third Corps moves up to the Emmitsburg road and the peach orchard",
+      "class": "irreducible",
+      "tier": "documented",
+      "animation_at": "1863-07-02T14:00",
+      "drawn_text": "14:00 Jul 2 (drawn instant, earliest_documented): About 14:00 to 16:00 on Jul 2: the Third Corps moves up to the Emmitsburg road and the peach orchard",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     },
     {
      "id": "C-017",
@@ -3196,7 +3285,7 @@
      "note": "cell: 'Jul 7 French replaces Sickles'; C-017 asks who replaced Sickles (Birney; Hancock): different event, see notes",
      "topic": "Who replaced Sickles",
      "pdf_recommended_default": "Birney (corps), Hancock overseeing the sector",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "SS1",
@@ -3204,7 +3293,16 @@
       "W-CEMR",
       "HESS",
       "W-RET"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Birney (corps), Hancock overseeing the sector: Birney commanded the corps, Hancock was placed over it",
+      "class": "settled",
+      "tier": "documented",
+      "animation_at": null,
+      "drawn_text": null,
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -3212,6 +3310,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -3398,13 +3497,22 @@
      "note": "'Jul 2 11:00 Berdan to Pitzer's Woods'",
      "topic": "Berdan's reconnaissance start",
      "pdf_recommended_default": "11:15",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "SS1",
       "HESS",
       "W-D2"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "About 11:00 on Jul 2: Berdan is ordered to send the detachment out",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": null,
+      "drawn_text": null,
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -3412,6 +3520,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -3526,10 +3635,10 @@
      }
     ],
     "earliest": "1863-07-02T00:00",
-    "default": "1863-07-02T02:00",
+    "default": "1863-07-02T00:00",
     "latest": "1863-07-02T02:00",
-    "default_basis": "C-002 recommended default 02:00 (B.2.5; PENDING OWNER). Row prints only \"Values conflict\" and does not cite C-002.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-002; not an owner decision)",
+    "default_basis": "C-002 delegated resolution v2 (2026-11-24; irreducible, inferred): window about 00:00-02:00 on Jul 2 (Brewster about midnight; Humphreys 01:00; Tripp and Bodine 02:00), drawn from 00:00 (earliest_documented). The plan recommended default 02:00 (B.2.5) stays selectable; the earliest 00:00 and the latest 02:00 stay and the division is not drawn before 00:00. Row prints only \"Values conflict\" and does not cite C-002.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-002, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null,
     "non_clock_statements": [],
     "lower_bound_uncertain": null,
@@ -3539,7 +3648,7 @@
    "gate": {
     "kind": "printed_clock",
     "earliest": "1863-07-02T00:00",
-    "default": "1863-07-02T02:00",
+    "default": "1863-07-02T00:00",
     "latest": "1863-07-02T02:00",
     "values": [
      {
@@ -3561,8 +3670,8 @@
     ],
     "upper_bounds": [],
     "basis": "clock times printed in the first-on-field cell",
-    "default_basis": "C-002 recommended default 02:00 (B.2.5; PENDING OWNER). Row prints only \"Values conflict\" and does not cite C-002.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-002; not an owner decision)",
+    "default_basis": "C-002 delegated resolution v2 (2026-11-24; irreducible, inferred): window about 00:00-02:00 on Jul 2 (Brewster about midnight; Humphreys 01:00; Tripp and Bodine 02:00), drawn from 00:00 (earliest_documented). The plan recommended default 02:00 (B.2.5) stays selectable; the earliest 00:00 and the latest 02:00 stay and the division is not drawn before 00:00. Row prints only \"Values conflict\" and does not cite C-002.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-002, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null
    },
    "night_positions": {
@@ -3646,14 +3755,23 @@
      "note": null,
      "topic": "Humphreys reaches the field",
      "pdf_recommended_default": "02:00",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "EPP",
       "SS1",
       "HESS",
       "SS2"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Between about 00:00 and 02:00 on Jul 2 (Brewster about midnight; Humphreys 01:00; Tripp and Bodine 02:00)",
+      "class": "irreducible",
+      "tier": "inferred",
+      "animation_at": "1863-07-02T00:00",
+      "drawn_text": "00:00 Jul 2 (drawn instant, earliest_documented): Between about 00:00 and 02:00 on Jul 2 (Brewster about midnight; Humphreys 01:00; Tripp and Bodine 02:00)",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -3661,6 +3779,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -3816,6 +3935,7 @@
    "tier": "open gap",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -3931,10 +4051,10 @@
      }
     ],
     "earliest": "1863-07-02T05:00",
-    "default": "1863-07-02T08:00",
+    "default": "1863-07-02T07:00",
     "latest": "1863-07-02T08:00",
-    "default_basis": "C-003 recommended default 'head at 08:00 near Power's Hill' (B.2.5; PENDING OWNER). Row does not cite C-003.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-003; not an owner decision)",
+    "default_basis": "C-003 delegated resolution v2 (2026-11-24; weighted, inferred): window 07:00-08:00 on Jul 2 (Fifth Corps up on the right of the line), drawn at 07:00 (best_supported; the earliest documented hour is Slocum's 05:00, which stays selectable and is not lowered). The plan's default 'head at 08:00 near Power's Hill' (B.2.5) stays selectable and is the window's upper end; the latest 08:00 is unchanged. Row does not cite C-003.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-003, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null,
     "non_clock_statements": [],
     "lower_bound_uncertain": null,
@@ -3944,7 +4064,7 @@
    "gate": {
     "kind": "printed_clock",
     "earliest": "1863-07-02T05:00",
-    "default": "1863-07-02T08:00",
+    "default": "1863-07-02T07:00",
     "latest": "1863-07-02T08:00",
     "values": [
      {
@@ -3974,8 +4094,8 @@
     ],
     "upper_bounds": [],
     "basis": "clock times printed in the first-on-field cell",
-    "default_basis": "C-003 recommended default 'head at 08:00 near Power's Hill' (B.2.5; PENDING OWNER). Row does not cite C-003.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-003; not an owner decision)",
+    "default_basis": "C-003 delegated resolution v2 (2026-11-24; weighted, inferred): window 07:00-08:00 on Jul 2 (Fifth Corps up on the right of the line), drawn at 07:00 (best_supported; the earliest documented hour is Slocum's 05:00, which stays selectable and is not lowered). The plan's default 'head at 08:00 near Power's Hill' (B.2.5) stays selectable and is the window's upper end; the latest 08:00 is unchanged. Row does not cite C-003.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-003, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null
    },
    "night_positions": {
@@ -4101,14 +4221,23 @@
      "note": "C-003 'All values' lists 05:00 and 08:00 only; the row's third value (lead regiments about 07:00, CHAM) is absent from the register",
      "topic": "V Corps arrival Jul 2",
      "pdf_recommended_default": "head at 08:00 near Power's Hill",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "EPP",
       "FREE",
       "CHAM",
       "HMDB17934"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Window 07:00-08:00 on Jul 2: the Fifth Corps comes up on the right of the line; drawn at 07:00",
+      "class": "weighted",
+      "tier": "inferred",
+      "animation_at": "1863-07-02T07:00",
+      "drawn_text": "07:00 Jul 2 (drawn instant, best_supported): Window 07:00-08:00 on Jul 2: the Fifth Corps comes up on the right of the line; drawn at 07:00",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -4116,6 +4245,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -4295,6 +4425,7 @@
    "tier": "inferred",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -4401,10 +4532,10 @@
      }
     ],
     "earliest": "1863-07-02T14:00",
-    "default": "1863-07-02T14:00",
+    "default": "1863-07-02T15:00",
     "latest": "1863-07-02T17:00",
-    "default_basis": "C-022 recommended default 'head 14:00, main body 17:00' (B.2.5; PENDING OWNER). Row prints 'Values conflict' and does not cite C-022.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-022; not an owner decision)",
+    "default_basis": "C-022 delegated resolution v2 (2026-11-24; irreducible, documented): window 14:00-17:00 on Jul 2 (head 14:00-15:00, the record divided; corps about 16:00; left about 17:00), drawn at 15:00 (best_supported). The plan's default 'head 14:00, main body 17:00' (B.2.5) stays selectable; the earliest 14:00 (Meade's and Sedgwick's testimony) and the latest 17:00 are unchanged. Row prints 'Values conflict' and does not cite C-022.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-022, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null,
     "non_clock_statements": [],
     "lower_bound_uncertain": null,
@@ -4414,7 +4545,7 @@
    "gate": {
     "kind": "printed_clock",
     "earliest": "1863-07-02T14:00",
-    "default": "1863-07-02T14:00",
+    "default": "1863-07-02T15:00",
     "latest": "1863-07-02T17:00",
     "values": [
      {
@@ -4436,8 +4567,8 @@
     ],
     "upper_bounds": [],
     "basis": "clock times printed in the first-on-field cell",
-    "default_basis": "C-022 recommended default 'head 14:00, main body 17:00' (B.2.5; PENDING OWNER). Row prints 'Values conflict' and does not cite C-022.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-022; not an owner decision)",
+    "default_basis": "C-022 delegated resolution v2 (2026-11-24; irreducible, documented): window 14:00-17:00 on Jul 2 (head 14:00-15:00, the record divided; corps about 16:00; left about 17:00), drawn at 15:00 (best_supported). The plan's default 'head 14:00, main body 17:00' (B.2.5) stays selectable; the earliest 14:00 (Meade's and Sedgwick's testimony) and the latest 17:00 are unchanged. Row prints 'Values conflict' and does not cite C-022.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-022, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null
    },
    "night_positions": {
@@ -4528,14 +4659,23 @@
      "note": null,
      "topic": "VI Corps",
      "pdf_recommended_default": "head 14:00, main body 17:00",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "SS1",
       "HESS",
       "SS2",
       "W-RET"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Window 14:00-17:00 on Jul 2: head 14:00-15:00 (record divided), corps about 16:00, left about 17:00",
+      "class": "irreducible",
+      "tier": "documented",
+      "animation_at": "1863-07-02T15:00",
+      "drawn_text": "15:00 Jul 2 (drawn instant, best_supported): Window 14:00-17:00 on Jul 2: head 14:00-15:00 (record divided), corps about 16:00, left about 17:00",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -4543,6 +4683,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -4819,6 +4960,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -5062,7 +5204,7 @@
      "note": "'return overnight' (Geary back to Culp's Hill)",
      "topic": "Geary back to Culp's Hill",
      "pdf_recommended_default": "window 02:00-04:00",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "OR-WILLIAMS",
@@ -5071,7 +5213,16 @@
       "SS2",
       "HMDB13997",
       "EPP"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Night of Jul 2-3: ordered back 21:00, Kane returning about 22:00, last brigade in 01:00-01:30",
+      "class": "weighted",
+      "tier": "inferred",
+      "animation_at": "1863-07-02T21:00",
+      "drawn_text": "21:00 Jul 2 (drawn instant, best_supported): Night of Jul 2-3: ordered back 21:00, Kane returning about 22:00, last brigade in 01:00-01:30",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     },
     {
      "id": "C-028",
@@ -5080,7 +5231,7 @@
      "note": "'Jul 3 04:30 artillery opens'",
      "topic": "Hunt's guns open Jul 3",
      "pdf_recommended_default": "05:30",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "OR-WILLIAMS",
@@ -5089,7 +5240,16 @@
       "SS2",
       "HMDB13997",
       "EPP"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "First fire 03:30 to 04:30 (reports differ); all batteries open at 05:30",
+      "class": "irreducible",
+      "tier": "inferred",
+      "animation_at": "1863-07-03T04:30",
+      "drawn_text": "04:30 Jul 3 (drawn instant, range_end): First fire 03:30 to 04:30 (reports differ); all batteries open at 05:30",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -5099,6 +5259,7 @@
    "notes": [
     "cell is headed 'Jul 1 evening' but prints 17:30 (before the PDF sunset 19:32): label/clock tension"
    ],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -5350,17 +5511,26 @@
      "id": "C-027",
      "link": "topic_other_cell",
      "cell": "night_positions",
-     "note": "'Jul 2: after noon at Taneytown / Westminster / Emmitsburg (sources conflict)'",
+     "note": "C-027 delegated resolution v2 (settled, documented): Taneytown on the night of 2 July, Westminster on 3 July; the Reserve Brigade at Emmitsburg (the printed 'Jul 2: after noon at Taneytown / Westminster / Emmitsburg (sources conflict)' is superseded, kept as history; the arrival gate, 30 Jun 11:00, is unaffected)",
      "topic": "Buford's destination",
      "pdf_recommended_default": "Westminster, marked unresolved",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "HN-CAV",
       "BUF",
       "W-BUF",
       "HN-UCA"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Taneytown on the night of 2 July, Westminster on 3 July (the Reserve Brigade: Emmitsburg)",
+      "class": "settled",
+      "tier": "documented",
+      "animation_at": null,
+      "drawn_text": null,
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -5368,6 +5538,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -5550,6 +5721,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -5779,6 +5951,7 @@
    "notes": [
     "Hunterstown is north-east of the town; the cell places the first appearance there."
    ],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -5958,6 +6131,7 @@
    "tier": "inferred",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -6067,10 +6241,10 @@
      }
     ],
     "earliest": "1863-07-01T13:30",
-    "default": "1863-07-01T13:30",
+    "default": "1863-07-01T14:00",
     "latest": "1863-07-01T14:30",
-    "default_basis": "C-042 recommended default 13:30 (B.2.5; PENDING OWNER). Row does not cite C-042.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-042; not an owner decision)",
+    "default_basis": "C-042 delegated resolution v2 (2026-11-24; weighted, documented): about 14:00 (Pendleton's report); 13:30 (SS1, the plan's recommended default) and 14:30 (W-D1) stay selectable and unsourced as scenarios. The earliest 13:30 is not lowered (no earlier documented time) and not raised (owner decision); the latest 14:30 is unchanged. Row does not cite C-042.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-042, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null,
     "non_clock_statements": [],
     "lower_bound_uncertain": null,
@@ -6080,7 +6254,7 @@
    "gate": {
     "kind": "printed_clock",
     "earliest": "1863-07-01T13:30",
-    "default": "1863-07-01T13:30",
+    "default": "1863-07-01T14:00",
     "latest": "1863-07-01T14:30",
     "values": [
      {
@@ -6102,8 +6276,8 @@
     ],
     "upper_bounds": [],
     "basis": "clock times printed in the first-on-field cell",
-    "default_basis": "C-042 recommended default 13:30 (B.2.5; PENDING OWNER). Row does not cite C-042.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-042; not an owner decision)",
+    "default_basis": "C-042 delegated resolution v2 (2026-11-24; weighted, documented): about 14:00 (Pendleton's report); 13:30 (SS1, the plan's recommended default) and 14:30 (W-D1) stay selectable and unsourced as scenarios. The earliest 13:30 is not lowered (no earlier documented time) and not raised (owner decision); the latest 14:30 is unchanged. Row does not cite C-042.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-042, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null
    },
    "night_positions": {
@@ -6255,7 +6429,7 @@
      "note": null,
      "topic": "Lee on the field Jul 1",
      "pdf_recommended_default": "13:30",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 63,
      "source_keys_in_row": [
       "W-GC",
@@ -6264,16 +6438,25 @@
       "W-D1",
       "SS-THOMP",
       "W-RET"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "About 14:00: Lee reaches the crest west of Gettysburg and takes position overlooking the battle (Pendleton's report)",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": "1863-07-01T14:00",
+      "drawn_text": "14:00 Jul 1 (drawn instant, best_supported): About 14:00: Lee reaches the crest west of Gettysburg and takes position overlooking the battle (Pendleton's report)",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     },
     {
      "id": "C-006",
      "link": "topic_other_cell",
      "cell": "key_positions",
-     "note": "'Jul 2 05:15 (range) conference with Longstreet'",
+     "note": "C-006 delegated resolution v2 (weighted, inferred): by about 05:00 on Jul 2 (first light to 05:15) conference with Longstreet (the printed 'Jul 2 05:15 (range)' stays a selectable value); the row's gate fields belong to C-042",
      "topic": "Longstreet at Lee's headquarters",
      "pdf_recommended_default": "08:00",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "W-GC",
@@ -6282,7 +6465,16 @@
       "W-D1",
       "SS-THOMP",
       "W-RET"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "By about 05:00 (first light to 05:15): Longstreet with Lee on Seminary Ridge",
+      "class": "weighted",
+      "tier": "inferred",
+      "animation_at": "1863-07-02T05:00",
+      "drawn_text": "05:00 Jul 2 (drawn instant, best_supported): By about 05:00 (first light to 05:15): Longstreet with Lee on Seminary Ridge",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     },
     {
      "id": "C-008",
@@ -6291,7 +6483,7 @@
      "note": "'about 11:00 attack order'",
      "topic": "Lee's attack order",
      "pdf_recommended_default": "11:00",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "W-GC",
@@ -6300,7 +6492,16 @@
       "W-D1",
       "SS-THOMP",
       "W-RET"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Morning of 2 July: plan given by about 9 a.m.; formal order about 11:00 (Longstreet); before about noon",
+      "class": "irreducible",
+      "tier": "inferred",
+      "animation_at": "1863-07-02T11:00",
+      "drawn_text": "11:00 Jul 2 (drawn instant, best_supported): Morning of 2 July: plan given by about 9 a.m.; formal order about 11:00 (Longstreet); before about noon",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -6308,6 +6509,9 @@
    "tier": "inferred",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [
+    "C-042 v2: about 14:00 is Pendleton's hour (not printed in the cell); the gate default is drawn there, inside the printed 13:30-14:30."
+   ],
    "spec_note_unparsed_first": null
   },
   {
@@ -6451,14 +6655,14 @@
       "approx": true,
       "sources": [],
       "role": "other",
-      "note": "west of town, not on the field"
+      "note": "west of town, not on the field; C-005 resolution v2: Longstreet has the division about four miles out about 12 o'clock at night and Shepherd '12 p. m.' (OR 27/2 pp. 358, 420), so about midnight; the printed 01:00 stays (see T2-041)"
      }
     ],
     "earliest": "1863-07-02T05:30",
-    "default": "1863-07-02T06:30",
+    "default": "1863-07-02T05:30",
     "latest": "1863-07-02T08:30",
-    "default_basis": "C-005 recommended default 06:30 for Hood; also printed in the cell. Row does not cite C-005/C-007.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-005; not an owner decision)",
+    "default_basis": "C-005 delegated resolution v2 (2026-11-24; weighted, inferred): about 05:00 for Hood and the head of the division (Fremantle; Shepherd, OR 27/2 p.420: resumed 3 a.m.). 05:00 is earlier than the earliest gate 05:30, which is not moved (no source documents an earlier time for the soldiers; owner decision), so the gate default is drawn at the floor 05:30. The plan's 06:30 stays selectable (also 05:30, 07:30, sunrise 04:35 and 08:00). McLaws: see cs-1c-mclaws (C-007). Row does not cite C-005/C-007.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-005, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null,
     "non_clock_statements": [],
     "lower_bound_uncertain": null,
@@ -6468,7 +6672,7 @@
    "gate": {
     "kind": "printed_clock",
     "earliest": "1863-07-02T05:30",
-    "default": "1863-07-02T06:30",
+    "default": "1863-07-02T05:30",
     "latest": "1863-07-02T08:30",
     "values": [
      {
@@ -6504,8 +6708,8 @@
     ],
     "upper_bounds": [],
     "basis": "clock times printed in the first-on-field cell",
-    "default_basis": "C-005 recommended default 06:30 for Hood; also printed in the cell. Row does not cite C-005/C-007.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-005; not an owner decision)",
+    "default_basis": "C-005 delegated resolution v2 (2026-11-24; weighted, inferred): about 05:00 for Hood and the head of the division (Fremantle; Shepherd, OR 27/2 p.420: resumed 3 a.m.). 05:00 is earlier than the earliest gate 05:30, which is not moved (no source documents an earlier time for the soldiers; owner decision), so the gate default is drawn at the floor 05:30. The plan's 06:30 stays selectable (also 05:30, 07:30, sunrise 04:35 and 08:00). McLaws: see cs-1c-mclaws (C-007). Row does not cite C-005/C-007.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-005, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null
    },
    "night_positions": {
@@ -6643,14 +6847,23 @@
      "note": null,
      "topic": "Hood at Seminary Ridge",
      "pdf_recommended_default": "06:30",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "FREE",
       "EPP",
       "PADRE",
       "W-RET"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "About 05:00 (sunrise to 05:30): Hood and the head of his division on the ridge; the tail could be up by 07:30",
+      "class": "weighted",
+      "tier": "inferred",
+      "animation_at": "1863-07-02T05:00",
+      "drawn_text": "05:30 Jul 2 (drawn at the arrival gate floor; the resolution's instant, 05:00, is earlier than the floor and the floor is not moved: owner decision): About 05:00 (sunrise to 05:30): Hood and the head of his division on the ridge; the tail could be up by 07:30",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     },
     {
      "id": "C-007",
@@ -6659,14 +6872,23 @@
      "note": null,
      "topic": "McLaws on the ridge",
      "pdf_recommended_default": "08:00",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "FREE",
       "EPP",
       "PADRE",
       "W-RET"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "About 07:00: the head of McLaws's division on the ridge; the whole division up by 08:00 to 08:30",
+      "class": "weighted",
+      "tier": "inferred",
+      "animation_at": "1863-07-02T07:00",
+      "drawn_text": "08:00 Jul 2 (drawn at the arrival gate floor; the resolution's instant, 07:00, is earlier than the floor and the floor is not moved: owner decision): About 07:00: the head of McLaws's division on the ridge; the whole division up by 08:00 to 08:30",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -6674,6 +6896,9 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [
+    "C-005 v2: Hood's division halts about midnight (Longstreet: about four miles out 'about 12 o'clock at night'; Shepherd '12 p. m.'; OR 27/2 pp. 358, 420), not the printed about 01:00 (kept as printed; T2-041). Hood resumes about 03:00, not the printed 03:30 (Second Georgia, OR 27/2 p.420; T2-049)."
+   ],
    "spec_note_unparsed_first": null
   },
   {
@@ -6777,8 +7002,8 @@
     "earliest": "1863-07-02T08:00",
     "default": "1863-07-02T08:00",
     "latest": "1863-07-02T08:30",
-    "default_basis": "C-007 recommended default 08:00 (B.2.5; PENDING OWNER). The division row prints only 08:00; 08:30 comes from the I Corps row / C-007.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-007; not an owner decision)",
+    "default_basis": "C-007 delegated resolution v2 (2026-11-24; weighted, inferred): about 07:00 for the head of McLaws's division, the whole division up by 08:00 to 08:30. 07:00 is earlier than the earliest gate 08:00, which is not moved (07:00 is an inferred upper bound, not a documented arrival; owner decision), so the gate default is drawn at the floor 08:00; 08:00 (the plan's recommended default) and 08:30 stay selectable. The division row prints only 08:00; 08:30 comes from the I Corps row / C-007.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-007, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null,
     "non_clock_statements": [],
     "lower_bound_uncertain": null,
@@ -6806,8 +7031,8 @@
     ],
     "upper_bounds": [],
     "basis": "clock times printed in the first-on-field cell",
-    "default_basis": "C-007 recommended default 08:00 (B.2.5; PENDING OWNER). The division row prints only 08:00; 08:30 comes from the I Corps row / C-007.",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-007; not an owner decision)",
+    "default_basis": "C-007 delegated resolution v2 (2026-11-24; weighted, inferred): about 07:00 for the head of McLaws's division, the whole division up by 08:00 to 08:30. 07:00 is earlier than the earliest gate 08:00, which is not moved (07:00 is an inferred upper bound, not a documented arrival; owner decision), so the gate default is drawn at the floor 08:00; 08:00 (the plan's recommended default) and 08:30 stay selectable. The division row prints only 08:00; 08:30 comes from the I Corps row / C-007.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-007, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null
    },
    "night_positions": {
@@ -6882,13 +7107,22 @@
      "note": null,
      "topic": "McLaws on the ridge",
      "pdf_recommended_default": "08:00",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "EPP",
       "FREE",
       "HESS"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "About 07:00: the head of McLaws's division on the ridge; the whole division up by 08:00 to 08:30",
+      "class": "weighted",
+      "tier": "inferred",
+      "animation_at": "1863-07-02T07:00",
+      "drawn_text": "08:00 Jul 2 (drawn at the arrival gate floor; the resolution's instant, 07:00, is earlier than the floor and the floor is not moved: owner decision): About 07:00: the head of McLaws's division on the ridge; the whole division up by 08:00 to 08:30",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -6896,6 +7130,9 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [
+    "C-007 v2: resolution instant 07:00 is earlier than the gate floor 08:00 (not moved; listed in conflicts/FLOOR-HOLDS)."
+   ],
    "spec_note_unparsed_first": null
   },
   {
@@ -7003,10 +7240,10 @@
      }
     ],
     "earliest": "1863-07-02T05:30",
-    "default": "1863-07-02T06:30",
+    "default": "1863-07-02T05:30",
     "latest": "1863-07-02T07:30",
-    "default_basis": "C-005 recommended default 06:30 (B.2.5; PENDING OWNER); also the headline value in the cell",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-005; not an owner decision)",
+    "default_basis": "C-005 delegated resolution v2 (2026-11-24; weighted, inferred): about 05:00 (sunrise to 05:30), Hood and the head of his division on the ridge, the tail up by about 07:30. 05:00 is earlier than the earliest gate 05:30, which is not moved (the diary places Hood himself, not the division; owner decision), so the gate default is drawn at the floor 05:30. The plan's 06:30 (B.2.5; also the headline value in the cell), sunrise 04:35, 05:30, 07:30 and 08:00 stay selectable. Night position: Marsh Creek about midnight, resumes about 03:00 (OR 27/2 pp. 358, 420), not the printed 'about 01:00; resumes 03:30'.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-005, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null,
     "non_clock_statements": [],
     "lower_bound_uncertain": null,
@@ -7016,7 +7253,7 @@
    "gate": {
     "kind": "printed_clock",
     "earliest": "1863-07-02T05:30",
-    "default": "1863-07-02T06:30",
+    "default": "1863-07-02T05:30",
     "latest": "1863-07-02T07:30",
     "values": [
      {
@@ -7040,8 +7277,8 @@
     ],
     "upper_bounds": [],
     "basis": "clock times printed in the first-on-field cell",
-    "default_basis": "C-005 recommended default 06:30 (B.2.5; PENDING OWNER); also the headline value in the cell",
-    "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-005; not an owner decision)",
+    "default_basis": "C-005 delegated resolution v2 (2026-11-24; weighted, inferred): about 05:00 (sunrise to 05:30), Hood and the head of his division on the ridge, the tail up by about 07:30. 05:00 is earlier than the earliest gate 05:30, which is not moved (the diary places Hood himself, not the division; owner decision), so the gate default is drawn at the floor 05:30. The plan's 06:30 (B.2.5; also the headline value in the cell), sunrise 04:35, 05:30, 07:30 and 08:00 stay selectable. Night position: Marsh Creek about midnight, resumes about 03:00 (OR 27/2 pp. 358, 420), not the printed 'about 01:00; resumes 03:30'.",
+    "default_status": "DELEGATED RESOLUTION v2 (C-005, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
     "null_reason": null
    },
    "night_positions": {
@@ -7149,28 +7386,46 @@
      "note": null,
      "topic": "Hood at Seminary Ridge",
      "pdf_recommended_default": "06:30",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "EPP",
       "PADRE",
       "HN-UCA"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "About 05:00 (sunrise to 05:30): Hood and the head of his division on the ridge; the tail could be up by 07:30",
+      "class": "weighted",
+      "tier": "inferred",
+      "animation_at": "1863-07-02T05:00",
+      "drawn_text": "05:30 Jul 2 (drawn at the arrival gate floor; the resolution's instant, 05:00, is earlier than the floor and the floor is not moved: owner decision): About 05:00 (sunrise to 05:30): Hood and the head of his division on the ridge; the tail could be up by 07:30",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     },
     {
      "id": "C-011",
      "link": "topic_other_cell",
      "cell": "key_positions",
-     "note": "'16:30 step-off'",
+     "note": "C-011 delegated resolution v2 (weighted, inferred): guns about 16:00, Hood's infantry soon after: window 16:00-16:30 drawn at 16:15 (midpoint); replaces the printed '16:30 step-off' (kept as the later end)",
      "topic": "Hood's attack",
      "pdf_recommended_default": "16:30",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "EPP",
       "PADRE",
       "HN-UCA"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Guns about 16:00, Hood's infantry soon after: window 16:00-16:30; drawn at the middle",
+      "class": "weighted",
+      "tier": "inferred",
+      "animation_at": "1863-07-02T16:15",
+      "drawn_text": "16:15 Jul 2 (drawn instant, midpoint): Guns about 16:00, Hood's infantry soon after: window 16:00-16:30; drawn at the middle",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -7178,6 +7433,9 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [
+    "C-005 v2: night position 'Marsh Creek about 01:00; resumes 03:30' (printed, kept as the plan's value) should read about midnight and 03:00 (OR 27/2 pp. 358, 420); the resolution instant 05:00 is not drawn earlier than the gate floor 05:30 (floor not moved; listed in conflicts/FLOOR-HOLDS)."
+   ],
    "spec_note_unparsed_first": null
   },
   {
@@ -7459,7 +7717,7 @@
      "note": "the same four values appear in the row and in C-021",
      "topic": "Pickett's arrival",
      "pdf_recommended_default": "on the field the morning of Jul 3 (conservative: not shown before dawn Jul 3)",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "EPP",
@@ -7468,7 +7726,16 @@
       "SS2",
       "W-PC",
       "NPS-H2"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Morning of Jul 3: a brigade starts 4 miles out at 03:00, another reaches the field about 09:00",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": "1863-07-03T03:00",
+      "drawn_text": "04:36 Jul 3 (drawn at the arrival gate floor; the resolution's instant, 03:00, is earlier than the floor and the floor is not moved: owner decision): Morning of Jul 3: a brigade starts 4 miles out at 03:00, another reaches the field about 09:00",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -7476,6 +7743,7 @@
    "tier": "inferred",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -7646,6 +7914,7 @@
    "tier": "open gap",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -7851,14 +8120,23 @@
      "note": "'19:00-20:00 Culp's Hill attack'",
      "topic": "Johnson's attack on Culp's Hill",
      "pdf_recommended_default": "19:00",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "OR-RODES",
       "OR-HILL",
       "EPP",
       "W-RET"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "About 19:00 on Jul 2: Johnson's division attacks Greene on Culp's Hill",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": null,
+      "drawn_text": null,
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     },
     {
      "id": "C-020",
@@ -7867,14 +8145,23 @@
      "note": "'19:30 East Cemetery Hill'",
      "topic": "East Cemetery Hill assault",
      "pdf_recommended_default": "19:30",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "OR-RODES",
       "OR-HILL",
       "EPP",
       "W-RET"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "About 20:00: the infantry assault goes up East Cemetery Hill and charges the batteries",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": "1863-07-02T20:00",
+      "drawn_text": "20:00 Jul 2 (drawn instant, best_supported): About 20:00: the infantry assault goes up East Cemetery Hill and charges the batteries",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -7882,6 +8169,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -8167,7 +8455,7 @@
      "note": "'Jul 2 19:30 Hays and Avery on East Cemetery Hill'",
      "topic": "East Cemetery Hill assault",
      "pdf_recommended_default": "19:30",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "W-GC",
@@ -8175,7 +8463,16 @@
       "W-D1",
       "EPP",
       "SS2"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "About 20:00: the infantry assault goes up East Cemetery Hill and charges the batteries",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": "1863-07-02T20:00",
+      "drawn_text": "20:00 Jul 2 (drawn instant, best_supported): About 20:00: the infantry assault goes up East Cemetery Hill and charges the batteries",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -8185,6 +8482,7 @@
    "notes": [
     "Jun 26 occupies Gettysburg (date only; pre-battle campaign event, not used by the Q04 field gate)"
    ],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -8420,17 +8718,26 @@
      "id": "C-041",
      "link": "topic_other_cell",
      "cell": "key_positions",
-     "note": "'Jul 1 14:00 attack'",
+     "note": "C-041 delegated resolution v2 (irreducible, inferred): the attack starts in the window about 13:30-14:00 on Jul 1, the picture uses 13:45; the printed 'Jul 1 14:00 attack' is the later end (14:30 is another act, selectable). The arrival gate (12:30) is not about the attack and is unchanged",
      "topic": "Rodes' attack start",
      "pdf_recommended_default": "14:00",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 63,
      "source_keys_in_row": [
       "OR-RODES",
       "OR-RAMSEUR",
       "OR-DOLES",
       "SWB3"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "About 13:30 to 14:00 on Jul 1; the picture uses 13:45 (the middle)",
+      "class": "irreducible",
+      "tier": "inferred",
+      "animation_at": "1863-07-01T13:45",
+      "drawn_text": "13:45 Jul 1 (drawn instant, midpoint): About 13:30 to 14:00 on Jul 1; the picture uses 13:45 (the middle)",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -8438,6 +8745,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -8680,14 +8988,23 @@
      "note": "'19:00-20:00 crosses Rock Creek'",
      "topic": "Johnson's attack on Culp's Hill",
      "pdf_recommended_default": "19:00",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "EPP",
       "SS1",
       "W-CH",
       "SWB3"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "About 19:00 on Jul 2: Johnson's division attacks Greene on Culp's Hill",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": null,
+      "drawn_text": null,
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -8695,6 +9012,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -8904,6 +9222,7 @@
    "tier": "inferred",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": [
     "first_on_field",
     "text 'Jul 1: Heth at Cashtown; corps at Fayetteville Jun 29' states locations, not arrival on the field"
@@ -9126,6 +9445,7 @@
    "notes": [
     "Jun 29 Cashtown; Jun 30 Pettigrew's brigade raid reaches Gettysburg's edge, withdraws (dates only; pre-battle)"
    ],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -9341,6 +9661,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -9555,6 +9876,7 @@
    "tier": "documented",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -9815,17 +10137,26 @@
      "id": "C-023",
      "link": "topic_other_cell",
      "cell": "key_positions",
-     "note": "Stuart's arrival: noon-13:00; mid-afternoon; afternoon; evening (register default: Stuart himself early afternoon, brigades in the evening)",
+     "note": "Stuart's arrival: C-023 delegated resolution v2 (weighted, documented): the afternoon of Jul 2, no hour recorded (Lee: afternoon); Hampton fights at Hunterstown at sundown; Fitz Lee and Chambliss are with Stuart in the afternoon; Jenkins was with Ewell. The plan's noon-13:00, mid-afternoon and evening stay selectable. The Q04 floor 19:32 for Stuart's brigades is not moved (owner decision)",
      "topic": "Stuart's arrival",
      "pdf_recommended_default": "Stuart himself early afternoon, brigades in the evening",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "W-STU",
       "ABT-CAV",
       "STUART",
       "W-GC"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Afternoon of July 2 (no hour is recorded); Hampton fights at Hunterstown at sundown",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": null,
+      "drawn_text": null,
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -9833,6 +10164,7 @@
    "tier": "inferred",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -9945,7 +10277,7 @@
      },
      "default": {
       "period": "dusk",
-      "basis": "C-023 / gating rule 4: brigades gated to the evening of Jul 2; start of range used",
+      "basis": "C-023 delegated resolution v2 (weighted, documented): Hampton was stationed at Hunterstown before the fight (Hampton) and Green was ordered to him before sunset, so the record puts his brigade there before 19:32 (a reading of 'stationed'; Hampton gives no hour); the resolution's default for Stuart's arrival is the afternoon of Jul 2 with no hour. The gate keeps the Q04 floor 19:32 (gating rule 4; not moved or lowered here; owner decision)",
       "sources": []
      },
      "latest": {
@@ -9954,7 +10286,7 @@
       "sources": []
      }
     },
-    "default_basis": "C-023 / gating rule 4: brigades gated to the evening of Jul 2; start of range used",
+    "default_basis": "C-023 delegated resolution v2 (weighted, documented): Hampton was stationed at Hunterstown before the fight (Hampton) and Green was ordered to him before sunset, so the record puts his brigade there before 19:32 (a reading of 'stationed'; Hampton gives no hour); the resolution's default for Stuart's arrival is the afternoon of Jul 2 with no hour. The gate keeps the Q04 floor 19:32 (gating rule 4; not moved or lowered here; owner decision)",
     "default_status": "PENDING OWNER (checker convention from the PDF named period / C-nnn recommended default; not a printed clock)",
     "null_reason": "'arrives at dusk to night' (named periods, no clock time)"
    },
@@ -10029,14 +10361,23 @@
      "note": null,
      "topic": "Stuart's arrival",
      "pdf_recommended_default": "Stuart himself early afternoon, brigades in the evening",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "HAMP",
       "W-HUN",
       "W-ECF",
       "CWN-STU"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Afternoon of July 2 (no hour is recorded); Hampton fights at Hunterstown at sundown",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": null,
+      "drawn_text": null,
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [
@@ -10059,6 +10400,7 @@
    "tier": "inferred",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -10167,7 +10509,7 @@
      },
      "default": {
       "period": "evening",
-      "basis": "C-023 register default 'brigades in the evening'; gating rule 4",
+      "basis": "C-023 delegated resolution v2 (weighted, documented): Lee (afternoon) and McClellan (afternoon of the 2d) put Stuart with Fitz Lee's and Chambliss's commands on the left in the afternoon; Taylor says evening for the cavalry Stuart accompanied and Kidd for Stuart. The resolution's default is the afternoon with no hour; the gate keeps the Q04 floor 19:32 (the evening reading, later than the default; gating rule 4; not moved or lowered here; owner decision)",
       "sources": []
      },
      "latest": {
@@ -10176,7 +10518,7 @@
       "sources": []
      }
     },
-    "default_basis": "C-023 register default 'brigades in the evening'; gating rule 4",
+    "default_basis": "C-023 delegated resolution v2 (weighted, documented): Lee (afternoon) and McClellan (afternoon of the 2d) put Stuart with Fitz Lee's and Chambliss's commands on the left in the afternoon; Taylor says evening for the cavalry Stuart accompanied and Kidd for Stuart. The resolution's default is the afternoon with no hour; the gate keeps the Q04 floor 19:32 (the evening reading, later than the default; gating rule 4; not moved or lowered here; owner decision)",
     "default_status": "PENDING OWNER (checker convention from the PDF named period / C-nnn recommended default; not a printed clock)",
     "null_reason": "'Jul 2 evening (brigades arrive that evening)': named period, no clock time"
    },
@@ -10251,12 +10593,21 @@
      "note": null,
      "topic": "Stuart's arrival",
      "pdf_recommended_default": "Stuart himself early afternoon, brigades in the evening",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "W-ECF",
       "CWN-STU"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Afternoon of July 2 (no hour is recorded); Hampton fights at Hunterstown at sundown",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": null,
+      "drawn_text": null,
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -10264,6 +10615,7 @@
    "tier": "inferred",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   },
   {
@@ -10371,7 +10723,7 @@
      },
      "default": {
       "period": "evening",
-      "basis": "gating rule 4",
+      "basis": "C-023 delegated resolution v2 (weighted, documented): Jenkins's brigade was with Ewell from the crossing of the Potomac (Lee July 1863; Taylor 1877) and came under Stuart on July 3 (Stuart pp. 697-698); 19:32 on Jul 2 is NOT an arrival event for Jenkins. The value is kept only as the Q04 floor of Stuart's brigades (gating rule 4), not moved or lowered here (owner decision)",
       "sources": []
      },
      "latest": {
@@ -10380,7 +10732,7 @@
       "sources": []
      }
     },
-    "default_basis": "gating rule 4",
+    "default_basis": "C-023 delegated resolution v2 (weighted, documented): Jenkins's brigade was with Ewell from the crossing of the Potomac (Lee July 1863; Taylor 1877) and came under Stuart on July 3 (Stuart pp. 697-698); 19:32 on Jul 2 is NOT an arrival event for Jenkins. The value is kept only as the Q04 floor of Stuart's brigades (gating rule 4), not moved or lowered here (owner decision)",
     "default_status": "PENDING OWNER (checker convention from the PDF named period / C-nnn recommended default; not a printed clock)",
     "null_reason": "cell states 'Jun 29 at Carlisle with Ewell; attached to Stuart Jul 3': no arrival time on the field"
    },
@@ -10437,12 +10789,21 @@
      "note": "timeline row T2-200 lists Jenkins among the brigades arriving Jul 2 evening; the ledger cell says attached to Stuart Jul 3",
      "topic": "Stuart's arrival",
      "pdf_recommended_default": "Stuart himself early afternoon, brigades in the evening",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "OOB-C",
       "W-ECF"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Afternoon of July 2 (no hour is recorded); Hampton fights at Hunterstown at sundown",
+      "class": "weighted",
+      "tier": "documented",
+      "animation_at": null,
+      "drawn_text": null,
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [],
@@ -10450,6 +10811,7 @@
    "tier": "inferred",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": [
     "first_on_field",
     "no arrival on the field stated; a Jul 2 wound (commander cell) and the timeline row T2-200 (brigades arrive Jul 2 evening) disagree with 'attached to Stuart Jul 3'"
@@ -10612,13 +10974,22 @@
      "note": "'Jul 4-5 Imboden's train' (C-033 Imboden departs Jul 4; Jul 5)",
      "topic": "Imboden departs",
      "pdf_recommended_default": "Jul 4 afternoon",
-     "status": "PENDING OWNER",
+     "status": "RESOLVED_DELEGATED_2026_11_16",
      "register_page": 62,
      "source_keys_in_row": [
       "OOB-C",
       "W-FF",
       "W-RET"
-     ]
+     ],
+     "resolution": {
+      "version": 2,
+      "default_label": "Jul 4 afternoon: the head of the column leaves Cashtown about 16:00 (not Imboden himself)",
+      "class": "settled",
+      "tier": "inferred",
+      "animation_at": "1863-07-04T16:00",
+      "drawn_text": "16:00 Jul 4 (drawn instant, best_supported): Jul 4 afternoon: the head of the column leaves Cashtown about 16:00 (not Imboden himself)",
+      "source": "GOVERNANCE/decisions/conflict_defaults.json"
+     }
     }
    ],
    "detached_roles": [
@@ -10641,6 +11012,7 @@
    "tier": "open gap",
    "tier_basis": "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere.",
    "notes": [],
+   "resolution_notes": [],
    "spec_note_unparsed_first": null
   }
  ],
@@ -11019,8 +11391,8 @@
    ],
    "upper_bounds": [],
    "basis": "clock times printed in the first-on-field cell",
-   "default_basis": "C-001 recommended default 'about 01:00, then a pre-dawn inspection of the line' (B.2.5; PENDING OWNER). Row does not cite C-001.",
-   "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-001; not an owner decision)",
+   "default_basis": "C-001 delegated resolution v2 (2026-11-24; irreducible, documented): window about 01:00 (Meade) to about 02:00 (Hunt) on Jul 2, drawn at 01:00 (earliest_documented). The plan's recommended default (about 01:00, then a pre-dawn inspection; B.2.5) and the 00:00 and 04:00 values stay selectable; 04:00 has no source and is contradicted (Howard, Stannard: Meade on the field by about 03:00). Floor 00:00 and latest 04:00 are the plan's and are not changed (owner decision). Row does not cite C-001.",
+   "default_status": "DELEGATED RESOLUTION v2 (C-001, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
    "null_reason": null,
    "unit": "us-aop-hq",
    "source": "row",
@@ -11029,7 +11401,7 @@
   "us-hancock-acting": {
    "kind": "printed_clock",
    "earliest": "1863-07-01T15:00",
-   "default": "1863-07-01T15:00",
+   "default": "1863-07-01T16:00",
    "latest": "1863-07-01T16:30",
    "values": [
     {
@@ -11063,12 +11435,12 @@
     }
    ],
    "basis": "clock times printed in the first-on-field cell",
-   "default_basis": "C-039 recommended default 'about 15:00-16:00' (a range; start used as gate) (B.2.5; PENDING OWNER). Row does not cite C-039.",
-   "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-039; not an owner decision)",
+   "default_basis": "C-039 delegated resolution v2 (2026-11-24; weighted, documented): about 16:00 to 16:30 (Howard's note of the day, 4 p.m.; Howard's report and Doubleday about 4.30), drawn at 16:00 (best_supported). The earliest 15:00 (Hancock's report) and the latest 16:30 stay and 15:00 and about 15:30 stay selectable (P7); the plan's 'about 15:00-16:00' (start used as gate) is superseded. Row does not cite C-039.",
+   "default_status": "DELEGATED RESOLUTION v2 (C-039, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
    "null_reason": null,
    "default_range": [
-    "1863-07-01T15:00",
-    "1863-07-01T16:00"
+    "1863-07-01T16:00",
+    "1863-07-01T16:30"
    ],
    "unit": "us-hancock-acting",
    "source": "row",
@@ -11232,8 +11604,8 @@
    ],
    "upper_bounds": [],
    "basis": "clock times printed in the first-on-field cell",
-   "default_basis": "C-004 recommended default '06:00 Jul 2 (head), tails later' (B.2.5; PENDING OWNER). The row says 'see the gate table below' and prints no C-id; C-004 is the only B.2.5 entry on II Corps arrival.",
-   "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-004; not an owner decision)",
+   "default_basis": "C-004 delegated resolution v2 (2026-11-24; weighted, documented): window 04:00-06:15 on Jul 2 (first brigades about 04:00, the main body up by 06:00), drawn at 06:00 (best_supported). The plan's '06:00 Jul 2 (head), tails later' (B.2.5) is the drawn instant; the 22:30 Jul 1 floor is the plan's value (contradicted, selectable) and is not raised or lowered here (owner decision); the latest 07:00 (Hancock) holds. The row says 'see the gate table below' and prints no C-id; C-004 is the only B.2.5 entry on II Corps arrival.",
+   "default_status": "DELEGATED RESOLUTION v2 (C-004, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
    "null_reason": null,
    "unit": "us-2c",
    "source": "row",
@@ -11378,7 +11750,7 @@
   "us-3c-2d": {
    "kind": "printed_clock",
    "earliest": "1863-07-02T00:00",
-   "default": "1863-07-02T02:00",
+   "default": "1863-07-02T00:00",
    "latest": "1863-07-02T02:00",
    "values": [
     {
@@ -11400,8 +11772,8 @@
    ],
    "upper_bounds": [],
    "basis": "clock times printed in the first-on-field cell",
-   "default_basis": "C-002 recommended default 02:00 (B.2.5; PENDING OWNER). Row prints only \"Values conflict\" and does not cite C-002.",
-   "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-002; not an owner decision)",
+   "default_basis": "C-002 delegated resolution v2 (2026-11-24; irreducible, inferred): window about 00:00-02:00 on Jul 2 (Brewster about midnight; Humphreys 01:00; Tripp and Bodine 02:00), drawn from 00:00 (earliest_documented). The plan recommended default 02:00 (B.2.5) stays selectable; the earliest 00:00 and the latest 02:00 stay and the division is not drawn before 00:00. Row prints only \"Values conflict\" and does not cite C-002.",
+   "default_status": "DELEGATED RESOLUTION v2 (C-002, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
    "null_reason": null,
    "unit": "us-3c-2d",
    "source": "row",
@@ -11425,7 +11797,7 @@
   "us-5c": {
    "kind": "printed_clock",
    "earliest": "1863-07-02T05:00",
-   "default": "1863-07-02T08:00",
+   "default": "1863-07-02T07:00",
    "latest": "1863-07-02T08:00",
    "values": [
     {
@@ -11455,8 +11827,8 @@
    ],
    "upper_bounds": [],
    "basis": "clock times printed in the first-on-field cell",
-   "default_basis": "C-003 recommended default 'head at 08:00 near Power's Hill' (B.2.5; PENDING OWNER). Row does not cite C-003.",
-   "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-003; not an owner decision)",
+   "default_basis": "C-003 delegated resolution v2 (2026-11-24; weighted, inferred): window 07:00-08:00 on Jul 2 (Fifth Corps up on the right of the line), drawn at 07:00 (best_supported; the earliest documented hour is Slocum's 05:00, which stays selectable and is not lowered). The plan's default 'head at 08:00 near Power's Hill' (B.2.5) stays selectable and is the window's upper end; the latest 08:00 is unchanged. Row does not cite C-003.",
+   "default_status": "DELEGATED RESOLUTION v2 (C-003, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
    "null_reason": null,
    "unit": "us-5c",
    "source": "row",
@@ -11488,7 +11860,7 @@
   "us-6c": {
    "kind": "printed_clock",
    "earliest": "1863-07-02T14:00",
-   "default": "1863-07-02T14:00",
+   "default": "1863-07-02T15:00",
    "latest": "1863-07-02T17:00",
    "values": [
     {
@@ -11510,8 +11882,8 @@
    ],
    "upper_bounds": [],
    "basis": "clock times printed in the first-on-field cell",
-   "default_basis": "C-022 recommended default 'head 14:00, main body 17:00' (B.2.5; PENDING OWNER). Row prints 'Values conflict' and does not cite C-022.",
-   "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-022; not an owner decision)",
+   "default_basis": "C-022 delegated resolution v2 (2026-11-24; irreducible, documented): window 14:00-17:00 on Jul 2 (head 14:00-15:00, the record divided; corps about 16:00; left about 17:00), drawn at 15:00 (best_supported). The plan's default 'head 14:00, main body 17:00' (B.2.5) stays selectable; the earliest 14:00 (Meade's and Sedgwick's testimony) and the latest 17:00 are unchanged. Row prints 'Values conflict' and does not cite C-022.",
+   "default_status": "DELEGATED RESOLUTION v2 (C-022, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
    "null_reason": null,
    "unit": "us-6c",
    "source": "row",
@@ -11681,7 +12053,7 @@
   "cs-anv-hq": {
    "kind": "printed_clock",
    "earliest": "1863-07-01T13:30",
-   "default": "1863-07-01T13:30",
+   "default": "1863-07-01T14:00",
    "latest": "1863-07-01T14:30",
    "values": [
     {
@@ -11703,8 +12075,8 @@
    ],
    "upper_bounds": [],
    "basis": "clock times printed in the first-on-field cell",
-   "default_basis": "C-042 recommended default 13:30 (B.2.5; PENDING OWNER). Row does not cite C-042.",
-   "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-042; not an owner decision)",
+   "default_basis": "C-042 delegated resolution v2 (2026-11-24; weighted, documented): about 14:00 (Pendleton's report); 13:30 (SS1, the plan's recommended default) and 14:30 (W-D1) stay selectable and unsourced as scenarios. The earliest 13:30 is not lowered (no earlier documented time) and not raised (owner decision); the latest 14:30 is unchanged. Row does not cite C-042.",
+   "default_status": "DELEGATED RESOLUTION v2 (C-042, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
    "null_reason": null,
    "unit": "cs-anv-hq",
    "source": "row",
@@ -11713,7 +12085,7 @@
   "cs-1c": {
    "kind": "printed_clock",
    "earliest": "1863-07-02T05:30",
-   "default": "1863-07-02T06:30",
+   "default": "1863-07-02T05:30",
    "latest": "1863-07-02T08:30",
    "values": [
     {
@@ -11749,8 +12121,8 @@
    ],
    "upper_bounds": [],
    "basis": "clock times printed in the first-on-field cell",
-   "default_basis": "C-005 recommended default 06:30 for Hood; also printed in the cell. Row does not cite C-005/C-007.",
-   "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-005; not an owner decision)",
+   "default_basis": "C-005 delegated resolution v2 (2026-11-24; weighted, inferred): about 05:00 for Hood and the head of the division (Fremantle; Shepherd, OR 27/2 p.420: resumed 3 a.m.). 05:00 is earlier than the earliest gate 05:30, which is not moved (no source documents an earlier time for the soldiers; owner decision), so the gate default is drawn at the floor 05:30. The plan's 06:30 stays selectable (also 05:30, 07:30, sunrise 04:35 and 08:00). McLaws: see cs-1c-mclaws (C-007). Row does not cite C-005/C-007.",
+   "default_status": "DELEGATED RESOLUTION v2 (C-005, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
    "null_reason": null,
    "unit": "cs-1c",
    "source": "row",
@@ -11777,8 +12149,8 @@
    ],
    "upper_bounds": [],
    "basis": "clock times printed in the first-on-field cell",
-   "default_basis": "C-007 recommended default 08:00 (B.2.5; PENDING OWNER). The division row prints only 08:00; 08:30 comes from the I Corps row / C-007.",
-   "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-007; not an owner decision)",
+   "default_basis": "C-007 delegated resolution v2 (2026-11-24; weighted, inferred): about 07:00 for the head of McLaws's division, the whole division up by 08:00 to 08:30. 07:00 is earlier than the earliest gate 08:00, which is not moved (07:00 is an inferred upper bound, not a documented arrival; owner decision), so the gate default is drawn at the floor 08:00; 08:00 (the plan's recommended default) and 08:30 stay selectable. The division row prints only 08:00; 08:30 comes from the I Corps row / C-007.",
+   "default_status": "DELEGATED RESOLUTION v2 (C-007, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
    "null_reason": null,
    "unit": "cs-1c-mclaws",
    "source": "row",
@@ -11787,7 +12159,7 @@
   "cs-1c-hood": {
    "kind": "printed_clock",
    "earliest": "1863-07-02T05:30",
-   "default": "1863-07-02T06:30",
+   "default": "1863-07-02T05:30",
    "latest": "1863-07-02T07:30",
    "values": [
     {
@@ -11811,8 +12183,8 @@
    ],
    "upper_bounds": [],
    "basis": "clock times printed in the first-on-field cell",
-   "default_basis": "C-005 recommended default 06:30 (B.2.5; PENDING OWNER); also the headline value in the cell",
-   "default_status": "PENDING OWNER (PDF B.2.5 recommended default C-005; not an owner decision)",
+   "default_basis": "C-005 delegated resolution v2 (2026-11-24; weighted, inferred): about 05:00 (sunrise to 05:30), Hood and the head of his division on the ridge, the tail up by about 07:30. 05:00 is earlier than the earliest gate 05:30, which is not moved (the diary places Hood himself, not the division; owner decision), so the gate default is drawn at the floor 05:30. The plan's 06:30 (B.2.5; also the headline value in the cell), sunrise 04:35, 05:30, 07:30 and 08:00 stay selectable. Night position: Marsh Creek about midnight, resumes about 03:00 (OR 27/2 pp. 358, 420), not the printed 'about 01:00; resumes 03:30'.",
+   "default_status": "DELEGATED RESOLUTION v2 (C-005, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)",
    "null_reason": null,
    "unit": "cs-1c-hood",
    "source": "row",
@@ -12088,7 +12460,7 @@
     },
     "default": {
      "period": "dusk",
-     "basis": "C-023 / gating rule 4: brigades gated to the evening of Jul 2; start of range used",
+     "basis": "C-023 delegated resolution v2 (weighted, documented): Hampton was stationed at Hunterstown before the fight (Hampton) and Green was ordered to him before sunset, so the record puts his brigade there before 19:32 (a reading of 'stationed'; Hampton gives no hour); the resolution's default for Stuart's arrival is the afternoon of Jul 2 with no hour. The gate keeps the Q04 floor 19:32 (gating rule 4; not moved or lowered here; owner decision)",
      "sources": []
     },
     "latest": {
@@ -12097,7 +12469,7 @@
      "sources": []
     }
    },
-   "default_basis": "C-023 / gating rule 4: brigades gated to the evening of Jul 2; start of range used",
+   "default_basis": "C-023 delegated resolution v2 (weighted, documented): Hampton was stationed at Hunterstown before the fight (Hampton) and Green was ordered to him before sunset, so the record puts his brigade there before 19:32 (a reading of 'stationed'; Hampton gives no hour); the resolution's default for Stuart's arrival is the afternoon of Jul 2 with no hour. The gate keeps the Q04 floor 19:32 (gating rule 4; not moved or lowered here; owner decision)",
    "default_status": "PENDING OWNER (checker convention from the PDF named period / C-nnn recommended default; not a printed clock)",
    "null_reason": "'arrives at dusk to night' (named periods, no clock time)",
    "unit": "cs-cav-hampton",
@@ -12119,7 +12491,7 @@
     },
     "default": {
      "period": "evening",
-     "basis": "C-023 register default 'brigades in the evening'; gating rule 4",
+     "basis": "C-023 delegated resolution v2 (weighted, documented): Lee (afternoon) and McClellan (afternoon of the 2d) put Stuart with Fitz Lee's and Chambliss's commands on the left in the afternoon; Taylor says evening for the cavalry Stuart accompanied and Kidd for Stuart. The resolution's default is the afternoon with no hour; the gate keeps the Q04 floor 19:32 (the evening reading, later than the default; gating rule 4; not moved or lowered here; owner decision)",
      "sources": []
     },
     "latest": {
@@ -12128,7 +12500,7 @@
      "sources": []
     }
    },
-   "default_basis": "C-023 register default 'brigades in the evening'; gating rule 4",
+   "default_basis": "C-023 delegated resolution v2 (weighted, documented): Lee (afternoon) and McClellan (afternoon of the 2d) put Stuart with Fitz Lee's and Chambliss's commands on the left in the afternoon; Taylor says evening for the cavalry Stuart accompanied and Kidd for Stuart. The resolution's default is the afternoon with no hour; the gate keeps the Q04 floor 19:32 (the evening reading, later than the default; gating rule 4; not moved or lowered here; owner decision)",
    "default_status": "PENDING OWNER (checker convention from the PDF named period / C-nnn recommended default; not a printed clock)",
    "null_reason": "'Jul 2 evening (brigades arrive that evening)': named period, no clock time",
    "unit": "cs-cav-flee-chambliss",
@@ -12150,7 +12522,7 @@
     },
     "default": {
      "period": "evening",
-     "basis": "gating rule 4",
+     "basis": "C-023 delegated resolution v2 (weighted, documented): Jenkins's brigade was with Ewell from the crossing of the Potomac (Lee July 1863; Taylor 1877) and came under Stuart on July 3 (Stuart pp. 697-698); 19:32 on Jul 2 is NOT an arrival event for Jenkins. The value is kept only as the Q04 floor of Stuart's brigades (gating rule 4), not moved or lowered here (owner decision)",
      "sources": []
     },
     "latest": {
@@ -12159,7 +12531,7 @@
      "sources": []
     }
    },
-   "default_basis": "gating rule 4",
+   "default_basis": "C-023 delegated resolution v2 (weighted, documented): Jenkins's brigade was with Ewell from the crossing of the Potomac (Lee July 1863; Taylor 1877) and came under Stuart on July 3 (Stuart pp. 697-698); 19:32 on Jul 2 is NOT an arrival event for Jenkins. The value is kept only as the Q04 floor of Stuart's brigades (gating rule 4), not moved or lowered here (owner decision)",
    "default_status": "PENDING OWNER (checker convention from the PDF named period / C-nnn recommended default; not a printed clock)",
    "null_reason": "cell states 'Jun 29 at Carlisle with Ewell; attached to Stuart Jul 3': no arrival time on the field",
    "unit": "cs-cav-jenkins",

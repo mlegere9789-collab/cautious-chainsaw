@@ -168,7 +168,7 @@ test('the state changes are the ones the schedule prints: Bliss buildings burn o
   const lvl = (id, t, sc = 'default') => visualOf('building', E.stateAt(id, msOfMin(t), sc));
   for (const id of ['bld-bliss-farm#house', 'bld-bliss-farm#barn']) { assert.deepEqual([lvl(id, t0m(2, 23, 59)).A[0], lvl(id, t0m(2, 23, 59)).B[0]], [0, 0]); assert.equal(lvl(id, t0m(3, 12)).uncertain, true); assert.equal(lvl(id, t0m(4, 0, 0)).B[0], 1); assert.equal(lvl(id, t0m(4, 0, 0)).mix, 0); }
   for (let t = t0m(-3); t < t0m(40); t += 97) { const v = lvl('bld-mcpherson-farm#barn', t); assert.equal(Math.max(v.A[0], v.B[0]), 0); }
-  const sherfy = id => lvl('bld-sherfy-farm#barn', t0m(2, 22), id); assert.equal(sherfy('jul2_evening_c026').uncertain, true); assert.equal(sherfy('default').uncertain, false); assert.equal(lvl('bld-sherfy-farm#barn', t0m(4, 1), 'jul2_evening_c026').B[0], 1);
+  const sherfy = id => lvl('bld-sherfy-farm#barn', t0m(2, 22), id); assert.equal(sherfy('jul2_evening_c026').uncertain, true); assert.equal(sherfy('default').uncertain, true); assert.equal(sherfy('jul3_afternoon_b87').uncertain, false); assert.equal(lvl('bld-sherfy-farm#barn', t0m(4, 1), 'jul2_evening_c026').B[0], 1);
   const f = t => visualOf('fence', E.stateAt('FEN-emmitsburg-road', msOfMin(t))); const early = f(t0m(3, 15, 29)); assert.equal(early.A[1], 0); assert.equal(early.B[1], 0);
   const mid = f(t0m(3, 16, 0)); assert.ok(mid.mix > 0.5 && mid.mix < 0.8); assert.equal(f(t0m(3, 17)).A[0], 0.5);
   assert.ok(model.objects.some(o => o.cls === 'fences' && o.state_id === 'FEN-emmitsburg-road'), 'no fence line is attributed to the Emmitsburg Road record');

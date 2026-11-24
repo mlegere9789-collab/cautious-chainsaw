@@ -19,3 +19,11 @@
 | Agent recommendation | Keep the substitute, keep it marked; replace it when a source is found. |
 | Status | open |
 | Owner decision and date | (filled only from the Decision Log) |
+
+## Conflict resolution update 2026-11-24 [reader-applied C-045 EG-FX-G09]
+
+C-045 delegated resolution v2 (2026-11-24; class gap, tier plausible-procedural; reversible by the owner; not an owner decision): Light wind, drawn at 2 to 6 mph (marked stand-in)
+
+What changes in this entry: Open gap entry for the wind: to record the class gap, the common origin of the two figures, the period words and the unsettled direction.
+
+The entry's status, owner decision and product marking above are unchanged until the owner confirms; the earlier wording stays as history.

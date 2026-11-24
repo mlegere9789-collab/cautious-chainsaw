@@ -44,8 +44,8 @@ add('us-aop-hq', 'night', 'Jul 1: Taneytown, then to Cemetery Hill after midnigh
 add('us-aop-hq', 'night', 'Jul 2: Leister house (council of war 21:00 to midnight window)', R(WHY.HQ, { place: 'Leister house', d: '07-02', t: '21:00', pb: 'the council of war window opens at 21:00' }));
 add('us-aop-hq', 'night', 'Jul 3: Leister house made untenable by the cannonade', R(WHY.HQ + '; date only, no clock', { place: 'Leister house', d: '07-03' }));
 add('us-aop-hq', 'night', 'Meade moves to Powers Hill', R(WHY.HQ + '; date only (the Jul 3 entry), no clock', { place: 'Powers’ Hill', d: '07-03' }));
-add('us-aop-hq', 'first', 'Evergreen gatehouse, Cemetery Hill: after midnight Jul 1-2 (about 00:00-01:00)', R(WHY.HQ + '; one of the values of the headquarters’ arrival (C-001)', { place: 'Evergreen gatehouse', d: '07-02', t: '00:00', tt: '01:00' }));
-add('us-aop-hq', 'first', 'alternative about 04:00 (EPP)', R(WHY.HQ + '; the alternative value of C-001 (EPP, a weak source)', { place: 'Evergreen gatehouse', d: '07-02', t: '04:00', pb: 'the preceding clause of the same cell' }));
+add('us-aop-hq', 'first', 'Evergreen gatehouse, Cemetery Hill: after midnight Jul 1-2 (about 00:00-01:00)', R(WHY.HQ + '; one of the values of the headquarters’ arrival (C-001)', { place: 'Evergreen gatehouse', d: '07-02', t: '00:00', tt: '01:00', pb: 'C-001 delegated resolution v2: the record documents about 01:00 (Meade) to about 02:00 (Hunt); this entry carries the plan’s 00:00 (a lower bound by Haskell’s letter), selectable, not drawn earlier than the gate floor' }));
+add('us-aop-hq', 'first', 'alternative about 04:00 (EPP)', R(WHY.HQ + '; the alternative value of C-001 (EPP, a weak source); C-001 delegated resolution v2: the 04:00 has no source and is contradicted by Howard and Stannard (Meade on the field by about 03:00); it stays selectable', { place: 'Evergreen gatehouse', d: '07-02', t: '04:00', pb: 'the preceding clause of the same cell' }));
 add('us-aop-hq', 'left', 'Jul 5 morning learns Lee has left', U(WHY.CMD + '; ' + WHY.HQ));
 add('us-aop-hq', 'left', 'pursuit of corps by corps is a gap except Sedgwick, Slocum, Howard, French', U(WHY.GAP + ' for the pursuit (except four corps commanders) and names no place or time'));
 
@@ -157,7 +157,7 @@ add('us-2c-art', 'left', 'Gap', U(WHY.GAP));
 
 // ===== III Corps =====
 add('us-3c', 'key', 'Jul 2 about 12:00-14:00 advance to Emmitsburg Road', S({ id: 'PO-05', place: 'Emmitsburg Road', d: '07-02', t: '14:00', dep: '12:00', req: true,
-  note: 'A road is a line: the unit goes to the point of the road nearest where it stood. The window is carried as step-off 12:00, arrival 14:00; C-010 (Sickles’ advance, noon / 14:00 / 16:00) is not applied because its 16:00 value lies outside the printed window.' }));
+  note: 'A road is a line: the unit goes to the point of the road nearest where it stood. The window is carried as step-off 12:00, arrival 14:00 (the ledger’s printed window). C-010 delegated resolution v2 (irreducible, documented): the advance of the Third Corps to the Emmitsburg road and the Peach Orchard is a window of about 14:00 to 16:00 drawn at 14:00 (earliest_documented), and noon is a separate, earlier and shorter move (Humphreys 400-500 yards, noon; Humphreys’ report puts his advance to the road at about 4 p. m.); the clause keeps the printed step-off 12:00 and arrival 14:00, and the resolution’s later end 16:00 lies outside the printed window, so it is a selectable scenario and not scheduled here (not a contradiction of the printed clause).' }));
 add('us-3c', 'key', '18:00 collapse', U(WHY.NOPL));
 add('us-3c', 'night', 'Jun 29-30: gap (III Corps near Bridgeport/Emmitsburg area is unconfirmed)', U(WHY.GAP));
 add('us-3c', 'night', 'Jul 1: Birney on Cemetery Ridge', R('restates the dusk entry PO-04 (Cemetery Ridge); the unit already stands there', { units: ['us-3c-1d'], place: 'Cemetery Ridge', d: '07-01', np: 'night' }));
@@ -335,7 +335,7 @@ add('cs-1c-mclaws', 'first', '08:00 Jul 2 behind Seminary Ridge', S({ place: 'Se
 add('cs-1c-mclaws', 'left', 'Gap', U(WHY.GAP));
 
 add('cs-1c-hood', 'key', 'Jul 2 15:30 Biesecker’s Woods', S({ place: 'Biesecker’s Woods', d: '07-02', t: '15:30' }));
-add('cs-1c-hood', 'key', '16:30 step-off', AC({ activity: 'march', d: '07-02', t: '16:30' }));
+add('cs-1c-hood', 'key', '16:30 step-off', AC({ activity: 'march', d: '07-02', t: '16:30', note: 'C-011 delegated resolution v2 (weighted, inferred): the step-off is the window 16:00-16:30 (guns about 16:00, Hood’s infantry soon after; Bane’s report, OR 27/2 p. 410, gives 4.30 for one regiment), drawn at 16:15 (midpoint) in the default scenario (decisions/conflict_defaults.json C-011); the clause carries the ledger’s printed 16:30, the later end of the window, because a time must be printed in the phrase. 16:00 and 16:30 stay selectable.' }));
 add('cs-1c-hood', 'key', 'Jul 3 Law commands the division at the base of Big Round Top', R('date only, no clock (a stop needs a time)', { place: 'Big Round Top', d: '07-03', pb: '“at the base of” the hill: the hill is the printed place' }));
 add('cs-1c-hood', 'night', 'Jul 1-2: Marsh Creek about 01:00', U('Marsh Creek is a long stream (the gazetteer’s is 4.4 km wide); the cell does not say where on it'));
 add('cs-1c-hood', 'night', 'resumes 03:30', AC({ activity: 'march', d: '07-02', t: '03:30' }));
@@ -349,9 +349,9 @@ add('cs-1c-pickett', 'key', 'Jul 3 by noon: three brigades west of the Emmitsbur
 add('cs-1c-pickett', 'key', 'about 14:00-15:00 step-off', AC({ activity: 'march', d: '07-03', t: '14:00', tt: '15:00' }));
 add('cs-1c-pickett', 'night', 'Jun 26-30: gap', U(WHY.GAP));
 add('cs-1c-pickett', 'night', 'Jul 1: absent', U('the division was not on the field on Jul 1'));
-add('cs-1c-pickett', 'night', 'Jul 2 night: Seminary Ridge area (disputed)', R('disputed: the row’s arrival is UNRESOLVED (C-021); recorded, not scheduled', { place: 'Seminary Ridge', d: '07-02', np: 'night' }));
+add('cs-1c-pickett', 'night', 'Jul 2 night: Seminary Ridge area (disputed)', R('disputed: the row’s arrival is UNRESOLVED (C-021); recorded, not scheduled. C-021 delegated resolution v2 (weighted, documented): the statement holds only for the division’s artillery at dusk (Dearing’s guns on the field about dusk of the 2d); the infantry lay about four miles out until 3 a. m. on the 3d and reached the field the morning of Jul 3, so the clause is not a position of the division', { place: 'Seminary Ridge', d: '07-02', np: 'night' }));
 add('cs-1c-pickett', 'night', 'Jul 3 night: gap', U(WHY.GAP));
-add('cs-1c-pickett', 'first', 'UNRESOLVED: begins marching to Gettysburg 06:00 Jul 2 (EPP)', U(WHY.ARR + ' (C-021)'));
+add('cs-1c-pickett', 'first', 'UNRESOLVED: begins marching to Gettysburg 06:00 Jul 2 (EPP)', U(WHY.ARR + ' (C-021); C-021 delegated resolution v2: no source for the 06:00 start (the infantry started from four miles out at 03:00 on Jul 3, Aylett and Peyton); recorded, not scheduled'));
 add('cs-1c-pickett', 'first', 'on the field the night of Jul 2 (W-D2, Phifer)', U(WHY.ARR + ' (C-021)'));
 add('cs-1c-pickett', 'first', 'not until Jul 3 (SS2)', U(WHY.ARR + ' (C-021)'));
 add('cs-1c-pickett', 'first', 'no order reached Pickett to be on the field by daylight Jul 3 (W-PC)', U(WHY.ARR + ' (C-021)'));

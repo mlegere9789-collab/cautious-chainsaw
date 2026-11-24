@@ -30,7 +30,21 @@ class ChildFailed(RuntimeError):
     pass
 
 
-def layer_dump(env, script, extra_args=(), mutate=None, timeout=1800):
+FULL_SCAN_CHUNKS = int(os.environ.get('BT_GATES_CHUNKS', '1'))      # >1 splits a complete S* scan into that many node processes (every n-th scenario each) and merges the dumps; the cause of the earlier out-of-memory (every scenario's records kept at once) is fixed in q456_lib.mjs unitBehaviours, so 1 is the default
+
+
+def layer_dump(env, script, extra_args=(), mutate=None, timeout=1800, chunks=None):
+    """A complete S* scan is run as FULL_SCAN_CHUNKS node processes and merged (q456_chunks.py); anything else in one."""
+    extra_args = list(extra_args)
+    full = ('S*' in extra_args) and not ({'--units', '--only'} & set(extra_args)) and script in ('q04_arrival.mjs', 'q05_speed.mjs', 'q06_path.mjs')
+    n = chunks if chunks is not None else (FULL_SCAN_CHUNKS if full else 1)
+    if n <= 1:
+        return _layer_dump(env, script, extra_args, mutate, timeout)
+    from q456_chunks import merge
+    return merge([_layer_dump(env, script, extra_args + ['--chunk', '%d/%d' % (i, n)], mutate, timeout) for i in range(n)])
+
+
+def _layer_dump(env, script, extra_args=(), mutate=None, timeout=1800):
     """Run `node <script> --out <tmp> [args]` and return the parsed dump. Raises ChildFailed (runner error, exit code 3) when the child fails or writes nothing."""
     fd, tmp = tempfile.mkstemp(prefix='gate-dump-', suffix='.json')
     os.close(fd)

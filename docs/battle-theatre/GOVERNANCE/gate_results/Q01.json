@@ -8,7 +8,7 @@
   "NOT-RUN": 0,
   "PASS": 2069
  },
- "finished_utc": "2026-11-24T04:36:50Z",
+ "finished_utc": "2026-11-24T18:13:56Z",
  "gate": "Q01",
  "incomplete_reasons": [
   "1238 item(s) NOT-RUN or BLOCKED-INPUT",
@@ -16,7 +16,7 @@
   "time grid: 3271 of 27360 integer minutes evaluated directly (breakpoints+hourly)"
  ],
  "input_hashes": {
-  "docs/battle-theatre/GOVERNANCE/conflicts_structured.json": "e21953ec5a4e4a9e69bd25e8f207d4abd84ba7d10619fb9bdd66518459421e4a",
+  "docs/battle-theatre/GOVERNANCE/conflicts_structured.json": "8dda5d91e0021309e1261e62a7a020b2f5b5d6645745dec8663f1710620f70da",
   "docs/battle-theatre/GOVERNANCE/gate_results/thresholds.json": "7d7264ba373465255031d29c266d9b8fad5a506e654ffe856545aa3513fe1faf",
   "docs/battle-theatre/app/data/placement-claims.json": "a3f736b5787d755ad255d478042bafdaf78ae4c5d2a7b9b341a04b1179bf8393",
   "docs/battle-theatre/app/src/history/arrivals.mjs": "7d9c818856d0b7d1650ef3d9b91270acf5c3ef832d14d4081924c56194cdd787",
@@ -24,7 +24,7 @@
   "docs/battle-theatre/app/src/history/strength.mjs": "fb1cf5a54656af70ee655975f3b10afd795477b3bf968be120f32b9ef8eec7c2",
   "docs/battle-theatre/app/src/stage.mjs": "fa0ed1c749c503a8e9575625b0f52b437fbcbd56f68913c4030b1847be9e928b",
   "docs/battle-theatre/app/src/world-from-units.mjs": "b9c1d5cc691ef5266e9ce2edaf5707f6f0616bad81f6ef92ddb3e889b21fe5b9",
-  "docs/battle-theatre/history/arrivals.json": "373d3a167a43219241ca8cdf0d536d302ae3e745b35b04e278d8d3dc5397d3f1",
+  "docs/battle-theatre/history/arrivals.json": "03c13a35620c416e29972ef7d311b775f3f0674562af6b6545dc98f34958bbce",
   "docs/battle-theatre/history/not_on_field.json": "1ff7c3f4a07130a4dd53f0c40eb503f799d2db0a79b2e51a7cfc01f1c93cbc1f",
   "docs/battle-theatre/history/units.json": "0957b6e9e24644d5a8f79504f721a315088a371e17856aca808f25bda66c42be",
   "docs/battle-theatre/kit/evidence/sources.json": "ad1ab0308caa76432444ceefaf0d0e32b3528822ccfe0aab3a1c2d1d8f9209d9",
@@ -34,16 +34,16 @@
   "docs/battle-theatre/kit/evidence/us-3c-1d.jsonl": "20ea7a6735aca3769550f4899c9c19bfbe933ebfc2fe2a0bd9efd1834323fa97",
   "docs/battle-theatre/kit/verified_oob.json": "a00dd340185de9045849503cd03a8f2b0ae7ec72e0692d3ef45d26b531e322eb",
   "tools/bt/gates/oob_layer_lib.mjs": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d",
-  "tools/bt/gates/oobgates_common.py": "86bb514bfebcf4b090a9c452ffeb973cd1de82040107988eca9e4ef91e4af409",
+  "tools/bt/gates/oobgates_common.py": "07b487e540b94c171db4e50ffe73575d3dfa01ea633085eb9074c6d7ad760002",
   "tools/bt/gates/q01_layer.mjs": "d3aeb1d12ee674131a30428a02997d372bcbef03957472a753ec519caea2694c",
   "tools/bt/gates/q01_oob.py": "fbe0c83498f2c5a93e6a1e466eee5ecdbd693ae0c3e518841f7688e8882337c2"
  },
  "inputs": [
   {
-   "bytes": 18048,
+   "bytes": 22795,
    "path": "docs/battle-theatre/GOVERNANCE/conflicts_structured.json",
    "role": "data",
-   "sha256": "e21953ec5a4e4a9e69bd25e8f207d4abd84ba7d10619fb9bdd66518459421e4a"
+   "sha256": "8dda5d91e0021309e1261e62a7a020b2f5b5d6645745dec8663f1710620f70da"
   },
   {
    "bytes": 17633,
@@ -88,10 +88,10 @@
    "sha256": "b9c1d5cc691ef5266e9ce2edaf5707f6f0616bad81f6ef92ddb3e889b21fe5b9"
   },
   {
-   "bytes": 324831,
+   "bytes": 361301,
    "path": "docs/battle-theatre/history/arrivals.json",
    "role": "data",
-   "sha256": "373d3a167a43219241ca8cdf0d536d302ae3e745b35b04e278d8d3dc5397d3f1"
+   "sha256": "03c13a35620c416e29972ef7d311b775f3f0674562af6b6545dc98f34958bbce"
   },
   {
    "bytes": 7468,
@@ -148,10 +148,10 @@
    "sha256": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d"
   },
   {
-   "bytes": 12137,
+   "bytes": 13001,
    "path": "tools/bt/gates/oobgates_common.py",
    "role": "runner",
-   "sha256": "86bb514bfebcf4b090a9c452ffeb973cd1de82040107988eca9e4ef91e4af409"
+   "sha256": "07b487e540b94c171db4e50ffe73575d3dfa01ea633085eb9074c6d7ad760002"
   },
   {
    "bytes": 7891,
@@ -66850,7 +66850,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44970, default 45030, latest 45150",
+      "detail": "earliest 44970, default 44970, latest 45150",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -66872,7 +66872,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": null,
      "latest": 45150,
@@ -66912,7 +66912,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": {
       "lat": 39.86839308107356,
@@ -66956,7 +66956,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": {
       "lat": 39.86895045896923,
@@ -67000,7 +67000,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": {
       "lat": 39.86684444892812,
@@ -67044,7 +67044,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": {
       "lat": 39.8673443085134,
@@ -67088,7 +67088,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": {
       "lat": 39.86786099453861,
@@ -67125,7 +67125,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": null,
      "latest": 45090,
@@ -67164,7 +67164,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": {
       "lat": 39.870064455819254,
@@ -67208,7 +67208,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": {
       "lat": 39.87021,
@@ -67252,7 +67252,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": {
       "lat": 39.87021,
@@ -67296,7 +67296,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": {
       "lat": 39.8695078368649,
@@ -67333,7 +67333,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": null,
      "latest": 45090,
@@ -67372,7 +67372,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": {
       "lat": 39.87021,
@@ -67668,7 +67668,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": {
       "lat": 39.86563945140599,
@@ -67712,7 +67712,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": {
       "lat": 39.865262432734404,
@@ -67756,7 +67756,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": {
       "lat": 39.86602907811715,
@@ -67800,7 +67800,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": {
       "lat": 39.86642915836518,
@@ -67837,7 +67837,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": null,
      "latest": 45090,
@@ -67869,7 +67869,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": null,
      "latest": 45090,
@@ -70715,7 +70715,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": null,
      "latest": 45150,
@@ -70748,7 +70748,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45030,
+     "default": 44970,
      "earliest": 44970,
      "entry": null,
      "latest": 45150,
@@ -78104,7 +78104,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44010, default 44010, latest 44070",
+      "detail": "earliest 44010, default 44040, latest 44070",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -78126,7 +78126,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44010,
+     "default": 44040,
      "earliest": 44010,
      "entry": null,
      "latest": 44070,
@@ -89521,7 +89521,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44640, default 44760, latest 44760",
+      "detail": "earliest 44640, default 44640, latest 44760",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -89543,7 +89543,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -89581,7 +89581,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44640, default 44760, latest 44760",
+      "detail": "earliest 44640, default 44640, latest 44760",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -89603,7 +89603,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -89641,7 +89641,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44640, default 44760, latest 44760",
+      "detail": "earliest 44640, default 44640, latest 44760",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -89663,7 +89663,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -89701,7 +89701,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44640, default 44760, latest 44760",
+      "detail": "earliest 44640, default 44640, latest 44760",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -89723,7 +89723,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -89761,7 +89761,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44640, default 44760, latest 44760",
+      "detail": "earliest 44640, default 44640, latest 44760",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -89783,7 +89783,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -89821,7 +89821,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44640, default 44760, latest 44760",
+      "detail": "earliest 44640, default 44640, latest 44760",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -89843,7 +89843,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -89881,7 +89881,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44640, default 44760, latest 44760",
+      "detail": "earliest 44640, default 44640, latest 44760",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -89899,7 +89899,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -89939,7 +89939,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": {
       "lat": 39.75919,
@@ -89984,7 +89984,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": {
       "lat": 39.75919,
@@ -90029,7 +90029,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": {
       "lat": 39.75919,
@@ -90074,7 +90074,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": {
       "lat": 39.75919,
@@ -90119,7 +90119,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": {
       "lat": 39.75919,
@@ -90164,7 +90164,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": {
       "lat": 39.75919,
@@ -90202,7 +90202,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -90240,7 +90240,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44640, default 44760, latest 44760",
+      "detail": "earliest 44640, default 44640, latest 44760",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -90262,7 +90262,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -90300,7 +90300,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44640, default 44760, latest 44760",
+      "detail": "earliest 44640, default 44640, latest 44760",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -90322,7 +90322,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -90360,7 +90360,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44640, default 44760, latest 44760",
+      "detail": "earliest 44640, default 44640, latest 44760",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -90382,7 +90382,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -90420,7 +90420,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44640, default 44760, latest 44760",
+      "detail": "earliest 44640, default 44640, latest 44760",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -90442,7 +90442,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -90480,7 +90480,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44640, default 44760, latest 44760",
+      "detail": "earliest 44640, default 44640, latest 44760",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -90502,7 +90502,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -90540,7 +90540,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44640, default 44760, latest 44760",
+      "detail": "earliest 44640, default 44640, latest 44760",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -90562,7 +90562,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -90624,7 +90624,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44640, default 44760, latest 44760",
+      "detail": "earliest 44640, default 44640, latest 44760",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -90642,7 +90642,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -90675,7 +90675,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 44760,
+     "default": 44640,
      "earliest": 44640,
      "entry": null,
      "latest": 44760,
@@ -91039,7 +91039,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44940, default 45120, latest 45120",
+      "detail": "earliest 44940, default 45060, latest 45120",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -91057,7 +91057,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": null,
      "latest": 45120,
@@ -91097,7 +91097,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.81920109892156,
@@ -91142,7 +91142,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.81905878678571,
@@ -91187,7 +91187,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.819335468956865,
@@ -91225,7 +91225,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": null,
      "latest": 45120,
@@ -91265,7 +91265,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.81946849968899,
@@ -91310,7 +91310,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.81990949794121,
@@ -91355,7 +91355,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.81960816739089,
@@ -91400,7 +91400,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.819767301723786,
@@ -91438,7 +91438,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": null,
      "latest": 45120,
@@ -91478,7 +91478,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.81892175231649,
@@ -91523,7 +91523,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.823296744624265,
@@ -91568,7 +91568,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.8187826088276,
@@ -91613,7 +91613,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.81858799224888,
@@ -91651,7 +91651,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": null,
      "latest": 45120,
@@ -91684,7 +91684,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": null,
      "latest": 45120,
@@ -91724,7 +91724,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.821360815094046,
@@ -91769,7 +91769,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.821124733824426,
@@ -91814,7 +91814,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.8208983762798,
@@ -91859,7 +91859,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.82183383661502,
@@ -91904,7 +91904,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.821596052528704,
@@ -91942,7 +91942,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": null,
      "latest": 45120,
@@ -91982,7 +91982,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.822309404787646,
@@ -92027,7 +92027,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.82207162070133,
@@ -92072,7 +92072,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.823019291328436,
@@ -92117,7 +92117,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.82277883180538,
@@ -92162,7 +92162,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.82255053878677,
@@ -92200,7 +92200,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": null,
      "latest": 45120,
@@ -92240,7 +92240,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.82067213660339,
@@ -92285,7 +92285,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.82044646531217,
@@ -92330,7 +92330,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.82006548086423,
@@ -92375,7 +92375,7 @@
      "tier": "inferred"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.82022797751458,
@@ -92413,7 +92413,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": null,
      "latest": 45120,
@@ -92446,7 +92446,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": null,
      "latest": 45120,
@@ -92990,7 +92990,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.81813792888197,
@@ -93035,7 +93035,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.81793144315145,
@@ -93080,7 +93080,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.81834315409979,
@@ -93125,7 +93125,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.81771126164495,
@@ -93170,7 +93170,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": {
       "lat": 39.817484120682906,
@@ -93208,7 +93208,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": null,
      "latest": 45120,
@@ -93241,7 +93241,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45120,
+     "default": 45060,
      "earliest": 44940,
      "entry": null,
      "latest": 45120,
@@ -93281,7 +93281,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.782450023549806,
@@ -93326,7 +93326,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.78288081420071,
@@ -93371,7 +93371,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.7820192333981,
@@ -93416,7 +93416,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.781588443246406,
@@ -93454,7 +93454,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": null,
      "latest": 45660,
@@ -93494,7 +93494,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.780290512730915,
@@ -93539,7 +93539,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.780726862943,
@@ -93584,7 +93584,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77985474997888,
@@ -93629,7 +93629,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.7811576530947,
@@ -93667,7 +93667,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": null,
      "latest": 45660,
@@ -93707,7 +93707,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.783311868639395,
@@ -93752,7 +93752,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.78460350848253,
@@ -93797,7 +93797,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.78417277552408,
@@ -93842,7 +93842,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.78374292307807,
@@ -93880,7 +93880,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": null,
      "latest": 45660,
@@ -93913,7 +93913,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": null,
      "latest": 45660,
@@ -93976,7 +93976,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.779415667569246,
@@ -94021,7 +94021,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77897780791116,
@@ -94066,7 +94066,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94111,7 +94111,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94156,7 +94156,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94194,7 +94194,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": null,
      "latest": 45660,
@@ -94234,7 +94234,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94279,7 +94279,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94324,7 +94324,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94369,7 +94369,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94414,7 +94414,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94459,7 +94459,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94497,7 +94497,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": null,
      "latest": 45660,
@@ -94530,7 +94530,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": null,
      "latest": 45660,
@@ -94570,7 +94570,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94615,7 +94615,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94660,7 +94660,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94705,7 +94705,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94743,7 +94743,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": null,
      "latest": 45660,
@@ -94783,7 +94783,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94828,7 +94828,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94873,7 +94873,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94918,7 +94918,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -94963,7 +94963,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -95001,7 +95001,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": null,
      "latest": 45660,
@@ -95041,7 +95041,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -95086,7 +95086,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -95131,7 +95131,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -95176,7 +95176,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -95214,7 +95214,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": null,
      "latest": 45660,
@@ -95247,7 +95247,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": null,
      "latest": 45660,
@@ -95287,7 +95287,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -95332,7 +95332,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -95377,7 +95377,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -95422,7 +95422,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -95467,7 +95467,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -95512,7 +95512,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -95557,7 +95557,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -95602,7 +95602,7 @@
      "tier": "plausible-procedural"
     },
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": {
       "lat": 39.77863,
@@ -95640,7 +95640,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": null,
      "latest": 45660,
@@ -95673,7 +95673,7 @@
    "evidence": {
     "approach": null,
     "record": {
-     "default": 45480,
+     "default": 45540,
      "earliest": 45480,
      "entry": null,
      "latest": 45660,
@@ -99244,7 +99244,7 @@
       "ok": true
      },
      {
-      "detail": "earliest 44100, default 44100, latest 44190",
+      "detail": "earliest 44100, default 44160, latest 44190",
       "name": "window: earliest <= default <= latest, all given",
       "ok": true
      },
@@ -99266,7 +99266,7 @@
     ],
     "layer_only_result": "FAIL",
     "record": {
-     "default": 44100,
+     "default": 44160,
      "earliest": 44100,
      "entry": null,
      "latest": 44190,
@@ -134261,7 +134261,7 @@
   "Q01.6: the scenario set S* (every combination of source-conflict values inside each interaction group) was not enumerated; this run covered 7 scenario(s): default and the six sample scenarios of history.test.mjs: a sample, never S*"
  ],
  "renderer_class": "mixed",
- "run_id": "20261124T043627Z-Q01",
+ "run_id": "20261124T181339Z-Q01",
  "runnable_here": true,
  "runner_files": [
   "oob_layer_lib.mjs",
@@ -134269,7 +134269,7 @@
   "q01_layer.mjs",
   "q01_oob.py"
  ],
- "runner_version": "46e208f2cbef30e6",
+ "runner_version": "79d9b4803d5e5a87",
  "scenario_set": {
   "complete": false,
   "count": 7,
@@ -134278,7 +134278,7 @@
   "note": "default and the six sample scenarios of history.test.mjs: a sample, never S*"
  },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T04:36:27Z",
+ "started_utc": "2026-11-24T18:13:39Z",
  "table": {
   "diagnostic_copy": false,
   "path": "docs/battle-theatre/kit/verified_oob.json",

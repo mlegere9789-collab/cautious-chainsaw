@@ -57,7 +57,7 @@ def split_sources(v):
             s = x.strip()
             if not s:
                 continue
-            parts = [p.strip() for p in re.split(r'[;,]\s*', s) if p.strip()] if (';' in s or (',' in s and len(s) < 120)) else [s]
+            parts = [p.strip() for p in re.split(r'[;,]\s*(?![^()]*\))', s) if p.strip()] if (';' in s or (',' in s and len(s) < 120)) else [s]
             for p in parts:
                 if KEY_TOKEN.match(p):
                     out.append(p)

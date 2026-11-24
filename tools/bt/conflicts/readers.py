@@ -70,7 +70,7 @@ def build_index():
     for n, line in enumerate(_read(dl).split('\n'), 1):
         if line.startswith('## '):
             skip = line.startswith('## DEC-DELEG-J ')
-        if skip:
+        if skip or '[reader-applied' in line:   # the update lines written by apply_readers.py record a resolution; they are not readers
             continue
         m = re.match(r'##\s+(DEC-[A-Z]?\d+)', line)
         if m:
@@ -85,7 +85,7 @@ def build_index():
         skip = False
         for n, line in enumerate(_read(p).split('\n'), 1):
             if line.startswith('## '):
-                skip = line.startswith('## DEC-DELEG-J ')
+                skip = line.startswith('## DEC-DELEG-J ') or '[reader-applied' in line   # sections written by apply_readers.py record a resolution
             if skip:
                 continue
             for cid in _ids(line):

@@ -177,8 +177,9 @@ def dump_json(path, obj):
 class FakeOcr:
     """What q14_ordnance.OcrStore gives the runner: whether a manual phrase and a printed figure are found again in the OCR text."""
 
-    def __init__(self, phrase='found', window='found'):
+    def __init__(self, phrase='found', window='found', max_words=14):
         self._p, self._w = phrase, window
+        self.max_words = max_words  # same attribute as q14_ordnance.OcrStore (T-Q02-1)
 
     def phrase(self, manual, phrase):
         return self._p

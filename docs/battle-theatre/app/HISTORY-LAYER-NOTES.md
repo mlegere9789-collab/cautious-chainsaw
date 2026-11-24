@@ -344,9 +344,9 @@ Day stops: 473 day entries over the drawn leaf units (one per unit and day), **4
 
 Arrival time of the day stops, by hour of the day (modelled: the unit leaves as soon as the record allows, so a stop of a new day is reached just after local midnight when the previous position is near; this is a property of the rule, not a historical claim, and the card gives the whole window):
 
-| hour | 00 | 01 | 02 | 03 | 06 | 07 | 09 | 11 | 12 | 14 | 15 | 16 | 19 | 20 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| day stops | 242 | 59 | 3 | 6 | 4 | 27 | 4 | 12 | 9 | 5 | 21 | 10 | 34 | 5 |
+| hour | 00 | 01 | 02 | 06 | 07 | 09 | 11 | 12 | 14 | 16 | 19 | 20 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| day stops | 242 | 65 | 3 | 4 | 27 | 4 | 12 | 9 | 5 | 31 | 34 | 5 |
 
 ### Troop-map positions against the ledgers
 
@@ -957,7 +957,7 @@ How the unresolved clauses divide by the kind of reason (the reason itself is on
 | CL-009 | `us-aop-hq` | night | Jul 3: Leister house made untenable by the cannonade | record | Leister house (40) | 07-03 | inferred | recorded: a headquarters entry: no figure, never drawn; date only, no clock |
 | CL-010 | `us-aop-hq` | night | Meade moves to Powers Hill | record | Powers’ Hill (250) | 07-03 | inferred | recorded: a headquarters entry: no figure, never drawn; date only (the Jul 3 entry), no clock |
 | CL-011 | `us-aop-hq` | first | Evergreen gatehouse, Cemetery Hill: after midnight Jul 1-2 (about 00:00-01:00) | record | Evergreen gatehouse (40) | 1863-07-02T00:00 | inferred | recorded: a headquarters entry: no figure, never drawn; one of the values of the headquarters’ arrival (C-001) |
-| CL-012 | `us-aop-hq` | first | alternative about 04:00 (EPP) | record | Evergreen gatehouse (40) | 1863-07-02T04:00 | inferred | recorded: a headquarters entry: no figure, never drawn; the alternative value of C-001 (EPP, a weak source) |
+| CL-012 | `us-aop-hq` | first | alternative about 04:00 (EPP) | record | Evergreen gatehouse (40) | 1863-07-02T04:00 | inferred | recorded: a headquarters entry: no figure, never drawn; the alternative value of C-001 (EPP, a weak source); C-001 delegated resolution v2: the 04:00 has no source and is contradicted by Howard and Stannard (Meade on the field by about 03:00); it stays selectable |
 | CL-017 | `us-hancock-acting` | night | Jul 1 night: Cemetery Hill / Cemetery Ridge | record | Cemetery Hill \| Cemetery Ridge | 1863-07-01T20:04 | inferred | recorded: two or more places are named and the cell does not say which part of the formation is at which; the places are recorded and no stop is scheduled; a person with no figure is not drawn |
 | CL-023 | `us-1c` | key | 10:20-10:30 McPherson Ridge | stop | McPherson Ridge (430) | 1863-07-01T10:20 | inferred | drives a drawn unit |
 | CL-024 | `us-1c` | key | 15:45-17:00 retreat through town to Cemetery Hill | stop | Cemetery Hill (250) | 1863-07-01T17:00 | inferred | drives a drawn unit |
@@ -1068,7 +1068,7 @@ How the unresolved clauses divide by the kind of reason (the reason itself is on
 | CL-257 | `cs-1c-hood` | first | 06:30 Jul 2 (range 05:30-07:30) behind Seminary Ridge | stop | Seminary Ridge (496) | 1863-07-02T06:30 | inferred | drives a drawn unit |
 | CL-258 | `cs-1c-hood` | first | Law’s brigade rejoins about noon after a march that began about 03:00 (EPP puts the start at 06:00) | activity |  | 1863-07-02T03:00 | plausible-procedural | drives a drawn unit |
 | CL-261 | `cs-1c-pickett` | key | about 14:00-15:00 step-off | activity |  | 1863-07-03T14:00 | plausible-procedural | drives a drawn unit |
-| CL-264 | `cs-1c-pickett` | night | Jul 2 night: Seminary Ridge area (disputed) | record | Seminary Ridge (496) | 1863-07-02T20:04 | inferred | recorded: disputed: the row’s arrival is UNRESOLVED (C-021); recorded, not scheduled |
+| CL-264 | `cs-1c-pickett` | night | Jul 2 night: Seminary Ridge area (disputed) | record | Seminary Ridge (496) | 1863-07-02T20:04 | inferred | recorded: disputed: the row’s arrival is UNRESOLVED (C-021); recorded, not scheduled. C-021 delegated resolution v2 (weighted, documented): the statement holds only for the division’s artillery at dusk (Dearing’s guns on the field about dusk of the 2d); the infantry lay about four miles out until 3 a. m. on the 3d and reached the field the morning of Jul 3, so the clause is not a position of the division |
 | CL-271 | `cs-1c-art` | key | Jul 2 16:00 Huger’s four batteries and Cabell open | activity |  | 1863-07-02T16:00 | plausible-procedural | drives a drawn unit |
 | CL-279 | `cs-2c` | key | 19:00-20:00 Culp’s Hill attack | record | Culp’s Hill (490) | 1863-07-02T19:00 | inferred | recorded: corps-level summary: the divisions’ own rows name which division is at which place (Johnson at Culp’s Hill) |
 | CL-280 | `cs-2c` | key | 19:30 East Cemetery Hill | record | East Cemetery Hill (250) | 1863-07-02T19:30 | inferred | recorded: corps-level summary: the divisions’ own rows name which division is at which place (Early at East Cemetery Hill) |
@@ -1265,7 +1265,7 @@ How the unresolved clauses divide by the kind of reason (the reason itself is on
 | CL-262 | `cs-1c-pickett` | night | Jun 26-30: gap | the ledger prints a gap |
 | CL-263 | `cs-1c-pickett` | night | Jul 1: absent | the division was not on the field on Jul 1 |
 | CL-265 | `cs-1c-pickett` | night | Jul 3 night: gap | the ledger prints a gap |
-| CL-266 | `cs-1c-pickett` | first | UNRESOLVED: begins marching to Gettysburg 06:00 Jul 2 (EPP) | a value of the unit’s arrival (an arrival conflict) that the arrival gate carries; this clause names no place (C-021) |
+| CL-266 | `cs-1c-pickett` | first | UNRESOLVED: begins marching to Gettysburg 06:00 Jul 2 (EPP) | a value of the unit’s arrival (an arrival conflict) that the arrival gate carries; this clause names no place (C-021); C-021 delegated resolution v2: no source for the 06:00 start (the infantry started from four miles out at 03:00 on Jul 3, Aylett and Peyton); recorded, not scheduled |
 | CL-267 | `cs-1c-pickett` | first | on the field the night of Jul 2 (W-D2, Phifer) | a value of the unit’s arrival (an arrival conflict) that the arrival gate carries; this clause names no place (C-021) |
 | CL-268 | `cs-1c-pickett` | first | not until Jul 3 (SS2) | a value of the unit’s arrival (an arrival conflict) that the arrival gate carries; this clause names no place (C-021) |
 | CL-269 | `cs-1c-pickett` | first | no order reached Pickett to be on the field by daylight Jul 3 (W-PC) | a value of the unit’s arrival (an arrival conflict) that the arrival gate carries; this clause names no place (C-021) |
@@ -1364,7 +1364,6 @@ Places that resolve but lie outside the loaded ground (6.2 x 6.1 km): Barlow's K
 | ledger_vs_edge PO-41 Cemetery Ridge | 14 | 32 to 39 | 4,662 to 5,768 |
 | ledger_vs_edge PO-60 Seminary Ridge | 22 | 21 to 58 | 3,113 to 8,491 |
 | ledger_vs_edge PO-46 Herr Ridge | 5 | 45 to 48 | 6,616 to 6,950 |
-| ledger_vs_edge PO-49 Seminary Ridge | 14 | 51 to 55 | 7,469 to 8,035 |
 | ledger_vs_edge PO-47 Seminary Ridge | 10 | 55 to 57 | 8,027 to 8,309 |
 | ledger_vs_edge PO-01 McPherson Ridge | 11 | 52 to 72 | 7,574 to 10,545 |
 | ledger_vs_edge PO-06 McPherson Ridge | 13 | 44 to 52 | 9,354 to 10,548 |
@@ -1374,7 +1373,6 @@ Places that resolve but lie outside the loaded ground (6.2 x 6.1 km): Barlow's K
 | ledger_vs_edge PO-71 Gettysburg (the borough) | 1 | 31 to 31 | 8,967 to 8,967 |
 | ledger_vs_edge PO-04 Cemetery Ridge | 19 | 50 to 50 | 7,338 to 7,387 |
 | ledger_vs_edge PO-28 Devil’s Den | 1 | 38 to 38 | 5,517 to 5,517 |
-| ledger_vs_edge PO-32 Powers’ Hill | 30 | 27 to 42 | 3,943 to 6,158 |
 | ledger_vs_edge PO-33 Little Round Top | 9 | 3 to 4 | 9,784 to 9,938 |
 | ledger_vs_edge PO-51 Barlow’s Knoll | 18 | 7 to 18 | 999 to 2,621 |
 | ledger_vs_edge PO-57 Oak Hill | 23 | 11 to 26 | 1,539 to 3,790 |

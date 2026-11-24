@@ -486,10 +486,12 @@ def check_q09(G):
     G.ok(state_at('RD-avenues', '1863-07-03T12:00')['state'] == 'does_not_exist_in_1863', 'avenues must not exist')
     G.ok(not any('RD-avenues' in r['object_ids'] for r in rows), 'avenues referenced by a schedule row')
     # Sherfy barn: scenarios exposed, B.8.7 printed reading is the engine default, nothing else chosen
-    G.ok(state_at('bld-sherfy-farm#barn', '1863-07-02T23:59')['state'] == 'Intact', 'Sherfy barn must be intact before Jul 3 (default)')
+    # C-026 delegated resolution v2: the default is the window Jul 2 to the end of Jul 3 (no instant): intact before the window opens, indeterminate inside it
+    G.ok(state_at('bld-sherfy-farm#barn', '1863-07-01T23:59')['state'] == 'Intact', 'Sherfy barn must be intact before the default window opens (Jul 2, C-026 v2)')
+    G.ok(state_at('bld-sherfy-farm#barn', '1863-07-02T23:59', 'default')['status'] == 'indeterminate_date_only', 'Sherfy default must be a flagged window across Jul 2 and Jul 3 (C-026 v2)')
     G.ok(state_at('bld-sherfy-farm#barn', '1863-07-04T00:00')['state'] == 'Burned', 'Sherfy barn must be burned by Jul 4')
     G.ok(state_at('bld-sherfy-farm#barn', '1863-07-03T00:00', 'jul2_evening_c026')['state'] == 'Burned', 'scenario jul2_evening_c026 not exposed')
-    G.ok(state_at('bld-sherfy-farm#barn', '1863-07-03T00:00', 'default')['status'] == 'indeterminate_date_only', 'Sherfy default must be a flagged Jul 3 date window')
+    G.ok(state_at('bld-sherfy-farm#barn', '1863-07-03T00:00', 'default')['status'] == 'indeterminate_date_only', 'Sherfy default must be a flagged date window')
     G.ok(set(scenarios_for('bld-sherfy-farm#barn')) >= {'default', 'jul3_afternoon_b87', 'jul2_evening_c026', 'flag_window_full'}, 'Sherfy scenarios incomplete')
     # Camp Letterman opening: both alternatives exposed, default undecided
     G.ok(state_at('H-23', '1863-07-21T12:00', 'open_jul20')['state'] == 'Open', 'Letterman open_jul20 scenario')

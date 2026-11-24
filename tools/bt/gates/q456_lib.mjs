@@ -31,6 +31,11 @@ export const BT = path.join(ROOT, 'docs', 'battle-theatre');
 export const APP = path.join(BT, 'app');
 export const imp = rel => import(pathToFileURL(path.join(APP, rel)).href);
 
+export function chunkOf(args) {                       // --chunk i/n -> {i, n} (null when the scan is not chunked)
+  if (!args.chunk || args.chunk === true) return null;
+  const m = /^(\d+)\/(\d+)$/.exec(String(args.chunk)); if (!m || +m[2] < 1 || +m[1] >= +m[2]) throw new Error('bad --chunk ' + args.chunk);
+  return { i: +m[1], n: +m[2] };
+}
 export function parseArgs(argv) {
   const a = { _: [] };
   for (let i = 0; i < argv.length; i++) {
@@ -169,14 +174,26 @@ export function buildScenarioSet(P, { mode = 'S*' } = {}) {
 
 // the behaviour of one unit in one scenario: its arrival record and its events (a sufficient statistic of everything the page draws for the unit: the stage, the guns, the crews, the train,
 // the manifests and the animation read nothing else of the scenario)
-export function unitBehaviours(layer, sc) {
-  const { arrivals, events } = layer.both({ choices: sc.choices, optionText: sc.optionText });
+// One scenario's arrivals and events weigh about 25 MB (726 units); S* holds 1,635 scenarios, so keeping them all needed about 40 GB and every full scan ran out of memory. The hashes (what the
+// factorisation and the "scanned already" bookkeeping need) are kept for every scenario; the records themselves are rebuilt on demand from the layer's own `both` (captured here, before a scan
+// restricts it with withUnits) and held for one scenario at a time. Nothing is dropped or sampled: the same records are read, only not all at once.
+const _slot = { sc: null, layer: null, val: null };
+function behaviourRecords(layer, both, sc) {
+  if (_slot.sc === sc && _slot.layer === layer) return _slot.val;
+  const { arrivals, events } = both.call(layer, { choices: sc.choices, optionText: sc.optionText });
   const by = new Map(), ev = new Map();
   for (const a of arrivals) by.set(a.unit, [a]);
   for (const e of events) { if (!ev.has(e.unit)) ev.set(e.unit, []); ev.get(e.unit).push(e); }
   const out = new Map();
   for (const u of layer.units) out.set(u.id, short(JSON.stringify([by.get(u.id) || null, ev.get(u.id) || []])));
-  return { hashes: out, arrivals, events, arrivalOf: new Map(arrivals.map(a => [a.unit, a])), eventsOf: ev };
+  const val = { hashes: out, arrivals, events, arrivalOf: new Map(arrivals.map(a => [a.unit, a])), eventsOf: ev };
+  _slot.sc = sc; _slot.layer = layer; _slot.val = val;
+  return val;
+}
+export function unitBehaviours(layer, sc) {
+  const both = layer.both, hashes = behaviourRecords(layer, both, sc).hashes;
+  return { hashes, get arrivals() { return behaviourRecords(layer, both, sc).arrivals; }, get events() { return behaviourRecords(layer, both, sc).events; },
+    get arrivalOf() { return behaviourRecords(layer, both, sc).arrivalOf; }, get eventsOf() { return behaviourRecords(layer, both, sc).eventsOf; } };
 }
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -243,7 +260,7 @@ export function scenarioDump(P, S, R, extra = {}) {
   return {
     units: unitsMeta, hashes,
     scenarios: Object.fromEntries(R.scenarios.map(s => [s.id, { id: s.id, kind: s.kind, group: s.group, varied: s.varied_vs_default, choices: s.choices, optionText: s.optionText, changed: s.changed.length, note: s.note || null }])),
-    scenario_set: { id: extra.id || 'S*', complete: !!extra.complete, count: R.scenarios.length, groups: S.groups.map((g, gi) => ({ id: gi + 1, conflicts: g, options: Object.fromEntries(g.map(c => [c, S.opts[c].map(o => o.key)])), product: g.reduce((p, c) => p * S.opts[c].length, 1), units: unitsMeta.filter(u => u.group === gi + 1).length })),
+    scenario_set: { id: extra.id || 'S*', complete: !!extra.complete && !chunkOf(parseArgs(process.argv.slice(2))), chunk: chunkOf(parseArgs(process.argv.slice(2))) && { ...chunkOf(parseArgs(process.argv.slice(2))), complete_if_all: !!extra.complete }, count: R.scenarios.length, groups: S.groups.map((g, gi) => ({ id: gi + 1, conflicts: g, options: Object.fromEntries(g.map(c => [c, S.opts[c].map(o => o.key)])), product: g.reduce((p, c) => p * S.opts[c].length, 1), units: unitsMeta.filter(u => u.group === gi + 1).length })),
       options: Object.fromEntries(Object.entries(S.opts).map(([c, os]) => [c, os.map(o => ({ key: o.key, text: o.text }))])), factorisation: R.factor, restriction_check: extra.restriction || { checked: false } },
   };
 }
@@ -255,8 +272,10 @@ export function withUnits(P, keep, fn) {                       // the layer says
 }
 // visit the scenarios in order; for each, the units whose (unit, behaviour) has not been scanned yet are `need`; scanFn(sc, keepOrNull, need) returns {units:{id:record}, ...scan info}
 export function driveScans(P, R, scanFn, { selectedUnits = null } = {}) {
-  const U = P.layer.units, scanned = new Set(), records = {}, scans = [], t0 = Date.now();
+  const U = P.layer.units, scanned = new Set(), records = {}, scans = [], t0 = Date.now(), ck = chunkOf(parseArgs(process.argv.slice(2)));
+  let si = -1;
   for (const sc of R.scenarios) {
+    si++; if (ck && si % ck.n !== ck.i) continue;                 // a chunk scans every n-th scenario (one node process per chunk: the heap of a whole S* scan exceeds 8 GB); q456_chunks.py merges the dumps
     const B = R.behaviours.get(sc.id), need = new Set();
     for (const u of U) { if (selectedUnits && !selectedUnits.has(u.id)) continue; const key = u.id + '|' + B.hashes.get(u.id); if (!scanned.has(key)) need.add(u.id); }
     if (!need.size) { scans.push({ scenario: sc.id, scanned_units: 0, skipped: 'every unit behaves as in a scan already made' }); continue; }
@@ -264,6 +283,7 @@ export function driveScans(P, R, scanFn, { selectedUnits = null } = {}) {
     const res = scanFn(sc, full ? null : need, need);
     for (const [id, rec] of Object.entries(res.units)) { if (!need.has(id)) continue; scanned.add(id + '|' + rec.hash); (records[id] = records[id] || {})[rec.hash] = { ...rec, scanned_in: sc.id }; }
     scans.push({ scenario: sc.id, scanned_units: need.size, full, ...res.info, ms: Date.now() - t0 });
+    if (process.env.BT_GATES_HEAPLOG) process.stderr.write('heap ' + sc.id + ' ' + Math.round(process.memoryUsage().heapUsed / 1e6) + ' MB, scanned ' + need.size + '\n');
   }
   return { records, scans };
 }

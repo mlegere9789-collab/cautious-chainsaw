@@ -1,0 +1,320 @@
+{
+ "_doc": "GOVERNANCE/library/work_queue.json: open acquisition work for the rows of library/status*.json that are scheduled or have a scheduled remainder. Entries are plans, not evidence; none claims an acquisition.",
+ "entries": [
+  {
+   "id": "WQ-BL-3",
+   "source_id": "BL-3",
+   "next_action": "Acquire the unacquired part of \"Battles and leaders of the civil war\" (where: acquired.json), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row BL-3 (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-BL3",
+   "source_id": "BL3",
+   "next_action": "Acquire the unacquired part of \"BL3\" (where: candidates.json), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row BL3 (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-FIG-L-ACWII-MOD",
+   "source_id": "FIG-L-ACWII-MOD",
+   "next_action": "Acquire the unacquired part of \"ACWII (Napoleon: Total War American Civil War mod): ACW.zip, assets by the mod author ACW_Primergy and team\" (where: ACW.zip (36 entries, 21 PFH0 packs), provided by the owner; scratch copy outside the repository; not published here. Subversion origin recorded in the pack data: https://subversion.assembla.com/svn/empire_american_civil_war.4 (uuid 4ca84c4f-01e6-4a0a-bfcb-691c0f47ad24), committer ACW_Primergy, 2011-05-21 to 2011-11-09; mod_details.lua 'ACW2 - 2.0 (Dev Ver)'.), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row FIG-L-ACWII-MOD (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-FIG-L-GOULD-1869",
+   "source_id": "FIG-L-GOULD-1869",
+   "next_action": "Acquire the unacquired part of \"Investigations in the military and anthropological statistics of American soldiers (B. A. Gould, U.S. Sanitary Commission, New York: Hurd and Houghton, 1869)\" (where: Internet Archive item investigationsi00goulgoog (Google scan; metadata year 1869, flagged not in copyright); full text https://archive.org/stream/investigationsi00goulgoog/investigationsi00goulgoog_djvu.txt (918,209 characters)), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row FIG-L-GOULD-1869 (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-GROSS-1861",
+   "source_id": "GROSS-1861",
+   "next_action": "Acquire the unacquired part of \"S. D. Gross, A Manual of Military Surgery, or Hints on the Emergencies of Field, Camp and Hospital Practice, Philadelphia: J. B. Lippincott & Co., entered 1861 (no edition statement on the OCR title page; the 1862 printing is marked second edition); poor OCR in places\" (where: acquired by the planning step from archive.org item amanualmilitary00grosgoog), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row GROSS-1861 (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-GROSS-1861-AUGUSTA",
+   "source_id": "GROSS-1861-AUGUSTA",
+   "next_action": "Acquire the unacquired part of \"Gross's text reprinted at Augusta, Georgia: Steam Power Press, Chronicle & Sentinel, 1861 (a Confederate printing)\" (where: acquired by the planning step from archive.org item manualofmilitary00gros), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row GROSS-1861-AUGUSTA (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-GROSS-1862-2ED",
+   "source_id": "GROSS-1862-2ED",
+   "next_action": "Acquire the unacquired part of \"S. D. Gross, A Manual of Military Surgery, second edition, Philadelphia: J. B. Lippincott & Co., 1862 (entered 1861); clean OCR; the archive.org record dates it 1861\" (where: acquired by the planning step from archive.org item manualofmilitary00grosrich), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row GROSS-1862-2ED (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-GROSS-1862-RICHMOND",
+   "source_id": "GROSS-1862-RICHMOND",
+   "next_action": "Acquire the unacquired part of \"Gross's text reprinted at Richmond: J. W. Randolph, 1862 (a Confederate printing; its preface says the book was recently published at Philadelphia); clean OCR\" (where: acquired by the planning step from archive.org item manualofmilitary01gros), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row GROSS-1862-RICHMOND (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-LIDAR-3DEP",
+   "source_id": "LIDAR-3DEP",
+   "next_action": "Acquire the unacquired part of \"USGS 3DEP point clouds (usgs-lidar-public)\" (where: registry.opendata.aws/usgs-lidar), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row LIDAR-3DEP (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-LIDAR-PA17",
+   "source_id": "LIDAR-PA17",
+   "next_action": "Acquire the unacquired part of \"South Central PA 2017 QL2 lidar\" (where: data.amerigeoss.org; PASDA), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row LIDAR-PA17 (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-LIDAR-PAMAP",
+   "source_id": "LIDAR-PAMAP",
+   "next_action": "Acquire the unacquired part of \"PAMAP 2006-08 lidar\" (where: NOAA InPort 49951; PASDA), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row LIDAR-PAMAP (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-LOC-PHOTO",
+   "source_id": "LOC-PHOTO",
+   "next_action": "Acquire the unacquired part of \"LOC Civil War photographs\" (where: loc.gov/pictures/collection/cwp), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row LOC-PHOTO (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-MSHWR-P1V1-1870",
+   "source_id": "MSHWR-P1V1-1870",
+   "next_action": "Acquire the unacquired part of \"The Medical and Surgical History of the War of the Rebellion. (1861-1865) Part I. Volume I. Medical History. (1st Medical volume) (1870); archive.org item MSHWRMedical1; edition read after download\" (where: planned: archive.org metadata verified 2026-11-14, not yet downloaded), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row MSHWR-P1V1-1870 (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-MSHWR-P1V2-1870",
+   "source_id": "MSHWR-P1V2-1870",
+   "next_action": "Acquire the unacquired part of \"Part I, Volume II (the first surgical volume), Washington: Government Printing Office, 1870; its table of contents is at the end of the file\" (where: acquired by the planning step from archive.org item MSHWRSurgical1), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row MSHWR-P1V2-1870 (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-MSHWR-P1V2-1870-ALT",
+   "source_id": "MSHWR-P1V2-1870-ALT",
+   "next_action": "Acquire the unacquired part of \"a second scan of the 1870 first surgical volume, identified by matching chapter and topic counts (its title page and table of contents were not read; the Gettysburg word count is 305 here and 266 in MSHWR-P1V2-1870); use it to confirm digits\" (where: acquired by the planning step from archive.org item medicalsurgical12barnrich), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row MSHWR-P1V2-1870-ALT (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-MSHWR-P2V1-1879",
+   "source_id": "MSHWR-P2V1-1879",
+   "next_action": "Acquire the unacquired part of \"The Medical and Surgical History of the War of the Rebellion. Part II, Volume I. (2nd Medical volume) (1879); archive.org item MSHWRMedical2; edition read after download\" (where: planned: archive.org metadata verified 2026-11-14, not yet downloaded), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row MSHWR-P2V1-1879 (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-MSHWR-P2V2-1876",
+   "source_id": "MSHWR-P2V2-1876",
+   "next_action": "Acquire the unacquired part of \"Part II, Volume II, Surgical History, first issue, Washington: Government Printing Office, 1876 (chapters VI to IX: abdomen, pelvis, back, upper extremities)\" (where: acquired by the planning step from archive.org item medicalsurgical22barnrich), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row MSHWR-P2V2-1876 (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-MSHWR-P2V2-1877-2NDISSUE",
+   "source_id": "MSHWR-P2V2-1877-2NDISSUE",
+   "next_action": "Acquire the unacquired part of \"Part II, Volume II, Surgical History, second issue, Washington: Government Printing Office, 1877\" (where: acquired by the planning step from archive.org item medicalsurgicalh22unit), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row MSHWR-P2V2-1877-2NDISSUE (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-MSHWR-P3V1-1888",
+   "source_id": "MSHWR-P3V1-1888",
+   "next_action": "Acquire the unacquired part of \"The Medical and Surgical History of the War of the Rebellion. Part III, Volume I. (3rd Medical volume) (1888); archive.org item MSHWRMedical3; edition read after download\" (where: planned: archive.org metadata verified 2026-11-14, not yet downloaded), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row MSHWR-P3V1-1888 (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-MSHWR-P3V2-1883",
+   "source_id": "MSHWR-P3V2-1883",
+   "next_action": "Acquire the unacquired part of \"Part III, Volume II, Surgical History, first issue, Washington: Government Printing Office, 1883 (chapters X to XV: lower extremities, miscellaneous injuries, complications, anaesthetics, the medical staff and materia chirurgica, transportation of the wounded)\" (where: acquired by the planning step from archive.org item MSHWRSurgical3), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row MSHWR-P3V2-1883 (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-MSHWR-P3V2-1883-2NDISSUE",
+   "source_id": "MSHWR-P3V2-1883-2NDISSUE",
+   "next_action": "Acquire the unacquired part of \"Part III, Volume II, Surgical History, second issue, Washington: Government Printing Office, 1883\" (where: acquired by the planning step from archive.org item medicalsurgical32barnrich), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row MSHWR-P3V2-1883-2NDISSUE (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-NEWS",
+   "source_id": "NEWS",
+   "next_action": "Acquire the unacquired part of \"Chronicling America 1863-07-01..10\" (where: loc.gov API + bulk OCR), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row NEWS (partial) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-NPS-CLR",
+   "source_id": "NPS-CLR",
+   "next_action": "Acquire the unacquired part of \"NPS Cultural Landscape Reports, HSRs, farm histories\" (where: npshistory.com; IRMA 2257218), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row NPS-CLR (partial) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-NPS-SS",
+   "source_id": "NPS-SS",
+   "next_action": "Acquire the unacquired part of \"NPS Soldiers and Sailors System\" (where: nps.gov), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row NPS-SS (targeted-lookup-only) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-OR-25-PT2",
+   "source_id": "OR-25-PT2",
+   "next_action": "Acquire the unacquired part of \"OR-25-PT2\", hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row OR-25-PT2 (partial) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-OR-29-PT2",
+   "source_id": "OR-29-PT2",
+   "next_action": "Acquire the unacquired part of \"OR-29-PT2\", hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row OR-29-PT2 (partial) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-OR-ATLAS",
+   "source_id": "OR-ATLAS",
+   "next_action": "Acquire the unacquired part of \"OR Atlas plates 1-175\" (where: ehistory.osu.edu/books/official-records), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row OR-ATLAS (partial) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-OR-SER3",
+   "source_id": "OR-SER3",
+   "next_action": "Acquire the unacquired part of \"OR-SER3\", hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row OR-SER3 (partial) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-PENN-PILOT",
+   "source_id": "PENN-PILOT",
+   "next_action": "Acquire the unacquired part of \"Penn Pilot aerials 1937-42\" (where: PASDA / BTAA), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row PENN-PILOT (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-PM-LOC-MASTERS",
+   "source_id": "PM-LOC-MASTERS",
+   "next_action": "Acquire the unacquired part of \"PM-LOC-MASTERS\", hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row PM-LOC-MASTERS (partial) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-PM-LOC-NOT-DIGITIZED",
+   "source_id": "PM-LOC-NOT-DIGITIZED",
+   "next_action": "Acquire the unacquired part of \"PM-LOC-NOT-DIGITIZED\", hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row PM-LOC-NOT-DIGITIZED (partial) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-PM-NPS-SLAUGHTER-PEN-PDF",
+   "source_id": "PM-NPS-SLAUGHTER-PEN-PDF",
+   "next_action": "Acquire the unacquired part of \"PM-NPS-SLAUGHTER-PEN-PDF\", hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row PM-NPS-SLAUGHTER-PEN-PDF (partial) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-SHSP",
+   "source_id": "SHSP",
+   "next_action": "Acquire the unacquired part of \"Southern Historical Society Papers (52 vols)\" (where: archive.org per volume), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row SHSP (partial) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-STATE-OTHER",
+   "source_id": "STATE-OTHER",
+   "next_action": "Acquire the unacquired part of \"Other state volumes MA MN VT OH NJ WI IN VA NC GA AL SC TX\" (where: no URL verified), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row STATE-OTHER (partial) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-STONE-S",
+   "source_id": "STONE-S",
+   "next_action": "Acquire the unacquired part of \"Stone Sentinels\" (where: gettysburg.stonesentinels.com), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row STONE-S (finder-not-authority) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-TM-BACHELDER-1883",
+   "source_id": "TM-BACHELDER-1883",
+   "next_action": "Acquire the unacquired part of \"Bachelder 1883 edition (LOC 99447492)\" (where: tile.loc.gov), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row TM-BACHELDER-1883 (partial) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-TRIPLER-BLACKMAN-1861-2ED",
+   "source_id": "TRIPLER-BLACKMAN-1861-2ED",
+   "next_action": "Acquire the unacquired part of \"Tripler and Blackman, Hand-book for the Military Surgeon, second edition, Cincinnati: Robert Clarke & Co., 1861 (a chapter on chloroform from Macleod is added; the appendix holds the standard supply for field service)\" (where: acquired by the planning step from archive.org item 46920320R.nlm.nih.gov), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row TRIPLER-BLACKMAN-1861-2ED (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-TRIPLER-BLACKMAN-1861-A",
+   "source_id": "TRIPLER-BLACKMAN-1861-A",
+   "next_action": "Acquire the unacquired part of \"Tripler and Blackman, Hand-book for the Military Surgeon, Cincinnati: Robert Clarke & Co., 1861; no edition statement on the OCR title page (the first edition is likely; not confirmed)\" (where: acquired by the planning step from archive.org item 46920330R.nlm.nih.gov), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row TRIPLER-BLACKMAN-1861-A (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-TRIPLER-BLACKMAN-1862-3ED",
+   "source_id": "TRIPLER-BLACKMAN-1862-3ED",
+   "next_action": "Acquire the unacquired part of \"Tripler and Blackman, Hand-book for the Military Surgeon, third edition, Cincinnati: Robert Clarke & Co., 1862\" (where: acquired by the planning step from archive.org item 46920340R.nlm.nih.gov), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row TRIPLER-BLACKMAN-1862-3ED (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-TRIPLER-BLACKMAN-1862-3ED-ALT",
+   "source_id": "TRIPLER-BLACKMAN-1862-3ED-ALT",
+   "next_action": "Acquire the unacquired part of \"the same third edition, a different scan (Google; the file begins with Google's notice); use it to confirm digits\" (where: acquired by the planning step from archive.org item handbookformili00blacgoog), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row TRIPLER-BLACKMAN-1862-3ED-ALT (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-TRIPLER-GANGRENE-1863",
+   "source_id": "TRIPLER-GANGRENE-1863",
+   "next_action": "Acquire the unacquired part of \"Hospital gangrene : a lecture delivered to Prof. Blackman's class at the Medical College of Ohio, session of 1860-61 (1863); archive.org item 9601347.nlm.nih.gov; edition read after download\" (where: planned: archive.org metadata verified 2026-11-14, not yet downloaded), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row TRIPLER-GANGRENE-1863 (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-WITNESS",
+   "source_id": "WITNESS",
+   "next_action": "Acquire the unacquired part of \"Fremantle, Haskell, Chamberlain, Gibbon, Sorrel, Alexander, Pierce, Broadhead, Wills\" (where: ABT primary sources; GettDigital), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row WITNESS (partial) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-WOODWARD-CAMP-DISEASES-1863",
+   "source_id": "WOODWARD-CAMP-DISEASES-1863",
+   "next_action": "Acquire the unacquired part of \"Outlines of the chief camp diseases of the United States armies as observed during the present war. A practical contribution to military medicine (1863); archive.org item outlineschiefca00woodgoog; edition read after download\" (where: planned: archive.org metadata verified 2026-11-14, not yet downloaded), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row WOODWARD-CAMP-DISEASES-1863 (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-WOODWARD-STEWARD-1862",
+   "source_id": "WOODWARD-STEWARD-1862",
+   "next_action": "Acquire the unacquired part of \"Woodward, The Hospital Steward's Manual, Philadelphia: J. B. Lippincott & Co., 1862; the title page says it was rendered authoritative by order of the Surgeon-General; the file begins with the publisher's advertisements\" (where: acquired by the planning step from archive.org item 101526781.nlm.nih.gov), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row WOODWARD-STEWARD-1862 (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-WOODWARD-STEWARD-1863",
+   "source_id": "WOODWARD-STEWARD-1863",
+   "next_action": "Acquire the unacquired part of \"Woodward, The Hospital Steward's Manual, Philadelphia: J. B. Lippincott & Co., 1863 (entered 1862); cleaner OCR than the 1862 scan\" (where: acquired by the planning step from archive.org item hospitalstewards00unse), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
+   "state": "open",
+   "origin": "derived from library/status*.json row WOODWARD-STEWARD-1863 (scheduled) by the Q25 mechanical fix"
+  }
+ ]
+}

@@ -8,7 +8,7 @@
   "NOT-RUN": 1,
   "PASS": 43
  },
- "finished_utc": "2026-11-24T04:36:58Z",
+ "finished_utc": "2026-11-24T18:15:59Z",
  "gate": "Q14",
  "incomplete_reasons": [
   "102 item(s) NOT-RUN or BLOCKED-INPUT",
@@ -16,7 +16,7 @@
  ],
  "input_hashes": {
   "docs/battle-theatre/BIBLE/plan-clean.txt": "5515b8ce322c142bdadcfd1a97c2a68c066e27c971b226ef852aa54a2f9210e7",
-  "docs/battle-theatre/GOVERNANCE/conflicts_structured.json": "e21953ec5a4e4a9e69bd25e8f207d4abd84ba7d10619fb9bdd66518459421e4a",
+  "docs/battle-theatre/GOVERNANCE/conflicts_structured.json": "8dda5d91e0021309e1261e62a7a020b2f5b5d6645745dec8663f1710620f70da",
   "docs/battle-theatre/GOVERNANCE/gate_results/thresholds.json": "7d7264ba373465255031d29c266d9b8fad5a506e654ffe856545aa3513fe1faf",
   "docs/battle-theatre/app/data/battery-guns.json": "94a5c1d83a46496b767c1fa07827fd8a158ab4d841cf1a54c1a83184a762b260",
   "docs/battle-theatre/app/data/fx3d/weapons.json": "eeb839f2d8b41e502df4ddd41b67be9121b64eb2c69681a996be79455125caa7",
@@ -32,7 +32,7 @@
   "docs/battle-theatre/kit/weapons.json": "412396eada9819f2a0185d771c6555f3025939607991f18b3db11461948a5d02",
   "docs/battle-theatre/structures/structures.json": "b223dacf386d9983167d24561dc05a8466248096a7715a23dd25fa5bd2b1ad53",
   "tools/bt/gates/oob_layer_lib.mjs": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d",
-  "tools/bt/gates/oobgates_common.py": "86bb514bfebcf4b090a9c452ffeb973cd1de82040107988eca9e4ef91e4af409",
+  "tools/bt/gates/oobgates_common.py": "a592fe4a79459c8af1c5b0d3d4e7400f6be4faa60eb7ad568429be5c1c5d4730",
   "tools/bt/gates/q14_layer.mjs": "0e5b07bb22035b5eb416d8d1b4aa8dc370fc8f9e16f8e6a6e0f9c77a37988b05",
   "tools/bt/gates/q14_ordnance.py": "ad33d74b4d2f92b8ea4bb4748f5f5144c7640eed68043fe07dbc80ffeb38e412"
  },
@@ -44,10 +44,10 @@
    "sha256": "5515b8ce322c142bdadcfd1a97c2a68c066e27c971b226ef852aa54a2f9210e7"
   },
   {
-   "bytes": 18048,
+   "bytes": 22795,
    "path": "docs/battle-theatre/GOVERNANCE/conflicts_structured.json",
    "role": "data",
-   "sha256": "e21953ec5a4e4a9e69bd25e8f207d4abd84ba7d10619fb9bdd66518459421e4a"
+   "sha256": "8dda5d91e0021309e1261e62a7a020b2f5b5d6645745dec8663f1710620f70da"
   },
   {
    "bytes": 17633,
@@ -140,10 +140,10 @@
    "sha256": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d"
   },
   {
-   "bytes": 12137,
+   "bytes": 13167,
    "path": "tools/bt/gates/oobgates_common.py",
    "role": "runner",
-   "sha256": "86bb514bfebcf4b090a9c452ffeb973cd1de82040107988eca9e4ef91e4af409"
+   "sha256": "a592fe4a79459c8af1c5b0d3d4e7400f6be4faa60eb7ad568429be5c1c5d4730"
   },
   {
    "bytes": 7817,
@@ -13055,7 +13055,7 @@
   "Q14.7: the drill state machine of a gun detachment (ten states, B.6.14.3) is not compared with the product (needs a machine list of the product's detachment states)"
  ],
  "renderer_class": "mixed",
- "run_id": "20261124T043650Z-Q14",
+ "run_id": "20261124T181552Z-Q14",
  "runnable_here": true,
  "runner_files": [
   "oob_layer_lib.mjs",
@@ -13063,7 +13063,7 @@
   "q14_layer.mjs",
   "q14_ordnance.py"
  ],
- "runner_version": "18913e4dcf5fe94b",
+ "runner_version": "d1d3c7772f36c97c",
  "scenario_set": {
   "complete": false,
   "count": 7,
@@ -13072,7 +13072,7 @@
   "note": "default and the six sample scenarios of history.test.mjs: a sample, never S*"
  },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T04:36:50Z",
+ "started_utc": "2026-11-24T18:15:52Z",
  "thresholds": [
   {
    "decision": "PLAN",

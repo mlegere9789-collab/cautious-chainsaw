@@ -63,7 +63,14 @@ bad = [r['id'] for r in rows if r['tier'] is None]
 if bad: fails.append(f'rows without tier: {bad[:5]}')
 nosrc = [r['id'] for r in rows if r['tier'] == 'documented' and r['text_raw'].rstrip().endswith(('| -', '|'))]
 if nosrc: fails.append(f'Q02: documented rows without a source key: {nosrc[:5]}')
-if any(r['status'] != 'seeded_unverified' for r in rows): fails.append('a timeline row is marked verified without evidence')
+# a row may leave seeded_unverified only through tools/bt/merge_timeline_verification.py (non-lead source, quote re-read, no open gap)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import merge_timeline_verification as _mtv
+_ev = [r for r in rows if r['status'] != 'seeded_unverified']
+_noev = [r['id'] for r in _ev if (r.get('verification') or {}).get('state') != 'verified' or not r['verification'].get('non_lead_citations') or r['verification'].get('gaps')]
+if _noev: fails.append(f'a timeline row is marked verified without evidence: {_noev[:5]}')
+fails.extend(_mtv.check())
+notes.append(f'timeline: {len(_ev)} of {len(rows)} rows verified through shard evidence (rule v{_mtv.RULE_VERSION}); the rest stay seeded_unverified')
 # conflicts / decisions
 conf = J('conflict_register.json')
 if len(conf) != 47: fails.append('conflict register != 47')

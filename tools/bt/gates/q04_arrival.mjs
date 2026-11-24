@@ -11,7 +11,7 @@
 // The scan of a scenario is restricted to the units whose arrival record and events differ from a scan already made (a unit's behaviour is a pure function of its own record and events: the stage reduces per unit,
 // guns and crews follow their own battery); the equality of a restricted and a full scan is itself scanned (`restriction_check`).
 import path from 'node:path';
-import { buildProduct, buildScenarioSet, unitBehaviours, buildGrid, Runs, loadScenario, imp, parseArgs, loadMutation, writeOut, r6, readJSON, ROOT, inputsRead } from './q456_lib.mjs';
+import { buildProduct, chunkOf, buildScenarioSet, unitBehaviours, buildGrid, Runs, loadScenario, imp, parseArgs, loadMutation, writeOut, r6, readJSON, ROOT, inputsRead } from './q456_lib.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 const mutate = await loadMutation(args.mutate);
@@ -215,7 +215,9 @@ function mergeRuns(lists) {                           // union of run lists (cre
 // ---- drive the scans: the default scenario over every unit, then every scenario over the units whose behaviour has not been scanned yet
 const scanned = new Set(), behaviourRecords = {}, scans = [], t0 = Date.now();
 const wanted = id => !selectedUnits || selectedUnits.has(id);
+const CK = chunkOf(args); let si = -1;
 for (const sc of scenarios) {
+  si++; if (CK && si % CK.n !== CK.i) continue;       // a chunk scans every n-th scenario (q456_chunks.py merges the dumps)
   const B = behaviours.get(sc.id), need = new Set();
   for (const u of U) { if (!wanted(u.id)) continue; const h = B.hashes.get(u.id), key = u.id + '|' + h; if (!scanned.has(key)) need.add(u.id); }
   if (!need.size) { scans.push({ scenario: sc.id, scanned_units: 0, skipped: 'every unit behaves as in a scan already made' }); continue; }
@@ -228,7 +230,7 @@ for (const sc of scenarios) {
 const restriction = { checked: false };
 {
   const sc = scenarios.find(s => s.kind === 'group' && s.changed.length && s.changed.length < U.length / 3);
-  if (sc && !selectedUnits && !args['no-restriction-check']) {
+  if (sc && !selectedUnits && !args['no-restriction-check'] && (!CK || CK.i === 0)) {
     const keep = new Set(sc.changed), a = scanScenario(sc, keep, gridMode), b = scanScenario(sc, null, gridMode);
     const diff = [];
     for (const id of keep) { const x = a.units[id], y = b.units[id]; const pick = r => JSON.stringify([r.classes, r.effects, r.arrival, r.enter, r.leave, r.events]); if (pick(x) !== pick(y)) diff.push(id); }
@@ -241,7 +243,7 @@ for (const sc of scenarios) { const b = behaviours.get(sc.id), o = {}; for (cons
 writeOut(args.out, {
   schema: 'q04-dump/1', layer: { id: layer.meta.id, contract: layer.meta.contract, units: nL, counts: layer.counts }, ground: P.ground, battle: BATTLE,
   grid: { mode: gridMode, from: BATTLE.from, to: BATTLE.to, boundary_s: 1, note: gridMode === 'dense' ? 'every integer minute and one second either side of every window boundary of the unit set of the scan' : 'coarse: every ' + 60 + 'th minute and the boundaries (a test mode: never a PASS)' },
-  scenario_set: { id: args.scenarios === 'default' ? 'default' : 'S*', complete: args.scenarios !== 'default' && !args.only && !selectedUnits, count: scenarios.length, groups: S.groups.map((g, gi) => ({ id: gi + 1, conflicts: g, options: Object.fromEntries(g.map(c => [c, S.opts[c].map(o => o.key)])), product: g.reduce((p, c) => p * S.opts[c].length, 1), units: unitsMeta.filter(u => u.group === gi + 1).length })),
+  scenario_set: { id: args.scenarios === 'default' ? 'default' : 'S*', complete: args.scenarios !== 'default' && !args.only && !selectedUnits && !CK, chunk: CK && { ...CK, complete_if_all: args.scenarios !== 'default' && !args.only && !selectedUnits }, count: scenarios.length, groups: S.groups.map((g, gi) => ({ id: gi + 1, conflicts: g, options: Object.fromEntries(g.map(c => [c, S.opts[c].map(o => o.key)])), product: g.reduce((p, c) => p * S.opts[c].length, 1), units: unitsMeta.filter(u => u.group === gi + 1).length })),
     options: Object.fromEntries(Object.entries(S.opts).map(([c, os]) => [c, os.map(o => ({ key: o.key, text: o.text }))])), factorisation: factor, restriction_check: restriction },
   scenarios: Object.fromEntries(scenarios.map(s => [s.id, { id: s.id, kind: s.kind, group: s.group, varied: s.varied_vs_default, choices: s.choices, optionText: s.optionText, changed: s.changed.length, note: s.note || null }])),
   units: unitsMeta, hashes, behaviours: behaviourRecords, scans, train: haveTrain ? { readings: TRAIN_READINGS.map(r => r), file: 'app/data/artillery-train.json' } : null,

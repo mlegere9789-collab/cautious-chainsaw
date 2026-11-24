@@ -1815,7 +1815,7 @@
     "time_parse": "date",
     "granularity": "date",
     "window": [
-     "1863-07-03T00:00",
+     "1863-07-02T00:00",
      "1863-07-03T23:59",
      null
     ],
@@ -1844,7 +1844,7 @@
     "default_basis": "none"
    },
    "trigger": "Shell ignition (Gettysburg Daily); Union fire (one forum); Confederate (blog, unreliable)",
-   "flag": "timing conflict; PDF B.8.7 prints Jul 3 afternoon as the most-supported reading, PDF register C-026 prints Jul 2 evening as the recommended default (PENDING OWNER)",
+   "flag": "timing conflict; C-026 delegated resolution v2 (irreducible, inferred): the default is the window from the Jul 2 afternoon fight (once wounded men were in the barn) to the end of Jul 3, no instant (scenario flag_window_full); no source gives an hour and none prefers the afternoon of Jul 3. PDF B.8.7 prints Jul 3 afternoon as the most-supported reading and PDF register C-026 prints Jul 2 evening as the recommended default; both stay selectable (jul3_afternoon_b87, jul2_evening_c026)",
    "source_keys": [
     "GD-12590",
     "CWT-Sherfy",
@@ -1856,11 +1856,11 @@
    "scenarios": {
     "default": {
      "window": [
-      "1863-07-03T00:00",
+      "1863-07-02T00:00",
       "1863-07-03T23:59",
       null
      ],
-     "src": "B.8.7 S-037 \"most-supported reading, Jul 3 during the afternoon artillery\""
+     "src": "C-026 delegated resolution v2 (decisions/conflict_defaults.json): window from Jul 2 to the end of Jul 3, no instant; B.8.7 S-037 \"most-supported reading, Jul 3 during the afternoon artillery\" is scenario jul3_afternoon_b87"
     },
     "jul3_afternoon_b87": {
      "window": [
@@ -2829,13 +2829,21 @@
    "out_of_battle_scope": false,
    "notes": null,
    "scenarios": {
+    "c031_default_10_30": {
+     "window": [
+      "1863-07-03T10:30",
+      "1863-07-03T10:30",
+      "1863-07-03T10:30"
+     ],
+     "src": "C-031 delegated resolution v2 (settled, documented): about 10:30, the last Confederate charge (begun 10:25 to 10:30) beaten back and the enemy retires; 10:00 is labelled the counter-attack (Ruger p. 781)"
+    },
     "c031_default_10_00": {
      "window": [
       "1863-07-03T10:00",
       "1863-07-03T10:00",
       "1863-07-03T10:00"
      ],
-     "src": "B.2.5 C-031 recommended default 10:00"
+     "src": "B.2.5 C-031 PDF recommended default 10:00 (Ruger p. 781; under C-031 v2 this is the counter-attack, selectable, no longer the default)"
     },
     "c031_alt_noon": {
      "window": [
@@ -3100,8 +3108,8 @@
       "1863-07-03T14:30",
       null
      ],
-     "src": "B.2.5 C-029 recommended default cannonade end 14:30",
-     "note": "alternatives 14:00 and 15:00"
+     "src": "B.2.5 C-029 PDF recommended default cannonade end 14:30; C-029 delegated resolution v2 (weighted, inferred): the cannonade ends between 14:30 and 15:00 (Union fire stopped by order about 14:30)",
+     "note": "alternatives 14:00 (no report behind it under C-029 v2) and 15:00; the end of this scenario is the earliest end of the C-029 window"
     },
     "c029_end_14_00": {
      "window": [
@@ -3878,7 +3886,7 @@
     "default_basis": "none"
    },
    "trigger": "Medical Dept.",
-   "flag": "opening date conflict: Jul 20 (ABT) vs Jul 22 (CWN, Wikipedia summary); PDF register C-044 default Jul 20; PDF B.2.3 conflict table p.55 default \"Open Jul 22 with Jul 20 flagged\"; PENDING OWNER",
+   "flag": "opening date conflict: Jul 20 (ABT) vs Jul 22 (CWN, Wikipedia summary); PDF register C-044 default Jul 20; PDF B.2.3 conflict table p.55 default \"Open Jul 22 with Jul 20 flagged\"; C-044 delegated resolution v2 (weighted, inferred): the default is Jul 22 (the earliest dated transfers found are Jul 24), Jul 20 stays selectable (open_jul20); PENDING OWNER confirmation",
    "source_keys": [
     "CWMed-Letterman",
     "ABT-Letterman",
@@ -4640,7 +4648,8 @@
     "jul2_evening_c026",
     "flag_window_full"
    ],
-   "note": "The register default (Jul 2 evening) contradicts the schedule and the p.55 table (Jul 3 afternoon). Also logged as EG-0008. state_at scenario \"default\" follows the row the engine reads (B.8.7 S-037); this is not a choice between the sources."
+   "resolution_v2": "C-026 delegated resolution v2 (irreducible, inferred): window from the Jul 2 afternoon fight to the end of Jul 3, no instant; scenario \"default\" is that window (same as flag_window_full); both PDF readings stay selectable",
+   "note": "The register default (Jul 2 evening) contradicts the schedule and the p.55 table (Jul 3 afternoon). Also logged as EG-0008. Under C-026 v2 state_at scenario \"default\" is the window Jul 2 to the end of Jul 3; this is not a choice between the sources."
   },
   {
    "id": "PD-02",
@@ -4670,7 +4679,8 @@
     "open_jul20",
     "open_jul22"
    ],
-   "note": "state_at scenario \"default\" for S-077 leaves the opening inside the Jul 20-22 window (not decided)."
+   "resolution_v2": "C-044 delegated resolution v2 (weighted, inferred): default Jul 22 (earliest dated transfers found Jul 24); Jul 20 selectable; reversible by the owner",
+   "note": "state_at scenario \"default\" for S-077 leaves the opening inside the Jul 20-22 window (not decided); the viewer default for the conflict is Jul 22 (decisions/conflict_defaults.json)."
   },
   {
    "id": "PD-03",
@@ -4719,9 +4729,11 @@
    "contradiction": false,
    "status": "PENDING OWNER",
    "scenarios": [
+    "c031_default_10_30",
     "c031_default_10_00",
     "c031_alt_noon"
-   ]
+   ],
+   "resolution_v2": "C-031 delegated resolution v2 (settled, documented): about 10:30 (the last charge begun 10:25 to 10:30); 10:00 is the counter-attack; noon selectable"
   },
   {
    "id": "PD-05",
@@ -4748,7 +4760,8 @@
     "c029_end_14_00",
     "c029_end_15_00"
    ],
-   "note": "C-029 prints the cannonade end (14:00 / 14:30 / 15:00); S-061 prints a Union lull to about 14:45-15:00. The PDF does not state how the two relate; not reconciled here."
+   "resolution_v2": "C-029 delegated resolution v2 (weighted, inferred): the cannonade ends between 14:30 and 15:00 (Union fire stopped by order about 14:30); 14:00 has no report behind it; the window now runs to about 15:00, so the S-061 lull (14:45-15:00) falls inside it",
+   "note": "C-029 prints the cannonade end (14:00 / 14:30 / 15:00); S-061 prints a Union lull to about 14:45-15:00. Under C-029 v2 the end is a window 14:30-15:00 and the two are compatible; the state schedule end of scenario c029_end_14_30_default (14:30) is the window start."
   },
   {
    "id": "PD-06",
@@ -4794,7 +4807,8 @@
    ],
    "contradiction": false,
    "status": "PENDING OWNER",
-   "scenarios": []
+   "scenarios": [],
+   "resolution_v2": "C-020 delegated resolution v2 (weighted, documented): the infantry assault goes up East Cemetery Hill and charges the batteries about 20:00 (Hays, Godwin: a little before 8 p. m.); 19:30 is no longer the default and stays selectable"
   },
   {
    "id": "PD-08",
@@ -4837,7 +4851,8 @@
    ],
    "contradiction": true,
    "status": "PENDING OWNER",
-   "scenarios": []
+   "scenarios": [],
+   "resolution_v2": "C-038 delegated resolution v2 (weighted, documented): about 1,900 wounded (1,800 Union, 100 said to be Confederate) from the Sanitary Commission report, range 1,000-2,000 kept visible; the PDF register default 1,500 stays selectable"
   },
   {
    "id": "PD-10",

@@ -1487,7 +1487,8 @@
    "pointer": "tools/bt/photomatch/images_ledger.json (sha256, size, pixel size and licence basis per file)",
    "pointer_sha256": "420eb4d50051b26c2fd313f09ebaf142ac9fd4502bffa998ffea6070b5639340",
    "file_kept": true,
-   "rights_basis": "LOC record rights statement: no known restrictions on publication (a record with an empty rights field: 19th-century print, public domain by age, an inference)"
+   "rights_basis": "LOC record rights statement: no known restrictions on publication (a record with an empty rights field: 19th-century print, public domain by age, an inference)",
+   "text_quality": "image files (photographs/figures) only, no text layer; text quality does not apply"
   },
   {
    "id": "PM-LOC-RECORDS",
@@ -1504,7 +1505,8 @@
     "catalogue_wide_items.json": "c758462f15d916b5ff2b10e568d4aa27c709e46c06ff567ff7d3003db2dc65b0"
    },
    "file_kept": true,
-   "rights_basis": "LOC: no known restrictions on publication"
+   "rights_basis": "LOC: no known restrictions on publication",
+   "text_quality": "catalogue records as the Library serves them (open JSON), not OCR text"
   },
   {
    "id": "PM-LOC-MASTERS",
@@ -1520,7 +1522,8 @@
    },
    "local_path": "tmp/photomatch/loc/*_u4096.jpg (working copies, 4096 px; the TIFFs were deleted after the hash was recorded)",
    "file_kept": false,
-   "rights_basis": "LOC: no known restrictions on publication"
+   "rights_basis": "LOC: no known restrictions on publication",
+   "text_quality": "image files (photographs/figures) only, no text layer; text quality does not apply"
   },
   {
    "id": "PM-NPS-THEN-AND-NOW",
@@ -1569,7 +1572,8 @@
     "catalogue_wide_items.json": "c758462f15d916b5ff2b10e568d4aa27c709e46c06ff567ff7d3003db2dc65b0"
    },
    "file_kept": true,
-   "rights_basis": "LOC: no known restrictions on publication, or an empty rights field on a 19th-century print (public domain by age: an inference)"
+   "rights_basis": "LOC: no known restrictions on publication, or an empty rights field on a 19th-century print (public domain by age: an inference)",
+   "text_quality": "image files (photographs/figures) only, no text layer; text quality does not apply"
   },
   {
    "id": "PM-NPS-PLACE-PAGES",
@@ -1600,7 +1604,8 @@
    "pointer": "tools/bt/photomatch/nps_figures.json (caption verbatim, pdf page, sha256 of every image); ties to Library of Congress records in nps_figures_confirmed.json (22 confirmed by looking)",
    "pointer_sha256": "ca1194e5eda05da164f00abf2d77fc6af103ed302e1d9bf23bf7d61fb36d9bcb",
    "file_kept": false,
-   "rights_basis": "United States government work (NPS publication); the figure images reproduce 1863 photographs"
+   "rights_basis": "United States government work (NPS publication); the figure images reproduce 1863 photographs",
+   "text_quality": "image files (photographs/figures) only, no text layer; text quality does not apply"
   },
   {
    "id": "NPS-HABS-pa0004",
@@ -5554,7 +5559,8 @@
    "pointer": "tools/bt/photomatch/loc_reread_20261116.json (sha256 of each record)",
    "pointer_sha256": "defb644dfb2336514f63ee5390b646f4c4a34c0517631df1d1c36b4a527e50b1",
    "file_kept": true,
-   "rights_basis": "LOC: no known restrictions on publication"
+   "rights_basis": "LOC: no known restrictions on publication",
+   "text_quality": "catalogue records as the Library serves them (open JSON), not OCR text"
   },
   {
    "id": "NPS-NEWSLETTER-V12N3",

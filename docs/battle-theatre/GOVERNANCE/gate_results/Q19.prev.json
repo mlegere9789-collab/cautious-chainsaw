@@ -4,36 +4,37 @@
   "BLOCKED-INPUT": 1,
   "COVERED": 0,
   "FAIL": 121,
-  "N/A": 52,
+  "N/A": 51,
   "NOT-RUN": 0,
-  "PASS": 29
+  "PASS": 30
  },
- "finished_utc": "2026-11-16T00:44:09Z",
+ "finished_utc": "2026-11-24T18:14:50Z",
  "gate": "Q19",
  "incomplete_reasons": [
   "1 item(s) NOT-RUN or BLOCKED-INPUT"
  ],
  "independence": {
   "entries_with_a_recorded_relation": 0,
-  "manifest_entries": 3603
+  "manifest_entries": 3838
  },
  "input_hashes": {
   "docs/battle-theatre/GOVERNANCE/claim_ledger.json": null,
-  "docs/battle-theatre/GOVERNANCE/conflict_register.json": "fee015befd8c0bfadc0e887141fd7feca0b643acfc399a007ec8955a234b8c22",
-  "docs/battle-theatre/GOVERNANCE/conflicts_structured.json": "e21953ec5a4e4a9e69bd25e8f207d4abd84ba7d10619fb9bdd66518459421e4a",
-  "docs/battle-theatre/GOVERNANCE/library/status.json": "432755d7afeb3d8ce599f48f3358e2a91f29ed103117a5c27480c2af0b8cd407",
+  "docs/battle-theatre/GOVERNANCE/conflict_register.json": "6040508e245ea81dbffe8e1c165ba2360b4ea3275a51ca3a4dd360480be706b6",
+  "docs/battle-theatre/GOVERNANCE/conflicts_structured.json": "8dda5d91e0021309e1261e62a7a020b2f5b5d6645745dec8663f1710620f70da",
+  "docs/battle-theatre/GOVERNANCE/library/status.json": "f6021370751c5ebe6f7d0d16b853e96231f8f3163b5bfc141428a991c2723991",
   "docs/battle-theatre/GOVERNANCE/library/status_2.json": "cd2c01f9920387e790134db8b4ce9ddcd6a193534505d1bebcc293ea268ca847",
-  "docs/battle-theatre/GOVERNANCE/library/status_3.json": "e3e0ce43544640a652204e8876d55a3ef6791400337c5c633037c0a77c4971ac",
-  "docs/battle-theatre/GOVERNANCE/register_index.json": "9cb387f9f8ad5282b7864536d157078a3fc4811c565f0f29272b80efda42083c",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "a3b022ae79057423d2694f31c9eb23321df0c276bba13304eeba404b512a848f",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "b5f650815f5545b7035dcfd58a27c02d784dd080d5b01a7d05a9e8693edd1639",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "a370f92d7528e00a5279c13507abc2a6f56edeaf6bdea589602773bd33d6a4e0",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-04.jsonl": "ed2c0b0a1d6ccda3cb7bdc95eb241080774fdf7f9b8418085d32c298b55b1b31",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-lookups.jsonl": "ae480799061ada00de5584afb455523317880c18ea4bb90bdb83f8f332fcff65",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-newspapers.jsonl": "f34e36226b0b7e8378edf180c59a8f1720ebe447231bce8ba356baa60396585d",
+  "docs/battle-theatre/GOVERNANCE/library/status_3.json": "faf77daaf011303222f60d4a1adcae8394d8c32895e949f78150d5b46dcd7e76",
+  "docs/battle-theatre/GOVERNANCE/library/status_4.json": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e",
+  "docs/battle-theatre/GOVERNANCE/register_index.json": "c8b00f6d6f347dff7688442cfbda1fbe930ab6d5b2c99cf874fa5f80b9861f50",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "97a3139ef408bfeb221632916445f3000ccf5a93dc8df2fa36356690e78552b5",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "5ac7d8db1790e5e47f99b982c21c9906555d9cc20ab5bb0453ea4fcff2f31a2b",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "9a5fa49814cf6b6d27df1f8267bdefad8915616d300a547fc99bfcc23d71c0d0",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-04.jsonl": "55db432864de3b0ff109a7ab37958a3c6ba2ee0406e38fa719e513077d28e4a0",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-lookups.jsonl": "5c5c65de6cdce61d7c64fdec5ed381c1b4e81a2e26a6737900317d5c812f034f",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-newspapers.jsonl": "1c2e4e14102cc522bb775e3dd56e3800ce1db3f49514a56c1f97b748e7558b94",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-nps-landscape.jsonl": "fd44217eaa0c7a519441727fa159713b5c219539682a121e3f7d174490747ebf",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-photomatch.jsonl": "ca60ff50bdf9583e8dc5f7a86a2a1ef553cd70dc83bd2774e4ca2d190a1812c3",
-  "docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl": "3c763c8802d5d5b9ab9ca8a8336cc0956f9e0cb8316c8a805b8bcfebc78af2b0",
+  "docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl": "ca61d0ff961ab35af8b9ae280c40b75156378ad680601a361e5cb010328262f3",
   "docs/battle-theatre/app/data/artillery-train.json": "6737bb8bbde0ca44dc087f4cf928b971271d3ab721b3c99858082ba7d44ac030",
   "docs/battle-theatre/app/data/audio3d/calls.json": "6273b3225b89500af22dac803c4ac5580d739d7a3e93ade9c3b872df766a1bf2",
   "docs/battle-theatre/app/data/audio3d/commands.json": "40c801c32060be1b94177571fb3db50ceb59514573539f40295647adb43e0656",
@@ -44,33 +45,33 @@
   "docs/battle-theatre/app/data/claim-dispositions.json": "b8fe5c754655067cf50a27fd33a309f6164d70e9a8bcd43613597c74d5658a25",
   "docs/battle-theatre/app/data/claim-ledger.json": null,
   "docs/battle-theatre/app/data/claims.json": null,
-  "docs/battle-theatre/app/data/conflict-defaults.json": "7f38491fa44e05fac176ffeb698b594aa2887e4225cb62ccc8f63bddc58fe93f",
+  "docs/battle-theatre/app/data/conflict-defaults.json": "95df40c0708b9358ce8c0943a943e4336f42d98aca74b7a95e20aa9cc9881694",
   "docs/battle-theatre/app/data/daypositions.json": "bfa45fe00a45629a3254e129e78cace86802e66484e2af92e8df4a010739800d",
   "docs/battle-theatre/app/data/engagements.json": "d57993be15acebade93d4022442024cda904b4d509d4805a1278d56dad77a6b9",
   "docs/battle-theatre/app/data/figures-validation.json": "590ca88df6a75a67f5011370742a314119f7fdfa8ce181708c0b483da95b944e",
   "docs/battle-theatre/app/data/figures3d/flag-mean-colours.json": "7c2e4777929cb5313f3dfce9afb6ae407feaa0e9ef3cf9d848f8013b8f28bd42",
   "docs/battle-theatre/app/data/figures3d/skeleton.json": "ffcfcffaf98d3008174cf58ec7efd688740efa71c673f5d28b7394a952a3d74e",
   "docs/battle-theatre/app/data/fx3d/TIERS.json": "22413bf610c11a58bed9016ee93bf652fec174bc28f1bf2f6370fe0c1f1d33f0",
-  "docs/battle-theatre/app/data/fx3d/fires.json": "ed01137ca6cab4de158509600cdddef84bdeff9445d2866a7c2ffc68880607f3",
+  "docs/battle-theatre/app/data/fx3d/fires.json": "9ea4ae152d03364abba3cdf133c743241fba089bf0b2f9a6b2d1a7a0763d19d4",
   "docs/battle-theatre/app/data/fx3d/weapons.json": "eeb839f2d8b41e502df4ddd41b67be9121b64eb2c69681a996be79455125caa7",
   "docs/battle-theatre/app/data/gazetteer.json": "004ca17282a789cda0ba4b4e8f612f5a7c0ec3c84d6afea6763b27df2c77e0ab",
   "docs/battle-theatre/app/data/kit-crosswalk.json": "a3b97cb15ca6efc1a35ebc698bd6171cbafe0301c3d42c4f4ae977fefe100564",
   "docs/battle-theatre/app/data/placement-claims.json": "a3f736b5787d755ad255d478042bafdaf78ae4c5d2a7b9b341a04b1179bf8393",
-  "docs/battle-theatre/app/data/placement.json": "edde37b1721e192478b1cf5e064cea63d5b2dd8d0ed4f113107f023eccb017dd",
+  "docs/battle-theatre/app/data/placement.json": "3f4296b28fe033ffbfddd528b73063958b7281d8274ddc9f57aefaa82ddc5164",
   "docs/battle-theatre/app/data/sibling-approach.json": "9a9f8fa7b885b090481bbe53a5e21a3db190e87d59a00e408110e9c4f3e1535b",
   "docs/battle-theatre/app/data/site-bookmarks.json": "4aebf577df1d55e033bb210c0f50c57751447440a31d24155a7e3ba0d4a56d63",
-  "docs/battle-theatre/app/data/site-memorial-years.json": "88d3bfede56159c26c0f5872f12b54ebe067391d2caa036f89f8001737efe6d6",
+  "docs/battle-theatre/app/data/site-memorial-years.json": "ae4cdd797ab4bd187bb45bd8ef3d55dbb58dc98b2dd8963305f222062c9f2de7",
   "docs/battle-theatre/app/data/site-memorials.json": "8a34105260509007f0a62f6a34e4cc1064b076d2eaa5e32e3ad18e33eb493242",
   "docs/battle-theatre/app/data/site-tour-stops.json": "f64b27c7aea11d6ce7ecfd56018371161bca4334fbb3dd0718a1fdfee3f820d4",
-  "docs/battle-theatre/app/data/structures3d.json": "a9fc7ee84a0498ae8b90e45ff2764d78b93cfc26046bbbea84277860ad1c3637",
-  "docs/battle-theatre/app/data/vegetation.json": "9b4a978493f55dbfaaa0107bd65d890d550393a8c75a0a5320e6dea734f5b84d",
+  "docs/battle-theatre/app/data/structures3d.json": "9e70d4751fdf6da22a111e7ef46251d727c7d32627befda937eb273edbbd36f4",
+  "docs/battle-theatre/app/data/vegetation.json": "344b03fe0f1420253dc3ea96197f2be39396b7957f1160e3610b2f93c6695144",
   "docs/battle-theatre/app/data/works3d.json": "e24616b809dc063f618be035c054409ccf6c64cbdc18b139c05f4976211fa7ad",
   "docs/battle-theatre/environment/ephemeris_1863.json": "c8e548d1eccf08110ea665f8db5d438c9edb544e3de361b3bc5f39cc4f2e677c",
   "docs/battle-theatre/environment/weather_timeline.json": "8fffaf79d5572f72e82a25f78b3514b09d6cdfba405575720048231060dff0dd",
   "docs/battle-theatre/history/positions/positions_A.jsonl": "352d0276998cb3654de621791ba5dd6ca4c2d81a47e7b2a4092bc2acfeec57ab",
   "docs/battle-theatre/history/positions/positions_B.jsonl": "f31a457ab7922a4cf8dc22bc211a0a8101bb91b5084cf6a4cb3be39e1a1eeef2",
   "docs/battle-theatre/history/positions/positions_C.jsonl": "932faffd45e05d90450865bf2ffdf7e540ef771fe27a5749056073d8598358c5",
-  "docs/battle-theatre/history/positions/positions_D.jsonl": "f4a0608fb3d8dc47ae54d475cc1e66884f633b79e246293f938462c92ec6f802",
+  "docs/battle-theatre/history/positions/positions_D.jsonl": "6c09c71f946dae719cd9ad32ceab4ae647c612dd80c44c191d01e3016deaa582",
   "docs/battle-theatre/history/positions/positions_E.jsonl": "e1d2becbd472c7f958369fd275c7b9a18aba8644779bb1a871576be0e47864b5",
   "docs/battle-theatre/history/positions/troopmap_jul1_b1876.jsonl": "0ef2755e3bb6dd389613cdfde430ccecf717412dcc2de003a3c23e0b8bc13f29",
   "docs/battle-theatre/history/positions/troopmap_jul1_hour_loc99447494.jsonl": "8ad42ba23e265b06eb2eda45b3a6a5e3b580782b6d39267cb0a4c944143d9d54",
@@ -82,8 +83,8 @@
   "docs/battle-theatre/kit/weapons.json": "412396eada9819f2a0185d771c6555f3025939607991f18b3db11461948a5d02",
   "docs/battle-theatre/library/or27_index.json": "cce2d05deb458e8898306c1e8b06eee759ccc98b83eabffc5925987b77cf6031",
   "docs/battle-theatre/render/prototype/data/terrain.json": "2352910b42af31b355cb2fbc56a756c13581d13774b115a086931ec12700a80f",
-  "docs/battle-theatre/structures/hospitals.json": "85ceb22e4078f7f6103ab127ffe588af0729a70e1f98da8baa133dd56da3ef29",
-  "docs/battle-theatre/structures/state_schedule.json": "980d4420bf98c0d0f8715697936ebb8df5a40ec1bd6909ae5a66f576aff3a44d",
+  "docs/battle-theatre/structures/hospitals.json": "2fa49739f974a262f787edb6c24db1fe6da2b59161f5e339846fe68d2df38b7c",
+  "docs/battle-theatre/structures/state_schedule.json": "4c3238ea3e904807414cf0c797901a341f62ac298484e50cca41e1039defeb93",
   "docs/battle-theatre/structures/structures.json": "b223dacf386d9983167d24561dc05a8466248096a7715a23dd25fa5bd2b1ad53",
   "docs/battle-theatre/structures/works_stages.json": "22c0c950efa34172d259260085effe210fe43dca64710747d0c5207b996209c2",
   "tools/bt/gates/content_classes.json": "fd793502153b7cab615462d0eb3c6d0cbc1888d4198cde7a18af26623959fc8f",
@@ -99,22 +100,22 @@
    "sha256": null
   },
   {
-   "bytes": 11781,
+   "bytes": 14930,
    "path": "docs/battle-theatre/GOVERNANCE/conflict_register.json",
    "role": "datum class gov.conflict_register",
-   "sha256": "fee015befd8c0bfadc0e887141fd7feca0b643acfc399a007ec8955a234b8c22"
+   "sha256": "6040508e245ea81dbffe8e1c165ba2360b4ea3275a51ca3a4dd360480be706b6"
   },
   {
-   "bytes": 18048,
+   "bytes": 22795,
    "path": "docs/battle-theatre/GOVERNANCE/conflicts_structured.json",
    "role": "datum class gov.conflicts_structured",
-   "sha256": "e21953ec5a4e4a9e69bd25e8f207d4abd84ba7d10619fb9bdd66518459421e4a"
+   "sha256": "8dda5d91e0021309e1261e62a7a020b2f5b5d6645745dec8663f1710620f70da"
   },
   {
-   "bytes": 8664,
+   "bytes": 136049,
    "path": "docs/battle-theatre/GOVERNANCE/library/status.json",
    "role": "status file",
-   "sha256": "432755d7afeb3d8ce599f48f3358e2a91f29ed103117a5c27480c2af0b8cd407"
+   "sha256": "f6021370751c5ebe6f7d0d16b853e96231f8f3163b5bfc141428a991c2723991"
   },
   {
    "bytes": 7460,
@@ -123,52 +124,58 @@
    "sha256": "cd2c01f9920387e790134db8b4ce9ddcd6a193534505d1bebcc293ea268ca847"
   },
   {
-   "bytes": 4037,
+   "bytes": 5886,
    "path": "docs/battle-theatre/GOVERNANCE/library/status_3.json",
    "role": "status file",
-   "sha256": "e3e0ce43544640a652204e8876d55a3ef6791400337c5c633037c0a77c4971ac"
+   "sha256": "faf77daaf011303222f60d4a1adcae8394d8c32895e949f78150d5b46dcd7e76"
   },
   {
-   "bytes": 593273,
+   "bytes": 24204,
+   "path": "docs/battle-theatre/GOVERNANCE/library/status_4.json",
+   "role": "status file",
+   "sha256": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e"
+  },
+  {
+   "bytes": 611818,
    "path": "docs/battle-theatre/GOVERNANCE/register_index.json",
    "role": "datum class gov.register",
-   "sha256": "9cb387f9f8ad5282b7864536d157078a3fc4811c565f0f29272b80efda42083c"
+   "sha256": "c8b00f6d6f347dff7688442cfbda1fbe930ab6d5b2c99cf874fa5f80b9861f50"
   },
   {
-   "bytes": 618175,
+   "bytes": 757393,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl",
    "role": "timeline correction records",
-   "sha256": "a3b022ae79057423d2694f31c9eb23321df0c276bba13304eeba404b512a848f"
+   "sha256": "97a3139ef408bfeb221632916445f3000ccf5a93dc8df2fa36356690e78552b5"
   },
   {
-   "bytes": 906477,
+   "bytes": 1065377,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl",
    "role": "timeline correction records",
-   "sha256": "b5f650815f5545b7035dcfd58a27c02d784dd080d5b01a7d05a9e8693edd1639"
+   "sha256": "5ac7d8db1790e5e47f99b982c21c9906555d9cc20ab5bb0453ea4fcff2f31a2b"
   },
   {
-   "bytes": 1230537,
+   "bytes": 1230999,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl",
    "role": "timeline correction records",
-   "sha256": "a370f92d7528e00a5279c13507abc2a6f56edeaf6bdea589602773bd33d6a4e0"
+   "sha256": "9a5fa49814cf6b6d27df1f8267bdefad8915616d300a547fc99bfcc23d71c0d0"
   },
   {
-   "bytes": 717206,
+   "bytes": 878632,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-04.jsonl",
    "role": "timeline correction records",
-   "sha256": "ed2c0b0a1d6ccda3cb7bdc95eb241080774fdf7f9b8418085d32c298b55b1b31"
+   "sha256": "55db432864de3b0ff109a7ab37958a3c6ba2ee0406e38fa719e513077d28e4a0"
   },
   {
-   "bytes": 109666,
+   "bytes": 131044,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-lookups.jsonl",
    "role": "timeline correction records",
-   "sha256": "ae480799061ada00de5584afb455523317880c18ea4bb90bdb83f8f332fcff65"
+   "sha256": "5c5c65de6cdce61d7c64fdec5ed381c1b4e81a2e26a6737900317d5c812f034f"
   },
   {
-   "bytes": 514200,
+   "bytes": 768989,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-newspapers.jsonl",
    "role": "timeline correction records",
-   "sha256": "f34e36226b0b7e8378edf180c59a8f1720ebe447231bce8ba356baa60396585d"
+   "sha256": "1c2e4e14102cc522bb775e3dd56e3800ce1db3f49514a56c1f97b748e7558b94"
   },
   {
    "bytes": 82498,
@@ -183,10 +190,10 @@
    "sha256": "ca60ff50bdf9583e8dc5f7a86a2a1ef553cd70dc83bd2774e4ca2d190a1812c3"
   },
   {
-   "bytes": 400293,
+   "bytes": 814333,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl",
    "role": "timeline rows",
-   "sha256": "3c763c8802d5d5b9ab9ca8a8336cc0956f9e0cb8316c8a805b8bcfebc78af2b0"
+   "sha256": "ca61d0ff961ab35af8b9ae280c40b75156378ad680601a361e5cb010328262f3"
   },
   {
    "bytes": 14667,
@@ -249,10 +256,10 @@
    "sha256": null
   },
   {
-   "bytes": 56691,
+   "bytes": 481243,
    "path": "docs/battle-theatre/app/data/conflict-defaults.json",
    "role": "datum class data.conflict_defaults",
-   "sha256": "7f38491fa44e05fac176ffeb698b594aa2887e4225cb62ccc8f63bddc58fe93f"
+   "sha256": "95df40c0708b9358ce8c0943a943e4336f42d98aca74b7a95e20aa9cc9881694"
   },
   {
    "bytes": 971091,
@@ -291,10 +298,10 @@
    "sha256": "22413bf610c11a58bed9016ee93bf652fec174bc28f1bf2f6370fe0c1f1d33f0"
   },
   {
-   "bytes": 10011,
+   "bytes": 10159,
    "path": "docs/battle-theatre/app/data/fx3d/fires.json",
    "role": "datum class data.fx_fires",
-   "sha256": "ed01137ca6cab4de158509600cdddef84bdeff9445d2866a7c2ffc68880607f3"
+   "sha256": "9ea4ae152d03364abba3cdf133c743241fba089bf0b2f9a6b2d1a7a0763d19d4"
   },
   {
    "bytes": 29647,
@@ -321,10 +328,10 @@
    "sha256": "a3f736b5787d755ad255d478042bafdaf78ae4c5d2a7b9b341a04b1179bf8393"
   },
   {
-   "bytes": 214030,
+   "bytes": 216391,
    "path": "docs/battle-theatre/app/data/placement.json",
    "role": "datum class data.placement",
-   "sha256": "edde37b1721e192478b1cf5e064cea63d5b2dd8d0ed4f113107f023eccb017dd"
+   "sha256": "3f4296b28fe033ffbfddd528b73063958b7281d8274ddc9f57aefaa82ddc5164"
   },
   {
    "bytes": 71838,
@@ -339,10 +346,10 @@
    "sha256": "4aebf577df1d55e033bb210c0f50c57751447440a31d24155a7e3ba0d4a56d63"
   },
   {
-   "bytes": 12776,
+   "bytes": 30664,
    "path": "docs/battle-theatre/app/data/site-memorial-years.json",
    "role": "datum class data.site_memorial_years",
-   "sha256": "88d3bfede56159c26c0f5872f12b54ebe067391d2caa036f89f8001737efe6d6"
+   "sha256": "ae4cdd797ab4bd187bb45bd8ef3d55dbb58dc98b2dd8963305f222062c9f2de7"
   },
   {
    "bytes": 124030,
@@ -360,13 +367,13 @@
    "bytes": 469623,
    "path": "docs/battle-theatre/app/data/structures3d.json",
    "role": "datum class data.structures3d",
-   "sha256": "a9fc7ee84a0498ae8b90e45ff2764d78b93cfc26046bbbea84277860ad1c3637"
+   "sha256": "9e70d4751fdf6da22a111e7ef46251d727c7d32627befda937eb273edbbd36f4"
   },
   {
-   "bytes": 1923105,
+   "bytes": 1942681,
    "path": "docs/battle-theatre/app/data/vegetation.json",
    "role": "datum class data.vegetation",
-   "sha256": "9b4a978493f55dbfaaa0107bd65d890d550393a8c75a0a5320e6dea734f5b84d"
+   "sha256": "344b03fe0f1420253dc3ea96197f2be39396b7957f1160e3610b2f93c6695144"
   },
   {
    "bytes": 23591,
@@ -405,10 +412,10 @@
    "sha256": "932faffd45e05d90450865bf2ffdf7e540ef771fe27a5749056073d8598358c5"
   },
   {
-   "bytes": 719507,
+   "bytes": 719970,
    "path": "docs/battle-theatre/history/positions/positions_D.jsonl",
    "role": "datum class ledger.positions",
-   "sha256": "f4a0608fb3d8dc47ae54d475cc1e66884f633b79e246293f938462c92ec6f802"
+   "sha256": "6c09c71f946dae719cd9ad32ceab4ae647c612dd80c44c191d01e3016deaa582"
   },
   {
    "bytes": 405828,
@@ -477,16 +484,16 @@
    "sha256": "2352910b42af31b355cb2fbc56a756c13581d13774b115a086931ec12700a80f"
   },
   {
-   "bytes": 38856,
+   "bytes": 39196,
    "path": "docs/battle-theatre/structures/hospitals.json",
    "role": "datum class structures.hospitals",
-   "sha256": "85ceb22e4078f7f6103ab127ffe588af0729a70e1f98da8baa133dd56da3ef29"
+   "sha256": "2fa49739f974a262f787edb6c24db1fe6da2b59161f5e339846fe68d2df38b7c"
   },
   {
-   "bytes": 122192,
+   "bytes": 125145,
    "path": "docs/battle-theatre/structures/state_schedule.json",
    "role": "datum class structures.state_schedule",
-   "sha256": "980d4420bf98c0d0f8715697936ebb8df5a40ec1bd6909ae5a66f576aff3a44d"
+   "sha256": "4c3238ea3e904807414cf0c797901a341f62ac298484e50cca41e1039defeb93"
   },
   {
    "bytes": 137639,
@@ -575,7 +582,7 @@
      {
       "class": "data.conflict_defaults",
       "is_a_claim_ledger": false,
-      "members": 47,
+      "members": 937,
       "with_claim_ids": 0
      },
      {
@@ -641,8 +648,8 @@
      {
       "class": "data.site_memorial_years",
       "is_a_claim_ledger": true,
-      "members": 33,
-      "with_claim_ids": 33
+      "members": 75,
+      "with_claim_ids": 75
      },
      {
       "class": "data.site_memorials",
@@ -671,8 +678,8 @@
      {
       "class": "data.vegetation",
       "is_a_claim_ledger": true,
-      "members": 1087,
-      "with_claim_ids": 1087
+      "members": 1101,
+      "with_claim_ids": 1101
      },
      {
       "class": "data.works3d",
@@ -825,7 +832,7 @@
       "with_claim_ids": 0
      }
     ],
-    "ledger_claims_indexed": 5374
+    "ledger_claims_indexed": 5430
    },
    "id": "Q19/Q19.1/census",
    "pass": false,
@@ -1083,49 +1090,49 @@
    "check": "Q19.2",
    "evidence": {
     "class": "data.conflict_defaults",
-    "failing": 47,
-    "failures": 47,
+    "failing": 937,
+    "failures": 937,
     "first": [
      "conflict-defaults.json:$.conflicts.C-001",
-     "conflict-defaults.json:$.conflicts.C-002",
-     "conflict-defaults.json:$.conflicts.C-003",
-     "conflict-defaults.json:$.conflicts.C-004",
-     "conflict-defaults.json:$.conflicts.C-005",
-     "conflict-defaults.json:$.conflicts.C-006",
-     "conflict-defaults.json:$.conflicts.C-007",
-     "conflict-defaults.json:$.conflicts.C-008",
-     "conflict-defaults.json:$.conflicts.C-009",
-     "conflict-defaults.json:$.conflicts.C-010",
-     "conflict-defaults.json:$.conflicts.C-011",
-     "conflict-defaults.json:$.conflicts.C-012",
-     "conflict-defaults.json:$.conflicts.C-013",
-     "conflict-defaults.json:$.conflicts.C-014",
-     "conflict-defaults.json:$.conflicts.C-015",
-     "conflict-defaults.json:$.conflicts.C-016",
-     "conflict-defaults.json:$.conflicts.C-017",
-     "conflict-defaults.json:$.conflicts.C-018",
-     "conflict-defaults.json:$.conflicts.C-019",
-     "conflict-defaults.json:$.conflicts.C-020"
+     "conflict-defaults.json:$.conflicts.C-001.positions[0]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[1]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[2]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[3]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[4]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[5]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[6]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[7]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[8]",
+     "conflict-defaults.json:$.conflicts.C-001.previous_default",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[0]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[10]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[11]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[1]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[2]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[3]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[4]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[5]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[6]"
     ],
     "reasons": {
-     "no claim id: the datum cites no claim of the ledger": 47
+     "no claim id: the datum cites no claim of the ledger": 937
     },
-    "scanned": 47,
+    "scanned": 937,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q192-data_conflict_defaults.jsonl",
-     "rows": 47,
-     "sha256": "2009f98c659cd9e0627cac9f25857c35313bf4ed0f3f84f0d3d12c3df9e6286e"
+     "rows": 937,
+     "sha256": "27a96d00aa727875448997ff892aafe5a98667ffb31d0c8175adb98c0b4fd846"
     },
     "tier_counts": {
-     "documented": 29,
-     "inferred": 7,
-     "open gap": 3,
-     "plausible-procedural": 8
+     "documented": 331,
+     "inferred": 458,
+     "open gap": 99,
+     "plausible-procedural": 49
     }
    },
    "id": "Q19/Q19.2/data.conflict_defaults",
    "pass": false,
-   "reason": "47 of 47 members fail: no claim id: the datum cites no claim of the ledger (47)",
+   "reason": "937 of 937 members fail: no claim id: the datum cites no claim of the ledger (937)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -1579,15 +1586,15 @@
     "failures": 0,
     "first": [],
     "reasons": {},
-    "scanned": 33,
+    "scanned": 75,
     "tier_counts": {
-     "documented": 32,
+     "documented": 74,
      "inferred": 1
     }
    },
    "id": "Q19/Q19.2/data.site_memorial_years",
    "pass": true,
-   "reason": "all 33 members link to a ledger claim with a span",
+   "reason": "all 75 members link to a ledger claim with a span",
    "renderer_class": "python",
    "result": "PASS"
   },
@@ -1779,15 +1786,15 @@
     "reasons": {
      "the claim has no span in a stored source (no quote with a report or source)": 512
     },
-    "scanned": 1087,
+    "scanned": 1101,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q192-data_vegetation.jsonl",
      "rows": 512,
      "sha256": "b09a08ebb5a6a43b14b541b02d8f6d30e7966915fba029f9658c08b7a8d3658e"
     },
     "tier_counts": {
-     "documented": 539,
-     "inferred": 109,
+     "documented": 551,
+     "inferred": 111,
      "none": 2,
      "open gap": 6,
      "plausible-procedural": 431
@@ -1795,7 +1802,7 @@
    },
    "id": "Q19/Q19.2/data.vegetation",
    "pass": false,
-   "reason": "512 of 1087 members fail: the claim has no span in a stored source (no quote with a report or source) (512)",
+   "reason": "512 of 1101 members fail: the claim has no span in a stored source (no quote with a report or source) (512)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -1935,8 +1942,8 @@
     },
     "tier_counts": {
      "documented": 570,
-     "inferred": 71,
-     "open gap": 39,
+     "inferred": 72,
+     "open gap": 38,
      "plausible-procedural": 11
     }
    },
@@ -2234,7 +2241,7 @@
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q192-layer_events.jsonl",
      "rows": 21379,
-     "sha256": "60c4aa38f92a0996ce39a6f71c6635e4d8ededa7b447311bc97860f1721c67ec"
+     "sha256": "974e14585fcc1c261c5118f35dc2b9d94f2f37f658bd11bed07646b3e031b01a"
     },
     "tier_counts": {
      "inferred": 472,
@@ -3368,8 +3375,8 @@
    "check": "Q19.3",
    "evidence": {
     "class": "gov.timeline",
-    "failing": 201,
-    "failures": 201,
+    "failing": 206,
+    "failures": 206,
     "first": [
      "timeline:T1-001",
      "timeline:T1-002",
@@ -3402,22 +3409,22 @@
      "two or more sources but no pair is shown independent (independence not recorded for OR27-2-R470, OR27-2-R470, OR27-2-R470)": 10,
      "two or more sources but no pair is shown independent (independence not recorded for OR27-2-R565, OR27-2-R565, OR27-2-R565)": 5
     },
-    "scanned": 201,
+    "scanned": 206,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q193-gov_timeline.jsonl",
-     "rows": 201,
-     "sha256": "3ef4b04df91caf382a99ca2778f1d07f1aa963637957c34402679a9501656620"
+     "rows": 206,
+     "sha256": "d4208368b78e09debfb29d853e8f3982c570397c172706ab17d4c0db9d5dff5a"
     },
     "tier_counts": {
-     "documented": 178,
-     "inferred": 20,
+     "documented": 180,
+     "inferred": 23,
      "open gap": 2,
      "plausible-procedural": 1
     }
    },
    "id": "Q19/Q19.3/gov.timeline",
    "pass": false,
-   "reason": "201 of 201 members fail: two or more sources but no pair is shown independent (independence not recorded for OR27-2-R470, OR27-2-R470, OR27-2-R470) (10); two or more sources but no pair is shown independent (independence not recorded for OR27-2-R565, OR27-2-R565, OR27-2-R565) (5); two or more sources but no pair is shown independent (independence not recorded for OR27-1-R044, OR27-1-R044, OR27-1-R044) (4)",
+   "reason": "206 of 206 members fail: two or more sources but no pair is shown independent (independence not recorded for OR27-2-R470, OR27-2-R470, OR27-2-R470) (10); two or more sources but no pair is shown independent (independence not recorded for OR27-2-R565, OR27-2-R565, OR27-2-R565) (5); two or more sources but no pair is shown independent (independence not recorded for OR27-1-R044, OR27-1-R044, OR27-1-R044) (4)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -3654,7 +3661,7 @@
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q193-layer_events.jsonl",
      "rows": 19079,
-     "sha256": "3585227e11678291ad7d4b9634e9de779239baf1d952054c4d09edf3dc8b2374"
+     "sha256": "1a274834d10f842e75d274c6f42911c072dad112561eee74816f02e2576af681"
     },
     "tier_counts": {
      "inferred": 472,
@@ -4328,28 +4335,28 @@
    "check": "Q19.4",
    "evidence": {
     "class": "data.conflict_defaults",
-    "failing": 47,
+    "failing": 937,
     "first": [
      "conflict-defaults.json:$.conflicts.C-001",
-     "conflict-defaults.json:$.conflicts.C-002",
-     "conflict-defaults.json:$.conflicts.C-003",
-     "conflict-defaults.json:$.conflicts.C-004",
-     "conflict-defaults.json:$.conflicts.C-005",
-     "conflict-defaults.json:$.conflicts.C-006",
-     "conflict-defaults.json:$.conflicts.C-007",
-     "conflict-defaults.json:$.conflicts.C-008",
-     "conflict-defaults.json:$.conflicts.C-009",
-     "conflict-defaults.json:$.conflicts.C-010",
-     "conflict-defaults.json:$.conflicts.C-011",
-     "conflict-defaults.json:$.conflicts.C-012",
-     "conflict-defaults.json:$.conflicts.C-013",
-     "conflict-defaults.json:$.conflicts.C-014",
-     "conflict-defaults.json:$.conflicts.C-015",
-     "conflict-defaults.json:$.conflicts.C-016",
-     "conflict-defaults.json:$.conflicts.C-017",
-     "conflict-defaults.json:$.conflicts.C-018",
-     "conflict-defaults.json:$.conflicts.C-019",
-     "conflict-defaults.json:$.conflicts.C-020"
+     "conflict-defaults.json:$.conflicts.C-001.positions[0]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[1]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[2]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[3]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[4]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[5]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[6]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[7]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[8]",
+     "conflict-defaults.json:$.conflicts.C-001.previous_default",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[0]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[10]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[11]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[1]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[2]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[3]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[4]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[5]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[6]"
     ],
     "flag_shown": {
      "single_source": false,
@@ -4357,29 +4364,29 @@
     },
     "flagged_and_covered": 0,
     "reasons": {
-     "documented with 0 independent source(s) and no flag": 29,
-     "no open register entry names where the second source would come from": 47,
-     "the tier flag (inferred) is not shown in the product for this class (no mark code found)": 7,
-     "the tier flag (open gap) is not shown in the product for this class (no mark code found)": 3,
-     "the tier flag (plausible-procedural) is not shown in the product for this class (no mark code found)": 8
+     "documented with 0 independent source(s) and no flag": 331,
+     "no open register entry names where the second source would come from": 937,
+     "the tier flag (inferred) is not shown in the product for this class (no mark code found)": 458,
+     "the tier flag (open gap) is not shown in the product for this class (no mark code found)": 99,
+     "the tier flag (plausible-procedural) is not shown in the product for this class (no mark code found)": 49
     },
-    "scanned": 47,
+    "scanned": 937,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q194-data_conflict_defaults.jsonl",
-     "rows": 94,
-     "sha256": "619e038c13daa2c6571c2bac9396b13f8d7188626d3469376b9aa0d26f05acc4"
+     "rows": 1874,
+     "sha256": "2b0da8c2dbed9dc5c92f92b359d135066f274d45a7ce75174044c6c11653f072"
     },
     "tier_counts": {
-     "documented": 29,
-     "inferred": 7,
-     "open gap": 3,
-     "plausible-procedural": 8
+     "documented": 331,
+     "inferred": 458,
+     "open gap": 99,
+     "plausible-procedural": 49
     },
     "two_independent_sources": 0
    },
    "id": "Q19/Q19.4/data.conflict_defaults",
    "pass": false,
-   "reason": "47 of 47 members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (47); documented with 0 independent source(s) and no flag (29); the tier flag (plausible-procedural) is not shown in the product for this class (no mark code found) (8)",
+   "reason": "937 of 937 members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (937); the tier flag (inferred) is not shown in the product for this class (no mark code found) (458); documented with 0 independent source(s) and no flag (331)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -4916,7 +4923,7 @@
    "check": "Q19.4",
    "evidence": {
     "class": "data.site_memorial_years",
-    "failing": 33,
+    "failing": 75,
     "first": [
      "site-memorial-years.json:$.years[0]",
      "site-memorial-years.json:$.years[10]",
@@ -4945,24 +4952,24 @@
     },
     "flagged_and_covered": 0,
     "reasons": {
-     "documented with 0 independent source(s) and no flag": 32,
-     "no open register entry names where the second source would come from": 33
+     "documented with 0 independent source(s) and no flag": 74,
+     "no open register entry names where the second source would come from": 75
     },
-    "scanned": 33,
+    "scanned": 75,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q194-data_site_memorial_years.jsonl",
-     "rows": 65,
-     "sha256": "ebd7b56e20273cda40d40d788f3f7bce430e91afb8410f7303ed768aaf553903"
+     "rows": 149,
+     "sha256": "e45ca7ee405f584d446415094d75a91ef1aeee58559e71c6fce3d53a6a93f214"
     },
     "tier_counts": {
-     "documented": 32,
+     "documented": 74,
      "inferred": 1
     },
     "two_independent_sources": 0
    },
    "id": "Q19/Q19.4/data.site_memorial_years",
    "pass": false,
-   "reason": "33 of 33 members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (33); documented with 0 independent source(s) and no flag (32)",
+   "reason": "75 of 75 members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (75); documented with 0 independent source(s) and no flag (74)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -5151,7 +5158,7 @@
    "check": "Q19.4",
    "evidence": {
     "class": "data.vegetation",
-    "failing": 1087,
+    "failing": 1101,
     "first": [
      "vegetation.json:$.calendar.crops.barley.harvest",
      "vegetation.json:$.calendar.crops.barley.keys[0]",
@@ -5180,19 +5187,19 @@
     },
     "flagged_and_covered": 0,
     "reasons": {
-     "documented with 0 independent source(s) and no flag": 539,
-     "no open register entry names where the second source would come from": 1087,
+     "documented with 0 independent source(s) and no flag": 551,
+     "no open register entry names where the second source would come from": 1101,
      "no tier and no flag": 2
     },
-    "scanned": 1087,
+    "scanned": 1101,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q194-data_vegetation.jsonl",
-     "rows": 1628,
-     "sha256": "babb45995af3f98a20776d2ab236158674552f85a571a80f6485ece3bbc60068"
+     "rows": 1654,
+     "sha256": "e6b6852e3676ce60c6bbbe3a061dd98c3de16a6b89d722747235a5e00599b4aa"
     },
     "tier_counts": {
-     "documented": 539,
-     "inferred": 109,
+     "documented": 551,
+     "inferred": 111,
      "none": 2,
      "open gap": 6,
      "plausible-procedural": 431
@@ -5201,7 +5208,7 @@
    },
    "id": "Q19/Q19.4/data.vegetation",
    "pass": false,
-   "reason": "1087 of 1087 members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (1087); documented with 0 independent source(s) and no flag (539); no tier and no flag (2)",
+   "reason": "1101 of 1101 members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (1101); documented with 0 independent source(s) and no flag (551); no tier and no flag (2)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -5357,27 +5364,27 @@
     "reasons": {
      "documented on lead or weak sources alone": 70,
      "documented with 0 independent source(s) and no flag": 302,
-     "documented with 1 independent source(s) and no flag": 90,
-     "documented with sources that are not shown independent and no flag": 178,
+     "documented with 1 independent source(s) and no flag": 88,
+     "documented with sources that are not shown independent and no flag": 180,
      "no open register entry names where the second source would come from": 691
     },
     "scanned": 691,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q194-gov_timeline.jsonl",
      "rows": 1331,
-     "sha256": "62e52251a61a9b0575d0a2acf4f4223ee7a2dc9a4fa45102833d2fb450c22bea"
+     "sha256": "6232a3597821832572bd7d8150ee9c75c4b14539b471ffc8d60c8e4deb9023f3"
     },
     "tier_counts": {
      "documented": 570,
-     "inferred": 71,
-     "open gap": 39,
+     "inferred": 72,
+     "open gap": 38,
      "plausible-procedural": 11
     },
     "two_independent_sources": 0
    },
    "id": "Q19/Q19.4/gov.timeline",
    "pass": false,
-   "reason": "691 of 691 members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (691); documented with 0 independent source(s) and no flag (302); documented with sources that are not shown independent and no flag (178)",
+   "reason": "691 of 691 members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (691); documented with 0 independent source(s) and no flag (302); documented with sources that are not shown independent and no flag (180)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -5719,7 +5726,7 @@
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q194-layer_events.jsonl",
      "rows": 21379,
-     "sha256": "baa48be7874e1b96a3c591cff1fe7e1079f8db2931efa74dfc3b023cd910a0ac"
+     "sha256": "0ea3a2dda32313a6d3ce6fcd53c1d30f3e79e580ccba4bfbb93ca01f9683238d"
     },
     "tier_counts": {
      "inferred": 472,
@@ -6659,14 +6666,19 @@
     "failures": 0,
     "first": [],
     "reasons": {},
-    "scanned": 0,
-    "tier_counts": {}
+    "scanned": 473,
+    "tier_counts": {
+     "documented": 159,
+     "inferred": 239,
+     "open gap": 51,
+     "plausible-procedural": 24
+    }
    },
    "id": "Q19/Q19.5/data.conflict_defaults",
-   "pass": false,
-   "reason": "no member names a source id",
+   "pass": true,
+   "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "PASS"
   },
   {
    "check": "Q19.5",
@@ -6864,9 +6876,9 @@
     "failures": 0,
     "first": [],
     "reasons": {},
-    "scanned": 33,
+    "scanned": 75,
     "tier_counts": {
-     "documented": 32,
+     "documented": 74,
      "inferred": 1
     }
    },
@@ -6964,10 +6976,10 @@
     "failures": 0,
     "first": [],
     "reasons": {},
-    "scanned": 575,
+    "scanned": 589,
     "tier_counts": {
-     "documented": 521,
-     "inferred": 54
+     "documented": 533,
+     "inferred": 56
     }
    },
    "id": "Q19/Q19.5/data.vegetation",
@@ -7075,8 +7087,8 @@
     },
     "tier_counts": {
      "documented": 570,
-     "inferred": 71,
-     "open gap": 39,
+     "inferred": 72,
+     "open gap": 38,
      "plausible-procedural": 11
     }
    },
@@ -7651,7 +7663,7 @@
    "check": "Q19.6",
    "evidence": {
     "conflicts": 47,
-    "manifest_entries": 3603,
+    "manifest_entries": 3838,
     "manifest_entries_with_a_relation": 0,
     "reasons": {
      "a value names no source key, so its support cannot be computed": 107,
@@ -7668,7 +7680,7 @@
   {
    "check": "Q19.7",
    "evidence": {
-    "claims": 5374,
+    "claims": 5430,
     "without_span": [
      "$.approach[0]",
      "$.approach[10]",
@@ -7695,7 +7707,7 @@
    },
    "id": "Q19/Q19.7/claims-have-spans",
    "pass": false,
-   "reason": "586 of 5374 ledger claims have no span (a claim without a span fails, P.4; open gaps are not claims)",
+   "reason": "586 of 5430 ledger claims have no span (a claim without a span fails, P.4; open gaps are not claims)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -7732,10 +7744,10 @@
   "Q19.3 independence needs a recorded relation (`independent_of` or `derived_from`) on every Source Manifest entry; the owner of the manifest writes it, no runner invents one"
  ],
  "renderer_class": "python",
- "run_id": "20261116T004403Z-Q19",
+ "run_id": "20261124T181443Z-Q19",
  "runnable_here": true,
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-16T00:44:03Z",
+ "started_utc": "2026-11-24T18:14:43Z",
  "thresholds": [],
  "tool_versions": {
   "node": "v22.23.4",
@@ -7780,9 +7792,9 @@
     "BLOCKED-INPUT": 0,
     "COVERED": 0,
     "FAIL": 11,
-    "N/A": 14,
+    "N/A": 13,
     "NOT-RUN": 0,
-    "PASS": 24
+    "PASS": 25
    },
    "Q19.6": {
     "BLOCKED-INPUT": 0,
@@ -7804,10 +7816,10 @@
   "covered": 0,
   "fail": 121,
   "items": 203,
-  "n_a": 52,
-  "not_passing": 174,
+  "n_a": 51,
+  "not_passing": 173,
   "not_run": 0,
-  "pass": 29
+  "pass": 30
  },
  "verdict": "FAIL"
 }

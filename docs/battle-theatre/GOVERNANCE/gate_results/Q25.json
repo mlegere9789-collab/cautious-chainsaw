@@ -2,37 +2,38 @@
  "command": "python3 tools/bt/gates/q25_library.py",
  "counts": {
   "BLOCKED-INPUT": 1,
-  "COVERED": 10,
-  "FAIL": 157,
+  "COVERED": 61,
+  "FAIL": 94,
   "N/A": 0,
   "NOT-RUN": 0,
-  "PASS": 208
+  "PASS": 219
  },
- "finished_utc": "2026-11-24T05:33:16Z",
+ "finished_utc": "2026-11-24T18:16:20Z",
  "gate": "Q25",
  "incomplete_reasons": [
   "1 item(s) NOT-RUN or BLOCKED-INPUT"
  ],
  "input_hashes": {
   "docs/battle-theatre/BIBLE/plan-clean.txt": "5515b8ce322c142bdadcfd1a97c2a68c066e27c971b226ef852aa54a2f9210e7",
-  "docs/battle-theatre/GOVERNANCE/library/acquired.json": "2c5c9b8a8098017235b49b143dabbeab93f92db97557d313964a190d3c9f5a27",
+  "docs/battle-theatre/GOVERNANCE/library/acquired.json": "3cda8422985297507e877e94606034f6428d96234499da6a42ba2b9aad719347",
   "docs/battle-theatre/GOVERNANCE/library/acquired_2.json": "cbcea512bb952d1a6657036641aa493f59b4b99ca21915449ac77737123b238d",
-  "docs/battle-theatre/GOVERNANCE/library/acquired_3.json": "ce24b5c8ecc0d1923c83bd7ec59765d7769419fff1a9cd5c5e5b4c557aaac7f7",
+  "docs/battle-theatre/GOVERNANCE/library/acquired_3.json": "a844077c7a968a6edd812592ac385737628d042a16315986dc72a61131d1036e",
   "docs/battle-theatre/GOVERNANCE/library/candidates.json": "5924731e6e2555ea75bc70b9768312f088ad0ed61a7c9872a9ac3826e0dec178",
   "docs/battle-theatre/GOVERNANCE/library/figures-ledger.json": "b16b8bef60499a23483d3aa5936f5666e01dd6d48fa40dca9ef7287fee56c1fb",
   "docs/battle-theatre/GOVERNANCE/library/status.json": "f6021370751c5ebe6f7d0d16b853e96231f8f3163b5bfc141428a991c2723991",
   "docs/battle-theatre/GOVERNANCE/library/status_2.json": "cd2c01f9920387e790134db8b4ce9ddcd6a193534505d1bebcc293ea268ca847",
   "docs/battle-theatre/GOVERNANCE/library/status_3.json": "faf77daaf011303222f60d4a1adcae8394d8c32895e949f78150d5b46dcd7e76",
+  "docs/battle-theatre/GOVERNANCE/library/status_4.json": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e",
   "docs/battle-theatre/GOVERNANCE/library/terms.json": null,
-  "docs/battle-theatre/GOVERNANCE/library/work_queue.json": null,
-  "docs/battle-theatre/GOVERNANCE/register_index.json": "eed58705a0086ada707affefd59b06424553ccc53e8414850cd4a70cf31a6283",
+  "docs/battle-theatre/GOVERNANCE/library/work_queue.json": "c407a93ebf8a2979b2767bda2935eb476951165d7455c7a54fa3c8c03ab7bd1c",
+  "docs/battle-theatre/GOVERNANCE/register_index.json": "cc3abed31dc83e1225901c04432e86c31d29632d7cf35d8c4fd699a8b3125359",
   "docs/battle-theatre/app/data/anim3d/clips.json": "c726d10cfce960175f4769b4873f426e612f6318e3baec7a870400b17fc7f01d",
   "docs/battle-theatre/app/data/audio3d/sources.json": "5eff983ec5d1a7f95a8a17cdeb77a76658cb3aac927d417b24c551933ef8e294",
   "docs/battle-theatre/app/data/figures3d/acw/manifest.json": "51a47aba61f767a905b02ae5cbbc6e09a98c46febec7597bd94da8ac27ea3724",
   "docs/battle-theatre/app/data/figures3d/manifest.json": "d1e0a5a6897347fe6ec97e943539705f2ca3cec066357425c370892f977a9e95",
   "docs/battle-theatre/medical/sources.json": "a0eff501c4847635deda3fe1e805e94ec30b64f83533205242d2c8f23739f7cd",
   "docs/battle-theatre/terrain/terrain_sources.json": "607aba583365719af7c67b8d947f32d1a189b9a9369985064138580ee75548e4",
-  "tools/bt/gates/lib/acquisition_list.json": "9a635573fdd88bb4173b590f74edfa8e6a7d17e50a10de1207864243843b8bfa",
+  "tools/bt/gates/lib/acquisition_list.json": "e77e36b8e06c3c845d4f927f059e121d7635a87d2a19dda48aca06f525dcc96e",
   "tools/bt/gates/lib/library_ids.json": "58cb3cb6fcfc5d8c51eeb0a33e1a1079e6eb02be3064ef6e4a563e76ec31f37b"
  },
  "inputs": [
@@ -43,10 +44,10 @@
    "sha256": "5515b8ce322c142bdadcfd1a97c2a68c066e27c971b226ef852aa54a2f9210e7"
   },
   {
-   "bytes": 24193,
+   "bytes": 28061,
    "path": "docs/battle-theatre/GOVERNANCE/library/acquired.json",
    "role": "acquisition ledger",
-   "sha256": "2c5c9b8a8098017235b49b143dabbeab93f92db97557d313964a190d3c9f5a27"
+   "sha256": "3cda8422985297507e877e94606034f6428d96234499da6a42ba2b9aad719347"
   },
   {
    "bytes": 87124,
@@ -55,10 +56,10 @@
    "sha256": "cbcea512bb952d1a6657036641aa493f59b4b99ca21915449ac77737123b238d"
   },
   {
-   "bytes": 346640,
+   "bytes": 347246,
    "path": "docs/battle-theatre/GOVERNANCE/library/acquired_3.json",
    "role": "acquisition ledger",
-   "sha256": "ce24b5c8ecc0d1923c83bd7ec59765d7769419fff1a9cd5c5e5b4c557aaac7f7"
+   "sha256": "a844077c7a968a6edd812592ac385737628d042a16315986dc72a61131d1036e"
   },
   {
    "bytes": 17762,
@@ -91,22 +92,28 @@
    "sha256": "faf77daaf011303222f60d4a1adcae8394d8c32895e949f78150d5b46dcd7e76"
   },
   {
+   "bytes": 24204,
+   "path": "docs/battle-theatre/GOVERNANCE/library/status_4.json",
+   "role": "status file",
+   "sha256": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e"
+  },
+  {
    "missing": true,
    "path": "docs/battle-theatre/GOVERNANCE/library/terms.json",
    "role": "terms and robots record",
    "sha256": null
   },
   {
-   "missing": true,
+   "bytes": 25328,
    "path": "docs/battle-theatre/GOVERNANCE/library/work_queue.json",
    "role": "work queue",
-   "sha256": null
+   "sha256": "c407a93ebf8a2979b2767bda2935eb476951165d7455c7a54fa3c8c03ab7bd1c"
   },
   {
-   "bytes": 611244,
+   "bytes": 611221,
    "path": "docs/battle-theatre/GOVERNANCE/register_index.json",
    "role": "register index",
-   "sha256": "eed58705a0086ada707affefd59b06424553ccc53e8414850cd4a70cf31a6283"
+   "sha256": "cc3abed31dc83e1225901c04432e86c31d29632d7cf35d8c4fd699a8b3125359"
   },
   {
    "bytes": 286267,
@@ -145,10 +152,10 @@
    "sha256": "607aba583365719af7c67b8d947f32d1a189b9a9369985064138580ee75548e4"
   },
   {
-   "bytes": 18887,
+   "bytes": 18893,
    "path": "tools/bt/gates/lib/acquisition_list.json",
    "role": "acquisition list",
-   "sha256": "9a635573fdd88bb4173b590f74edfa8e6a7d17e50a10de1207864243843b8bfa"
+   "sha256": "e77e36b8e06c3c845d4f927f059e121d7635a87d2a19dda48aca06f525dcc96e"
   },
   {
    "bytes": 6635,
@@ -195,20 +202,20 @@
      },
      {
       "part": "TM-BACHELDER-1876",
-      "reason": "acquired.json/TM-B1876-S1 lacks text quality; acquired.json/TM-B1876-S2 lacks text quality; acquired.json/TM-B1876-S3 lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      },
      {
       "part": "TM-BACHELDER-1883#ingested",
-      "reason": "acquired.json/TM-B1883-S3 lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      },
      {
       "part": "TM-BACHELDER-1883#remainder",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      },
      {
@@ -227,7 +234,7 @@
    },
    "id": "Q25/Q25.2/row/C11-BACHELDER-MAPS-LOC",
    "pass": false,
-   "reason": "LOC-MAPS: no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record; TM-BACHELDER-1876: acquired.json/TM-B1876-S1 lacks text quality; acquired.json/TM-B1876-S2 lacks text quality; acquired.json/TM-B1876-S3 lacks text quality; TM-BACHELDER-1883#ingested: acquired.json/TM-B1883-S3 lacks text quality; TM-BACHELDER-1883#remainder: no named next action; no work-queue entry; TM-BACHELDER-18",
+   "reason": "LOC-MAPS: no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record; TM-BACHELDER-1886-HOURLY: no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded after 2026-10-21 (2026-11-11 JACOBS-1864; 2026-11-11 LETTERMAN-1866; 2026-11-11 BACH-KEY-1864)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -309,20 +316,20 @@
     "parts": [
      {
       "part": "OR-ATLAS#ingested",
-      "reason": "acquired.json/OR-ATLAS lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      },
      {
       "part": "OR-ATLAS#remainder",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      },
      {
       "part": "TM-OR-ATLAS-GETTYSBURG",
-      "reason": "acquired.json/TM-OR-ATLAS lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      }
     ],
@@ -333,9 +340,9 @@
    },
    "id": "Q25/Q25.2/row/C11-OR-ATLAS",
    "pass": false,
-   "reason": "OR-ATLAS#ingested: acquired.json/OR-ATLAS lacks text quality; OR-ATLAS#remainder: no named next action; no work-queue entry; TM-OR-ATLAS-GETTYSBURG: acquired.json/TM-OR-ATLAS lacks text quality",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -531,20 +538,20 @@
     "parts": [
      {
       "part": "LOC-PHOTO",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      },
      {
       "part": "PM-LOC-DERIVATIVES",
-      "reason": "acquired_3.json/PM-LOC-DERIVATIVES lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      },
      {
       "part": "PM-LOC-RECORDS",
-      "reason": "acquired_3.json/PM-LOC-RECORDS lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      }
     ],
@@ -556,9 +563,9 @@
    },
    "id": "Q25/Q25.2/row/C12-LOC-CWP",
    "pass": false,
-   "reason": "LOC-PHOTO: no named next action; no work-queue entry; PM-LOC-DERIVATIVES: acquired_3.json/PM-LOC-DERIVATIVES lacks text quality; PM-LOC-RECORDS: acquired_3.json/PM-LOC-RECORDS lacks text quality",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -568,14 +575,14 @@
     "parts": [
      {
       "part": "NPS-CLR#ingested",
-      "reason": "acquired_3.json/PM-NPS-ROT-FIGURES lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      },
      {
       "part": "NPS-CLR#remainder",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -585,9 +592,9 @@
    },
    "id": "Q25/Q25.2/row/C12-NPS-CLR-HSR",
    "pass": false,
-   "reason": "NPS-CLR#ingested: acquired_3.json/PM-NPS-ROT-FIGURES lacks text quality; NPS-CLR#remainder: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -668,8 +675,8 @@
     "parts": [
      {
       "part": "LIDAR-PA17",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -679,9 +686,9 @@
    },
    "id": "Q25/Q25.2/row/C12-PA-2017-QL2",
    "pass": false,
-   "reason": "LIDAR-PA17: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -691,8 +698,8 @@
     "parts": [
      {
       "part": "LIDAR-PAMAP",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -702,9 +709,9 @@
    },
    "id": "Q25/Q25.2/row/C12-PAMAP",
    "pass": false,
-   "reason": "LIDAR-PAMAP: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -726,8 +733,8 @@
     "parts": [
      {
       "part": "LIDAR-3DEP",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -737,9 +744,9 @@
    },
    "id": "Q25/Q25.2/row/C12-USGS-3DEP",
    "pass": false,
-   "reason": "LIDAR-3DEP: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -757,13 +764,24 @@
    "check": "Q25.2",
    "evidence": {
     "group": "C.1.3",
-    "label": "Battles and Leaders of the Civil War"
+    "label": "Battles and Leaders of the Civil War",
+    "parts": [
+     {
+      "part": "BL-3",
+      "reason": "complete record",
+      "result": "COVERED",
+      "terminal": "scheduled"
+     }
+    ],
+    "status_ids": [
+     "BL-3"
+    ]
    },
    "id": "Q25/Q25.2/row/C13-BATTLES-LEADERS",
    "pass": false,
-   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -814,8 +832,8 @@
      },
      {
       "part": "WITNESS#remainder",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -825,9 +843,9 @@
    },
    "id": "Q25/Q25.2/row/C13-CIVILIAN-WITNESSES",
    "pass": false,
-   "reason": "WITNESS#remainder: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -930,8 +948,8 @@
     "parts": [
      {
       "part": "FOX",
-      "reason": "acquired.json/FOX-1889 lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      }
     ],
@@ -940,10 +958,10 @@
     ]
    },
    "id": "Q25/Q25.2/row/C13-FOX",
-   "pass": false,
-   "reason": "FOX: acquired.json/FOX-1889 lacks text quality",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.2",
@@ -1041,8 +1059,8 @@
     "parts": [
      {
       "part": "ME-GB",
-      "reason": "acquired.json/ME-GB-1898 lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      }
     ],
@@ -1051,10 +1069,10 @@
     ]
    },
    "id": "Q25/Q25.2/row/C13-ME-GB",
-   "pass": false,
-   "reason": "ME-GB: acquired.json/ME-GB-1898 lacks text quality",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.2",
@@ -1064,8 +1082,8 @@
     "parts": [
      {
       "part": "MI-GB",
-      "reason": "acquired.json/MI-GB-1889 lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      }
     ],
@@ -1074,10 +1092,10 @@
     ]
    },
    "id": "Q25/Q25.2/row/C13-MI-GB",
-   "pass": false,
-   "reason": "MI-GB: acquired.json/MI-GB-1889 lacks text quality",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.2",
@@ -1105,8 +1123,8 @@
      },
      {
       "part": "NEWS#remainder",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1116,9 +1134,9 @@
    },
    "id": "Q25/Q25.2/row/C13-NEWSPAPERS",
    "pass": false,
-   "reason": "NEWS#remainder: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1163,7 +1181,7 @@
     "parts": [
      {
       "part": "NPS-SS#lookups",
-      "reason": "no lookup recorded: with no lookup made the whole row is scheduled with its next action; no named next action; no work-queue entry",
+      "reason": "no lookup recorded: with no lookup made the whole row is scheduled with its next action",
       "result": "FAIL",
       "terminal": "scheduled"
      },
@@ -1180,7 +1198,7 @@
    },
    "id": "Q25/Q25.2/row/C13-NPS-SSS",
    "pass": false,
-   "reason": "NPS-SS#lookups: no lookup recorded: with no lookup made the whole row is scheduled with its next action; no named next action; no work-queue entry",
+   "reason": "NPS-SS#lookups: no lookup recorded: with no lookup made the whole row is scheduled with its next action",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -1192,8 +1210,8 @@
     "parts": [
      {
       "part": "NY-GB",
-      "reason": "acquired.json/NY-GB-1900 lacks text quality; acquired.json/NY-GB-1900-v2 lacks text quality; acquired.json/NY-GB-1902-v3 lacks text quality; acquired.json/NY-GB-1900-v3-w lacks text quality; acquired.json/NY-GB-1902-v3-w2 lacks text quality; acquired.json/NY-GB-1900-v1-w lacks text quality; acquired",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      }
     ],
@@ -1202,10 +1220,10 @@
     ]
    },
    "id": "Q25/Q25.2/row/C13-NY-GB",
-   "pass": false,
-   "reason": "NY-GB: acquired.json/NY-GB-1900 lacks text quality; acquired.json/NY-GB-1900-v2 lacks text quality; acquired.json/NY-GB-1902-v3 lacks text quality; acquired.json/NY-GB-1900-v3-w lacks text quality; acquired.json/NY-GB-1902-v3-w2 lacks text quality; acquired.json/NY-GB-1900-v1-w lacks text quality; acquired.json/NY-GB-1900-v1-w2 lacks text quality",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.2",
@@ -1215,8 +1233,8 @@
     "parts": [
      {
       "part": "ORDNANCE",
-      "reason": "acquired.json/ORDNANCE-1861 lacks text quality; acquired.json/GIBBON-1860 lacks text quality; acquired.json/CASEY-1862-1 lacks text quality; acquired.json/CASEY-1862-2 lacks text quality; acquired.json/FIELDART-1863 lacks text quality; acquired.json/HARDEE-1861a lacks text quality; acquired.json/HAR",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      }
     ],
@@ -1225,10 +1243,10 @@
     ]
    },
    "id": "Q25/Q25.2/row/C13-ORDNANCE-DRILL",
-   "pass": false,
-   "reason": "ORDNANCE: acquired.json/ORDNANCE-1861 lacks text quality; acquired.json/GIBBON-1860 lacks text quality; acquired.json/CASEY-1862-1 lacks text quality; acquired.json/CASEY-1862-2 lacks text quality; acquired.json/FIELDART-1863 lacks text quality; acquired.json/HARDEE-1861a lacks text quality; acquired.json/HARDEE-1861b lacks text quality",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.2",
@@ -1238,8 +1256,8 @@
     "parts": [
      {
       "part": "PA-GB",
-      "reason": "acquired.json/PA-GB-1904 lacks text quality; acquired.json/PA-GB-1914a lacks text quality; acquired.json/PA-GB-1914b lacks text quality; acquired.json/PA-GB-1914-v2 lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      }
     ],
@@ -1248,10 +1266,10 @@
     ]
    },
    "id": "Q25/Q25.2/row/C13-PA-GB",
-   "pass": false,
-   "reason": "PA-GB: acquired.json/PA-GB-1904 lacks text quality; acquired.json/PA-GB-1914a lacks text quality; acquired.json/PA-GB-1914b lacks text quality; acquired.json/PA-GB-1914-v2 lacks text quality",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.2",
@@ -1314,8 +1332,8 @@
      },
      {
       "part": "SHSP#remainder",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1325,9 +1343,9 @@
    },
    "id": "Q25/Q25.2/row/C13-SHSP",
    "pass": false,
-   "reason": "SHSP#remainder: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1343,8 +1361,8 @@
      },
      {
       "part": "STATE-OTHER#remainder",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1354,9 +1372,9 @@
    },
    "id": "Q25/Q25.2/row/C13-STATE-OTHER",
    "pass": false,
-   "reason": "STATE-OTHER#remainder: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1366,8 +1384,8 @@
     "parts": [
      {
       "part": "STONE-S",
-      "reason": "no named next action; no work-queue entry; the tier is not recorded as lead (p. 134, E.1, E.7)",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1377,9 +1395,9 @@
    },
    "id": "Q25/Q25.2/row/C13-STONE-SENTINELS",
    "pass": false,
-   "reason": "STONE-S: no named next action; no work-queue entry; the tier is not recorded as lead (p. 134, E.1, E.7)",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1453,8 +1471,8 @@
      },
      {
       "part": "WITNESS#remainder",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1464,9 +1482,9 @@
    },
    "id": "Q25/Q25.2/row/C13-WITNESS-ACCOUNTS",
    "pass": false,
-   "reason": "WITNESS#remainder: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1613,8 +1631,8 @@
     "parts": [
      {
       "part": "GROSS-1861",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1624,9 +1642,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/GROSS-1861",
    "pass": false,
-   "reason": "GROSS-1861: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1636,8 +1654,8 @@
     "parts": [
      {
       "part": "GROSS-1861-AUGUSTA",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1647,9 +1665,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/GROSS-1861-AUGUSTA",
    "pass": false,
-   "reason": "GROSS-1861-AUGUSTA: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1659,8 +1677,8 @@
     "parts": [
      {
       "part": "GROSS-1862-2ED",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1670,9 +1688,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/GROSS-1862-2ED",
    "pass": false,
-   "reason": "GROSS-1862-2ED: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1682,8 +1700,8 @@
     "parts": [
      {
       "part": "GROSS-1862-RICHMOND",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1693,9 +1711,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/GROSS-1862-RICHMOND",
    "pass": false,
-   "reason": "GROSS-1862-RICHMOND: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1728,8 +1746,8 @@
     "parts": [
      {
       "part": "MSHWR-P1V1-1870",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1739,9 +1757,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P1V1-1870",
    "pass": false,
-   "reason": "MSHWR-P1V1-1870: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1751,8 +1769,8 @@
     "parts": [
      {
       "part": "MSHWR-P1V2-1870",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1762,9 +1780,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P1V2-1870",
    "pass": false,
-   "reason": "MSHWR-P1V2-1870: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1774,8 +1792,8 @@
     "parts": [
      {
       "part": "MSHWR-P1V2-1870-ALT",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1785,9 +1803,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P1V2-1870-ALT",
    "pass": false,
-   "reason": "MSHWR-P1V2-1870-ALT: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1797,8 +1815,8 @@
     "parts": [
      {
       "part": "MSHWR-P2V1-1879",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1808,9 +1826,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P2V1-1879",
    "pass": false,
-   "reason": "MSHWR-P2V1-1879: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1820,8 +1838,8 @@
     "parts": [
      {
       "part": "MSHWR-P2V2-1876",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1831,9 +1849,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P2V2-1876",
    "pass": false,
-   "reason": "MSHWR-P2V2-1876: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1843,8 +1861,8 @@
     "parts": [
      {
       "part": "MSHWR-P2V2-1877-2NDISSUE",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1854,9 +1872,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P2V2-1877-2NDISSUE",
    "pass": false,
-   "reason": "MSHWR-P2V2-1877-2NDISSUE: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1866,8 +1884,8 @@
     "parts": [
      {
       "part": "MSHWR-P3V1-1888",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1877,9 +1895,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P3V1-1888",
    "pass": false,
-   "reason": "MSHWR-P3V1-1888: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1889,8 +1907,8 @@
     "parts": [
      {
       "part": "MSHWR-P3V2-1883",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1900,9 +1918,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P3V2-1883",
    "pass": false,
-   "reason": "MSHWR-P3V2-1883: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1912,8 +1930,8 @@
     "parts": [
      {
       "part": "MSHWR-P3V2-1883-2NDISSUE",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1923,9 +1941,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P3V2-1883-2NDISSUE",
    "pass": false,
-   "reason": "MSHWR-P3V2-1883-2NDISSUE: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1935,8 +1953,8 @@
     "parts": [
      {
       "part": "TRIPLER-BLACKMAN-1861-2ED",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1946,9 +1964,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/TRIPLER-BLACKMAN-1861-2ED",
    "pass": false,
-   "reason": "TRIPLER-BLACKMAN-1861-2ED: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1958,8 +1976,8 @@
     "parts": [
      {
       "part": "TRIPLER-BLACKMAN-1861-A",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1969,9 +1987,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/TRIPLER-BLACKMAN-1861-A",
    "pass": false,
-   "reason": "TRIPLER-BLACKMAN-1861-A: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1981,8 +1999,8 @@
     "parts": [
      {
       "part": "TRIPLER-BLACKMAN-1862-3ED",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -1992,9 +2010,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/TRIPLER-BLACKMAN-1862-3ED",
    "pass": false,
-   "reason": "TRIPLER-BLACKMAN-1862-3ED: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -2004,8 +2022,8 @@
     "parts": [
      {
       "part": "TRIPLER-BLACKMAN-1862-3ED-ALT",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -2015,9 +2033,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/TRIPLER-BLACKMAN-1862-3ED-ALT",
    "pass": false,
-   "reason": "TRIPLER-BLACKMAN-1862-3ED-ALT: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -2027,8 +2045,8 @@
     "parts": [
      {
       "part": "TRIPLER-GANGRENE-1863",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -2038,9 +2056,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/TRIPLER-GANGRENE-1863",
    "pass": false,
-   "reason": "TRIPLER-GANGRENE-1863: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -2050,8 +2068,8 @@
     "parts": [
      {
       "part": "WOODWARD-CAMP-DISEASES-1863",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -2061,9 +2079,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/WOODWARD-CAMP-DISEASES-1863",
    "pass": false,
-   "reason": "WOODWARD-CAMP-DISEASES-1863: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -2073,8 +2091,8 @@
     "parts": [
      {
       "part": "WOODWARD-STEWARD-1862",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -2084,9 +2102,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/WOODWARD-STEWARD-1862",
    "pass": false,
-   "reason": "WOODWARD-STEWARD-1862: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -2096,8 +2114,8 @@
     "parts": [
      {
       "part": "WOODWARD-STEWARD-1863",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -2107,9 +2125,9 @@
    },
    "id": "Q25/Q25.2/row/DEC-OA10-12/WOODWARD-STEWARD-1863",
    "pass": false,
-   "reason": "WOODWARD-STEWARD-1863: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -2197,8 +2215,8 @@
     "parts": [
      {
       "part": "TM-BACHELDER-1876",
-      "reason": "acquired.json/TM-B1876-S1 lacks text quality; acquired.json/TM-B1876-S2 lacks text quality; acquired.json/TM-B1876-S3 lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      }
     ],
@@ -2207,10 +2225,10 @@
     ]
    },
    "id": "Q25/Q25.2/row/R12.004",
-   "pass": false,
-   "reason": "TM-BACHELDER-1876: acquired.json/TM-B1876-S1 lacks text quality; acquired.json/TM-B1876-S2 lacks text quality; acquired.json/TM-B1876-S3 lacks text quality",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "PASS",
    "sub_requirements": [
     "R12.004"
    ]
@@ -2361,20 +2379,20 @@
     "parts": [
      {
       "part": "OR-ATLAS#ingested",
-      "reason": "acquired.json/OR-ATLAS lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      },
      {
       "part": "OR-ATLAS#remainder",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      },
      {
       "part": "TM-OR-ATLAS-GETTYSBURG",
-      "reason": "acquired.json/TM-OR-ATLAS lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      }
     ],
@@ -2385,9 +2403,9 @@
    },
    "id": "Q25/Q25.2/row/R12.012",
    "pass": false,
-   "reason": "OR-ATLAS#ingested: acquired.json/OR-ATLAS lacks text quality; OR-ATLAS#remainder: no named next action; no work-queue entry; TM-OR-ATLAS-GETTYSBURG: acquired.json/TM-OR-ATLAS lacks text quality",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "COVERED",
    "sub_requirements": [
     "R12.012"
    ]
@@ -2460,14 +2478,14 @@
     "parts": [
      {
       "part": "NPS-CLR#ingested",
-      "reason": "acquired_3.json/PM-NPS-ROT-FIGURES lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      },
      {
       "part": "NPS-CLR#remainder",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      },
      {
@@ -2484,7 +2502,7 @@
    },
    "id": "Q25/Q25.2/row/R12.017",
    "pass": false,
-   "reason": "NPS-CLR#ingested: acquired_3.json/PM-NPS-ROT-FIGURES lacks text quality; NPS-CLR#remainder: no named next action; no work-queue entry; NPS-SEM: stale block, retry owed: a request to the same host succeeded after 2026-11-11 (2026-11-13 PM-NPS-SLAUGHTER-PEN-PDF; 2026-11-13 NPS-DEV-POLICY; 2026-11-13 NPS-HSR-SLYDER)",
+   "reason": "NPS-SEM: stale block, retry owed: a request to the same host succeeded after 2026-11-11 (2026-11-13 PM-NPS-SLAUGHTER-PEN-PDF; 2026-11-13 NPS-DEV-POLICY; 2026-11-13 NPS-HSR-SLYDER)",
    "renderer_class": "python",
    "result": "FAIL",
    "sub_requirements": [
@@ -2499,8 +2517,8 @@
     "parts": [
      {
       "part": "STONE-S",
-      "reason": "no named next action; no work-queue entry; the tier is not recorded as lead (p. 134, E.1, E.7)",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -2510,9 +2528,9 @@
    },
    "id": "Q25/Q25.2/row/R12.018",
    "pass": false,
-   "reason": "STONE-S: no named next action; no work-queue entry; the tier is not recorded as lead (p. 134, E.1, E.7)",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "COVERED",
    "sub_requirements": [
     "R12.018"
    ]
@@ -2555,8 +2573,8 @@
     "parts": [
      {
       "part": "LIDAR-PA17",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -2566,9 +2584,9 @@
    },
    "id": "Q25/Q25.2/row/R12.021",
    "pass": false,
-   "reason": "LIDAR-PA17: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "COVERED",
    "sub_requirements": [
     "R12.021"
    ]
@@ -2581,8 +2599,8 @@
     "parts": [
      {
       "part": "LIDAR-3DEP",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -2592,9 +2610,9 @@
    },
    "id": "Q25/Q25.2/row/R12.022",
    "pass": false,
-   "reason": "LIDAR-3DEP: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "COVERED",
    "sub_requirements": [
     "R12.022"
    ]
@@ -2607,8 +2625,8 @@
     "parts": [
      {
       "part": "LIDAR-PAMAP",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -2618,9 +2636,9 @@
    },
    "id": "Q25/Q25.2/row/R12.023",
    "pass": false,
-   "reason": "LIDAR-PAMAP: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "COVERED",
    "sub_requirements": [
     "R12.023"
    ]
@@ -2693,8 +2711,8 @@
     "parts": [
      {
       "part": "PENN-PILOT",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -2704,9 +2722,9 @@
    },
    "id": "Q25/Q25.2/row/R12.028",
    "pass": false,
-   "reason": "PENN-PILOT: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "COVERED",
    "sub_requirements": [
     "R12.028"
    ]
@@ -2764,8 +2782,8 @@
     "parts": [
      {
       "part": "LOC-PHOTO",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      }
     ],
@@ -2775,9 +2793,9 @@
    },
    "id": "Q25/Q25.2/row/R12.032",
    "pass": false,
-   "reason": "LOC-PHOTO: no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "COVERED",
    "sub_requirements": [
     "R12.032"
    ]
@@ -2790,20 +2808,20 @@
     "parts": [
      {
       "part": "LOC-PHOTO",
-      "reason": "no named next action; no work-queue entry",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "scheduled"
      },
      {
       "part": "PM-LOC-DERIVATIVES",
-      "reason": "acquired_3.json/PM-LOC-DERIVATIVES lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      },
      {
       "part": "PM-LOC-RECORDS",
-      "reason": "acquired_3.json/PM-LOC-RECORDS lacks text quality",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "PASS",
       "terminal": "ingested"
      }
     ],
@@ -2815,9 +2833,9 @@
    },
    "id": "Q25/Q25.2/row/R12.033",
    "pass": false,
-   "reason": "LOC-PHOTO: no named next action; no work-queue entry; PM-LOC-DERIVATIVES: acquired_3.json/PM-LOC-DERIVATIVES lacks text quality; PM-LOC-RECORDS: acquired_3.json/PM-LOC-RECORDS lacks text quality",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "COVERED",
    "sub_requirements": [
     "R12.033"
    ]
@@ -3060,34 +3078,10 @@
   {
    "check": "Q25.2",
    "evidence": {
-    "acquisition_entries": 1,
-    "files": [
-     "status.json"
-    ],
-    "missing": [
-     "no named next action",
-     "no work-queue entry"
-    ],
-    "status_word": "scheduled",
-    "terminal": "scheduled",
-    "title": "Battles and leaders of the civil war"
-   },
-   "id": "Q25/Q25.2/status/BL-3",
-   "pass": false,
-   "reason": "no named next action; no work-queue entry",
-   "renderer_class": "python",
-   "result": "FAIL"
-  },
-  {
-   "check": "Q25.2",
-   "evidence": {
     "acquisition_entries": 0,
     "files": [
-     "status.json"
-    ],
-    "missing": [
-     "no named next action",
-     "no work-queue entry"
+     "status.json",
+     "status_4.json"
     ],
     "status_word": "scheduled",
     "terminal": "scheduled",
@@ -3095,9 +3089,9 @@
    },
    "id": "Q25/Q25.2/status/BL3",
    "pass": false,
-   "reason": "no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -3124,11 +3118,8 @@
    "evidence": {
     "acquisition_entries": 0,
     "files": [
-     "status.json"
-    ],
-    "missing": [
-     "no named next action",
-     "no work-queue entry"
+     "status.json",
+     "status_4.json"
     ],
     "status_word": "scheduled",
     "terminal": "scheduled",
@@ -3136,20 +3127,17 @@
    },
    "id": "Q25/Q25.2/status/FIG-L-ACWII-MOD",
    "pass": false,
-   "reason": "no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
    "evidence": {
     "acquisition_entries": 0,
     "files": [
-     "status.json"
-    ],
-    "missing": [
-     "no named next action",
-     "no work-queue entry"
+     "status.json",
+     "status_4.json"
     ],
     "status_word": "scheduled",
     "terminal": "scheduled",
@@ -3157,9 +3145,9 @@
    },
    "id": "Q25/Q25.2/status/FIG-L-GOULD-1869",
    "pass": false,
-   "reason": "no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -6948,7 +6936,8 @@
     "entries": 1,
     "files": [
      "status.json",
-     "status_2.json"
+     "status_2.json",
+     "status_4.json"
     ],
     "local_files_hashed": 1,
     "local_files_missing": 0,
@@ -6968,11 +6957,8 @@
     "acquisition_entries": 1,
     "files": [
      "status.json",
-     "status_2.json"
-    ],
-    "missing": [
-     "no named next action",
-     "no work-queue entry"
+     "status_2.json",
+     "status_4.json"
     ],
     "status_word": "partial",
     "terminal": "scheduled",
@@ -6980,9 +6966,9 @@
    },
    "id": "Q25/Q25.2/status/OR-25-PT2#remainder",
    "pass": false,
-   "reason": "no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -6991,7 +6977,8 @@
     "entries": 1,
     "files": [
      "status.json",
-     "status_2.json"
+     "status_2.json",
+     "status_4.json"
     ],
     "local_files_hashed": 1,
     "local_files_missing": 0,
@@ -7011,11 +6998,8 @@
     "acquisition_entries": 1,
     "files": [
      "status.json",
-     "status_2.json"
-    ],
-    "missing": [
-     "no named next action",
-     "no work-queue entry"
+     "status_2.json",
+     "status_4.json"
     ],
     "status_word": "partial",
     "terminal": "scheduled",
@@ -7023,9 +7007,9 @@
    },
    "id": "Q25/Q25.2/status/OR-29-PT2#remainder",
    "pass": false,
-   "reason": "no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -7034,7 +7018,8 @@
     "entries": 1,
     "files": [
      "status.json",
-     "status_2.json"
+     "status_2.json",
+     "status_4.json"
     ],
     "local_files_hashed": 1,
     "local_files_missing": 0,
@@ -7054,11 +7039,8 @@
     "acquisition_entries": 1,
     "files": [
      "status.json",
-     "status_2.json"
-    ],
-    "missing": [
-     "no named next action",
-     "no work-queue entry"
+     "status_2.json",
+     "status_4.json"
     ],
     "status_word": "partial",
     "terminal": "scheduled",
@@ -7066,9 +7048,9 @@
    },
    "id": "Q25/Q25.2/status/OR-SER3#remainder",
    "pass": false,
-   "reason": "no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -7289,22 +7271,20 @@
     "entries": 1,
     "files": [
      "status.json",
-     "status_3.json"
+     "status_3.json",
+     "status_4.json"
     ],
     "local_files_hashed": 0,
     "local_files_missing": 1,
-    "missing": [
-     "acquired_3.json/PM-LOC-MASTERS lacks text quality"
-    ],
     "status_word": "partial",
     "terminal": "ingested",
     "title": "PM-LOC-MASTERS"
    },
    "id": "Q25/Q25.2/status/PM-LOC-MASTERS#ingested",
-   "pass": false,
-   "reason": "acquired_3.json/PM-LOC-MASTERS lacks text quality",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.2",
@@ -7312,11 +7292,8 @@
     "acquisition_entries": 1,
     "files": [
      "status.json",
-     "status_3.json"
-    ],
-    "missing": [
-     "no named next action",
-     "no work-queue entry"
+     "status_3.json",
+     "status_4.json"
     ],
     "status_word": "partial",
     "terminal": "scheduled",
@@ -7324,9 +7301,9 @@
    },
    "id": "Q25/Q25.2/status/PM-LOC-MASTERS#remainder",
    "pass": false,
-   "reason": "no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -7334,7 +7311,8 @@
     "acquisition_entries": 0,
     "files": [
      "status.json",
-     "status_3.json"
+     "status_3.json",
+     "status_4.json"
     ],
     "missing": [
      "no acquisition entry (hash, date, rights, quality) reaches this row through the id map"
@@ -7355,11 +7333,8 @@
     "acquisition_entries": 0,
     "files": [
      "status.json",
-     "status_3.json"
-    ],
-    "missing": [
-     "no named next action",
-     "no work-queue entry"
+     "status_3.json",
+     "status_4.json"
     ],
     "status_word": "partial",
     "terminal": "scheduled",
@@ -7367,9 +7342,9 @@
    },
    "id": "Q25/Q25.2/status/PM-LOC-NOT-DIGITIZED#remainder",
    "pass": false,
-   "reason": "no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -7381,18 +7356,15 @@
     ],
     "local_files_hashed": 0,
     "local_files_missing": 1,
-    "missing": [
-     "acquired_3.json/PM-LOC-RECORDS-REREAD-20261116 lacks text quality"
-    ],
     "status_word": "ingested",
     "terminal": "ingested",
     "title": "PM-LOC-RECORDS-REREAD-20261116"
    },
    "id": "Q25/Q25.2/status/PM-LOC-RECORDS-REREAD-20261116",
-   "pass": false,
-   "reason": "acquired_3.json/PM-LOC-RECORDS-REREAD-20261116 lacks text quality",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.2",
@@ -7404,18 +7376,15 @@
     ],
     "local_files_hashed": 0,
     "local_files_missing": 1,
-    "missing": [
-     "acquired_3.json/PM-LOC-WIDE lacks text quality"
-    ],
     "status_word": "ingested",
     "terminal": "ingested",
     "title": "PM-LOC-WIDE"
    },
    "id": "Q25/Q25.2/status/PM-LOC-WIDE",
-   "pass": false,
-   "reason": "acquired_3.json/PM-LOC-WIDE lacks text quality",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.2",
@@ -7510,7 +7479,8 @@
     "acquisition_entries": 0,
     "files": [
      "status.json",
-     "status_3.json"
+     "status_3.json",
+     "status_4.json"
     ],
     "missing": [
      "no acquisition entry (hash, date, rights, quality) reaches this row through the id map"
@@ -7531,11 +7501,8 @@
     "acquisition_entries": 0,
     "files": [
      "status.json",
-     "status_3.json"
-    ],
-    "missing": [
-     "no named next action",
-     "no work-queue entry"
+     "status_3.json",
+     "status_4.json"
     ],
     "status_word": "partial",
     "terminal": "scheduled",
@@ -7543,9 +7510,9 @@
    },
    "id": "Q25/Q25.2/status/PM-NPS-SLAUGHTER-PEN-PDF#remainder",
    "pass": false,
-   "reason": "no named next action; no work-queue entry",
+   "reason": "recorded as blocked or scheduled with its record",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -7649,18 +7616,15 @@
     ],
     "local_files_hashed": 0,
     "local_files_missing": 1,
-    "missing": [
-     "acquired.json/TM-LOC99447494-J1 lacks text quality"
-    ],
     "status_word": "ingested",
     "terminal": "ingested",
     "title": "LOC 99447494: Battle of Gettysburg July 1 1863 First day General position of troops 2 to 3.30 p.m. (plate II, 1:23,400)"
    },
    "id": "Q25/Q25.2/status/TM-LOC99447494",
-   "pass": false,
-   "reason": "acquired.json/TM-LOC99447494-J1 lacks text quality",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.4",
@@ -7846,17 +7810,18 @@
   "owner step for RUMSEY (viewer-only): Owner decides whether to ask the holder for permission beyond viewing (sending a permission request is an owner act)"
  ],
  "renderer_class": "python",
- "run_id": "20261124T053316Z-Q25",
+ "run_id": "20261124T181620Z-Q25",
  "runnable_here": true,
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T05:33:16Z",
+ "started_utc": "2026-11-24T18:16:20Z",
  "status_summary": {
   "acquisition_entries": 422,
   "source_rows": 138,
   "status_files": [
    "status.json",
    "status_2.json",
-   "status_3.json"
+   "status_3.json",
+   "status_4.json"
   ],
   "status_ids": 278,
   "untracked_entries": 0,
@@ -7898,11 +7863,11 @@
    },
    "Q25.2": {
     "BLOCKED-INPUT": 0,
-    "COVERED": 10,
-    "FAIL": 153,
+    "COVERED": 61,
+    "FAIL": 90,
     "N/A": 0,
     "NOT-RUN": 0,
-    "PASS": 202
+    "PASS": 213
    },
    "Q25.4": {
     "BLOCKED-INPUT": 1,
@@ -7921,13 +7886,13 @@
     "PASS": 3
    }
   },
-  "covered": 10,
-  "fail": 157,
-  "items": 376,
+  "covered": 61,
+  "fail": 94,
+  "items": 375,
   "n_a": 0,
-  "not_passing": 168,
+  "not_passing": 156,
   "not_run": 0,
-  "pass": 208
+  "pass": 219
  },
  "verdict": "FAIL"
 }

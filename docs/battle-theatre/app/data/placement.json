@@ -477,7 +477,7 @@
    "requires_positioned": true,
    "t_basis": "printed",
    "tier": "inferred",
-   "note": "A road is a line: the unit goes to the point of the road nearest where it stood. The window is carried as step-off 12:00, arrival 14:00; C-010 (Sickles’ advance, noon / 14:00 / 16:00) is not applied because its 16:00 value lies outside the printed window.",
+   "note": "A road is a line: the unit goes to the point of the road nearest where it stood. The window is carried as step-off 12:00, arrival 14:00 (the ledger’s printed window). C-010 delegated resolution v2 (irreducible, documented): the advance of the Third Corps to the Emmitsburg road and the Peach Orchard is a window of about 14:00 to 16:00 drawn at 14:00 (earliest_documented), and noon is a separate, earlier and shorter move (Humphreys 400-500 yards, noon; Humphreys’ report puts his advance to the road at about 4 p. m.); the clause keeps the printed step-off 12:00 and arrival 14:00, and the resolution’s later end 16:00 lies outside the printed window, so it is a selectable scenario and not scheduled here (not a contradiction of the printed clause).",
    "clause": "CL-102"
   },
   {
@@ -1989,6 +1989,7 @@
    "kind": "record",
    "place": "Evergreen gatehouse",
    "sigma_m": 40,
+   "place_basis": "C-001 delegated resolution v2: the record documents about 01:00 (Meade) to about 02:00 (Hunt); this entry carries the plan’s 00:00 (a lower bound by Haskell’s letter), selectable, not drawn earlier than the gate floor",
    "t": "1863-07-02T00:00",
    "t_basis": "printed",
    "t_to": "1863-07-02T01:00",
@@ -2035,7 +2036,7 @@
     "W-PC",
     "W-RET"
    ],
-   "not_driving": "a headquarters entry: no figure, never drawn; the alternative value of C-001 (EPP, a weak source)"
+   "not_driving": "a headquarters entry: no figure, never drawn; the alternative value of C-001 (EPP, a weak source); C-001 delegated resolution v2: the 04:00 has no source and is contradicted by Howard and Stannard (Meade on the field by about 03:00); it stays selectable"
   },
   {
    "id": "CL-013",
@@ -3913,7 +3914,7 @@
     "HESS",
     "W-RET"
    ],
-   "note": "A road is a line: the unit goes to the point of the road nearest where it stood. The window is carried as step-off 12:00, arrival 14:00; C-010 (Sickles’ advance, noon / 14:00 / 16:00) is not applied because its 16:00 value lies outside the printed window.",
+   "note": "A road is a line: the unit goes to the point of the road nearest where it stood. The window is carried as step-off 12:00, arrival 14:00 (the ledger’s printed window). C-010 delegated resolution v2 (irreducible, documented): the advance of the Third Corps to the Emmitsburg road and the Peach Orchard is a window of about 14:00 to 16:00 drawn at 14:00 (earliest_documented), and noon is a separate, earlier and shorter move (Humphreys 400-500 yards, noon; Humphreys’ report puts his advance to the road at about 4 p. m.); the clause keeps the printed step-off 12:00 and arrival 14:00, and the resolution’s later end 16:00 lies outside the printed window, so it is a selectable scenario and not scheduled here (not a contradiction of the printed clause).",
    "drives": [
     "PO-05"
    ]
@@ -7096,6 +7097,7 @@
     "PADRE",
     "HN-UCA"
    ],
+   "note": "C-011 delegated resolution v2 (weighted, inferred): the step-off is the window 16:00-16:30 (guns about 16:00, Hood’s infantry soon after; Bane’s report, OR 27/2 p. 410, gives 4.30 for one regiment), drawn at 16:15 (midpoint) in the default scenario (decisions/conflict_defaults.json C-011); the clause carries the ledger’s printed 16:30, the later end of the window, because a time must be printed in the phrase. 16:00 and 16:30 stay selectable.",
    "activity": "march",
    "drives": [
     "AC-20"
@@ -7385,7 +7387,7 @@
     "W-PC",
     "NPS-H2"
    ],
-   "not_driving": "disputed: the row’s arrival is UNRESOLVED (C-021); recorded, not scheduled"
+   "not_driving": "disputed: the row’s arrival is UNRESOLVED (C-021); recorded, not scheduled. C-021 delegated resolution v2 (weighted, documented): the statement holds only for the division’s artillery at dusk (Dearing’s guns on the field about dusk of the 2d); the infantry lay about four miles out until 3 a. m. on the 3d and reached the field the morning of Jul 3, so the clause is not a position of the division"
   },
   {
    "id": "CL-265",
@@ -7415,7 +7417,7 @@
     "cs-1c-pickett"
    ],
    "status": "unresolved",
-   "reason": "a value of the unit’s arrival (an arrival conflict) that the arrival gate carries; this clause names no place (C-021)",
+   "reason": "a value of the unit’s arrival (an arrival conflict) that the arrival gate carries; this clause names no place (C-021); C-021 delegated resolution v2: no source for the 06:00 start (the infantry started from four miles out at 03:00 on Jul 3, Aylett and Peyton); recorded, not scheduled",
    "sources": [
     "EPP",
     "W-D2",

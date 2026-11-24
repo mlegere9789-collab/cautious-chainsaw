@@ -41,30 +41,32 @@
  "counts": {
   "BLOCKED-INPUT": 0,
   "COVERED": 0,
-  "FAIL": 176,
-  "N/A": 76,
+  "FAIL": 177,
+  "N/A": 75,
   "NOT-RUN": 0,
-  "PASS": 49
+  "PASS": 50
  },
- "finished_utc": "2026-11-16T00:52:12Z",
+ "finished_utc": "2026-11-24T18:14:10Z",
  "gate": "Q02",
  "incomplete_reasons": [],
  "input_hashes": {
-  "docs/battle-theatre/GOVERNANCE/conflict_register.json": "fee015befd8c0bfadc0e887141fd7feca0b643acfc399a007ec8955a234b8c22",
-  "docs/battle-theatre/GOVERNANCE/conflicts_structured.json": "e21953ec5a4e4a9e69bd25e8f207d4abd84ba7d10619fb9bdd66518459421e4a",
-  "docs/battle-theatre/GOVERNANCE/library/status.json": "432755d7afeb3d8ce599f48f3358e2a91f29ed103117a5c27480c2af0b8cd407",
+  "docs/battle-theatre/GOVERNANCE/conflict_register.json": "6040508e245ea81dbffe8e1c165ba2360b4ea3275a51ca3a4dd360480be706b6",
+  "docs/battle-theatre/GOVERNANCE/conflicts_structured.json": "8dda5d91e0021309e1261e62a7a020b2f5b5d6645745dec8663f1710620f70da",
+  "docs/battle-theatre/GOVERNANCE/gate_results/thresholds.json": "7d7264ba373465255031d29c266d9b8fad5a506e654ffe856545aa3513fe1faf",
+  "docs/battle-theatre/GOVERNANCE/library/status.json": "f6021370751c5ebe6f7d0d16b853e96231f8f3163b5bfc141428a991c2723991",
   "docs/battle-theatre/GOVERNANCE/library/status_2.json": "cd2c01f9920387e790134db8b4ce9ddcd6a193534505d1bebcc293ea268ca847",
-  "docs/battle-theatre/GOVERNANCE/library/status_3.json": "e3e0ce43544640a652204e8876d55a3ef6791400337c5c633037c0a77c4971ac",
-  "docs/battle-theatre/GOVERNANCE/register_index.json": "9cb387f9f8ad5282b7864536d157078a3fc4811c565f0f29272b80efda42083c",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "a3b022ae79057423d2694f31c9eb23321df0c276bba13304eeba404b512a848f",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "b5f650815f5545b7035dcfd58a27c02d784dd080d5b01a7d05a9e8693edd1639",
+  "docs/battle-theatre/GOVERNANCE/library/status_3.json": "faf77daaf011303222f60d4a1adcae8394d8c32895e949f78150d5b46dcd7e76",
+  "docs/battle-theatre/GOVERNANCE/library/status_4.json": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e",
+  "docs/battle-theatre/GOVERNANCE/register_index.json": "c8b00f6d6f347dff7688442cfbda1fbe930ab6d5b2c99cf874fa5f80b9861f50",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "97a3139ef408bfeb221632916445f3000ccf5a93dc8df2fa36356690e78552b5",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "5ac7d8db1790e5e47f99b982c21c9906555d9cc20ab5bb0453ea4fcff2f31a2b",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "9a5fa49814cf6b6d27df1f8267bdefad8915616d300a547fc99bfcc23d71c0d0",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-04.jsonl": "ed2c0b0a1d6ccda3cb7bdc95eb241080774fdf7f9b8418085d32c298b55b1b31",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-lookups.jsonl": "ae480799061ada00de5584afb455523317880c18ea4bb90bdb83f8f332fcff65",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-newspapers.jsonl": "982a9969840c317dc6e7c1dce8e07acf12c3046329446c42e0ade9bee4332889",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-04.jsonl": "55db432864de3b0ff109a7ab37958a3c6ba2ee0406e38fa719e513077d28e4a0",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-lookups.jsonl": "5c5c65de6cdce61d7c64fdec5ed381c1b4e81a2e26a6737900317d5c812f034f",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-newspapers.jsonl": "1c2e4e14102cc522bb775e3dd56e3800ce1db3f49514a56c1f97b748e7558b94",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-nps-landscape.jsonl": "fd44217eaa0c7a519441727fa159713b5c219539682a121e3f7d174490747ebf",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-photomatch.jsonl": "ca60ff50bdf9583e8dc5f7a86a2a1ef553cd70dc83bd2774e4ca2d190a1812c3",
-  "docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl": "3c763c8802d5d5b9ab9ca8a8336cc0956f9e0cb8316c8a805b8bcfebc78af2b0",
+  "docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl": "ca61d0ff961ab35af8b9ae280c40b75156378ad680601a361e5cb010328262f3",
   "docs/battle-theatre/app/data/artillery-train.json": "6737bb8bbde0ca44dc087f4cf928b971271d3ab721b3c99858082ba7d44ac030",
   "docs/battle-theatre/app/data/audio3d/calls.json": "6273b3225b89500af22dac803c4ac5580d739d7a3e93ade9c3b872df766a1bf2",
   "docs/battle-theatre/app/data/audio3d/commands.json": "40c801c32060be1b94177571fb3db50ceb59514573539f40295647adb43e0656",
@@ -72,33 +74,33 @@
   "docs/battle-theatre/app/data/audio3d/woods-mask.json": "3d97532b29761e92454aa0458c7db44bbb3275276eb0a4c7e1b987ea7cbe082e",
   "docs/battle-theatre/app/data/battery-guns.json": "94a5c1d83a46496b767c1fa07827fd8a158ab4d841cf1a54c1a83184a762b260",
   "docs/battle-theatre/app/data/casualty-sources.json": "f237363da495c3416e1256682589c8e18c1404c3ad30a02a423107072ca1a08b",
-  "docs/battle-theatre/app/data/conflict-defaults.json": "7f38491fa44e05fac176ffeb698b594aa2887e4225cb62ccc8f63bddc58fe93f",
+  "docs/battle-theatre/app/data/conflict-defaults.json": "95df40c0708b9358ce8c0943a943e4336f42d98aca74b7a95e20aa9cc9881694",
   "docs/battle-theatre/app/data/daypositions.json": "bfa45fe00a45629a3254e129e78cace86802e66484e2af92e8df4a010739800d",
   "docs/battle-theatre/app/data/engagements.json": "d57993be15acebade93d4022442024cda904b4d509d4805a1278d56dad77a6b9",
   "docs/battle-theatre/app/data/figures-validation.json": "590ca88df6a75a67f5011370742a314119f7fdfa8ce181708c0b483da95b944e",
   "docs/battle-theatre/app/data/figures3d/flag-mean-colours.json": "7c2e4777929cb5313f3dfce9afb6ae407feaa0e9ef3cf9d848f8013b8f28bd42",
   "docs/battle-theatre/app/data/figures3d/skeleton.json": "ffcfcffaf98d3008174cf58ec7efd688740efa71c673f5d28b7394a952a3d74e",
   "docs/battle-theatre/app/data/fx3d/TIERS.json": "22413bf610c11a58bed9016ee93bf652fec174bc28f1bf2f6370fe0c1f1d33f0",
-  "docs/battle-theatre/app/data/fx3d/fires.json": "ed01137ca6cab4de158509600cdddef84bdeff9445d2866a7c2ffc68880607f3",
+  "docs/battle-theatre/app/data/fx3d/fires.json": "9ea4ae152d03364abba3cdf133c743241fba089bf0b2f9a6b2d1a7a0763d19d4",
   "docs/battle-theatre/app/data/fx3d/weapons.json": "eeb839f2d8b41e502df4ddd41b67be9121b64eb2c69681a996be79455125caa7",
   "docs/battle-theatre/app/data/gazetteer.json": "004ca17282a789cda0ba4b4e8f612f5a7c0ec3c84d6afea6763b27df2c77e0ab",
   "docs/battle-theatre/app/data/kit-crosswalk.json": "a3b97cb15ca6efc1a35ebc698bd6171cbafe0301c3d42c4f4ae977fefe100564",
   "docs/battle-theatre/app/data/placement-claims.json": "a3f736b5787d755ad255d478042bafdaf78ae4c5d2a7b9b341a04b1179bf8393",
-  "docs/battle-theatre/app/data/placement.json": "edde37b1721e192478b1cf5e064cea63d5b2dd8d0ed4f113107f023eccb017dd",
+  "docs/battle-theatre/app/data/placement.json": "3f4296b28fe033ffbfddd528b73063958b7281d8274ddc9f57aefaa82ddc5164",
   "docs/battle-theatre/app/data/sibling-approach.json": "9a9f8fa7b885b090481bbe53a5e21a3db190e87d59a00e408110e9c4f3e1535b",
   "docs/battle-theatre/app/data/site-bookmarks.json": "4aebf577df1d55e033bb210c0f50c57751447440a31d24155a7e3ba0d4a56d63",
-  "docs/battle-theatre/app/data/site-memorial-years.json": "88d3bfede56159c26c0f5872f12b54ebe067391d2caa036f89f8001737efe6d6",
+  "docs/battle-theatre/app/data/site-memorial-years.json": "ae4cdd797ab4bd187bb45bd8ef3d55dbb58dc98b2dd8963305f222062c9f2de7",
   "docs/battle-theatre/app/data/site-memorials.json": "8a34105260509007f0a62f6a34e4cc1064b076d2eaa5e32e3ad18e33eb493242",
   "docs/battle-theatre/app/data/site-tour-stops.json": "f64b27c7aea11d6ce7ecfd56018371161bca4334fbb3dd0718a1fdfee3f820d4",
-  "docs/battle-theatre/app/data/structures3d.json": "a9fc7ee84a0498ae8b90e45ff2764d78b93cfc26046bbbea84277860ad1c3637",
-  "docs/battle-theatre/app/data/vegetation.json": "9b4a978493f55dbfaaa0107bd65d890d550393a8c75a0a5320e6dea734f5b84d",
+  "docs/battle-theatre/app/data/structures3d.json": "9e70d4751fdf6da22a111e7ef46251d727c7d32627befda937eb273edbbd36f4",
+  "docs/battle-theatre/app/data/vegetation.json": "344b03fe0f1420253dc3ea96197f2be39396b7957f1160e3610b2f93c6695144",
   "docs/battle-theatre/app/data/works3d.json": "e24616b809dc063f618be035c054409ccf6c64cbdc18b139c05f4976211fa7ad",
   "docs/battle-theatre/environment/ephemeris_1863.json": "c8e548d1eccf08110ea665f8db5d438c9edb544e3de361b3bc5f39cc4f2e677c",
   "docs/battle-theatre/environment/weather_timeline.json": "8fffaf79d5572f72e82a25f78b3514b09d6cdfba405575720048231060dff0dd",
   "docs/battle-theatre/history/positions/positions_A.jsonl": "352d0276998cb3654de621791ba5dd6ca4c2d81a47e7b2a4092bc2acfeec57ab",
   "docs/battle-theatre/history/positions/positions_B.jsonl": "f31a457ab7922a4cf8dc22bc211a0a8101bb91b5084cf6a4cb3be39e1a1eeef2",
   "docs/battle-theatre/history/positions/positions_C.jsonl": "932faffd45e05d90450865bf2ffdf7e540ef771fe27a5749056073d8598358c5",
-  "docs/battle-theatre/history/positions/positions_D.jsonl": "f4a0608fb3d8dc47ae54d475cc1e66884f633b79e246293f938462c92ec6f802",
+  "docs/battle-theatre/history/positions/positions_D.jsonl": "6c09c71f946dae719cd9ad32ceab4ae647c612dd80c44c191d01e3016deaa582",
   "docs/battle-theatre/history/positions/positions_E.jsonl": "e1d2becbd472c7f958369fd275c7b9a18aba8644779bb1a871576be0e47864b5",
   "docs/battle-theatre/history/positions/troopmap_jul1_b1876.jsonl": "0ef2755e3bb6dd389613cdfde430ccecf717412dcc2de003a3c23e0b8bc13f29",
   "docs/battle-theatre/history/positions/troopmap_jul1_hour_loc99447494.jsonl": "8ad42ba23e265b06eb2eda45b3a6a5e3b580782b6d39267cb0a4c944143d9d54",
@@ -110,8 +112,8 @@
   "docs/battle-theatre/kit/weapons.json": "412396eada9819f2a0185d771c6555f3025939607991f18b3db11461948a5d02",
   "docs/battle-theatre/library/or27_index.json": "cce2d05deb458e8898306c1e8b06eee759ccc98b83eabffc5925987b77cf6031",
   "docs/battle-theatre/render/prototype/data/terrain.json": "2352910b42af31b355cb2fbc56a756c13581d13774b115a086931ec12700a80f",
-  "docs/battle-theatre/structures/hospitals.json": "85ceb22e4078f7f6103ab127ffe588af0729a70e1f98da8baa133dd56da3ef29",
-  "docs/battle-theatre/structures/state_schedule.json": "980d4420bf98c0d0f8715697936ebb8df5a40ec1bd6909ae5a66f576aff3a44d",
+  "docs/battle-theatre/structures/hospitals.json": "2fa49739f974a262f787edb6c24db1fe6da2b59161f5e339846fe68d2df38b7c",
+  "docs/battle-theatre/structures/state_schedule.json": "4c3238ea3e904807414cf0c797901a341f62ac298484e50cca41e1039defeb93",
   "docs/battle-theatre/structures/structures.json": "b223dacf386d9983167d24561dc05a8466248096a7715a23dd25fa5bd2b1ad53",
   "docs/battle-theatre/structures/works_stages.json": "22c0c950efa34172d259260085effe210fe43dca64710747d0c5207b996209c2",
   "tmp/library/misc/cu31924030924736_djvu.txt": "7c5e0b1bedbac34b5d5888df9f8c0a7245b44ac709373c527262ba17e17c6311",
@@ -150,27 +152,45 @@
   "tmp/library/ws9/SHSP-06__southernhistoricv6sout_djvu.txt": "366be018544b81d50dcff7f3c965394a5c520c335da9f687a2b28307c0e3c51a",
   "tmp/library/ws9/TPIERCE-1889__atgettysburgorwh00alle_djvu.txt": "db450400b893a47b74b130b98affb7ec2eb984294fc5edc987a3ff5dc4ae1a06",
   "tools/bt/gates/datum_classes.json": "fdc85a450b152661e72825d7b60b589c6351321c91367c00ba5de2c0663f6c3e",
+  "tools/bt/gates/lib/datum_scan.py": "56b5b44b65837815de7d6e56dc07d18ecb048189551c16638825b58055186833",
+  "tools/bt/gates/lib/extracts.py": "6ce4b33ac9fda50c67b70a1ec46a0027bfa9b4aed47d5605e00d79b5816695f0",
+  "tools/bt/gates/lib/loadlist.py": "567263035b4be8dca2beeaa4d831837ccd849f46aee1bf01c627bbd0589cba6d",
+  "tools/bt/gates/lib/pq_common.py": "5c644fdf0d1e426c9a5311c31fa7c9f7d7d159d79f655e244e8e84ee6d82190e",
+  "tools/bt/gates/lib/runmeta.py": "a05af6aece1bc3f159880512e068bd6e40303748568ff7f2540f103662322a21",
+  "tools/bt/gates/lib/verification.py": "427e8054ea409032973827c599b40a6e29287de717e177789cf014deef5fab7e",
   "tools/bt/gates/q02_layer.mjs": "c99a3bc2359fa5d9cae3c9f0c6ea33d594dcf99258217ac511b0de2b679cd511",
-  "tools/bt/gates/q23_app.mjs": "bb9e03d5b41c5814f80955a587605a9afb37873cf900ac0d56e6da962c6c0b40"
+  "tools/bt/gates/q02_provenance.py": "ea98d0dc5cd7e6b93b998e596fca8366588f045e05ba375c8cdc90b53d5ac106",
+  "tools/bt/gates/q23_app.mjs": "bb9e03d5b41c5814f80955a587605a9afb37873cf900ac0d56e6da962c6c0b40",
+  "tools/bt/or27_find.py": "0074a7b684229d74d4f18dae9c97496742bce0825bc7b7c349094d8a67e5a884",
+  "tools/bt/or27_lib.py": "07c103deb207e79e98b7877ba0e148ac3574bcdb80e87ddaac4561ce0f1d0879",
+  "tools/bt/or27_pages.py": "5fdea0385dbdc3845adaa12ef74dcdaf7672395d6152ce24880c083892f1559b",
+  "tools/bt/statevol_find.py": "9d2522e91950826393beda93e883b79fc8bd30fc83d17c1270779470c2d4e76e",
+  "tools/bt/statevol_index.py": "d00e65f5586db3fcd79ac479974127159b0a349a127688bf4fb033d3accd75ae"
  },
  "inputs": [
   {
-   "bytes": 11781,
+   "bytes": 14930,
    "path": "docs/battle-theatre/GOVERNANCE/conflict_register.json",
    "role": "datum class gov.conflict_register",
-   "sha256": "fee015befd8c0bfadc0e887141fd7feca0b643acfc399a007ec8955a234b8c22"
+   "sha256": "6040508e245ea81dbffe8e1c165ba2360b4ea3275a51ca3a4dd360480be706b6"
   },
   {
-   "bytes": 18048,
+   "bytes": 22795,
    "path": "docs/battle-theatre/GOVERNANCE/conflicts_structured.json",
    "role": "datum class gov.conflicts_structured",
-   "sha256": "e21953ec5a4e4a9e69bd25e8f207d4abd84ba7d10619fb9bdd66518459421e4a"
+   "sha256": "8dda5d91e0021309e1261e62a7a020b2f5b5d6645745dec8663f1710620f70da"
   },
   {
-   "bytes": 8664,
+   "bytes": 17633,
+   "path": "docs/battle-theatre/GOVERNANCE/gate_results/thresholds.json",
+   "role": "threshold registry",
+   "sha256": "7d7264ba373465255031d29c266d9b8fad5a506e654ffe856545aa3513fe1faf"
+  },
+  {
+   "bytes": 136049,
    "path": "docs/battle-theatre/GOVERNANCE/library/status.json",
    "role": "status file",
-   "sha256": "432755d7afeb3d8ce599f48f3358e2a91f29ed103117a5c27480c2af0b8cd407"
+   "sha256": "f6021370751c5ebe6f7d0d16b853e96231f8f3163b5bfc141428a991c2723991"
   },
   {
    "bytes": 7460,
@@ -179,28 +199,34 @@
    "sha256": "cd2c01f9920387e790134db8b4ce9ddcd6a193534505d1bebcc293ea268ca847"
   },
   {
-   "bytes": 4037,
+   "bytes": 5886,
    "path": "docs/battle-theatre/GOVERNANCE/library/status_3.json",
    "role": "status file",
-   "sha256": "e3e0ce43544640a652204e8876d55a3ef6791400337c5c633037c0a77c4971ac"
+   "sha256": "faf77daaf011303222f60d4a1adcae8394d8c32895e949f78150d5b46dcd7e76"
   },
   {
-   "bytes": 593273,
+   "bytes": 24204,
+   "path": "docs/battle-theatre/GOVERNANCE/library/status_4.json",
+   "role": "status file",
+   "sha256": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e"
+  },
+  {
+   "bytes": 611818,
    "path": "docs/battle-theatre/GOVERNANCE/register_index.json",
    "role": "datum class gov.register",
-   "sha256": "9cb387f9f8ad5282b7864536d157078a3fc4811c565f0f29272b80efda42083c"
+   "sha256": "c8b00f6d6f347dff7688442cfbda1fbe930ab6d5b2c99cf874fa5f80b9861f50"
   },
   {
-   "bytes": 618175,
+   "bytes": 757393,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl",
    "role": "timeline correction records",
-   "sha256": "a3b022ae79057423d2694f31c9eb23321df0c276bba13304eeba404b512a848f"
+   "sha256": "97a3139ef408bfeb221632916445f3000ccf5a93dc8df2fa36356690e78552b5"
   },
   {
-   "bytes": 906477,
+   "bytes": 1065377,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl",
    "role": "timeline correction records",
-   "sha256": "b5f650815f5545b7035dcfd58a27c02d784dd080d5b01a7d05a9e8693edd1639"
+   "sha256": "5ac7d8db1790e5e47f99b982c21c9906555d9cc20ab5bb0453ea4fcff2f31a2b"
   },
   {
    "bytes": 1230999,
@@ -209,22 +235,22 @@
    "sha256": "9a5fa49814cf6b6d27df1f8267bdefad8915616d300a547fc99bfcc23d71c0d0"
   },
   {
-   "bytes": 717206,
+   "bytes": 878632,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-04.jsonl",
    "role": "timeline correction records",
-   "sha256": "ed2c0b0a1d6ccda3cb7bdc95eb241080774fdf7f9b8418085d32c298b55b1b31"
+   "sha256": "55db432864de3b0ff109a7ab37958a3c6ba2ee0406e38fa719e513077d28e4a0"
   },
   {
-   "bytes": 109666,
+   "bytes": 131044,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-lookups.jsonl",
    "role": "timeline correction records",
-   "sha256": "ae480799061ada00de5584afb455523317880c18ea4bb90bdb83f8f332fcff65"
+   "sha256": "5c5c65de6cdce61d7c64fdec5ed381c1b4e81a2e26a6737900317d5c812f034f"
   },
   {
-   "bytes": 536959,
+   "bytes": 768989,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-newspapers.jsonl",
    "role": "timeline correction records",
-   "sha256": "982a9969840c317dc6e7c1dce8e07acf12c3046329446c42e0ade9bee4332889"
+   "sha256": "1c2e4e14102cc522bb775e3dd56e3800ce1db3f49514a56c1f97b748e7558b94"
   },
   {
    "bytes": 82498,
@@ -239,10 +265,10 @@
    "sha256": "ca60ff50bdf9583e8dc5f7a86a2a1ef553cd70dc83bd2774e4ca2d190a1812c3"
   },
   {
-   "bytes": 400293,
+   "bytes": 814333,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl",
    "role": "timeline rows",
-   "sha256": "3c763c8802d5d5b9ab9ca8a8336cc0956f9e0cb8316c8a805b8bcfebc78af2b0"
+   "sha256": "ca61d0ff961ab35af8b9ae280c40b75156378ad680601a361e5cb010328262f3"
   },
   {
    "bytes": 14667,
@@ -287,10 +313,10 @@
    "sha256": "f237363da495c3416e1256682589c8e18c1404c3ad30a02a423107072ca1a08b"
   },
   {
-   "bytes": 56691,
+   "bytes": 481243,
    "path": "docs/battle-theatre/app/data/conflict-defaults.json",
    "role": "datum class data.conflict_defaults",
-   "sha256": "7f38491fa44e05fac176ffeb698b594aa2887e4225cb62ccc8f63bddc58fe93f"
+   "sha256": "95df40c0708b9358ce8c0943a943e4336f42d98aca74b7a95e20aa9cc9881694"
   },
   {
    "bytes": 971091,
@@ -329,10 +355,10 @@
    "sha256": "22413bf610c11a58bed9016ee93bf652fec174bc28f1bf2f6370fe0c1f1d33f0"
   },
   {
-   "bytes": 10011,
+   "bytes": 10159,
    "path": "docs/battle-theatre/app/data/fx3d/fires.json",
    "role": "datum class data.fx_fires",
-   "sha256": "ed01137ca6cab4de158509600cdddef84bdeff9445d2866a7c2ffc68880607f3"
+   "sha256": "9ea4ae152d03364abba3cdf133c743241fba089bf0b2f9a6b2d1a7a0763d19d4"
   },
   {
    "bytes": 29647,
@@ -359,10 +385,10 @@
    "sha256": "a3f736b5787d755ad255d478042bafdaf78ae4c5d2a7b9b341a04b1179bf8393"
   },
   {
-   "bytes": 214030,
+   "bytes": 216391,
    "path": "docs/battle-theatre/app/data/placement.json",
    "role": "datum class data.placement",
-   "sha256": "edde37b1721e192478b1cf5e064cea63d5b2dd8d0ed4f113107f023eccb017dd"
+   "sha256": "3f4296b28fe033ffbfddd528b73063958b7281d8274ddc9f57aefaa82ddc5164"
   },
   {
    "bytes": 71838,
@@ -377,10 +403,10 @@
    "sha256": "4aebf577df1d55e033bb210c0f50c57751447440a31d24155a7e3ba0d4a56d63"
   },
   {
-   "bytes": 12776,
+   "bytes": 30664,
    "path": "docs/battle-theatre/app/data/site-memorial-years.json",
    "role": "datum class data.site_memorial_years",
-   "sha256": "88d3bfede56159c26c0f5872f12b54ebe067391d2caa036f89f8001737efe6d6"
+   "sha256": "ae4cdd797ab4bd187bb45bd8ef3d55dbb58dc98b2dd8963305f222062c9f2de7"
   },
   {
    "bytes": 124030,
@@ -398,13 +424,13 @@
    "bytes": 469623,
    "path": "docs/battle-theatre/app/data/structures3d.json",
    "role": "datum class data.structures3d",
-   "sha256": "a9fc7ee84a0498ae8b90e45ff2764d78b93cfc26046bbbea84277860ad1c3637"
+   "sha256": "9e70d4751fdf6da22a111e7ef46251d727c7d32627befda937eb273edbbd36f4"
   },
   {
-   "bytes": 1923105,
+   "bytes": 1942681,
    "path": "docs/battle-theatre/app/data/vegetation.json",
    "role": "datum class data.vegetation",
-   "sha256": "9b4a978493f55dbfaaa0107bd65d890d550393a8c75a0a5320e6dea734f5b84d"
+   "sha256": "344b03fe0f1420253dc3ea96197f2be39396b7957f1160e3610b2f93c6695144"
   },
   {
    "bytes": 23591,
@@ -443,10 +469,10 @@
    "sha256": "932faffd45e05d90450865bf2ffdf7e540ef771fe27a5749056073d8598358c5"
   },
   {
-   "bytes": 719507,
+   "bytes": 719970,
    "path": "docs/battle-theatre/history/positions/positions_D.jsonl",
    "role": "datum class ledger.positions",
-   "sha256": "f4a0608fb3d8dc47ae54d475cc1e66884f633b79e246293f938462c92ec6f802"
+   "sha256": "6c09c71f946dae719cd9ad32ceab4ae647c612dd80c44c191d01e3016deaa582"
   },
   {
    "bytes": 405828,
@@ -515,16 +541,16 @@
    "sha256": "2352910b42af31b355cb2fbc56a756c13581d13774b115a086931ec12700a80f"
   },
   {
-   "bytes": 38856,
+   "bytes": 39196,
    "path": "docs/battle-theatre/structures/hospitals.json",
    "role": "datum class structures.hospitals",
-   "sha256": "85ceb22e4078f7f6103ab127ffe588af0729a70e1f98da8baa133dd56da3ef29"
+   "sha256": "2fa49739f974a262f787edb6c24db1fe6da2b59161f5e339846fe68d2df38b7c"
   },
   {
-   "bytes": 122192,
+   "bytes": 125145,
    "path": "docs/battle-theatre/structures/state_schedule.json",
    "role": "datum class structures.state_schedule",
-   "sha256": "980d4420bf98c0d0f8715697936ebb8df5a40ec1bd6909ae5a66f576aff3a44d"
+   "sha256": "4c3238ea3e904807414cf0c797901a341f62ac298484e50cca41e1039defeb93"
   },
   {
    "bytes": 137639,
@@ -755,16 +781,88 @@
    "sha256": "fdc85a450b152661e72825d7b60b589c6351321c91367c00ba5de2c0663f6c3e"
   },
   {
+   "bytes": 27456,
+   "path": "tools/bt/gates/lib/datum_scan.py",
+   "role": "runner",
+   "sha256": "56b5b44b65837815de7d6e56dc07d18ecb048189551c16638825b58055186833"
+  },
+  {
+   "bytes": 17357,
+   "path": "tools/bt/gates/lib/extracts.py",
+   "role": "runner",
+   "sha256": "6ce4b33ac9fda50c67b70a1ec46a0027bfa9b4aed47d5605e00d79b5816695f0"
+  },
+  {
+   "bytes": 5113,
+   "path": "tools/bt/gates/lib/loadlist.py",
+   "role": "runner",
+   "sha256": "567263035b4be8dca2beeaa4d831837ccd849f46aee1bf01c627bbd0589cba6d"
+  },
+  {
+   "bytes": 15321,
+   "path": "tools/bt/gates/lib/pq_common.py",
+   "role": "runner",
+   "sha256": "5c644fdf0d1e426c9a5311c31fa7c9f7d7d159d79f655e244e8e84ee6d82190e"
+  },
+  {
+   "bytes": 5852,
+   "path": "tools/bt/gates/lib/runmeta.py",
+   "role": "runner",
+   "sha256": "a05af6aece1bc3f159880512e068bd6e40303748568ff7f2540f103662322a21"
+  },
+  {
+   "bytes": 10470,
+   "path": "tools/bt/gates/lib/verification.py",
+   "role": "runner",
+   "sha256": "427e8054ea409032973827c599b40a6e29287de717e177789cf014deef5fab7e"
+  },
+  {
    "bytes": 8211,
    "path": "tools/bt/gates/q02_layer.mjs",
    "role": "node child",
    "sha256": "c99a3bc2359fa5d9cae3c9f0c6ea33d594dcf99258217ac511b0de2b679cd511"
   },
   {
+   "bytes": 27957,
+   "path": "tools/bt/gates/q02_provenance.py",
+   "role": "runner",
+   "sha256": "ea98d0dc5cd7e6b93b998e596fca8366588f045e05ba375c8cdc90b53d5ac106"
+  },
+  {
    "bytes": 15830,
    "path": "tools/bt/gates/q23_app.mjs",
    "role": "node child",
    "sha256": "bb9e03d5b41c5814f80955a587605a9afb37873cf900ac0d56e6da962c6c0b40"
+  },
+  {
+   "bytes": 11094,
+   "path": "tools/bt/or27_find.py",
+   "role": "runner",
+   "sha256": "0074a7b684229d74d4f18dae9c97496742bce0825bc7b7c349094d8a67e5a884"
+  },
+  {
+   "bytes": 3599,
+   "path": "tools/bt/or27_lib.py",
+   "role": "runner",
+   "sha256": "07c103deb207e79e98b7877ba0e148ac3574bcdb80e87ddaac4561ce0f1d0879"
+  },
+  {
+   "bytes": 12960,
+   "path": "tools/bt/or27_pages.py",
+   "role": "runner",
+   "sha256": "5fdea0385dbdc3845adaa12ef74dcdaf7672395d6152ce24880c083892f1559b"
+  },
+  {
+   "bytes": 10293,
+   "path": "tools/bt/statevol_find.py",
+   "role": "runner",
+   "sha256": "9d2522e91950826393beda93e883b79fc8bd30fc83d17c1270779470c2d4e76e"
+  },
+  {
+   "bytes": 21027,
+   "path": "tools/bt/statevol_index.py",
+   "role": "runner",
+   "sha256": "d00e65f5586db3fcd79ac479974127159b0a349a127688bf4fb033d3accd75ae"
   }
  ],
  "items": [
@@ -782,7 +880,10 @@
    "pass": true,
    "reason": "every one of the 49 data files that the page loads is in a datum class",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.1",
@@ -793,7 +894,10 @@
    "pass": true,
    "reason": "every file the registry names is on disk",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -821,7 +925,10 @@
    "pass": false,
    "reason": "3 of 10 members fail: inferred with neither a source id nor reasoning (2); plausible-procedural with neither a source id nor a procedural block (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -845,7 +952,10 @@
    "pass": false,
    "reason": "1 of 1 members fail: inferred with neither a source id nor reasoning (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -866,7 +976,10 @@
    "pass": true,
    "reason": "all 38 members have a tier and a source, reasoning or procedural block",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -914,7 +1027,10 @@
    "pass": false,
    "reason": "42 of 42 members fail: no tier (42)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -934,7 +1050,10 @@
    "pass": true,
    "reason": "all 1 members have a tier and a source, reasoning or procedural block",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -955,7 +1074,10 @@
    "pass": true,
    "reason": "all 30 members have a tier and a source, reasoning or procedural block",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -980,60 +1102,67 @@
    "pass": false,
    "reason": "2 of 2 members fail: no tier (2)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
    "evidence": {
     "class": "data.conflict_defaults",
-    "failing": 40,
-    "failures": 40,
+    "failing": 493,
+    "failures": 493,
     "first": [
      "conflict-defaults.json:$.conflicts.C-001",
-     "conflict-defaults.json:$.conflicts.C-002",
-     "conflict-defaults.json:$.conflicts.C-003",
-     "conflict-defaults.json:$.conflicts.C-004",
-     "conflict-defaults.json:$.conflicts.C-005",
-     "conflict-defaults.json:$.conflicts.C-007",
-     "conflict-defaults.json:$.conflicts.C-009",
-     "conflict-defaults.json:$.conflicts.C-010",
-     "conflict-defaults.json:$.conflicts.C-012",
-     "conflict-defaults.json:$.conflicts.C-014",
-     "conflict-defaults.json:$.conflicts.C-015",
-     "conflict-defaults.json:$.conflicts.C-016",
-     "conflict-defaults.json:$.conflicts.C-017",
-     "conflict-defaults.json:$.conflicts.C-018",
-     "conflict-defaults.json:$.conflicts.C-019",
-     "conflict-defaults.json:$.conflicts.C-020",
-     "conflict-defaults.json:$.conflicts.C-021",
-     "conflict-defaults.json:$.conflicts.C-022",
-     "conflict-defaults.json:$.conflicts.C-023",
-     "conflict-defaults.json:$.conflicts.C-025"
+     "conflict-defaults.json:$.conflicts.C-001.positions[0]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[1]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[2]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[3]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[4]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[5]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[6]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[7]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[8]",
+     "conflict-defaults.json:$.conflicts.C-001.previous_default",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[1]",
+     "conflict-defaults.json:$.conflicts.C-002.positions[0]",
+     "conflict-defaults.json:$.conflicts.C-002.positions[1]",
+     "conflict-defaults.json:$.conflicts.C-002.positions[2]",
+     "conflict-defaults.json:$.conflicts.C-002.positions[3]",
+     "conflict-defaults.json:$.conflicts.C-002.positions[4]",
+     "conflict-defaults.json:$.conflicts.C-002.positions[5]",
+     "conflict-defaults.json:$.conflicts.C-002.previous_default",
+     "conflict-defaults.json:$.conflicts.C-003.positions[0]"
     ],
     "reasons": {
-     "an open gap with no register entry (a gap is a register entry and a visible marker, never a datum)": 3,
-     "documented with no source id": 29,
-     "plausible-procedural with neither a source id nor a procedural block": 8
+     "an open gap with no register entry (a gap is a register entry and a visible marker, never a datum)": 99,
+     "documented with no source id": 172,
+     "inferred with neither a source id nor reasoning": 197,
+     "plausible-procedural with neither a source id nor a procedural block": 25
     },
-    "scanned": 47,
+    "scanned": 937,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q022-data_conflict_defaults.jsonl",
-     "rows": 40,
-     "sha256": "ea2c6f935f2ce433cd5b85eab0bb84e5fce43e62a396e7cd973c7b582ca9139b"
+     "rows": 493,
+     "sha256": "72b3f58215345f35818c7b105abe316c68d3a755f08f1107216458467e5d9f4d"
     },
     "tier_counts": {
-     "documented": 29,
-     "inferred": 7,
-     "open gap": 3,
-     "plausible-procedural": 8
+     "documented": 331,
+     "inferred": 458,
+     "open gap": 99,
+     "plausible-procedural": 49
     },
     "tier_statements_not_exact": 0
    },
    "id": "Q02/Q02.2/data.conflict_defaults",
    "pass": false,
-   "reason": "40 of 47 members fail: documented with no source id (29); plausible-procedural with neither a source id nor a procedural block (8); an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (3)",
+   "reason": "493 of 937 members fail: inferred with neither a source id nor reasoning (197); documented with no source id (172); an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (99)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1082,7 +1211,10 @@
    "pass": false,
    "reason": "445 of 484 members fail: documented with no source id (445)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1130,7 +1262,10 @@
    "pass": false,
    "reason": "32 of 32 members fail: inferred with neither a source id nor reasoning (32)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1142,7 +1277,10 @@
    "pass": false,
    "reason": "exempt: a validation report computed by tools/bt over the figures the shell draws; it holds results, no datum about 1863; no record of the file carries a tier or a source",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1154,7 +1292,10 @@
    "pass": false,
    "reason": "exempt: mean colours measured from the flag textures of figures3d/textures; each flag texture is a member of the texture class, this file is a derived measurement and holds no claim about 1863; no record of the file carries a tier or a source",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1181,7 +1322,10 @@
    "pass": false,
    "reason": "2 of 9 members fail: plausible-procedural with neither a source id nor a procedural block (2)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1232,7 +1376,10 @@
    "pass": false,
    "reason": "164 of 211 members fail: plausible-procedural with neither a source id nor a procedural block (160); documented with no source id (4)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1283,7 +1430,10 @@
    "pass": false,
    "reason": "51 of 55 members fail: plausible-procedural with neither a source id nor a procedural block (39); documented with no source id (12)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1303,7 +1453,10 @@
    "pass": true,
    "reason": "all 78 members have a tier and a source, reasoning or procedural block",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1315,7 +1468,10 @@
    "pass": false,
    "reason": "exempt: a join table from history unit ids to kit unit ids; the facts it joins are the members of layer.units and layer.kit_items; no record of the file carries a tier or a source",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1365,7 +1521,10 @@
    "pass": false,
    "reason": "102 of 263 members fail: inferred with neither a source id nor reasoning (65); plausible-procedural with neither a source id nor a procedural block (37)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1415,7 +1574,10 @@
    "pass": false,
    "reason": "247 of 256 members fail: documented with no source id (179); inferred with neither a source id nor reasoning (68)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1447,7 +1609,10 @@
    "pass": false,
    "reason": "8 of 19 members fail: plausible-procedural with neither a source id nor a procedural block (8)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1495,7 +1660,10 @@
    "pass": false,
    "reason": "528 of 528 members fail: no tier (528)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1505,18 +1673,21 @@
     "failures": 0,
     "first": [],
     "reasons": {},
-    "scanned": 33,
+    "scanned": 75,
     "tier_counts": {
-     "documented": 32,
+     "documented": 74,
      "inferred": 1
     },
     "tier_statements_not_exact": 0
    },
    "id": "Q02/Q02.2/data.site_memorial_years",
    "pass": true,
-   "reason": "all 33 members have a tier and a source, reasoning or procedural block",
+   "reason": "all 75 members have a tier and a source, reasoning or procedural block",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1564,7 +1735,10 @@
    "pass": false,
    "reason": "521 of 521 members fail: no tier (521)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1603,7 +1777,10 @@
    "pass": false,
    "reason": "16 of 16 members fail: no tier (16)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1627,7 +1804,10 @@
    "pass": false,
    "reason": "1 of 1 members fail: plausible-procedural with neither a source id nor a procedural block (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1659,7 +1839,10 @@
    "pass": false,
    "reason": "6 of 449 members fail: an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (3); inferred with neither a source id nor reasoning (3)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1695,15 +1878,15 @@
      "no tier": 2,
      "plausible-procedural with neither a source id nor a procedural block": 431
     },
-    "scanned": 1087,
+    "scanned": 1101,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q022-data_vegetation.jsonl",
      "rows": 466,
      "sha256": "176e98d96b8238de6cc9650ce2d3b08748ddd00ac454fd78acb40a3ec6fcbced"
     },
     "tier_counts": {
-     "documented": 539,
-     "inferred": 109,
+     "documented": 551,
+     "inferred": 111,
      "none": 2,
      "open gap": 6,
      "plausible-procedural": 431
@@ -1712,9 +1895,12 @@
    },
    "id": "Q02/Q02.2/data.vegetation",
    "pass": false,
-   "reason": "466 of 1087 members fail: plausible-procedural with neither a source id nor a procedural block (431); documented with no source id (18); inferred with neither a source id nor reasoning (15)",
+   "reason": "466 of 1101 members fail: plausible-procedural with neither a source id nor a procedural block (431); documented with no source id (18); inferred with neither a source id nor reasoning (15)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1739,7 +1925,10 @@
    "pass": false,
    "reason": "2 of 2 members fail: inferred with neither a source id nor reasoning (2)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1763,7 +1952,10 @@
    "pass": false,
    "reason": "1 of 1 members fail: tier statement 'computed (not measured); the clock is a project convention (' names no tier the product reads (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1817,7 +2009,10 @@
    "pass": false,
    "reason": "51 of 52 members fail: documented with no source id (26); inferred with neither a source id nor reasoning (21); an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (3)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1829,7 +2024,10 @@
    "pass": false,
    "reason": "a conflict register: judged by Q02.7 (every conflict lists all values with source keys)",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1841,14 +2039,17 @@
    "pass": false,
    "reason": "a conflict register: judged by Q02.7 (every conflict lists all values with source keys)",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
    "evidence": {
     "class": "gov.register",
-    "failing": 228,
-    "failures": 228,
+    "failing": 243,
+    "failures": 243,
     "first": [
      "register:EG-0001",
      "register:EG-0002",
@@ -1874,33 +2075,36 @@
     "reasons": {
      "documented with no source id": 102,
      "inferred with neither a source id nor reasoning": 3,
-     "plausible-procedural with neither a source id nor a procedural block": 123
+     "plausible-procedural with neither a source id nor a procedural block": 138
     },
-    "scanned": 487,
+    "scanned": 502,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q022-gov_register.jsonl",
-     "rows": 228,
-     "sha256": "075f43de6f7f1de89d38b6c6854210b053286521c723203b6279400df0789d9c"
+     "rows": 243,
+     "sha256": "b6c1551adee26c20546e8b9a31b28c92e044e2a7fe8ca54ab49a03150cb5d530"
     },
     "tier_counts": {
      "documented": 102,
      "inferred": 262,
-     "plausible-procedural": 123
+     "plausible-procedural": 138
     },
-    "tier_statements_not_exact": 0
+    "tier_statements_not_exact": 4
    },
    "id": "Q02/Q02.2/gov.register",
    "pass": false,
-   "reason": "228 of 487 members fail: plausible-procedural with neither a source id nor a procedural block (123); documented with no source id (102); inferred with neither a source id nor reasoning (3)",
+   "reason": "243 of 502 members fail: plausible-procedural with neither a source id nor a procedural block (138); documented with no source id (102); inferred with neither a source id nor reasoning (3)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
    "evidence": {
     "class": "gov.timeline",
-    "failing": 39,
-    "failures": 39,
+    "failing": 38,
+    "failures": 38,
     "first": [
      "timeline:T1-018",
      "timeline:T1-040",
@@ -1910,7 +2114,6 @@
      "timeline:T1-206",
      "timeline:T1-207",
      "timeline:T1-208",
-     "timeline:T2-003",
      "timeline:T2-029",
      "timeline:T2-032",
      "timeline:T2-034",
@@ -1921,30 +2124,34 @@
      "timeline:T2-098",
      "timeline:T2-100",
      "timeline:T2-209",
-     "timeline:T2-225"
+     "timeline:T2-225",
+     "timeline:T2-227"
     ],
     "reasons": {
-     "an open gap with no register entry (a gap is a register entry and a visible marker, never a datum)": 39
+     "an open gap with no register entry (a gap is a register entry and a visible marker, never a datum)": 38
     },
     "scanned": 691,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q022-gov_timeline.jsonl",
-     "rows": 39,
-     "sha256": "689bc598eb292a4d6bb774d300d54d78c3dedfefac96eccba8569228df79e3b9"
+     "rows": 38,
+     "sha256": "63da0c460a2bcbc5e5b75208469a401ccb964e3eaaf30b6ef36c04111a1d0ce9"
     },
     "tier_counts": {
      "documented": 570,
-     "inferred": 71,
-     "open gap": 39,
+     "inferred": 72,
+     "open gap": 38,
      "plausible-procedural": 11
     },
     "tier_statements_not_exact": 0
    },
    "id": "Q02/Q02.2/gov.timeline",
    "pass": false,
-   "reason": "39 of 691 members fail: an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (39)",
+   "reason": "38 of 691 members fail: an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (38)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -1998,7 +2205,10 @@
    "pass": false,
    "reason": "266 of 393 members fail: plausible-procedural with neither a source id nor a procedural block (139); documented with no source id (125); inferred with neither a source id nor reasoning (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2053,7 +2263,10 @@
    "pass": false,
    "reason": "89 of 197 members fail: documented with no source id (62); plausible-procedural with neither a source id nor a procedural block (25); an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2111,7 +2324,10 @@
    "pass": false,
    "reason": "256 of 628 members fail: plausible-procedural with neither a source id nor a procedural block (94); an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (86); inferred with neither a source id nor reasoning (56)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2167,7 +2383,10 @@
    "pass": false,
    "reason": "56 of 217 members fail: inferred with neither a source id nor reasoning (27); an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (17); plausible-procedural with neither a source id nor a procedural block (8)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2189,7 +2408,10 @@
    "pass": true,
    "reason": "all 711 members have a tier and a source, reasoning or procedural block",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2210,7 +2432,10 @@
    "pass": true,
    "reason": "all 21379 members have a tier and a source, reasoning or procedural block",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2262,7 +2487,10 @@
    "pass": false,
    "reason": "1576 of 5894 members fail: plausible-procedural with neither a source id nor a procedural block (1411); an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (165)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2283,7 +2511,10 @@
    "pass": true,
    "reason": "all 18 members have a tier and a source, reasoning or procedural block",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2304,7 +2535,10 @@
    "pass": true,
    "reason": "all 76 members have a tier and a source, reasoning or procedural block",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2353,7 +2587,10 @@
    "pass": false,
    "reason": "92 of 439 members fail: plausible-procedural with neither a source id nor a procedural block (92)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2373,7 +2610,10 @@
    "pass": true,
    "reason": "all 564 members have a tier and a source, reasoning or procedural block",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2423,7 +2663,10 @@
    "pass": false,
    "reason": "62 of 85 members fail: an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (62)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2458,7 +2701,10 @@
    "pass": false,
    "reason": "10 of 726 members fail: an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (10)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2481,7 +2727,10 @@
    "pass": true,
    "reason": "all 726 members have a tier and a source, reasoning or procedural block",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2531,7 +2780,10 @@
    "pass": false,
    "reason": "63 of 3703 members fail: an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (63)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2552,7 +2804,10 @@
    "pass": true,
    "reason": "all 484 members have a tier and a source, reasoning or procedural block",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2584,7 +2839,10 @@
    "pass": false,
    "reason": "6 of 19 members fail: documented with no source id (4); an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (2)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2612,7 +2870,10 @@
    "pass": false,
    "reason": "2 of 88 members fail: inferred with neither a source id nor reasoning (1); tier statement 'contested' names no tier the product reads (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2664,7 +2925,10 @@
    "pass": false,
    "reason": "27 of 130 members fail: no tier (23); an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (4)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2698,7 +2962,10 @@
    "pass": false,
    "reason": "9 of 9 members fail: plausible-procedural with neither a source id nor a procedural block (6); inferred with neither a source id nor reasoning (3)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.2",
@@ -2722,7 +2989,10 @@
    "pass": false,
    "reason": "1 of 1 members fail: no tier (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -2742,7 +3012,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -2762,7 +3035,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -2819,7 +3095,10 @@
    "pass": false,
    "reason": "30 of 30 members fail: no source extract (30); no source that is neither a lead nor weak (sources: ART-FA-70=unresolved) (4); no source that is neither a lead nor weak (sources: HAR-B03=unresolved) (4)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -2839,7 +3118,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -2859,7 +3141,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -2913,7 +3198,10 @@
    "pass": false,
    "reason": "25 of 25 members fail: no source extract (25); no source that is neither a lead nor weak (sources: SS-ArtReserve=weak) (19); no source that is neither a lead nor weak (sources: Wiki-OOB-Union=lead, GburgDaily-Smith4NY=weak, SS-NYArt-1958=weak) (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -2933,7 +3221,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -2941,50 +3232,59 @@
     "class": "data.conflict_defaults",
     "extracts_found_again": 0,
     "extracts_without_stored_text": 0,
-    "failing": 29,
-    "failures": 58,
+    "failing": 331,
+    "failures": 662,
     "first": [
      "conflict-defaults.json:$.conflicts.C-001",
-     "conflict-defaults.json:$.conflicts.C-002",
-     "conflict-defaults.json:$.conflicts.C-003",
-     "conflict-defaults.json:$.conflicts.C-004",
-     "conflict-defaults.json:$.conflicts.C-009",
-     "conflict-defaults.json:$.conflicts.C-010",
-     "conflict-defaults.json:$.conflicts.C-014",
-     "conflict-defaults.json:$.conflicts.C-015",
-     "conflict-defaults.json:$.conflicts.C-017",
-     "conflict-defaults.json:$.conflicts.C-019",
-     "conflict-defaults.json:$.conflicts.C-020",
-     "conflict-defaults.json:$.conflicts.C-021",
-     "conflict-defaults.json:$.conflicts.C-022",
-     "conflict-defaults.json:$.conflicts.C-025",
-     "conflict-defaults.json:$.conflicts.C-027",
-     "conflict-defaults.json:$.conflicts.C-028",
-     "conflict-defaults.json:$.conflicts.C-029",
-     "conflict-defaults.json:$.conflicts.C-030",
-     "conflict-defaults.json:$.conflicts.C-031",
-     "conflict-defaults.json:$.conflicts.C-032"
+     "conflict-defaults.json:$.conflicts.C-001.positions[2]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[3]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[4]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[5]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[7]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[8]",
+     "conflict-defaults.json:$.conflicts.C-001.previous_default",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[10]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[11]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[2]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[3]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[4]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[5]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[6]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[7]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[9]",
+     "conflict-defaults.json:$.conflicts.C-002.positions[1]",
+     "conflict-defaults.json:$.conflicts.C-002.positions[2]",
+     "conflict-defaults.json:$.conflicts.C-002.positions[3]"
     ],
     "reasons": {
-     "no source extract": 29,
-     "no source that is neither a lead nor weak (sources: none)": 29
+     "no source extract": 331,
+     "no source that is neither a lead nor weak (sources: PDF B.2.5=unresolved)": 12,
+     "no source that is neither a lead nor weak (sources: added by the resolution of 2026-11-16 (nothing deleted)=unresolved)": 63,
+     "no source that is neither a lead nor weak (sources: added from the primary record (nothing deleted)=unresolved)": 11,
+     "no source that is neither a lead nor weak (sources: conflict_register / PDF B.2.5 value=unresolved)": 37,
+     "no source that is neither a lead nor weak (sources: default by research=unresolved, 2026-11-16 (delegated; reversible by the owner)=unresolved)": 23,
+     "no source that is neither a lead nor weak (sources: first delegated default of 2026-11-11 (previous default; kept selectable)=unresolved)": 13,
+     "no source that is neither a lead nor weak (sources: none)": 172
     },
-    "scanned": 29,
+    "scanned": 331,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q023-data_conflict_defaults.jsonl",
-     "rows": 58,
-     "sha256": "1571548d74e45985e72a6a346cfbe266cbc08b050b35e6293ab289ae408c4465"
+     "rows": 662,
+     "sha256": "8105a093c24a3ca2cec1f1612774b07c0d127de633414fada4f4824a4fe480cd"
     },
     "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
-     "documented": 29
+     "documented": 331
     }
    },
    "id": "Q02/Q02.3/data.conflict_defaults",
    "pass": false,
-   "reason": "29 of 29 members fail: no source extract (29); no source that is neither a lead nor weak (sources: none) (29)",
+   "reason": "331 of 331 members fail: no source extract (331); no source that is neither a lead nor weak (sources: none) (172); no source that is neither a lead nor weak (sources: added by the resolution of 2026-11-16 (nothing deleted)=unresolved) (63)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3034,7 +3334,10 @@
    "pass": false,
    "reason": "445 of 445 members fail: no source that is neither a lead nor weak (sources: none) (445)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3054,7 +3357,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3086,7 +3392,10 @@
    "pass": false,
    "reason": "4 of 4 members fail: no source extract (4); no source that is neither a lead nor weak (sources: ECW-Bliss=unresolved, HMDB-16570=unresolved, SS-Bliss=unresolved, CWT-Query=unresolved) (2); no source that is neither a lead nor weak (sources: GD-12590=unresolved, CWT-Sherfy=unresolved, SS-Sherfy=unresolved, WHB=unresolved) (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3118,7 +3427,7 @@
     ],
     "reasons": {
      "no source extract": 18,
-     "no source that is neither a lead nor weak (sources: Hand-book of Artillery 1861 p. 108=unresolved, Field Manual (Ordnance Bureau=unresolved, Richmond 1862) p. 76=unresolved)": 2,
+     "no source that is neither a lead nor weak (sources: Hand-book of Artillery 1861 p. 108=unresolved, Field Manual (Ordnance Bureau, Richmond 1862) p. 76=unresolved)": 2,
      "no source that is neither a lead nor weak (sources: Hand-book of Artillery 1861 p. 108=unresolved, Ordnance Manual 1861 p. 256=unresolved, drill/ordnance_tables.json ORD-PRJ-CASE (competing)=unresolved)": 1,
      "no source that is neither a lead nor weak (sources: Hardee 1855 School of the Soldier=unresolved, app/docs/ANIM3D-NOTES.md gait table=unresolved)": 1,
      "no source that is neither a lead nor weak (sources: none)": 4,
@@ -3130,7 +3439,7 @@
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q023-data_fx_params.jsonl",
      "rows": 36,
-     "sha256": "5f27cd2a530d24e5f9b1a799148040e9be3922b77ea14575e20e3a0ee49f91a7"
+     "sha256": "bfb3dda88c00604564c799821014af22c2a5be37a26cb0b19a9931912f7b3b33"
     },
     "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
@@ -3139,9 +3448,12 @@
    },
    "id": "Q02/Q02.3/data.fx_params",
    "pass": false,
-   "reason": "18 of 18 members fail: no source extract (18); no source that is neither a lead nor weak (sources: none) (4); no source that is neither a lead nor weak (sources: Hand-book of Artillery 1861 p. 108=unresolved, Field Manual (Ordnance Bureau=unresolved, Richmond 1862) p. 76=unresolved) (2)",
+   "reason": "18 of 18 members fail: no source extract (18); no source that is neither a lead nor weak (sources: none) (4); no source that is neither a lead nor weak (sources: Hand-book of Artillery 1861 p. 108=unresolved, Field Manual (Ordnance Bureau, Richmond 1862) p. 76=unresolved) (2)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3184,7 +3496,10 @@
    "pass": false,
    "reason": "12 of 12 members fail: no source extract (12); no source that is neither a lead nor weak (sources: none) (12)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3204,7 +3519,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3224,7 +3542,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3275,7 +3596,10 @@
    "pass": false,
    "reason": "179 of 179 members fail: no source that is neither a lead nor weak (sources: none) (179); no source extract (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3295,7 +3619,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3315,16 +3642,19 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
    "evidence": {
     "class": "data.site_memorial_years",
-    "extracts_found_again": 13,
+    "extracts_found_again": 71,
     "extracts_without_stored_text": 0,
-    "failing": 32,
-    "failures": 51,
+    "failing": 74,
+    "failures": 77,
     "first": [
      "site-memorial-years.json:$.years[0]",
      "site-memorial-years.json:$.years[10]",
@@ -3341,38 +3671,38 @@
      "site-memorial-years.json:$.years[20]",
      "site-memorial-years.json:$.years[21]",
      "site-memorial-years.json:$.years[22]",
+     "site-memorial-years.json:$.years[23]",
      "site-memorial-years.json:$.years[24]",
      "site-memorial-years.json:$.years[25]",
      "site-memorial-years.json:$.years[26]",
-     "site-memorial-years.json:$.years[27]",
-     "site-memorial-years.json:$.years[28]"
+     "site-memorial-years.json:$.years[27]"
     ],
     "reasons": {
-     "extract is 15 words (limit 14)": 2,
-     "extract is 16 words (limit 14)": 1,
-     "extract is 17 words (limit 14)": 1,
-     "extract is 20 words (limit 14)": 3,
-     "extract is 28 words (limit 14)": 2,
-     "no source that is neither a lead nor weak (sources: NPS-CLI-ERR=unresolved)": 5,
+     "no source that is neither a lead nor weak (sources: NPS-CLI-ERR=unresolved)": 6,
      "no source that is neither a lead nor weak (sources: NPS-CLI-LRT=unresolved)": 13,
-     "no source that is neither a lead nor weak (sources: NPS-CLI-PCB=unresolved)": 14
+     "no source that is neither a lead nor weak (sources: NPS-CLI-PCB=unresolved)": 14,
+     "no source that is neither a lead nor weak (sources: NPS-CLR-1STDAY=unresolved)": 41,
+     "the extract is not found in the stored text at the cited place (NPS-CLR-1STDAY)": 3
     },
-    "scanned": 32,
+    "scanned": 74,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q023-data_site_memorial_years.jsonl",
-     "rows": 51,
-     "sha256": "84c3f17b135febc399cc01fe22f3a2e38b60a351477e0c9bedffc1df9778eebe"
+     "rows": 77,
+     "sha256": "ce9f2e00723dafc3d8925727ee1db46c46c601c9afb2afdc33e1efa8a5eecc7b"
     },
     "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
-     "documented": 32
+     "documented": 74
     }
    },
    "id": "Q02/Q02.3/data.site_memorial_years",
    "pass": false,
-   "reason": "32 of 32 members fail: no source that is neither a lead nor weak (sources: NPS-CLI-PCB=unresolved) (14); no source that is neither a lead nor weak (sources: NPS-CLI-LRT=unresolved) (13); no source that is neither a lead nor weak (sources: NPS-CLI-ERR=unresolved) (5)",
+   "reason": "74 of 74 members fail: no source that is neither a lead nor weak (sources: NPS-CLR-1STDAY=unresolved) (41); no source that is neither a lead nor weak (sources: NPS-CLI-PCB=unresolved) (14); no source that is neither a lead nor weak (sources: NPS-CLI-LRT=unresolved) (13)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3392,7 +3722,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3412,7 +3745,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3432,7 +3768,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3461,16 +3800,19 @@
    "pass": false,
    "reason": "3 of 3 members fail: no source extract (3); no source that is neither a lead nor weak (sources: NPS-TREAT-2004=unresolved, LOC-BACH-1876=unresolved) (3)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
    "evidence": {
     "class": "data.vegetation",
     "extracts_found_again": 0,
-    "extracts_without_stored_text": 521,
-    "failing": 539,
-    "failures": 971,
+    "extracts_without_stored_text": 533,
+    "failing": 551,
+    "failures": 995,
     "first": [
      "vegetation.json:$.calendar.crops.wheat.keys[1]",
      "vegetation.json:$.calendar.leaf.epilogue",
@@ -3503,22 +3845,25 @@
      "no source that is neither a lead nor weak (sources: NPS:NPS-CLR-ROT-V1=unresolved)": 47,
      "no source that is neither a lead nor weak (sources: OR27=unresolved)": 39
     },
-    "scanned": 539,
+    "scanned": 551,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q023-data_vegetation.jsonl",
-     "rows": 971,
-     "sha256": "c7303a3cd8dde8072647ecc404c19ea73eae64e4a6afa5ed06db9c44f307d6af"
+     "rows": 995,
+     "sha256": "10e20e3878af8fb6279a8f9048cc65b29949c1fc43dec76f04ae801251a1a034"
     },
     "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
-     "documented": 539
+     "documented": 551
     }
    },
    "id": "Q02/Q02.3/data.vegetation",
    "pass": false,
-   "reason": "539 of 539 members fail: no source that is neither a lead nor weak (sources: NPS:NPS-CLR-1STDAY=unresolved) (54); no source that is neither a lead nor weak (sources: NPS:NPS-CLI-1STDAY=unresolved) (49); no source that is neither a lead nor weak (sources: NPS:NPS-CLI-PCB=unresolved) (49)",
+   "reason": "551 of 551 members fail: no source that is neither a lead nor weak (sources: NPS:NPS-CLR-1STDAY=unresolved) (54); no source that is neither a lead nor weak (sources: NPS:NPS-CLI-1STDAY=unresolved) (49); no source that is neither a lead nor weak (sources: NPS:NPS-CLI-PCB=unresolved) (49)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3538,7 +3883,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3558,7 +3906,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3609,16 +3960,19 @@
    "pass": false,
    "reason": "26 of 26 members fail: no source extract (26); no source that is neither a lead nor weak (sources: none) (26)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
    "evidence": {
     "class": "gov.timeline",
-    "extracts_found_again": 504,
-    "extracts_without_stored_text": 70,
-    "failing": 511,
-    "failures": 826,
+    "extracts_found_again": 503,
+    "extracts_without_stored_text": 83,
+    "failing": 514,
+    "failures": 829,
     "first": [
      "timeline:T1-001",
      "timeline:T1-002",
@@ -3644,7 +3998,7 @@
     "reasons": {
      "extract is 15 words (limit 14)": 7,
      "extract is 27 words (limit 14)": 6,
-     "extract is 29 words (limit 14)": 11,
+     "extract is 29 words (limit 14)": 12,
      "extract is 31 words (limit 14)": 6,
      "no source extract": 390,
      "no source that is neither a lead nor weak (sources: HUNT=unresolved)": 8,
@@ -3654,8 +4008,8 @@
     "scanned": 570,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q023-gov_timeline.jsonl",
-     "rows": 826,
-     "sha256": "ab9c0c691464bc5f688e64503a6c973a6d43e3f4aa557cd6429392b95e7702ff"
+     "rows": 829,
+     "sha256": "dbc912a55a8ad1000c52197a7c31035420a97fae5fe8c43ba4407082eb1dd5fd"
     },
     "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
@@ -3664,9 +4018,12 @@
    },
    "id": "Q02/Q02.3/gov.timeline",
    "pass": false,
-   "reason": "511 of 570 members fail: no source extract (390); no source that is neither a lead nor weak (sources: W-RET=weak) (14); extract is 29 words (limit 14) (11)",
+   "reason": "514 of 570 members fail: no source extract (390); no source that is neither a lead nor weak (sources: W-RET=weak) (14); extract is 29 words (limit 14) (12)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3722,7 +4079,10 @@
    "pass": false,
    "reason": "211 of 211 members fail: no source extract (211); no source that is neither a lead nor weak (sources: none) (125); no source that is neither a lead nor weak (sources: SS-ArtReserve=weak) (21)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3779,7 +4139,10 @@
    "pass": false,
    "reason": "88 of 88 members fail: no source extract (88); no source that is neither a lead nor weak (sources: none) (62); no source that is neither a lead nor weak (sources: Wiki-OOB-Union=lead) (7)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3830,7 +4193,10 @@
    "pass": false,
    "reason": "90 of 90 members fail: no source extract (90); no source that is neither a lead nor weak (sources: none) (12)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3884,7 +4250,10 @@
    "pass": false,
    "reason": "33 of 33 members fail: no source extract (33); no source that is neither a lead nor weak (sources: NapoleonGuide=unresolved, Wiki-Napoleon=lead) (1); no source that is neither a lead nor weak (sources: StrategyPage-Guns=unresolved, HistoryNet-Thunder=unresolved) (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3934,7 +4303,10 @@
    "pass": false,
    "reason": "30 of 30 members fail: no source extract (30)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3954,7 +4326,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -3993,7 +4368,10 @@
    "pass": false,
    "reason": "14 of 14 members fail: no source extract (14)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -4042,7 +4420,10 @@
    "pass": false,
    "reason": "12 of 12 members fail: no source extract (12); no source that is neither a lead nor weak (sources: CWE-9Mass=unresolved) (1); no source that is neither a lead nor weak (sources: GD-14708=unresolved) (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -4071,7 +4452,10 @@
    "pass": false,
    "reason": "3 of 72 members fail: no source that is neither a lead nor weak (sources: PA1B-S027=unresolved) (2); no source that is neither a lead nor weak (sources: NY3-S019=unresolved) (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -4091,7 +4475,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -4111,7 +4498,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -4155,7 +4545,10 @@
    "pass": false,
    "reason": "19 of 19 members fail: no source extract (19)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -4175,7 +4568,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -4201,7 +4597,10 @@
    "pass": false,
    "reason": "1 of 1 members fail: no source extract (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -4258,7 +4657,10 @@
    "pass": false,
    "reason": "1216 of 3402 members fail: number(s) 3 of the claim are not in the span (154); number(s) 2 of the claim are not in the span (127); number(s) 1 of the claim are not in the span (65)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -4315,7 +4717,10 @@
    "pass": false,
    "reason": "445 of 445 members fail: no source that is neither a lead nor weak (sources: BACHELDER-1876-S2=unresolved) (175); no source that is neither a lead nor weak (sources: BACHELDER-1876-S3=unresolved) (159); no source that is neither a lead nor weak (sources: BACHELDER-1876-S1=unresolved) (111)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -4365,7 +4770,10 @@
    "pass": false,
    "reason": "13 of 13 members fail: no source extract (13); no source that is neither a lead nor weak (sources: none) (4); no source that is neither a lead nor weak (sources: NMCWM-Letterman=unresolved) (3)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -4422,7 +4830,10 @@
    "pass": false,
    "reason": "48 of 48 members fail: no source extract (48); no source that is neither a lead nor weak (sources: HN-Spangler=unresolved) (7); no source that is neither a lead nor weak (sources: ECW-Hosp=unresolved) (2)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -4479,7 +4890,10 @@
    "pass": false,
    "reason": "64 of 64 members fail: no source extract (64); no source that is neither a lead nor weak (sources: GD-14708=unresolved) (2); no source that is neither a lead nor weak (sources: GD-Fences=unresolved) (2)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -4499,7 +4913,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.3",
@@ -4519,7 +4936,10 @@
    "pass": false,
    "reason": "no member of the class is documented",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -4551,7 +4971,10 @@
    "pass": false,
    "reason": "9 of 9 members fail: no premise claim ids (the reasoning names no documented claim) (9); no reasoning (4)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -4575,7 +4998,10 @@
    "pass": false,
    "reason": "1 of 1 members fail: no premise claim ids (the reasoning names no documented claim) (1); no reasoning (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -4592,7 +5018,10 @@
    "pass": false,
    "reason": "no member of the class is inferred",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -4609,7 +5038,10 @@
    "pass": false,
    "reason": "no member of the class is inferred",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -4633,7 +5065,10 @@
    "pass": false,
    "reason": "1 of 1 members fail: no premise claim ids (the reasoning names no documented claim) (1); no reasoning (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -4661,7 +5096,10 @@
    "pass": false,
    "reason": "5 of 5 members fail: no premise claim ids (the reasoning names no documented claim) (5); no reasoning (5)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -4678,36 +5116,61 @@
    "pass": false,
    "reason": "no member of the class is inferred",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
    "evidence": {
     "class": "data.conflict_defaults",
-    "failing": 7,
-    "failures": 7,
+    "failing": 458,
+    "failures": 894,
     "first": [
-     "conflict-defaults.json:$.conflicts.C-006",
-     "conflict-defaults.json:$.conflicts.C-008",
-     "conflict-defaults.json:$.conflicts.C-011",
-     "conflict-defaults.json:$.conflicts.C-013",
-     "conflict-defaults.json:$.conflicts.C-024",
-     "conflict-defaults.json:$.conflicts.C-041",
-     "conflict-defaults.json:$.conflicts.C-044"
+     "conflict-defaults.json:$.conflicts.C-001.positions[0]",
+     "conflict-defaults.json:$.conflicts.C-001.positions[6]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[0]",
+     "conflict-defaults.json:$.conflicts.C-001.scenarios[8]",
+     "conflict-defaults.json:$.conflicts.C-002",
+     "conflict-defaults.json:$.conflicts.C-002.positions[0]",
+     "conflict-defaults.json:$.conflicts.C-002.positions[5]",
+     "conflict-defaults.json:$.conflicts.C-002.scenarios[0]",
+     "conflict-defaults.json:$.conflicts.C-002.scenarios[6]",
+     "conflict-defaults.json:$.conflicts.C-002.scenarios[7]",
+     "conflict-defaults.json:$.conflicts.C-003",
+     "conflict-defaults.json:$.conflicts.C-003.positions[1]",
+     "conflict-defaults.json:$.conflicts.C-003.positions[2]",
+     "conflict-defaults.json:$.conflicts.C-003.positions[6]",
+     "conflict-defaults.json:$.conflicts.C-003.positions[8]",
+     "conflict-defaults.json:$.conflicts.C-003.positions[9]",
+     "conflict-defaults.json:$.conflicts.C-003.scenarios[10]",
+     "conflict-defaults.json:$.conflicts.C-003.scenarios[1]",
+     "conflict-defaults.json:$.conflicts.C-003.scenarios[2]",
+     "conflict-defaults.json:$.conflicts.C-003.scenarios[4]"
     ],
     "reasons": {
-     "no premise claim ids (the reasoning names no documented claim)": 7
+     "no premise claim ids (the reasoning names no documented claim)": 458,
+     "no reasoning": 436
     },
-    "scanned": 7,
+    "scanned": 458,
+    "sidecar": {
+     "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q024-data_conflict_defaults.jsonl",
+     "rows": 894,
+     "sha256": "d1fbcd3480f24027dc90bbca739171bc148df0dd1e8ebc421368504d23f2c75a"
+    },
     "tier_counts": {
-     "inferred": 7
+     "inferred": 458
     }
    },
    "id": "Q02/Q02.4/data.conflict_defaults",
    "pass": false,
-   "reason": "7 of 7 members fail: no premise claim ids (the reasoning names no documented claim) (7)",
+   "reason": "458 of 458 members fail: no premise claim ids (the reasoning names no documented claim) (458); no reasoning (436)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -4754,7 +5217,10 @@
    "pass": false,
    "reason": "39 of 39 members fail: no premise claim ids (the reasoning names no documented claim) (39)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -4802,7 +5268,10 @@
    "pass": false,
    "reason": "32 of 32 members fail: no premise claim ids (the reasoning names no documented claim) (32); no reasoning (32)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -4828,7 +5297,10 @@
    "pass": false,
    "reason": "3 of 3 members fail: no premise claim ids (the reasoning names no documented claim) (3); no reasoning (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -4861,7 +5333,10 @@
    "pass": false,
    "reason": "11 of 11 members fail: no premise claim ids (the reasoning names no documented claim) (11)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -4887,7 +5362,10 @@
    "pass": false,
    "reason": "4 of 4 members fail: no premise claim ids (the reasoning names no documented claim) (4)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -4934,7 +5412,10 @@
    "pass": false,
    "reason": "78 of 78 members fail: no premise claim ids (the reasoning names no documented claim) (78)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -4982,7 +5463,10 @@
    "pass": false,
    "reason": "194 of 194 members fail: no premise claim ids (the reasoning names no documented claim) (194); no reasoning (191)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5032,7 +5516,10 @@
    "pass": false,
    "reason": "68 of 77 members fail: no reasoning (68); no premise claim ids (the reasoning names no documented claim) (18); premise claim(s) POS-E-US-11C-2D-004 are not documented claims of the ledger (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5066,7 +5553,10 @@
    "pass": false,
    "reason": "11 of 11 members fail: no reasoning (11); no premise claim ids (the reasoning names no documented claim) (3)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5083,7 +5573,10 @@
    "pass": false,
    "reason": "no member of the class is inferred",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5092,7 +5585,7 @@
     "failing": 1,
     "failures": 2,
     "first": [
-     "site-memorial-years.json:$.years[23]"
+     "site-memorial-years.json:$.years[54]"
     ],
     "reasons": {
      "no premise claim ids (the reasoning names no documented claim)": 1,
@@ -5107,7 +5600,10 @@
    "pass": false,
    "reason": "1 of 1 members fail: no premise claim ids (the reasoning names no documented claim) (1); no reasoning (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5124,7 +5620,10 @@
    "pass": false,
    "reason": "no member of the class is inferred",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5141,7 +5640,10 @@
    "pass": false,
    "reason": "no member of the class is inferred",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5158,7 +5660,10 @@
    "pass": false,
    "reason": "no member of the class is inferred",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5206,14 +5711,17 @@
    "pass": false,
    "reason": "443 of 443 members fail: no premise claim ids (the reasoning names no documented claim) (443); no reasoning (443)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
    "evidence": {
     "class": "data.vegetation",
-    "failing": 109,
-    "failures": 178,
+    "failing": 111,
+    "failures": 182,
     "first": [
      "vegetation.json:$.calendar.crops.corn.keys[0]",
      "vegetation.json:$.calendar.crops.corn.keys[1]",
@@ -5237,8 +5745,8 @@
      "vegetation.json:$.claims[153]"
     ],
     "reasons": {
-     "no premise claim ids (the reasoning names no documented claim)": 99,
-     "no reasoning": 69,
+     "no premise claim ids (the reasoning names no documented claim)": 101,
+     "no reasoning": 71,
      "premise claim(s) VC-LIB-006, VC-LIB-018 are not documented claims of the ledger": 1,
      "premise claim(s) VC-LIB-006, VC-LIB-018, VC-OR-015 are not documented claims of the ledger": 1,
      "premise claim(s) VC-LIB-018 are not documented claims of the ledger": 1,
@@ -5246,21 +5754,24 @@
      "premise claim(s) VC-LIB-020, VC-NPSX-CLI-PCB-p078-02, VC-NPSX-CLI-PCB-p078-03 are not documented claims of the ledger": 1,
      "premise claim(s) VC-NPS-031, VC-NPSX-CLR-1STDAY-p065-01 are not documented claims of the ledger": 1
     },
-    "scanned": 109,
+    "scanned": 111,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q024-data_vegetation.jsonl",
-     "rows": 178,
-     "sha256": "2ed8f904a40f7ff5fec9effcea9f427d9c7b84fd4facb2c22449a65a0da088d1"
+     "rows": 182,
+     "sha256": "4b767df9ddeaece0de971fa704c2cd396d309041f3c7e61f805c873349bd4466"
     },
     "tier_counts": {
-     "inferred": 109
+     "inferred": 111
     }
    },
    "id": "Q02/Q02.4/data.vegetation",
    "pass": false,
-   "reason": "109 of 109 members fail: no premise claim ids (the reasoning names no documented claim) (99); no reasoning (69); premise claim(s) VC-LIB-006, VC-LIB-018 are not documented claims of the ledger (1)",
+   "reason": "111 of 111 members fail: no premise claim ids (the reasoning names no documented claim) (101); no reasoning (71); premise claim(s) VC-LIB-006, VC-LIB-018 are not documented claims of the ledger (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5285,7 +5796,10 @@
    "pass": false,
    "reason": "2 of 2 members fail: no premise claim ids (the reasoning names no documented claim) (2); no reasoning (2)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5302,7 +5816,10 @@
    "pass": false,
    "reason": "no member of the class is inferred",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5350,14 +5867,17 @@
    "pass": false,
    "reason": "22 of 22 members fail: no premise claim ids (the reasoning names no documented claim) (22); no reasoning (22)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
    "evidence": {
     "class": "gov.timeline",
-    "failing": 71,
-    "failures": 142,
+    "failing": 72,
+    "failures": 144,
     "first": [
      "timeline:T1-048",
      "timeline:T1-050",
@@ -5381,24 +5901,27 @@
      "timeline:T1-181"
     ],
     "reasons": {
-     "no premise claim ids (the reasoning names no documented claim)": 71,
-     "no reasoning": 71
+     "no premise claim ids (the reasoning names no documented claim)": 72,
+     "no reasoning": 72
     },
-    "scanned": 71,
+    "scanned": 72,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q024-gov_timeline.jsonl",
-     "rows": 142,
-     "sha256": "bb0d1b003ba77a4c8dccbe721fcd5b2684d1573e81ebbbb49b77209193f5af55"
+     "rows": 144,
+     "sha256": "0c68d2dd8ed3ffa07e8450dc3b9f4d12851056fe7aea84c36a3d521a35f15e0d"
     },
     "tier_counts": {
-     "inferred": 71
+     "inferred": 72
     }
    },
    "id": "Q02/Q02.4/gov.timeline",
    "pass": false,
-   "reason": "71 of 71 members fail: no premise claim ids (the reasoning names no documented claim) (71); no reasoning (71)",
+   "reason": "72 of 72 members fail: no premise claim ids (the reasoning names no documented claim) (72); no reasoning (72)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5446,7 +5969,10 @@
    "pass": false,
    "reason": "42 of 42 members fail: no premise claim ids (the reasoning names no documented claim) (42); no reasoning (42)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5494,7 +6020,10 @@
    "pass": false,
    "reason": "81 of 81 members fail: no premise claim ids (the reasoning names no documented claim) (81); no reasoning (81)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5542,7 +6071,10 @@
    "pass": false,
    "reason": "269 of 269 members fail: no premise claim ids (the reasoning names no documented claim) (269); no reasoning (269)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5590,7 +6122,10 @@
    "pass": false,
    "reason": "155 of 155 members fail: no premise claim ids (the reasoning names no documented claim) (155); no reasoning (155)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5637,7 +6172,10 @@
    "pass": false,
    "reason": "455 of 455 members fail: no premise claim ids (the reasoning names no documented claim) (455)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5647,25 +6185,25 @@
     "failures": 944,
     "first": [
      "event:0:cs-3c-heth-archer-13al:enter@43650",
-     "event:10170:us-art-reserve-ransom-1ush:enter@44640",
-     "event:10174:us-art-reserve-ransom-3usf:enter@44640",
-     "event:10178:us-art-reserve-ransom-3usk:enter@44640",
-     "event:10182:us-art-reserve-ransom-4usc:enter@44640",
-     "event:10186:us-art-reserve-ransom-5usc:enter@44640",
-     "event:10190:us-art-reserve-mcgilvery-5ma:enter@44640",
-     "event:10194:us-art-reserve-mcgilvery-9ma:enter@44640",
-     "event:10198:us-art-reserve-mcgilvery-15ny:enter@44640",
-     "event:10202:us-art-reserve-mcgilvery-pac:enter@44640",
-     "event:10206:us-art-reserve-mcgilvery-paf:enter@44640",
-     "event:10210:us-art-reserve-taft-2ct:enter@44640",
-     "event:10212:us-art-reserve-taft-5ny:enter@44640",
-     "event:10214:us-art-reserve-huntington-1nh:enter@44640",
-     "event:10216:us-art-reserve-huntington-1ohh:enter@44640",
-     "event:10218:us-art-reserve-huntington-1paf:enter@44640",
-     "event:10220:us-art-reserve-huntington-1pag:enter@44640",
-     "event:10222:us-art-reserve-huntington-wvc:enter@44640",
-     "event:10224:us-art-reserve-fitzhugh-6me:enter@44640",
-     "event:10226:us-art-reserve-fitzhugh-mda:enter@44640"
+     "event:10170:us-3c-2d-burling-2nh:enter@44640",
+     "event:10174:us-3c-2d-burling-5nj:enter@44640",
+     "event:10178:us-3c-2d-burling-6nj:enter@44640",
+     "event:10182:us-3c-2d-burling-7nj:enter@44640",
+     "event:10186:us-3c-2d-burling-8nj:enter@44640",
+     "event:10190:us-3c-2d-burling-115pa:enter@44640",
+     "event:10194:us-art-reserve-ransom-1ush:enter@44640",
+     "event:10198:us-art-reserve-ransom-3usf:enter@44640",
+     "event:10202:us-art-reserve-ransom-3usk:enter@44640",
+     "event:10206:us-art-reserve-ransom-4usc:enter@44640",
+     "event:10210:us-art-reserve-ransom-5usc:enter@44640",
+     "event:10214:us-art-reserve-mcgilvery-5ma:enter@44640",
+     "event:10218:us-art-reserve-mcgilvery-9ma:enter@44640",
+     "event:10222:us-art-reserve-mcgilvery-15ny:enter@44640",
+     "event:10226:us-art-reserve-mcgilvery-pac:enter@44640",
+     "event:10230:us-art-reserve-mcgilvery-paf:enter@44640",
+     "event:10234:us-art-reserve-taft-2ct:enter@44640",
+     "event:10236:us-art-reserve-taft-5ny:enter@44640",
+     "event:10238:us-art-reserve-huntington-1nh:enter@44640"
     ],
     "reasons": {
      "no premise claim ids (the reasoning names no documented claim)": 472,
@@ -5675,7 +6213,7 @@
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q024-layer_events.jsonl",
      "rows": 944,
-     "sha256": "d864cc6c77cb2b781b96db5adbf0d7ac2df48e2fa37c17b77c33e8995789c36a"
+     "sha256": "c03d9bdcad42b2a451692098608119d5fac45cce2e34f154cee0ccaf1756a03d"
     },
     "tier_counts": {
      "inferred": 472
@@ -5685,7 +6223,10 @@
    "pass": false,
    "reason": "472 of 472 members fail: no premise claim ids (the reasoning names no documented claim) (472); no reasoning (472)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5732,7 +6273,10 @@
    "pass": false,
    "reason": "1031 of 1031 members fail: no premise claim ids (the reasoning names no documented claim) (1031)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5760,7 +6304,10 @@
    "pass": false,
    "reason": "6 of 6 members fail: no premise claim ids (the reasoning names no documented claim) (6)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5790,7 +6337,10 @@
    "pass": false,
    "reason": "4 of 4 members fail: no reasoning (4); premise claim(s) POS-E-US-11C-2D-004 are not documented claims of the ledger (1); premise claim(s) POS-E-US-11C-ART-1NYI-001 are not documented claims of the ledger (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5839,7 +6389,10 @@
    "pass": false,
    "reason": "41 of 213 members fail: no premise claim ids (the reasoning names no documented claim) (32); premise claim(s) POS-E-US-11C-2D-004 are not documented claims of the ledger (8); premise claim(s) POS-E-US-11C-ART-1NYI-002, POS-E-US-11C-ART-1NYI-001 are not documented claims of the ledger (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5856,7 +6409,10 @@
    "pass": false,
    "reason": "no member of the class is inferred",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5882,7 +6438,10 @@
    "pass": false,
    "reason": "4 of 4 members fail: no premise claim ids (the reasoning names no documented claim) (4)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5929,7 +6488,10 @@
    "pass": false,
    "reason": "173 of 173 members fail: no premise claim ids (the reasoning names no documented claim) (173)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -5977,7 +6539,10 @@
    "pass": false,
    "reason": "178 of 178 members fail: no premise claim ids (the reasoning names no documented claim) (178); no reasoning (178)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -6031,7 +6596,10 @@
    "pass": false,
    "reason": "238 of 238 members fail: premise claim(s) PD-1c-hood-anderson-04 are not documented claims of the ledger (1); premise claim(s) PD-1c-hood-robertson-05 are not documented claims of the ledger (1); premise claim(s) PD-1c-mclaws-barksdale-07 are not documented claims of the ledger (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -6085,7 +6653,10 @@
    "pass": false,
    "reason": "39 of 39 members fail: no reasoning (39); premise claim(s) TM2-042 are not documented claims of the ledger (1); premise claim(s) TM2-093 are not documented claims of the ledger (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -6112,7 +6683,10 @@
    "pass": false,
    "reason": "4 of 4 members fail: no premise claim ids (the reasoning names no documented claim) (4); no reasoning (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -6160,7 +6734,10 @@
    "pass": false,
    "reason": "39 of 39 members fail: no premise claim ids (the reasoning names no documented claim) (39); no reasoning (39)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -6208,7 +6785,10 @@
    "pass": false,
    "reason": "39 of 39 members fail: no premise claim ids (the reasoning names no documented claim) (39); no reasoning (39)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -6234,7 +6814,10 @@
    "pass": false,
    "reason": "3 of 3 members fail: no premise claim ids (the reasoning names no documented claim) (3); no reasoning (3)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.4",
@@ -6251,7 +6834,10 @@
    "pass": false,
    "reason": "no member of the class is inferred",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6275,7 +6861,10 @@
    "pass": false,
    "reason": "1 of 1 members fail: no procedural block (1); no register id for the gap (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6292,7 +6881,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6323,7 +6915,10 @@
    "pass": false,
    "reason": "8 of 8 members fail: no procedural block (8); no register id for the gap (8)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6340,7 +6935,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6357,7 +6955,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6374,7 +6975,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6391,38 +6995,61 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
    "evidence": {
     "class": "data.conflict_defaults",
-    "failing": 8,
-    "failures": 16,
+    "failing": 49,
+    "failures": 98,
     "first": [
-     "conflict-defaults.json:$.conflicts.C-005",
-     "conflict-defaults.json:$.conflicts.C-007",
-     "conflict-defaults.json:$.conflicts.C-012",
-     "conflict-defaults.json:$.conflicts.C-016",
-     "conflict-defaults.json:$.conflicts.C-023",
-     "conflict-defaults.json:$.conflicts.C-026",
-     "conflict-defaults.json:$.conflicts.C-042",
-     "conflict-defaults.json:$.conflicts.C-045"
+     "conflict-defaults.json:$.conflicts.C-005.positions[1]",
+     "conflict-defaults.json:$.conflicts.C-005.previous_default",
+     "conflict-defaults.json:$.conflicts.C-005.scenarios[1]",
+     "conflict-defaults.json:$.conflicts.C-005.scenarios[3]",
+     "conflict-defaults.json:$.conflicts.C-005.scenarios[5]",
+     "conflict-defaults.json:$.conflicts.C-007.previous_default",
+     "conflict-defaults.json:$.conflicts.C-012.previous_default",
+     "conflict-defaults.json:$.conflicts.C-016.previous_default",
+     "conflict-defaults.json:$.conflicts.C-023.positions[0]",
+     "conflict-defaults.json:$.conflicts.C-023.positions[1]",
+     "conflict-defaults.json:$.conflicts.C-023.positions[4]",
+     "conflict-defaults.json:$.conflicts.C-023.previous_default",
+     "conflict-defaults.json:$.conflicts.C-023.scenarios[0]",
+     "conflict-defaults.json:$.conflicts.C-023.scenarios[1]",
+     "conflict-defaults.json:$.conflicts.C-023.scenarios[4]",
+     "conflict-defaults.json:$.conflicts.C-023.scenarios[5]",
+     "conflict-defaults.json:$.conflicts.C-024",
+     "conflict-defaults.json:$.conflicts.C-024.positions[0]",
+     "conflict-defaults.json:$.conflicts.C-024.positions[3]",
+     "conflict-defaults.json:$.conflicts.C-024.positions[4]"
     ],
     "reasons": {
-     "no procedural block": 8,
-     "no register id for the gap": 8
+     "no procedural block": 49,
+     "no register id for the gap": 49
     },
-    "scanned": 8,
+    "scanned": 49,
+    "sidecar": {
+     "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q025-data_conflict_defaults.jsonl",
+     "rows": 98,
+     "sha256": "01fe78c118b3dead4ec362f5adb49d02e3e77859048e78ae00ea98e7dbd797c8"
+    },
     "tier_counts": {
-     "plausible-procedural": 8
+     "plausible-procedural": 49
     }
    },
    "id": "Q02/Q02.5/data.conflict_defaults",
    "pass": false,
-   "reason": "8 of 8 members fail: no procedural block (8); no register id for the gap (8)",
+   "reason": "49 of 49 members fail: no procedural block (49); no register id for the gap (49)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6439,7 +7066,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6456,7 +7086,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6481,7 +7114,10 @@
    "pass": false,
    "reason": "2 of 2 members fail: no procedural block (2); no register id for the gap (2)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6529,7 +7165,10 @@
    "pass": false,
    "reason": "182 of 182 members fail: no procedural block (182); no register id for the gap (182)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6577,7 +7216,10 @@
    "pass": false,
    "reason": "39 of 39 members fail: no procedural block (39); no register id for the gap (39)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6594,7 +7236,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6642,7 +7287,10 @@
    "pass": false,
    "reason": "69 of 69 members fail: no procedural block (69); no register id for the gap (69)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6659,7 +7307,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6689,7 +7340,10 @@
    "pass": false,
    "reason": "8 of 8 members fail: no procedural block (8)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6706,7 +7360,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6723,7 +7380,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6740,7 +7400,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6757,7 +7420,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6781,7 +7447,10 @@
    "pass": false,
    "reason": "1 of 1 members fail: no procedural block (1); no register id for the gap (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6798,7 +7467,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6852,7 +7524,10 @@
    "pass": false,
    "reason": "431 of 431 members fail: no procedural block (431); no register id for the gap (417); register id ws-world-veg-G01 is not an open entry of the register (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6869,7 +7544,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6886,7 +7564,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6903,7 +7584,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6942,7 +7626,10 @@
    "pass": false,
    "reason": "11 of 11 members fail: no procedural block (11); no register id for the gap (11)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -6990,7 +7677,10 @@
    "pass": false,
    "reason": "139 of 139 members fail: no procedural block (139); no register id for the gap (139)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7038,7 +7728,10 @@
    "pass": false,
    "reason": "26 of 26 members fail: no procedural block (26); no register id for the gap (26)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7086,7 +7779,10 @@
    "pass": false,
    "reason": "175 of 175 members fail: no procedural block (175); no register id for the gap (175)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7118,7 +7814,10 @@
    "pass": false,
    "reason": "9 of 9 members fail: no procedural block (9); no register id for the gap (9)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7166,7 +7865,10 @@
    "pass": false,
    "reason": "226 of 226 members fail: no procedural block (226); no register id for the gap (226)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7204,7 +7906,7 @@
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q025-layer_events.jsonl",
      "rows": 41814,
-     "sha256": "27a647ffb369ca3da649399c772c0b4b79059e9d6f7a3e78c69e8b111fd800a4"
+     "sha256": "189706a6c622a4ae7379ffb9b703d8d82f36131af49cab5308fa8b9c3e58eca3"
     },
     "tier_counts": {
      "plausible-procedural": 20907
@@ -7214,7 +7916,10 @@
    "pass": false,
    "reason": "20907 of 20907 members fail: no procedural block (20907); no register id for the gap (20907)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7262,7 +7967,10 @@
    "pass": false,
    "reason": "4684 of 4684 members fail: no procedural block (4684); no register id for the gap (4684)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7279,7 +7987,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7296,7 +8007,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7343,7 +8057,10 @@
    "pass": false,
    "reason": "226 of 226 members fail: no procedural block (226)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7391,7 +8108,10 @@
    "pass": false,
    "reason": "564 of 564 members fail: no procedural block (564); no register id for the gap (564)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7408,7 +8128,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7456,7 +8179,10 @@
    "pass": false,
    "reason": "543 of 543 members fail: no procedural block (543); no register id for the gap (543)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7503,7 +8229,10 @@
    "pass": false,
    "reason": "439 of 439 members fail: no procedural block (439)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7520,7 +8249,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7537,7 +8269,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7554,7 +8289,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7571,7 +8309,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7588,7 +8329,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7617,7 +8361,10 @@
    "pass": false,
    "reason": "6 of 6 members fail: no procedural block (6); no register id for the gap (6)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.5",
@@ -7634,7 +8381,10 @@
    "pass": false,
    "reason": "no member of the class is plausible-procedural",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -7650,7 +8400,10 @@
    "pass": false,
    "reason": "1 of 4 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -7690,7 +8443,10 @@
    "pass": false,
    "reason": "21 of 21 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -7730,7 +8486,10 @@
    "pass": false,
    "reason": "42 of 42 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -7746,7 +8505,10 @@
    "pass": false,
    "reason": "1 of 1 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -7760,7 +8522,35 @@
    "pass": true,
    "reason": "every source id used by the class resolves in a Source Manifest",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
+  },
+  {
+   "check": "Q02.6",
+   "evidence": {
+    "class": "data.conflict_defaults",
+    "first": [
+     "2026-11-16 (delegated; reversible by the owner)",
+     "PDF B.2.5",
+     "added by the resolution of 2026-11-16 (nothing deleted)",
+     "added from the primary record (nothing deleted)",
+     "conflict_register / PDF B.2.5 value",
+     "default by research",
+     "first delegated default of 2026-11-11 (previous default; kept selectable)"
+    ],
+    "source_ids_used": 7,
+    "unresolved": 7
+   },
+   "id": "Q02/Q02.6/data.conflict_defaults",
+   "pass": false,
+   "reason": "7 of 7 source ids used by the class are in no Source Manifest",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -7784,14 +8574,17 @@
    "pass": false,
    "reason": "9 of 10 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
    "evidence": {
     "class": "data.fx_params",
     "first": [
-     "Field Manual (Ordnance Bureau",
+     "Field Manual (Ordnance Bureau, Richmond 1862) p. 76",
      "Gibbon 1860 Practice of fire",
      "Hand-book of Artillery 1861 p. 108",
      "Hardee 1855 School of the Soldier",
@@ -7803,28 +8596,31 @@
      "PDF T1 night rows",
      "PDF T2-122",
      "PDF T2-203",
-     "Richmond 1862) p. 76",
      "app/docs/ANIM3D-NOTES.md gait table",
      "audio/contract/FIRE_EVENT.md",
      "drill/ordnance_tables.json ORD-CHG-FA",
      "drill/ordnance_tables.json ORD-FUZE-FA",
      "drill/ordnance_tables.json ORD-PRJ-CASE",
      "drill/ordnance_tables.json ORD-PRJ-CASE (competing)",
-     "environment/weather_timeline.json"
+     "environment/weather_timeline.json",
+     "environment/weather_timeline.json events EV-JUL2-FOG"
     ],
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q026-unresolved-data_fx_params.jsonl",
-     "rows": 30,
-     "sha256": "a643de8ec066398c507fdeca84959679867fe227a4ab7113ad6554b1fb33c96f"
+     "rows": 29,
+     "sha256": "d5bdec3a7857ad422e152c0b4f1095ca16f43ef3dbe20efa506272966626702f"
     },
-    "source_ids_used": 30,
-    "unresolved": 30
+    "source_ids_used": 29,
+    "unresolved": 29
    },
    "id": "Q02/Q02.6/data.fx_params",
    "pass": false,
-   "reason": "30 of 30 source ids used by the class are in no Source Manifest",
+   "reason": "29 of 29 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -7838,7 +8634,10 @@
    "pass": true,
    "reason": "every source id used by the class resolves in a Source Manifest",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -7855,7 +8654,10 @@
    "pass": false,
    "reason": "2 of 2 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -7864,31 +8666,31 @@
     "first": [
      "NPS-CLI-ERR",
      "NPS-CLI-LRT",
-     "NPS-CLI-PCB"
+     "NPS-CLI-PCB",
+     "NPS-CLR-1STDAY"
     ],
-    "source_ids_used": 3,
-    "unresolved": 3
+    "source_ids_used": 4,
+    "unresolved": 4
    },
    "id": "Q02/Q02.6/data.site_memorial_years",
    "pass": false,
-   "reason": "3 of 3 source ids used by the class are in no Source Manifest",
+   "reason": "4 of 4 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
    "evidence": {
     "class": "data.site_memorials",
     "first": [
-     "0.15 mi N of Pleasonton Ave)",
      "Gettysburg",
-     "Gettysburg)",
-     "HMDB marker 14539: 39°48.967′N 77°14.089′W (Ziegler's Grove",
-     "HMDB marker 15142: 39°51.193′N 77°17.147′W (Chambersburg Pike at Marsh Creek",
+     "HMDB marker 14539: 39°48.967′N 77°14.089′W (Ziegler's Grove, Hancock Ave)",
+     "HMDB marker 15142: 39°51.193′N 77°17.147′W (Chambersburg Pike at Marsh Creek, erected 1912)",
      "HMDB marker 16865: 39°49.184′N 77°13.866′W (center of Gettysburg National Cemetery)",
-     "HMDB marker 17965: 39°49.837′N 77°13.879′W (Lincoln Square",
-     "Hancock Ave)",
-     "Pennsylvania)",
+     "HMDB marker 17965: 39°49.837′N 77°13.879′W (Lincoln Square, Gettysburg)",
      "Stone Sentinels",
      "Stone Sentinels (gettysburg.stonesentinels.com) map pin: 39°48′51.4″N 77°15′02.6″W",
      "Stone Sentinels: State of Georgia monument",
@@ -7896,24 +8698,26 @@
      "Stone Sentinels: State of Louisiana monument",
      "Wikipedia: Alabama State Monument",
      "Wikipedia: New York State Monument",
-     "Wikipedia: North Carolina State Monument (Gettysburg",
+     "Wikipedia: North Carolina State Monument (Gettysburg, Pennsylvania)",
      "Wikipedia: Pennsylvania State Memorial",
      "Wikipedia: Soldiers' National Monument",
-     "Wikipedia: Virginia Monument"
+     "Wikipedia: Virginia Monument",
+     "stated on page: 39.810234°N 77.236076°W (W side Hancock Ave, 0.15 mi N of Pleasonton Ave)",
+     "stated on page: 39°48′47.7″N 77°14′07.1″W (E side Hancock Ave, across from High Water Mark)",
+     "stated on page: 39°48′58.6″N 77°13′56.8″W (W side Taneytown Rd at old Cyclorama lot entry)",
+     "stated on page: 39°48′59.1″N 77°14′31.4″W (Bliss Farm skirmish-line marker)"
     ],
-    "sidecar": {
-     "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q026-unresolved-data_site_memorials.jsonl",
-     "rows": 26,
-     "sha256": "43619f7354ea38bb2a26cb14b7ef702869e1652da25de18c59f89fa476adba63"
-    },
-    "source_ids_used": 26,
-    "unresolved": 26
+    "source_ids_used": 20,
+    "unresolved": 20
    },
    "id": "Q02/Q02.6/data.site_memorials",
    "pass": false,
-   "reason": "26 of 26 source ids used by the class are in no Source Manifest",
+   "reason": "20 of 20 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -7953,7 +8757,10 @@
    "pass": false,
    "reason": "33 of 33 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -7983,17 +8790,20 @@
     ],
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q026-unresolved-data_vegetation.jsonl",
-     "rows": 59,
-     "sha256": "e2a91c8d7f90f0771d8d6397eb762ea200a2016a68e78ba1561a0af9f0c7fecb"
+     "rows": 63,
+     "sha256": "3ef05be3b7bb37bd7850346b13ee05467c47c00db7fd1ab5c23a60e280600878"
     },
-    "source_ids_used": 59,
-    "unresolved": 59
+    "source_ids_used": 63,
+    "unresolved": 63
    },
    "id": "Q02/Q02.6/data.vegetation",
    "pass": false,
-   "reason": "59 of 59 source ids used by the class are in no Source Manifest",
+   "reason": "63 of 63 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8009,7 +8819,10 @@
    "pass": false,
    "reason": "1 of 1 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8039,17 +8852,20 @@
     ],
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q026-unresolved-gov_timeline.jsonl",
-     "rows": 281,
-     "sha256": "1ba8722ea7dd79847080baa3dbe1c18175901928cfb48ca12530c10ad03ec57a"
+     "rows": 314,
+     "sha256": "af839cf0b539ba33e1e6fb89468f44fa9d19d8cdea2afe33f4b934c5124ce940"
     },
-    "source_ids_used": 507,
-    "unresolved": 281
+    "source_ids_used": 546,
+    "unresolved": 314
    },
    "id": "Q02/Q02.6/gov.timeline",
    "pass": false,
-   "reason": "281 of 507 source ids used by the class are in no Source Manifest",
+   "reason": "314 of 546 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8072,7 +8888,10 @@
    "pass": false,
    "reason": "8 of 20 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8096,7 +8915,10 @@
    "pass": false,
    "reason": "9 of 20 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8110,7 +8932,10 @@
    "pass": true,
    "reason": "every source id used by the class resolves in a Source Manifest",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8135,7 +8960,10 @@
    "pass": false,
    "reason": "10 of 70 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8149,7 +8977,10 @@
    "pass": true,
    "reason": "every source id used by the class resolves in a Source Manifest",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8163,7 +8994,10 @@
    "pass": true,
    "reason": "every source id used by the class resolves in a Source Manifest",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8177,7 +9011,10 @@
    "pass": true,
    "reason": "every source id used by the class resolves in a Source Manifest",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8217,7 +9054,10 @@
    "pass": false,
    "reason": "24 of 25 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8236,7 +9076,10 @@
    "pass": false,
    "reason": "4 of 60 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8253,7 +9096,10 @@
    "pass": false,
    "reason": "2 of 35 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8267,7 +9113,10 @@
    "pass": true,
    "reason": "every source id used by the class resolves in a Source Manifest",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8281,7 +9130,10 @@
    "pass": true,
    "reason": "every source id used by the class resolves in a Source Manifest",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8295,7 +9147,10 @@
    "pass": true,
    "reason": "every source id used by the class resolves in a Source Manifest",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8309,7 +9164,10 @@
    "pass": true,
    "reason": "every source id used by the class resolves in a Source Manifest",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8349,7 +9207,10 @@
    "pass": false,
    "reason": "31 of 574 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8367,7 +9228,10 @@
    "pass": false,
    "reason": "3 of 4 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8410,7 +9274,10 @@
    "pass": false,
    "reason": "126 of 126 source entries lack date_written, rights or reliability_tier",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8453,7 +9320,10 @@
    "pass": false,
    "reason": "105 of 105 source entries lack date_written, rights or reliability_tier",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8497,7 +9367,10 @@
    "pass": false,
    "reason": "2830 of 2830 source entries lack date_written, rights or reliability_tier",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8520,7 +9393,10 @@
    "pass": false,
    "reason": "8 of 8 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8560,7 +9436,10 @@
    "pass": false,
    "reason": "72 of 74 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8600,7 +9479,10 @@
    "pass": false,
    "reason": "101 of 103 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.6",
@@ -8616,7 +9498,10 @@
    "pass": false,
    "reason": "1 of 1 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.7",
@@ -8660,7 +9545,10 @@
    "pass": false,
    "reason": "44 conflict(s) have a value with no source key, fewer than two values or no recorded alternatives",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8679,7 +9567,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8696,7 +9587,10 @@
    "pass": false,
    "reason": "no member of the class names a source id",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8716,7 +9610,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8735,7 +9632,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8754,7 +9654,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8805,7 +9708,10 @@
    "pass": false,
    "reason": "22 of 30 members fail: documented and every source is a lead or weak (SS-ArtReserve) (19); documented and every source is a lead or weak (Wiki-OOB-Union, GburgDaily-Smith4NY, SS-NYArt-1958) (1); documented and every source is a lead or weak (Wiki-OOB-Union, SS-Cushing-7888) (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8822,7 +9728,10 @@
    "pass": false,
    "reason": "no member of the class names a source id",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8832,14 +9741,22 @@
     "failures": 0,
     "first": [],
     "reasons": {},
-    "scanned": 0,
-    "tier_counts": {}
+    "scanned": 473,
+    "tier_counts": {
+     "documented": 159,
+     "inferred": 239,
+     "open gap": 51,
+     "plausible-procedural": 24
+    }
    },
    "id": "Q02/Q02.8/data.conflict_defaults",
-   "pass": false,
-   "reason": "no member of the class names a source id",
+   "pass": true,
+   "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8856,7 +9773,10 @@
    "pass": false,
    "reason": "no member of the class names a source id",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8873,7 +9793,10 @@
    "pass": false,
    "reason": "no member of the class names a source id",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8899,7 +9822,10 @@
    "pass": false,
    "reason": "2 of 5 members fail: documented and every source is a lead or weak (W-BG) (1); rests on a lead source alone and is not flagged weak (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8920,7 +9846,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8937,7 +9866,10 @@
    "pass": false,
    "reason": "no member of the class names a source id",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8954,7 +9886,10 @@
    "pass": false,
    "reason": "no member of the class names a source id",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8974,7 +9909,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -8991,7 +9929,10 @@
    "pass": false,
    "reason": "no member of the class names a source id",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9010,7 +9951,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9027,7 +9971,10 @@
    "pass": false,
    "reason": "no member of the class names a source id",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9037,9 +9984,9 @@
     "failures": 0,
     "first": [],
     "reasons": {},
-    "scanned": 33,
+    "scanned": 75,
     "tier_counts": {
-     "documented": 32,
+     "documented": 74,
      "inferred": 1
     }
    },
@@ -9047,7 +9994,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9066,7 +10016,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9083,7 +10036,10 @@
    "pass": false,
    "reason": "no member of the class names a source id",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9100,7 +10056,10 @@
    "pass": false,
    "reason": "no member of the class names a source id",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9127,7 +10086,10 @@
    "pass": false,
    "reason": "3 of 446 members fail: rests on a lead source alone and is not flagged weak (3)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9137,17 +10099,20 @@
     "failures": 0,
     "first": [],
     "reasons": {},
-    "scanned": 575,
+    "scanned": 589,
     "tier_counts": {
-     "documented": 521,
-     "inferred": 54
+     "documented": 533,
+     "inferred": 56
     }
    },
    "id": "Q02/Q02.8/data.vegetation",
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9164,7 +10129,10 @@
    "pass": false,
    "reason": "no member of the class names a source id",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9181,7 +10149,10 @@
    "pass": false,
    "reason": "no member of the class names a source id",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9200,7 +10171,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9248,8 +10222,8 @@
     },
     "tier_counts": {
      "documented": 570,
-     "inferred": 71,
-     "open gap": 39,
+     "inferred": 72,
+     "open gap": 38,
      "plausible-procedural": 11
     }
    },
@@ -9257,7 +10231,10 @@
    "pass": false,
    "reason": "81 of 691 members fail: documented and every source is a lead or weak (W-RET) (14); rests on a lead source alone and is not flagged weak (11); documented and every source is a lead or weak (SS2) (7)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9308,7 +10285,10 @@
    "pass": false,
    "reason": "24 of 127 members fail: documented and every source is a lead or weak (SS-ArtReserve) (21); documented and every source is a lead or weak (Wiki-OOB-Union, GburgDaily-Smith4NY, SS-NYArt-1958) (1); documented and every source is a lead or weak (Wiki-OOB-Union, SS-Cushing-7888) (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9346,7 +10326,10 @@
    "pass": false,
    "reason": "12 of 108 members fail: documented and every source is a lead or weak (Wiki-OOB-Union) (7); documented and every source is a lead or weak (Wiki-OOB-Confed) (4); documented and every source is a lead or weak (Wiki-OOB-Union, Wiki-Farnsworth) (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9368,7 +10351,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9395,7 +10381,10 @@
    "pass": false,
    "reason": "1 of 170 members fail: documented and every source is a lead or weak (Wiki-10pdrParrott, SS-Hazlett-10491) (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9416,7 +10405,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9436,7 +10428,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9485,7 +10480,10 @@
    "pass": false,
    "reason": "1296 of 4315 members fail: rests on a lead source alone and is not flagged weak (1296)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9511,7 +10509,10 @@
    "pass": false,
    "reason": "3 of 18 members fail: rests on a lead source alone and is not flagged weak (3)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9531,7 +10532,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9551,7 +10555,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9570,7 +10577,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9591,7 +10601,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9612,7 +10625,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9634,7 +10650,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9655,7 +10674,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9675,7 +10697,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9699,7 +10724,10 @@
    "pass": false,
    "reason": "1 of 10 members fail: documented and every source is a lead or weak (Wiki-Amb) (1)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9720,7 +10748,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9742,7 +10773,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9759,7 +10793,10 @@
    "pass": false,
    "reason": "no member of the class names a source id",
    "renderer_class": "python",
-   "result": "N/A"
+   "result": "N/A",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.8",
@@ -9778,7 +10815,10 @@
    "pass": true,
    "reason": "no member rests on lead or weak sources alone",
    "renderer_class": "python",
-   "result": "PASS"
+   "result": "PASS",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.9",
@@ -9827,14 +10867,17 @@
    "pass": false,
    "reason": "449 of 449 members fail: state change without a state_schedule (449)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.9",
    "evidence": {
     "class": "data.vegetation",
-    "failing": 1087,
-    "failures": 1087,
+    "failing": 1101,
+    "failures": 1101,
     "first": [
      "vegetation.json:$.calendar.crops.barley.harvest",
      "vegetation.json:$.calendar.crops.barley.keys[0]",
@@ -9858,17 +10901,17 @@
      "vegetation.json:$.calendar.crops.pasture.keys[1]"
     ],
     "reasons": {
-     "state change without a state_schedule": 1087
+     "state change without a state_schedule": 1101
     },
-    "scanned": 1087,
+    "scanned": 1101,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q029-data_vegetation.jsonl",
-     "rows": 1087,
-     "sha256": "84f221945d709588561ad66896cfca75a2732892b643c661dca6f1841f2e2702"
+     "rows": 1101,
+     "sha256": "a042dc672a57b12056d62305dec716b7e60af36598f87aa3562b9c92b0f12c09"
     },
     "tier_counts": {
-     "documented": 539,
-     "inferred": 109,
+     "documented": 551,
+     "inferred": 111,
      "none": 2,
      "open gap": 6,
      "plausible-procedural": 431
@@ -9876,9 +10919,12 @@
    },
    "id": "Q02/Q02.9/data.vegetation",
    "pass": false,
-   "reason": "1087 of 1087 members fail: state change without a state_schedule (1087)",
+   "reason": "1101 of 1101 members fail: state change without a state_schedule (1101)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.9",
@@ -9902,7 +10948,10 @@
    "pass": false,
    "reason": "2 of 2 members fail: state change without a state_schedule (2)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.9",
@@ -9954,7 +11003,10 @@
    "pass": false,
    "reason": "628 of 628 members fail: kit item without valid_from and valid_to (628)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.9",
@@ -10004,7 +11056,10 @@
    "pass": false,
    "reason": "5894 of 5894 members fail: kit item without valid_from and valid_to (5894)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.9",
@@ -10045,7 +11100,10 @@
    "pass": false,
    "reason": "18 of 18 members fail: state change without a state_schedule (18)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.9",
@@ -10094,7 +11152,10 @@
    "pass": false,
    "reason": "88 of 88 members fail: state change without a state_schedule (88)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.9",
@@ -10144,7 +11205,10 @@
    "pass": false,
    "reason": "130 of 130 members fail: state change without a state_schedule (130)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   },
   {
    "check": "Q02.9",
@@ -10176,7 +11240,10 @@
    "pass": false,
    "reason": "9 of 9 members fail: state change without a state_schedule (9)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "FAIL",
+   "sub_requirements": [
+    "R03.0000"
+   ]
   }
  ],
  "layer": {
@@ -10191,24 +11258,29 @@
   "Q02.3 span basis: the sentence of the stored text that holds the extract; the number rule of the citation checker (p. 126, D.4.3 stage 11) is applied to a claim text where the data has one, with numbers written in words (0 to 99) accepted"
  ],
  "owed": [
-  "Q02.3 \"the claim equals what the span supports\" is not machine-checkable: it needs the fresh-context verification run of U-11 (Q27.5)"
+  "Q02.3 judgment part (U-29, 1.10): that each documented claim equals what its span supports is decided by no program; the runner re-finds every extract and applies the number rule, and a class of documented members is PASS only when a verification record of gate_results/verification/ names it with the verdict agree"
  ],
  "renderer_class": "python",
- "run_id": "20261116T005146Z-Q02",
+ "run_id": "20261124T181356Z-Q02",
  "runnable_here": true,
+ "runner": {
+  "files": 12,
+  "sha256": "828a44e01c26c5486052771c90f68e2f86bb1f33587ae1cbbfed65f0a32acdfb"
+ },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-16T00:51:46Z",
+ "started_utc": "2026-11-24T18:13:56Z",
  "text_store": {
   "or27_error": null,
   "statevol_error": null,
-  "texts_listed": 239,
+  "texts_listed": 382,
   "texts_read": 35
  },
  "thresholds": [
   {
-   "decision": "PLAN (p. 134, E.6; working limit 14 words)",
+   "decision": "PLAN (p. 134, E.6; working limit 14 words) (registry status PLAN)",
    "id": "T-Q02-1",
    "metric": "words in a source extract",
+   "source": "registry T-Q02-1",
    "value": 14
   }
  ],
@@ -10262,7 +11334,7 @@
    "Q02.6": {
     "BLOCKED-INPUT": 0,
     "COVERED": 0,
-    "FAIL": 28,
+    "FAIL": 29,
     "N/A": 0,
     "NOT-RUN": 0,
     "PASS": 10
@@ -10279,9 +11351,9 @@
     "BLOCKED-INPUT": 0,
     "COVERED": 0,
     "FAIL": 10,
-    "N/A": 14,
+    "N/A": 13,
     "NOT-RUN": 0,
-    "PASS": 25
+    "PASS": 26
    },
    "Q02.9": {
     "BLOCKED-INPUT": 0,
@@ -10293,12 +11365,19 @@
    }
   },
   "covered": 0,
-  "fail": 176,
-  "items": 301,
-  "n_a": 76,
+  "fail": 177,
+  "items": 302,
+  "n_a": 75,
   "not_passing": 252,
   "not_run": 0,
-  "pass": 49
+  "pass": 50
  },
- "verdict": "FAIL"
+ "verdict": "FAIL",
+ "verification": {
+  "applied_to": "Q02",
+  "entries_dropped": [],
+  "folder": "docs/battle-theatre/GOVERNANCE/gate_results/verification",
+  "records_invalid": [],
+  "records_valid": 0
+ }
 }

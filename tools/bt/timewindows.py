@@ -64,6 +64,8 @@ def main():
     with open(os.path.join(G, 'timeline_windows.jsonl'), 'w', encoding='utf-8') as f:
         for r in rows:
             w = parse(r['time_window_raw']); w['id'] = r['id']; w['tier'] = r['tier']
+            if r.get('conflict_update'):   # the conflict resolutions' window/default/tier for this row (timeline_conflict_updates.jsonl); the plan's parse above is untouched
+                w['conflict_update'] = r['conflict_update']
             stats[w['parse_status']] = stats.get(w['parse_status'], 0) + 1
             f.write(json.dumps(w, ensure_ascii=False) + '\n')
     print('rows', len(rows), stats)

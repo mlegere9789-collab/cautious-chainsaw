@@ -26,7 +26,9 @@ import sys
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, 'lib'))
+for _p in (HERE, os.path.join(HERE, 'lib')):          # explicit, so that `python3 -I` (no script folder on sys.path) finds q02_provenance
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 import pq_common as pq  # noqa: E402
 import datum_scan as ds  # noqa: E402
 import q02_provenance as q02  # noqa: E402

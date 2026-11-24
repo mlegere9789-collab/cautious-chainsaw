@@ -23,8 +23,10 @@ import oob_units as OU
 ROOT = OP.ROOT
 OUT = os.path.join(ROOT, 'docs', 'battle-theatre', 'history')
 REG = os.path.join(ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'conflicts_structured.json')
+CDEF = os.path.join(ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'decisions', 'conflict_defaults.json')
 
 ERR = []
+CONFLICT_DEFAULTS = json.load(open(CDEF, encoding='utf-8'))['conflicts']
 
 
 def need(cond, msg):
@@ -217,7 +219,10 @@ def row_gate(rid, spec, keys_all):
                 ('; no B.2.5 default recorded' if d is None else '')
         else:
             g['default'] = d
-            g['default_status'] = 'PENDING OWNER (PDF B.2.5 recommended default %s; not an owner decision)' % db.split(' ')[0] if from_register else 'see default_basis'
+            if 'delegated resolution v2' in db:
+                g['default_status'] = 'DELEGATED RESOLUTION v2 (%s, decisions/conflict_defaults.json; reversible by the owner; not an owner decision)' % db.split(' ')[0]
+            else:
+                g['default_status'] = 'PENDING OWNER (PDF B.2.5 recommended default %s; not an owner decision)' % db.split(' ')[0] if from_register else 'see default_basis'
         g['default_basis'] = db
         if spec.get('default_range'):
             g['default_range'] = spec['default_range']
@@ -631,6 +636,11 @@ def main():
             conflicts.append({'id': cf['id'], 'link': cf['link'], 'cell': cf['cell'], 'note': cf.get('note'), 'topic': rc['topic'],
                               'pdf_recommended_default': rc['pdf_recommended_default'], 'status': rc['status'], 'register_page': rc.get('page'),
                               'source_keys_in_row': keys})
+            rs = CONFLICT_DEFAULTS.get(cf['id'])
+            if rs:
+                conflicts[-1]['resolution'] = {'version': 2, 'default_label': rs.get('default_label'), 'class': rs.get('class'), 'tier': rs.get('tier'),
+                                               'animation_at': (rs.get('animation') or {}).get('at'), 'drawn_text': rs.get('drawn_text') or None,
+                                               'source': 'GOVERNANCE/decisions/conflict_defaults.json'}
         detached = []
         for d in spec.get('detached', []):
             dd = dict(d)
@@ -678,6 +688,7 @@ def main():
             ('tier', tier),
             ('tier_basis', "row-level: 'documented' only when clock times are printed in the cell AND at least one non-weak source key is printed in the row; the cell does not always say which key supports which time. Named-period, date-only and event-floor gates are 'inferred'; cells with no usable time are 'open gap'. claim_support_verified is false everywhere."),
             ('notes', ([spec['note']] if spec.get('note') else []) + ([spec['pre_battle']] if spec.get('pre_battle') else [])),
+            ('resolution_notes', spec.get('resolution_notes', [])),
             ('spec_note_unparsed_first', spec.get('unparsed_first')),
         ])
         if spec.get('gate_from_children'):

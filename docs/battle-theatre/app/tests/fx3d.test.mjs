@@ -176,7 +176,7 @@ test('store: a full store merges the oldest smoke (mass kept), nothing is droppe
 
 // ------------------------------------------------------------------------------------------------------------------------------------ causality
 test('no particle exists before its cause: every record is stamped at or after the shot; frames before the cause draw nothing of it', () => {
-  const fx = mkFx(), t = at(7, 2, 15), cam = CAM(0, 8, 0);
+  const fx = mkFx(), t = at(7, 1, 15), cam = CAM(0, 8, 0); // Jul 1: before the Sherfy default window (C-026 v2 opens it on Jul 2)
   const recs = []; const em = new Emitter(data, r => recs.push(r)); const env = fx.env.at(t, {});
   for (let i = 0; i < 50; i++) { const ts = t + i * 0.9; for (const [w, p] of [['m1861_springfield', 'ball'], ['napoleon_12pdr_m1857', 'canister'], ['napoleon_12pdr_m1857', 'shell']]) { const before = recs.length; em.fire({ unitId: 'U' + i, figureIdx: i, t: ts, weapon: w, pos: [i, 5, 60], dir: [0, 0, 1], extra: { proj: p, fuze: 'time', fuzeS: 2 }, env, ground: 0 }); for (let k = before; k < recs.length; k++) assert.ok(recs[k][F.T0] >= ts, `record type ${recs[k][F.TYPE]} at ${recs[k][F.T0]} before cause ${ts}`); } }
   // the cap flash is at the trigger pull, the muzzle flash and smoke follow by the ignition lead
@@ -255,12 +255,13 @@ test('fires: the Sherfy scenarios, the Bliss deadline, the never-burn rules, and
   const bliss = data.fires.sources.filter(s => s.id.startsWith('fx-fire-bliss')); for (const b of bliss) assert.ok(isoToMin(b.windows.default.window[0]) >= isoToMin('1863-07-03T00:00'), 'Bliss not before Jul 3');
   const f = fireSet(), st = {}; f.state('fx-fire-bliss-barn', at(7, 2, 23, 59), st); assert.equal(st.flame + st.smoke, 0);
   f.state('fx-fire-bliss-barn', at(7, 3, 10), st); assert.ok(st.uncertain && st.flame > 0); f.state('fx-fire-bliss-barn', at(7, 3, 13, 1), st); assert.equal(st.flame, 0, 'ruined before the cannonade'); assert.ok(st.smoke > 0 && st.phase === 'ruin', 'a smouldering ruin');
-  // Sherfy: default Jul 3, the C-026 scenario Jul 2, the full flag window both days
-  const s0 = fireSet(), s1 = fireSet({ 'fx-fire-sherfy-barn': 'jul2_evening_c026' }), s2 = fireSet({ 'fx-fire-sherfy-barn': 'flag_window_full' });
-  s0.state('fx-fire-sherfy-barn', at(7, 2, 20), st); assert.equal(st.flame, 0); s1.state('fx-fire-sherfy-barn', at(7, 2, 20), st); assert.ok(st.flame > 0); s2.state('fx-fire-sherfy-barn', at(7, 2, 20), st); assert.ok(st.flame > 0); s2.state('fx-fire-sherfy-barn', at(7, 3, 20), st); assert.ok(st.flame > 0);
+  // Sherfy: C-026 delegated resolution v2: the default is the window Jul 2 to the end of Jul 3 (no instant, flagged uncertain); the Jul 3 afternoon reading (B.8.7) and the Jul 2 evening scenario stay selectable
+  const s0 = fireSet(), s1 = fireSet({ 'fx-fire-sherfy-barn': 'jul2_evening_c026' }), s2 = fireSet({ 'fx-fire-sherfy-barn': 'flag_window_full' }), s3 = fireSet({ 'fx-fire-sherfy-barn': 'jul3_afternoon_b87' });
+  s0.state('fx-fire-sherfy-barn', at(7, 2, 20), st); assert.ok(st.flame > 0 && st.uncertain, 'default: the window opens on Jul 2'); s0.state('fx-fire-sherfy-barn', at(7, 3, 20), st); assert.ok(st.flame > 0, 'default: the window runs to the end of Jul 3');
+  s3.state('fx-fire-sherfy-barn', at(7, 2, 20), st); assert.equal(st.flame, 0, 'the Jul 3 scenario: nothing on Jul 2'); s1.state('fx-fire-sherfy-barn', at(7, 2, 20), st); assert.ok(st.flame > 0); s2.state('fx-fire-sherfy-barn', at(7, 2, 20), st); assert.ok(st.flame > 0); s2.state('fx-fire-sherfy-barn', at(7, 3, 20), st); assert.ok(st.flame > 0);
   s1.state('fx-fire-sherfy-barn', at(7, 3, 4), st); assert.equal(st.flame, 0, 'Jul 2 scenario: no flames the next day'); assert.ok(st.smoke > 0, 'a smouldering ruin');
   // ignition by the host
-  const h = fireSet(); assert.equal(h.ignite('fx-fire-sherfy-barn', at(7, 2, 12)), false, 'before the default window'); assert.equal(h.refused.length, 1);
+  const h = fireSet(); assert.equal(h.ignite('fx-fire-sherfy-barn', at(7, 1, 12)), false, 'before the default window (opens Jul 2, C-026 v2)'); assert.equal(h.refused.length, 1);
   assert.equal(h.ignite('fx-fire-sherfy-barn', at(7, 3, 14)), true);
   h.state('fx-fire-sherfy-barn', at(7, 3, 14) - 1, st); assert.equal(st.flame + st.smoke, 0, 'nothing burns before the ignition'); h.state('fx-fire-sherfy-barn', at(7, 3, 14) + 600, st); assert.ok(st.flame > 0 && !st.uncertain);
   let peak = 0; for (let m = 0; m < 600; m += 5) { h.state('fx-fire-sherfy-barn', at(7, 3, 14) + m * 60, st); peak = Math.max(peak, st.flame); } assert.equal(peak, 1);
@@ -275,7 +276,7 @@ test('fires: positions come from the structures data (the Sherfy barn point is w
 test('fires: plume smoke puffs exist only while a fire burns; the same tick range gives the same puffs; host-placed fires are refused outside their evidence', () => {
   const fx = mkFx(), em = [], f = fx.fires; const air = airFor(P, fx.env.at(at(7, 3, 10), {}));
   const emit = (t0, t1) => { const out = []; f.emitPlume(t0, t1, r => out.push(r), air); return out; };
-  assert.equal(emit(at(7, 2, 9), at(7, 2, 10)).length, 0, 'no fire on the morning of Jul 2');
+  assert.equal(emit(at(7, 1, 9), at(7, 1, 10)).length, 0, 'no fire on the morning of Jul 1 (the Sherfy window opens Jul 2, C-026 v2)');
   const a = emit(at(7, 3, 9), at(7, 3, 9) + 120), b = emit(at(7, 3, 9), at(7, 3, 9) + 120); assert.ok(a.length > 0); assert.deepEqual(a.map(r => Array.from(r)), b.map(r => Array.from(r)));
   for (const r of a) { assert.ok(r[F.T0] >= at(7, 3, 9)); assert.equal(r[F.A2], 1, 'uncertain plume marked'); }
   assert.equal(f.addHost({ id: 'c1', kind: 'carcass', pos: [0, 0, 0], a: at(7, 3, 12) }), false); assert.equal(f.addHost({ id: 'c2', kind: 'carcass', pos: [0, 0, 0], a: at(7, 4, 9) }), true);

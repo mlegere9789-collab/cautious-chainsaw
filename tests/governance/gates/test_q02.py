@@ -30,8 +30,11 @@ class Q02(unittest.TestCase):
 
     # ------------------------------------------------------------------------------------------ clean world
     def test_clean_world_passes(self):
-        rec = self.go(W.world(), expect_exit=0)
-        self.assertEqual(rec['verdict'], 'PASS', [(i['id'], i['result'], i['reason'][:100]) for i in rec['items'] if i['result'] not in ('PASS', 'N/A')])
+        # U-29 (1.10): the part of Q02.3 no program decides (claim equals what its span supports) is owed until a verification record says agree, so a clean world is INCOMPLETE, never PASS
+        rec = self.go(W.world(), expect_exit=2)
+        self.assertEqual(rec['verdict'], 'INCOMPLETE')
+        self.assertEqual({i['id'] for i in rec['items'] if i['result'] not in ('PASS', 'N/A')}, {i for i in (x['id'] for x in rec['items']) if i.startswith('Q02/Q02.3/')} - {x['id'] for x in rec['items'] if x['result'] in ('PASS', 'N/A')})
+        self.assertTrue(all(i['result'] == 'NOT-RUN' for i in rec['items'] if i['result'] not in ('PASS', 'N/A')), [(i['id'], i['result']) for i in rec['items'] if i['result'] not in ('PASS', 'N/A')])
         self.assertEqual(rec['gate'], 'Q02')
         self.assertTrue(all(i['pass'] == (i['result'] == 'PASS') for i in rec['items']))
         self.assertGreater(len(rec['inputs']), 5)
@@ -101,8 +104,10 @@ class Q02(unittest.TestCase):
     def test_extract_found_with_other_case_and_punctuation_is_accepted(self):
         w = W.world()
         W.things(w)[0]['quote'] = 'The QUICK brown fox, jumps over the lazy dog'
-        rec = self.go(w, expect_exit=0)
-        self.assertEqual(fx.items_by_id(rec)['Q02/Q02.3/t.things']['result'], 'PASS')
+        rec = self.go(w, expect_exit=2)                      # the extract is found again; only the judgment part (U-29) is owed
+        it = fx.items_by_id(rec)['Q02/Q02.3/t.things']
+        self.assertEqual(it['result'], 'NOT-RUN')
+        self.assertEqual(it['evidence']['extracts_found_again'], 1)
 
     def test_number_of_the_claim_missing_from_the_extract_is_fail(self):
         w = W.world()

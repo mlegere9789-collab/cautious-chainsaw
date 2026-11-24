@@ -19,3 +19,11 @@
 | Agent recommendation | Keep the substitute, keep it marked; replace it when a source is found. |
 | Status | open |
 | Owner decision and date | (filled only from the Decision Log) |
+
+## Conflict resolution update 2026-11-24 [reader-applied C-026 EG-FX-G08]
+
+C-026 delegated resolution v2 (2026-11-24; class irreducible, tier inferred; reversible by the owner; not an owner decision): During the battle: from the Jul 2 afternoon fight (once wounded men were in the barn) to the end of Jul 3
+
+What changes in this entry: The fire layer reads date-only windows; the default is now a two-day window with no instant.
+
+The entry's status, owner decision and product marking above are unchanged until the owner confirms; the earlier wording stays as history.
