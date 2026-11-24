@@ -34,7 +34,7 @@
  "tier": "plausible-procedural",
  "basis": {
   "kind": "gap",
-  "text": "No source of 1863-64 states a wind speed in miles per hour for 2-3 July; the words of two witnesses (calm, little wind) and the Park Service's report of Jacobs ('very gentle') say light, and both figures of the plan come from one article of 1885 that was not found."
+  "text": "No source of 1863-64 states a wind speed in miles per hour for 2-3 July; the words of two witnesses (calm, little wind) and the Park Service's report of Jacobs ('very gentle') say light, and the two figures appear to come from one article of 1885 (an inference from web pages) that was not found."
  },
  "default": {
   "mode": "range",
@@ -48,7 +48,7 @@
    "high": 6,
    "basis": "the plan's weather section (2 to 6 mph), kept as a marked stand-in; no source of the time gives a speed"
   },
-  "note": "The wind is drawn light, from the south to south-southwest, with 2, 12 and the other values selectable. The picture never shows the range as a measurement."
+  "note": "The wind is drawn light; its direction (south-southwest on 3 July by Jacobs via the Park Service, west by Haskell on 3 July, from the north-northeast by Toombs on 2 July) is also not settled, and the picture marks it so. 2, 12 and the other values stay selectable. The picture never shows the range as a measurement."
  },
  "positions": [
   {
@@ -490,8 +490,8 @@
     ]
    },
    "reason_not_chosen": {
-    "kind": "later_memory",
-    "text": "A Park Service note of 1981 relays an 1885 article about readings of 1863; it gives a direction and 'very gentle', no speed, and the article itself is not available here."
+    "kind": "unclear_expression",
+    "text": "A Park Service note of 1981 relays an 1885 article: it gives a word (very gentle) and a direction for 3 July, no speed, and the default must draw a speed; the article is not available here."
    },
    "note": "Shows that the printed record of Jacobs, as read in 1981, carries a word and a direction and no figure for 3 July."
   },
@@ -510,9 +510,9 @@
      "id": "C-045-P8-c1",
      "source": "HASKELL-1908",
      "source_class": "book",
-     "page": "113",
+     "page": null,
      "page_basis": "as_read",
-     "page_note": "printed page 113 read from the bracketed page numbers of the reprint (the next number, [114], follows the sentence)",
+     "page_note": "the reprint marks pages by bracketed numbers; the sentence lies between [113] and [114], so it is on printed page 113 (not a plain number, so none is given here)",
      "text_offset": 174798,
      "quote": "the west wind kissed it as the sergeants sloped its lance towards the enemy",
      "witness": {
@@ -547,11 +547,137 @@
     "kind": "different_event",
     "text": "Haskell's 'west wind' is a direction at one moment before the attack on 3 July, perhaps a figure of speech; it differs in direction from the south-southwest of Jacobs and gives no speed."
    },
-   "note": "Direction only. A later book (Toombs, 1888) says that at about 4 p. m. on 2 July the wind blew 'directly from Ewell' toward the southwest, so Ewell did not hear Longstreet's guns; it is read here and not carried as a position."
+   "note": "Direction only. It also contradicts 'no breeze during the Charge' (P10) only in that a flag stood out; it is a figure of speech at most."
+  },
+  {
+   "id": "C-045-P9",
+   "origin": "research",
+   "label": "Wind from Ewell's side toward the southwest, about 4 p. m. on 2 July (Toombs, 1888)",
+   "kind": "category",
+   "value": {
+    "text": "wind blowing directly from Ewell"
+   },
+   "clock": "unspecified",
+   "tier": "inferred",
+   "support": [
+    {
+     "id": "C-045-P9-c1",
+     "source": "NJ-TOOMBS-1888",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer: the running heads 258 (3,038 characters before) and 262 (2,605 after) enclose it; page image not viewed",
+     "text_offset": 351721,
+     "quote": "The wind blowing directly from Ewell carried the sound of Longstreet's artillery and the Union batteries replying to it, to the southwest, so that he did not hear it at all",
+     "witness": {
+      "name": "Samuel Toombs",
+      "role": "Historian of the New Jersey troops in the Gettysburg campaign (born 1844; not a witness of this passage)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1888",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "toombs",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "wind blowing directly from Ewell"
+      ],
+      "dates": []
+     },
+     "note": "About the start of Longstreet's attack at four o'clock on 2 July (the sentence before says so). No witness is named. Direction only."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "stance": "selectable",
+   "inference": {
+    "step": "Toombs, a later historian, says the wind carried the sound of the guns to the southwest so that Ewell did not hear them; the direction (from Ewell's position toward the Union left) is read from his words and not stated by a witness of the time.",
+    "from": [
+     "C-045-P9-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "elsewhere",
+    "text": "Toombs wrote in 1888 and names no witness; the wind he gives (from the north-northeast) clashes with the south-southwest of Jacobs, and he gives no speed."
+   },
+   "note": "A direction, no speed. It may explain why Ewell did not hear Longstreet's guns, which no report of the time ties to the wind."
+  },
+  {
+   "id": "C-045-P10",
+   "origin": "research",
+   "label": "No breeze during the Charge, 3 July (the plan's weather section; a Jacobs summary)",
+   "kind": "category",
+   "value": {
+    "text": "no breeze during the Charge"
+   },
+   "clock": "unspecified",
+   "tier": "open gap",
+   "support": [],
+   "failed_lookups": [
+    {
+     "where": "OR27-1, OR27-2, OR27-3",
+     "query": "regex \\b(wind|breeze|gale)\\b over the three parts of the Official Records: the only hits are 'wind' as a verb for a creek, a surname (Gale) and 'Wind-mill Point'; none is a statement about the weather of 1-4 July",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "JACOBS-1864",
+     "query": "regex (breeze|wind|gale|calm|sultry|thermometer|barometer|miles per hour|miles an hour): three hits, none gives a speed; the 1864 Notes have no thermometer table and no wind figure",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "SMITHSONIAN-1863-C045",
+     "query": "Gettysburg, Jacobs in the Smithsonian report for 1863 (fetched from archive.org): the table of observers lists one observer at Gettysburg, Adams County (the name is damaged in the text layer); no readings are printed in this volume",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "chronicling america (www.loc.gov search)",
+     "query": "'Meteorology of the Battle' Jacobs; 'very gentle southern breeze'; Jacobs thermometer Gettysburg July 1863 wind, dates 1863-1913: the returns were unrelated pages; the Gettysburg weeklies of 1885 were not among them",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "archive.org advanced search",
+     "query": "title and full-text queries for Jacobs, Gettysburg, meteorology, weather, 1863: four hits, all recordings of a 2023 lecture; no scan of the article of 1885",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "civilwarrx.blogspot.com; emergingcivilwar.com",
+     "query": "the two web transcriptions of the 1885 article named in the project's weather record (leads): not fetched or read by this research; their wording is known only through data-src/environment/weather_by_day.json",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "The Star and Sentinel (Gettysburg), August 1885",
+     "query": "the printed article by H. E. Jacobs that is the origin of both figures: no page located in the sources reachable here (not in the ledger, not found by the searches above)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "flags": [
+    "unsourced"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "The plan gives 'no breeze during the Charge' from a summary of Jacobs; no source read states it, and Haskell's west wind and the Park Service's very gentle winds point to a light breeze."
+   },
+   "note": "Source status: carried in the plan's weather text and in the effects tiers (wind.calm_charge_scale) as a secondary summary of Jacobs; the 1885 article was not found, so the wording is unverified. The plan's other rows: 'Very gentle S to SSW' for 3 July and 'Gentle warm southern breeze' for 2 July (TeachersFirst, Emerging Civil War, leads)."
   }
  ],
  "weighing": {
-  "summary": "No source of 1863-64 gives a wind speed for 2-3 July. Both figures of the row, 12 and 2 mph, come from one printed article of 1885 (H. E. Jacobs, reporting his father's readings), which two web transcriptions read differently and which was not found. The witnesses of the time say only calm (Jacobs, morning of 2 July), little wind (Fremantle, 4.45 p. m.) and, via the Park Service, very gentle from the south-southwest (3 July). That points to a light wind but names no number, so the speed is a gap and the default is a marked range. Position C-045-P7 (Park Service, rank 1, rejected as later_memory) outranks the default in kind of writing only because the default is a stand-in with no writing at all; it is not chosen because it gives no speed. The Park Service note ranks lowest in kind (a modern text relaying a text of 1885) and is used only for the word and the direction, never for a figure.",
+  "summary": "No source of 1863-64 gives a wind speed for 2-3 July. Both figures of the row, 12 and 2 mph, come from one printed article of 1885 (H. E. Jacobs, reporting his father's readings), which two web transcriptions read differently and which was not found. The witnesses of the time say only calm (Jacobs, morning of 2 July), little wind (Fremantle, 4.45 p. m.) and, via the Park Service, very gentle from the south-southwest (3 July). That points to a light wind but names no number, so the speed is a gap and the default is a marked range. Position C-045-P7 (the Park Service note, rank 1) outranks the stand-in only in the sense that the stand-in is no writing at all; it is not the default because it is a modern text relaying a text of 1885 and states a word and a direction for 3 July, not a speed, and the default has to supply a speed. It supports the lightness of the range and the direction of 3 July, never a figure. Direction is not settled by the record: Jacobs via Georg gives south-southwest for 3 July only, Haskell a west wind on 3 July, Toombs (1888, C-045-P9) a wind from Ewell's side (north to northeast) toward the southwest at about 4 p. m. on 2 July; nothing of the time states a direction for 2 July.",
   "who": "Jacobs, a professor at Pennsylvania College and a resident, kept the weather record that the article of 1885 reports; he is the observer behind both figures, but his 1864 book gives no speed. Fremantle, an officer attached to Longstreet's staff, wrote the diary entry on the ground. Haskell, on Gibbon's staff, wrote a letter. The Park Service historian (1981) and Toombs (1888) were not there.",
   "when": "Fremantle's diary is of the day (first printed 1863); Haskell's letter was written 'not long after the contest'; Jacobs's book is of 1864, within two years of the event; the article that carries the figures is of 1885 (22 years later); the Park Service note is of 1981. The rank of writing favours the diary and the letter, but they give no number.",
   "where": "Fremantle watched the cannonade from a tree near Longstreet; Jacobs was in the town; Haskell stood on Cemetery Ridge. A wind at one place and hour is not a wind of the whole field and day, so the words of one witness do not fix the speed of another hour.",
@@ -559,7 +685,7 @@
   "clock": "not applicable: no time of the wind is in dispute; the hours given (morning of 2 July, about 4.45 p. m.) are the witnesses' own and the 20-minute difference of the two armies' clocks does not matter to a wind.",
   "independence": "Fremantle and Jacobs (1864) are independent witnesses of the light wind of 2 July; the two web transcriptions of the 1885 article, and the image of the clipping they were typed from, are one source that was read two ways (leads, not cited). The Park Service note and the project's weather record both rest on the same article of 1885. 12 mph has no non-lead source at all; nor has 2 mph."
  },
- "source_panel_text": "No source of the time gives a wind speed for 2-3 July. Jacobs (1864) calls the air calm on the morning of 2 July, Fremantle's diary has little wind that afternoon, and the Park Service reports Jacobs's record as very gentle. Both figures, 2 and 12 mph, come from one 1885 article not found, so a light wind of 2 to 6 mph is drawn. Seven other values stay listed.",
+ "source_panel_text": "No source of the time gives a wind speed for 2-3 July. Jacobs (1864) calls the air calm on the morning of 2 July, Fremantle's diary has little wind that afternoon, and the Park Service reports Jacobs's record as very gentle. Both figures, 2 and 12 mph, appear to come from one 1885 article, not found, so a light wind of 2 to 6 mph is drawn. Nine other values stay listed.",
  "holds": {
   "pdf_default": {
    "holds": "partly",
@@ -630,6 +756,30 @@
    "ref": "data-src/environment/weather_by_day.json (W-1863-07-01-wind-speed and W-1863-07-03-wind-direction)",
    "must_change": false,
    "note": "The weather record already says the 2-versus-12 dispute is in the paragraph for 1 July, inherited by 2 July, and that 3 July has no speed (PC7); this resolution agrees and adds the period words."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-FX-G09.md (Wind speed and direction, CF-WIND-SPEED, PENDING OWNER)",
+   "must_change": true,
+   "note": "Open gap entry for the wind: to record the class gap, the common origin of the two figures, the period words and the unsettled direction."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0019.md (Jacobs original table, humidity, pressure, rainfall)",
+   "must_change": false,
+   "note": "Stays open: the original Jacobs table, the only possible source of a speed, was not found."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0257.md (Jul 2 weather readings, original Jacobs table not read; T2-068, T2-073, T2-113)",
+   "must_change": false,
+   "note": "Stays open; Jacobs 1864 'the air was calm' and Fremantle 'little wind' are added words for 2 July."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md line 73 (DEC-C-045) and decisions/DELEGATED-DECISIONS-2026-11-11.md line 55 (C-045 row)",
+   "must_change": true,
+   "note": "DEC-C-045 is PENDING OWNER and the row says 'No wind speed in OR' with plausible-procedural; superseded by this resolution (record the reconciliation, do not edit the old lines)."
   },
   {
    "kind": "other",

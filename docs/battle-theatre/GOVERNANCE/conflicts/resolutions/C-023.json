@@ -352,14 +352,14 @@
      "knew_by": "relayed_report",
      "clock": "unspecified",
      "hedge": "upper",
-     "group": "freeman",
+     "group": "lee",
      "exact": false,
      "states": {
       "phrases": [
        "before sunset"
       ]
      },
-     "note": "Freeman writes this in the account of Lee's decision on the night of July 2 and cites a source by footnote; it fixes only an upper bound (Stuart on the left with two brigades before sunset, about 19:32)."
+     "note": "Freeman writes this in the account of Lee's decision on the night of July 2 and his footnote reads 'McClellan, 332', so he repeats McClellan (who follows Lee) and is counted in that line; it fixes only an upper bound (Stuart on the left with two brigades before sunset, about 19:32)."
     }
    ],
    "stance": "default"
@@ -371,7 +371,7 @@
    "scenario_ids": [
     "C-023-S4"
    ],
-   "label": "Evening: Stuart \"joined General Lee on the evening of the second day\" (Taylor, 1877)",
+   "label": "Evening: the cavalry Stuart accompanied \"joined General Lee on the evening of the second day\" (Taylor, 1877)",
    "kind": "period",
    "value": {
     "text": "evening",
@@ -413,7 +413,7 @@
        "on the evening of the second day"
       ]
      },
-     "note": "Written in a passage on the strength of the two armies, not an account of the arrival; 'joined General Lee' may mean reporting to Lee in person. Reprinted in the Southern Historical Society Papers vol. 4, 1877 (same author, counted once). 14 years later."
+     "note": "The sentence is about the cavalry force Stuart accompanied ('That portion which General Stuart accompanied ... only joined General Lee on the evening of the second day'), in a passage on the strength of the armies: it may date the brigades' joining the army, not Stuart's own call on Lee, and is not read as the latter. Reprinted in the Southern Historical Society Papers vol. 4, 1877 (same author, counted once). 14 years later."
     },
     {
      "id": "C-023-P4-c2",
@@ -447,7 +447,7 @@
     }
    ],
    "inference": {
-    "step": "Taylor writes that Stuart only joined General Lee on the evening of the second day and Kidd that he reached the main army in the evening; read as the time Stuart was with Lee, which can be later than the time he took his position on the left",
+    "step": "Taylor writes that Stuart only joined General Lee on the evening of the second day and Kidd that he reached the main army in the evening; read as the time the cavalry Stuart accompanied (the brigades) joined the army; Taylor's subject is that cavalry force, not Stuart's call on Lee, and Kidd's is Stuart himself",
     "from": [
      "C-023-P4-c1",
      "C-023-P4-c2"
@@ -456,7 +456,7 @@
    "stance": "selectable",
    "reason_not_chosen": {
     "kind": "outweighed",
-    "text": "Both are told 14 and 26 years later without a clock; Lee's own report of 1864 says afternoon. They fit if Stuart reached the left in the afternoon and reported to Lee late (Alexander: late in the afternoon)."
+    "text": "Told 14 and 26 years later, no clock; Lee's report of 1864 says afternoon. Taylor speaks of the cavalry Stuart accompanied, so it may date the brigades, which a sundown fight does not contradict."
    }
   },
   {
@@ -930,19 +930,19 @@
   }
  ],
  "weighing": {
-  "summary": "Every record agrees on the day, July 2; none gives a clock reading for Stuart or his brigades. The only official statement of the period is Lee's: 'arrived in the afternoon'. Writers who give a more exact moment are later: Alexander (late in the afternoon, when Stuart reported in person), Taylor (evening, 'joined General Lee'), Kidd (evening), Freeman (before sunset). Noon to 13:00 and mid-afternoon are in no source and early afternoon is not in any either. The plan's pair (Stuart early afternoon, brigades evening) mixes events: Hampton's brigade stood at Hunterstown and fought at sundown, Fitz Lee and Chambliss were with Stuart in the afternoon, and Jenkins was with Ewell. Afternoon, from the best-classed writing, is the default; its upper end (late afternoon, before sunset) is the same as the evening of the later writers.",
+  "summary": "Every record agrees on the day, July 2; none gives a clock reading for Stuart or his brigades. The only official statement of the period is Lee's: 'arrived in the afternoon'. Writers who give a more exact moment are later: Alexander (late in the afternoon, when Stuart reported in person), Taylor (evening, for the cavalry Stuart accompanied), Kidd (evening), Freeman (before sunset). Noon to 13:00 and mid-afternoon are in no source and early afternoon is not in any either. The plan's pair (Stuart early afternoon, brigades evening) mixes events: Hampton's brigade stood at Hunterstown and fought at sundown, Fitz Lee and Chambliss were with Stuart in the afternoon, and Jenkins was with Ewell. Afternoon, from the best-classed writing, is the default; its upper end (late afternoon, before sunset) is the same as the evening of the later writers.",
   "who": "Lee commanded the army and wrote of his own cavalry's arrival; Stuart and Hampton wrote of their own movements and give no hour; Kilpatrick and Green wrote of the fight at Hunterstown they were in. Taylor was Lee's adjutant, McClellan Stuart's chief of staff, Alexander Longstreet's artillery chief: all were on the field but none says how he knew the hour. Kidd was a Union officer and Meade's volume and Freeman are histories.",
   "when": "Stuart (20 Aug 1863), Hampton (13 Aug), Kilpatrick (10 Aug), Green (8 Jul) and Lee (31 Jul 1863; 20 Jan 1864) wrote within 7 months, the best class of writing. McClellan (1885), Taylor (1877), Alexander (1907), Kidd (1889), Meade's volume (1913) and Freeman (1935) wrote 14 to 72 years after and rank below them (reminiscence and history).",
-  "where": "Lee was with the army on Seminary Ridge and Stuart took position on the left; Hampton was at Hunterstown. Taylor was with Lee, so 'joined General Lee' may date the call on Lee rather than the arrival on the left; Kidd and Freeman were not with Stuart.",
+  "where": "Lee was with the army on Seminary Ridge and Stuart took position on the left; Hampton was at Hunterstown. Taylor was with Lee; his sentence is about the cavalry force Stuart accompanied, so it may date the brigades, not Stuart's call on Lee; Kidd and Freeman were not with Stuart.",
   "how_knew": "Stuart and Hampton knew their own movements and say no hour; Lee relied on Stuart's report and what he saw, and does not say how he fixed the afternoon. The later writers give no source, except Freeman by footnote.",
   "clock": "None gives a clock reading, so the 20-minute difference between the two clocks (never applied) does not matter. 'Sundown' (Kilpatrick, Union) and 'just before sunset' (Green, Confederate) both point to about 19:32, sunset at Gettysburg.",
-  "independence": "Lee's report, McClellan and the Meade volume are counted as one line (McClellan and Meade follow Lee's words about taking position on the left); Alexander, Freeman, Taylor, Kidd, Kilpatrick, Green and Hampton are separate. Afternoon is carried by three lines (Lee, Alexander, Freeman); evening by two memoirs (Taylor, Kidd, one Union). So the default is weighted, not settled: the two are compatible only if Stuart reached the left in the afternoon and reported to Lee late; the records do not say that."
+  "independence": "Lee's report, McClellan, the Meade volume and Freeman are counted as one line (McClellan and Meade follow Lee's words about taking position on the left; Freeman's footnote reads 'McClellan, 332'); Alexander, Taylor, Kidd, Kilpatrick, Green and Hampton are separate. Afternoon is carried by two lines (Lee with the writers that repeat him, and Alexander); evening by two memoirs (Taylor for the cavalry, Kidd for Stuart, one Union). Lee's 'afternoon' also stands beside the Hunterstown fight that Kilpatrick puts at sundown, so it is a loose word. So the default is weighted, not settled: the afternoon and the evening are compatible if Stuart reached the left in the afternoon and the brigades or his call on Lee came late; the records do not say that."
  },
- "source_panel_text": "Afternoon of July 2: Lee's report says Stuart arrived in the afternoon and took position on Ewell's left; Stuart gives the day, no hour. No record gives noon, 1 p.m. or mid-afternoon. Taylor (1877) and Kidd (1889) say evening; Alexander says Stuart reported to Lee late in the afternoon. Hampton fought at Hunterstown at sundown. Nine other values stay listed.",
+ "source_panel_text": "Afternoon of July 2: Lee's report says Stuart arrived in the afternoon and took position on Ewell's left; Stuart gives the day, no hour. No record gives noon, 1 p.m. or mid-afternoon. Taylor (1877, for the cavalry Stuart accompanied) and Kidd (1889) say evening; Alexander says Stuart reported to Lee late in the afternoon. Hampton fought at Hunterstown at sundown. Nine other values stay listed.",
  "holds": {
   "pdf_default": {
    "holds": "partly",
-   "note": "The afternoon holds for Stuart himself (Lee's report), but early afternoon has no source and Alexander has him reporting late in the afternoon. Evening holds only as the hour of Hampton's fight at Hunterstown; Fitz Lee and Chambliss came with Stuart in the afternoon, and Jenkins was already with Ewell."
+   "note": "The afternoon holds for Stuart himself (Lee's report), but early afternoon has no source and Alexander has him reporting late in the afternoon. Evening holds as the hour of Hampton's fight at Hunterstown and, on Taylor's sentence about the cavalry, possibly for the brigades; Fitz Lee and Chambliss came with Stuart in the afternoon, and Jenkins was already with Ewell."
   },
   "first_delegated": {
    "holds": "partly",
@@ -960,13 +960,13 @@
    "kind": "arrivals_row",
    "ref": "cs-cav-hampton",
    "must_change": true,
-   "note": "gate default 19:32 (earliest 19:32, latest 20:04): Hampton was stationed at Hunterstown before the fight (Hampton), and Green was ordered to him before sunset (19:32), so the record puts his brigade there before 19:32; the owner decides whether the floor moves; the gate is not lowered here"
+   "note": "gate default 19:32 (earliest 19:32, latest 20:04): Hampton was stationed at Hunterstown before the fight (Hampton), and Green was ordered to him before sunset (19:32), so the record puts his brigade there before 19:32 (Hampton gives no hour: this is a reading of 'stationed' and of Green's order before sunset); the owner decides whether the floor moves; the gate is not lowered here"
   },
   {
    "kind": "arrivals_row",
    "ref": "cs-cav-flee-chambliss",
    "must_change": true,
-   "note": "gate default 19:32: Lee (afternoon) and McClellan (afternoon of the 2d) put Stuart with Fitz Lee's and Chambliss's commands on the left in the afternoon; only Taylor and Kidd say evening; the 19:32 floor is the evening reading and later than the default"
+   "note": "gate default 19:32: Lee (afternoon) and McClellan (afternoon of the 2d) put Stuart with Fitz Lee's and Chambliss's commands on the left in the afternoon; Taylor says evening for the cavalry Stuart accompanied and Kidd for Stuart; the 19:32 floor is the evening reading and later than the default"
   },
   {
    "kind": "arrivals_row",
@@ -1009,6 +1009,36 @@
    "ref": "T2-035",
    "must_change": false,
    "note": "Stuart leaves Carlisle on the night of July 1: Stuart p. 697 'during the night ... started myself that night'; unchanged"
+  },
+  {
+   "kind": "other",
+   "ref": "EG-0112",
+   "must_change": true,
+   "note": "register update 'Hour of Stuart arrival on Jul 2 (C-023)' (horde/ws9-sources/proposed-register-updates/ws9-EG-0112.md): now answered, afternoon with no hour; update the entry"
+  },
+  {
+   "kind": "other",
+   "ref": "EG-0262",
+   "must_change": true,
+   "note": "register/EG-0262.md, Stuart and the cavalry brigades: clock time (T2-095): no clock found; afternoon (Lee)"
+  },
+  {
+   "kind": "other",
+   "ref": "EG-0285",
+   "must_change": true,
+   "note": "register/EG-0285.md, Stuart's arrival hour; Jenkins: afternoon with no hour; Jenkins with Ewell, under Stuart July 3"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md",
+   "must_change": true,
+   "note": "line 51, DEC-C-023, PENDING OWNER: record the delegated resolution (weighted, documented, afternoon)"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md",
+   "must_change": true,
+   "note": "line 33, C-023 row: the first-pass stand-in is replaced by this resolution"
   },
   {
    "kind": "app_data",

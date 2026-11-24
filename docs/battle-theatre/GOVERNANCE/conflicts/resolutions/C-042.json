@@ -80,6 +80,12 @@
    },
    "failed_lookups": [
     {
+     "where": "NPS Gettysburg Seminar, first day (the plan's NPS-Sem, cited with SS for 13:30 in seed row T1-124 and register entry EG-0198)",
+     "query": "which seminar paper the key means: the plan's glossary says only 'NPS Gettysburg Seminar, first day' and no paper, page or quote; the local seminar papers read for an hour for Lee (Harman, seminar 16 essay 6, and the A. P. Hill essay, seminar 16 essay 5, which says only that Lee arrived at Cashtown and 'shortly thereafter' at Herr Ridge) give none; the citation was not located, so the 13:30 is not supported by it",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
      "where": "Stone Sentinels July 1 timeline (the plan's SS1)",
      "query": "the page itself and the source it gives for 13:30; the host is not among the hosts reachable for this research and a web page is only a pointer",
      "outcome": "not_read",
@@ -131,6 +137,12 @@
     "text": "A stand-in for the missing hour: the plan's earlier value. A first-hand hour (about 14:00, Pendleton) has since been found, and no source gives 13:30."
    },
    "failed_lookups": [
+    {
+     "where": "NPS Gettysburg Seminar, first day (the plan's NPS-Sem, cited with SS for 13:30 in seed row T1-124 and register entry EG-0198)",
+     "query": "which seminar paper the key means: the plan's glossary says only 'NPS Gettysburg Seminar, first day' and no paper, page or quote; the local seminar papers read for an hour for Lee (Harman, seminar 16 essay 6, and the A. P. Hill essay, seminar 16 essay 5, which says only that Lee arrived at Cashtown and 'shortly thereafter' at Herr Ridge) give none; the citation was not located, so the 13:30 is not supported by it",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
     {
      "where": "all local non-lead texts of the ledger (Official Records 27/1-3, the Southern Historical Society Papers, memoirs and Park Service texts)",
      "query": "Lee within 300 characters of 1.30 / 1:30 / half past one / one thirty, in both orders, with arrived, reached, on the field, Seminary Ridge, Cashtown, Herr Ridge",
@@ -560,10 +572,40 @@
    "note": "printed_clock default 1863-07-01T13:30, earliest 13:30, latest 14:30: default becomes 14:00; the earliest moves only if the integration step finds a documented earlier time (none found), so 13:30 stays as the selectable earlier scenario."
   },
   {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0198.md",
+   "must_change": true,
+   "note": "Evidence-gap entry 'Lee's arrival time on the field, Jul 1' (open; competing 13:30 / about 14:30; recommends reading Heth's 1877 letter, done: no hour): to cite Pendleton's about 14:00, tier documented for the default, and the 13:30 / 14:30 as unsourced scenarios."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md line 70 (DEC-C-042, 13:30 PENDING OWNER)",
+   "must_change": true,
+   "note": "Entry to record the new delegated default and its reconciliation."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-042 row, line 52; also the line-745 mention)",
+   "must_change": true,
+   "note": "Row 'C-042 ... 13:30 (PDF), marked gap, plausible-procedural' to be superseded by this resolution; first record kept as history."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "docs/battle-theatre/GOVERNANCE/timeline_windows.jsonl row 124 (default_iso 13:30)",
+   "must_change": true,
+   "note": "Window default of T1-124 moves to about 14:00; 13:30 stays the earliest."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "docs/battle-theatre/GOVERNANCE/timeline_verified.jsonl line 124 (T1-124, tier open gap, failed lookup)",
+   "must_change": true,
+   "note": "Verified row says no source found and tier open gap; wrong once Pendleton's hour is carried."
+  },
+  {
    "kind": "gate",
    "ref": "Q04",
    "must_change": true,
-   "note": "Arrival floor of the army headquarters row (13:30 today): reconcile in the open with the new default; never lower."
+   "note": "Report only, no gate changed. The headquarters row floor is 13:30 today. It must not be lowered below 13:30 (no earlier documented time) and must not rise to 14:00 on the strength of Pendleton's hedged 'perhaps': 14:00 drives the animation, 13:30 stays the floor and a selectable scenario until the owner decides. The integration step reconciles the gate spec and expected values in the open (decision_log.md and the delegated-decisions file) and re-runs Q04, Q05 and Q06."
   },
   {
    "kind": "gate",
@@ -603,6 +645,12 @@
   }
  ],
  "failed_searches": [
+  {
+   "where": "NPS Gettysburg Seminar, first day (the plan's NPS-Sem, cited with SS for 13:30 in seed row T1-124 and register entry EG-0198)",
+   "query": "which seminar paper the key means: the plan's glossary says only 'NPS Gettysburg Seminar, first day' and no paper, page or quote; the local seminar papers read for an hour for Lee (Harman, seminar 16 essay 6, and the A. P. Hill essay, seminar 16 essay 5, which says only that Lee arrived at Cashtown and 'shortly thereafter' at Herr Ridge) give none; the citation was not located, so the 13:30 is not supported by it",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
   {
    "where": "OR27-2 (Lee R426, Hill R534, Heth R549, Anderson R536, Pendleton R428 and the other Confederate reports)",
    "query": "an hour for Lee's arrival on the field Jul 1 (General Lee within 300 characters of arrived, reached, upon the field, rode up, present, with clock words): none other than Pendleton's 'perhaps, 2 o'clock'; Lee's own report gives no hour",
