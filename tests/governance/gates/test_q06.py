@@ -388,9 +388,27 @@ class RealProduct(unittest.TestCase):
         self.assertEqual(x['result'], 'FAIL')
         self.assertIn('appears deployed', x['reason'])
 
-    def test_a_real_change_of_formation_is_shown_with_a_tier_better_than_its_tuning_value_duration(self):
-        u = 'cs-1c-mclaws-kershaw-2sc'
-        x = self.get(self.runner(None, units=u), 'Q06.2', u)
+    KERSHAW = 'cs-1c-mclaws-kershaw-2sc'
+
+    def test_a_real_change_of_formation_shows_the_tuning_values_tier_and_passes_with_its_register_entry(self):
+        x = self.get(self.runner(None, units=self.KERSHAW), 'Q06.2', self.KERSHAW)
+        self.assertTrue(x['evidence']['formations'], 'this unit changes formation')
+        self.assertEqual({f['tier'] for f in x['evidence']['formations']}, {'plausible-procedural'})
+        self.assertEqual(x['evidence']['register_ids'], ['EG-0921'])
+        self.assertEqual(x['result'], 'PASS', x['reason'])
+
+    def test_the_same_change_is_blocked_input_until_the_register_entry_exists(self):
+        old = Q.Q06_2_ENTRIES
+        Q.Q06_2_ENTRIES = []
+        try:
+            x = self.get(self.runner(None, units=self.KERSHAW), 'Q06.2', self.KERSHAW)
+        finally:
+            Q.Q06_2_ENTRIES = old
+        self.assertEqual(x['result'], 'BLOCKED-INPUT', x['reason'])
+        self.assertIn('register entry', x['reason'])
+
+    def test_planted_defect_a_change_of_formation_shown_with_a_tier_better_than_its_tuning_value_duration_fails(self):
+        x = self.get(self.runner('formation_tier_better.mjs', units=self.KERSHAW), 'Q06.2', self.KERSHAW)
         self.assertEqual(x['result'], 'FAIL', x['reason'])
         self.assertIn('tuning value', x['reason'])
 

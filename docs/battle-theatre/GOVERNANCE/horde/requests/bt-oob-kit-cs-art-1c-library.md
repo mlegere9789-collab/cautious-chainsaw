@@ -1,0 +1,2 @@
+# bt-oob-kit cs-art-1c: texts used
+No new fetch and no new text declared: the Official Records (OR27-2) and Alexander's memoirs (ALEXANDER-1907) of sources.json were used. Library needs: histories of the Richmond Howitzers, the Washington Artillery of New Orleans, the Troup and Pulaski Georgia artillery, Alexander's six batteries and Henry's four (Branch, German, Palmetto, Rowan) for guns, men and dress by battery. No host refused.

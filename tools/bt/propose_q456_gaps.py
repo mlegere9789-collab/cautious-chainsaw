@@ -22,7 +22,7 @@ SEARCH_OWED = 'No source search has been made for this entry yet: the dated sear
 def entry(eid, title, cat, desc, why, searched, subst, recon, tier, closed, ownerq, reqs, marking, competing='-'):
     return {'id': eid, 'title': title, 'rows': [('ID', eid), ('Requirement IDs', ', '.join(reqs)), ('Category', cat), ('Description', desc), ('Why literal 100% is not possible or blocked', why), ('Evidence searched', searched),
             ('Autonomous substitute applied', subst), ('Strongest evidence-based reconstruction', recon), ('Confidence tier', tier), ('Competing values', competing), ('Product marking', marking),
-            ('How it would be closed', closed), ('Owner decision requested', ownerq), ('Status', 'open (proposed by tools/bt/propose_q456_gaps.py; not yet in register/); search log owed')]}
+            ('How it would be closed', closed), ('Owner decision requested', ownerq), ('Status', 'open (proposed by tools/bt/propose_q456_gaps.py; not yet in register/); ' + ('search log owed' if searched.startswith(SEARCH_OWED) else 'search log written at register/search_logs/<EG id>.json by the integrating step'))]}
 
 
 def build(res):
@@ -60,12 +60,14 @@ def build(res):
             'The unit card names this id and the minutes of lateness; the tier glyph stays plausible-procedural.', competing='the printed time (ledger) against the time the rate allows'))
     # ---------------------------------------------------------------- Q06.2 formation duration
     f2 = [i for i in Q06['items'] if i['check'] == 'Q06.2' and i['result'] in T.BAD]
+    if not f2:      # once this entry is open and logged the items pass; the entry still stands for every unit that changes formation (the same units, so the proposal does not vanish on regeneration)
+        f2 = [i for i in Q06['items'] if i['check'] == 'Q06.2' and (i.get('evidence') or {}).get('formations')]
     if f2:
         units = sorted({i['subjects'][0] for i in f2})
         out.append(entry('q456-formation-duration-90s', 'The duration of a change of formation (90 s) is the shell\'s tuning value, not a drill-manual figure', 'evidence missing (no manual figure read)',
             '%d item(s) of gate Q06.2 over %d unit(s) that deploy from the column of march after they have marched to their place (clauses that print "deploys"). The time of the change is dated by the clause (tier inferred); its duration is 90 s (FORMATION_SECONDS, decision DEC-008). Units: %s.' % (len(f2), len(units), IDS(units)),
             'No drill manual read so far gives the time of a regiment forming line from the column of march in a form the shell can use; DEC-008 is a decision of the builder, not a register entry.',
-            SEARCH_OWED, 'The change lasts 90 s and the event shows the weakest tier of its parts, plausible-procedural (fixed in app/src/history/real.mjs).',
+            'Searched in the local texts (register/search_logs, dated 2026-11-24): Hardee 1861 (riflelightinfant121hard), Casey 1862 vol. 1 and vol. 2 (infantrytacticsf01brig, infantrytacticsf02case), whitespace-normalised, by three patterns (a time unit within 60-80 characters of deploy / into line / form line; a battalion or regiment movement "in" a time unit). No hit states how long a regiment takes to deploy or form line; the manuals give cadences (quick time, double quick, the pace of 180 steps a minute named for wheeling into line) and the movements, not durations. Negative for a duration; the cadences are inputs to a derivation not yet made.', 'The change lasts 90 s and the event shows the weakest tier of its parts, plausible-procedural (fixed in app/src/history/real.mjs).',
             'The drill manuals in the library (Hardee 1861, Casey 1862) give the manoeuvres of a battalion and, read with the step lengths, a time can be derived; none has been read for this purpose.', 'plausible-procedural',
             'Read the manoeuvre (deployment on a named company or by the flank) in Hardee/Casey, derive the duration with the documented cadence and replace the 90 s; then close.', 'Whether a derived figure replaces 90 s once read (T-Q06-1).', ['R17'],
             'The change of formation shows tier plausible-procedural and this id on the unit card.'))

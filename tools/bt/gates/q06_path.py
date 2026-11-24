@@ -43,7 +43,7 @@ FACTOR = 1.0001                        # T-Q05-2 (DD-G01)
 DEPLOY_S = 90                          # T-Q06-1 (DD-G01): the shell's tuning value of DEC-008, plausible-procedural until a manual figure is read
 NOF = ('never_on_field', 'never_main_field', 'documented_absent')
 TIER_RANK = {'documented': 3, 'inferred': 2, 'plausible-procedural': 1, 'open gap': 0}
-Q06_2_ENTRIES = []                     # open register entries of level L1 or more that hold the deployment duration (none exists today: DEC-008 is a decision, not a register entry)
+Q06_2_ENTRIES = ['EG-0921']            # open register entries of level L1 or more that hold the deployment duration: EG-0921 (tuning value, plausible-procedural; negative search of Hardee and Casey, register/search_logs/EG-0921.json)
 GROUPS = ('us-1c-1d-art', 'us-1c-2d-3d', 'us-2c-1d-art', 'us-hq-artres')
 
 

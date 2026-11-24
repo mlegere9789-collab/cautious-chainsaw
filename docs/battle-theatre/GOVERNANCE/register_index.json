@@ -25039,5 +25039,27 @@
   "owner_q": "-",
   "status": "open",
   "proposed_file": "register/proposed/subreq-gaps/sg-21.md"
+ },
+ {
+  "id": "EG-0921",
+  "proposed_id": "q456-formation-duration-90s",
+  "title": "The duration of a change of formation (90 s) is the shell's tuning value, not a drill-manual figure",
+  "rows": [],
+  "rids": [
+   "R17"
+  ],
+  "cat": "evidence missing (no manual figure read)",
+  "desc": "133 item(s) of gate Q06.2 over 33 unit(s) that deploy from the column of march after they have marched to their place (clauses that print \"deploys\"). The time of the change is dated by the clause (tier inferred); its duration is 90 s (FORMATION_SECONDS, decision DEC-008). Units: cs-1c-mclaws-barksdale-13ms, cs-1c-mclaws-barksdale-17ms, cs-1c-mclaws-barksdale-18ms, cs-1c-mclaws-barksdale-21ms, cs-1c-mclaws-kershaw-15sc, cs-1c-mclaws-kershaw-2sc, cs-1c-mclaws-kershaw-3sc, cs-1c-mclaws-kershaw-3scbn, cs-1c-mclaws-kershaw-7sc, cs-1c-mclaws-kershaw-8sc, cs-2c-rodes-carter, cs-2c-rodes-daniel-2ncbn, cs-2c-rodes-daniel-32nc, cs-2c-rodes-daniel-43nc, cs-2c-rodes-daniel-45nc, cs-2c-rodes-daniel-53nc, cs-2c-rodes-doles-12ga, cs-2c-rodes-doles-21ga, cs-2c-rodes-doles-44ga, cs-2c-rodes-doles-4ga, cs-2c-rodes-iverson-12nc, cs-2c-rodes-iverson-20nc, cs-2c-rodes-iverson-23nc, cs-2c-rodes-iverson-5nc, cs-2c-rodes-oneal-12al, cs-2c-rodes-oneal-26al, cs-2c-rodes-oneal-3al, cs-2c-rodes-oneal-5al, cs-2c-rodes-oneal-6al, cs-2c-rodes-ramseur-14nc, cs-2c-rodes-ramseur-2nc, cs-2c-rodes-ramseur-30nc, cs-2c-rodes-ramseur-4nc.",
+  "why": "No drill manual read so far gives the time of a regiment forming line from the column of march in a form the shell can use; DEC-008 is a decision of the builder, not a register entry.",
+  "searched": "Searched in the local texts (register/search_logs, dated 2026-11-24): Hardee 1861 (riflelightinfant121hard), Casey 1862 vol. 1 and vol. 2 (infantrytacticsf01brig, infantrytacticsf02case), whitespace-normalised, by three patterns (a time unit within 60-80 characters of deploy / into line / form line; a battalion or regiment movement \"in\" a time unit). No hit states how long a regiment takes to deploy or form line; the manuals give cadences (quick time, double quick, the pace of 180 steps a minute named for wheeling into line) and the movements, not durations. Negative for a duration; the cadences are inputs to a derivation not yet made.",
+  "subst": "The change lasts 90 s and the event shows the weakest tier of its parts, plausible-procedural (fixed in app/src/history/real.mjs).",
+  "recon": "The drill manuals in the library (Hardee 1861, Casey 1862) give the manoeuvres of a battalion and, read with the step lengths, a time can be derived; none has been read for this purpose.",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "The change of formation shows tier plausible-procedural and this id on the unit card.",
+  "impact": "-",
+  "owner_q": "Whether a derived figure replaces 90 s once read (T-Q06-1).",
+  "status": "open",
+  "proposed_file": "register/proposed/q456-triage/q456-formation-duration-90s.md"
  }
 ]
