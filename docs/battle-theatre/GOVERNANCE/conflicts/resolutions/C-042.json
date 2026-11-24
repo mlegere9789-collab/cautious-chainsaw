@@ -1,0 +1,612 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-042",
+ "topic": "Lee on the field Jul 1",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-042",
+ "event_date": "1863-07-01",
+ "pdf_row": {
+  "page": 63,
+  "text": "Lee on the field Jul 1 | 13:30 (SS1); 14:30 (W-D1) | 13:30 | 14:30",
+  "values": [
+   "13:30 (SS1)",
+   "14:30 (W-D1)"
+  ],
+  "recommended_default": "13:30",
+  "selectable_alternatives": [
+   "14:30"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-042-DEFAULT",
+  "default_label": "13:30 (PDF), marked gap",
+  "tier": "plausible-procedural",
+  "basis": "gap",
+  "scenario_ids": [
+   "C-042-S1",
+   "C-042-S2",
+   "C-042-S3",
+   "C-042-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Pendleton, Lee's chief of artillery, who rode with him from Cashtown, wrote in his report of 12 Sep 1863 (Official Records 27/2, p. 348) that when they took position overlooking the field it was 'perhaps, 2 o'clock'. Early (1878) and Alexander (1907) repeat about two; no source gives 13:30 or 14:30."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-042-P3"
+  ],
+  "label": "About 14:00: Lee reaches the crest west of Gettysburg and takes position overlooking the battle (Pendleton's report)",
+  "animation": {
+   "at": "1863-07-01T14:00",
+   "rule": "best_supported",
+   "note": "Pendleton's 'perhaps, 2 o'clock' for Lee's arrival at the crest more than a mile west of the town; the earlier 13:30 has no source and stays selectable. The picture shows Lee on the field before Heth's renewed advance and before the Federal retreat through the town."
+  },
+  "note": "Pendleton hedges ('perhaps'); the value carries about a quarter of an hour either way. Lee reaching Seminary Ridge as the line broke (about 16:30, one later history) is a later stage that the sources do not fix."
+ },
+ "positions": [
+  {
+   "id": "C-042-P1",
+   "origin": "pdf_value",
+   "pdf_label": "13:30 (SS1)",
+   "scenario_ids": [
+    "C-042-S1",
+    "C-042-S3",
+    "C-042-DEFAULT"
+   ],
+   "source_keys": [
+    "SS1"
+   ],
+   "label": "13:30: the plan's first value and recommended default (one timeline page)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T13:30",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "lead_only",
+    "unsourced"
+   ],
+   "support": [],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No report, letter or book found gives 13:30 for Lee. It comes from a timeline web page that could not be read; the one hour a witness gives is about 14:00."
+   },
+   "failed_lookups": [
+    {
+     "where": "Stone Sentinels July 1 timeline (the plan's SS1)",
+     "query": "the page itself and the source it gives for 13:30; the host is not among the hosts reachable for this research and a web page is only a pointer",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "all local non-lead texts of the ledger (Official Records 27/1-3, the Southern Historical Society Papers, memoirs and Park Service texts)",
+     "query": "Lee within 300 characters of 1.30 / 1:30 / half past one / half-past one / one thirty, in both orders, with arrived, reached, on the field, Seminary Ridge, Cashtown, Herr Ridge",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "Park Service texts (NPS-SEM16-HARMAN-C042, NPS-CLR-ROT-V1, NPS-SPANGLERS-SPRING)",
+     "query": "an hour for Lee's arrival on Jul 1: Harman (2018) gives none; the cultural landscape report says only that Lee 'arrived on the feld in time to witness the retreat'; the Park Service memo of 1940 gives about 4:30",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ]
+  },
+  {
+   "id": "C-042-P2",
+   "origin": "pdf_value",
+   "pdf_label": "14:30 (W-D1)",
+   "scenario_ids": [
+    "C-042-S2"
+   ],
+   "source_keys": [
+    "W-D1"
+   ],
+   "label": "14:30: the plan's second value (an encyclopaedia page)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T14:30",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "lead_only",
+    "unsourced"
+   ],
+   "support": [],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No witness gives 14:30 for Lee. It is the latest hour that Heth's account (Lee on the field while Rodes was hard pressed) and Hill's 2.30 allow, but no writer states it."
+   },
+   "failed_lookups": [
+    {
+     "where": "Wikipedia, Battle of Gettysburg, first day (the plan's W-D1)",
+     "query": "the page itself and the source it gives for 14:30; the host is not among the hosts reachable for this research and an encyclopaedia page is only a pointer",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "all local non-lead texts of the ledger (Official Records 27/1-3, the Southern Historical Society Papers, memoirs and Park Service texts)",
+     "query": "Lee within 300 characters of 2.30 / 2:30 / half past two / half-past two, in both orders, with arrived, reached, on the field, Seminary Ridge, Cashtown",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-2 (reports of Hill, Heth, Pender, Rodes, Early, Ewell, Anderson, Pendleton, Lee)",
+     "query": "an hour for Lee's arrival other than Pendleton's 'perhaps, 2 o'clock': none given; Hill's only hour near it is 'About 2.30 o'clock' for the right wing of Ewell's corps",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ]
+  },
+  {
+   "id": "C-042-P3",
+   "origin": "research",
+   "label": "About 14:00: Lee takes position overlooking the field with Pendleton ('perhaps, 2 o'clock')",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T14:00",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-042-P3-c1",
+     "source": "OR27-2-SCAN2-C005",
+     "source_class": "primary",
+     "part": "OR27-2-R428",
+     "page": "348",
+     "page_basis": "running_head",
+     "page_note": "printed page 348 of the volume (the page of Pendleton's report that holds the passage, as in the first scan OR27-2-R428); this second scan's text layer reads the digit cleanly where the first scan lost it, so no repair is made",
+     "text_offset": 1141223,
+     "quote": "On Wednesday, July 1 [...] After a brief pause near Cashtown [...] It was, perhaps, 2 o'clock, and the battle was raging with considerable violence",
+     "witness": {
+      "name": "William N. Pendleton",
+      "role": "Brigadier General, chief of artillery, Army of Northern Virginia; rode with Lee from Cashtown",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-09-12",
+      "kind": "official_report"
+     },
+     "vantage": "staff_present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "pendleton",
+     "exact": true,
+     "states": {
+      "times": [
+       "14:00"
+      ],
+      "numbers": [
+       2
+      ],
+      "dates": [
+       "07-01"
+      ]
+     }
+    },
+    {
+     "id": "C-042-P3-c2",
+     "source": "SHSP-06",
+     "source_class": "book",
+     "page": "32",
+     "page_basis": "as_read",
+     "page_note": "printed page 32 read from the running head 'Southern Historical Society Papers' that stands just before the passage",
+     "text_offset": 97015,
+     "quote": "of General Pendleton, that General Lee arrived on the field about two P. M.",
+     "witness": {
+      "name": "Jubal A. Early",
+      "role": "Lieutenant General, commanded a division of Ewell's corps on Jul 1",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1878",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "not_stated",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "pendleton",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:00"
+      ],
+      "numbers": [
+       2
+      ]
+     }
+    },
+    {
+     "id": "C-042-P3-c3",
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": "385",
+     "page_basis": "as_read",
+     "page_note": "printed page 385 read from the running head 'GETTYSBURG: THE FIRST DAY 385' just before the passage",
+     "text_offset": 1013220,
+     "quote": "Soon after two o'clock, Lee had arrived on Seminary Ridge",
+     "witness": {
+      "name": "E. P. Alexander",
+      "role": "Colonel, Longstreet's artillery (marching with the First Corps, not at Gettysburg on the afternoon of Jul 1)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "soon_after",
+     "group": "alexander",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:00"
+      ],
+      "numbers": [
+       2
+      ]
+     }
+    },
+    {
+     "id": "C-042-P3-c4",
+     "source": "SHSP-04",
+     "source_class": "book",
+     "page": "158",
+     "page_basis": "as_read",
+     "page_note": "printed page 158 read from the running head 'Southern Historical Society Papers' before the passage; page 159 follows it",
+     "text_offset": 406201,
+     "quote": "Rodes is very heavily engaged, had I not better attack",
+     "witness": {
+      "name": "Henry Heth",
+      "role": "Major General, division commander, wounded on Jul 1",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "heth",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Rodes is very heavily engaged"
+      ]
+     }
+    },
+    {
+     "id": "C-042-P3-c5",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R534",
+     "page": "607",
+     "page_basis": "scan_leaf",
+     "text_offset": 2255639,
+     "quote": "About 2.30 o'clock, the right wing of Ewell's corps made its appearance on my left",
+     "witness": {
+      "name": "Ambrose P. Hill",
+      "role": "Lieutenant General commanding the Third Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "hill",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:30"
+      ]
+     }
+    },
+    {
+     "id": "C-042-P3-c6",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R536",
+     "page": "613",
+     "page_basis": "scan_leaf",
+     "text_offset": 2277021,
+     "quote": "Arrived at the latter place early in the afternoon, and halted for further orders",
+     "witness": {
+      "name": "Richard H. Anderson",
+      "role": "Major General commanding a division of the Third Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "anderson",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "early in the afternoon"
+      ]
+     }
+    }
+   ],
+   "note": "Pendleton's is the only first-hand hour. Early in 1878 and Alexander in 1907 give about two as well, but Early says he is quoting Pendleton and Alexander was not there, so they are the same line of knowledge. Heth (Lee found and asked while Rodes was heavily engaged), Hill (Ewell's right wing at about 2.30) and Anderson (at Cashtown early in the afternoon, then an hour's wait) set the surrounding hours; they do not state Lee's."
+  },
+  {
+   "id": "C-042-P4",
+   "origin": "research",
+   "label": "About 16:30: Lee reaches Seminary Ridge as the Federal line breaks (a later history, 1913)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T16:30",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "weak",
+    "different_event"
+   ],
+   "support": [
+    {
+     "id": "C-042-P4-c1",
+     "source": "MEADE-LL-v2",
+     "source_class": "book",
+     "page": "56",
+     "page_basis": "as_read",
+     "page_note": "printed page 56 read from the running head 'THE BATTLE OF GETTYSBURG 57', which stands just after the passage",
+     "text_offset": 162462,
+     "quote": "General Lee reached Seminary Ridge about half-past four in the afternoon",
+     "witness": {
+      "name": "(Writer of the chapter on the battle in The Life and Letters of George Gordon Meade, 1913; name not printed at the passage)",
+      "role": "Later historian of the battle",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "meade-ll",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:30"
+      ]
+     }
+    },
+    {
+     "id": "C-042-P4-c2",
+     "source": "SHSP-04",
+     "source_class": "book",
+     "page": "66",
+     "page_basis": "as_read",
+     "page_note": "letter dated Charlottesville, 5 April 1876, printed in the Southern Historical Society Papers, vol. 4, p. 66 (page 67 follows the sentence)",
+     "text_offset": 163739,
+     "quote": "General Lee and staff arrived on the field at Gettysburg near the close of the battle on the afternoon of July 1st",
+     "witness": {
+      "name": "A. L. Long",
+      "role": "Brigadier General, Lee's military secretary, with Lee on Jul 1",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1876-04-05",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "about",
+     "group": "long",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "near the close of the battle on the afternoon of July 1st"
+      ]
+     }
+    },
+    {
+     "id": "C-042-P4-c3",
+     "source": "TAYLOR-1877-C042",
+     "source_class": "book",
+     "page": "95",
+     "page_basis": "as_read",
+     "page_note": "printed page 95 read from the running head 'THE PENNSYLVANIA CAMPAIGN. 95' just before the passage",
+     "text_offset": 201264,
+     "quote": "General Lee witnessed the flight of the Federals through Gettysburg",
+     "witness": {
+      "name": "Walter H. Taylor",
+      "role": "Lieutenant Colonel, Lee's adjutant, with Lee on Jul 1",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "taylor",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "witnessed the flight of the Federals through Gettysburg"
+      ]
+     }
+    }
+   ],
+   "inference": {
+    "step": "A history of 1913 puts Lee on Seminary Ridge about half-past four 'just as the Federal troops were retreating'; Long (1876) says Lee arrived 'near the close of the battle' and Taylor (1877) that Lee watched the flight through the town. All three put Lee's sight of the retreat late in the day; none gives a clock, and the 1913 book's own source is not named.",
+    "from": [
+     "C-042-P4-c1",
+     "C-042-P4-c2",
+     "C-042-P4-c3"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It dates Lee reaching Seminary Ridge at the end of the fight, a later stage than reaching the field. The book of 1913 names no source and Pendleton, who was with Lee, puts him on the field about two hours earlier."
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "The plan lists 13:30 and 14:30, both from web pages that could not be read, and no source found gives either. The one witness who gives an hour is General Pendleton, Lee's chief of artillery, who rode with him from Cashtown: when they took position overlooking the field it was 'perhaps, 2 o'clock' (report of 12 Sep 1863). Early (1878) repeats 'about two' from Pendleton and Alexander (1907) says 'soon after two'; neither is independent. Heth, Hill and Anderson fix the hours around it but give no hour for Lee. A history of 1913 and Long's letter put Lee's sight of the retreat late in the afternoon, which is a later stage. About 14:00 is the best-supported time, from one witness, hedged; weighted, documented.",
+  "who": "Pendleton, a brigadier general and chief of artillery, rode near Lee from Cashtown and took position beside him; his report is an official report written by a man who was there. Early (division commander) quotes Pendleton and was himself north of the town. Alexander (artillery colonel with Longstreet) was not present on the afternoon of Jul 1. Heth was on the field and talked to Lee. Long and Taylor were Lee's staff officers, with him. The writer of the 1913 chapter was not there.",
+  "when": "Pendleton wrote on 12 Sep 1863, about ten weeks after the day, the nearest writing to the event that gives an hour. Hill (31 Jul) and Anderson (7 Aug 1863) wrote at the same time. Long (1876), Taylor (1877), Heth (1877) and Early (1878) are fourteen to fifteen years after and give no hour for Lee. Alexander (1907) and the history of 1913 are far later, and the Park Service seminar paper of 2018 gives no hour.",
+  "where": "Pendleton stood beside Lee 'more than a mile west of the town' on an eminence overlooking the field; this is the first place from which Lee watched the battle, not Seminary Ridge. The 1913 history and Alexander say Seminary Ridge; Pendleton's later sentences (Lee suggested positions on the right to enfilade the valley) show he arrived while the fight was still going and before the line fell back. Reaching Seminary Ridge may therefore be a second stage; the sources do not say.",
+  "how_knew": "Pendleton saw Lee arrive and gives the hour with 'perhaps': an estimate, not a clock reading. Heth knew from talking with Lee. Early says he relies on Pendleton. Alexander and the 1913 history give no source.",
+  "clock": "Pendleton does not say whose clock he used. The plan notes that the Union and Confederate clocks differed by about 20 minutes (an unsourced estimate) and corrects for neither; the reading here is the Confederate writer's own and is not changed. Hill's 'About 2.30' for Ewell's right wing is a Confederate reading too, so it sits on the same scale as Pendleton's.",
+  "independence": "One line of knowledge carries about 14:00 (Pendleton; Early quotes him; Alexander is later and not a witness), so the value is marked single-source. Heth's account that Lee was found while Rodes was heavily engaged, and Hill's about 2.30 for Ewell's wing, are consistent with it and do not state it. No independent witness gives another hour; the values 13:30, 14:30 and 16:30 each rest on a web page, a timeline or a later history."
+ },
+ "source_panel_text": "About 14:00 on Jul 1: General Pendleton, who rode with Lee, wrote in 1863 that when they took position overlooking the field it was 'perhaps, 2 o'clock'. No writer found gives 13:30 or 14:30; a history of 1913 has Lee on Seminary Ridge about 16:30, a later stage. Three other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "The plan's 13:30 has no source in the record; the earliest hour any witness gives is about 14:00, and the animation does not draw Lee on the field before the earliest source-supported time."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "The first delegated default kept 13:30 as a marked stand-in because no hour was found. A first-hand hour (Pendleton, about 14:00) is now found, so the stand-in is replaced; 13:30 stays selectable and marked as unsourced."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T1-124",
+   "must_change": true,
+   "note": "Window 'Jul 1 about 13:30' (Lee arrives at Herr Ridge); the default moves to about 14:00 (Pendleton); 13:30 and 14:30 stay as scenarios. Row not edited here."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-anv-hq",
+   "must_change": true,
+   "note": "printed_clock default 1863-07-01T13:30, earliest 13:30, latest 14:30: default becomes 14:00; the earliest moves only if the integration step finds a documented earlier time (none found), so 13:30 stays as the selectable earlier scenario."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04",
+   "must_change": true,
+   "note": "Arrival floor of the army headquarters row (13:30 today): reconcile in the open with the new default; never lower."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q05",
+   "must_change": false,
+   "note": "Position-time plausibility reads the same row; check after the default moves."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q06",
+   "must_change": false,
+   "note": "March to position of the headquarters row; check after the default moves."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-042)",
+   "must_change": true,
+   "note": "default_scenario_id C-042-DEFAULT (13:30 marked gap) to be replaced by the new default and scenarios."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-042)",
+   "must_change": true,
+   "note": "First delegated default record: replaced by this resolution; first record kept as history."
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/history/arrivals.json cs-anv-hq default_basis; tools/bt/arrivals_data.py line 255",
+   "must_change": true,
+   "note": "default_basis text names 13:30 as the plan's recommended default; to carry the new basis."
+  },
+  {
+   "kind": "other",
+   "ref": "tools/bt/positions_D/01_lee_hq.py (note on the digit lost in the OCR of R428)",
+   "must_change": true,
+   "note": "The digit lost in the first scan of Pendleton's report is 2 (second scan: 'perhaps, 2 o'clock'); the note can be closed."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-2 (Lee R426, Hill R534, Heth R549, Anderson R536, Pendleton R428 and the other Confederate reports)",
+   "query": "an hour for Lee's arrival on the field Jul 1 (General Lee within 300 characters of arrived, reached, upon the field, rode up, present, with clock words): none other than Pendleton's 'perhaps, 2 o'clock'; Lee's own report gives no hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "SHSP-04, SHSP-05, SHSP-06 (Southern Historical Society Papers, Heth, Long, Early, Fitz. Lee, Anderson letters)",
+   "query": "General Lee arrived / reached the field with an o'clock or P. M. reading: only Early's 1878 repetition of Pendleton's 'about two P. M.'; Long's letter and Heth's letter give no hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "LONG-1886-C042, TAYLOR-1877-C042, TAYLOR-GENLEE-1906-C005 (Lee's staff)",
+   "query": "an hour for Lee's arrival: none; Long says Lee followed Anderson's division from Cashtown, Taylor 1877 that Lee witnessed the flight through the town, Taylor 1906 that Lee reached Cashtown on the morning of Jul 1",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "HOKE-1887, ALEXANDER-1907, LONGSTREET-1896, FREMANTLE-1864",
+   "query": "Lee's arrival hour with arrived / reached / rode up: Alexander 'soon after two' (not a witness); Hoke prints Anderson placing Lee at Cashtown at about ten; the others give none",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "NPS-SEM16-HARMAN-C042 (Park Service seminar paper of 2018 on Lee's whereabouts)",
+   "query": "an hour for Lee's arrival: none; it places Lee about 8 miles west at Cashtown when the guns opened and has him ride to the front, citing James Power Smith, without a clock",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "stonesentinels.com and en.wikipedia.org (the plan's SS1 and W-D1)",
+   "query": "the pages and the sources they give for 13:30 and 14:30; not among the hosts reachable for this research",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Official Records Ser. I vol. 27 part 2, first scan, Pendleton's report p. 348",
+   "query": "the digit of 'perhaps, [?] o'clock': lost in the first scan's text layer; read as 2 in the second scan and confirmed by Early's 1878 'about two P. M.' (not read from the page image of the first scan)",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "An hour written on 1 July or soon after by someone with Lee (Lee's, Marshall's, Venable's or Taylor's dispatches or letters, Hill's, Heth's or Pender's own notes) would replace Pendleton's estimate. A source behind the plan's 13:30 or 14:30 would move it, as would a page image of Pendleton's report that reads a digit other than 2."
+}

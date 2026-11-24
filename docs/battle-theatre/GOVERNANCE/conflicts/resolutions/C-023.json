@@ -1,0 +1,1083 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-023",
+ "topic": "Stuart’s arrival",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts-c023",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Stuart’s arrival | noon-13:00; mid-afternoon; afternoon; | evening | Stuart himself early afternoon, brigades in | the evening | all",
+  "values": [
+   "noon-13:00",
+   "mid-afternoon",
+   "afternoon",
+   "evening"
+  ],
+  "recommended_default": "Stuart himself early afternoon, brigades in the evening",
+  "selectable_alternatives": [
+   "all"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-023-DEFAULT",
+  "default_label": "Stuart himself early afternoon, brigades evening (existing arrivals gate 19:32 not moved)",
+  "tier": "plausible-procedural",
+  "basis": "gap",
+  "scenario_ids": [
+   "C-023-S1",
+   "C-023-S2",
+   "C-023-S3",
+   "C-023-S4",
+   "C-023-S5",
+   "C-023-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Lee's report of 20 January 1864 (Official Records 27/2 p. 322): Stuart 'arrived in the afternoon of the following day' (July 2) and took position on Ewell's left. Stuart's own report (p. 697) gives the day and no hour. The hour of the afternoon is not recorded; Alexander (1907) says Stuart reported to Lee late in the afternoon."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-023-P3"
+  ],
+  "label": "Afternoon of July 2 (no hour is recorded); Hampton fights at Hunterstown at sundown",
+  "animation": {
+   "at": null,
+   "rule": "none",
+   "note": "no record gives a clock reading for Stuart or for Fitz Lee and Chambliss; the Q04 floor of 19:32 is not moved here and no instant is chosen. Hampton was at Hunterstown before 19:32 (Green, Hampton), so a floor of 19:32 for him is later than the record."
+  },
+  "note": "Stuart himself: afternoon, per Lee. Hampton's brigade: at Hunterstown before the fight at sundown (about 19:32). Fitz Lee and Chambliss: with Stuart in the afternoon (McClellan, Meade; one line with Lee). Jenkins: not with Stuart until July 3."
+ },
+ "positions": [
+  {
+   "id": "C-023-P1",
+   "origin": "pdf_value",
+   "pdf_label": "noon-13:00",
+   "scenario_ids": [
+    "C-023-S1"
+   ],
+   "label": "Noon to 13:00: Stuart reaches Lee (a web timeline)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T12:00",
+    "to": "1863-07-02T13:00"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "plausible-procedural",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "support": [],
+   "procedural_basis": "The plan gives the window from a web timeline (Wikipedia, the Stuart article, read as a lead); the first delegated pass kept it as one of four selectable values. No report, letter or book found states it.",
+   "failed_lookups": [
+    {
+     "where": "all local non-lead texts of the ledger (Official Records, books and papers, Park Service texts)",
+     "query": "Stuart ... (arrived|reached|joined|reported|rode up) ... (at noon|one o'clock|1 p. m.|12 m.|about noon|early in the afternoon|mid-afternoon)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-2 reports of Lee (p. 308, p. 322), Stuart (p. 697), Hampton (p. 724), Early, Hoffman, Green",
+     "query": "an hour for Stuart on July 2",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "Wikipedia, Stuart article (plan key ABT and others)",
+     "query": "the page itself; a web page is a lead and is not read as a source",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    }
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No writer of the time or later gives noon to 13:00. Stuart still had 25 miles from Carlisle after riding at night, and the one man who gives an hour in person (Alexander) says late afternoon."
+   }
+  },
+  {
+   "id": "C-023-P2",
+   "origin": "pdf_value",
+   "pdf_label": "mid-afternoon",
+   "scenario_ids": [
+    "C-023-S2"
+   ],
+   "label": "Mid-afternoon: a web timeline",
+   "kind": "period",
+   "value": {
+    "text": "mid-afternoon",
+    "date": "1863-07-02",
+    "part_of_day": "afternoon"
+   },
+   "clock": "unspecified",
+   "tier": "plausible-procedural",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "support": [],
+   "procedural_basis": "The plan gives it from a web timeline; the phrase mid-afternoon is in no writer found. Stands inside the afternoon of the default.",
+   "failed_lookups": [
+    {
+     "where": "all local non-lead texts of the ledger",
+     "query": "\"mid-afternoon\" or an hour between 14:00 and 16:00 for Stuart reaching Gettysburg or Lee on July 2",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-2 reports of Lee, Stuart and Hampton",
+     "query": "an hour for Stuart on July 2",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "Epperson timeline (plan key ABT)",
+     "query": "the page itself; a web page is a lead and is not read as a source",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    }
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No writer gives mid-afternoon. It lies inside the afternoon that Lee names, and is listed as one reading of it."
+   }
+  },
+  {
+   "id": "C-023-P3",
+   "origin": "pdf_value",
+   "pdf_label": "afternoon",
+   "scenario_ids": [
+    "C-023-S3"
+   ],
+   "label": "Afternoon of July 2: Stuart takes position on Ewell's left (Lee); no hour is recorded",
+   "kind": "period",
+   "value": {
+    "text": "afternoon",
+    "date": "1863-07-02",
+    "part_of_day": "afternoon"
+   },
+   "clock": "confederate",
+   "tier": "documented",
+   "support": [
+    {
+     "id": "C-023-P3-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R426",
+     "page": "322",
+     "page_basis": "scan_leaf",
+     "text_offset": 1222952,
+     "quote": "He reached Carlisle on July 1, [...] He arrived in the afternoon of the following day, and took position on General Ewell's left",
+     "witness": {
+      "name": "Robert E. Lee",
+      "role": "General commanding the Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1864-01-20",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "lee",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "He arrived in the afternoon of the following day"
+      ]
+     },
+     "note": "Lee's full report of January 1864 (p. 305 starts his shorter report of 31 July 1863, which gives no hour). The sentence before it says Stuart reached Carlisle on July 1, so the following day is July 2. Lee does not say how he learned the hour."
+    },
+    {
+     "id": "C-023-P3-c0",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R565",
+     "page": "697",
+     "page_basis": "scan_leaf",
+     "text_offset": 2599012,
+     "quote": "My advance reached Gettysburg July 2, just in time to thwart a move of the enemy's cavalry",
+     "witness": {
+      "name": "J. E. B. Stuart",
+      "role": "Major General commanding the Cavalry Division, Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-20",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "stuart",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "My advance reached Gettysburg July 2"
+      ]
+     },
+     "note": "Stuart's own report (20 August 1863): the day, no hour. 'My advance' was Hampton's brigade at Hunterstown; Stuart himself 'took my position that day on the York and Heidlersburg roads'."
+    },
+    {
+     "id": "C-023-P3-c2",
+     "source": "MCCLELLAN-1885-C023",
+     "source_class": "book",
+     "page": "332",
+     "page_basis": "as_read",
+     "text_offset": 769975,
+     "quote": "Stuart himself, with Fitz Lee's and [...] commands, reached [...] on the afternoon of the 2d",
+     "witness": {
+      "name": "Henry B. McClellan",
+      "role": "Major, Stuart's assistant adjutant general and chief of staff; biographer of Stuart",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1885",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "lee",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "on the afternoon of the 2d"
+      ]
+     },
+     "note": "Stuart's chief of staff, 22 years later. The words 'took position on the Confederate left' follow Lee's report closely, so this is counted with Lee's, not as a second line. The OCR damages two words (Chambliss, Gettysburg); the quote skips them."
+    },
+    {
+     "id": "C-023-P3-c3",
+     "source": "MEADE-LL-v2",
+     "source_class": "book",
+     "page": "94",
+     "page_basis": "as_read",
+     "text_offset": 276595,
+     "quote": "Toward the afternoon of July 2, Stuart, with Fitz Lee's and Chambliss's brigades, took position on the extreme left flank",
+     "witness": {
+      "name": "George Gordon Meade (the general's grandson, editor) and his father George Meade",
+      "role": "editors and narrators of Life and Letters of George Gordon Meade",
+      "side": "other"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "lee",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "Toward the afternoon of July 2"
+      ]
+     },
+     "note": "A narrative by non-participants in the volume of 1913, no source named; it puts Fitz Lee's and Chambliss's brigades with Stuart on the left 'toward the afternoon'. 'Toward the afternoon' is an unusual phrase and is read here only as 'in the afternoon'."
+    },
+    {
+     "id": "C-023-P3-c4",
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": "376",
+     "page_basis": "as_read",
+     "text_offset": 991369,
+     "quote": "reported in person, late in the afternoon of the 2d",
+     "witness": {
+      "name": "Edward Porter Alexander",
+      "role": "Colonel, chief of artillery of Longstreet's corps; author of Military Memoirs of a Confederate",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "alexander",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "late in the afternoon of the 2d"
+      ]
+     },
+     "note": "Alexander was on the field with Longstreet's corps on July 2 but not at Lee's side when Stuart reported; he gives Lee's reproach 'Well, General, you are here at last' and the hour. Also says the column 'arrived that afternoon'. 1907, 44 years later."
+    },
+    {
+     "id": "C-023-P3-c5",
+     "source": "FREEMAN-RELEE-V3-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the text carries no page marks and the passage is not tied to a printed page here",
+     "text_offset": 248938,
+     "quote": "had arrived on the left, with two of his brigades, before sunset",
+     "witness": {
+      "name": "Douglas Southall Freeman",
+      "role": "historian, biographer of Lee (not a participant)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1935",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "upper",
+     "group": "freeman",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "before sunset"
+      ]
+     },
+     "note": "Freeman writes this in the account of Lee's decision on the night of July 2 and cites a source by footnote; it fixes only an upper bound (Stuart on the left with two brigades before sunset, about 19:32)."
+    }
+   ],
+   "stance": "default"
+  },
+  {
+   "id": "C-023-P4",
+   "origin": "pdf_value",
+   "pdf_label": "evening",
+   "scenario_ids": [
+    "C-023-S4"
+   ],
+   "label": "Evening: Stuart \"joined General Lee on the evening of the second day\" (Taylor, 1877)",
+   "kind": "period",
+   "value": {
+    "text": "evening",
+    "date": "1863-07-02",
+    "part_of_day": "evening"
+   },
+   "clock": "unspecified",
+   "tier": "inferred",
+   "derived": true,
+   "flags": [
+    "memoir_only"
+   ],
+   "support": [
+    {
+     "id": "C-023-P4-c1",
+     "source": "TAYLOR-1877-C023",
+     "source_class": "book",
+     "page": "113",
+     "page_basis": "as_read",
+     "text_offset": 249892,
+     "quote": "only joined General Lee on the evening of the second day",
+     "witness": {
+      "name": "Walter H. Taylor",
+      "role": "Lieutenant Colonel, adjutant general on Lee's staff",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "taylor",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "on the evening of the second day"
+      ]
+     },
+     "note": "Written in a passage on the strength of the two armies, not an account of the arrival; 'joined General Lee' may mean reporting to Lee in person. Reprinted in the Southern Historical Society Papers vol. 4, 1877 (same author, counted once). 14 years later."
+    },
+    {
+     "id": "C-023-P4-c2",
+     "source": "MI-GB-1889",
+     "source_class": "book",
+     "page": "140",
+     "page_basis": "as_read",
+     "text_offset": 267766,
+     "quote": "It was the evening of July 2 when he finally reached the main army",
+     "witness": {
+      "name": "James H. Kidd",
+      "role": "Union cavalry officer, Michigan Cavalry Brigade (Custer)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1889",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "kidd",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "the evening of July 2"
+      ]
+     },
+     "note": "Union officer's address at the Michigan monuments, 26 years later; he was not with Stuart and gives no source."
+    }
+   ],
+   "inference": {
+    "step": "Taylor writes that Stuart only joined General Lee on the evening of the second day and Kidd that he reached the main army in the evening; read as the time Stuart was with Lee, which can be later than the time he took his position on the left",
+    "from": [
+     "C-023-P4-c1",
+     "C-023-P4-c2"
+    ]
+   },
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "Both are told 14 and 26 years later without a clock; Lee's own report of 1864 says afternoon. They fit if Stuart reached the left in the afternoon and reported to Lee late (Alexander: late in the afternoon)."
+   }
+  },
+  {
+   "id": "C-023-P5",
+   "origin": "pdf_default",
+   "pdf_label": "Stuart himself early afternoon, brigades in the evening",
+   "scenario_ids": [
+    "C-023-S5",
+    "C-023-DEFAULT"
+   ],
+   "label": "Plan default: Stuart himself early afternoon, brigades in the evening (first-pass stand-in, unsourced)",
+   "kind": "period",
+   "value": {
+    "text": "early afternoon (Stuart); evening (brigades)",
+    "date": "1863-07-02",
+    "part_of_day": "afternoon"
+   },
+   "clock": "unspecified",
+   "tier": "plausible-procedural",
+   "flags": [
+    "unsourced"
+   ],
+   "support": [],
+   "procedural_basis": "The plan states the pair as its default for coherence; the first delegated pass kept it as a marked stand-in and left the arrival gate (19:32) unmoved. No record found gives early afternoon for Stuart, or evening for his brigades as a body; Hampton's brigade fought at Hunterstown at sundown and was there before.",
+   "failed_lookups": [
+    {
+     "where": "all local non-lead texts of the ledger",
+     "query": "'early afternoon' or an hour between 12:00 and 15:00 for Stuart reaching Gettysburg, and an evening hour for Fitz Lee's or Chambliss's brigades",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-2 index of reports (part 2)",
+     "query": "a report of Fitz Lee, Chambliss or W. H. F. Lee for Gettysburg: none is printed (the cavalry reports of the volume cover Brandy Station and Aldie)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "Early afternoon for Stuart is in no record, and Alexander has him reporting late in the afternoon. Evening fits the fight of Hampton at sundown, not the whole body; Lee puts Stuart in the afternoon."
+   }
+  },
+  {
+   "id": "C-023-P6",
+   "origin": "research",
+   "label": "Late afternoon: Stuart reported to Lee in person (Alexander, 1907)",
+   "kind": "period",
+   "value": {
+    "text": "late in the afternoon",
+    "date": "1863-07-02",
+    "part_of_day": "afternoon"
+   },
+   "clock": "confederate",
+   "tier": "inferred",
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "support": [
+    {
+     "id": "C-023-P6-c1",
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": "376",
+     "page_basis": "as_read",
+     "text_offset": 991369,
+     "quote": "reported in person, late in the afternoon of the 2d",
+     "witness": {
+      "name": "Edward Porter Alexander",
+      "role": "Colonel, chief of artillery of Longstreet's corps; author of Military Memoirs of a Confederate",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "alexander",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "late in the afternoon of the 2d"
+      ]
+     },
+     "note": "Alexander was on the field with Longstreet's corps on July 2 but not at Lee's side when Stuart reported; he gives Lee's reproach 'Well, General, you are here at last' and the hour. Also says the column 'arrived that afternoon'. 1907, 44 years later."
+    }
+   ],
+   "inference": {
+    "step": "Alexander dates the report to Lee in person, not the arrival on the left; the two can be hours apart, and the two other writers who give an hour of reporting say evening (Taylor) or before sunset (Freeman, as an arrival)",
+    "from": [
+     "C-023-P6-c1"
+    ]
+   },
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "Late afternoon is part of the afternoon that Lee names; it dates the report to Lee and comes from one memoir of 44 years later."
+   }
+  },
+  {
+   "id": "C-023-P7",
+   "origin": "research",
+   "label": "Evening, about sundown: Hampton's brigade fights at Hunterstown (a different event)",
+   "kind": "period",
+   "value": {
+    "text": "sundown",
+    "date": "1863-07-02",
+    "part_of_day": "evening"
+   },
+   "clock": "union",
+   "tier": "documented",
+   "support": [
+    {
+     "id": "C-023-P7-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R359",
+     "page": "992",
+     "page_basis": "scan_leaf",
+     "text_offset": 3492728,
+     "quote": "Was attacked by Stuart, Hampton, and Lee at sundown near Hunterstown",
+     "witness": {
+      "name": "Judson Kilpatrick",
+      "role": "Brigadier General commanding the Third Division, Cavalry Corps (Union)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-10",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "kilpatrick",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "sundown"
+      ]
+     },
+     "note": "Kilpatrick's report on the Third Division, dated 10 August 1863. 'Sundown' is not a clock reading; sunset at Gettysburg was 19:32."
+    },
+    {
+     "id": "C-023-P7-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R479",
+     "page": "497",
+     "page_basis": "scan_leaf",
+     "text_offset": 1851324,
+     "quote": "Thursday evening, July 2, just before sunset, I was ordered to report [...] to General Hampton, at Hunt",
+     "witness": {
+      "name": "C. A. Green",
+      "role": "Captain, Louisiana Guard Artillery",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-08",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "green",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "just before sunset"
+      ]
+     },
+     "note": "His section was ordered to Hampton at Hunterstown 'just before sunset' and arrived at dusk, so Hampton was at Hunterstown before sunset. The date of the report (8 July) is read from the damaged heading of the text; the day digit was not checked on the page image."
+    },
+    {
+     "id": "C-023-P7-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R567",
+     "page": "724",
+     "page_basis": "scan_leaf",
+     "text_offset": 2686723,
+     "quote": "The brigade was stationed on July 2, at Hunterstown, 5 miles to the east of Gettysburg, when orders came from General Stuart",
+     "witness": {
+      "name": "Wade Hampton",
+      "role": "Brigadier General commanding the brigade (Confederate cavalry)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-13",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "hampton",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "stationed on July 2, at Hunterstown"
+      ]
+     },
+     "note": "Hampton's report of 13 August 1863 on Gettysburg: the brigade was at Hunterstown when Stuart's order to move up came, so Stuart was already giving orders for the left before the fight. No hour."
+    }
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It dates the fight at Hunterstown (sundown, 19:32), not Stuart's arrival: Hampton was stationed there before it. It supports the plan's evening for brigades only as the hour of a battle."
+   }
+  },
+  {
+   "id": "C-023-P8",
+   "origin": "research",
+   "label": "Morning of July 2: Hampton's brigade at Hunterstown (McClellan, 1885)",
+   "kind": "period",
+   "value": {
+    "text": "on the morning of the 2d of July",
+    "date": "1863-07-02",
+    "part_of_day": "morning"
+   },
+   "clock": "confederate",
+   "tier": "inferred",
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "support": [
+    {
+     "id": "C-023-P8-c1",
+     "source": "MCCLELLAN-1885-C023",
+     "source_class": "book",
+     "page": "331",
+     "page_basis": "as_read",
+     "text_offset": 767998,
+     "quote": "Hampton reached Hunterstown on the morning of the 2d of July",
+     "witness": {
+      "name": "Henry B. McClellan",
+      "role": "Major, Stuart's assistant adjutant general and chief of staff; biographer of Stuart",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1885",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "mcclellan",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "on the morning of the 2d of July"
+      ]
+     },
+     "note": "Stuart's chief of staff, 1885, from the text around Hampton's report; the report itself gives no hour for reaching Hunterstown."
+    }
+   ],
+   "inference": {
+    "step": "McClellan writes that Hampton reached Hunterstown on the morning of 2 July; Hampton's own report says only that the brigade was stationed there when Stuart's order came",
+    "from": [
+     "C-023-P8-c1"
+    ]
+   },
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "One staff officer 22 years later; Hampton's report, Green and Kilpatrick fix no hour of arrival, and Kidd (1889) puts it in the late afternoon. The two stay side by side."
+   }
+  },
+  {
+   "id": "C-023-P9",
+   "origin": "research",
+   "label": "Late afternoon: Hampton's brigade reaches Hunterstown (Kidd, 1889)",
+   "kind": "period",
+   "value": {
+    "text": "late in the afternoon",
+    "date": "1863-07-02",
+    "part_of_day": "afternoon"
+   },
+   "clock": "unspecified",
+   "tier": "inferred",
+   "derived": true,
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "support": [
+    {
+     "id": "C-023-P9-c1",
+     "source": "MI-GB-1889",
+     "source_class": "book",
+     "page": "140",
+     "page_basis": "as_read",
+     "text_offset": 268309,
+     "quote": "Kilpatrick reached the inside of the union lines in the vicinity of Gettysburg late in the afternoon, at about the same hour that Hampton, with Stuart's leading Brigade, arrived in Hunterstown",
+     "witness": {
+      "name": "James H. Kidd",
+      "role": "Union cavalry officer, Michigan Cavalry Brigade (Custer)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1889",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "kidd",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "late in the afternoon"
+      ]
+     },
+     "note": "Hampton's arrival is placed at the hour of Kilpatrick's coming up, with no source named; about five o'clock is the hour Kidd gives next."
+    }
+   ],
+   "inference": {
+    "step": "Kidd places Hampton's arrival at Hunterstown at the hour Kilpatrick came near Gettysburg, late in the afternoon, about five o'clock",
+    "from": [
+     "C-023-P9-c1"
+    ]
+   },
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "A Union officer 26 years later, not with Hampton, naming no source; Green was sent to Hampton at Hunterstown before sunset, which it fits, but McClellan says morning."
+   }
+  },
+  {
+   "id": "C-023-P10",
+   "origin": "research",
+   "label": "Jenkins's brigade: with Ewell since June; under Stuart only on July 3 (a different event)",
+   "kind": "category",
+   "value": {
+    "text": "who accompanied General Ewell"
+   },
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "derived": true,
+   "flags": [
+    "different_event"
+   ],
+   "support": [
+    {
+     "id": "C-023-P10-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R565",
+     "page": "698",
+     "page_basis": "scan_leaf",
+     "text_offset": 2602366,
+     "quote": "wounded the day previous, before reporting to me",
+     "witness": {
+      "name": "J. E. B. Stuart",
+      "role": "Major General commanding the Cavalry Division, Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-20",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "stuart",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "wounded the day previous, before reporting to me"
+      ]
+     },
+     "note": "On July 3 Stuart's command was 'increased by the addition of Jenkins' brigade' (p. 697); Jenkins was wounded the day before, before reporting to Stuart."
+    },
+    {
+     "id": "C-023-P10-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R426",
+     "page": "306",
+     "page_basis": "scan_leaf",
+     "text_offset": 1161348,
+     "quote": "General Jenkins, with his cavalry, who accompanied General Ewell",
+     "witness": {
+      "name": "Robert E. Lee",
+      "role": "General commanding the Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "lee-jul",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "who accompanied General Ewell"
+      ]
+     },
+     "note": "Lee's report of 31 July 1863, on the advance into Pennsylvania in June."
+    },
+    {
+     "id": "C-023-P10-c3",
+     "source": "TAYLOR-1877-C023",
+     "source_class": "book",
+     "page": "113",
+     "page_basis": "as_read",
+     "text_offset": 250150,
+     "quote": "only the commands of Generals Imboden and Jenkins had been with the army from the time of crossing the Potomac, and they accom- [...] panied General Ewell",
+     "witness": {
+      "name": "Walter H. Taylor",
+      "role": "Lieutenant Colonel, adjutant general on Lee's staff",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "taylor",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Jenkins had been with the army from the time of crossing the Potomac"
+      ]
+     }
+    }
+   ],
+   "inference": {
+    "step": "Lee (July 1863) and Taylor (1877) put Jenkins's cavalry with Ewell from the crossing of the Potomac; Stuart says it was added to his command on July 3 and Jenkins was wounded the day before; so Jenkins did not arrive with Stuart on July 2 and the plan's evening does not describe it",
+    "from": [
+     "C-023-P10-c1",
+     "C-023-P10-c2",
+     "C-023-P10-c3"
+    ]
+   },
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Not an arrival time: it says Jenkins's brigade was already with the army and came under Stuart on July 3, so it needs no arrival of its own on July 2."
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "Every record agrees on the day, July 2; none gives a clock reading for Stuart or his brigades. The only official statement of the period is Lee's: 'arrived in the afternoon'. Writers who give a more exact moment are later: Alexander (late in the afternoon, when Stuart reported in person), Taylor (evening, 'joined General Lee'), Kidd (evening), Freeman (before sunset). Noon to 13:00 and mid-afternoon are in no source and early afternoon is not in any either. The plan's pair (Stuart early afternoon, brigades evening) mixes events: Hampton's brigade stood at Hunterstown and fought at sundown, Fitz Lee and Chambliss were with Stuart in the afternoon, and Jenkins was with Ewell. Afternoon, from the best-classed writing, is the default; its upper end (late afternoon, before sunset) is the same as the evening of the later writers.",
+  "who": "Lee commanded the army and wrote of his own cavalry's arrival; Stuart and Hampton wrote of their own movements and give no hour; Kilpatrick and Green wrote of the fight at Hunterstown they were in. Taylor was Lee's adjutant, McClellan Stuart's chief of staff, Alexander Longstreet's artillery chief: all were on the field but none says how he knew the hour. Kidd was a Union officer and Meade's volume and Freeman are histories.",
+  "when": "Stuart (20 Aug 1863), Hampton (13 Aug), Kilpatrick (10 Aug), Green (8 Jul) and Lee (31 Jul 1863; 20 Jan 1864) wrote within 7 months, the best class of writing. McClellan (1885), Taylor (1877), Alexander (1907), Kidd (1889), Meade's volume (1913) and Freeman (1935) wrote 14 to 72 years after and rank below them (reminiscence and history).",
+  "where": "Lee was with the army on Seminary Ridge and Stuart took position on the left; Hampton was at Hunterstown. Taylor was with Lee, so 'joined General Lee' may date the call on Lee rather than the arrival on the left; Kidd and Freeman were not with Stuart.",
+  "how_knew": "Stuart and Hampton knew their own movements and say no hour; Lee relied on Stuart's report and what he saw, and does not say how he fixed the afternoon. The later writers give no source, except Freeman by footnote.",
+  "clock": "None gives a clock reading, so the 20-minute difference between the two clocks (never applied) does not matter. 'Sundown' (Kilpatrick, Union) and 'just before sunset' (Green, Confederate) both point to about 19:32, sunset at Gettysburg.",
+  "independence": "Lee's report, McClellan and the Meade volume are counted as one line (McClellan and Meade follow Lee's words about taking position on the left); Alexander, Freeman, Taylor, Kidd, Kilpatrick, Green and Hampton are separate. Afternoon is carried by three lines (Lee, Alexander, Freeman); evening by two memoirs (Taylor, Kidd, one Union). So the default is weighted, not settled: the two are compatible only if Stuart reached the left in the afternoon and reported to Lee late; the records do not say that."
+ },
+ "source_panel_text": "Afternoon of July 2: Lee's report says Stuart arrived in the afternoon and took position on Ewell's left; Stuart gives the day, no hour. No record gives noon, 1 p.m. or mid-afternoon. Taylor (1877) and Kidd (1889) say evening; Alexander says Stuart reported to Lee late in the afternoon. Hampton fought at Hunterstown at sundown. Nine other values stay listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "The afternoon holds for Stuart himself (Lee's report), but early afternoon has no source and Alexander has him reporting late in the afternoon. Evening holds only as the hour of Hampton's fight at Hunterstown; Fitz Lee and Chambliss came with Stuart in the afternoon, and Jenkins was already with Ewell."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "The marked stand-in (plausible-procedural, gap) is replaced: afternoon is documented, from Lee's report. The first pass left the 19:32 arrivals gate unmoved; the gate is not changed here and the research does not support 19:32 as an arrival time for Hampton or Jenkins."
+  }
+ },
+ "readers": [
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-cav-div",
+   "must_change": false,
+   "note": "date floor 1863-07-02T00:00 stays; no source gives an hour for Stuart (Lee: afternoon of July 2)."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-cav-hampton",
+   "must_change": true,
+   "note": "gate default 19:32 (earliest 19:32, latest 20:04): Hampton was stationed at Hunterstown before the fight (Hampton), and Green was ordered to him before sunset (19:32), so the record puts his brigade there before 19:32; the owner decides whether the floor moves; the gate is not lowered here"
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-cav-flee-chambliss",
+   "must_change": true,
+   "note": "gate default 19:32: Lee (afternoon) and McClellan (afternoon of the 2d) put Stuart with Fitz Lee's and Chambliss's commands on the left in the afternoon; only Taylor and Kidd say evening; the 19:32 floor is the evening reading and later than the default"
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-cav-jenkins",
+   "must_change": true,
+   "note": "gate default 19:32 is the wrong event: Jenkins's brigade was with Ewell from the crossing of the Potomac (Lee July 1863; Taylor 1877) and came under Stuart on July 3 (Stuart p. 697-698)"
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04",
+   "must_change": true,
+   "note": "named case Q04.6 (Stuart's brigades not before 19:32 in the default views, Hampton at Hunterstown exempt): the expected 19:32 matches the evening readings (Taylor, Kidd, the sundown fight) but not the default afternoon or the documented presence of Hampton before sunset; to be reconciled in the open; no gate is lowered or changed"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-200",
+   "must_change": true,
+   "note": "'Brigades arrive that evening after Stuart reaches Lee': Hampton fights at sundown at Hunterstown; Fitz Lee and Chambliss with Stuart in the afternoon (McClellan, Meade); Jenkins was with Ewell"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-001",
+   "must_change": true,
+   "note": "'Stuart reaches Lee; his brigades arrive that evening': the same; also Jenkins is not an arrival of July 2"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-095",
+   "must_change": true,
+   "note": "names 'noon-1 p.m., Hampton about an hour later; ABT: mid-afternoon': none has a source; Lee's afternoon is the documented value"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-146",
+   "must_change": false,
+   "note": "Hunterstown fight 'about 16:30': Kilpatrick says the attack came at sundown (about 19:32) and lasted two hours (p. 992); worth reading against this row"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-035",
+   "must_change": false,
+   "note": "Stuart leaves Carlisle on the night of July 1: Stuart p. 697 'during the night ... started myself that night'; unchanged"
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/src/data.mjs",
+   "must_change": false,
+   "note": "line 43 lists the four values and the plan default"
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json",
+   "must_change": true,
+   "note": "C-023 at line 808: default scenario C-023-DEFAULT (first delegated stand-in)"
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/history/arrivals.json",
+   "must_change": true,
+   "note": "rows cs-cav-div, cs-cav-hampton, cs-cav-flee-chambliss, cs-cav-jenkins carry C-023 (meta.named_periods evening 19:32; line 9948)"
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/arrivals_data.py",
+   "must_change": true,
+   "note": "line 374-382: the conflict and the dusk 19:32 default"
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/positions_D/70_cavalry.py",
+   "must_change": false,
+   "note": "line 34-36: 'stuart_arrival_jul2 C-023'; the note says the two Lee statements differ in the afternoon"
+  },
+  {
+   "kind": "test",
+   "ref": "docs/battle-theatre/app/tests/history.test.mjs",
+   "must_change": false,
+   "note": "line 27 picks C-023 'v1' = mid-afternoon in a sample scenario; the value stays selectable"
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1, OR27-2, OR27-3: Lee (pp. 305-325), Stuart (pp. 679-719), Hampton (pp. 721-726), Early, Ewell, Hoffman, Green, Kilpatrick and the cavalry reports of the index",
+   "query": "a clock reading for Stuart or his brigades reaching Gettysburg or Lee on July 2: Lee says afternoon, Stuart the day; no hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2 index of reports (authors and units)",
+   "query": "a Gettysburg report of Fitz Lee, Chambliss, W. H. F. Lee or Jenkins: none is printed",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "all local non-lead texts of the ledger (--all)",
+   "query": "Stuart ... (arrived|reached|joined|reported|rode up) ... (at noon|one o'clock|1 p. m.|12 m.|early in the afternoon|mid-afternoon): none; the one hit that gives a time of day is Alexander (late afternoon)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "LONG-1886-C023, TAYLOR-GENLEE-1906-C005, ANNALS-1879-C005, SORREL-1905-C005 (Lee's secretary, adjutant, a staff officer, and the Weekly Times annals)",
+   "query": "Stuart ... Gettysburg ... afternoon|evening|noon|o'clock: nothing about July 2 (Long and Taylor 1906 do not tell the arrival; Taylor 1877 only in a sentence about strength)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Wikipedia (Stuart), Epperson timeline, Gettysburg ABT page (the plan's keys for noon-13:00 and mid-afternoon)",
+   "query": "the pages: web pages are leads; they were not read and cannot support a value",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report, letter or diary written on or near July 2-3, 1863 by Lee, a member of his staff, Stuart, Fitz Lee, Chambliss or a courier that gives a clock reading for Stuart's arrival on the left or his report to Lee (for instance Lee's headquarters papers, Fitz Lee's report, Chambliss's report, Venable's or Marshall's recollections, or Stuart's staff diaries). A narrower hour would split the afternoon; a reading before 15:00 would make early afternoon the value, and an hour at dusk would make Taylor's evening the better reading."
+}
