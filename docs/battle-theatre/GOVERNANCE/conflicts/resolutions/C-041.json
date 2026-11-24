@@ -1,0 +1,921 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-041",
+ "topic": "Rodes’ attack start",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-041",
+ "event_date": "1863-07-01",
+ "pdf_row": {
+  "page": 63,
+  "text": "Rodes’ attack start | 13:30; 14:00; 14:30 | 14:00 | 13:30, 14:30",
+  "values": [
+   "13:30",
+   "14:00",
+   "14:30"
+  ],
+  "recommended_default": "14:00",
+  "selectable_alternatives": [
+   "13:30",
+   "14:30"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-041-DEFAULT",
+  "default_label": "14:00 inside window 13:30-14:30 (inferred)",
+  "tier": "inferred",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-041-S1",
+   "C-041-S2",
+   "C-041-S3",
+   "C-041-S4",
+   "C-041-DEFAULT"
+  ]
+ },
+ "class": "irreducible",
+ "tier": "inferred",
+ "basis": {
+  "kind": "official_records",
+  "text": "Reports of the brigade and regiment commanders of Rodes's division (Official Records 27/2, pp. 566-590: Daniel, Owens, Lewis, Williams, Lambeth) and of Doubleday and Dobke (27/1, pp. 249, 734) put the infantry attack between about 13:00 and about 14:00; no report of the division commander or of Iverson or O'Neal gives an hour."
+ },
+ "default": {
+  "mode": "window",
+  "positions": [
+   "C-041-P4",
+   "C-041-P2"
+  ],
+  "label": "About 13:00 to 14:00 on Jul 1; the picture uses 13:30 (the middle)",
+  "basis_text": "Lower bound: four Confederate reports (Daniel, 53rd and 43rd North Carolina, 2nd North Carolina) put the advance or entry into action about 1 p.m. Upper bound: Daniel's own interval (about 12 m. plus an hour and a half) and Lambeth's about 2 p.m. Doubleday and Dobke (about 1.30, Union clock) fall inside.",
+  "animation": {
+   "at": "1863-07-01T13:30",
+   "rule": "midpoint",
+   "note": "Middle of the window. No report of Rodes's division gives one hour for the attack; the earlier bound (13:00) is source-supported, so the instant is not earlier than the earliest source-supported time, and 14:00 stays selectable."
+  },
+  "note": "The window is the record: no witness of the attack gives an hour for the division, and the readings of the units that took part run from about 13:00 to about 14:00."
+ },
+ "positions": [
+  {
+   "id": "C-041-P1",
+   "origin": "pdf_value",
+   "pdf_label": "13:30",
+   "scenario_ids": [
+    "C-041-S1"
+   ],
+   "label": "About 13:30: the plan's first value, on the Union clock (Doubleday and Dobke)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T13:30",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "page_basis": "scan_leaf",
+     "text_offset": 835046,
+     "quote": "forces advanced about 1.30 p. m. in two deployed lines, supported by a third line of battalions en masse",
+     "witness": {
+      "name": "Abner Doubleday",
+      "role": "Major General, commanding the I Corps on the afternoon of 1 July",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-12-14",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "doubleday",
+     "exact": false,
+     "part": "OR27-1-R029",
+     "page": "249",
+     "states": {
+      "times": [
+       "13:30"
+      ]
+     },
+     "note": "The text layer prints 'Swell's' for Ewell's, left out of the quote. Doubleday names Ewell's forces, not Rodes's division, and does not name the ridge."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "page_basis": "scan_leaf",
+     "text_offset": 2567108,
+     "quote": "At about 1.30 p. m. a long line of the enemy moved on the extreme right of the First Corps, passing the left of the Forty-fifth",
+     "witness": {
+      "name": "Adolphus Dobke",
+      "role": "Lieutenant Colonel commanding the 45th New York (XI Corps)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-21",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "dobke-xi",
+     "exact": false,
+     "part": "OR27-1-R256",
+     "page": "734",
+     "states": {
+      "times": [
+       "13:30"
+      ]
+     },
+     "note": "A long Confederate line moving on the right of the I Corps in front of the 45th New York's left; the report does not name Rodes or a brigade."
+    },
+    {
+     "source": "DOUBLEDAY-1882-C041",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "text_offset": 283626,
+     "quote": "This opened fire about 1.30 p.m., and rendered new dispositions necessary",
+     "witness": {
+      "name": "Abner Doubleday",
+      "role": "Major General, commanding the I Corps on the afternoon of 1 July",
+      "side": "union"
+     },
+     "written": {
+      "date": "1882",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "doubleday",
+     "exact": false,
+     "page": "139",
+     "states": {
+      "times": [
+       "13:30"
+      ]
+     },
+     "note": "'This' is the battery on Oak Hill: the artillery opening, not the infantry advance. Page 139 read from the running head in the text."
+    },
+    {
+     "source": "HOKE-1887",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "text_offset": 555352,
+     "quote": "At half past one o'clock p. m., a battery belonging to Rodes' division reached Oak Hill, an eminence about one mile north-east of the seminary, and opened fire.",
+     "witness": {
+      "name": "J. Hoke",
+      "role": "Author of 'The Great Invasion of 1863' (Dayton, 1887), not a participant",
+      "side": "other"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "doubleday",
+     "exact": false,
+     "page": "274",
+     "states": {
+      "times": [
+       "13:30"
+      ]
+     },
+     "note": "The next sentences give the same order of battle as Doubleday's book (Iverson on the right, Daniels and O'Neil in the centre, Dole on the left, Ramseur in reserve), so the hour is counted with Doubleday's. Artillery, not the infantry attack."
+    }
+   ],
+   "inference": {
+    "step": "Doubleday puts the advance of Ewell's forces in two deployed lines at about 1.30 and Dobke puts a long Confederate line moving on the I Corps's right at about 1.30; the infantry attack of Rodes's division is read as that advance. Neither names Rodes. The 1.30 of Doubleday's book and of Hoke is the opening of the Oak Hill battery, a different act.",
+    "from": [
+     "doubleday report p.249",
+     "dobke report p.734"
+    ]
+   },
+   "derived": true,
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "Lies inside the window the sources allow (about 13:00 to 14:00); the picture uses it as the middle of that window, so it is shown, but the window itself is the default."
+   }
+  },
+  {
+   "id": "C-041-P2",
+   "origin": "pdf_value",
+   "pdf_label": "14:00",
+   "scenario_ids": [
+    "C-041-S2",
+    "C-041-S4",
+    "C-041-DEFAULT"
+   ],
+   "label": "About 14:00: the plan's second value and recommended default (Daniel's account, Lambeth)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T14:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "derived": true,
+   "support": [
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "page_basis": "scan_leaf",
+     "text_offset": 2108390,
+     "quote": "marched upon Gettysburg, by way of Heidlersburg, and arrived within [...] about 12 m.",
+     "witness": {
+      "name": "Junius Daniel",
+      "role": "Brigadier General, commanding a North Carolina brigade of Rodes's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-20",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "daniel-brigade",
+     "exact": false,
+     "part": "OR27-2-R507",
+     "page": "566",
+     "states": {
+      "times": [
+       "12:00"
+      ]
+     },
+     "note": "Full sentence: the brigade 'arrived within 2 1/2 miles of the town about 12 m.' (the fraction is damaged in the text layer and is not quoted). Then ordered to turn right and form in rear of Iverson."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "page_basis": "scan_leaf",
+     "text_offset": 2109120,
+     "quote": "After remaining in this position for some hour and a half, I was notified by General Iverson that he was about to advance.",
+     "witness": {
+      "name": "Junius Daniel",
+      "role": "Brigadier General, commanding a North Carolina brigade of Rodes's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-20",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "daniel-brigade",
+     "exact": false,
+     "part": "OR27-2-R507",
+     "page": "566",
+     "states": {
+      "phrases": [
+       "hour and a half"
+      ]
+     },
+     "note": "The one place where a brigade commander of the division dates Iverson's advance, as an interval after the brigade formed (about 12 m. plus the move of about three quarters of a mile, then 'some hour and a half')."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "page_basis": "scan_leaf",
+     "text_offset": 2197099,
+     "quote": "about 2 p. m., the command was moved to the front, and engaged the enemy",
+     "witness": {
+      "name": "J. H. Lambeth",
+      "role": "Major, 14th North Carolina (Ramseur's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-19",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "ramseur-brigade",
+     "exact": false,
+     "part": "OR27-2-R521",
+     "page": "590",
+     "states": {
+      "times": [
+       "14:00"
+      ]
+     },
+     "note": "Ramseur's brigade was the reserve, sent forward after Iverson's brigade was beaten, so this is a later stage of the attack than its start."
+    }
+   ],
+   "inference": {
+    "step": "Daniel puts his brigade within about 2.5 miles of the town at about 12 m., then a move of about three quarters of a mile and 'some hour and a half' in position before Iverson advanced: about 13:45 to 14:00. Lambeth's regiment of the reserve brigade says it was moved to the front about 2 p.m., after Iverson was beaten.",
+    "from": [
+     "daniel report p.566",
+     "lambeth report p.590"
+    ]
+   },
+   "stance": "default"
+  },
+  {
+   "id": "C-041-P3",
+   "origin": "pdf_value",
+   "pdf_label": "14:30",
+   "scenario_ids": [
+    "C-041-S3"
+   ],
+   "label": "About 14:30: the plan's third value (Hill, Wilcox, a Park Service report)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T14:30",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "flags": [
+    "weak",
+    "different_event"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "page_basis": "scan_leaf",
+     "text_offset": 2255639,
+     "quote": "About 2.30 o'clock, the right wing of Ewell's corps made its appearance on my left",
+     "witness": {
+      "name": "Ambrose P. Hill",
+      "role": "Lieutenant General, commanding the Third Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-11",
+      "kind": "official_report"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "hill",
+     "exact": false,
+     "part": "OR27-2-R534",
+     "page": "607",
+     "states": {
+      "times": [
+       "14:30"
+      ]
+     },
+     "note": "Ewell's wing 'made its appearance' on Hill's left: an arrival seen from Hill's line, not the start of Rodes's attack. Hill's report is dated only 'November, 1863'."
+    },
+    {
+     "source": "SHSP-04",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "text_offset": 284167,
+     "quote": "Rodes came upon the field at 2:30 P. M. and attacked the enemy, now greatly reinforced.",
+     "witness": {
+      "name": "C. M. Wilcox",
+      "role": "Major General, commanding a division of Hill's corps (Anderson's division on 1 July)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877-03",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "hill",
+     "exact": false,
+     "page": "113",
+     "states": {
+      "times": [
+       "14:30"
+      ]
+     },
+     "note": "Letter of March 1877 to the Southern Historical Society (printed in vol. 4). Wilcox's division reached the field after the fighting stopped; he gives no source, and the hour is Hill's. Counted with Hill's group."
+    },
+    {
+     "source": "NPS-MCCLEAN-HOUSE-BARN",
+     "source_class": "official",
+     "page_basis": "pdf_marker",
+     "text_offset": 8302,
+     "quote": "About 2:30 the long lines of Rodes infantry appeared from the cover of Oak Hill",
+     "witness": {
+      "name": "Lenard E. Brown, National Park Service",
+      "role": "Division of History, Office of Archeology and Historic Preservation",
+      "side": "institution"
+     },
+     "written": {
+      "date": "1968-10-01",
+      "kind": "institutional"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "not_applicable",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "nps",
+     "exact": false,
+     "page": "9",
+     "states": {
+      "times": [
+       "14:30"
+      ]
+     },
+     "note": "Historic structures report of 1968; names no source for the hour. The text layer prints an asterisk for the apostrophe in Rodes'."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "page_basis": "scan_leaf",
+     "text_offset": 2131892,
+     "quote": "On the first day, about 2.30 p. m., the regiment was drawn up on the right of the brigade, and, advancing, met the enemy about 4 o'clock.",
+     "witness": {
+      "name": "E. C. Brabble",
+      "role": "Colonel, 32nd North Carolina (Daniel's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-19",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "daniel-brigade",
+     "exact": false,
+     "part": "OR27-2-R508",
+     "page": "571",
+     "states": {
+      "times": [
+       "14:30",
+       "16:00"
+      ]
+     },
+     "note": "Same brigade as Owens, Lewis and Brown, who give about 1 p.m.; this regiment stood on the right of the line and says it met the enemy about 4 o'clock."
+    },
+    {
+     "source": "DOUBLEDAY-1882-C041",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "text_offset": 289648,
+     "quote": "O'Neil and Dole went forward about 2.45 p.m.",
+     "witness": {
+      "name": "Abner Doubleday",
+      "role": "Major General, commanding the I Corps on the afternoon of 1 July",
+      "side": "union"
+     },
+     "written": {
+      "date": "1882",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "doubleday",
+     "exact": false,
+     "page": "141",
+     "states": {
+      "times": [
+       "14:45"
+      ]
+     },
+     "note": "Doubleday's later account: Iverson 'was sent to attack the First Corps', and O'Neil and Dole went forward against the Eleventh Corps about 2.45, a later advance of two brigades, and it gives no hour for Iverson."
+    }
+   ],
+   "inference": {
+    "step": "Hill's 2.30 is the hour Ewell's wing appeared on his left; Wilcox, who was not on that part of the field, writes that Rodes came on the field and attacked at 2:30; a Park Service report of 1968 says the long lines of Rodes's infantry appeared about 2:30. Read as the attack hour only by taking an arrival or an appearance for the start of the attack.",
+    "from": [
+     "hill report p.607",
+     "wilcox letter",
+     "McClean house report"
+    ]
+   },
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Hill's 2.30 dates Ewell's wing appearing on his left; Wilcox was not there and gives no source; the report of 1968 names none. Rodes's own regiments put their advance an hour or more earlier."
+   }
+  },
+  {
+   "id": "C-041-P4",
+   "origin": "research",
+   "label": "About 13:00: Confederate regiments of the division say they advanced or went into action",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T13:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "page_basis": "scan_leaf",
+     "text_offset": 2122661,
+     "quote": "Entering the fight on the first day at about 1 p. m., and hotly engaged until 4 p. m.",
+     "witness": {
+      "name": "Junius Daniel",
+      "role": "Brigadier General, commanding a North Carolina brigade of Rodes's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-20",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "daniel-brigade",
+     "exact": false,
+     "part": "OR27-2-R507",
+     "page": "569",
+     "states": {
+      "times": [
+       "13:00",
+       "16:00"
+      ]
+     },
+     "note": "Closing summary of the brigade's part; it says the brigade entered the fight, not that the division's attack began."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "page_basis": "scan_leaf",
+     "text_offset": 2149589,
+     "quote": "was in line of battle at or about 1 o'clock, when we advanced through an open field, coming in sight of the enemy on the crest",
+     "witness": {
+      "name": "William A. Owens",
+      "role": "Colonel, 53rd North Carolina (Daniel's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-19",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "daniel-brigade",
+     "exact": false,
+     "part": "OR27-2-R511",
+     "page": "576",
+     "states": {
+      "times": [
+       "13:00"
+      ]
+     }
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "page_basis": "scan_leaf",
+     "text_offset": 2136247,
+     "quote": "At about 1 o'clock, July 1, we were drawn up in line of battle [...] After a brief cannonade by a battery on our left, we were ordered forward.",
+     "witness": {
+      "name": "W. G. Lewis",
+      "role": "Lieutenant Colonel, 43rd North Carolina (Daniel's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-19",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "daniel-brigade",
+     "exact": false,
+     "part": "OR27-2-R509",
+     "page": "573",
+     "states": {
+      "times": [
+       "13:00"
+      ],
+      "dates": [
+       "07-01"
+      ]
+     }
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "page_basis": "scan_leaf",
+     "text_offset": 2192253,
+     "quote": "went into action July 1, [...] about 1 p. m. After maneuvering on the field about half an hour",
+     "witness": {
+      "name": "Orren Williams",
+      "role": "Captain commanding the 2nd North Carolina (Ramseur's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "ramseur-brigade",
+     "exact": false,
+     "part": "OR27-2-R519",
+     "page": "589",
+     "states": {
+      "times": [
+       "13:00"
+      ],
+      "dates": [
+       "07-01"
+      ]
+     },
+     "note": "The report is undated in the print (the dateline reads '[1863.]'); the regiment belongs to Ramseur's brigade, which Rodes held in reserve behind Iverson and O'Neal."
+    }
+   ],
+   "inference": {
+    "step": "Daniel's report and two regiments of his brigade (53rd and 43rd North Carolina) put the line's advance at about 1 o'clock, and the 2nd North Carolina of Ramseur's brigade says it went into action about 1 p.m.; these units advanced beside or behind Iverson, so the infantry attack is read as beginning about then, rounded to the hour.",
+    "from": [
+     "daniel report p.569",
+     "owens p.576",
+     "lewis p.573",
+     "williams p.589"
+    ]
+   },
+   "derived": true,
+   "stance": "default"
+  },
+  {
+   "id": "C-041-P5",
+   "origin": "research",
+   "label": "About noon to 13:00: two regiments say they were engaged at noon or between 12 and 1",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-01T12:00",
+    "to": "1863-07-01T13:00"
+   },
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "page_basis": "scan_leaf",
+     "text_offset": 2154334,
+     "quote": "entered the engagement of July 1, with the remainder of the brigade, between the hours of 12 m. and 1 p. m.",
+     "witness": {
+      "name": "Van Brown",
+      "role": "Captain, 2nd North Carolina Battalion (Daniel's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-19",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "window",
+     "group": "daniel-brigade",
+     "exact": false,
+     "part": "OR27-2-R512",
+     "page": "577",
+     "states": {
+      "times": [
+       "12:00",
+       "13:00"
+      ],
+      "dates": [
+       "07-01"
+      ]
+     }
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "page_basis": "scan_leaf",
+     "text_offset": 2236134,
+     "quote": "at which place we engaged the enemy about 12 m. on July 1",
+     "witness": {
+      "name": "John C. Goodgame",
+      "role": "Lieutenant Colonel commanding the 26th Alabama (Rodes's old brigade, O'Neal)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "oneal-brigade",
+     "exact": false,
+     "part": "OR27-2-R530",
+     "page": "602",
+     "states": {
+      "times": [
+       "12:00"
+      ],
+      "dates": [
+       "07-01"
+      ]
+     }
+    }
+   ],
+   "inference": {
+    "step": "Two regiments of the division say they were engaged at about 12 m. or between 12 m. and 1 p.m.; read as the start of the division's infantry attack only by treating the first fire as the attack.",
+    "from": [
+     "brown report p.577",
+     "goodgame report p.602"
+    ]
+   },
+   "flags": [
+    "weak",
+    "different_event"
+   ],
+   "derived": true,
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Daniel's brigade report puts the brigade about two and a half miles from the town at about 12 m., so noon dates arrival or first fire, not the infantry attack, which both Rodes and Iverson put after the guns."
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "No report of Rodes's division, of Rodes, Iverson, O'Neal, Ramseur or Carter, gives a clock reading for the infantry attack. Four Confederate units say about 1 p.m.; Daniel's own interval works out to about 14:00; the Union I Corps commander and a regiment of the XI Corps say about 1.30; Hill, Wilcox and a Park Service report say about 2.30, but Hill dates Ewell's wing appearing on his left and the other two give no source. The best-classed witnesses (reports written within 50 to 170 days) therefore span about 13:00 to 14:00 and nothing in the rubric separates them, so the record is a window and the picture takes its middle, 13:30. The plan's 14:30 is a different act; its 13:30 and 14:00 sit inside the window.",
+  "who": "Daniel and the colonels and captains of his and Ramseur's brigades were in the attacking line and wrote their own hours; Doubleday commanded the I Corps and Dobke a regiment on its right, both on the receiving end; Hill commanded the corps on the left but did not see this front; Wilcox led a division that reached the field after the fighting; the 1968 report and Hoke (1887) are not witnesses.",
+  "when": "The unit reports are of 9 to 20 July and of 20 August 1863 (Daniel), Dobke 21 August, Doubleday 14 December 1863, Hill November 1863: all official reports within a year. Wilcox wrote in March 1877 and Doubleday's book is of 1882; Hoke 1887 and the Park Service report 1968 are later still.",
+  "where": "The Confederate regiments stood in the line that advanced; Daniel's brigade moved to the right behind Iverson, and Ramseur's was in reserve, so the 'about 1 o'clock' of the 53rd and 43rd North Carolina dates a brigade moving up, not Iverson's first step. Doubleday and Dobke watched from the side that was hit. Hill's 2.30 is the appearance of Ewell's wing seen from Hill's line.",
+  "how_knew": "Every unit commander gives a rounded hour from memory a few weeks later; none has a clock reading. Daniel's 'some hour and a half' is an interval, from which about 14:00 is worked out here. Doubleday's and Dobke's 'about 1.30' are estimates. Wilcox and the Park Service give no source.",
+  "clock": "Confederate writers use their own clock and Doubleday and Dobke the Union one; the plan notes that the two clocks reportedly differed by about 20 minutes (an unsourced estimate) and corrects for neither. A Union 1.30 and a Confederate 1 p.m. could be the same moment on that estimate, so the difference is carried as uncertainty inside the window, not applied.",
+  "independence": "The Confederate regiments report along brigade chains (Daniel's brigade report and its regiments are one group, Ramseur's regiments another), so the window's two bounds rest on two groups each. Doubleday (report, book) and Hoke, who repeats his order of battle, are one group; Dobke is a second. Hill and Wilcox (who repeats Hill's hour without a source) are one group, the Park Service report a third. No two groups agree on one hour for the attack itself."
+ },
+ "source_panel_text": "About 13:00 to 14:00 on Jul 1; the picture uses 13:30. No report of Rodes's division gives an hour for the attack: four Confederate units say about 1 p.m., Daniel's own interval gives about 2, Doubleday and Dobke about 1.30. 14:30 dates Ewell's wing appearing, not the attack. All values stay listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "14:00 is inside the window and is its upper bound (Daniel's interval; Lambeth), so it stays selectable and sourced; it is not the best-supported single instant, because the units that advanced put it about 13:00 to 13:30."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "The delegated window 13:30-14:30 and its 14:00 picture are replaced by about 13:00-14:00 with the picture at 13:30: the regiments' 1 p.m. lowers the window, and 14:30 dates another act. 13:30, 14:00 and 14:30 all stay selectable; tier inferred holds."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-041 row)",
+   "must_change": true,
+   "note": "Row names the default 14:00 inside window 13:30-14:30 (inferred); this resolution gives window 13:00-14:00, picture at 13:30 (irreducible, inferred). Not edited here."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL02-04 row)",
+   "must_change": false,
+   "note": "Says C-041 is for the infantry attack and is not applied to T1-115 (arrival and first fire); that stays true."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL02-05 row)",
+   "must_change": false,
+   "note": "Names C-041 as not applied to the arrival rows; unchanged."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL03-02 row)",
+   "must_change": true,
+   "note": "Applies C-041 14:00 inside 13:30-14:30 unchanged to T1-126; the integration step reconciles it with the window 13:00-14:00 and the 13:30 picture."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0116.md",
+   "must_change": true,
+   "note": "Evidence-gap entry for Rodes's attack start: to cite the hours found (Daniel, Owens, Lewis, Williams, Lambeth, Doubleday, Dobke) and the window; the entry's competing 13:30/14:00/14:30 stay as listed values."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-041",
+   "must_change": true,
+   "note": "Still reads PENDING OWNER with the plan's 14:00; the integration step records the delegated resolution (window 13:00-14:00, picture 13:30) as a reversible delegated decision."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md",
+   "must_change": false,
+   "note": "Names C-041 in the count of inferred defaults; C-041 stays inferred. No gate floor depends on the attack hour; no gate is changed."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md",
+   "must_change": false,
+   "note": "Same count of inferred defaults; unchanged (inferred). No gate changed."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-115",
+   "must_change": false,
+   "note": "Rodes's arrival on Oak Hill and the first fire of Carter's guns; C-041 is the infantry attack and is not applied here. Hoke and Doubleday's book put the Oak Hill battery's first fire at about 1.30 (Union clock), a separate question."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-126",
+   "must_change": true,
+   "note": "Window 'Jul 1 about 13:30-14:00' and default 14:00 inside 13:30-14:30: the window becomes about 13:00-14:00 with the picture at 13:30; 14:00 and 14:30 stay selectable (14:30 marked as another act). Row not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-129",
+   "must_change": true,
+   "note": "Iverson's advance 'about 14:00-14:30' shares the attack-start question; the same window about 13:00-14:00 applies to its start. Row not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-131",
+   "must_change": false,
+   "note": "O'Neal's brigade goes in with Iverson's; the hour is that of T1-126 and the row's content (regiment counts) is not changed by this resolution."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-2c-rodes",
+   "must_change": true,
+   "note": "The row's key-positions cell reads 'Jul 1 14:00 attack' (tools/bt/arrivals_data.py line 342); the attack label follows the window. Its arrival gate (printed clock 12:30) is not about the attack and is not changed; no gate lowered."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-041)",
+   "must_change": true,
+   "note": "Carries C-041-DEFAULT 14:00 inside 13:30-14:30; the integration step replaces it with the window 13:00-14:00, picture 13:30, and keeps all scenarios."
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-041)",
+   "must_change": true,
+   "note": "First delegated default (14:00 inside 13:30-14:30); superseded by this resolution after integration."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/placement-claims.json (C-041, two entries)",
+   "must_change": false,
+   "note": "Placement claims that mention C-041; not read for an hour here, no change expected."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/positions_D/54_rodes_division.py, 50_ewell_corps.py, 85_brigade_arrivals.py, positions_summary.py",
+   "must_change": false,
+   "note": "Carry C-041 as a cross-reference on Rodes position rows (arrival and July 2 attack); no hour of the July 1 attack stored there was found changing."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-2 (reports of Rodes, Iverson, O'Neal, Ramseur, Doles, Carter, Early, Ewell)",
+   "query": "a clock expression anywhere in each report for the July 1 infantry attack (o'clock, a. m., p. m., decimal hours, 'noon', '12 m.') and the whole of Rodes's narrative of July 1 read through; Rodes, Iverson, O'Neal, Ramseur and Carter give none; Doles says the brigade formed about 1 p.m. and moved about 3.30; Early's report gives 4 p.m. for July 2 only",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-1 (Union I and XI Corps reports: Doubleday, Wadsworth, Robinson, Cutler, Rowley, Howard, Schurz and regimental reports of Baxter's and Paul's brigades)",
+   "query": "clock expressions near Ewell, Rodes, Oak Ridge, Mummasburg, Carlisle road, right flank: found Doubleday and Dobke 1.30 and the others at 12:30 to 3:45; no Union report names Rodes or Iverson with an hour; the reports between R030 and R070 were scanned for clock expressions, not all read in full",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "EARLY-1912-C041 (fetched from archive.org) and DOUBLEDAY-1882-C041 (fetched from archive.org)",
+   "query": "Rodes, Iverson, O'Neal, Oak Hill with clock words: Early's chapter on Gettysburg gives no hour for Rodes; Doubleday's book gives about 1.30 for the Oak Hill battery and about 2.45 for O'Neil and Dole, none for Iverson",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "NPS Gettysburg Seminar, first day (the plan's NPS-Sem, cited for 'shortly after 13:30'), Stone Sentinels (SS, 14:30) and the plan's W-FD (14:00)",
+   "query": "the pages themselves; the Seminar paper is not identified by the plan and no local seminar paper gives 13:30; the two web pages are not among the hosts reachable for this research",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Local books and papers of the ledger (ws9 texts, SHSP, Hoke, Battles and Leaders, Pennsylvania at Gettysburg, Minnigh) by regular expression",
+   "query": "Rodes, Iverson, O'Neal near 1:30, 2:00, 2:30, half past one, half past two, two o'clock (both orders): found Wilcox's 2:30 (SHSP vol. 4 and a second printing), Hoke's half past one (battery), a Pennsylvania battery's 'about 1 or 1.30' for the Oak Hill guns, Minnigh's map caption for 1.30; the last two were not read in context and are not cited",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A clock reading of Rodes's advance by Rodes, Iverson, O'Neal, Carter or a staff officer, or a dispatch of 1 July timed by its sender (Ewell or Rodes to Lee or Hill), would fix a point. A page image of the Official Records showing a different hour in Daniel's, Owens's, Lewis's or Williams's text would move the lower bound. A source behind the plan's 13:30, 14:00 or 14:30 (the Seminar paper, the Stone Sentinels page) would add a witness."
+}

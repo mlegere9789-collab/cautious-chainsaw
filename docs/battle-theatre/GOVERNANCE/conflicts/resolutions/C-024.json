@@ -67,9 +67,6 @@
    "scenario_ids": [
     "C-024-S1"
    ],
-   "source_keys": [
-    "SS2"
-   ],
    "approx": true,
    "flags": [
     "unsourced"
@@ -116,16 +113,14 @@
    "scenario_ids": [
     "C-024-S2"
    ],
-   "source_keys": [
-    "NPS-H1"
-   ],
    "approx": false,
    "flags": [
     "weak",
     "contradicted"
    ],
+   "derived": true,
    "inference": {
-    "step": "The handbook says Meade sought the council's advice \"at midnight\"; read as the start of the council. No source is cited; Gibbon, who sat in it, puts midnight at the end of the sitting.",
+    "step": "Day 3 July is the midnight at the end of 2 July. The handbook says Meade sought the council's advice \"at midnight\"; read as the start of the council. No source is cited; Gibbon, who sat in it, puts midnight at the end of the sitting.",
     "from": [
      "C-024-P2-c1",
      "C-024-P2-c3"
@@ -468,7 +463,7 @@
     }
    ],
    "reason_not_chosen": {
-    "kind": "no_source",
+    "kind": "outweighed",
     "text": "The 24:00 end is Gibbon's \"nearly 12 o'clock\", but no source gives 21:00 as the start; Meade and Hancock tie the assembly to darkness and twilight, not to an hour."
    }
   },
@@ -532,7 +527,7 @@
     }
    ],
    "reason_not_chosen": {
-    "kind": "no_source",
+    "kind": "outweighed",
     "text": "Same window as the plan: the start has no source. No witness describes two sittings that night; the 15:00 meeting that afternoon is another event (listed)."
    }
   },
@@ -549,9 +544,9 @@
    "stance": "default",
    "clock": "union",
    "approx": true,
-   "tolerance_min": 15,
+   "derived": true,
    "inference": {
-    "step": "Lower bound: Meade sent for his corps commanders after darkness had set in (Meade, 1864), Gibbon was summoned at night after the fighting was over, Haskell puts it after evening came on; sunset is 19:32 on 2 Jul (standing note), so the assembly cannot be earlier. Upper bound: Gibbon says the sitting \"continued up to nearly 12 o'clock\". The start inside the window is not stated by any source.",
+    "step": "The end 24:00 is 3 July 00:00; the start 19:32 is the standing sunset time, not read from a document. Lower bound: Meade sent for his corps commanders after darkness had set in (Meade, 1864), Gibbon was summoned at night after the fighting was over, Haskell puts it after evening came on; sunset is 19:32 on 2 Jul (standing note), so the assembly cannot be earlier. Upper bound: Gibbon says the sitting \"continued up to nearly 12 o'clock\". The start inside the window is not stated by any source.",
     "from": [
      "C-024-P6-c1",
      "C-024-P6-c2",
@@ -623,9 +618,6 @@
      "group": "meade",
      "exact": false,
      "states": {
-      "dates": [
-       "07-02"
-      ],
       "phrases": [
        "darkness had set in"
       ]
@@ -653,7 +645,7 @@
      "vantage": "present",
      "knew_by": "eyewitness",
      "clock": "union",
-     "hedge": "about",
+     "hedge": "exact",
      "group": "hancock",
      "exact": false,
      "states": {
@@ -669,7 +661,7 @@
      "source_class": "book",
      "page": "65",
      "page_basis": "as_read",
-     "page_note": "printed page read from the bracketed page marks of the reprint ([65] precedes the passage)",
+     "page_note": "printed page read from the bracketed page marks of the reprint (the running head [66] follows the passage, so it stands on page 65; the number 65 itself is not printed near it)",
      "text_offset": 108099,
      "quote": "After evening came on, and from reports received, all was known to be going satisfactorily upon the right. Gen. Meade summoned his Corps Commanders to his Headquarters for consultation.",
      "witness": {
@@ -701,7 +693,7 @@
      "source_class": "book",
      "page": "71",
      "page_basis": "as_read",
-     "page_note": "printed page read from the bracketed page marks of the reprint ([71] precedes the passage)",
+     "page_note": "printed page read from the bracketed page marks of the reprint (the marker [71] precedes the passage, more than 6000 characters before it)",
      "text_offset": 116534,
      "quote": "After some two hours the council dissolved, and the officers went their several ways.",
      "witness": {
@@ -716,7 +708,7 @@
      "vantage": "staff_present",
      "knew_by": "not_stated",
      "clock": "union",
-     "hedge": "about",
+     "hedge": "exact",
      "group": "gibbon",
      "exact": false,
      "states": {
@@ -750,7 +742,7 @@
      "vantage": "present",
      "knew_by": "eyewitness",
      "clock": "union",
-     "hedge": "about",
+     "hedge": "exact",
      "group": "gibbon",
      "exact": false,
      "states": {
@@ -884,7 +876,7 @@
     "weak"
    ],
    "inference": {
-    "step": "Pleasonton, who was away from the field from about 5 p.m. to 10 p.m., describes the council as held \"early in the evening\"; read as what he was told, 20 years later.",
+    "step": "The day (2 July) is the day of the council. Pleasonton, who was away from the field from about 5 p.m. to 10 p.m., describes the council as held \"early in the evening\"; read as what he was told, 20 years later.",
     "from": [
      "C-024-P7-c1"
     ]
@@ -939,12 +931,12 @@
    "stance": "selectable",
    "clock": "union",
    "approx": true,
-   "tolerance_min": 30,
+   "derived": true,
    "flags": [
     "different_event"
    ],
    "inference": {
-    "step": "Butterfield's circular sent at 3 p.m. calls seven corps commanders to headquarters (hour blank); Sickles says the council that broke up as his front was attacked \"was at 3 in the afternoon\". Read as one earlier meeting, not the night council.",
+    "step": "The day is the day of the circular. Butterfield's circular sent at 3 p.m. calls seven corps commanders to headquarters (hour blank); Sickles says the council that broke up as his front was attacked \"was at 3 in the afternoon\". Read as one earlier meeting, not the night council.",
     "from": [
      "C-024-P8-c1",
      "C-024-P8-c2"
@@ -1007,9 +999,6 @@
      "group": "sickles",
      "exact": true,
      "states": {
-      "times": [
-       "15:00"
-      ],
       "phrases": [
        "at 3 in the afternoon"
       ]
