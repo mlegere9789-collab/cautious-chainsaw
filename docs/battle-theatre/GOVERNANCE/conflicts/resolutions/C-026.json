@@ -1,0 +1,885 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-026",
+ "topic": "Sherfy barn fire",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-026",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Sherfy barn fire | Jul 2 evening; Jul 3 | Jul 2 evening | Jul 3",
+  "values": [
+   "Jul 2 evening",
+   "Jul 3"
+  ],
+  "recommended_default": "Jul 2 evening",
+  "selectable_alternatives": [
+   "Jul 3"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-026-DEFAULT",
+  "default_label": "Jul 2 evening (PDF), date unsourced, marked gap",
+  "tier": "plausible-procedural",
+  "basis": "gap",
+  "scenario_ids": [
+   "C-026-S1",
+   "C-026-S2",
+   "C-026-S3",
+   "C-026-DEFAULT"
+  ]
+ },
+ "class": "irreducible",
+ "tier": "inferred",
+ "basis": {
+  "kind": "contemporaneous_other",
+  "text": "The only writing of the time that names the barn, the Gettysburg Compiler of 20 Jul 1863, says it burned \"while the battle was raging\" with wounded Zouaves in it, which dates it after the fight of 2 Jul and within the battle. The Official Records name no Sherfy; later writers give 2 Jul (Miller 1909, Park Service 1981) or 3 Jul (Minnigh 1892), each without a source."
+ },
+ "default": {
+  "mode": "window",
+  "positions": [
+   "C-026-P5"
+  ],
+  "label": "During the battle: after the Jul 2 afternoon fight, no later than the end of Jul 3",
+  "basis_text": "Lower bound: the wounded Zouaves of the 114th Pennsylvania, who fought at the farm on the afternoon of 2 Jul, were in the barn when it burned (Compiler of 20 Jul 1863; Bowen, 13 Jul 1863). Upper bound: the Compiler's \"while the battle was raging\" (the battle ended with 3 Jul). The two days inside the window are each given by one later text without a source.",
+  "animation": {
+   "at": null,
+   "rule": "none",
+   "note": "No single instant is supported: the barn stands until the window opens on the afternoon of 2 Jul and is shown burning, with \"time uncertain\" marked, anywhere in the window; the Jul 2 evening and Jul 3 readings stay selectable."
+  },
+  "note": "The hour is open. The plan's Jul 2 evening and Jul 3 are the two days inside the window."
+ },
+ "positions": [
+  {
+   "id": "C-026-P1",
+   "origin": "pdf_value",
+   "label": "Jul 2, after the afternoon fight at the farm (the plan says evening; no source gives the hour)",
+   "kind": "date",
+   "value": {
+    "date": "1863-07-02"
+   },
+   "tier": "inferred",
+   "clock": "unspecified",
+   "support": [
+    {
+     "id": "C-026-P1-c1",
+     "source": "MILLER-HISTVIEWS-1909",
+     "source_class": "book",
+     "page": "unnumbered",
+     "page_basis": "as_read",
+     "page_note": "the text is a caption page of an illustrated book; no printed page number is read in the text layer",
+     "text_offset": 99777,
+     "quote": "the old barn was burned during the battle of the second day",
+     "witness": {
+      "name": "Robert C. Miller",
+      "role": "Gettysburg custodian and author of the text of \"Historic Views of Gettysburg\" (1909)",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1909",
+      "kind": "later_history"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "miller",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "old barn was burned"
+      ]
+     },
+     "note": "In a note under the view of the Sherfy house: \"The house shows the marks of hundreds of bullets, while the old barn was burned during the battle of the second day.\" It says the day, not the hour, and gives no source."
+    },
+    {
+     "id": "C-026-P1-c2",
+     "source": "NPS-COMMON-PRIDE-2",
+     "source_class": "official",
+     "page": "151",
+     "page_basis": "pdf_marker",
+     "page_note": "printed page 368 (text-layer PDF page 151)",
+     "text_offset": 302297,
+     "quote": "Since the first two were burned during the battle (Sherfy [...] on July 2 and Spangler's also on July 2)",
+     "witness": {
+      "name": "Kathleen R. Georg",
+      "role": "Research Historian, Gettysburg National Military Park",
+      "side": "institution"
+     },
+     "written": {
+      "date": "1981",
+      "kind": "institutional"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "georg",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "Sherfy"
+      ]
+     },
+     "note": "A footnote-free aside in a study of Pickett's division, written to decide which barn Major Haskell meant. It states that Sherfy's barn burned on 2 Jul and Spangler's also on 2 Jul and cites no source for either date. The text layer prints \"Sherfy1s\" for \"Sherfy's\"."
+    },
+    {
+     "id": "C-026-P1-c3",
+     "source": "GBG-COMPILER-1863",
+     "source_class": "primary",
+     "part": "1863-07-20",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer",
+     "text_offset": 24551,
+     "quote": "In the barn of the latter, and [...] stacks, were about twenty",
+     "witness": {
+      "name": "Gettysburg Compiler",
+      "role": "Weekly newspaper of Gettysburg, local notice in the issue of 20 Jul 1863 (unsigned)",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1863-07-20",
+      "kind": "newspaper_1863"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "compiler",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "twenty"
+      ]
+     },
+     "note": "The same notice, the sentence after the list of barn owners (the last owner in the list reads \"Joseph SheTfy\" in the damaged text layer, taken as Joseph Sherfy; \"the latter\" is that owner): about twenty wounded Philadelphia Zouaves \"perished in the conflagration\" in Sherfy's barn and around his hay stacks. The Zouaves were the 114th Pennsylvania, which fought at the farm on 2 Jul (Bowen; Hinman); this is why the fire is after the afternoon fight of 2 Jul, not before it."
+    },
+    {
+     "id": "C-026-P1-c4",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R133",
+     "page": "483",
+     "page_basis": "scan_leaf",
+     "text_offset": 1691680,
+     "quote": "held the peach orchard until nearly dusk, when, finding the right unsupported, it fell back to the next ridge",
+     "witness": {
+      "name": "David B. Birney",
+      "role": "Major General, commanding First Division, Third Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "upper",
+     "group": "birney",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "nearly dusk"
+      ]
+     },
+     "note": "Graham's brigade, which included the 114th and 57th Pennsylvania at the Sherfy buildings, held the Peach Orchard until \"nearly dusk\" and then fell back: the wounded left in the barn were left after that. Sunset on 2 Jul was 19:32 local mean time. Birney is a division commander and gives the time of the brigade, not of the barn."
+    }
+   ],
+   "stance": "selectable",
+   "pdf_label": "Jul 2 evening",
+   "scenario_ids": [
+    "C-026-S1",
+    "C-026-S3",
+    "C-026-DEFAULT"
+   ],
+   "inference": {
+    "step": "Miller (1909) and Georg (1981) give the day, 2 Jul, and no hour; the plan's \"evening\" is not in either. It is inferred from the Compiler (wounded Zouaves of the 114th were in the barn when it burned) and Birney (the brigade held the orchard until \"nearly dusk\"), which put the fire after the afternoon fight of 2 Jul.",
+    "from": [
+     "C-026-P1-c1",
+     "C-026-P1-c2",
+     "C-026-P1-c3",
+     "C-026-P1-c4"
+    ]
+   },
+   "flags": [
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "equal_standing",
+    "text": "Two later texts give 2 Jul without a source and no text of the time gives a day; the one text that gives 3 Jul stands as high. Kept as the earliest day the record allows."
+   }
+  },
+  {
+   "id": "C-026-P2",
+   "origin": "pdf_value",
+   "label": "Jul 3 (the day only; no source gives the hour)",
+   "kind": "date",
+   "value": {
+    "date": "1863-07-03"
+   },
+   "tier": "inferred",
+   "clock": "unspecified",
+   "support": [
+    {
+     "id": "C-026-P2-c1",
+     "source": "MINNIGH-1892-SCAN-A",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer; the item stands on the page before the running head \"112 GETTYSBURG. - IN PROSE AND POETRY\"",
+     "text_offset": 219850,
+     "quote": "The Sherfy barn was burned during the 3d of July.",
+     "witness": {
+      "name": "Luther W. Minnigh",
+      "role": "Gettysburg local author and guide; compiler of the guide book \"Gettysburg: What They Did Here\" (1892)",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1892",
+      "kind": "later_history"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "minnigh",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-03"
+      ],
+      "phrases": [
+       "Sherfy barn was burned"
+      ]
+     },
+     "note": "A one-line item in a collection of short notes; it says no hour, gives no source and says nothing about the 2d. The book prints the same line in its other editions (the second scan MINNIGH-1892-SCAN-B carries it too; one book, one group)."
+    },
+    {
+     "id": "C-026-P2-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R321",
+     "page": "888",
+     "page_basis": "scan_leaf",
+     "text_offset": 3134415,
+     "quote": "I candidly believe it was I who caused his caissons to explode and set the barn on fire",
+     "witness": {
+      "name": "Patrick Hart",
+      "role": "Captain, 15th New York Battery (Artillery Reserve)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-02",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hart",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "set the barn on fire"
+      ]
+     },
+     "note": "Hart is describing 3 Jul (the paragraph begins \"Early on the morning of the 3d\" and follows the repulse of the infantry attack). He does not name the barn or its owner, and McMahon (OR27-1 p. 889, 17 Jul 1863) puts the battery that day \"on the left of the cemetery\". The quote says what Hart believes his guns did; it does not say that the barn is the Sherfy barn."
+    }
+   ],
+   "stance": "selectable",
+   "pdf_label": "Jul 3",
+   "scenario_ids": [
+    "C-026-S2"
+   ],
+   "inference": {
+    "step": "Minnigh (1892) states the day, 3 Jul, without a source; Hart (15th New York Battery, 2 Aug 1863) claims on 3 Jul to have set \"the barn\" afire but does not name it. Together they place a fire of some barn on 3 Jul; the Sherfy barn on that day rests on Minnigh alone.",
+    "from": [
+     "C-026-P2-c1",
+     "C-026-P2-c2"
+    ]
+   },
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "equal_standing",
+    "text": "One later guide gives 3 Jul without a source; the Compiler of 1863 puts the fire only \"while the battle was raging\". Kept selectable as the latest day the record allows."
+   }
+  },
+  {
+   "id": "C-026-P3",
+   "origin": "research",
+   "label": "Jul 3 afternoon: a barn set afire by Hart's battery after the infantry attack (barn not named)",
+   "kind": "period",
+   "value": {
+    "text": "set the barn on fire",
+    "date": "1863-07-03",
+    "part_of_day": "afternoon"
+   },
+   "tier": "inferred",
+   "clock": "unspecified",
+   "support": [
+    {
+     "id": "C-026-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R321",
+     "page": "888",
+     "page_basis": "scan_leaf",
+     "text_offset": 3134415,
+     "quote": "I candidly believe it was I who caused his caissons to explode and set the barn on fire",
+     "witness": {
+      "name": "Patrick Hart",
+      "role": "Captain, 15th New York Battery (Artillery Reserve)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-02",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hart",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "set the barn on fire"
+      ]
+     },
+     "note": "Hart is describing 3 Jul (the paragraph begins \"Early on the morning of the 3d\" and follows the repulse of the infantry attack). He does not name the barn or its owner, and McMahon (OR27-1 p. 889, 17 Jul 1863) puts the battery that day \"on the left of the cemetery\". The quote says what Hart believes his guns did; it does not say that the barn is the Sherfy barn."
+    }
+   ],
+   "stance": "selectable",
+   "inference": {
+    "step": "Hart's paragraph runs from the morning of the 3d through the repulse of the infantry attack to the evening; \"set the barn on fire\" falls in that afternoon. That the barn is Sherfy's is not stated and is doubtful: McMahon places the battery \"on the left of the cemetery\" that day.",
+    "from": [
+     "C-026-P3-c1"
+    ]
+   },
+   "flags": [
+    "single_source",
+    "weak",
+    "different_event"
+   ],
+   "derived": true,
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Hart does not name the barn, and his battery stood by the cemetery on 3 Jul; it may be another barn. Kept because the 3 Jul afternoon is the plan's \"most-supported\" reading."
+   }
+  },
+  {
+   "id": "C-026-P4",
+   "origin": "research",
+   "label": "Jul 3 morning: a 77th New York soldier as a farm web page summarises him (page not read)",
+   "kind": "period",
+   "value": {
+    "text": "morning of 3 Jul",
+    "date": "1863-07-03",
+    "part_of_day": "morning"
+   },
+   "tier": "open gap",
+   "clock": "unspecified",
+   "support": [],
+   "stance": "selectable",
+   "flags": [
+    "lead_only",
+    "unsourced"
+   ],
+   "failed_lookups": [
+    {
+     "where": "gettysburg.stonesentinels.com",
+     "query": "https://gettysburg.stonesentinels.com/battlefield-farms/sherfy-farm/ (one request on 2026-11-24)",
+     "outcome": "blocked",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "NY-GB-1900 and the other local New York volumes",
+     "query": "77th New York account of the Sherfy barn; Sherfy with barn, burn, fire within 500 characters (the earlier searches of the web workstream, repeated on the ledger texts)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "lead_only",
+    "text": "Known only from a note on a web page that could not be opened; the soldier, the date of his writing and the wording are not seen. Kept listed, not weighed."
+   },
+   "scenario_ids": []
+  },
+  {
+   "id": "C-026-P5",
+   "origin": "research",
+   "label": "During the battle: from the afternoon fight on Jul 2 to the end of Jul 3 (day and hour not fixed)",
+   "kind": "date_window",
+   "value": {
+    "from": "1863-07-02",
+    "to": "1863-07-03"
+   },
+   "tier": "inferred",
+   "clock": "unspecified",
+   "support": [
+    {
+     "id": "C-026-P5-c1",
+     "source": "GBG-COMPILER-1863",
+     "source_class": "primary",
+     "part": "1863-07-20",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (the issue is 4 pages); the notice stands in the second column of the editorial page",
+     "text_offset": 24141,
+     "quote": "persons suffered in the destruction of their [...] while the battle [...] raging",
+     "witness": {
+      "name": "Gettysburg Compiler",
+      "role": "Weekly newspaper of Gettysburg, local notice in the issue of 20 Jul 1863 (unsigned)",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1863-07-20",
+      "kind": "newspaper_1863"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "compiler",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "persons suffered in the destruction of their"
+      ]
+     },
+     "note": "A list of local people who \"suffered in the destruction of their houses and barns by fire, while the battle was raging\". The text layer is damaged in the middle of the line (it reads \"bouses and barnB(by Jirc, w hile the battle tyas raging\"), so the quote keeps only the words that read correctly, and the rest is the reading of the corrected phrase. It names Joseph Sherfy among the barn owners. The word \"battle\" covers the three days; the notice gives no day or hour for any of the fires. The text layer is badly damaged here; the corrected reading changes only single letters; the page image could not be fetched (archive.org image host refused the connection), so the reading rests on the text layer and on the three other readings below."
+    },
+    {
+     "id": "C-026-P5-c3",
+     "source": "GBG-COMPILER-1863",
+     "source_class": "primary",
+     "part": "1863-07-20",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer",
+     "text_offset": 24551,
+     "quote": "In the barn of the latter, and [...] stacks, were about twenty",
+     "witness": {
+      "name": "Gettysburg Compiler",
+      "role": "Weekly newspaper of Gettysburg, local notice in the issue of 20 Jul 1863 (unsigned)",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1863-07-20",
+      "kind": "newspaper_1863"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "compiler",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "twenty"
+      ]
+     },
+     "note": "The same notice, the sentence after the list of barn owners (the last owner in the list reads \"Joseph SheTfy\" in the damaged text layer, taken as Joseph Sherfy; \"the latter\" is that owner): about twenty wounded Philadelphia Zouaves \"perished in the conflagration\" in Sherfy's barn and around his hay stacks. The Zouaves were the 114th Pennsylvania, which fought at the farm on 2 Jul (Bowen; Hinman); this is why the fire is after the afternoon fight of 2 Jul, not before it."
+    },
+    {
+     "id": "C-026-P5-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R140",
+     "page": "503",
+     "page_basis": "scan_leaf",
+     "text_offset": 1756312,
+     "quote": "a number of men as missing whom I have no doubt were killed and their bodies burned when the barn was burned down",
+     "witness": {
+      "name": "Edward R. Bowen",
+      "role": "Captain, 114th Pennsylvania Infantry (Graham's brigade, Third Corps), commanding the regiment after Cavada was taken",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-13",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "bowen",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "bodies burned when the barn was burned down"
+      ]
+     },
+     "note": "Bowen reports men missing from the fighting of 2 Jul that he assumes died in the barn; he does not name the barn or the owner, gives no hour and no day for the fire, and says \"I have no doubt\", so it is his belief. The report is compiled from his \"own observations and memory\" because he took the regiment only after Cavada was captured. The regiment fought at the Sherfy buildings on 2 Jul (Hinman, PA vol. 2)."
+    },
+    {
+     "id": "C-026-P5-c4",
+     "source": "HINMAN-CAMPFIELD-1892",
+     "source_class": "book",
+     "page": "296",
+     "page_basis": "as_read",
+     "page_note": "printed page 296 (running head \"296 CAMP AND FIELD\" above the paragraph)",
+     "text_offset": 764067,
+     "quote": "Sherfy's barn had taken fire during the cannonade and was burned to the ground",
+     "witness": {
+      "name": "Frank E. Moran",
+      "role": "Captain, 73d New York (\"Second Fire Zouaves\"), Humphreys' division; captured wounded at the Sherfy buildings on 2 Jul",
+      "side": "union"
+     },
+     "written": {
+      "date": "1892",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "moran",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "cannonade"
+      ]
+     },
+     "note": "Moran (a prisoner, near Bunker Hill about ten days after the battle) reports what a soldier of the Washington Artillery told him, with a gap of 29 years: a man he \"never saw before\", whose name he cannot recall, said that his battery had engaged the line near the Sherfy house and that the barn took fire \"during the cannonade\". No day is given. The Washington Artillery fired at the Peach Orchard on the evening of 2 Jul and again on 3 Jul. Hearsay of hearsay: used only for the cause (shells) and for the fact that Confederates helped wounded men out."
+    },
+    {
+     "id": "C-026-P5-c5",
+     "source": "HINMAN-CAMPFIELD-1892",
+     "source_class": "book",
+     "page": "296",
+     "page_basis": "as_read",
+     "page_note": "printed page 296; the clause continues \"while the battle Avas still on\" in the text layer (Avas for was)",
+     "text_offset": 764339,
+     "quote": "who had crept into it for its doubtful shelter",
+     "witness": {
+      "name": "Frank E. Moran",
+      "role": "Captain, 73d New York (\"Second Fire Zouaves\"), Humphreys' division; captured wounded at the Sherfy buildings on 2 Jul",
+      "side": "union"
+     },
+     "written": {
+      "date": "1892",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "moran",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "crept into it for its doubtful shelter"
+      ]
+     },
+     "note": "The same Washington Artillery soldier, as Moran reports him: wounded men, Union and Confederate, \"who had crept into it for its doubtful shelter while the battle [was] still on\" and could not escape \"when the exploding shells set it on fire\". Moran adds that two officers of his regiment were among those rescued, one of them George Dennen, wounded on 2 Jul."
+    },
+    {
+     "id": "C-026-P5-c6",
+     "source": "FIFTY7-PA-1900",
+     "source_class": "book",
+     "page": "93",
+     "page_basis": "as_read",
+     "page_note": "printed page 93 (running head \"PENNSYLVANIA VETERAN VOLUNTEERS. 93\")",
+     "text_offset": 161429,
+     "quote": "The bursting of shells had set fire to the large barn and destroyed it, burning at the same time a number of wounded soldiers who had sought refuge in it",
+     "witness": {
+      "name": "E. C. Strouss",
+      "role": "Member of the 57th Pennsylvania (Graham's brigade), author of chapter VIII of the regimental history (1900)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1900",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "strouss",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "set fire to the large barn"
+      ]
+     },
+     "note": "Strouss walked out to the Sherfy house on the afternoon of 6 Jul and saw the burned barn; the chapter says the shells had set it afire. He gives no day for the fire, so the passage dates it only as before the afternoon of 6 Jul. Written 37 years after the visit."
+    },
+    {
+     "id": "C-026-P5-c7",
+     "source": "BACH-WHATTOSEE-1873",
+     "source_class": "book",
+     "page": "81",
+     "page_basis": "as_read",
+     "page_note": "printed page 81 (running head \"THE PEACH ORCHARD. 81\")",
+     "text_offset": 124605,
+     "quote": "Mr. Sherfey's house on the right bears many scars of the battle. His barn was burned, and many bodies of dead Union soldiers were consumed with it.",
+     "witness": {
+      "name": "John B. Bachelder",
+      "role": "Battlefield historian and mapmaker; author of the guide \"Gettysburg: What to See, and How to See It\" (1873)",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1873",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "bachelder",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "His barn was burned",
+       "bodies of dead Union soldiers"
+      ]
+     },
+     "note": "Bachelder, who worked on the field from the days after the battle, says the barn was burned with many dead Union soldiers in it. A footnote on the same page (printed p. 81) adds that a Confederate officer in hospital told him \"he was personally in the barn immediately before it was burned\" and that wounded men were not burned. No day or hour."
+    },
+    {
+     "id": "C-026-P5-c8",
+     "source": "NPS-CLI-PCB",
+     "source_class": "official",
+     "page": "97",
+     "page_basis": "pdf_marker",
+     "page_note": "PDF page index 97 of the text layer",
+     "text_offset": 193554,
+     "quote": "Constructed on the site of the battle-era barn, which was destroyed during the course of the battle",
+     "witness": {
+      "name": "National Park Service",
+      "role": "Cultural Landscapes Inventory, Pickett's Charge Battlefield, Gettysburg National Military Park (2024)",
+      "side": "institution"
+     },
+     "written": {
+      "date": "2024",
+      "kind": "institutional"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "npspcb",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "destroyed during the course of the battle"
+      ]
+     },
+     "note": "The inventory says the battle-era barn was destroyed during the battle and used as a shelter for wounded Union soldiers, many of whom died in the fire; it gives no day or hour."
+    },
+    {
+     "id": "C-026-P5-c9",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R133",
+     "page": "483",
+     "page_basis": "scan_leaf",
+     "text_offset": 1691680,
+     "quote": "held the peach orchard until nearly dusk, when, finding the right unsupported, it fell back to the next ridge",
+     "witness": {
+      "name": "David B. Birney",
+      "role": "Major General, commanding First Division, Third Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "upper",
+     "group": "birney",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "nearly dusk"
+      ]
+     },
+     "note": "Graham's brigade, which included the 114th and 57th Pennsylvania at the Sherfy buildings, held the Peach Orchard until \"nearly dusk\" and then fell back: the wounded left in the barn were left after that. Sunset on 2 Jul was 19:32 local mean time. Birney is a division commander and gives the time of the brigade, not of the barn."
+    }
+   ],
+   "stance": "default",
+   "inference": {
+    "step": "The Gettysburg Compiler of 20 Jul 1863 says Sherfy's barn was among those burned \"while the battle was raging\" and that wounded Zouaves perished in it; those Zouaves (114th Pennsylvania, Bowen) fought at the farm on the afternoon of 2 Jul, so the fire is after that fight (Birney: \"nearly dusk\") and, the battle having ended with 3 Jul, before the end of that day. The window from 2 Jul to 3 Jul is that inference; no source of the time gives the day.",
+    "from": [
+     "C-026-P5-c1",
+     "C-026-P5-c3",
+     "C-026-P5-c2",
+     "C-026-P5-c9"
+    ]
+   },
+   "scenario_ids": [],
+   "derived": true
+  }
+ ],
+ "weighing": {
+  "summary": "No writing of the time dates the fire to a day. The Compiler (20 Jul 1863) puts it \"while the battle was raging\" with about twenty wounded Zouaves in the barn, and Bowen (13 Jul) assumes the missing men of 2 Jul were burned in it; both put it after the afternoon fight of 2 Jul and inside the battle. Three later texts give a day: 2 Jul (Miller 1909; Georg 1981, no source) and 3 Jul (Minnigh 1892, no source). Hart (2 Aug 1863) claims to have set \"a barn\" afire on 3 Jul but does not name it. Nothing separates the two days, so the default is the window both days lie in.",
+  "who": "The Compiler is a local weekly, the writer not on the field. Bowen commanded the 114th Pennsylvania that fought at the farm and was missing men, but took the regiment late and reports his belief (\"I have no doubt\"). Bachelder and Strouss saw the burned barn within weeks or years and give no day. Moran heard it second-hand from a Confederate gunner. Minnigh, Miller and Georg are guide and park writers with no stated source; none of them stood at the farm. Hart saw a barn burn from the cemetery line and did not name it.",
+  "when": "Best class: Bowen (13 Jul) and Hart (2 Aug) wrote official reports within a month, the Compiler 18 days after; but only the Compiler names the barn and none gives a day. The two writers that name a day wrote 29 years (Minnigh, 1892) and 46 years (Miller, 1909) after, and the Park Service study 118 years after; later history and institutional text rank below the reports and are used only for the day, as their claim.",
+  "where": "Present at the farm: Bowen (114th, driven out about dusk), Strouss and Moran (their regiments fought beside it, Moran was captured there), Bachelder (field work of the summer). Not there: the Compiler, Minnigh, Miller, Georg. Hart fired from Cemetery Ridge on 3 Jul. The soldier Moran quotes was a gunner who engaged that line, but we hear him second-hand.",
+  "how_knew": "No writer who stood at the farm says when it burned; Bowen and Strouss reason from the dead found. The day of Minnigh, Miller and Georg is a bare statement; where it comes from is unknown. Hart's statement is his belief about the effect of his own fire on a barn he does not name. The Compiler gives the fact and the Zouaves, not the day.",
+  "clock": "Not applicable to the day; no source gives an hour or a Union or Confederate clock reading. The roughly 20-minute difference between the armies' clocks is not used.",
+  "independence": "Compiler/Bowen (one Union regiment's dead), Moran (Confederate gunner via a Union prisoner), Strouss, Bachelder, Minnigh, Miller, Georg and the Park Service inventory are eight groups; none relays another that can be seen. Miller and Georg may both rest on local tradition and Minnigh on the same; the three days they give do not agree, so they are not treated as one line. Minnigh's two scans are one book. The reasoning that Jul 2 evening is \"the\" reading in the plan rests on one unsourced line of the Park study: unproved, not disproved."
+ },
+ "source_panel_text": "Sometime in the battle, after the Jul 2 afternoon fight: the Gettysburg Compiler of 20 Jul 1863 says Sherfy's barn burned \"while the battle was raging\" with about twenty wounded Zouaves in it. No text of the time gives the day; later books say Jul 2 (1909, 1981) or Jul 3 (1892), none with a source. Both days stay selectable; the hour is open.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "Jul 2 evening is not disproved: two later texts give Jul 2 and the fire is after the afternoon fight. But no source gives \"evening\", and Jul 3 stands as high. It stays selectable as the earliest day the record allows."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "The delegated marking as a gap is replaced: the Compiler of 20 Jul 1863, which the first pass did not read for the barn's fate, bounds the fire to the battle after the Jul 2 afternoon fight (inferred), so the record is divided on the day rather than empty. The delegated Jul 2 evening default is kept as a selectable position; the claim that no source names the barn was true only of the Official Records."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T2-176",
+   "must_change": true,
+   "note": "Row window \"Jul 2 ~18:00\" and tier documented; its text says \"July 2 evening (one account) vs July 3 during the afternoon artillery (most sources)\". No source says \"most sources\" or the evening; the row should carry the window of this resolution and tier inferred."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-132",
+   "must_change": true,
+   "note": "Row says \"Barn burns\", Jul 3 afternoon-evening, tier documented and \"Jul 3 afternoon most plausible (inferred)\"; the resolution has no preference for the afternoon of 3 Jul. The Stone Sentinels reading it cites (standing on the morning of 3 Jul) was not read here."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/fx3d/fires.json (jul2_evening_c026, the default and flag_window_full scenarios)",
+   "must_change": true,
+   "note": "The default fire scenario is read on 3 Jul and the Jul 2 scenario covers 2 Jul only; the default of this resolution is a window from 2 Jul to 3 Jul with no instant, which is the existing flag_window_full scenario."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-026)",
+   "must_change": true,
+   "note": "default_scenario_id C-026-DEFAULT, label \"Jul 2 evening (PDF), date unsourced, marked gap\", tier plausible-procedural and basis gap become this resolution's window default, class irreducible, tier inferred."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-026)",
+   "must_change": true,
+   "note": "First delegated default: same change; the four scenarios S1, S2, S3, DEFAULT stay selectable."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/structures_data_schedule.py (S-037 flag, jul2_evening_c026) and tools/bt/build_structures.py (PD-01)",
+   "must_change": true,
+   "note": "The flag text calls Jul 3 afternoon \"the most-supported reading\" (PDF B.8.7) and the register default Jul 2 evening; both must follow the resolution. Not edited here."
+  },
+  {
+   "kind": "test",
+   "ref": "docs/battle-theatre/app/tests/fx3d.test.mjs line 258 and structures3d.test.mjs line 171",
+   "must_change": true,
+   "note": "Tests assert the default is Jul 3 and that the Jul 2 scenario reads uncertain; they must be reconciled with the new window default (the Jul 2 scenario stays)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/app/docs/BROWSER-VERIFICATION-LIST-FX3D.md line 32 (B7)",
+   "must_change": true,
+   "note": "Lists the Sherfy barn fire at Jul 3 10:00, 14:00 and 20:00 in the default scenario; the default is now a window."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-026 row) and gate_results/GATE-SPEC.md line 372, GATE-SPEC-A.md line 467",
+   "must_change": true,
+   "note": "The row and the list of eight plausible-procedural defaults name C-026; superseded by this resolution. Record the reconciliation in the open; do not edit the old lines."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04, Q05, Q06 (gates.json)",
+   "must_change": false,
+   "note": "These read units, not buildings; no gate value changes. The structures gate (check_structures.py line 491) reads scenario jul2_evening_c026, which stays."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1, OR27-2, OR27-3",
+   "query": "Sherfy, Sherfey, Sherfie, Sherf (regular expression over all three parts; OCR forms Shcrfy, Sherfy with hyphen breaks)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-1, OR27-2",
+   "query": "barn / house within 120 characters of burn, burned, burning, fire, flames, conflagration (every hit read: Hart p. 888, Bowen p. 503, Posey p. 633, Hays and Smyth/Ellis (Bliss), none names Sherfy)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "GBG-COMPILER-1863 (every issue 1863-07-13 to 1863-12-28), ADAMS-SENTINEL-1863 (July to October)",
+   "query": "Sherfy, Sherfey, Zouave, \"while the battle was raging\" (only the issue of 20 Jul 1863 names the barn)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "ws9 books and papers, NPS texts, BACH-*, BL-*, SHSP-*, the library of tmp/library",
+   "query": "Sherfy within 500 characters of barn and burn/fire/flames/destroy; \"burning barn\", \"barn on fire\", \"barn was burned\" near Peach Orchard, Emmitsburg road, Barksdale, Wofford, Kershaw, Wilcox, Alexander, Humphreys, Graham (no passage in Wofford, Barksdale, Kershaw, Wilcox or Alexander dates the fire)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "battlegettysbur00bategoog (Bates 1875), cu31924030914992 (141st Pennsylvania, 1885)",
+   "query": "Sherfy, Sherfey, Sherfie: fetched from archive.org and read by regular expression; no hit",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "americanlegionma331amer_0 (American Legion Magazine, July 1942)",
+   "query": "Sherfy barn: a magazine story that has the barn burning during the evening of 2 Jul with a later morning view of embers; fiction-style narrative with no source, not cited",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "chroniclingamerica.loc.gov (search pages)",
+   "query": "Sherfy barn; Sherfy Zouaves; barn burned (1863-1865)",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "gettysburg.stonesentinels.com",
+   "query": "sherfy-farm page (the 77th New York soldier, morning of 3 Jul)",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "www.nps.gov",
+   "query": "gett/learn/historyculture/sherfy-farm.htm and places/sherfy-farm.htm",
+   "outcome": "failed",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "npshistory.com",
+   "query": "publications/gett index page (for a historic structure report of the Sherfy farm)",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "archive.org page images",
+   "query": "page image of the Compiler of 20 Jul 1863 (download/<id>/page/n2_w1600.jpg), to read the damaged line",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Pennsylvania State Archives (damage claims of the Franklin County and Adams County citizens, Joseph Sherfy)",
+   "query": "the claimant's own account of the date of the fire: not on a reachable host; needs a visit or a request by the owner",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "Joseph Sherfy's own claim for damages (Pennsylvania State Archives), a diary or letter of a man at the farm on 2-3 Jul, a Confederate artillery or infantry report naming the burning barn at the Peach Orchard, or the 77th New York soldier's own account, would date the fire to a day and move the default from the window to that day; a page image of the Compiler that reads differently would change the corrected reading."
+}

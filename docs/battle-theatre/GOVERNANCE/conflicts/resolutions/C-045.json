@@ -1,0 +1,686 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-045",
+ "topic": "Wind on Jul 2-3",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-045",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 63,
+  "text": "Wind on Jul 2-3 | 12 mph; 2 mph | 2 mph (light) | 12 mph",
+  "values": [
+   "12 mph",
+   "2 mph"
+  ],
+  "recommended_default": "2 mph (light)",
+  "selectable_alternatives": [
+   "12 mph"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-045-DEFAULT",
+  "default_label": "light wind, render range 2-6 mph (includes 2 mph)",
+  "tier": "plausible-procedural",
+  "basis": "gap",
+  "scenario_ids": [
+   "C-045-S1",
+   "C-045-S2",
+   "C-045-S3",
+   "C-045-S4",
+   "C-045-DEFAULT"
+  ]
+ },
+ "class": "gap",
+ "tier": "plausible-procedural",
+ "basis": {
+  "kind": "gap",
+  "text": "No source of 1863-64 states a wind speed in miles per hour for 2-3 July; the words of two witnesses (calm, little wind) and the Park Service's report of Jacobs ('very gentle') say light, and both figures of the plan come from one article of 1885 that was not found."
+ },
+ "default": {
+  "mode": "range",
+  "positions": [
+   "C-045-P4"
+  ],
+  "label": "Light wind, drawn at 2 to 6 mph (marked stand-in)",
+  "basis_text": "A stand-in range from the plan's weather section; it takes in the plan's 2 mph and lies well below 12 mph, and agrees with the words of the witnesses. The speed itself is not recorded.",
+  "range": {
+   "low": 2,
+   "high": 6,
+   "basis": "the plan's weather section (2 to 6 mph), kept as a marked stand-in; no source of the time gives a speed"
+  },
+  "note": "The wind is drawn light, from the south to south-southwest, with 2, 12 and the other values selectable. The picture never shows the range as a measurement."
+ },
+ "positions": [
+  {
+   "id": "C-045-P1",
+   "origin": "pdf_value",
+   "pdf_label": "12 mph",
+   "scenario_ids": [
+    "C-045-S1"
+   ],
+   "label": "12 mph",
+   "kind": "quantity",
+   "value": {
+    "n": 12,
+    "unit": "mph"
+   },
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "support": [],
+   "failed_lookups": [
+    {
+     "where": "OR27-1, OR27-2, OR27-3",
+     "query": "regex \\b(wind|breeze|gale)\\b over the three parts of the Official Records: the only hits are 'wind' as a verb for a creek, a surname (Gale) and 'Wind-mill Point'; none is a statement about the weather of 1-4 July",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "JACOBS-1864",
+     "query": "regex (breeze|wind|gale|calm|sultry|thermometer|barometer|miles per hour|miles an hour): three hits, none gives a speed; the 1864 Notes have no thermometer table and no wind figure",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "SMITHSONIAN-1863-C045",
+     "query": "Gettysburg, Jacobs in the Smithsonian report for 1863 (fetched from archive.org): the table of observers lists one observer at Gettysburg, Adams County (the name is damaged in the text layer); no readings are printed in this volume",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "chronicling america (www.loc.gov search)",
+     "query": "'Meteorology of the Battle' Jacobs; 'very gentle southern breeze'; Jacobs thermometer Gettysburg July 1863 wind, dates 1863-1913: the returns were unrelated pages; the Gettysburg weeklies of 1885 were not among them",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "archive.org advanced search",
+     "query": "title and full-text queries for Jacobs, Gettysburg, meteorology, weather, 1863: four hits, all recordings of a 2023 lecture; no scan of the article of 1885",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "civilwarrx.blogspot.com; emergingcivilwar.com",
+     "query": "the two web transcriptions of the 1885 article named in the project's weather record (leads): not fetched or read by this research; their wording is known only through data-src/environment/weather_by_day.json",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "The Star and Sentinel (Gettysburg), August 1885",
+     "query": "the printed article by H. E. Jacobs that is the origin of both figures: no page located in the sources reachable here (not in the ledger, not found by the searches above)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "flags": [
+    "unsourced"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "Only a modern web transcription of an 1885 article gives 12 mph; no source of 1863-64 does, and the words of 1863-64 (calm, little wind) point to a lighter wind."
+   },
+   "note": "Origin: the article 'Meteorology of the Battle' (Star and Sentinel, Gettysburg, 1885), in which H. E. Jacobs reports his father's readings; one web transcription reads the speed of the first day as 12 miles per hour, another as 2. That paragraph is for 1 July; for 2 July it says the wind was as on the day before. Not read here: the project's weather record says so."
+  },
+  {
+   "id": "C-045-P2",
+   "origin": "pdf_value",
+   "pdf_label": "2 mph",
+   "scenario_ids": [
+    "C-045-S2"
+   ],
+   "label": "2 mph",
+   "kind": "quantity",
+   "value": {
+    "n": 2,
+    "unit": "mph"
+   },
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "support": [],
+   "failed_lookups": [
+    {
+     "where": "OR27-1, OR27-2, OR27-3",
+     "query": "regex \\b(wind|breeze|gale)\\b over the three parts of the Official Records: the only hits are 'wind' as a verb for a creek, a surname (Gale) and 'Wind-mill Point'; none is a statement about the weather of 1-4 July",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "JACOBS-1864",
+     "query": "regex (breeze|wind|gale|calm|sultry|thermometer|barometer|miles per hour|miles an hour): three hits, none gives a speed; the 1864 Notes have no thermometer table and no wind figure",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "SMITHSONIAN-1863-C045",
+     "query": "Gettysburg, Jacobs in the Smithsonian report for 1863 (fetched from archive.org): the table of observers lists one observer at Gettysburg, Adams County (the name is damaged in the text layer); no readings are printed in this volume",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "chronicling america (www.loc.gov search)",
+     "query": "'Meteorology of the Battle' Jacobs; 'very gentle southern breeze'; Jacobs thermometer Gettysburg July 1863 wind, dates 1863-1913: the returns were unrelated pages; the Gettysburg weeklies of 1885 were not among them",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "archive.org advanced search",
+     "query": "title and full-text queries for Jacobs, Gettysburg, meteorology, weather, 1863: four hits, all recordings of a 2023 lecture; no scan of the article of 1885",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "civilwarrx.blogspot.com; emergingcivilwar.com",
+     "query": "the two web transcriptions of the 1885 article named in the project's weather record (leads): not fetched or read by this research; their wording is known only through data-src/environment/weather_by_day.json",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "The Star and Sentinel (Gettysburg), August 1885",
+     "query": "the printed article by H. E. Jacobs that is the origin of both figures: no page located in the sources reachable here (not in the ledger, not found by the searches above)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "flags": [
+    "unsourced"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "Not chosen as a single figure: no source of the time states it. It lies inside the 2 to 6 mph range the default draws, so it stays one of the winds the picture can show."
+   },
+   "note": "Same origin as 12 mph: the other web transcription of the 1885 article (about 2 miles per hour, 'a very gentle southern breeze')."
+  },
+  {
+   "id": "C-045-P3",
+   "origin": "pdf_default",
+   "pdf_label": "2 mph (light)",
+   "scenario_ids": [
+    "C-045-S3"
+   ],
+   "label": "2 mph, light (the plan's recommended default)",
+   "kind": "quantity",
+   "value": {
+    "n": 2,
+    "unit": "mph"
+   },
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "support": [],
+   "failed_lookups": [
+    {
+     "where": "OR27-1, OR27-2, OR27-3",
+     "query": "regex \\b(wind|breeze|gale)\\b over the three parts of the Official Records: the only hits are 'wind' as a verb for a creek, a surname (Gale) and 'Wind-mill Point'; none is a statement about the weather of 1-4 July",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "JACOBS-1864",
+     "query": "regex (breeze|wind|gale|calm|sultry|thermometer|barometer|miles per hour|miles an hour): three hits, none gives a speed; the 1864 Notes have no thermometer table and no wind figure",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "SMITHSONIAN-1863-C045",
+     "query": "Gettysburg, Jacobs in the Smithsonian report for 1863 (fetched from archive.org): the table of observers lists one observer at Gettysburg, Adams County (the name is damaged in the text layer); no readings are printed in this volume",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "chronicling america (www.loc.gov search)",
+     "query": "'Meteorology of the Battle' Jacobs; 'very gentle southern breeze'; Jacobs thermometer Gettysburg July 1863 wind, dates 1863-1913: the returns were unrelated pages; the Gettysburg weeklies of 1885 were not among them",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "archive.org advanced search",
+     "query": "title and full-text queries for Jacobs, Gettysburg, meteorology, weather, 1863: four hits, all recordings of a 2023 lecture; no scan of the article of 1885",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "civilwarrx.blogspot.com; emergingcivilwar.com",
+     "query": "the two web transcriptions of the 1885 article named in the project's weather record (leads): not fetched or read by this research; their wording is known only through data-src/environment/weather_by_day.json",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "The Star and Sentinel (Gettysburg), August 1885",
+     "query": "the printed article by H. E. Jacobs that is the origin of both figures: no page located in the sources reachable here (not in the ledger, not found by the searches above)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "flags": [
+    "unsourced"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "The plan's recommended light wind of 2 mph has no source of the time; it lies inside the 2 to 6 mph range of the default, and remains selectable."
+   }
+  },
+  {
+   "id": "C-045-P4",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-045-S4",
+    "C-045-DEFAULT"
+   ],
+   "label": "Light wind, drawn at 2 to 6 mph (marked stand-in; the speed is not recorded)",
+   "kind": "count_range",
+   "value": {
+    "low": 2,
+    "high": 6
+   },
+   "clock": "not_applicable",
+   "tier": "plausible-procedural",
+   "support": [],
+   "failed_lookups": [
+    {
+     "where": "OR27-1, OR27-2, OR27-3",
+     "query": "regex \\b(wind|breeze|gale)\\b over the three parts of the Official Records: the only hits are 'wind' as a verb for a creek, a surname (Gale) and 'Wind-mill Point'; none is a statement about the weather of 1-4 July",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "JACOBS-1864",
+     "query": "regex (breeze|wind|gale|calm|sultry|thermometer|barometer|miles per hour|miles an hour): three hits, none gives a speed; the 1864 Notes have no thermometer table and no wind figure",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "SMITHSONIAN-1863-C045",
+     "query": "Gettysburg, Jacobs in the Smithsonian report for 1863 (fetched from archive.org): the table of observers lists one observer at Gettysburg, Adams County (the name is damaged in the text layer); no readings are printed in this volume",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "chronicling america (www.loc.gov search)",
+     "query": "'Meteorology of the Battle' Jacobs; 'very gentle southern breeze'; Jacobs thermometer Gettysburg July 1863 wind, dates 1863-1913: the returns were unrelated pages; the Gettysburg weeklies of 1885 were not among them",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "archive.org advanced search",
+     "query": "title and full-text queries for Jacobs, Gettysburg, meteorology, weather, 1863: four hits, all recordings of a 2023 lecture; no scan of the article of 1885",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "civilwarrx.blogspot.com; emergingcivilwar.com",
+     "query": "the two web transcriptions of the 1885 article named in the project's weather record (leads): not fetched or read by this research; their wording is known only through data-src/environment/weather_by_day.json",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "The Star and Sentinel (Gettysburg), August 1885",
+     "query": "the printed article by H. E. Jacobs that is the origin of both figures: no page located in the sources reachable here (not in the ledger, not found by the searches above)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "flags": [
+    "unsourced"
+   ],
+   "stance": "default",
+   "procedural_basis": "A marked stand-in for a speed that no source of the time gives: a range that takes in the plan's 2 mph and stays well under 12 mph, chosen to agree with the words of the witnesses (calm, little wind, very gentle).",
+   "note": "The range comes from the plan's weather section; it is not measured."
+  },
+  {
+   "id": "C-045-P5",
+   "origin": "research",
+   "label": "Little wind on the afternoon of 2 July (Fremantle)",
+   "kind": "category",
+   "value": {
+    "text": "little wind"
+   },
+   "clock": "unspecified",
+   "tier": "documented",
+   "support": [
+    {
+     "id": "C-045-P5-c1",
+     "source": "FREMANTLE-1864",
+     "source_class": "primary",
+     "page": "259",
+     "page_basis": "as_read",
+     "page_note": "printed page 259 read from the running head of the text",
+     "text_offset": 415781,
+     "quote": "A dense smoke arose for six miles ; there was little wind to drive it away",
+     "witness": {
+      "name": "Arthur J. L. Fremantle",
+      "role": "Lieutenant Colonel, Coldstream Guards, British observer with Longstreet's staff",
+      "side": "other"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "fremantle",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "little wind"
+      ],
+      "dates": []
+     },
+     "note": "Entry for Thursday, 2 July (heading on the earlier page), written of the cannonade that began at 4.45 p. m. The diary was kept day by day and first printed in 1863; this is the 1864 book. Page number 259 read from the running head. A word, not a speed."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "unclear_expression",
+    "text": "A good witness of the time, but a word, not a speed; it fits a light wind and so supports the range, and cannot choose between 2 and 12 mph on its own."
+   },
+   "note": "Documented as words only; no mph figure is stated."
+  },
+  {
+   "id": "C-045-P6",
+   "origin": "research",
+   "label": "Calm air on the morning of 2 July (Jacobs, 1864)",
+   "kind": "category",
+   "value": {
+    "text": "the air was calm"
+   },
+   "clock": "unspecified",
+   "tier": "documented",
+   "support": [
+    {
+     "id": "C-045-P6-c1",
+     "source": "JACOBS-1864",
+     "source_class": "primary",
+     "page": "82",
+     "page_basis": "as_read",
+     "page_note": "printed page 82 read from the running head of the text",
+     "text_offset": 53119,
+     "quote": "The morning was pleasant, the air was calm, the sun shone mildly through a smoky atmosphere",
+     "witness": {
+      "name": "Michael Jacobs",
+      "role": "Professor, Pennsylvania College, Gettysburg; resident of the town",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1864",
+      "kind": "early_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "jacobs",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "the air was calm"
+      ],
+      "dates": []
+     },
+     "note": "The sentence opens the account of Thursday, 2 July, before the attack at twenty minutes past 4 p. m. It gives a word, not a speed; the printed page number 82 is that of the running head just above it."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "unclear_expression",
+    "text": "Jacobs's book of 1864 says the morning of 2 July was calm; that is a word, not a speed, and says nothing of the hours after it."
+   },
+   "note": "Documented as words only; the 1864 book gives no wind speed anywhere."
+  },
+  {
+   "id": "C-045-P7",
+   "origin": "research",
+   "label": "Very gentle wind from the south-southwest on 3 July (Jacobs's record, as the Park Service reports it)",
+   "kind": "category",
+   "value": {
+    "text": "very gentle winds south-southwest"
+   },
+   "clock": "unspecified",
+   "tier": "inferred",
+   "support": [
+    {
+     "id": "C-045-P7-c1",
+     "source": "NPS-COMMON-PRIDE-1",
+     "source_class": "official",
+     "page": "69",
+     "page_basis": "pdf_marker",
+     "text_offset": 110047,
+     "quote": "Professor Michael Jacobs noted that day that the very gentle winds in the Gettysburg area were out of the south-southwest",
+     "witness": {
+      "name": "Kathleen R. Georg",
+      "role": "Research Historian, Gettysburg National Military Park (note to 'A Common Pride and Fame', 1981)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1981-01",
+      "kind": "institutional"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "nps-georg",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "very gentle winds",
+       "south-southwest"
+      ],
+      "dates": []
+     },
+     "note": "The note is to the account of the cannonade of 3 July and cites Jacobs, 'Meteorology of the Battle' (the article of 1885), p. 35 of a clippings volume. It reports the direction and the word 'very gentle' and gives no speed in miles per hour."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "stance": "selectable",
+   "inference": {
+    "step": "The Park Service historian read Jacobs's printed article of 1885 and states its wording and direction for 3 July; the original is not read here, so this is what that text reports of Jacobs, not Jacobs himself.",
+    "from": [
+     "C-045-P7-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "A Park Service note of 1981 relays an 1885 article about readings of 1863; it gives a direction and 'very gentle', no speed, and the article itself is not available here."
+   },
+   "note": "Shows that the printed record of Jacobs, as read in 1981, carries a word and a direction and no figure for 3 July."
+  },
+  {
+   "id": "C-045-P8",
+   "origin": "research",
+   "label": "West wind on the afternoon of 3 July (Haskell)",
+   "kind": "category",
+   "value": {
+    "text": "west wind"
+   },
+   "clock": "unspecified",
+   "tier": "documented",
+   "support": [
+    {
+     "id": "C-045-P8-c1",
+     "source": "HASKELL-1908",
+     "source_class": "book",
+     "page": "113",
+     "page_basis": "as_read",
+     "page_note": "printed page 113 read from the bracketed page numbers of the reprint (the next number, [114], follows the sentence)",
+     "text_offset": 174798,
+     "quote": "the west wind kissed it as the sergeants sloped its lance towards the enemy",
+     "witness": {
+      "name": "Frank A. Haskell",
+      "role": "Lieutenant, aide to Brig. Gen. John Gibbon, Second Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "haskell",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "west wind"
+      ],
+      "dates": []
+     },
+     "note": "The flag of Gibbon's line just before the Confederate infantry reached the wall on 3 July, in a letter to his brother written 'not long after the contest' and first printed in 1898. A figure of speech may colour it; it names a direction, no speed. Page 113 read from the bracketed page numbers of the 1908 reprint."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Haskell's 'west wind' is a direction at one moment before the attack on 3 July, perhaps a figure of speech; it differs in direction from the south-southwest of Jacobs and gives no speed."
+   },
+   "note": "Direction only. A later book (Toombs, 1888) says that at about 4 p. m. on 2 July the wind blew 'directly from Ewell' toward the southwest, so Ewell did not hear Longstreet's guns; it is read here and not carried as a position."
+  }
+ ],
+ "weighing": {
+  "summary": "No source of 1863-64 gives a wind speed for 2-3 July. Both figures of the row, 12 and 2 mph, come from one printed article of 1885 (H. E. Jacobs, reporting his father's readings), which two web transcriptions read differently and which was not found. The witnesses of the time say only calm (Jacobs, morning of 2 July), little wind (Fremantle, 4.45 p. m.) and, via the Park Service, very gentle from the south-southwest (3 July). That points to a light wind but names no number, so the speed is a gap and the default is a marked range. Position C-045-P7 (Park Service, rank 1, rejected as later_memory) outranks the default in kind of writing only because the default is a stand-in with no writing at all; it is not chosen because it gives no speed. The Park Service note ranks lowest in kind (a modern text relaying a text of 1885) and is used only for the word and the direction, never for a figure.",
+  "who": "Jacobs, a professor at Pennsylvania College and a resident, kept the weather record that the article of 1885 reports; he is the observer behind both figures, but his 1864 book gives no speed. Fremantle, an officer attached to Longstreet's staff, wrote the diary entry on the ground. Haskell, on Gibbon's staff, wrote a letter. The Park Service historian (1981) and Toombs (1888) were not there.",
+  "when": "Fremantle's diary is of the day (first printed 1863); Haskell's letter was written 'not long after the contest'; Jacobs's book is of 1864, within two years of the event; the article that carries the figures is of 1885 (22 years later); the Park Service note is of 1981. The rank of writing favours the diary and the letter, but they give no number.",
+  "where": "Fremantle watched the cannonade from a tree near Longstreet; Jacobs was in the town; Haskell stood on Cemetery Ridge. A wind at one place and hour is not a wind of the whole field and day, so the words of one witness do not fix the speed of another hour.",
+  "how_knew": "Jacobs kept a thermometer record; his son's article of 1885 is said (by web transcriptions, leads) to print a speed in parentheses, but how the speed was obtained (an estimate or an instrument) is not stated in anything read. Fremantle and Haskell saw smoke and a flag: impressions.",
+  "clock": "not applicable: no time of the wind is in dispute; the hours given (morning of 2 July, about 4.45 p. m.) are the witnesses' own and the 20-minute difference of the two armies' clocks does not matter to a wind.",
+  "independence": "Fremantle and Jacobs (1864) are independent witnesses of the light wind of 2 July; the two web transcriptions of the 1885 article, and the image of the clipping they were typed from, are one source that was read two ways (leads, not cited). The Park Service note and the project's weather record both rest on the same article of 1885. 12 mph has no non-lead source at all; nor has 2 mph."
+ },
+ "source_panel_text": "No source of the time gives a wind speed for 2-3 July. Jacobs (1864) calls the air calm on the morning of 2 July, Fremantle's diary has little wind that afternoon, and the Park Service reports Jacobs's record as very gentle. Both figures, 2 and 12 mph, come from one 1885 article not found, so a light wind of 2 to 6 mph is drawn. Seven other values stay listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "A light wind holds: every witness read says light, calm or very gentle. The figure '2 mph (light)' is not documented by any source of the time; it stays selectable and lies inside the range the default draws."
+  },
+  "first_delegated": {
+   "holds": "yes",
+   "note": "Light wind, 2 to 6 mph, a marked stand-in (plausible-procedural, basis gap) holds; the research adds the witnesses' words that agree with 'light' and shows that the two figures share one origin that was not found."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T2-068",
+   "must_change": true,
+   "note": "Row 'Jul 2 07:00' states 'Wind speed conflict: 12 mph (Emerging CW) vs about 2 mph (Teach...)'; the source keys are web pages (leads). The text should name the 1885 article as the common origin, add Jacobs 1864 'the air was calm' and say the speed is a gap. Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-053",
+   "must_change": false,
+   "note": "Dawn row: 'gentle south breeze'; consistent with a light wind, direction from the 1885 article via secondary summaries."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-122",
+   "must_change": false,
+   "note": "Afternoon smoke row: 'Light south to south-southwest breeze drives smoke toward north-northeast'; Fremantle's 'little wind to drive it away' agrees with the lightness, not with the direction. Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-035",
+   "must_change": false,
+   "note": "Dawn of 3 July: 'very gentle S-SSW wind (2-6 mph used for rendering)'; agrees with the default as a marked range."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-081",
+   "must_change": false,
+   "note": "Cannonade start: 'humid, S-SSW breeze'; consistent with the Park Service's report of Jacobs; Haskell's west wind is a different direction."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-045)",
+   "must_change": true,
+   "note": "Carries the first delegated default (plausible-procedural, gap) and five scenarios; the label and the scenario notes should record that both figures come from one 1885 article and that period words say light."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-045)",
+   "must_change": true,
+   "note": "Same copy of the first delegated default; the class gap and the added positions P5-P8 to be recorded by the integration step."
+  },
+  {
+   "kind": "app_code",
+   "ref": "docs/battle-theatre/app/src/environment.mjs (CF-WIND-SPEED)",
+   "must_change": false,
+   "note": "Maps the choice to 12, 2 or 2-6 mph with the note 'the sources say 2 and 12'; the note says the sources give both figures, but no source of the time does. Wording to be reconciled by the owner of that file, not by this research."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/fx3d/TIERS.json (smoke.dissipation_tau_s.ref_wind_ms; wind.calm_charge_scale)",
+   "must_change": false,
+   "note": "ref_wind_ms is the middle of 2-6 mph (inferred); calm_charge_scale rests on 'no breeze' during the Charge from a Jacobs summary (secondary), which this research did not find in a source of the time."
+  },
+  {
+   "kind": "app_data",
+   "ref": "data-src/environment/weather_by_day.json (W-1863-07-01-wind-speed and W-1863-07-03-wind-direction)",
+   "must_change": false,
+   "note": "The weather record already says the 2-versus-12 dispute is in the paragraph for 1 July, inherited by 2 July, and that 3 July has no speed (PC7); this resolution agrees and adds the period words."
+  },
+  {
+   "kind": "other",
+   "ref": "tools/bt/build_weather_timeline.py (candidates 12 mph Emerging Civil War, 2 mph TeachersFirst; D5)",
+   "must_change": false,
+   "note": "Carries the two figures with web-page sources (leads); no change needed for the default."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1, OR27-2, OR27-3",
+   "query": "regex \\b(wind|breeze|gale)\\b over the three parts of the Official Records: the only hits are 'wind' as a verb for a creek, a surname (Gale) and 'Wind-mill Point'; none is a statement about the weather of 1-4 July",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "JACOBS-1864",
+   "query": "regex (breeze|wind|gale|calm|sultry|thermometer|barometer|miles per hour|miles an hour): three hits, none gives a speed; the 1864 Notes have no thermometer table and no wind figure",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "SMITHSONIAN-1863-C045",
+   "query": "Gettysburg, Jacobs in the Smithsonian report for 1863 (fetched from archive.org): the table of observers lists one observer at Gettysburg, Adams County (the name is damaged in the text layer); no readings are printed in this volume",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "chronicling america (www.loc.gov search)",
+   "query": "'Meteorology of the Battle' Jacobs; 'very gentle southern breeze'; Jacobs thermometer Gettysburg July 1863 wind, dates 1863-1913: the returns were unrelated pages; the Gettysburg weeklies of 1885 were not among them",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "archive.org advanced search",
+   "query": "title and full-text queries for Jacobs, Gettysburg, meteorology, weather, 1863: four hits, all recordings of a 2023 lecture; no scan of the article of 1885",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "civilwarrx.blogspot.com; emergingcivilwar.com",
+   "query": "the two web transcriptions of the 1885 article named in the project's weather record (leads): not fetched or read by this research; their wording is known only through data-src/environment/weather_by_day.json",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "The Star and Sentinel (Gettysburg), August 1885",
+   "query": "the printed article by H. E. Jacobs that is the origin of both figures: no page located in the sources reachable here (not in the ledger, not found by the searches above)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A page of the 1885 article (The Star and Sentinel, Gettysburg, 1885; one web page dates the clipping 11 August) or Jacobs's original observation sheets (Smithsonian, Franklin Institute, National Archives) that states the wind in miles per hour, or a report, diary or letter of 2-3 July 1863 that gives a speed or an instrument reading, would settle 2 against 12 and move the default to a documented or inferred value."
+}
