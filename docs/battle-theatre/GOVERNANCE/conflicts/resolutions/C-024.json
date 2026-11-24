@@ -1038,8 +1038,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-024 row)",
-   "must_change": true,
-   "note": "The row carries the first delegated default \"window 21:00-24:00 (evening of Jul 2); two sittings possible\", tier inferred; the resolution's default is the window from dusk (19:32) to nearly 24:00, tier inferred, and the 21:00-24:00 window and its scenarios stay selectable. (computed list entry)."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Jul 2 evening: from dusk (about 19:32) to nearly midnight; no source gives the start hour' (class gap, tier plausible-procedural, no single instant drawn)."
   },
   {
    "kind": "doc",
@@ -1104,14 +1104,14 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-024)",
-   "must_change": true,
-   "note": "default_scenario_id C-024-DEFAULT, label \"window 21:00-24:00 (evening of Jul 2); two sittings possible\", tier inferred, basis OR: becomes the window from dusk to nearly 24:00 (class gap, tier plausible-procedural); S1 to S4 and the old default stay selectable."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Jul 2 evening: from dusk (about 19:32) to nearly midnight; no source gives the start hour' (class gap, tier plausible-procedural, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-024)",
-   "must_change": true,
-   "note": "First delegated default: same change; the five scenarios stay selectable."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Jul 2 evening: from dusk (about 19:32) to nearly midnight; no source gives the start hour' (class gap, tier plausible-procedural, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_code",

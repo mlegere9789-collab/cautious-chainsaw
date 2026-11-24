@@ -936,14 +936,14 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-014)",
-   "must_change": true,
-   "note": "default_scenario_id C-014-DEFAULT, \"range 368-425 (Barnes 368; Chamberlain 400+25); 500+ brigade-wide shown separately\": the high end becomes 400 with the 25 shown beside it, and the new values (302, over 300, at most 238, over 30) are added as selectable scenarios."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries '368 to 400 prisoners sent to the rear after the 20th Maine's counter-charge (the 25 of the night are separate)' (class irreducible, tier documented, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-014)",
-   "must_change": true,
-   "note": "First delegated default: the same change as the app copy."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries '368 to 400 prisoners sent to the rear after the 20th Maine's counter-charge (the 25 of the night are separate)' (class irreducible, tier documented, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_code",
@@ -960,8 +960,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-014 row)",
-   "must_change": true,
-   "note": "The row says Barnes 368, Chamberlain 400+25, Rice 500+ and 218 unsourced; the reconciliation (range 368-400, the 25 apart, the survivors' 302 and Oates's rolls) is recorded by the integration step."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: '368 to 400 prisoners sent to the rear after the 20th Maine's counter-charge (the 25 of the night are separate)' (class irreducible, tier documented, no single instant drawn)."
   },
   {
    "kind": "doc",

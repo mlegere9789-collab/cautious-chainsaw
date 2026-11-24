@@ -832,14 +832,14 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-026)",
-   "must_change": true,
-   "note": "default_scenario_id C-026-DEFAULT, label \"Jul 2 evening (PDF), date unsourced, marked gap\", tier plausible-procedural and basis gap become this resolution's window default, class irreducible, tier inferred."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'During the battle: from the Jul 2 afternoon fight (once wounded men were in the barn) to the end of Jul 3' (class irreducible, tier inferred, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-026)",
-   "must_change": true,
-   "note": "First delegated default: same change; the four scenarios S1, S2, S3, DEFAULT stay selectable."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'During the battle: from the Jul 2 afternoon fight (once wounded men were in the barn) to the end of Jul 3' (class irreducible, tier inferred, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_code",
@@ -862,8 +862,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-026 row) and gate_results/GATE-SPEC.md line 372, GATE-SPEC-A.md line 467",
-   "must_change": true,
-   "note": "The row and the list of eight plausible-procedural defaults name C-026; superseded by this resolution. Record the reconciliation in the open; do not edit the old lines."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'During the battle: from the Jul 2 afternoon fight (once wounded men were in the barn) to the end of Jul 3' (class irreducible, tier inferred, no single instant drawn)."
   },
   {
    "kind": "doc",

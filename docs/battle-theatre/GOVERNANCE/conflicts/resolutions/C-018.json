@@ -1620,8 +1620,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-018 row)",
-   "must_change": true,
-   "note": "Row of 2026-11-11: default 'attribution unresolved; Wright claims the crest' with tier open gap; the research makes it class weighted, tier inferred, with the regiments named from the reports. To be reconciled by the integration step."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'No single stopper: Gibbon's regiments counter-charged, Wright's flanks failed him; the crest is Wright's claim' (class weighted, tier inferred, no single instant drawn)."
   },
   {
    "kind": "doc",
@@ -1668,14 +1668,14 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-018)",
-   "must_change": true,
-   "note": "Holds default C-018-DEFAULT with tier open gap; to be replaced by the unresolved set (P3, P5, P6), class weighted, tier inferred; every scenario stays selectable. Not edited here."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'No single stopper: Gibbon's regiments counter-charged, Wright's flanks failed him; the crest is Wright's claim' (class weighted, tier inferred, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-018)",
-   "must_change": true,
-   "note": "Source of the app file; same change: tier open gap becomes inferred, basis gap becomes official_records."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'No single stopper: Gibbon's regiments counter-charged, Wright's flanks failed him; the crest is Wright's claim' (class weighted, tier inferred, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_code",

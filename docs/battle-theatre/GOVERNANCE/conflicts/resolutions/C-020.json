@@ -821,14 +821,14 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json C-020",
-   "must_change": true,
-   "note": "default_scenario_id C-020-DEFAULT (window 19:30-20:00) is replaced by about 20:00 (position C-020-P2); the plan's 19:30 and the window stay as scenarios."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'About 20:00: the infantry assault goes up East Cemetery Hill and charges the batteries' (class weighted, tier documented, drawn at 20:00 on Jul 2); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-020 row)",
-   "must_change": true,
-   "note": "Row line 30 (about 20:00, window 19:30-20:00, documented) to be superseded: default about 20:00, class weighted, tier documented; first record kept as history."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'About 20:00: the infantry assault goes up East Cemetery Hill and charges the batteries' (class weighted, tier documented, drawn at 20:00 on Jul 2)."
   },
   {
    "kind": "doc",

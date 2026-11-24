@@ -957,20 +957,20 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-008)",
-   "must_change": true,
-   "note": "default_scenario_id C-008-DEFAULT, label '11:00 (Longstreet 1896 memoir; OR bound before about noon)', tier inferred, basis memoir. The resolution keeps 11:00 and tier inferred; its label should add Longstreet's article of 1877 and the flags, and the scenarios C-008-S1, S2, S3 and DEFAULT must be joined by the research values (bound before about noon, early-morning plan, about 09:00 Lee's return, about 15:00 Hood)."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Morning of 2 July: plan given by about 9 a.m.; formal order about 11:00 (Longstreet); before about noon' (class irreducible, tier inferred, drawn at 11:00 on Jul 2); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "other",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-008)",
-   "must_change": true,
-   "note": "First delegated default: same change as the app copy."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Morning of 2 July: plan given by about 9 a.m.; formal order about 11:00 (Longstreet); before about noon' (class irreducible, tier inferred, drawn at 11:00 on Jul 2); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-008 row, line 18)",
-   "must_change": true,
-   "note": "The row says 'Single memoir witness, OR terminus ante quem about noon (R03.C-008); 09:00 forum/CWT unsupported and flagged weak. Agrees with PDF.' It stands in outcome; the integration step records that the research found the origin of the sentence (Longstreet 1877) and confirms the single line of knowledge."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Morning of 2 July: plan given by about 9 a.m.; formal order about 11:00 (Longstreet); before about noon' (class irreducible, tier inferred, drawn at 11:00 on Jul 2)."
   },
   {
    "kind": "doc",
@@ -988,7 +988,7 @@
    "kind": "gate",
    "ref": "Q02 and Q19 (gate_results/Q02.json lines 4691 and 8632, Q19.json lines 1096 and 4340), reading conflict-defaults.json $.conflicts.C-008",
    "must_change": false,
-   "note": "They read the delegated default; its tier (inferred) and hour are unchanged, so no expected value changes. The scenario list grows when the integration step adds the research values."
+   "note": "Integrated 2026-11-24: the file carries 'Morning of 2 July: plan given by about 9 a.m.; formal order about 11:00 (Longstreet); before about noon' (class irreducible, tier inferred, drawn at 11:00 on Jul 2); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "gate",

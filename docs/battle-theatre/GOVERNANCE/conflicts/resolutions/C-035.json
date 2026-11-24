@@ -868,8 +868,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-035 row)",
-   "must_change": true,
-   "note": "Delegated-decision row line 45 gives 500-511 (documented); this resolution makes the default a range from over 500 to over 2,000 (irreducible, documented) and keeps 500-511 selectable. Not edited here."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Range: over 500 (Buford) to over 2,000 (Meade's dispatch); no single figure' (class irreducible, tier documented, no single instant drawn)."
   },
   {
    "kind": "doc",
@@ -898,8 +898,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-035)",
-   "must_change": true,
-   "note": "Carries default scenario C-035-DEFAULT (500-511); the integration step replaces the label with the range and keeps the five scenarios."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Range: over 500 (Buford) to over 2,000 (Meade's dispatch); no single figure' (class irreducible, tier documented, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   }
  ],
  "failed_searches": [

@@ -612,8 +612,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-032 row)",
-   "must_change": true,
-   "note": "computed: delegated-decision row line 42 names this conflict; read it and set must_change if its value differs from this resolution"
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Between about 13:00 and 14:00; drawn at 14:00 (the latest hour a source gives for the start)' (class irreducible, tier inferred, drawn at 14:00 on Jul 3)."
   },
   {
    "kind": "doc",
@@ -648,8 +648,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-032)",
-   "must_change": true,
-   "note": "holds the first delegated default C-032-DEFAULT (about noon, OR); the default becomes about 14:00 and noon, 10:00, 13:00, 15:00 are relabelled. Not edited here."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Between about 13:00 and 14:00; drawn at 14:00 (the latest hour a source gives for the start)' (class irreducible, tier inferred, drawn at 14:00 on Jul 3); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_code",

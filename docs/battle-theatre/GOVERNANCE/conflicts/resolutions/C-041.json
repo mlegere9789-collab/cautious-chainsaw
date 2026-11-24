@@ -788,8 +788,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-041 row)",
-   "must_change": true,
-   "note": "Row names the default 14:00 inside window 13:30-14:30 (inferred); this resolution gives window 13:30-14:00, picture at 13:45 (irreducible, inferred). Not edited here."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'About 13:30 to 14:00 on Jul 1; the picture uses 13:45 (the middle)' (class irreducible, tier inferred, drawn at 13:45 on Jul 1)."
   },
   {
    "kind": "doc",
@@ -866,14 +866,14 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-041)",
-   "must_change": true,
-   "note": "Carries C-041-DEFAULT 14:00 inside 13:30-14:30; the integration step replaces it with the window 13:30-14:00, picture 13:45, and keeps all scenarios."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'About 13:30 to 14:00 on Jul 1; the picture uses 13:45 (the middle)' (class irreducible, tier inferred, drawn at 13:45 on Jul 1); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "other",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-041)",
-   "must_change": true,
-   "note": "First delegated default (14:00 inside 13:30-14:30); superseded by this resolution after integration."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'About 13:30 to 14:00 on Jul 1; the picture uses 13:45 (the middle)' (class irreducible, tier inferred, drawn at 13:45 on Jul 1); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_data",

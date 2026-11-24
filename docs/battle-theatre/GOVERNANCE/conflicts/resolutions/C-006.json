@@ -772,20 +772,20 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json ($.conflicts.C-006)",
-   "must_change": true,
-   "note": "holds the first delegated default C-006-DEFAULT ('pre-dawn \"stars bright\", no clock (memoir, inferred)', basis memoir) and its rationale ('05:15 and 08:00 do not fit the quote; PDF default 08:00 has no source'), both superseded; add the research values (C-006-P4 daylight, C-006-P5 by about 05:00) as scenarios; 05:15, 08:00 and 'stars bright' keep their labels"
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'By about 05:00 (first light to 05:15): Longstreet with Lee on Seminary Ridge' (class weighted, tier inferred, drawn at 05:00 on Jul 2); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "other",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json ($.conflicts.C-006)",
-   "must_change": true,
-   "note": "the source of the app data above: the first delegated default is superseded; the old scenarios stay"
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'By about 05:00 (first light to 05:15): Longstreet with Lee on Seminary Ridge' (class weighted, tier inferred, drawn at 05:00 on Jul 2); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 16, the C-006 row; row DD-CONF-PREP-03 at line 950, which names C-006 among the single-memoir inferred defaults)",
-   "must_change": true,
-   "note": "the row 'pre-dawn \"stars bright\"... Longstreet 1896... PDF default 08:00 has no source' is superseded by this resolution (by about 05:00, inferred, weighted); the sentence about single memoirs at line 950 no longer describes C-006, whose default rests on a diary of the day with later accounts"
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'By about 05:00 (first light to 05:15): Longstreet with Lee on Seminary Ridge' (class weighted, tier inferred, drawn at 05:00 on Jul 2)."
   },
   {
    "kind": "doc",

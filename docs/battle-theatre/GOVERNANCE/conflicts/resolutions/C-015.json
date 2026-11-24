@@ -547,13 +547,13 @@
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-015)",
    "must_change": false,
-   "note": "default_scenario_id C-015-DEFAULT, \"386 (Chamberlain: 386 all told, 358 guns)\", tier documented: the value stands; the new values (380, 358 muskets, about 350, 308) are added as selectable scenarios and the single-source flag is added."
+   "note": "Integrated 2026-11-24: the file carries '386 men all told, 358 of them with muskets' (class weighted, tier documented, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-015)",
    "must_change": false,
-   "note": "First delegated default: same value; the scenarios of the research are added."
+   "note": "Integrated 2026-11-24: the file carries '386 men all told, 358 of them with muskets' (class weighted, tier documented, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_code",
@@ -565,7 +565,7 @@
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-015 row)",
    "must_change": false,
-   "note": "The row says 386 (Chamberlain: 386 all told, 358 guns), documented, 385 not found: confirmed; the reconciliation adds Barnes's 380 and the single-source flag."
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: '386 men all told, 358 of them with muskets' (class weighted, tier documented, no single instant drawn)."
   },
   {
    "kind": "doc",

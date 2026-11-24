@@ -52,8 +52,46 @@ test('without the defaults file the view falls back to the plan\'s values and sa
 });
 test('the delegated option text carries the time the default names (it drives the arrival of the linked units)', () => {
   const t = id => conf.find(c => c.id === id).options[0].text;
-  assert.match(t('C-004'), /06:30/); assert.match(t('C-003'), /07:00/); assert.match(t('C-021'), /Jul 3/);
+  // version 2 (2026-11-16): the drawn instant of each resolution; a window or a gap with no instant carries no clock at all
+  assert.match(t('C-004'), /^06:00 Jul 2/); assert.match(t('C-003'), /^07:00 Jul 2/); assert.match(t('C-021'), /^04:36 Jul 3 \(drawn at the arrival gate floor/); assert.match(t('C-005'), /^05:30 Jul 2 \(drawn at the arrival gate floor/); assert.match(t('C-007'), /^08:00 Jul 2 \(drawn at the arrival gate floor/);
+  for (const c of reg) { const d = SRC.conflicts[c.id], tx = c.options[0].text; if (d.drawn_text) assert.equal(tx, d.drawn_text, c.id); else assert.ok(!/\d{1,2}:\d{2}/.test(tx), c.id + ' text with no drawn instant must carry no clock: ' + tx); }
 });
 test('renderer default: WebGL2 (it draws weather and effects) unless the address says ?api=webgpu', () => {
   assert.equal(chooseApi(''), 'webgl2'); assert.equal(chooseApi('?history=stub'), 'webgl2'); assert.equal(chooseApi('?api=webgl2'), 'webgl2'); assert.equal(chooseApi('?api=webgpu'), 'webgpu'); assert.equal(chooseApi('?x=1&api=webgpu'), 'webgpu'); assert.equal(chooseApi('?api=auto'), 'auto'); assert.equal(chooseApi('?api=bogus'), 'webgl2'); assert.equal(chooseApi(undefined), 'webgl2');
+});
+
+// ---- the 47 resolutions (2026-11-16): no value lost, a resolution file for every default, the source panel text present
+const RES = id => J(`GOVERNANCE/conflicts/resolutions/${id}.json`);
+test('every conflict has a resolution file and the default is its resolution (class, tier, label, window or gap, previous default kept)', () => {
+  const ids = Object.keys(SRC.conflicts).sort(); assert.equal(ids.length, 47); assert.equal(SRC.version, 2);
+  for (const id of ids) {
+    const r = RES(id), d = SRC.conflicts[id]; assert.equal(r.id, id);
+    assert.equal(d.default_label, r.default.label); assert.equal(d.tier, r.tier); assert.equal(d.class, r.class); assert.equal(d.resolution_file, `docs/battle-theatre/GOVERNANCE/conflicts/resolutions/${id}.json`);
+    assert.ok(['settled', 'weighted', 'irreducible', 'gap'].includes(d.class)); assert.ok(['documented', 'inferred', 'plausible-procedural', 'open gap'].includes(d.tier));
+    assert.ok(d.previous_default && d.previous_default.default_label && d.previous_default.date === '2026-11-11', id + ' keeps the first delegated default');
+    assert.ok(d.scenarios.some(s => s.id === d.previous_default.default_scenario_id), id + ' previous default stays a scenario');
+  }
+});
+test('no value is lost: every position of a resolution and every scenario of the first pass is a scenario of the default, and is selectable in the viewer', () => {
+  for (const c of reg) {
+    const r = RES(c.id), d = SRC.conflicts[c.id], sids = new Set(d.scenarios.map(s => s.id)), labels = new Set(c.options.flatMap(o => [norm(o.label), norm(o.text)]));
+    for (const p of r.positions) { assert.ok((p.scenario_ids || []).length ? p.scenario_ids.every(x => sids.has(x)) : sids.has(p.id), `${c.id} ${p.id} is carried as a scenario`); assert.ok(d.positions.some(q => q.id === p.id), `${c.id} ${p.id} is in the data file`); }
+    for (const s of d.scenarios) if (s.id !== d.default_scenario_id && !/^PDF recommended default/i.test(s.label)) assert.ok(labels.has(norm(s.label)), `${c.id} ${s.id} selectable`);
+    const keep = J('app/data/conflict-defaults.json').conflicts[c.id]; assert.equal(keep.positions.length, r.positions.length);
+    for (const p of r.positions) if (p.stance !== 'default') assert.ok(p.reason_not_chosen && p.reason_not_chosen.text, `${c.id} ${p.id} has the reason it was not chosen`);
+  }
+});
+test('the source panel text, class and window are in the shipped file and reach the viewer', () => {
+  const F = J('app/data/conflict-defaults.json');
+  for (const c of reg) {
+    const f = F.conflicts[c.id], r = RES(c.id); assert.ok(f.source_panel_text && f.source_panel_text.length > 40, c.id + ' source panel text'); assert.equal(f.source_panel_text, r.source_panel_text.replace(/\s*\((?:r\d{2}-\d\s+)?R\d{2}\.C-\d{3}(?:[^()]*)\)/g, '').replace(/\s{2,}/g, ' ').trim());
+    assert.equal(c.delegated.cls, r.class); assert.equal(c.delegated.panel, f.source_panel_text); assert.ok(c.delegated.positions.length === r.positions.length);
+    if (['window', 'range', 'unresolved_set'].includes(r.default.mode)) assert.ok(f.window, c.id + ' window shown');
+    if (r.class === 'gap') assert.equal(f.animation.at, null, c.id + ' a gap draws no instant');
+  }
+});
+test('the shipped file carries no process wording (copy audit)', () => {
+  const t = fs.readFileSync(path.join(BT, 'app/data/conflict-defaults.json'), 'utf8');
+  assert.ok(!/\b(?:AI|A\.I\.|Claude|Anthropic|LLMs?|sub-?agents?|agents?|automated(?:ly)?|machine[- ]generated|language[- ]model|chat-?bots?|prompts?)\b/i.test(t));
+  assert.ok(!/\b(workstream|shards?|horde|task brief|(research|later|earlier|previous|prior|coding|working) session|(in|during|for) this round)\b/i.test(t));
 });

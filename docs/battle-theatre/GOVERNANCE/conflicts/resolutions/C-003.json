@@ -1093,7 +1093,7 @@
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-003 row)",
    "must_change": false,
-   "note": "computed: delegated-decision row line 13 names this conflict; the row's default window 07:00-08:00 is unchanged; add class weighted and the new positions."
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Window 07:00-08:00 on Jul 2: the Fifth Corps comes up on the right of the line; drawn at 07:00' (class weighted, tier inferred, drawn at 07:00 on Jul 2)."
   },
   {
    "kind": "doc",
@@ -1164,8 +1164,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-003)",
-   "must_change": true,
-   "note": "C-003-DEFAULT 'window 07:00-08:00 Jul 2 (head of column); 05:00 kept flagged' stands in hour; 'head of column' should read 'the corps comes up'; add class weighted and tier inferred."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Window 07:00-08:00 on Jul 2: the Fifth Corps comes up on the right of the line; drawn at 07:00' (class weighted, tier inferred, drawn at 07:00 on Jul 2); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_code",

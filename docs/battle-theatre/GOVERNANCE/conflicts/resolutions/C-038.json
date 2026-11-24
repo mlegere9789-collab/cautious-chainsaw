@@ -402,8 +402,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-038 row)",
-   "must_change": true,
-   "note": "The default moves from 'range 1,000-2,000, no headline number, open gap' to about 1,900 (range kept visible), documented from the Sanitary Commission report; integration step to reconcile. computed: delegated-decision row line 48 names this conflict; read it and set must_change if its value differs from this resolution"
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'About 1,900 wounded (1,800 Union, 100 said to be Confederate); range 1,000-2,000 shown' (class weighted, tier documented, no single instant drawn)."
   },
   {
    "kind": "doc",
@@ -456,8 +456,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-038)",
-   "must_change": true,
-   "note": "holds the first delegated default C-038-DEFAULT; to be replaced by the resolved default; every value stays selectable"
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'About 1,900 wounded (1,800 Union, 100 said to be Confederate); range 1,000-2,000 shown' (class weighted, tier documented, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "other",

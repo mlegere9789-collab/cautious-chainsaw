@@ -820,8 +820,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-043 row)",
-   "must_change": true,
-   "note": "The first delegated row (16:00 inside the window 15:45-17:00, documented) is superseded: default window 15:45 to 16:10, weighted, documented, single-source orders."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: '15:45 to 16:10: Wadsworth ordered the First Division back at 3.45; Howard ordered both corps back at 4.10' (class weighted, tier documented, drawn at 15:45 on Jul 1)."
   },
   {
    "kind": "doc",
@@ -886,8 +886,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-043)",
-   "must_change": true,
-   "note": "default_scenario_id C-043-DEFAULT '16:00 inside documented window 15:45-17:00' becomes the window 15:45 to 16:10; the integration step edits it."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries '15:45 to 16:10: Wadsworth ordered the First Division back at 3.45; Howard ordered both corps back at 4.10' (class weighted, tier documented, drawn at 15:45 on Jul 1); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "arrivals_row",

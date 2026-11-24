@@ -16,7 +16,8 @@ for cid, (topic, vals, default, alts) in C.items():
         key = norm(re.sub(r'\s*\([^)]*\)$', '', piece))
         if key and key not in blob: bad.append(f'{cid}: "{piece}" not found in PDF block')
     out.append({'id': cid, 'topic': topic, 'values': [{'label': v} for v in vals], 'pdf_recommended_default': default, 'selectable_alternatives': alts,
-                'owner_decision': None, 'status': 'PENDING OWNER', 'page': parsed[cid]['page']})
+                'owner_decision': None, 'status': ('RESOLVED_DELEGATED_2026_11_16' if parsed[cid].get('default_status') == 'RESOLVED_DELEGATED_2026_11_16' else 'PENDING OWNER'), 'page': parsed[cid]['page']}
+               | ({'resolution': parsed[cid]['resolution']} if parsed[cid].get('resolution') else {}))
 if bad:
     print('\n'.join(bad)); sys.exit(1)
 json.dump({'_doc': 'PDF B.2.5 conflict register, structured. pdf_recommended_default is the PDF\'s recommendation, NOT an owner decision. Every value stays selectable (PDF B.2.5 rule).', 'conflicts': out}, open(os.path.join(G, 'conflicts_structured.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)

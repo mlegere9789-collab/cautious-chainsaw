@@ -1082,8 +1082,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json C-025",
-   "must_change": true,
-   "note": "default_scenario_id C-025-DEFAULT (night Jul 2-3, evening to about 01:30): the label gains the hours (21:00 order, Kane about 22:00, last brigade 01:00 to 01:30); the plan's window stays a scenario."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Night of Jul 2-3: ordered back 21:00, Kane returning about 22:00, last brigade in 01:00-01:30' (class weighted, tier inferred, drawn at 21:00 on Jul 2); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "other",
@@ -1094,8 +1094,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-025 row)",
-   "must_change": true,
-   "note": "Row line 35 (documented; every OR return time is evening to 01:30): the class is weighted and the tier inferred (the day is inferred from the report); the span stays."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Night of Jul 2-3: ordered back 21:00, Kane returning about 22:00, last brigade in 01:00-01:30' (class weighted, tier inferred, drawn at 21:00 on Jul 2)."
   },
   {
    "kind": "doc",

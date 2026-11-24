@@ -900,8 +900,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-039 row)",
-   "must_change": true,
-   "note": "The first delegated row (about 15:00-16:00, documented) is superseded by this resolution: default window 16:00 to 16:30, weighted, documented."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'About 16:00 to 16:30: Howard's note of the day (4 p.m.) to Howard's report and Doubleday (about 4.30)' (class weighted, tier documented, drawn at 16:00 on Jul 1)."
   },
   {
    "kind": "doc",
@@ -978,8 +978,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-039)",
-   "must_change": true,
-   "note": "default_scenario_id C-039-DEFAULT 'about 15:00-16:00' becomes the window 16:00-16:30 with scenarios P5-P8 added; edited by the integration step."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'About 16:00 to 16:30: Howard's note of the day (4 p.m.) to Howard's report and Doubleday (about 4.30)' (class weighted, tier documented, drawn at 16:00 on Jul 1); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_code",

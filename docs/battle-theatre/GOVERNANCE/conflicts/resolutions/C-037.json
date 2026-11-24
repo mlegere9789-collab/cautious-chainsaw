@@ -911,8 +911,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-037 row)",
-   "must_change": true,
-   "note": "computed: delegated-decision row line 47; its open-gap default (wounded Jul 2, death Jul 2-3 range, marked gap) is replaced by an inferred window default (irreducible: Butterfield's night of the 2d against Doubleday's third day); the integration step records the new default."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Wounded the evening of Jul 2; died between that night and about 08:00 on Jul 3; day and hour not settled' (class irreducible, tier inferred, no single instant drawn)."
   },
   {
    "kind": "doc",
@@ -941,14 +941,14 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json C-037",
-   "must_change": true,
-   "note": "the first delegated default (C-037-DEFAULT, tier open gap) is replaced by the resolution default."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Wounded the evening of Jul 2; died between that night and about 08:00 on Jul 3; day and hour not settled' (class irreducible, tier inferred, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json C-037",
-   "must_change": true,
-   "note": "copy of the delegated default shown in the viewer; same change."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Wounded the evening of Jul 2; died between that night and about 08:00 on Jul 3; day and hour not settled' (class irreducible, tier inferred, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_data",

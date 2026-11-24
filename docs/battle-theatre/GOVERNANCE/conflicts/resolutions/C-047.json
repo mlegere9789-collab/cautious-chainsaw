@@ -2182,8 +2182,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-047 row)",
-   "must_change": true,
-   "note": "Row names OR Union casualties 23,049 (OCR single cell) and \"Guild 2,592/12,709\"; both corrected here. Not edited here."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Side by side: Union 83,289-100,000+ men, 23,049 lost; Confederate 62,000-75,992 men, 20,451-28,063 lost' (class irreducible, tier inferred, no single instant drawn)."
   },
   {
    "kind": "doc",
@@ -2272,8 +2272,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-047)",
-   "must_change": true,
-   "note": "Carries default scenario C-047-DEFAULT; the integration step replaces the label with the side-by-side set and keeps the three scenarios."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Side by side: Union 83,289-100,000+ men, 23,049 lost; Confederate 62,000-75,992 men, 20,451-28,063 lost' (class irreducible, tier inferred, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   }
  ],
  "failed_searches": [

@@ -571,8 +571,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-033 row)",
-   "must_change": true,
-   "note": "computed: delegated-decision row line 43 names this conflict; read it and set must_change if its value differs from this resolution"
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Jul 4 afternoon: the head of the column leaves Cashtown about 16:00 (not Imboden himself)' (class settled, tier inferred, drawn at 16:00 on Jul 4)."
   },
   {
    "kind": "doc",
@@ -613,8 +613,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-033)",
-   "must_change": true,
-   "note": "holds the first delegated default 'Jul 4, evening start (wounded train ordered off)'; the default becomes Jul 4 about 16:00 (head of the column). Not edited here."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Jul 4 afternoon: the head of the column leaves Cashtown about 16:00 (not Imboden himself)' (class settled, tier inferred, drawn at 16:00 on Jul 4); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_code",

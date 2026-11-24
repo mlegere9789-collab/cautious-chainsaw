@@ -1073,14 +1073,14 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-007)",
-   "must_change": true,
-   "note": "holds the first delegated default (C-007-DEFAULT, 08:00, plausible-procedural, gap): replace by the label and marking of this resolution (weighted, inferred) and add the research values (07:00, before 08:00, 06:00, 06:00 to 08:00, sunrise) as scenarios; 08:00 and 08:30 keep their labels"
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'About 07:00: the head of McLaws's division on the ridge; the whole division up by 08:00 to 08:30' (class weighted, tier inferred, drawn at 07:00 on Jul 2); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "other",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-007)",
-   "must_change": true,
-   "note": "the source of the app data above: the first delegated default is superseded by this resolution; the old scenarios stay"
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'About 07:00: the head of McLaws's division on the ridge; the whole division up by 08:00 to 08:30' (class weighted, tier inferred, drawn at 07:00 on Jul 2); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_code",
@@ -1128,7 +1128,7 @@
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-007 row)",
    "must_change": false,
-   "note": "computed: delegated-decision row line 17 names this conflict; read it and set must_change if its value differs from this resolution"
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'About 07:00: the head of McLaws's division on the ridge; the whole division up by 08:00 to 08:30' (class weighted, tier inferred, drawn at 07:00 on Jul 2)."
   },
   {
    "kind": "doc",

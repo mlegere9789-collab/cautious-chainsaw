@@ -1244,8 +1244,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-046 row)",
-   "must_change": true,
-   "note": "Row names \"range with declared basis: OR returns plus the full source spread\" and Guild 2,592; the basis is now per army and Guild's own figure is 2,396. Not edited here."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Dead, by army: Union 3,155 killed to 5,291 with died of wounds; Confederate 2,592 killed to 7,000+ buried' (class irreducible, tier documented, no single instant drawn)."
   },
   {
    "kind": "doc",
@@ -1310,8 +1310,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-046)",
-   "must_change": true,
-   "note": "Carries default scenario C-046-DEFAULT; the integration step replaces the label with the per-army range and keeps the three scenarios."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Dead, by army: Union 3,155 killed to 5,291 with died of wounds; Confederate 2,592 killed to 7,000+ buried' (class irreducible, tier documented, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   }
  ],
  "failed_searches": [

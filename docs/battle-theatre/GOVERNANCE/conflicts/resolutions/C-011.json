@@ -1318,20 +1318,20 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-011)",
-   "must_change": true,
-   "note": "default_scenario_id C-011-DEFAULT, label 'guns about 16:00, infantry soon afterwards (window 16:00-16:30)', tier inferred, basis OR: the window holds; add the new values (15:30 order, about 16:15 order, near 17:00, about 14:00, 15:00-16:00 Union), class weighted and the 16:15 instant."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Guns about 16:00, Hood's infantry soon after: window 16:00-16:30; drawn at the middle' (class weighted, tier inferred, drawn at 16:15 on Jul 2); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-011)",
-   "must_change": true,
-   "note": "First delegated default: same additions as the app copy."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Guns about 16:00, Hood's infantry soon after: window 16:00-16:30; drawn at the middle' (class weighted, tier inferred, drawn at 16:15 on Jul 2); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-011 row, line 21)",
-   "must_change": true,
-   "note": "Row states 'Guns about 16:00 documented, infantry soon afterward; 16:30 (PDF) gap': the 16:30 is no longer a gap (Bane, 4th Texas, 4.30) and the infantry hour is read from several reports; record the resolution as a delegated decision."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Guns about 16:00, Hood's infantry soon after: window 16:00-16:30; drawn at the middle' (class weighted, tier inferred, drawn at 16:15 on Jul 2)."
   },
   {
    "kind": "doc",

@@ -1162,8 +1162,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json C-029",
-   "must_change": true,
-   "note": "default_scenario_id C-029-DEFAULT (14:30 documented; later OR values 15:00 and 16:30-17:00): the default becomes the window 14:30 to 15:00, tier inferred, class irreducible; 14:00, 14:30, 15:00 and 16:30-17:00 stay scenarios."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Cannonade ends between 14:30 and 15:00 (Union fire stopped by order about 14:30)' (class weighted, tier inferred, drawn at 14:30 on Jul 3); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "other",
@@ -1180,8 +1180,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-029 row)",
-   "must_change": true,
-   "note": "Row line 39 (14:30 documented; later OR values 15:00 and 16:30-17:00): class irreducible, tier inferred, window 14:30 to 15:00."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Cannonade ends between 14:30 and 15:00 (Union fire stopped by order about 14:30)' (class weighted, tier inferred, drawn at 14:30 on Jul 3)."
   },
   {
    "kind": "doc",

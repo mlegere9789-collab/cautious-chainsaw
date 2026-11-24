@@ -871,13 +871,13 @@
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-009)",
    "must_change": false,
-   "note": "default_scenario_id C-009-DEFAULT, label \"11:00 (Berdan own report)\", tier documented: the value and tier stand; the new values (11:30, 11:45-11:55, before 9:00, about noon, 11-12) are added as selectable scenarios and the label may add Birney's testimony."
+   "note": "Integrated 2026-11-24: the file carries 'About 11:00 on Jul 2: Berdan is ordered to send the detachment out' (class weighted, tier documented, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-009)",
    "must_change": false,
-   "note": "First delegated default: same value and tier; the scenarios of the research are added."
+   "note": "Integrated 2026-11-24: the file carries 'About 11:00 on Jul 2: Berdan is ordered to send the detachment out' (class weighted, tier documented, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_code",
@@ -888,8 +888,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-009 row)",
-   "must_change": true,
-   "note": "The row says Birney and Hunt noon documented and 11:15 only a timeline site; the reconciliation (Birney's testimony of 1864 says about 11; signal messages of 11.45 and 11.55) is recorded by the integration step."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'About 11:00 on Jul 2: Berdan is ordered to send the detachment out' (class weighted, tier documented, no single instant drawn)."
   },
   {
    "kind": "doc",

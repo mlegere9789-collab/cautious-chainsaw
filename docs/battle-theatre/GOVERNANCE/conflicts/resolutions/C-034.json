@@ -960,8 +960,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-034 row)",
-   "must_change": true,
-   "note": "computed: delegated-decision row line 44 names this conflict; read it and set must_change if its value differs from this resolution"
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: '150 to 300 wagons captured or destroyed (Huey, Capehart); Lee's hearsay 40 and the 30 kept shown; range 40-500 listed' (class irreducible, tier documented, no single instant drawn)."
   },
   {
    "kind": "doc",
@@ -1014,8 +1014,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-034)",
-   "must_change": true,
-   "note": "holds the first delegated default 'range 40 to 500 as printed'; the default becomes the range 150 to 300 captured or destroyed, drawn at 150, with 40, 30, 400-500, 37 and the later figures selectable. Not edited here."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries '150 to 300 wagons captured or destroyed (Huey, Capehart); Lee's hearsay 40 and the 30 kept shown; range 40-500 listed' (class irreducible, tier documented, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   }
  ],
  "failed_searches": [

@@ -1125,8 +1125,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-022 row)",
-   "must_change": true,
-   "note": "computed: delegated-decision row line 32 names this conflict; the row 'head 15:00-16:00, first brigades in action about 17:00' becomes the window 15:00-17:00 (the first record stays as history)."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Window 14:00-17:00 on Jul 2: head 14:00-15:00 (record divided), corps about 16:00, left about 17:00' (class irreducible, tier documented, drawn at 15:00 on Jul 2)."
   },
   {
    "kind": "doc",
@@ -1180,7 +1180,7 @@
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-022) and placement-claims.json lines 7225, 7258",
    "must_change": true,
-   "note": "C-022-DEFAULT 'head 15:00-16:00, first brigades in action about 17:00' becomes the window 15:00-17:00; add class weighted and tier documented; the placement claims name C-022 as the conflict of the VI Corps claims."
+   "note": "Integrated 2026-11-24: conflict-defaults.json now carries 'Window 14:00-17:00 on Jul 2: head 14:00-15:00 (record divided), corps about 16:00, left about 17:00' (class irreducible, tier documented, drawn at 15:00 on Jul 2); the first delegated default stays as previous_default and a selectable scenario. placement-claims.json lines 7225 and 7258 still name this conflict as the conflict of the VI Corps claims: their owner checks them (requests/bt-conflicts-integrate-readers.md)."
   },
   {
    "kind": "app_code",
@@ -1192,7 +1192,7 @@
    "kind": "doc",
    "ref": "docs/battle-theatre/history/arrivals.json us-6c default_basis and tools/bt/arrivals_data.py line 203",
    "must_change": true,
-   "note": "default_basis cites the plan's default 'head 14:00, main body 17:00' (PENDING OWNER); it should cite this resolution (window 15:00-17:00, weighted)."
+   "note": "default_basis cites the plan's default 'head 14:00, main body 17:00' (PENDING OWNER); it should cite this resolution (window 14:00-17:00 drawn at 15:00, class irreducible, tier documented)."
   }
  ],
  "failed_searches": [

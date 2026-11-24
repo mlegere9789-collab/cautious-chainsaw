@@ -808,7 +808,7 @@
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-002 row)",
    "must_change": false,
-   "note": "computed: delegated-decision row line 12 names this conflict; the row's default 01:00 is replaced by the window 00:00-02:00 (class irreducible); add the new positions."
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Between about 00:00 and 02:00 on Jul 2 (Brewster about midnight; Humphreys 01:00; Tripp and Bodine 02:00)' (class irreducible, tier inferred, drawn at 00:00 on Jul 2)."
   },
   {
    "kind": "doc",
@@ -873,14 +873,14 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-002)",
-   "must_change": true,
-   "note": "C-002-DEFAULT label '01:00 on Jul 2 (Humphreys own report; a third value)' stands; add the class, tier and flag."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Between about 00:00 and 02:00 on Jul 2 (Brewster about midnight; Humphreys 01:00; Tripp and Bodine 02:00)' (class irreducible, tier inferred, drawn at 00:00 on Jul 2); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/history/arrivals.json us-3c-2d default_basis and tools/bt/arrivals_data.py line 170",
    "must_change": true,
-   "note": "default_basis cites the PDF recommended default 02:00 as PENDING OWNER; it should cite this resolution (01:00, weighted)."
+   "note": "default_basis cites the PDF recommended default 02:00 as PENDING OWNER; it should cite this resolution (window 00:00-02:00 drawn from 00:00, class irreducible, tier inferred)."
   },
   {
    "kind": "doc",

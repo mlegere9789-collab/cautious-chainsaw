@@ -1026,8 +1026,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-010)",
-   "must_change": true,
-   "note": "default_scenario_id C-010-DEFAULT, \"about 14:00 forming line (Hunt p.234); window to 16:00\": the value stands; the label and positions are replaced by the window with its basis, and the new values (about 13:00 to 14:00, 15:30, before 16:00, 13:00) are added as selectable scenarios."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'About 14:00 to 16:00 on Jul 2: the Third Corps moves up to the Emmitsburg road and the peach orchard' (class irreducible, tier documented, drawn at 14:00 on Jul 2); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_data",
@@ -1038,8 +1038,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-010)",
-   "must_change": true,
-   "note": "First delegated default: the same change as the app copy."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'About 14:00 to 16:00 on Jul 2: the Third Corps moves up to the Emmitsburg road and the peach orchard' (class irreducible, tier documented, drawn at 14:00 on Jul 2); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "gate",
@@ -1056,8 +1056,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-010 row)",
-   "must_change": true,
-   "note": "The row says Hunt is the only witness for 14:00; Craig, Austin, De Trobriand and Randolph also give 2 p. m. or between 1 and 2; the reconciliation is recorded by the integration step."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'About 14:00 to 16:00 on Jul 2: the Third Corps moves up to the Emmitsburg road and the peach orchard' (class irreducible, tier documented, drawn at 14:00 on Jul 2)."
   },
   {
    "kind": "doc",

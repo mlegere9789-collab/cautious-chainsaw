@@ -739,20 +739,20 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-012)",
-   "must_change": true,
-   "note": "default_scenario_id C-012-DEFAULT, label \"10 minutes (PDF), marked plausible-procedural, no source\" and the gap marking become the resolution's default (10 minutes, inferred, class weighted); the four scenarios stay selectable and the three new values (45 minutes, a few minutes) are added."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries '10 minutes: Vincent's brigade reached the ledge ten minutes before Oates's 15th Alabama arrived' (class weighted, tier inferred, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-012)",
-   "must_change": true,
-   "note": "First delegated default: same change as the app copy."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries '10 minutes: Vincent's brigade reached the ledge ten minutes before Oates's 15th Alabama arrived' (class weighted, tier inferred, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-012 row)",
-   "must_change": true,
-   "note": "The row says zero Official Records hits, both values unsourced, plausible-procedural; superseded by this resolution (record the reconciliation in the open, do not edit the old line)."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: '10 minutes: Vincent's brigade reached the ledge ten minutes before Oates's 15th Alabama arrived' (class weighted, tier inferred, no single instant drawn)."
   },
   {
    "kind": "doc",
@@ -787,8 +787,8 @@
   {
    "kind": "gate",
    "ref": "Q02 and Q19 (gate_results/Q19.json lines 1100 and 4344; GATE-SPEC U-17), reading conflict-defaults.json $.conflicts.C-012",
-   "must_change": true,
-   "note": "They read the delegated default (plausible-procedural, no source). The default becomes inferred with one source line and the flags single_source and memoir_only: Q19 needs two independent sources or a flag, and the flags are present; Q02 needs source and tier, which are given. Expected values are reconciled, no gate is lowered."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries '10 minutes: Vincent's brigade reached the ledge ten minutes before Oates's 15th Alabama arrived' (class weighted, tier inferred, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "gate",

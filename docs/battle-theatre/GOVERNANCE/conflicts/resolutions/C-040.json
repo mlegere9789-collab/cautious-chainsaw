@@ -723,8 +723,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-040 row)",
-   "must_change": true,
-   "note": "The first delegated row (window 10:15-11:15, documented) is superseded: default about 10:15, weighted, documented, single-source flag."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'About 10:15: Wadsworth's report of 4 Jul 1863 and Doubleday's report; Howard's 11.15 is a later reckoning' (class weighted, tier documented, no single instant drawn)."
   },
   {
    "kind": "doc",
@@ -777,8 +777,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-040)",
-   "must_change": true,
-   "note": "default_scenario_id C-040-DEFAULT 'window 10:15-11:15' becomes the single default about 10:15; positions P5-P8 added as scenarios; edited by the integration step."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'About 10:15: Wadsworth's report of 4 Jul 1863 and Doubleday's report; Howard's 11.15 is a later reckoning' (class weighted, tier documented, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   }
  ]
 }

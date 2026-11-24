@@ -629,8 +629,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-031 row)",
-   "must_change": true,
-   "note": "read: this record holds the old default (10:00, Ruger p. 781; 10:30 also documented); under this resolution the default is about 10:30 (class settled, tier documented) and 10:00 is labelled the counter-attack. Not edited here. "
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'About 10:30: the last Confederate charge (begun 10:25 to 10:30) is beaten back and the enemy retires' (class settled, tier documented, drawn at 10:30 on Jul 3)."
   },
   {
    "kind": "doc",
@@ -671,8 +671,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-031)",
-   "must_change": true,
-   "note": "holds the first delegated default scenario C-031-DEFAULT (10:00, Ruger p. 781); the default becomes about 10:30 and 10:00 and noon are relabelled. Not edited here."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'About 10:30: the last Confederate charge (begun 10:25 to 10:30) is beaten back and the enemy retires' (class settled, tier documented, drawn at 10:30 on Jul 3); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_code",

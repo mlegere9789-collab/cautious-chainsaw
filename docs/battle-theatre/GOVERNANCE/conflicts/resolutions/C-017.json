@@ -617,8 +617,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-017 row)",
-   "must_change": true,
-   "note": "The first delegated row (Birney (corps), Hancock overseeing the sector, documented) is confirmed with the same default; the value French (later commander) is added as a selectable scenario."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Birney (corps), Hancock overseeing the sector: Birney commanded the corps, Hancock was placed over it' (class settled, tier documented, no single instant drawn)."
   },
   {
    "kind": "doc",
@@ -648,7 +648,7 @@
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/src/data.mjs line 40 and app/data/conflict-defaults.json (C-017)",
    "must_change": false,
-   "note": "The labels 'Birney; Hancock', 'Birney (corps), Hancock overseeing the sector' and 'Hancock' and the default stay; the integration step adds the scenario French (later commander) beside them."
+   "note": "Integrated 2026-11-24: the file carries 'Birney (corps), Hancock overseeing the sector: Birney commanded the corps, Hancock was placed over it' (class settled, tier documented, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_code",

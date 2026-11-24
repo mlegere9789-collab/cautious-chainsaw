@@ -896,8 +896,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-027 row)",
-   "must_change": true,
-   "note": "The first delegated row (Jul 3 Westminster; Jul 2 night unresolved, documented) is superseded: Taneytown for the night of 2 July is stated, so the default becomes Taneytown (night of 2 July) then Westminster (3 July)."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Taneytown on the night of 2 July, Westminster on 3 July (the Reserve Brigade: Emmitsburg)' (class settled, tier documented, no single instant drawn)."
   },
   {
    "kind": "doc",
@@ -938,8 +938,8 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-027)",
-   "must_change": true,
-   "note": "default_scenario_id C-027-DEFAULT 'Jul 3: Westminster (documented); Jul 2 night: place unresolved, marked' becomes Taneytown (night of 2 July) then Westminster (3 July); the integration step edits it."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Taneytown on the night of 2 July, Westminster on 3 July (the Reserve Brigade: Emmitsburg)' (class settled, tier documented, no single instant drawn); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "app_code",

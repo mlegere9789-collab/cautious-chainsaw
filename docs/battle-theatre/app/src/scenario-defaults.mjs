@@ -5,6 +5,8 @@
 // 'x:<scenario id>' (values added from the primary record), 'range' (show every value). Conflicts with no delegated default (the weather ones) keep
 // 'recommended' and are unaffected.
 export const DELEGATED_KEY = 'delegated', PDF_KEY = 'recommended';
+// the class of a resolved conflict as the viewer says it (a gap or a window is marked, never filled in)
+export const CLASS_WORD = { settled: 'Settled', weighted: 'Weighted (best-supported value, others stay selectable)', irreducible: 'Irreducible (the sources cannot be reconciled; the window or range is shown)', gap: 'Gap (no source settles it; marked, nothing invented)' };
 export const DELEGATED_NOTE = 'Default chosen under delegated authority, reversible by the owner';
 export const PDF_LABEL = 'PDF recommended, pending owner';
 const norm = s => String(s == null ? '' : s).toLowerCase().replace(/[^a-z0-9:]+/g, ' ').trim();
@@ -19,11 +21,13 @@ export function applyDelegatedDefaults(conflicts, file) {
     for (const s of d.scenarios || []) {
       if (s.id === d.default_scenario_id || /^PDF recommended default/i.test(s.label)) continue;       // the default and the plan's value are carried under their own keys
       const n = norm(s.label); if (have.has(n)) continue; have.add(n);
-      added.push({ key: 'x:' + s.id, label: s.label, text: s.label, added: s.source || 'added from the primary record' });
+      added.push({ key: 'x:' + s.id, label: s.label, text: s.label, added: s.source || 'added from the primary record', ...(s.reason_not_chosen ? { reason: s.reason_not_chosen } : {}), ...(s.tier ? { tier: s.tier } : {}) });
     }
+    const NO_CLOCK = (d.class ? `${CLASS_WORD[d.class] || d.class}: no single instant is drawn; the window or gap is shown` : d.default_label);   // a text with no clock: the arrival layer leaves its own gate unchanged and invents none
     const rec = c.options.find(o => o.key === PDF_KEY), range = c.options.find(o => o.key === 'range'), rest = c.options.filter(o => o !== rec && o !== range);
-    c.options = [{ key: DELEGATED_KEY, label: d.default_label, text: d.default_label, delegated: true, tier: d.tier }, rec, ...rest, ...added, range].filter(Boolean);
-    c.delegated = { id: d.default_scenario_id, label: d.default_label, tier: d.tier, basis: d.basis, pdf: d.pdf_recommended_default, rationale: d.rationale, note: d.product_label || DELEGATED_NOTE };
+    c.options = [{ key: DELEGATED_KEY, label: d.default_label, text: d.class ? (d.drawn_text || NO_CLOCK) : d.default_label, delegated: true, tier: d.tier }, rec, ...rest, ...added, range].filter(Boolean);
+    c.delegated = { id: d.default_scenario_id, label: d.default_label, tier: d.tier, basis: d.basis, pdf: d.pdf_recommended_default, rationale: d.rationale, note: d.product_label || DELEGATED_NOTE,
+      ...(d.class ? { cls: d.class, clsWord: CLASS_WORD[d.class] || d.class, mode: d.mode, window: d.window, drawnText: d.drawn_text, animation: d.animation, panel: d.source_panel_text, holds: d.holds, previous: d.previous_default, positions: d.positions, scenarios: d.scenarios, whatWouldChange: d.what_would_change_it, resolution: d.resolution_file, range: d.range, clamped: d.drawn_clamped, ownerNote: d.owner_note, failedSearches: d.failed_searches_count } : {}) };
     c.status = 'DELEGATED_DEFAULT_REVERSIBLE';
   }
   return conflicts;

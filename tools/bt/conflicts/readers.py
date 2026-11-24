@@ -66,7 +66,12 @@ def build_index():
     # decision log
     dl = os.path.join(GOV, 'decision_log.md')
     head = None
+    skip = False                      # the block of the integration (DEC-DELEG-J) names every conflict by design: it is the record of the resolutions, not a reader
     for n, line in enumerate(_read(dl).split('\n'), 1):
+        if line.startswith('## '):
+            skip = line.startswith('## DEC-DELEG-J ')
+        if skip:
+            continue
         m = re.match(r'##\s+(DEC-[A-Z]?\d+)', line)
         if m:
             head = m.group(1)
@@ -77,7 +82,12 @@ def build_index():
     # delegated decisions
     for p in sorted(glob.glob(os.path.join(GOV, 'decisions', 'DELEGATED-DECISIONS*.md'))):
         b = os.path.basename(p)
+        skip = False
         for n, line in enumerate(_read(p).split('\n'), 1):
+            if line.startswith('## '):
+                skip = line.startswith('## DEC-DELEG-J ')
+            if skip:
+                continue
             for cid in _ids(line):
                 first = line.split('|')[1].strip() if line.startswith('|') and line.count('|') > 1 else 'line %d' % n
                 _add(idx, cid, {'kind': 'doc', 'key': '%s %s' % (b, first), 'ref': 'docs/battle-theatre/GOVERNANCE/decisions/%s (%s row)' % (b, first), 'where': 'delegated-decision row line %d' % n})

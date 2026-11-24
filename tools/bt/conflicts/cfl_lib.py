@@ -91,10 +91,28 @@ def structured():
     return _cache['structured']
 
 
+def defaults_raw():
+    """{id: record} of decisions/conflict_defaults.json as it is now (version 2: the defaults resolved by research, with previous_default)."""
+    if 'defaults_raw' not in _cache:
+        _cache['defaults_raw'] = load_json(DEFAULTS_JSON)['conflicts']
+    return _cache['defaults_raw']
+
+
 def defaults():
-    """{id: record} of decisions/conflict_defaults.json (the first delegated default of 2026-11-11)."""
+    """{id: record} of the FIRST delegated default of 2026-11-11 (what the resolutions quote as first_delegated). In version 2 of conflict_defaults.json
+    it is rebuilt from previous_default and from the scenarios of the first pass (the scenarios the resolution added, <id>-Pn and <id>-R2, are left out)."""
     if 'defaults' not in _cache:
-        _cache['defaults'] = load_json(DEFAULTS_JSON)['conflicts']
+        out = {}
+        for cid, d in defaults_raw().items():
+            pv = d.get('previous_default')
+            if not pv:
+                out[cid] = d
+                continue
+            r = dict(d)
+            r.update({'default_scenario_id': pv['default_scenario_id'], 'default_label': pv['default_label'], 'tier': pv['tier'], 'basis': pv['basis'], 'rationale': pv.get('rationale', '')})
+            r['scenarios'] = [s for s in d['scenarios'] if not s['id'].endswith('-R2') and not s['id'].startswith(cid + '-P')]
+            out[cid] = r
+        _cache['defaults'] = out
     return _cache['defaults']
 
 

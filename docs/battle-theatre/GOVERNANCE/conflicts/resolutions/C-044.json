@@ -550,8 +550,8 @@
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-044 row)",
-   "must_change": true,
-   "note": "Delegated-decision record naming C-044 (first default Jul 20, inferred, institutional): superseded by this resolution (default Jul 22, weighted, inferred); the first record is kept as history. Not edited here."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the row of 2026-11-11 stays as history (the file is append-only); the block DEC-DELEG-J of the same file and of decision_log.md carries this resolution: 'Jul 22: the camp opens for patients (the earliest dated transfers found are Jul 24)' (class weighted, tier inferred, drawn at 00:00 on Jul 22)."
   },
   {
    "kind": "doc",
@@ -616,14 +616,14 @@
   {
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (\"C-044\")",
-   "must_change": true,
-   "note": "Entry C-044: default_scenario_id C-044-DEFAULT, label Jul 20, tier inferred, basis institutional; the integration step sets Jul 22, weighted, inferred, basis secondary (a medical history of the 1910s and a nurse of 1909 reported by a Park Service paper, with the 1863 record fitting). Not edited here."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Jul 22: the camp opens for patients (the earliest dated transfers found are Jul 24)' (class weighted, tier inferred, drawn at 00:00 on Jul 22); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (\"C-044\")",
-   "must_change": true,
-   "note": "Same record as the app data, in the decisions file: first delegated default Jul 20 (inferred, institutional) is superseded. Not edited here."
+   "must_change": false,
+   "note": "Integrated 2026-11-24: the file carries 'Jul 22: the camp opens for patients (the earliest dated transfers found are Jul 24)' (class weighted, tier inferred, drawn at 00:00 on Jul 22); the first delegated default stays as previous_default and a selectable scenario; the plan's value and every position stay selectable."
   },
   {
    "kind": "other",
