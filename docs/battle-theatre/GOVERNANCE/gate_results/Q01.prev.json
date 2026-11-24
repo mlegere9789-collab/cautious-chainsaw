@@ -3,12 +3,12 @@
  "counts": {
   "BLOCKED-INPUT": 1238,
   "COVERED": 0,
-  "FAIL": 435,
-  "N/A": 161,
+  "FAIL": 425,
+  "N/A": 170,
   "NOT-RUN": 0,
-  "PASS": 2069
+  "PASS": 2070
  },
- "finished_utc": "2026-11-24T18:47:02Z",
+ "finished_utc": "2026-11-24T19:41:46Z",
  "gate": "Q01",
  "incomplete_reasons": [
   "1238 item(s) NOT-RUN or BLOCKED-INPUT",
@@ -32,11 +32,11 @@
   "docs/battle-theatre/kit/evidence/us-2c-1d.jsonl": "d1ff0fc5612d7260bc2a2e7d61feb79d4e5b78eea73af1a7da42d7f6c9bf3d27",
   "docs/battle-theatre/kit/evidence/us-2c-2d3d.jsonl": "702677dec1d1189338f2a9945501facaaa257162a264cc76bfd05e6b657c3db1",
   "docs/battle-theatre/kit/evidence/us-3c-1d.jsonl": "20ea7a6735aca3769550f4899c9c19bfbe933ebfc2fe2a0bd9efd1834323fa97",
-  "docs/battle-theatre/kit/verified_oob.json": "a00dd340185de9045849503cd03a8f2b0ae7ec72e0692d3ef45d26b531e322eb",
+  "docs/battle-theatre/kit/verified_oob.json": "4ab6dc11d7141c82a7f8c9175c619632ec19e30aebebfa197a2482e31b6f290d",
   "tools/bt/gates/oob_layer_lib.mjs": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d",
   "tools/bt/gates/oobgates_common.py": "a592fe4a79459c8af1c5b0d3d4e7400f6be4faa60eb7ad568429be5c1c5d4730",
   "tools/bt/gates/q01_layer.mjs": "d3aeb1d12ee674131a30428a02997d372bcbef03957472a753ec519caea2694c",
-  "tools/bt/gates/q01_oob.py": "fbe0c83498f2c5a93e6a1e466eee5ecdbd693ae0c3e518841f7688e8882337c2"
+  "tools/bt/gates/q01_oob.py": "633ffe5c0d593c7ef881973f3b72e8247fac8d6267540cbcd2ed971a002366af"
  },
  "inputs": [
   {
@@ -136,10 +136,10 @@
    "sha256": "20ea7a6735aca3769550f4899c9c19bfbe933ebfc2fe2a0bd9efd1834323fa97"
   },
   {
-   "bytes": 9444449,
+   "bytes": 9444581,
    "path": "docs/battle-theatre/kit/verified_oob.json",
    "role": "table",
-   "sha256": "a00dd340185de9045849503cd03a8f2b0ae7ec72e0692d3ef45d26b531e322eb"
+   "sha256": "4ab6dc11d7141c82a7f8c9175c619632ec19e30aebebfa197a2482e31b6f290d"
   },
   {
    "bytes": 5976,
@@ -160,10 +160,10 @@
    "sha256": "d3aeb1d12ee674131a30428a02997d372bcbef03957472a753ec519caea2694c"
   },
   {
-   "bytes": 55149,
+   "bytes": 57094,
    "path": "tools/bt/gates/q01_oob.py",
    "role": "runner",
-   "sha256": "fbe0c83498f2c5a93e6a1e466eee5ecdbd693ae0c3e518841f7688e8882337c2"
+   "sha256": "633ffe5c0d593c7ef881973f3b72e8247fac8d6267540cbcd2ed971a002366af"
   }
  ],
  "items": [
@@ -2207,19 +2207,43 @@
   {
    "check": "Q01.2",
    "evidence": {
+    "conditions": [
+     {
+      "name": "the aliased unit is in the layer",
+      "ok": true
+     },
+     {
+      "detail": "US vs US",
+      "name": "army equal",
+      "ok": true
+     },
+     {
+      "detail": "regiment vs regiment",
+      "name": "level equal",
+      "ok": true
+     },
+     {
+      "detail": "us-cav-1d-devin vs us-cav-1d-devin",
+      "name": "brigade assignment (parent) equal",
+      "ok": true
+     }
+    ],
+    "same_as": {
+     "crosswalk": "app/data/kit-crosswalk.json",
+     "how": "alias",
+     "unit_id": "us-cav-1d-devin-3wvaandc"
+    },
     "table_row": {
-     "in_roster": false,
      "level": "regiment",
      "name": "3rd West Virginia Cavalry (Cos A, C)",
-     "parent": "us-cav-1d-devin",
-     "status": "unverified"
+     "parent": "us-cav-1d-devin"
     }
    },
    "id": "Q01/Q01.2/US.CAV.3WV/default",
-   "pass": false,
-   "reason": "table unit US.CAV.3WV is missing from the layer: a unit of the Official Records organization tables that the roster lacks (history/undrawn/roster-gaps.json)",
+   "pass": true,
+   "reason": "the same unit as layer unit us-cav-1d-devin-3wvaandc (alias): same army, level and brigade assignment",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -16165,18 +16189,15 @@
    "check": "Q01.2",
    "evidence": {
     "table_row": {
-     "in_roster": false,
      "level": "default",
-     "name": "default record: default.confederate.artillery",
-     "parent": null,
-     "status": "unverified"
+     "name": "default record: default.confederate.artillery"
     }
    },
    "id": "Q01/Q01.2/default.confederate.artillery/default",
    "pass": false,
-   "reason": "table unit default.confederate.artillery is missing from the layer: a unit of the Official Records organization tables that the roster lacks (history/undrawn/roster-gaps.json)",
+   "reason": "a kit default record, not a unit of the order of battle: nothing to draw or to count",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "N/A",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -16190,18 +16211,15 @@
    "check": "Q01.2",
    "evidence": {
     "table_row": {
-     "in_roster": false,
      "level": "default",
-     "name": "default record: default.confederate.cavalry",
-     "parent": null,
-     "status": "unverified"
+     "name": "default record: default.confederate.cavalry"
     }
    },
    "id": "Q01/Q01.2/default.confederate.cavalry/default",
    "pass": false,
-   "reason": "table unit default.confederate.cavalry is missing from the layer: a unit of the Official Records organization tables that the roster lacks (history/undrawn/roster-gaps.json)",
+   "reason": "a kit default record, not a unit of the order of battle: nothing to draw or to count",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "N/A",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -16215,18 +16233,15 @@
    "check": "Q01.2",
    "evidence": {
     "table_row": {
-     "in_roster": false,
      "level": "default",
-     "name": "default record: default.confederate.infantry",
-     "parent": null,
-     "status": "unverified"
+     "name": "default record: default.confederate.infantry"
     }
    },
    "id": "Q01/Q01.2/default.confederate.infantry/default",
    "pass": false,
-   "reason": "table unit default.confederate.infantry is missing from the layer: a unit of the Official Records organization tables that the roster lacks (history/undrawn/roster-gaps.json)",
+   "reason": "a kit default record, not a unit of the order of battle: nothing to draw or to count",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "N/A",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -16240,18 +16255,15 @@
    "check": "Q01.2",
    "evidence": {
     "table_row": {
-     "in_roster": false,
      "level": "default",
-     "name": "default record: default.confederate.officers",
-     "parent": null,
-     "status": "unverified"
+     "name": "default record: default.confederate.officers"
     }
    },
    "id": "Q01/Q01.2/default.confederate.officers/default",
    "pass": false,
-   "reason": "table unit default.confederate.officers is missing from the layer: a unit of the Official Records organization tables that the roster lacks (history/undrawn/roster-gaps.json)",
+   "reason": "a kit default record, not a unit of the order of battle: nothing to draw or to count",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "N/A",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -16265,18 +16277,15 @@
    "check": "Q01.2",
    "evidence": {
     "table_row": {
-     "in_roster": false,
      "level": "default",
-     "name": "default record: default.union.artillery",
-     "parent": null,
-     "status": "unverified"
+     "name": "default record: default.union.artillery"
     }
    },
    "id": "Q01/Q01.2/default.union.artillery/default",
    "pass": false,
-   "reason": "table unit default.union.artillery is missing from the layer: a unit of the Official Records organization tables that the roster lacks (history/undrawn/roster-gaps.json)",
+   "reason": "a kit default record, not a unit of the order of battle: nothing to draw or to count",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "N/A",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -16290,18 +16299,15 @@
    "check": "Q01.2",
    "evidence": {
     "table_row": {
-     "in_roster": false,
      "level": "default",
-     "name": "default record: default.union.cavalry",
-     "parent": null,
-     "status": "unverified"
+     "name": "default record: default.union.cavalry"
     }
    },
    "id": "Q01/Q01.2/default.union.cavalry/default",
    "pass": false,
-   "reason": "table unit default.union.cavalry is missing from the layer: a unit of the Official Records organization tables that the roster lacks (history/undrawn/roster-gaps.json)",
+   "reason": "a kit default record, not a unit of the order of battle: nothing to draw or to count",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "N/A",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -16315,18 +16321,15 @@
    "check": "Q01.2",
    "evidence": {
     "table_row": {
-     "in_roster": false,
      "level": "default",
-     "name": "default record: default.union.infantry",
-     "parent": null,
-     "status": "unverified"
+     "name": "default record: default.union.infantry"
     }
    },
    "id": "Q01/Q01.2/default.union.infantry/default",
    "pass": false,
-   "reason": "table unit default.union.infantry is missing from the layer: a unit of the Official Records organization tables that the roster lacks (history/undrawn/roster-gaps.json)",
+   "reason": "a kit default record, not a unit of the order of battle: nothing to draw or to count",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "N/A",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -16340,18 +16343,15 @@
    "check": "Q01.2",
    "evidence": {
     "table_row": {
-     "in_roster": false,
      "level": "default",
-     "name": "default record: default.union.officers",
-     "parent": null,
-     "status": "unverified"
+     "name": "default record: default.union.officers"
     }
    },
    "id": "Q01/Q01.2/default.union.officers/default",
    "pass": false,
-   "reason": "table unit default.union.officers is missing from the layer: a unit of the Official Records organization tables that the roster lacks (history/undrawn/roster-gaps.json)",
+   "reason": "a kit default record, not a unit of the order of battle: nothing to draw or to count",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "N/A",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -16365,18 +16365,15 @@
    "check": "Q01.2",
    "evidence": {
     "table_row": {
-     "in_roster": false,
      "level": "default",
-     "name": "default record: default.union.xi_corps_german",
-     "parent": null,
-     "status": "unverified"
+     "name": "default record: default.union.xi_corps_german"
     }
    },
    "id": "Q01/Q01.2/default.union.xi_corps_german/default",
    "pass": false,
-   "reason": "table unit default.union.xi_corps_german is missing from the layer: a unit of the Official Records organization tables that the roster lacks (history/undrawn/roster-gaps.json)",
+   "reason": "a kit default record, not a unit of the order of battle: nothing to draw or to count",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "N/A",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -99298,7 +99295,7 @@
   {
    "check": "Q01.6",
    "evidence": {
-    "files_scanned": 189,
+    "files_scanned": 190,
     "hits": [],
     "patterns": [
      "MAX_FIGURES",
@@ -99316,7 +99313,7 @@
    },
    "id": "Q01/Q01.6/cap-scan/default",
    "pass": true,
-   "reason": "no cap constant on the figure count in 189 source files",
+   "reason": "no cap constant on the figure count in 190 source files",
    "renderer_class": "mixed",
    "result": "PASS",
    "scenario": "default",
@@ -134261,7 +134258,7 @@
   "Q01.6: the scenario set S* (every combination of source-conflict values inside each interaction group) was not enumerated; this run covered 7 scenario(s): default and the six sample scenarios of history.test.mjs: a sample, never S*"
  ],
  "renderer_class": "mixed",
- "run_id": "20261124T184645Z-Q01",
+ "run_id": "20261124T194131Z-Q01",
  "runnable_here": true,
  "runner_files": [
   "oob_layer_lib.mjs",
@@ -134269,7 +134266,7 @@
   "q01_layer.mjs",
   "q01_oob.py"
  ],
- "runner_version": "838d3d29043d8e91",
+ "runner_version": "d38e0eee42f3f659",
  "scenario_set": {
   "complete": false,
   "count": 7,
@@ -134278,7 +134275,7 @@
   "note": "default and the six sample scenarios of history.test.mjs: a sample, never S*"
  },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:46:45Z",
+ "started_utc": "2026-11-24T19:41:31Z",
  "table": {
   "diagnostic_copy": false,
   "path": "docs/battle-theatre/kit/verified_oob.json",
@@ -134321,10 +134318,10 @@
    "Q01.2": {
     "BLOCKED-INPUT": 0,
     "COVERED": 0,
-    "FAIL": 99,
-    "N/A": 0,
+    "FAIL": 89,
+    "N/A": 9,
     "NOT-RUN": 0,
-    "PASS": 726
+    "PASS": 727
    },
    "Q01.3": {
     "BLOCKED-INPUT": 480,
@@ -134368,12 +134365,12 @@
    }
   },
   "covered": 0,
-  "fail": 435,
+  "fail": 425,
   "items": 3903,
-  "n_a": 161,
-  "not_passing": 1834,
+  "n_a": 170,
+  "not_passing": 1833,
   "not_run": 0,
-  "pass": 2069
+  "pass": 2070
  },
  "verdict": "FAIL"
 }

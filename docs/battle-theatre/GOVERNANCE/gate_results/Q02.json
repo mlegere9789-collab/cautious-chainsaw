@@ -41,12 +41,12 @@
  "counts": {
   "BLOCKED-INPUT": 0,
   "COVERED": 0,
-  "FAIL": 177,
+  "FAIL": 178,
   "N/A": 75,
   "NOT-RUN": 0,
-  "PASS": 50
+  "PASS": 49
  },
- "finished_utc": "2026-11-24T18:49:12Z",
+ "finished_utc": "2026-11-24T19:47:20Z",
  "gate": "Q02",
  "incomplete_reasons": [],
  "input_hashes": {
@@ -58,7 +58,7 @@
   "docs/battle-theatre/GOVERNANCE/library/status_3.json": "faf77daaf011303222f60d4a1adcae8394d8c32895e949f78150d5b46dcd7e76",
   "docs/battle-theatre/GOVERNANCE/library/status_4.json": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e",
   "docs/battle-theatre/GOVERNANCE/library/status_5.json": "6c7ac45aed89b2955c5e414eb81f41549afa26d88fc07693f383286fbe40f682",
-  "docs/battle-theatre/GOVERNANCE/register_index.json": "fb64343aedfee31e3a0418371e28f06938829d6a36df120d558f7abfeafbd4d6",
+  "docs/battle-theatre/GOVERNANCE/register_index.json": "92a33d48222e82fc9b1194123d005b421f11ae933fac2c15a8c30da9353f659f",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "5464cb93e1a68f87cd429689179a38ada14802f917d51a84d0fa51df03698918",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "5ac7d8db1790e5e47f99b982c21c9906555d9cc20ab5bb0453ea4fcff2f31a2b",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "9a5fa49814cf6b6d27df1f8267bdefad8915616d300a547fc99bfcc23d71c0d0",
@@ -164,7 +164,7 @@
   "tools/bt/gates/lib/datum_scan.py": "56b5b44b65837815de7d6e56dc07d18ecb048189551c16638825b58055186833",
   "tools/bt/gates/lib/extracts.py": "6ce4b33ac9fda50c67b70a1ec46a0027bfa9b4aed47d5605e00d79b5816695f0",
   "tools/bt/gates/lib/loadlist.py": "567263035b4be8dca2beeaa4d831837ccd849f46aee1bf01c627bbd0589cba6d",
-  "tools/bt/gates/lib/pq_common.py": "5c644fdf0d1e426c9a5311c31fa7c9f7d7d159d79f655e244e8e84ee6d82190e",
+  "tools/bt/gates/lib/pq_common.py": "beaa0b798352d3a19af392b70707ab0fcde91a9838afc55de70c753d48266cc2",
   "tools/bt/gates/lib/runmeta.py": "a05af6aece1bc3f159880512e068bd6e40303748568ff7f2540f103662322a21",
   "tools/bt/gates/lib/verification.py": "427e8054ea409032973827c599b40a6e29287de717e177789cf014deef5fab7e",
   "tools/bt/gates/q02_layer.mjs": "c99a3bc2359fa5d9cae3c9f0c6ea33d594dcf99258217ac511b0de2b679cd511",
@@ -226,10 +226,10 @@
    "sha256": "6c7ac45aed89b2955c5e414eb81f41549afa26d88fc07693f383286fbe40f682"
   },
   {
-   "bytes": 1673289,
+   "bytes": 1708816,
    "path": "docs/battle-theatre/GOVERNANCE/register_index.json",
    "role": "datum class gov.register",
-   "sha256": "fb64343aedfee31e3a0418371e28f06938829d6a36df120d558f7abfeafbd4d6"
+   "sha256": "92a33d48222e82fc9b1194123d005b421f11ae933fac2c15a8c30da9353f659f"
   },
   {
    "bytes": 758389,
@@ -862,10 +862,10 @@
    "sha256": "567263035b4be8dca2beeaa4d831837ccd849f46aee1bf01c627bbd0589cba6d"
   },
   {
-   "bytes": 15321,
+   "bytes": 15367,
    "path": "tools/bt/gates/lib/pq_common.py",
    "role": "runner",
-   "sha256": "5c644fdf0d1e426c9a5311c31fa7c9f7d7d159d79f655e244e8e84ee6d82190e"
+   "sha256": "beaa0b798352d3a19af392b70707ab0fcde91a9838afc55de70c753d48266cc2"
   },
   {
    "bytes": 5852,
@@ -934,16 +934,18 @@
    "evidence": {
     "classes": 55,
     "config": "docs/battle-theatre/app/src/config.mjs",
-    "loaded_files": 49,
-    "not_in_registry": [],
+    "loaded_files": 50,
+    "not_in_registry": [
+     "docs/battle-theatre/app/data/timeline-overlay.json"
+    ],
     "registry_files_not_on_disk": [],
     "unresolved_literals": {}
    },
    "id": "Q02/Q02.1/census",
-   "pass": true,
-   "reason": "every one of the 49 data files that the page loads is in a datum class",
+   "pass": false,
+   "reason": "1 data file(s) that the page loads are in no datum class of the registry",
    "renderer_class": "python",
-   "result": "PASS",
+   "result": "FAIL",
    "sub_requirements": [
     "R03.0000"
    ]
@@ -2111,8 +2113,8 @@
    "check": "Q02.2",
    "evidence": {
     "class": "gov.register",
-    "failing": 649,
-    "failures": 649,
+    "failing": 659,
+    "failures": 659,
     "first": [
      "register:EG-0001",
      "register:EG-0002",
@@ -2138,24 +2140,24 @@
     "reasons": {
      "documented with no source id": 437,
      "inferred with neither a source id nor reasoning": 3,
-     "plausible-procedural with neither a source id nor a procedural block": 209
+     "plausible-procedural with neither a source id nor a procedural block": 219
     },
-    "scanned": 1024,
+    "scanned": 1045,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q022-gov_register.jsonl",
-     "rows": 649,
-     "sha256": "b9d640f6239dd98d286f17045644ad09f8338d3b6927c751477e981b3d4aee1d"
+     "rows": 659,
+     "sha256": "6bfc2ce9448257afa4c68a51c4ba06e4000d2e0d0b9fc1db16b25c2ca09e584a"
     },
     "tier_counts": {
      "documented": 437,
-     "inferred": 378,
-     "plausible-procedural": 209
+     "inferred": 389,
+     "plausible-procedural": 219
     },
     "tier_statements_not_exact": 0
    },
    "id": "Q02/Q02.2/gov.register",
    "pass": false,
-   "reason": "649 of 1024 members fail: documented with no source id (437); plausible-procedural with neither a source id nor a procedural block (209); inferred with neither a source id nor reasoning (3)",
+   "reason": "659 of 1045 members fail: documented with no source id (437); plausible-procedural with neither a source id nor a procedural block (219); inferred with neither a source id nor reasoning (3)",
    "renderer_class": "python",
    "result": "FAIL",
    "sub_requirements": [
@@ -11297,14 +11299,14 @@
   "Q02.3 judgment part (U-29, 1.10): that each documented claim equals what its span supports is decided by no program; the runner re-finds every extract and applies the number rule, and a class of documented members is PASS only when a verification record of gate_results/verification/ names it with the verdict agree"
  ],
  "renderer_class": "python",
- "run_id": "20261124T184859Z-Q02",
+ "run_id": "20261124T194707Z-Q02",
  "runnable_here": true,
  "runner": {
   "files": 12,
-  "sha256": "828a44e01c26c5486052771c90f68e2f86bb1f33587ae1cbbfed65f0a32acdfb"
+  "sha256": "656e8fc6f946516bfc252c66f934c8155bf6954a9d6807239ad84a8d7bb73fcb"
  },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:48:59Z",
+ "started_utc": "2026-11-24T19:47:07Z",
  "text_store": {
   "or27_error": null,
   "statevol_error": null,
@@ -11330,10 +11332,10 @@
    "Q02.1": {
     "BLOCKED-INPUT": 0,
     "COVERED": 0,
-    "FAIL": 0,
+    "FAIL": 1,
     "N/A": 0,
     "NOT-RUN": 0,
-    "PASS": 2
+    "PASS": 1
    },
    "Q02.2": {
     "BLOCKED-INPUT": 0,
@@ -11401,12 +11403,12 @@
    }
   },
   "covered": 0,
-  "fail": 177,
+  "fail": 178,
   "items": 302,
   "n_a": 75,
-  "not_passing": 252,
+  "not_passing": 253,
   "not_run": 0,
-  "pass": 50
+  "pass": 49
  },
  "verdict": "FAIL",
  "verification": {

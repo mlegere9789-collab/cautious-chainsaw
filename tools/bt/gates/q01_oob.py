@@ -389,6 +389,23 @@ def q012_unit_set(rec, ctx, L, T):
         for tid, t in sorted(tu.items()):
             if tid in by:
                 continue
+            if t.get('level') == 'default':                           # an army-and-arm default of the kit (dress and arms inherited by units with no record of their own): not a unit of the order of battle
+                mk(rec, ctx, 'Q01.2', tid, 'default', 'N/A', 'a kit default record, not a unit of the order of battle: nothing to draw or to count', {'table_row': {'name': t.get('name'), 'level': t.get('level')}}, unit=tid)
+                continue
+            sa = t.get('same_as') or {}
+            if sa.get('unit_id'):                                     # a kit-only row that is the same unit as a roster unit under another id (the kit crosswalk's alias): judged against that unit, never "missing"
+                lu = by.get(sa['unit_id'])
+                conds = [cond('the aliased unit is in the layer', lu is not None, 'layer has no unit %s' % sa['unit_id'] if lu is None else None)]
+                if lu is not None:
+                    conds += [cond('army equal', t.get('army') == lu['army'], '%s vs %s' % (lu['army'], t.get('army'))), cond('level equal', t.get('level') == lu['level'], '%s vs %s' % (lu['level'], t.get('level'))),
+                              cond('brigade assignment (parent) equal', (t.get('parent') or None) == (lu['parent'] or None), '%s vs %s' % (lu['parent'], t.get('parent')))]
+                bad = first_failed(conds)
+                ev = {'conditions': conds, 'same_as': sa, 'table_row': {'name': t.get('name'), 'level': t.get('level'), 'parent': t.get('parent')}}
+                if bad:
+                    mk(rec, ctx, 'Q01.2', tid, 'default', 'FAIL', 'kit-only row %s names %s as the same unit: %s' % (tid, sa['unit_id'], '; '.join(bad)), ev, unit=tid)
+                else:
+                    mk(rec, ctx, 'Q01.2', tid, 'default', 'PASS', 'the same unit as layer unit %s (%s): same army, level and brigade assignment' % (sa['unit_id'], sa.get('how')), ev, unit=tid)
+                continue
             hint = 'a unit of the Official Records organization tables that the roster lacks (history/undrawn/roster-gaps.json)' if not t.get('in_roster') else 'the table says it is in the roster, the layer does not hold it'
             mk(rec, ctx, 'Q01.2', tid, 'default', 'FAIL', 'table unit %s is missing from the layer: %s' % (tid, hint), {'table_row': {'name': t.get('name'), 'level': t.get('level'), 'parent': t.get('parent'), 'in_roster': t.get('in_roster'), 'status': t.get('status')}}, unit=tid)
 

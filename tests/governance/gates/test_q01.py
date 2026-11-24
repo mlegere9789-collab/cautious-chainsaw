@@ -112,6 +112,38 @@ class UnitSet(unittest.TestCase):          # Q01.2
         self.assertEqual(result_of(out, 'Q01.2', 'us-1c-1d-b1-r9'), 'FAIL')
         self.assertIn('missing from the layer', items(out, 'Q01.2', 'us-1c-1d-b1-r9')[0]['reason'])
 
+    def test_a_kit_only_row_that_is_the_same_unit_as_a_layer_unit_is_not_missing(self):
+        """The Q20 crosswalk bug seen from Q01.2: kit card US.CAV.3WV and roster unit us-cav-1d-devin-3wvaandc are one unit (same name and parent), so the kit-only row must not be reported missing from the layer."""
+        t = F.oob_table()
+        t['units']['KIT.R1'] = F.tunit('19th Indiana (kit spelling)', 'US', 'regiment', 'infantry', 'us-1c-1d-b1', in_roster=False, status='unverified', uid='KIT.R1')
+        t['units']['KIT.R1']['same_as'] = {'unit_id': 'us-1c-1d-b1-r1', 'how': 'alias'}
+        out = run(table=t)
+        self.assertEqual(result_of(out, 'Q01.2', 'KIT.R1'), 'PASS')
+
+    def test_a_same_as_row_whose_layer_unit_has_another_parent_still_fails(self):
+        t = F.oob_table()
+        t['units']['KIT.R1'] = F.tunit('19th Indiana (kit spelling)', 'US', 'regiment', 'infantry', 'us-1c', in_roster=False, status='unverified', uid='KIT.R1')
+        t['units']['KIT.R1']['same_as'] = {'unit_id': 'us-1c-1d-b1-r1', 'how': 'alias'}
+        out = run(table=t)
+        self.assertEqual(result_of(out, 'Q01.2', 'KIT.R1'), 'FAIL')
+
+    def test_a_same_as_row_naming_a_unit_the_layer_lacks_still_fails(self):
+        t = F.oob_table()
+        t['units']['KIT.R1'] = F.tunit('Nobody', 'US', 'regiment', 'infantry', 'us-1c-1d-b1', in_roster=False, status='unverified', uid='KIT.R1')
+        t['units']['KIT.R1']['same_as'] = {'unit_id': 'us-nowhere', 'how': 'alias'}
+        self.assertEqual(result_of(run(table=t), 'Q01.2', 'KIT.R1'), 'FAIL')
+
+    def test_a_kit_default_record_is_not_a_unit_of_the_order_of_battle(self):
+        t = F.oob_table()
+        t['units']['default.union.infantry'] = F.tunit('default record: default.union.infantry', 'US', 'default', None, None, in_roster=False, status='unverified', uid='default.union.infantry', engaged=None)
+        out = run(table=t)
+        self.assertEqual(result_of(out, 'Q01.2', 'default.union.infantry'), 'N/A')
+
+    def test_a_kit_support_record_that_the_layer_lacks_is_still_a_failure(self):
+        t = F.oob_table()
+        t['units']['US.SUP.SIGNAL'] = F.tunit('Signal Corps', 'US', 'group', None, 'us-aop', in_roster=False, status='unverified', uid='US.SUP.SIGNAL')
+        self.assertEqual(result_of(run(table=t), 'Q01.2', 'US.SUP.SIGNAL'), 'FAIL')
+
     def test_a_brigade_assignment_that_differs_is_a_failure(self):
         t = F.oob_table()
         t['units']['us-1c-1d-b1-r2']['parent'] = 'us-1c-2d-b2'

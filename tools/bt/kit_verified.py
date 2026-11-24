@@ -15,6 +15,17 @@ import kit_evidence_check as C
 KIT = os.path.join(K.BT, 'kit')
 SCHEMA_OOB, SCHEMA_BAT = 'kit-verified-oob-1', 'kit-verified-batteries-1'
 CORE = ('roster', 'commander', 'strength')
+CROSSWALK = os.path.join(K.BT, 'app', 'data', 'kit-crosswalk.json')
+
+
+def crosswalk_aliases(roster_ids):
+    """kit id -> roster unit id for the kit records that the crosswalk (tools/bt/kit_crosswalk.py) names as the same unit under another spelling (how == 'alias').
+    Only an alias to a unit that is in the roster counts; a regiment that merely takes its brigade's record is not the same unit."""
+    try:
+        cw = json.load(open(CROSSWALK, encoding='utf-8'))['units']
+    except (OSError, ValueError, KeyError):
+        return {}
+    return {v['kit']: u for u, v in sorted(cw.items()) if v.get('kit') and v.get('how') == 'alias' and u in roster_ids}
 
 
 def cite_of(o):
@@ -92,6 +103,8 @@ def build(ev_dir=K.EV, out_dir=KIT, write=True):
                 for u in (o.get('unit_ids') if o.get('unit_ids') is not None else [o.get('unit_id')]):
                     for f in (o.get('fields') if o.get('fields') is not None else [o.get('field')]):
                         gaps_by[(u, f)].append({'id': o['id'], 'result': o['result'], 'searched': o['searched'], 'note': o.get('note'), 'register_proposal': o.get('register_proposal')})
+    roster_ids = {e['unit_id'] for g in gdoc['groups'] for e in g['units'] if e['in_roster']}
+    aliases = crosswalk_aliases(roster_ids)
     kit_art = json.load(open(os.path.join(KIT, 'artillery_batteries.json'), encoding='utf-8'))['batteries']
     units, bats, formations = collections.OrderedDict(), collections.OrderedDict(), collections.OrderedDict()
     for g in gdoc['groups']:
@@ -106,6 +119,10 @@ def build(ev_dir=K.EV, out_dir=KIT, write=True):
             for f in e['required']:
                 st[f] = field_status(by.get(f, []), gaps_by.get((uid, f)))
             rec['fields'] = st
+            if not e['in_roster']:                              # a kit-only row that is the same unit as a roster unit under another id: recorded, so a gate does not count it as a unit the roster lacks
+                same = sorted({aliases[k['id']] for k in e.get('kit', []) if k['id'] in aliases})
+                if len(same) == 1 and same[0] != uid:
+                    rec['same_as'] = collections.OrderedDict([('unit_id', same[0]), ('how', 'alias'), ('crosswalk', 'app/data/kit-crosswalk.json')])
             core = [f for f in CORE if f in e['required']]
             if core and all(st[f] == 'verified' for f in core):
                 rec['status'] = 'verified'
