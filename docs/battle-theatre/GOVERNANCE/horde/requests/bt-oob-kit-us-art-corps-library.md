@@ -1,0 +1,5 @@
+# bt-oob-kit us-art-corps: texts fetched
+
+Fetched 24 November 2026 from archive.org by the stream path (https://archive.org/stream/<id>/<id>_djvu.txt, one request per second, none refused; the text between the pre tags unescaped), kept under tmp/kit-us-art-corps/lib/ until the integration has validated the declarations (type: source lines of us-art-corps.jsonl): histbattery00aldrrich (The History of Battery A, First Regiment Rhode Island Light Artillery, Aldrich, 1904), historyofbattery04rhod (The History of Battery B, First Regiment Rhode Island Light Artillery, Rhodes, 1894) and historybatterye00lewigoog (The History of Battery E, First Regiment Rhode Island Light Artillery, Lewis, 1892). Class regimental_or_state_history. The sha256 of each file is in its source line.
+
+Searches of the archive.org catalogue (advancedsearch, titles) found no history of Batteries C or G, 1st Rhode Island, of the 1st Massachusetts Battery (Sixth Corps), of the regular batteries of the group or of the Third Massachusetts Battery.

@@ -1,0 +1,3 @@
+# bt-oob-kit us-art-corps: catalog items missing for dress lines
+
+The dress lines of Battery B and Battery E, 1st Rhode Island (June 1863, light marching order) carry `item_id: null` for items the catalog (kit_items) does not name unambiguously: "blouse" and "jacket" of the cannoneers (nearest catalog items `sack_coat_union`, `short_shell_jacket_union`, `jacket_artillery_red_trim`: the sources do not say which), "a cap" (no item for an unspecified cap), "one pair of boots or shoes" / "shoes or boots", "two flannel shirts", the great coat of the drivers, the blanket and the shelter tent half (nearest `shelter_half`, `pack_blanket_roll_only`). Requested: a catalog entry for each, or the integrator's decision that the nearest item stands.

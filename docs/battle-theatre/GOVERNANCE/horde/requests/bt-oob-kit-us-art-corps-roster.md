@@ -1,0 +1,11 @@
+# bt-oob-kit us-art-corps: roster findings for the roster owner
+
+Written 24 November 2026. Source: kit/evidence/us-art-corps.jsonl (nothing is applied by the pass).
+
+1. **14th New York Battery** (unit_id null line `us-art-corps:0276`, parent `us-2c-art-1nyb`): the organization table (OR27-1-R009 p. 159, footnote to Battery B, 1st New York Light: "Transferred from Artillery Reserve, July 1; 14th New York Battery attached") and the return of casualties (p. 177) show it attached to Battery B. The roster has no unit for it. Captain James McKay Rorty, who took command of Battery B on 2 July and was killed on 3 July, belonged to it.
+2. **Battery E, 1st New York Light Artillery** (`us-1c-art-1nye`): the table prints it only in the footnote to Battery L ("Battery E, 1st New York Light Artillery, attached", p. 157; the return repeats the footnote on the Battery L row, p. 174); the history in New York at Gettysburg says it was transferred to Reynolds' Battery L on 20 June 1863 and fought with it. It has no commander, strength, casualties or guns of its own: the unit is an attachment of `us-1c-art-1nyl`, not a battery in the field (roster line and detachment line in the file; gap lines for the other fields).
+3. **Battery B, 1st New Jersey** (`us-3c-art-1njb`): the table and the return call it "New Jersey Light, 2d Battery" (the OCR of the table reads 3d; the scan reads 2d) and Captain Clark signs as "Battery B, First New Jersey Light Artillery".
+4. **New York Light, 1st Battery** (`us-6c-art-1ny`): the table calls Cowan's battery "New York Light, 1st Battery"; Hunt and Cowan call it the 1st New York Independent Battery; it is not Battery A..M of the 1st New York Light Artillery.
+5. **Harn's battery** (`us-6c-art-3ny`): the table prints Captain William A. Harn (the OCR reads Ham); the roster name in the kit card is Harn.
+6. **Commanders**: the order of the table's Third Corps block makes Captain Randolph the first and Captain A. Judson Clark the second commander of the brigade (Randolph was wounded on 2 July, his own report; Clark acted as chief of artillery of the corps, Winslow's report). The artillery brigade commanders of the First, Second, Fifth, Sixth, Eleventh and Twelfth Corps are as in the roster.
+7. **Units the record shows that the roster lacks**: none besides the 14th New York Battery (item 1).
