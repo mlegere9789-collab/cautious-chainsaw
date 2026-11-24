@@ -1,9 +1,9 @@
 {
  "harness": "bt-realize-1",
  "harness_digest": "2f5b52080685548b",
- "inputs_digest": "ecba49dca36d77b9",
+ "inputs_digest": "67de4b00023ccd04",
  "inputs_parts": {
-  "governance": "6ef05684c60f1a58",
+  "governance": "7b8f3960b2b2d7ba",
   "app_src": "d0d54dd929dc1faa",
   "data": "c91ad86ddcd21536",
   "records": "fbe031e1a6fad484"
@@ -31,12 +31,12 @@
    "realized_group_incomplete": 0,
    "realized_clock_margin_used": 0,
    "realized_by_card_only": 0,
-   "uncovered_strict": 35,
+   "uncovered_strict": 0,
    "not_realized": 687,
    "with_record": 20,
    "no_record": 671,
-   "covered_by_open_register_entry_only": 652,
-   "uncovered": 35
+   "covered_by_open_register_entry_only": 687,
+   "uncovered": 0
   },
   "epilogue": {
    "rows": 14,
@@ -97,9 +97,9 @@
   "realized_group_incomplete": 0,
   "realized_clock_margin_used": 0,
   "realized_by_card_only": 0,
-  "covered_by_open_register_entry_only": 652,
-  "uncovered": 35,
-  "uncovered_strict": 35,
+  "covered_by_open_register_entry_only": 687,
+  "uncovered": 0,
+  "uncovered_strict": 0,
   "epilogue_uncovered": 2,
   "epilogue_uncovered_strict": 2
  },
@@ -209,10 +209,13 @@
    "status": "verified_against_or_text",
    "shard": "tl-01",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0865",
+    "EG-0878"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-002": {
    "realized": false,
@@ -330,10 +333,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-01",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0866"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-003": {
    "realized": true,
@@ -2722,7 +2727,10 @@
    "window": null,
    "clock_tolerance_used": null,
    "allowed_exact": [
-    "1863-06-28T03:00..1863-06-28T07:00"
+    "1863-06-28T00:00..1863-06-28T12:00"
+   ],
+   "window_flags": [
+    "correction_without_machine_readable_window"
    ],
    "record_reading": null,
    "in_clock": true,
@@ -2730,10 +2738,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-01",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0867"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-026": {
    "realized": false,
@@ -2780,10 +2790,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-01",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0868"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-028": {
    "realized": false,
@@ -2885,10 +2897,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-01",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0869"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-032": {
    "realized": false,
@@ -2961,10 +2975,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-01",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0870"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-035": {
    "realized": false,
@@ -3063,10 +3079,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-01",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0871"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-039": {
    "realized": false,
@@ -3432,10 +3450,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-01",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0872"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-053": {
    "realized": false,
@@ -3618,10 +3638,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-02",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0873"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-060": {
    "realized": false,
@@ -3771,10 +3793,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-02",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0874"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-065": {
    "realized": false,
@@ -4159,10 +4183,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-02",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0875"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-078": {
    "realized": false,
@@ -4276,10 +4302,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-02",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0876"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-082": {
    "realized": false,
@@ -4456,10 +4484,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-02",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0877"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-088": {
    "realized": false,
@@ -7706,10 +7736,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-04",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0878"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-205": {
    "realized": false,
@@ -7879,10 +7911,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-04",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0879"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-211": {
    "realized": false,
@@ -7907,7 +7941,8 @@
    "shard": "tl-04",
    "realization_class": null,
    "register_open": [
-    "EG-0856"
+    "EG-0856",
+    "EG-0879"
    ],
    "q17_covered": true,
    "q17_covered_strict": true,
@@ -7935,10 +7970,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-04",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0880"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-213": {
    "realized": false,
@@ -8051,10 +8088,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-04",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0881"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T1-217": {
    "realized": false,
@@ -9438,10 +9477,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-05",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0882"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T2-039": {
    "realized": false,
@@ -10283,10 +10324,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-06",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0883"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T2-067": {
    "realized": false,
@@ -11647,10 +11690,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-06",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0884"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T2-113": {
    "realized": false,
@@ -12350,10 +12395,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-07",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0885"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T2-137": {
    "realized": false,
@@ -13165,10 +13212,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-07",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0886"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T2-165": {
    "realized": false,
@@ -14411,10 +14460,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-08",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0887"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T2-207": {
    "realized": false,
@@ -15341,10 +15392,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-09",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0888"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T2-237": {
    "realized": false,
@@ -15368,10 +15421,13 @@
    "status": "verified_against_or_text",
    "shard": "tl-09",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0889",
+    "EG-0892"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T2-238": {
    "realized": false,
@@ -15518,7 +15574,9 @@
    "shard": "tl-09",
    "realization_class": null,
    "register_open": [
-    "EG-0293"
+    "EG-0293",
+    "EG-0891",
+    "EG-0894"
    ],
    "q17_covered": true,
    "q17_covered_strict": true,
@@ -15604,10 +15662,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-09",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0890"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T2-246": {
    "realized": false,
@@ -15660,10 +15720,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-09",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0891"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T2-248": {
    "realized": false,
@@ -16279,10 +16341,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-09",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0892"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T3-021": {
    "realized": false,
@@ -16573,10 +16637,13 @@
    "status": "verified_against_or_text",
    "shard": "tl-09",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0890",
+    "EG-0893"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T3-031": {
    "realized": false,
@@ -16749,10 +16816,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-09",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0894"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T3-037": {
    "realized": false,
@@ -16951,10 +17020,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-09",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0895"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T3-044": {
    "realized": false,
@@ -17331,10 +17402,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-10",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0896"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T3-057": {
    "realized": false,
@@ -18029,10 +18102,12 @@
    "status": "recheck_failed",
    "shard": "tl-10",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0897"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T3-081": {
    "realized": false,
@@ -18491,10 +18566,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-10",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0898"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T3-097": {
    "realized": false,
@@ -19128,10 +19205,12 @@
    "status": "verified_against_or_text",
    "shard": "tl-11",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0899"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "T3-119": {
    "realized": false,

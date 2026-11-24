@@ -46,7 +46,7 @@
   "NOT-RUN": 0,
   "PASS": 50
  },
- "finished_utc": "2026-11-24T18:28:24Z",
+ "finished_utc": "2026-11-24T18:42:32Z",
  "gate": "Q02",
  "incomplete_reasons": [],
  "input_hashes": {
@@ -58,16 +58,24 @@
   "docs/battle-theatre/GOVERNANCE/library/status_3.json": "faf77daaf011303222f60d4a1adcae8394d8c32895e949f78150d5b46dcd7e76",
   "docs/battle-theatre/GOVERNANCE/library/status_4.json": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e",
   "docs/battle-theatre/GOVERNANCE/library/status_5.json": "6c7ac45aed89b2955c5e414eb81f41549afa26d88fc07693f383286fbe40f682",
-  "docs/battle-theatre/GOVERNANCE/register_index.json": "1f1f08961a1e37f482c32c43323a091095ff23933bfca99750cf0bfcee0bf3e6",
+  "docs/battle-theatre/GOVERNANCE/register_index.json": "b03ce81ab344d43cb00cf7e0c38282707a94e66e313c19b643baecc72c78c23d",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "97a3139ef408bfeb221632916445f3000ccf5a93dc8df2fa36356690e78552b5",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "5ac7d8db1790e5e47f99b982c21c9906555d9cc20ab5bb0453ea4fcff2f31a2b",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "9a5fa49814cf6b6d27df1f8267bdefad8915616d300a547fc99bfcc23d71c0d0",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-04.jsonl": "55db432864de3b0ff109a7ab37958a3c6ba2ee0406e38fa719e513077d28e4a0",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-05.jsonl": "3dae3238eeee95aa42c8548378ec073463cc92fbd2c22c782c5e3ae74ae76ed2",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-06.jsonl": "8490c503431f08cd30f798ff7266c3bf806b12a8fa1c72dcbd7e27bd7d0c8e5b",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-07.jsonl": "722dfbc7f62e6ad4a9ada34219f8818d0dfee0a52c29d786b6cdee3d7335a4fa",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-08.jsonl": "06d2c512d6ed87f15d8804b625194ef6627d4c21f8a8ca844027d028766d9a20",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-09.jsonl": "2bc91c80b30994edcc10a80ab6b6a4c762b1d655fe5205cd3742d1f49c086dff",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-10.jsonl": "f22030aa9ee4339087aaab3593a8309a6a2c0ead43b41faae2b04085f2288511",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-11.jsonl": "499a503239c0fe835abb226ccbcf583c0da70fae23f4a64f046d7a902dcbf5fd",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-12.jsonl": "b6d795db6dc8694a9b97644bb5b0f062fef63a755c56bfb2d22e28066b2cbab7",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-lookups.jsonl": "5c5c65de6cdce61d7c64fdec5ed381c1b4e81a2e26a6737900317d5c812f034f",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-newspapers.jsonl": "1c2e4e14102cc522bb775e3dd56e3800ce1db3f49514a56c1f97b748e7558b94",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-nps-landscape.jsonl": "fd44217eaa0c7a519441727fa159713b5c219539682a121e3f7d174490747ebf",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-photomatch.jsonl": "ca60ff50bdf9583e8dc5f7a86a2a1ef553cd70dc83bd2774e4ca2d190a1812c3",
-  "docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl": "ca61d0ff961ab35af8b9ae280c40b75156378ad680601a361e5cb010328262f3",
+  "docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl": "44a651ac465f2b80d533def1a0f7652ddf8658cd0298efa8c7d1509e879b5097",
   "docs/battle-theatre/app/data/artillery-train.json": "6737bb8bbde0ca44dc087f4cf928b971271d3ab721b3c99858082ba7d44ac030",
   "docs/battle-theatre/app/data/audio3d/calls.json": "6273b3225b89500af22dac803c4ac5580d739d7a3e93ade9c3b872df766a1bf2",
   "docs/battle-theatre/app/data/audio3d/commands.json": "40c801c32060be1b94177571fb3db50ceb59514573539f40295647adb43e0656",
@@ -218,10 +226,10 @@
    "sha256": "6c7ac45aed89b2955c5e414eb81f41549afa26d88fc07693f383286fbe40f682"
   },
   {
-   "bytes": 612915,
+   "bytes": 1619069,
    "path": "docs/battle-theatre/GOVERNANCE/register_index.json",
    "role": "datum class gov.register",
-   "sha256": "1f1f08961a1e37f482c32c43323a091095ff23933bfca99750cf0bfcee0bf3e6"
+   "sha256": "b03ce81ab344d43cb00cf7e0c38282707a94e66e313c19b643baecc72c78c23d"
   },
   {
    "bytes": 757393,
@@ -248,6 +256,54 @@
    "sha256": "55db432864de3b0ff109a7ab37958a3c6ba2ee0406e38fa719e513077d28e4a0"
   },
   {
+   "bytes": 174316,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-05.jsonl",
+   "role": "timeline correction records",
+   "sha256": "3dae3238eeee95aa42c8548378ec073463cc92fbd2c22c782c5e3ae74ae76ed2"
+  },
+  {
+   "bytes": 195574,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-06.jsonl",
+   "role": "timeline correction records",
+   "sha256": "8490c503431f08cd30f798ff7266c3bf806b12a8fa1c72dcbd7e27bd7d0c8e5b"
+  },
+  {
+   "bytes": 198493,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-07.jsonl",
+   "role": "timeline correction records",
+   "sha256": "722dfbc7f62e6ad4a9ada34219f8818d0dfee0a52c29d786b6cdee3d7335a4fa"
+  },
+  {
+   "bytes": 169868,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-08.jsonl",
+   "role": "timeline correction records",
+   "sha256": "06d2c512d6ed87f15d8804b625194ef6627d4c21f8a8ca844027d028766d9a20"
+  },
+  {
+   "bytes": 225647,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-09.jsonl",
+   "role": "timeline correction records",
+   "sha256": "2bc91c80b30994edcc10a80ab6b6a4c762b1d655fe5205cd3742d1f49c086dff"
+  },
+  {
+   "bytes": 148407,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-10.jsonl",
+   "role": "timeline correction records",
+   "sha256": "f22030aa9ee4339087aaab3593a8309a6a2c0ead43b41faae2b04085f2288511"
+  },
+  {
+   "bytes": 126742,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-11.jsonl",
+   "role": "timeline correction records",
+   "sha256": "499a503239c0fe835abb226ccbcf583c0da70fae23f4a64f046d7a902dcbf5fd"
+  },
+  {
+   "bytes": 159710,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-12.jsonl",
+   "role": "timeline correction records",
+   "sha256": "b6d795db6dc8694a9b97644bb5b0f062fef63a755c56bfb2d22e28066b2cbab7"
+  },
+  {
    "bytes": 131044,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-lookups.jsonl",
    "role": "timeline correction records",
@@ -272,10 +328,10 @@
    "sha256": "ca60ff50bdf9583e8dc5f7a86a2a1ef553cd70dc83bd2774e4ca2d190a1812c3"
   },
   {
-   "bytes": 814333,
+   "bytes": 1102508,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl",
    "role": "timeline rows",
-   "sha256": "ca61d0ff961ab35af8b9ae280c40b75156378ad680601a361e5cb010328262f3"
+   "sha256": "44a651ac465f2b80d533def1a0f7652ddf8658cd0298efa8c7d1509e879b5097"
   },
   {
    "bytes": 14667,
@@ -2055,8 +2111,8 @@
    "check": "Q02.2",
    "evidence": {
     "class": "gov.register",
-    "failing": 242,
-    "failures": 242,
+    "failing": 614,
+    "failures": 614,
     "first": [
      "register:EG-0001",
      "register:EG-0002",
@@ -2080,26 +2136,26 @@
      "register:EG-0078"
     ],
     "reasons": {
-     "documented with no source id": 102,
+     "documented with no source id": 402,
      "inferred with neither a source id nor reasoning": 3,
-     "plausible-procedural with neither a source id nor a procedural block": 137
+     "plausible-procedural with neither a source id nor a procedural block": 209
     },
-    "scanned": 503,
+    "scanned": 989,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q022-gov_register.jsonl",
-     "rows": 242,
-     "sha256": "aa1bc0a6a736625dc6a5a283ca7c1fa5f0afcec800a45579cbd3fe8c42c01176"
+     "rows": 614,
+     "sha256": "4b6c1b7c42b3440eb7d43a9bf395bb086fb1025569ebd054530c4bd942190d98"
     },
     "tier_counts": {
-     "documented": 102,
-     "inferred": 264,
-     "plausible-procedural": 137
+     "documented": 402,
+     "inferred": 378,
+     "plausible-procedural": 209
     },
     "tier_statements_not_exact": 0
    },
    "id": "Q02/Q02.2/gov.register",
    "pass": false,
-   "reason": "242 of 503 members fail: plausible-procedural with neither a source id nor a procedural block (137); documented with no source id (102); inferred with neither a source id nor reasoning (3)",
+   "reason": "614 of 989 members fail: documented with no source id (402); plausible-procedural with neither a source id nor a procedural block (209); inferred with neither a source id nor reasoning (3)",
    "renderer_class": "python",
    "result": "FAIL",
    "sub_requirements": [
@@ -2110,8 +2166,8 @@
    "check": "Q02.2",
    "evidence": {
     "class": "gov.timeline",
-    "failing": 38,
-    "failures": 38,
+    "failing": 57,
+    "failures": 57,
     "first": [
      "timeline:T1-018",
      "timeline:T1-040",
@@ -2121,39 +2177,39 @@
      "timeline:T1-206",
      "timeline:T1-207",
      "timeline:T1-208",
+     "timeline:T2-018",
+     "timeline:T2-022",
+     "timeline:T2-024",
+     "timeline:T2-027",
      "timeline:T2-029",
+     "timeline:T2-031",
      "timeline:T2-032",
+     "timeline:T2-033",
      "timeline:T2-034",
      "timeline:T2-036",
      "timeline:T2-043",
-     "timeline:T2-044",
-     "timeline:T2-045",
-     "timeline:T2-098",
-     "timeline:T2-100",
-     "timeline:T2-209",
-     "timeline:T2-225",
-     "timeline:T2-227"
+     "timeline:T2-044"
     ],
     "reasons": {
-     "an open gap with no register entry (a gap is a register entry and a visible marker, never a datum)": 38
+     "an open gap with no register entry (a gap is a register entry and a visible marker, never a datum)": 57
     },
     "scanned": 691,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q022-gov_timeline.jsonl",
-     "rows": 38,
-     "sha256": "63da0c460a2bcbc5e5b75208469a401ccb964e3eaaf30b6ef36c04111a1d0ce9"
+     "rows": 57,
+     "sha256": "001e922d89198083f5c3e2ea9888b2e84460ab400a9d32434ba14af44e3a3ad9"
     },
     "tier_counts": {
-     "documented": 570,
-     "inferred": 72,
-     "open gap": 38,
-     "plausible-procedural": 11
+     "documented": 526,
+     "inferred": 95,
+     "open gap": 57,
+     "plausible-procedural": 13
     },
     "tier_statements_not_exact": 0
    },
    "id": "Q02/Q02.2/gov.timeline",
    "pass": false,
-   "reason": "38 of 691 members fail: an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (38)",
+   "reason": "57 of 691 members fail: an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (57)",
    "renderer_class": "python",
    "result": "FAIL",
    "sub_requirements": [
@@ -3976,10 +4032,10 @@
    "check": "Q02.3",
    "evidence": {
     "class": "gov.timeline",
-    "extracts_found_again": 503,
-    "extracts_without_stored_text": 83,
-    "failing": 514,
-    "failures": 829,
+    "extracts_found_again": 778,
+    "extracts_without_stored_text": 102,
+    "failing": 300,
+    "failures": 377,
     "first": [
      "timeline:T1-001",
      "timeline:T1-002",
@@ -4003,29 +4059,29 @@
      "timeline:T1-036"
     ],
     "reasons": {
-     "extract is 15 words (limit 14)": 7,
-     "extract is 27 words (limit 14)": 6,
-     "extract is 29 words (limit 14)": 12,
-     "extract is 31 words (limit 14)": 6,
-     "no source extract": 390,
-     "no source that is neither a lead nor weak (sources: HUNT=unresolved)": 8,
-     "no source that is neither a lead nor weak (sources: SS2=weak)": 7,
-     "no source that is neither a lead nor weak (sources: W-RET=weak)": 14
+     "extract is 15 words (limit 14)": 19,
+     "extract is 16 words (limit 14)": 16,
+     "extract is 18 words (limit 14)": 13,
+     "extract is 20 words (limit 14)": 10,
+     "extract is 27 words (limit 14)": 9,
+     "extract is 29 words (limit 14)": 13,
+     "no source extract": 96,
+     "no source that is neither a lead nor weak (sources: OR27=unresolved)": 41
     },
-    "scanned": 570,
+    "scanned": 526,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q023-gov_timeline.jsonl",
-     "rows": 829,
-     "sha256": "dbc912a55a8ad1000c52197a7c31035420a97fae5fe8c43ba4407082eb1dd5fd"
+     "rows": 377,
+     "sha256": "926e19ab9e4dd50897dd44731745c9ba97c8b064564bac12984299c86076db8a"
     },
     "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
-     "documented": 570
+     "documented": 526
     }
    },
    "id": "Q02/Q02.3/gov.timeline",
    "pass": false,
-   "reason": "514 of 570 members fail: no source extract (390); no source that is neither a lead nor weak (sources: W-RET=weak) (14); extract is 29 words (limit 14) (12)",
+   "reason": "300 of 526 members fail: no source extract (96); no source that is neither a lead nor weak (sources: OR27=unresolved) (41); extract is 15 words (limit 14) (19)",
    "renderer_class": "python",
    "result": "FAIL",
    "sub_requirements": [
@@ -5883,8 +5939,8 @@
    "check": "Q02.4",
    "evidence": {
     "class": "gov.timeline",
-    "failing": 72,
-    "failures": 144,
+    "failing": 95,
+    "failures": 190,
     "first": [
      "timeline:T1-048",
      "timeline:T1-050",
@@ -5908,22 +5964,22 @@
      "timeline:T1-181"
     ],
     "reasons": {
-     "no premise claim ids (the reasoning names no documented claim)": 72,
-     "no reasoning": 72
+     "no premise claim ids (the reasoning names no documented claim)": 95,
+     "no reasoning": 95
     },
-    "scanned": 72,
+    "scanned": 95,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q024-gov_timeline.jsonl",
-     "rows": 144,
-     "sha256": "0c68d2dd8ed3ffa07e8450dc3b9f4d12851056fe7aea84c36a3d521a35f15e0d"
+     "rows": 190,
+     "sha256": "e1f5cae999f0e9c05172ad76fa27fb290e703c2994685f1f4ee8c1eb2fc7a2ae"
     },
     "tier_counts": {
-     "inferred": 72
+     "inferred": 95
     }
    },
    "id": "Q02/Q02.4/gov.timeline",
    "pass": false,
-   "reason": "72 of 72 members fail: no premise claim ids (the reasoning names no documented claim) (72); no reasoning (72)",
+   "reason": "95 of 95 members fail: no premise claim ids (the reasoning names no documented claim) (95); no reasoning (95)",
    "renderer_class": "python",
    "result": "FAIL",
    "sub_requirements": [
@@ -7600,8 +7656,8 @@
    "check": "Q02.5",
    "evidence": {
     "class": "gov.timeline",
-    "failing": 11,
-    "failures": 22,
+    "failing": 13,
+    "failures": 26,
     "first": [
      "timeline:T1-105",
      "timeline:T1-215",
@@ -7610,28 +7666,30 @@
      "timeline:T2-075",
      "timeline:T2-122",
      "timeline:T2-203",
+     "timeline:T2-225",
+     "timeline:T2-227",
      "timeline:T2-240",
      "timeline:T3-142",
      "timeline:T3-143",
      "timeline:T3-166"
     ],
     "reasons": {
-     "no procedural block": 11,
-     "no register id for the gap": 11
+     "no procedural block": 13,
+     "no register id for the gap": 13
     },
-    "scanned": 11,
+    "scanned": 13,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q025-gov_timeline.jsonl",
-     "rows": 22,
-     "sha256": "3f96a60f8c80008dc621afdafad7da2633624ce85c0a45113e2f257b8644fa2d"
+     "rows": 26,
+     "sha256": "087086e930c24fcccb2f1a470664f2739016f9b1cee8aa97ef9be08e3c35392a"
     },
     "tier_counts": {
-     "plausible-procedural": 11
+     "plausible-procedural": 13
     }
    },
    "id": "Q02/Q02.5/gov.timeline",
    "pass": false,
-   "reason": "11 of 11 members fail: no procedural block (11); no register id for the gap (11)",
+   "reason": "13 of 13 members fail: no procedural block (13); no register id for the gap (13)",
    "renderer_class": "python",
    "result": "FAIL",
    "sub_requirements": [
@@ -8837,37 +8895,37 @@
     "class": "gov.timeline",
     "first": [
      "(none: gap)",
-     "(not retrieved).",
-     "13NY",
-     "17934",
-     "400.",
-     "60",
-     "800 casualties.",
-     ": Night-practice inferences in research note v2/environment_weather_night.md section 5 (no sourced night-practice account was reached",
-     "ABT-ART",
-     "ABT-CC",
-     "ABT-CH",
-     "ABT-CIV",
      "ABT-CL",
-     "ABT-CULP",
-     "ABT-DL",
-     "ABT-FW",
-     "ABT-G",
-     "ABT-JULY",
-     "ABT-MCAV",
-     "ABT-PC"
+     "ADAMS-SENTINEL-1863-07-21",
+     "ADAMS-SENTINEL-1863-09-08",
+     "ALETEIA",
+     "ALEXANDER-1907",
+     "AMEPH-1863",
+     "AR",
+     "ASTRO",
+     "BACH-WHATTOSEE-1873",
+     "BACH-WHATTOSEE-1889",
+     "BARTON-ANGELS-1898",
+     "BATES-1875",
+     "BATTLEFIELD",
+     "BFR-McM",
+     "BIDDLE-1880",
+     "BROWN-SIGNAL-1896",
+     "CA-sn83016025-1863-06-27-p3",
+     "CA-sn83021205-1863-07-01-p1",
+     "CA-sn83021205-1863-07-02-p1"
     ],
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q026-unresolved-gov_timeline.jsonl",
-     "rows": 314,
-     "sha256": "af839cf0b539ba33e1e6fb89468f44fa9d19d8cdea2afe33f4b934c5124ce940"
+     "rows": 152,
+     "sha256": "29556d47e79ea9d5932582585def1918f8bd43a6e3ad0c92c3ddcfeed57924cf"
     },
-    "source_ids_used": 546,
-    "unresolved": 314
+    "source_ids_used": 413,
+    "unresolved": 152
    },
    "id": "Q02/Q02.6/gov.timeline",
    "pass": false,
-   "reason": "314 of 546 source ids used by the class are in no Source Manifest",
+   "reason": "152 of 413 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
    "result": "FAIL",
    "sub_requirements": [
@@ -10187,56 +10245,27 @@
    "check": "Q02.8",
    "evidence": {
     "class": "gov.timeline",
-    "failing": 81,
-    "failures": 81,
+    "failing": 3,
+    "failures": 3,
     "first": [
-     "timeline:T2-007",
-     "timeline:T2-010",
-     "timeline:T2-012",
-     "timeline:T2-015",
-     "timeline:T2-017",
-     "timeline:T2-018",
-     "timeline:T2-019",
-     "timeline:T2-020",
-     "timeline:T2-025",
-     "timeline:T2-026",
-     "timeline:T2-040",
-     "timeline:T2-041",
-     "timeline:T2-042",
-     "timeline:T2-049",
-     "timeline:T2-057",
-     "timeline:T2-065",
-     "timeline:T2-070",
-     "timeline:T2-077",
-     "timeline:T2-078",
-     "timeline:T2-080"
+     "timeline:T2-128",
+     "timeline:T2-207",
+     "timeline:T2-214"
     ],
     "reasons": {
-     "documented and every source is a lead or weak (EPP, SS1)": 2,
-     "documented and every source is a lead or weak (SS2)": 7,
-     "documented and every source is a lead or weak (SS2, W-LRT)": 2,
-     "documented and every source is a lead or weak (W-CH)": 5,
-     "documented and every source is a lead or weak (W-D2)": 6,
-     "documented and every source is a lead or weak (W-PC)": 3,
-     "documented and every source is a lead or weak (W-RET)": 14,
-     "rests on a lead source alone and is not flagged weak": 11
+     "rests on a lead source alone and is not flagged weak": 3
     },
     "scanned": 691,
-    "sidecar": {
-     "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q028-gov_timeline.jsonl",
-     "rows": 81,
-     "sha256": "fa88354cd121af109cfba1cea7d73edd2b1e2b6d01b38ed1acd00852f31cdb8d"
-    },
     "tier_counts": {
-     "documented": 570,
-     "inferred": 72,
-     "open gap": 38,
-     "plausible-procedural": 11
+     "documented": 526,
+     "inferred": 95,
+     "open gap": 57,
+     "plausible-procedural": 13
     }
    },
    "id": "Q02/Q02.8/gov.timeline",
    "pass": false,
-   "reason": "81 of 691 members fail: documented and every source is a lead or weak (W-RET) (14); rests on a lead source alone and is not flagged weak (11); documented and every source is a lead or weak (SS2) (7)",
+   "reason": "3 of 691 members fail: rests on a lead source alone and is not flagged weak (3)",
    "renderer_class": "python",
    "result": "FAIL",
    "sub_requirements": [
@@ -11268,14 +11297,14 @@
   "Q02.3 judgment part (U-29, 1.10): that each documented claim equals what its span supports is decided by no program; the runner re-finds every extract and applies the number rule, and a class of documented members is PASS only when a verification record of gate_results/verification/ names it with the verdict agree"
  ],
  "renderer_class": "python",
- "run_id": "20261124T182810Z-Q02",
+ "run_id": "20261124T184219Z-Q02",
  "runnable_here": true,
  "runner": {
   "files": 12,
   "sha256": "828a44e01c26c5486052771c90f68e2f86bb1f33587ae1cbbfed65f0a32acdfb"
  },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:28:10Z",
+ "started_utc": "2026-11-24T18:42:19Z",
  "text_store": {
   "or27_error": null,
   "statevol_error": null,
