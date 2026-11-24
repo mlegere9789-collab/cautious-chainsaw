@@ -1,0 +1,1036 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-005",
+ "topic": "Hood at Seminary Ridge",
+ "researched": "2026-11-24",
+ "researcher": "researcher-c005",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Hood at Seminary Ridge | 05:30; 06:30; 07:30 (EPP, FREE, PADRE) | 06:30 | 05:30, 07:30",
+  "values": [
+   "05:30",
+   "06:30",
+   "07:30 (EPP, FREE, PADRE)"
+  ],
+  "recommended_default": "06:30",
+  "selectable_alternatives": [
+   "05:30",
+   "07:30"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-005-DEFAULT",
+  "default_label": "06:30 (PDF midpoint), marked plausible-procedural, gap",
+  "tier": "plausible-procedural",
+  "basis": "gap",
+  "scenario_ids": [
+   "C-005-S1",
+   "C-005-S2",
+   "C-005-S3",
+   "C-005-S4",
+   "C-005-S5",
+   "C-005-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "inferred",
+ "basis": {
+  "kind": "contemporaneous_other",
+  "text": "Fremantle's diary of 2 July 1863 (Hood with Lee, Hill and Longstreet on the ridge at 5 a.m.) and Shepherd's report of 27 July 1863 (Official Records 27/2 p. 420: the Second Georgia of Hood's division resumed the march at 3 a.m. and halted after some 3 miles), read with Hood's letter of 1875, Polley and Freeman's computation for the head of the column."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-005-P5"
+  ],
+  "label": "About 05:00 (sunrise to 05:30): Hood and the head of his division on the ridge; the tail could be up by 07:30",
+  "animation": {
+   "at": "1863-07-02T05:00",
+   "rule": "earliest_documented",
+   "note": "05:00 is the earliest time a writer of the day places Hood on the ridge (Fremantle's diary); the memoir value (sunrise, about 04:35) stays selectable and is not the floor; the soldiers come in as a march along the road from Marsh Creek, the tail by about 07:30 (C-005-P3)"
+  },
+  "note": "The head is shown at 05:00; Freeman computes the whole division up by about 07:30 (P3) and Longstreet's letter of 1875 and Meade's narrative close up both divisions about 08:00 (P6). Law's brigade was not with the column; it rejoined about noon."
+ },
+ "positions": [
+  {
+   "id": "C-005-P1",
+   "origin": "pdf_value",
+   "pdf_label": "05:30",
+   "scenario_ids": [
+    "C-005-S1"
+   ],
+   "source_keys": [
+    "FREE"
+   ],
+   "label": "05:30: head of the column on the ridge, the plan's earliest value (Freeman's computation)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T05:30",
+    "approx": true,
+    "tolerance_min": 0,
+    "note": "'by 5:30': an upper bound"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-005-P1-c1",
+     "source": "FREEMAN-RELEE-V3-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "none",
+     "page_note": "printed page 553 of the appendix; the page foot of the text layer reads \"558\" (a misread of 553) and the foot of the page before reads 552: the number is inferred from that order, not read on the page image",
+     "text_offset": 1263853,
+     "text_offset_end": 1264397,
+     "quote": "As the sun rose at Gettysburg on July 2 at 4:32, it probably is approximately correct to say that Longstreet joined Lee on Seminary Ridge at 5:15 or about that time [...] is less important than that of the appearance of his men. And here, again, the evidence is not conclusive. Hood's march began about 3 a.m., and as the distance his troops had to cover was an average of five miles, the head of his column should have been at the ridge by 5:30 a.m. The whole of it could have been there by 7 or 7:30",
+     "witness": {
+      "name": "Douglas Southall Freeman",
+      "role": "historian, biographer of Lee (not a participant)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1935",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "unspecified",
+     "hedge": "upper",
+     "group": "freeman",
+     "exact": false,
+     "states": {
+      "times": [
+       "03:00",
+       "05:30",
+       "07:30"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Freeman's Appendix III-2, 'The Hour of Longstreet's Arrival, July 2, 1863' (the appendix on times that the plan's key FREE points to). A computation, not a sighting."
+    },
+    {
+     "id": "C-005-P1-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R459",
+     "page": "420",
+     "page_basis": "scan_leaf",
+     "text_offset": 1555577,
+     "text_offset_end": 1555673,
+     "quote": "At 3 a. m. it resumed the march, and again halted, after proceeding some 3 miles",
+     "witness": {
+      "name": "William S. Shepherd",
+      "role": "Major, later Lieutenant Colonel, Second Georgia Infantry (Benning's brigade, Hood's division)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-27",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "shepherd-2nd-georgia",
+     "exact": false,
+     "states": {
+      "times": [
+       "03:00"
+      ],
+      "numbers": [
+       3
+      ]
+     },
+     "note": "Report of 27 July 1863, Official Records Ser. I vol. 27 pt. 2 p. 420 (report no. 459). The first text layer prints \".3 a. m.\" and \"13 p. m.\"; a second, independent scan and OCR (OR27-2-SCAN2-C005) prints \"At 3 a. m.\" and \"12 p. m.\" (midnight). The page image could not be fetched. The Seventeenth Georgia (report 461) prints \"3 p. m.\" for the hour its march was resumed, which is not read as the dawn march here."
+    }
+   ],
+   "inference": {
+    "step": "Freeman takes the 3 a.m. start of Hood's march (Shepherd's report, Official Records 27/2 p. 420) and an assumed five miles of road and says the head of the column 'should have been at the ridge by 5:30 a.m.'; the report itself gives about three miles, so 5:30 is a late bound for the head, not a sighting",
+    "from": [
+     "C-005-P1-c1",
+     "C-005-P1-c2"
+    ]
+   },
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "tolerance",
+    "text": "Freeman's 'by 5:30' is an upper bound computed from five miles of road; the regiment's report gives about three. It lies at the edge of the half-hour margin of the default."
+   }
+  },
+  {
+   "id": "C-005-P2",
+   "origin": "pdf_value",
+   "pdf_label": "06:30",
+   "scenario_ids": [
+    "C-005-S2",
+    "C-005-S4",
+    "C-005-DEFAULT"
+   ],
+   "source_keys": [
+    "EPP"
+   ],
+   "label": "06:30: the plan's middle value (an unreferenced timeline page)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T06:30",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "plausible-procedural",
+   "flags": [
+    "lead_only",
+    "unsourced"
+   ],
+   "support": [],
+   "procedural_basis": "The plan keeps 06:30 as the middle of Freeman's two computed bounds (head 05:30, whole division 07:30) and the first delegated pass kept it as a marked stand-in; no report, diary or book found states it.",
+   "failed_lookups": [
+    {
+     "where": "all local non-lead texts of the ledger (Official Records, books and papers, Park Service texts)",
+     "query": "Hood.{0,300}(6.30|half past six|six thirty), and the reverse order, with 'a. m.', \"o'clock\" and spelled forms",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "FREEMAN-RELEE-V3-C005 (Appendix III-2, the appendix on times)",
+     "query": "Hood's column: Freeman gives 5:30 for the head and 7 or 7:30 for the whole; no 6:30",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "J. F. Epperson timeline page (plan key EPP)",
+     "query": "the page itself: Hood arrives behind Seminary Ridge about 06:30; the host is not among the hosts reachable for this research",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    }
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No report, diary or book found gives 06:30 for Hood. It is the plan's midpoint of Freeman's 05:30 and 07:30 and falls inside the march of the column."
+   }
+  },
+  {
+   "id": "C-005-P3",
+   "origin": "pdf_value",
+   "pdf_label": "07:30 (EPP, FREE, PADRE)",
+   "scenario_ids": [
+    "C-005-S3"
+   ],
+   "source_keys": [
+    "EPP",
+    "FREE",
+    "PADRE"
+   ],
+   "label": "07:30: whole division up, the plan's latest value (Freeman's computation)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T07:30",
+    "approx": true,
+    "tolerance_min": 0,
+    "note": "'by 7 or 7:30': an upper bound"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-005-P3-c1",
+     "source": "FREEMAN-RELEE-V3-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "none",
+     "page_note": "printed page 553 of the appendix; the page foot of the text layer reads \"558\" (a misread of 553) and the foot of the page before reads 552: the number is inferred from that order, not read on the page image",
+     "text_offset": 1263853,
+     "text_offset_end": 1264397,
+     "quote": "As the sun rose at Gettysburg on July 2 at 4:32, it probably is approximately correct to say that Longstreet joined Lee on Seminary Ridge at 5:15 or about that time [...] is less important than that of the appearance of his men. And here, again, the evidence is not conclusive. Hood's march began about 3 a.m., and as the distance his troops had to cover was an average of five miles, the head of his column should have been at the ridge by 5:30 a.m. The whole of it could have been there by 7 or 7:30",
+     "witness": {
+      "name": "Douglas Southall Freeman",
+      "role": "historian, biographer of Lee (not a participant)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1935",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "unspecified",
+     "hedge": "upper",
+     "group": "freeman",
+     "exact": false,
+     "states": {
+      "times": [
+       "03:00",
+       "05:30",
+       "07:30"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Freeman's Appendix III-2, 'The Hour of Longstreet's Arrival, July 2, 1863' (the appendix on times that the plan's key FREE points to). A computation, not a sighting."
+    }
+   ],
+   "inference": {
+    "step": "Freeman adds the length of the column to the 3 a.m. start and says 'the whole of it could have been there by 7 or 7:30'; a computation of when the tail could be up, not a report of when it was",
+    "from": [
+     "C-005-P3-c1"
+    ]
+   },
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "place_of_observation",
+    "text": "The time by which Freeman computes the tail of the column could be up. The default dates the head; the soldiers arrive as a march between the two."
+   }
+  },
+  {
+   "id": "C-005-P4",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-005-S5"
+   ],
+   "label": "At or before sunrise, about 04:35: Hood's and Longstreet's later memory",
+   "kind": "period",
+   "value": {
+    "text": "sunrise",
+    "date": "1863-07-02",
+    "part_of_day": "dawn",
+    "sunrise_local_mean_time": "04:35"
+   },
+   "clock": "confederate",
+   "tier": "inferred",
+   "flags": [
+    "memoir_only"
+   ],
+   "support": [
+    {
+     "id": "C-005-P4-c1",
+     "source": "HOOD-1880-C005",
+     "source_class": "book",
+     "page": "56",
+     "page_basis": "as_read",
+     "page_note": "Hood's letter to Longstreet of 28 June 1875 (printed in Advance and Retreat, 1880, p. 56; also in Longstreet's article of 1877 and in his book of 1896)",
+     "text_offset": 130822,
+     "text_offset_end": 130913,
+     "quote": "which, after a hard march, we reached before or at sunrise on the 2d of July",
+     "witness": {
+      "name": "John B. Hood",
+      "role": "Major General commanding the division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1875-06-28",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "upper",
+     "group": "hood-letter-1875",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "before or at sunrise"
+      ]
+     }
+    },
+    {
+     "id": "C-005-P4-c2",
+     "source": "HOOD-1880-C005",
+     "source_class": "book",
+     "page": "56",
+     "page_basis": "as_read",
+     "page_note": "the second fragment begins on printed page 57; the passage is Hood's letter to Longstreet of 28 June 1875, written \"from memory\" (Advance and Retreat, 1880, pp. 55-57)",
+     "text_offset": 131166,
+     "text_offset_end": 131462,
+     "quote": "I arrived with my staff in front of the heights of Gettysburg shortly after daybreak, as I have already stated, on the morning of the 2d of [...] July. My division soon commenced filing into an open field near me",
+     "witness": {
+      "name": "John B. Hood",
+      "role": "Major General commanding the division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1875-06-28",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "soon_after",
+     "group": "hood-letter-1875",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "shortly after daybreak",
+       "soon commenced filing into an open field"
+      ]
+     }
+    },
+    {
+     "id": "C-005-P4-c3",
+     "source": "LONGSTREET-1896",
+     "source_class": "book",
+     "page": "362",
+     "page_basis": "as_read",
+     "page_note": "chapter XXVII (Gettysburg, second day); the page number 362 stands in the text layer just after the passage",
+     "text_offset": 833686,
+     "text_offset_end": 833801,
+     "quote": "After a time Generals McLaws and Hood, with their staffs, rode up, and at sunrise their commands",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1896",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet-1896",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "at sunrise"
+      ]
+     }
+    },
+    {
+     "id": "C-005-P4-c4",
+     "source": "LONGSTREET-1896",
+     "source_class": "book",
+     "page": "378",
+     "page_basis": "as_read",
+     "page_note": "Longstreet reasoning against the alleged order for a battle at sunrise; the passage follows the page head 378",
+     "text_offset": 869849,
+     "text_offset_end": 870056,
+     "quote": "McLaws's division, part of Hood's, and the artillery, — about ten thousand men. These, [...] reached General Lee's head-quarters about sunrise of the 2d",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1896",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "longstreet-1896",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "about sunrise"
+      ]
+     }
+    }
+   ],
+   "inference": {
+    "step": "Hood says his command reached Gettysburg 'before or at sunrise' and that he himself arrived 'shortly after daybreak'; Longstreet says the commands filed off the road 'at sunrise'; sunrise at Gettysburg on 2 July is 04:35 local mean time (the plan, B.2.1)",
+    "from": [
+     "C-005-P4-c1",
+     "C-005-P4-c3"
+    ]
+   },
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "Written 12 and 33 years later. Freeman finds that Hood rode ahead of his troops, and Kershaw's report has McLaws's division leaving camp only at sunrise: the memoirs probably date the generals, not the column."
+   }
+  },
+  {
+   "id": "C-005-P5",
+   "origin": "research",
+   "label": "About 05:00: Hood and the head of his division on the ridge (sunrise to 05:30)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T05:00",
+    "approx": true,
+    "tolerance_min": 30
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "derived": true,
+   "support": [
+    {
+     "id": "C-005-P5-c1",
+     "source": "FREMANTLE-1864",
+     "source_class": "primary",
+     "page": "257",
+     "page_basis": "as_read",
+     "page_note": "the entry is headed Thursday, 2 July (the day figure of the heading is damaged in the text layer); the book was printed in 1864 from the journal of 1863",
+     "text_offset": 411881,
+     "text_offset_end": 412161,
+     "quote": "arrived at 5 A. M. at the same commanding position we were on yesterday [...] Just below us were seated Generals Lee, Hill, Longstreet, and Hood, in consultation",
+     "witness": {
+      "name": "Arthur J. L. Fremantle",
+      "role": "Lieutenant Colonel, Coldstream Guards, British observer with Longstreet's staff",
+      "side": "other"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "fremantle",
+     "exact": false,
+     "states": {
+      "times": [
+       "05:00"
+      ],
+      "numbers": [
+       5
+      ]
+     }
+    },
+    {
+     "id": "C-005-P5-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R459",
+     "page": "420",
+     "page_basis": "scan_leaf",
+     "text_offset": 1555577,
+     "text_offset_end": 1555673,
+     "quote": "At 3 a. m. it resumed the march, and again halted, after proceeding some 3 miles",
+     "witness": {
+      "name": "William S. Shepherd",
+      "role": "Major, later Lieutenant Colonel, Second Georgia Infantry (Benning's brigade, Hood's division)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-27",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "shepherd-2nd-georgia",
+     "exact": false,
+     "states": {
+      "times": [
+       "03:00"
+      ],
+      "numbers": [
+       3
+      ]
+     },
+     "note": "Report of 27 July 1863, Official Records Ser. I vol. 27 pt. 2 p. 420 (report no. 459). The first text layer prints \".3 a. m.\" and \"13 p. m.\"; a second, independent scan and OCR (OR27-2-SCAN2-C005) prints \"At 3 a. m.\" and \"12 p. m.\" (midnight). The page image could not be fetched. The Seventeenth Georgia (report 461) prints \"3 p. m.\" for the hour its march was resumed, which is not read as the dawn march here."
+    },
+    {
+     "id": "C-005-P5-c3",
+     "source": "HOOD-1880-C005",
+     "source_class": "book",
+     "page": "56",
+     "page_basis": "as_read",
+     "page_note": "the second fragment begins on printed page 57; the passage is Hood's letter to Longstreet of 28 June 1875, written \"from memory\" (Advance and Retreat, 1880, pp. 55-57)",
+     "text_offset": 131166,
+     "text_offset_end": 131462,
+     "quote": "I arrived with my staff in front of the heights of Gettysburg shortly after daybreak, as I have already stated, on the morning of the 2d of [...] July. My division soon commenced filing into an open field near me",
+     "witness": {
+      "name": "John B. Hood",
+      "role": "Major General commanding the division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1875-06-28",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "soon_after",
+     "group": "hood-letter-1875",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "shortly after daybreak",
+       "soon commenced filing into an open field"
+      ]
+     }
+    },
+    {
+     "id": "C-005-P5-c4",
+     "source": "BL-3",
+     "source_class": "book",
+     "page": "319",
+     "page_basis": "as_read",
+     "page_note": "Law, 'The Struggle for Round Top', Battles and Leaders vol. 3 (the book is of 1888; the article is not dated here); a pace for the same day and the same division",
+     "text_offset": 1348175,
+     "text_offset_end": 1348455,
+     "quote": "At 3 o'clock on the morning of the 2d, under orders from General Longstreet, I moved as rapidly as possible toward Gettysburg, and arrived there shortly before noon, having marched the intervening distance of twenty-four miles in that time",
+     "witness": {
+      "name": "Evander M. Law",
+      "role": "Brigadier General, brigade of Hood's division (commanded the division from the afternoon)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1888",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "law-1888",
+     "exact": false,
+     "states": {
+      "times": [
+       "03:00"
+      ],
+      "numbers": [
+       24
+      ],
+      "dates": [
+       "07-02"
+      ]
+     }
+    },
+    {
+     "id": "C-005-P5-c5",
+     "source": "FREEMAN-RELEE-V3-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "none",
+     "page_note": "printed page 553 of the appendix; the page foot of the text layer reads \"558\" (a misread of 553) and the foot of the page before reads 552: the number is inferred from that order, not read on the page image",
+     "text_offset": 1263853,
+     "text_offset_end": 1264397,
+     "quote": "As the sun rose at Gettysburg on July 2 at 4:32, it probably is approximately correct to say that Longstreet joined Lee on Seminary Ridge at 5:15 or about that time [...] is less important than that of the appearance of his men. And here, again, the evidence is not conclusive. Hood's march began about 3 a.m., and as the distance his troops had to cover was an average of five miles, the head of his column should have been at the ridge by 5:30 a.m. The whole of it could have been there by 7 or 7:30",
+     "witness": {
+      "name": "Douglas Southall Freeman",
+      "role": "historian, biographer of Lee (not a participant)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1935",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "unspecified",
+     "hedge": "upper",
+     "group": "freeman",
+     "exact": false,
+     "states": {
+      "times": [
+       "03:00",
+       "05:30",
+       "07:30"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Freeman's Appendix III-2, 'The Hour of Longstreet's Arrival, July 2, 1863' (the appendix on times that the plan's key FREE points to). A computation, not a sighting."
+    },
+    {
+     "id": "C-005-P5-c6",
+     "source": "POLLEY-1910-C005",
+     "source_class": "book",
+     "page": "154",
+     "page_basis": "as_read",
+     "page_note": "printed page 154: the running head '154. HOOD'S TEXAS BRIGADE' stands just before the passage",
+     "text_offset": 391470,
+     "text_offset_end": 391580,
+     "quote": "near the headquarters of General Lee, on Seminary Ridge, not later than an hour after sunrise",
+     "witness": {
+      "name": "J. B. Polley",
+      "role": "soldier of the Fourth Texas Infantry (Texas Brigade, Hood's division)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1910",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "upper",
+     "group": "polley-1910",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "not later than an hour after sunrise"
+      ]
+     },
+     "note": "Polley dates the start of the Texas Brigade at 4 a.m. and puts it \"near Cashtown\" at 2 a.m., which does not fit the reports; used only for the upper bound of the arrival."
+    },
+    {
+     "id": "C-005-P5-c7",
+     "source": "BL-3",
+     "source_class": "book",
+     "page": "319",
+     "page_basis": "as_read",
+     "page_note": "Law arrived shortly before noon; where the other brigades of Hood's division were resting is the place the Second Georgia reached after some 3 miles",
+     "text_offset": 1348458,
+     "text_offset_end": 1348601,
+     "quote": "On my arrival I found the other brigades of Hood's division resting about a mile from the town, on the Chambersburg road",
+     "witness": {
+      "name": "Evander M. Law",
+      "role": "Brigadier General, brigade of Hood's division (commanded the division from the afternoon)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1888",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "law-1888",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "about a mile from the town"
+      ]
+     }
+    },
+    {
+     "id": "C-005-P5-c8",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R430",
+     "page": "358",
+     "page_basis": "scan_leaf",
+     "text_offset": 1326578,
+     "text_offset_end": 1326795,
+     "quote": "McLaws' division, however, reached Marsh Creek, 4 miles from Gettysburg, a little after dark, and Hood's division got within nearly the same distance of the town about 12 o'clock at night",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-27",
+      "kind": "official_report"
+     },
+     "vantage": "not_stated",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "longstreet-report-1863",
+     "exact": false,
+     "states": {
+      "numbers": [
+       4,
+       12
+      ]
+     },
+     "note": "Longstreet's report of 27 July 1863: Hood's division, four miles out at about midnight (the bivouac from which the Second Georgia marched at 3 a.m.); his report gives no morning hour for Hood"
+    }
+   ],
+   "inference": {
+    "step": "Fremantle's diary has Hood with Lee, Hill and Longstreet on the ridge when he arrived at 5 a.m.; Hood says his division began filing into the field soon after his own arrival. The division was about four miles out at midnight (Longstreet's report); the Second Georgia left its bivouac at 3 a.m. and halted after some 3 miles, that is about a mile from the town, where Law found the brigades resting; at Law's pace for the same day (24 miles in under nine hours) three miles take about 70 minutes and at a slow night pace two hours, so the head could be up from about 04:10; Freeman's 'by 5:30' and Polley's 'not later than an hour after sunrise' (about 05:35) close the late end. 05:00 is the one clock reading of the day that places Hood, and so the head that followed him, on the ridge; earlier times stay selectable.",
+    "from": [
+     "C-005-P5-c1",
+     "C-005-P5-c2",
+     "C-005-P5-c3",
+     "C-005-P5-c4",
+     "C-005-P5-c5",
+     "C-005-P5-c6",
+     "C-005-P5-c8"
+    ]
+   },
+   "stance": "default"
+  },
+  {
+   "id": "C-005-P6",
+   "origin": "research",
+   "label": "About 08:00: both of Longstreet's divisions halted behind the seminary (1875 letter, 1913 history)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T08:00",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "flags": [
+    "memoir_only"
+   ],
+   "support": [
+    {
+     "id": "C-005-P6-c1",
+     "source": "TAYLOR-GENLEE-1906-C005",
+     "source_class": "book",
+     "page": "198",
+     "page_basis": "as_read",
+     "page_note": "Longstreet's letter from New Orleans of 20 April 1875 as quoted by Walter H. Taylor, General Lee (1906), pp. 197-198; the text layer prints 'Mj' for 'My'",
+     "text_offset": 439953,
+     "text_offset_end": 440040,
+     "quote": "two divisions nor myself did not reach General Lee until 8 a.m. on the 2d",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1875-04-20",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet-letter-1875",
+     "exact": false,
+     "states": {
+      "times": [
+       "08:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     }
+    },
+    {
+     "id": "C-005-P6-c2",
+     "source": "MEADE-LL-v2",
+     "source_class": "book",
+     "page": "69",
+     "page_basis": "as_read",
+     "page_note": "Life and Letters of George Gordon Meade vol. 2, narrative of the battle; the source of the Confederate movements is not named",
+     "text_offset": 199545,
+     "text_offset_end": 199790,
+     "quote": "Longstreet's two divisions, commanded by McLaws and Hood, left at daylight their bivouac at the Chambersburg Road crossing of Marsh Creek, and about eight o'clock halted in the fields in the rear of the seminary",
+     "witness": {
+      "name": "George Meade",
+      "role": "Captain and aide-de-camp to General Meade, author of the narrative published in 1913 (not on the Confederate side)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "meade-1913",
+     "exact": false,
+     "states": {
+      "times": [
+       "08:00"
+      ]
+     }
+    }
+   ],
+   "inference": {
+    "step": "Longstreet wrote in 1875 that his 'two divisions' (Hood's and McLaws's) and he did not reach Lee until 8 a.m.; the narrative in Meade's Life and Letters has both divisions halted in the fields behind the seminary 'about eight o'clock'; read here as the time both columns had closed up",
+    "from": [
+     "C-005-P6-c1",
+     "C-005-P6-c2"
+    ]
+   },
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "Written 12 and 50 years later. Longstreet's own accounts disagree (8 a.m. in 1875, sunrise in 1896) and the diary of the day has him with Lee at 5 a.m.; it dates the closing up of both divisions."
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "The sources agree on an early head and differ by what they measure. A diary of the day has Hood with Lee, Hill and Longstreet on the ridge at 5 a.m.; a regiment of his division reports leaving its bivouac at 3 a.m. and halting after some 3 miles; Hood, Longstreet and a Texas soldier later put the head at or soon after sunrise; Freeman computes it by 5:30. The later values (06:30, 07:30, 08:00) date the middle, the tail or the closing up of the column, and no source states 06:30. No source gives a clock for the division's own arrival, so the default is inferred.",
+  "who": "Fremantle (British observer on Longstreet's staff) and Shepherd (Second Georgia, Hood's division) wrote what they saw or did. Hood and Longstreet were the generals present but wrote 12 and 33 years later; Polley, a Texas soldier, 47 years later; Freeman (1935) computed and Meade's narrative (1913) compiled. Kershaw's report (1 October 1863) concerns McLaws's division: 'did not leave camp until about sunrise'.",
+  "when": "Fremantle's entry is of the day (rank 5); Shepherd's report is of 27 July 1863, 25 days after (rank 5). Hood's letter is of 28 June 1875, Longstreet's letter of 20 April 1875 and his book of 1896, Polley 1910, Meade 1913, Freeman 1935: reminiscence and later history (rank 2 and 1). The contemporaneous pair outranks the rest and is not contradicted by it.",
+  "where": "Fremantle sat in a tree above Lee's group on the ridge; Shepherd marched in the column; Hood and Longstreet were on the ridge, and Freeman says Hood and McLaws 'rode ahead of their troops'; Law reached the field only shortly before noon and found Hood's other brigades resting about a mile from the town on the Chambersburg road; Freeman, Taylor and Meade were not there.",
+  "how_knew": "Fremantle and Shepherd wrote what they saw and did. Hood wrote 'from memory'. Longstreet's accounts differ (8 a.m. in 1875, sunrise in 1896). Freeman computes: a 3 a.m. start and an assumed five miles. Law, of the same division on the same day, gives the pace: 24 miles from 3 a.m. to shortly before noon.",
+  "clock": "Shepherd, Hood, Longstreet and Polley use the Confederate clock; Fremantle's watch is unspecified. The 20-minute difference between the two armies' clocks is not applied: it is smaller than the half-hour margin of the default. Sunrise on 2 July is 04:35 local mean time (the plan).",
+  "independence": "Groups: fremantle; shepherd; hood-letter-1875 (Longstreet printed it in 1877 and again in 1896, so his 'sunrise' may rest on it); longstreet-1896; freeman (computes from Shepherd's 3 a.m.); polley; law. Fremantle and Shepherd are independent of each other and of the memoirs; the default rests on six groups, two of them contemporaneous.",
+  "overrides": "Rank inversion check: no rejected value rests on a better class of writing than the default. Hodges's report (Seventeenth Georgia) prints 'until 3 p. m.' for the hour the march was resumed (the first text layer reads '3 i). m.'); it is ambiguous and is not used."
+ },
+ "source_panel_text": "About 05:00 (sunrise to 05:30): a British officer's diary of the day has Hood with Lee, Hill and Longstreet on the ridge at 5 a.m., and a regiment of his division reports leaving its bivouac at 3 a.m. for a march of about 3 miles. The plan's 06:30 has no source; 07:30 is when the whole column could be up. Five other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "No source states 06:30: it is the midpoint of Freeman's computed 05:30 and 07:30, and the timeline page that gives it is unreferenced. The head of the column is better placed at about 05:00; 06:30 stays selectable."
+  },
+  "first_delegated": {
+   "holds": "no",
+   "note": "The first pass kept 06:30 as a marked stand-in because it had no clock for Hood. The research found a diary of the day, a regiment's report of its 3 a.m. start and Freeman's appendix, so the point is no longer a gap."
+  }
+ },
+ "readers": [
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-1c-hood",
+   "must_change": true,
+   "note": "gate default 06:30 becomes 05:00; gate earliest 05:30 becomes 05:00 (the earliest time a writer of the day places Hood on the ridge); gate latest 07:30 stays; the memoir value (sunrise 04:35) and 05:30, 06:30, 07:30 and 08:00 stay selectable; the row's night position 'resumes 03:30' (EPP) should read 03:00 (Official Records 27/2 p. 420)"
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-1c",
+   "must_change": true,
+   "note": "the corps row carries the same Hood values in its first-on-field cell: default 06:30 and earliest 05:30 follow the Hood row (05:00); latest 08:30 (McLaws, C-007) is not touched"
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04",
+   "must_change": true,
+   "note": "named case \"Longstreet's divisions (McLaws, Hood)\" reads cs-1c-hood: the window opens at 05:00 instead of 05:30 and the default instant is 05:00 instead of 06:30; to be reconciled in the open with a diary of the day as evidence, no gate is lowered; the earlier memoir value stays a selectable scenario, not the floor"
+  },
+  {
+   "kind": "gate",
+   "ref": "Q05/Q06",
+   "must_change": false,
+   "note": "speed and march-to-position: a 3 a.m. start and about 3 miles to a halt about a mile from the town need only about 1.5 miles an hour to be up by 05:00; inside the foot ranges; re-run with the new default"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-064",
+   "must_change": true,
+   "note": "row 'Jul 2 ~06:30, behind Seminary Ridge, Hood's division, arrives' (EPP; FREE): the head about 05:00 is the default; 05:30, 06:30, 07:30, sunrise and 08:00 are carried; the row's quotation of Freeman is right"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-049",
+   "must_change": true,
+   "note": "row 'Jul 2 ~03:30, Marsh Creek, Hood's division resumes march' (EPP, single weak source): the Second Georgia reports 3 a.m. (Official Records 27/2 p. 420, report 459; a second scan reads the same) and Freeman says about 3 a.m."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-058",
+   "must_change": false,
+   "note": "the conference row (C-006) lists Hood 'shortly after daybreak' and Fremantle 'after 05:00': consistent with this resolution; the hour of the conference is C-006's"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-057",
+   "must_change": false,
+   "note": "'McLaws's division follows Hood' about 05:00 (EPP) belongs to C-007; Kershaw (McLaws) did not leave camp until about sunrise"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T1-222",
+   "must_change": false,
+   "note": "cites 'C-005 style default' as the name of a pattern for Humphreys's division; it does not carry the Hood value"
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-005)",
+   "must_change": true,
+   "note": "holds the first delegated default (C-005-DEFAULT, 06:30, plausible-procedural, gap): replace by the label and marking of this resolution (weighted, inferred) and add the research values as scenarios"
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-005)",
+   "must_change": true,
+   "note": "the source of the app data above: the first delegated default is superseded by this resolution; the old scenarios stay"
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/arrivals_data.py (row cs-1c-hood and cs-1c, default_basis)",
+   "must_change": true,
+   "note": "the builder prints default_basis 'C-005 recommended default 06:30 for Hood'; it has to carry the new default and its basis"
+  },
+  {
+   "kind": "doc",
+   "ref": "GATE-SPEC.md, GATE-SPEC-A.md and decision_log.md",
+   "must_change": true,
+   "note": "they list C-005 among the eight plausible-procedural defaults; it is now weighted and inferred"
+  },
+  {
+   "kind": "test",
+   "ref": "docs/battle-theatre/app/tests (claims, daypos, history, ledgerE, unit .test.mjs)",
+   "must_change": false,
+   "note": "they choose C-005 values by label ('05:30', '07:30 (EPP, FREE, PADRE)'); the labels stay"
+  },
+  {
+   "kind": "app_code",
+   "ref": "docs/battle-theatre/app/src/history/stub.mjs (LINKS C-005)",
+   "must_change": false,
+   "note": "a placeholder group follows the conflict by id; it holds no value"
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1, OR27-2, OR27-3 (reports of Hood's division, records 430-463 of part 2, and the index of reports)",
+   "query": "a report of Hood, McLaws or Law for Gettysburg (none is indexed); in the reports of the division's brigades and regiments: resumed|bivouac|halted|a. m.|o'clock|sunrise|daybreak|dawn for an hour of arrival on Seminary Ridge on 2 July",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "all local non-lead texts of the ledger (Official Records, ws9 books and papers, Park Service texts)",
+   "query": "Hood ... 5.30|6.30|7.30|half past five|six|seven near Hood's division on 2 July, and the reverse order, with 'a. m.', \"o'clock\" and spelled forms",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "SORREL-1905-C005 (Longstreet's chief of staff)",
+   "query": "the morning of 2 July: an hour for the arrival of Hood's or McLaws's division",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "SHSP-07-C005 (McLaws's address of 1879)",
+   "query": "an hour for Hood's division; McLaws gives only his own division 'early in the morning'",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Park Service texts (tmp/library/web/nps)",
+   "query": "Hood ... Seminary Ridge|Lee's headquarters|Marsh Creek ... a. m.|o'clock|sunrise|daybreak|dawn|morning",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "penelope.uchicago.edu (the Thayer page of Freeman, plan key FREE)",
+   "query": "the page itself; the request was refused with 403 by the network proxy (Freeman's book was read instead, in the open scan FREEMAN-RELEE-V3-C005)",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "archive.org page images of Official Records Ser. I vol. 27 pt. 2 (leaves 425 and 429, printed pages 420 and 424)",
+   "query": "the scan image, to look at the hour in reports 459 and 461; the image host ia801607.us.archive.org was refused with 403 (a second scan and OCR was read instead)",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "J. F. Epperson timeline and Padre Steve blog (plan keys EPP, PADRE)",
+   "query": "the pages themselves; their hosts are not among the hosts reachable for this research",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Official Records 27/2 report 461 (Hodges, Seventeenth Georgia)",
+   "query": "the hour the march was resumed: the first text layer reads '3 i). m.', the second scan '3 p. m.'; it is ambiguous (3 a. m. or the afternoon march) and is not used",
+   "outcome": "failed",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report, diary or letter of 2 July 1863 or of the weeks after it that gives the hour at which the first or the last brigade of Hood's division reached Seminary Ridge (the reports of Robertson's or Anderson's brigades if they exist, or a diary of the Texas or Georgia brigades), or the hour at which the Second Georgia halted 'after proceeding some 3 miles'; or the page image of Shepherd's report showing an hour other than 3 a.m.",
+ "owner_note": "The first delegated default (06:30, a marked stand-in) is replaced by an inferred value; nothing is deleted and 06:30 stays selectable. The floor of the arrival gate would move from 05:30 to 05:00, which a diary of the day documents for Hood himself; the memoir value (sunrise) is a scenario, not the floor. How the floor is reconciled is recorded by the integration step, in the open."
+}

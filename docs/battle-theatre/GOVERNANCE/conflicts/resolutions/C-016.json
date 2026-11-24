@@ -1,0 +1,990 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-016",
+ "topic": "48th Alabama position",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-016",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "48th Alabama position | Devil’s Den; Little Round Top | Little Round Top | Devil’s Den",
+  "values": [
+   "Devil's Den",
+   "Little Round Top"
+  ],
+  "recommended_default": "Little Round Top",
+  "selectable_alternatives": [
+   "Devil's Den"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-016-DEFAULT",
+  "default_label": "Little Round Top (PDF), marked gap",
+  "tier": "plausible-procedural",
+  "basis": "gap",
+  "scenario_ids": [
+   "C-016-S1",
+   "C-016-S2",
+   "C-016-S3",
+   "C-016-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "inferred",
+ "basis": {
+  "kind": "official_records",
+  "text": "Bane's report of 9 Jul 1863 (OR 27/2 p. 411) puts the 48th Alabama with the 4th Texas in the charge on the heights near the mountain; Norton (1913) and the Maine commission (1898) name that ground Little Round Top. The reports name no place, so the name is inferred."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-016-P2"
+  ],
+  "label": "Little Round Top (western foot and slope, beside the 4th Texas)",
+  "note": "The 48th is drawn on the Little Round Top side of Plum Run, with the 4th Texas; the 44th Alabama, not the 48th, is the regiment at the Devil's Den battery."
+ },
+ "positions": [
+  {
+   "id": "C-016-P1",
+   "origin": "pdf_value",
+   "pdf_label": "Devil's Den",
+   "scenario_ids": [
+    "C-016-S1"
+   ],
+   "label": "Devil's Den: where Law sent the 44th and 48th Alabama, and where the 44th fought",
+   "kind": "place",
+   "value": {
+    "text": "Devil's Den"
+   },
+   "tier": "inferred",
+   "clock": "not_applicable",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-016-P1-c1",
+     "source": "ME-GB-1898",
+     "source_class": "book",
+     "page": "163",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text",
+     "text_offset": 439773,
+     "quote": "Law detached two regiments from his extreme right, the 44th and 48th Alabama, and directed them to move across to the left and attack the battery in reverse. Following out these instructions, the two regiments moved by their left flank to a point about two hundred yards from Devil's Den on its easterly approach",
+     "witness": {
+      "name": "Maine Gettysburg Commission",
+      "role": "Authors of the chapter on the 4th Maine in Maine at Gettysburg (1898)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1898",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "maine1898",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Devil's Den"
+      ]
+     },
+     "note": "The order to the pair and where they halted; the passage goes on to put the 44th against the 4th Maine and the 48th on the slope of Little Round Top."
+    },
+    {
+     "id": "C-016-P1-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R444",
+     "page": "392",
+     "page_basis": "scan_leaf",
+     "text_offset": 1450697,
+     "quote": "the two regiments on my right were moved by [...] left flank across my rear, which threw me on the extreme right of the whole line",
+     "witness": {
+      "name": "William C. Oates",
+      "role": "Colonel, 15th Alabama Infantry (Law's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-08",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "oates",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "left flank across my rear"
+      ]
+     },
+     "note": "The two regiments on Oates's right were the 44th and 48th Alabama (Oates, 1878 and 1905); the report does not name them."
+    },
+    {
+     "id": "C-016-P1-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R445",
+     "page": "393",
+     "page_basis": "scan_leaf",
+     "text_offset": 1456014,
+     "quote": "General Law informed me that he expected my regiment [...] to take a battery",
+     "witness": {
+      "name": "William F. Perry",
+      "role": "Colonel, 44th Alabama Infantry (Law's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-08",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "perry",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "to take a battery"
+      ]
+     },
+     "note": "About the 44th Alabama; the battery stood on a rugged cliff (the same page), the ground now called Devil's Den."
+    },
+    {
+     "id": "C-016-P1-c4",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R445",
+     "page": "393",
+     "page_basis": "scan_leaf",
+     "text_offset": 1455794,
+     "quote": "by order of General Law, and by a flank [...] was brought to the extreme left of the brigade",
+     "witness": {
+      "name": "William F. Perry",
+      "role": "Colonel, 44th Alabama Infantry (Law's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-08",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "perry",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "extreme left of the brigade"
+      ]
+     },
+     "note": "About the 44th Alabama, not the 48th."
+    },
+    {
+     "id": "C-016-P1-c5",
+     "source": "OATES-1905-C016",
+     "source_class": "book",
+     "page": "207",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text",
+     "text_offset": 559887,
+     "quote": "the Forty-fourth Alabama was directed to the left to attack the Devil's Den, and the Forty-eighth continued as a reserve or second line",
+     "witness": {
+      "name": "William C. Oates",
+      "role": "Colonel, 15th Alabama Infantry (Law's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1905",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "oates",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Devil's Den"
+      ]
+     },
+     "note": "Names the 44th, not the 48th, for Devil's Den; the 48th is a reserve at that moment."
+    },
+    {
+     "id": "C-016-P1-c6",
+     "source": "NPS-SLAUGHTER-PEN",
+     "source_class": "official",
+     "page": "40",
+     "page_basis": "pdf_marker",
+     "text_offset": 74935,
+     "quote": "began to fire from the fence down into the valley at the 44th and 48th Alabama Regiments",
+     "witness": {
+      "name": "Kathleen R. George",
+      "role": "Historian, Gettysburg National Military Park (study dated 18 March 1984)",
+      "side": "institution"
+     },
+     "written": {
+      "date": "1984-03-18",
+      "kind": "institutional"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "nps1984",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "down into the valley at the 44th and 48th Alabama Regiments"
+      ]
+     },
+     "note": "About the 6th New Jersey firing from the Rose fence down into the Plum Run valley; the text layer of the study is damaged in places."
+    }
+   ],
+   "inference": {
+    "step": "Law's order sent the 44th and 48th Alabama across to the left to attack the battery in reverse (Maine 1898, Oates's report); that battery stood at Devil's Den, so the 48th was first sent toward it. No report puts the 48th itself on the Devil's Den ridge.",
+    "from": [
+     "C-016-P1-c1",
+     "C-016-P1-c2",
+     "C-016-P1-c3"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Devil's Den was the target of Law's order to the 44th and 48th and the ground where the 44th fought; the 48th itself fought beside the 4th Texas, on the Little Round Top side of Plum Run."
+   }
+  },
+  {
+   "id": "C-016-P2",
+   "origin": "pdf_value",
+   "pdf_label": "Little Round Top",
+   "scenario_ids": [
+    "C-016-S2",
+    "C-016-S3",
+    "C-016-DEFAULT"
+   ],
+   "label": "Little Round Top (western foot and slope, beside the 4th Texas)",
+   "kind": "place",
+   "value": {
+    "text": "Little Round Top"
+   },
+   "tier": "inferred",
+   "clock": "not_applicable",
+   "stance": "default",
+   "support": [
+    {
+     "id": "C-016-P2-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R455",
+     "page": "411",
+     "page_basis": "scan_leaf",
+     "text_offset": 1520678,
+     "quote": "being re-enforced by the Forty-eighth Alabama, commanded by the gallant Colonel [James L.] Sheffield, and the Forty-fourth Alabama, whose commander [...] did not learn, we again charged",
+     "witness": {
+      "name": "John P. Bane",
+      "role": "Major, commanding the 4th Texas Infantry (Robertson's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "bane",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Forty-eighth Alabama"
+      ]
+     },
+     "note": "The only report of the time that says what the 48th Alabama joined: the 4th Texas, in a charge on the works of the heights; it names no place."
+    },
+    {
+     "id": "C-016-P2-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R455",
+     "page": "411",
+     "page_basis": "scan_leaf",
+     "text_offset": 1519662,
+     "quote": "in our front and in close proximity to the mountain",
+     "witness": {
+      "name": "John P. Bane",
+      "role": "Major, commanding the 4th Texas Infantry (Robertson's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "bane",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "close proximity to the mountain"
+      ]
+     },
+     "note": "Bane's \"heights\" that the 4th Texas, with the 48th Alabama later, assaulted: near the mountain, not on the Devil's Den ridge."
+    },
+    {
+     "id": "C-016-P2-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R447",
+     "page": "396",
+     "page_basis": "scan_leaf",
+     "text_offset": 1463628,
+     "quote": "their exposed position to a [...] from the front and from the mountain on the right, were forced to fall back",
+     "witness": {
+      "name": "James L. Sheffield",
+      "role": "Colonel, 48th Alabama Infantry; commanded Law's brigade after Law took the division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "sheffield",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "from the mountain on the right"
+      ]
+     },
+     "note": "The 48th's own colonel names no place; the mountain stood on the regiment's right."
+    },
+    {
+     "id": "C-016-P2-c4",
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page": "171-172",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text; the quotation crosses the page break",
+     "text_offset": 369060,
+     "quote": "the attack on Little Round Top was made by Robertson's Fourth and Fifth Texas, Law's Fourth, Fifteenth, Forty-seventh, and Forty- [...] eighth Alabama",
+     "witness": {
+      "name": "Oliver Willcox Norton",
+      "role": "Private, 83d Pennsylvania Infantry (Vincent's brigade), 1863; author of the book of 1913",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "norton",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "Little Round Top"
+      ]
+     },
+     "note": "Norton's reading of the Confederate reports and of the Government map; he puts the 44th Alabama at Devil's Den and the 48th at Little Round Top."
+    },
+    {
+     "id": "C-016-P2-c5",
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page": "174",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text",
+     "text_offset": 375426,
+     "quote": "The Fourth and Forty-eighth Alabama, with the Fourth and Fifth Texas, marched in columns up this valley to seize the Little Round Top or turn it",
+     "witness": {
+      "name": "Oliver Willcox Norton",
+      "role": "Private, 83d Pennsylvania Infantry (Vincent's brigade), 1863; author of the book of 1913",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "norton",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "Little Round Top"
+      ]
+     }
+    },
+    {
+     "id": "C-016-P2-c6",
+     "source": "ME-GB-1898",
+     "source_class": "book",
+     "page": "163",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text",
+     "text_offset": 440542,
+     "quote": "The 48th Alabama, advancing northerly along the sloping side of Little Round Top, parallel with Plum Run, passed the position of the Fourth Maine after exchanging a few compliments, and presently had a duel with the 40th New York",
+     "witness": {
+      "name": "Maine Gettysburg Commission",
+      "role": "Authors of the chapter on the 4th Maine in Maine at Gettysburg (1898)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1898",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "maine1898",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "Little Round Top",
+       "Plum Run"
+      ]
+     }
+    },
+    {
+     "id": "C-016-P2-c7",
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page": "18-19",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text; the quotation crosses the page break",
+     "text_offset": 21191,
+     "quote": "The first attack was made by the Fourth and Forty-eighth [...] Alabama of Law's brigade and the Fourth and Fifth Texas of Robertson's brigade, which came up the swale on the north side of Big Round Top and attacked the center of Vincent's brigade posted on the southern slope of the hill",
+     "witness": {
+      "name": "Oliver Willcox Norton",
+      "role": "Private, 83d Pennsylvania Infantry (Vincent's brigade), 1863; author of the book of 1913",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "norton",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "southern slope of the hill"
+      ]
+     }
+    },
+    {
+     "id": "C-016-P2-c8",
+     "source": "OATES-1905-C016",
+     "source_class": "book",
+     "page": "208",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text",
+     "text_offset": 564348,
+     "quote": "The Forty-eighth Regiment was ordered across the rear to the left early in the advance",
+     "witness": {
+      "name": "William C. Oates",
+      "role": "Colonel, 15th Alabama Infantry (Law's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1905",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "oates",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "ordered across the rear to the left"
+      ]
+     }
+    },
+    {
+     "id": "C-016-P2-c9",
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page": "171",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text",
+     "text_offset": 368294,
+     "quote": "At the time of writing these reports they knew nothing of the nomenclature of this part of the battlefield",
+     "witness": {
+      "name": "Oliver Willcox Norton",
+      "role": "Private, 83d Pennsylvania Infantry (Vincent's brigade), 1863; author of the book of 1913",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "norton",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "nomenclature of this part of the battlefield"
+      ]
+     },
+     "note": "Why the reports of August 1863 name neither Devil's Den nor Little Round Top."
+    },
+    {
+     "id": "C-016-P2-c10",
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page": "179",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text",
+     "text_offset": 384042,
+     "quote": "the first of which the enemy was driven to the heights beyond, in close proximity to the mountain. This evidently refers to the falling back of Vincent's skirmishers to the main line",
+     "witness": {
+      "name": "Oliver Willcox Norton",
+      "role": "Private, 83d Pennsylvania Infantry (Vincent's brigade), 1863; author of the book of 1913",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "norton",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Vincent's skirmishers to the main line"
+      ]
+     },
+     "note": "Norton reads Bane's 'heights, in close proximity to the mountain' as Vincent's line on Little Round Top."
+    }
+   ],
+   "inference": {
+    "step": "Bane (4th Texas, 9 Jul 1863) says the 48th Alabama reinforced his regiment's charge on the works of the heights near the mountain; the 4th and 5th Texas charged the mountain on Law's left (Robertson); Norton (1913) and the Maine commission (1898) name that ground Little Round Top. The reports of 1863 name no place, so the name is inferred.",
+    "from": [
+     "C-016-P2-c1",
+     "C-016-P2-c2",
+     "C-016-P2-c10",
+     "C-016-P2-c4",
+     "C-016-P2-c6"
+    ]
+   }
+  },
+  {
+   "id": "C-016-P3",
+   "origin": "research",
+   "label": "Plum Run valley at the western foot of Little Round Top (the Slaughter Pen)",
+   "kind": "place",
+   "value": {
+    "text": "Plum Run valley (the Slaughter Pen), western foot of Little Round Top"
+   },
+   "tier": "inferred",
+   "clock": "not_applicable",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-016-P3-c1",
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page": "173",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text",
+     "text_offset": 371640,
+     "quote": "They must have gone north in the Plum Run valley behind the big rocks which separated that valley from the western foot of Little Round Top",
+     "witness": {
+      "name": "Oliver Willcox Norton",
+      "role": "Private, 83d Pennsylvania Infantry (Vincent's brigade), 1863; author of the book of 1913",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "norton",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Plum Run valley",
+       "western foot of Little Round Top"
+      ]
+     },
+     "note": "Norton reasons about the Confederate regiments that went to Vincent's right; he says no record of their order is known (p. 172)."
+    },
+    {
+     "id": "C-016-P3-c2",
+     "source": "ME-GB-1898",
+     "source_class": "book",
+     "page": "163",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text",
+     "text_offset": 440542,
+     "quote": "The 48th Alabama, advancing northerly along the sloping side of Little Round Top, parallel with Plum Run, passed the position of the Fourth Maine after exchanging a few compliments, and presently had a duel with the 40th New York",
+     "witness": {
+      "name": "Maine Gettysburg Commission",
+      "role": "Authors of the chapter on the 4th Maine in Maine at Gettysburg (1898)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1898",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "maine1898",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Little Round Top",
+       "Plum Run"
+      ]
+     }
+    },
+    {
+     "id": "C-016-P3-c3",
+     "source": "NPS-SLAUGHTER-PEN",
+     "source_class": "official",
+     "page": "43",
+     "page_basis": "pdf_marker",
+     "text_offset": 80548,
+     "quote": "proached Benning's Georgians and the 48th Alabama",
+     "witness": {
+      "name": "Kathleen R. George",
+      "role": "Historian, Gettysburg National Military Park (study dated 18 March 1984)",
+      "side": "institution"
+     },
+     "written": {
+      "date": "1984-03-18",
+      "kind": "institutional"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "nps1984",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Benning's Georgians and the 48th Alabama"
+      ]
+     },
+     "note": "About the 40th New York advancing down Plum Run; the text layer of the study is damaged in places."
+    },
+    {
+     "id": "C-016-P3-c4",
+     "source": "NPS-SLAUGHTER-PEN",
+     "source_class": "official",
+     "page": "40",
+     "page_basis": "pdf_marker",
+     "text_offset": 74935,
+     "quote": "began to fire from the fence down into the valley at the 44th and 48th Alabama Regiments",
+     "witness": {
+      "name": "Kathleen R. George",
+      "role": "Historian, Gettysburg National Military Park (study dated 18 March 1984)",
+      "side": "institution"
+     },
+     "written": {
+      "date": "1984-03-18",
+      "kind": "institutional"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "nps1984",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "down into the valley at the 44th and 48th Alabama Regiments"
+      ]
+     },
+     "note": "About the 6th New Jersey firing from the Rose fence down into the Plum Run valley; the text layer of the study is damaged in places."
+    }
+   ],
+   "inference": {
+    "step": "Maine 1898 has the 48th advance northerly along the side of Little Round Top parallel with Plum Run and fight the 40th New York; the Park Service study of 1984 has the Union regiments firing into the valley at the 44th and 48th Alabama; Norton puts the pair that attacked Vincent in the Plum Run valley first.",
+    "from": [
+     "C-016-P3-c1",
+     "C-016-P3-c2",
+     "C-016-P3-c3"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "It is the same ground seen from the valley floor: the 48th crossed and fought in the Plum Run valley at the foot of Little Round Top. Kept as the finer place."
+   }
+  },
+  {
+   "id": "C-016-P4",
+   "origin": "research",
+   "label": "Companies A and H as skirmishers round the east side of Great Round Top, not in the fight",
+   "kind": "place",
+   "value": {
+    "text": "Great Round Top (eastern side), skirmishers of Companies A and H"
+   },
+   "tier": "inferred",
+   "clock": "not_applicable",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-016-P4-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R447",
+     "page": "395",
+     "page_basis": "scan_leaf",
+     "text_offset": 1462742,
+     "quote": "where Companies A and H were ordered on picket",
+     "witness": {
+      "name": "James L. Sheffield",
+      "role": "Colonel, 48th Alabama Infantry; commanded Law's brigade after Law took the division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "sheffield",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Companies A and H"
+      ]
+     },
+     "note": "Two companies were sent out on picket before the advance."
+    },
+    {
+     "id": "C-016-P4-c2",
+     "source": "OATES-1905-C016",
+     "source_class": "book",
+     "page": "207",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text",
+     "text_offset": 560555,
+     "quote": "The two from the Forty-eighth on the right were under the command of a captain, the three from the Forty-seventh likewise commanded by a captain, and in the advance were soon disconnected from each other, but all moved directly toward the center, and bore to the right of the southern front of Great Round Top, and passed around it to the right on the eastern side",
+     "witness": {
+      "name": "William C. Oates",
+      "role": "Colonel, 15th Alabama Infantry (Law's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1905",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "oates",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "Great Round Top",
+       "eastern side"
+      ]
+     },
+     "note": "Footnote of Oates; the two companies of the 48th were A and H (Sheffield names them as the pickets)."
+    },
+    {
+     "id": "C-016-P4-c3",
+     "source": "OATES-1905-C016",
+     "source_class": "book",
+     "page": "207",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text",
+     "text_offset": 561239,
+     "quote": "these companies passed entirely around to the northern side of the mountain without encountering any Union troops, and in this way these companies were not in the battle of July 2d",
+     "witness": {
+      "name": "William C. Oates",
+      "role": "Colonel, 15th Alabama Infantry (Law's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1905",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "oates",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "not in the battle of July 2d"
+      ]
+     },
+     "note": "Oates reports what Capt. A. O. Dickson of Company A of the 48th told him."
+    }
+   ],
+   "inference": {
+    "step": "Sheffield names Companies A and H as the pickets of the 48th; Oates (1905), on the word of Capt. Dickson of Company A, says the two skirmish companies of the 48th passed round the eastern side of Great Round Top and were not in the battle of 2 July.",
+    "from": [
+     "C-016-P4-c1",
+     "C-016-P4-c2",
+     "C-016-P4-c3"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "place_of_observation",
+    "text": "It places only two companies (A and H), sent out as skirmishers; the rest of the regiment (275 men engaged, by Sheffield) fought beside the 4th Texas, which is what the default shows."
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "No report of 1863 names Devil's Den or Little Round Top for the 48th Alabama (Norton: the writers did not yet know the names). The one report that says what the 48th joined, Bane's (4th Texas, 9 Jul), puts it with the 4th Texas in the charge on the heights near the mountain; Norton (1913) and the Maine commission (1898) name that ground and put the 44th, not the 48th, on the Devil's Den battery; the Park Service study (1984) has the 48th in the valley of Plum Run. Little Round Top, at its western foot and slope, is better weighted; Devil's Den stays listed as the place Law's order pointed to.",
+  "who": "Bane commanded the 4th Texas in the fight and names the 48th and its colonel; Sheffield commanded the 48th but names no place; Oates commanded the 15th beside it and saw the 44th and 48th go left; Perry commanded the 44th at the Devil's Den battery and does not mention the 48th. The place names come from later writers: the Maine commission (1898), Norton, a private of Vincent's brigade (1913), and a Park Service historian (1984).",
+  "when": "Bane wrote on 9 July 1863 (7 days after, the best class of writing); Sheffield, Oates and Perry wrote on 7-8 August (36-37 days, still reports of the time). Oates told it again in 1878 and 1905, the Maine commission in 1898, Norton in 1913 and the Park Service in 1984: reminiscence and later history, which rank below the reports and are used here only to name the ground the reports describe.",
+  "where": "Bane, Sheffield, Oates and Perry were with their regiments on the field and wrote of what they saw; Bane was beside the 48th when it came up. Norton stood on Little Round Top with Vincent's brigade but reasons about the Confederate side from the reports and a map, so his placing of the 48th is a reading, not an eyewitness account.",
+  "how_knew": "Bane, Sheffield, Oates and Perry knew by being there. Oates's account of 1905 of the order to the 44th is relayed, not seen; Norton and the Park Service work from the reports and maps, and the Maine commission from the 4th Maine's account. Norton says he found no record of an order that moved the 48th to Vincent's right (p. 172).",
+  "clock": "Not applicable: the question is a place, not an hour. The 20-minute difference between the two armies' clocks is not used.",
+  "independence": "Counted as separate lines: Bane; Sheffield; Oates (his three accounts count once); Perry; Norton; the Maine commission; the Park Service study. Norton and the Maine commission both work from Bane's report, and the Park Service study cites the Maine volume, so their agreement is weaker than that of separate witnesses; the one contemporary link (Bane) is a single report. That is why the default is inferred and the class weighted, not settled."
+ },
+ "source_panel_text": "Little Round Top, at its western foot and slope beside the 4th Texas: Bane's report of 9 July 1863 puts the 48th Alabama in that charge, and Norton (1913) and the Maine commission (1898) name the ground. The 48th's own report names no place; Devil's Den is where its sister regiment, the 44th, fought. Three other values stay listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "yes",
+   "note": "Little Round Top holds as the place; the research adds that it is the western foot and slope, with the 4th Texas, and that the pairing of the 44th and 48th Alabama at Devil's Den, which the plan took from a web page, does not hold for the 48th."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "The place holds, but not the marking as a gap: Bane's report in the Official Records ties the 48th to the 4th Texas and later writers name the ground, so the value is inferred and the class weighted. The first pass had read only Sheffield, Perry and Oates."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T2-139",
+   "must_change": true,
+   "note": "Row text sends the 44th and 48th Alabama together toward Devil's Den (Wikipedia) and says 'the other five regiments' toward the Round Tops; Law's brigade had five regiments in all, and the 48th went to the Little Round Top side. The row's conflict note and source keys must follow this resolution."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-166",
+   "must_change": false,
+   "note": "West slope of Little Round Top, 48th Alabama and 4th Texas against the 16th Michigan: agrees with the default as a place; the 17:30 clock is not examined here."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-016)",
+   "must_change": true,
+   "note": "default_scenario_id C-016-DEFAULT, label 'Little Round Top (PDF), marked gap', tier plausible-procedural and basis gap become the resolution's default, tier inferred, class weighted."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-016)",
+   "must_change": true,
+   "note": "First delegated default: same change as the app copy; the four scenarios stay selectable."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-016 row)",
+   "must_change": true,
+   "note": "The row says 'OR names neither place; Law filed no report' and plausible-procedural; superseded by this resolution (record the reconciliation in the open, do not edit the old line)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md line 785 and GATE-SPEC-A.md line 467",
+   "must_change": true,
+   "note": "Both list C-016 among the eight plausible-procedural defaults (C-005, C-007, C-012, C-016, C-023, C-026, C-042, C-045); C-016 becomes inferred."
+  },
+  {
+   "kind": "gate",
+   "ref": "CF-1 to CF-8 (conflict gate)",
+   "must_change": false,
+   "note": "Every value stays selectable, the default is labelled, and the default has more than one independent non-lead line; no gate value is lowered or skipped."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/history/units.json cs-1c-hood-law-48al (conflict_refs C-016)",
+   "must_change": false,
+   "note": "The unit only carries the link to C-016; the arrivals gates Q04 to Q06 do not read this place (no arrivals row carries C-016)."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1",
+   "query": "Forty-eighth Alabama / 48th Ala / Sheffield in the Union reports and the index of Alabama troops mentioned (Part 1 lists only the 15th, 16th and 47th)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2",
+   "query": "report of Brig. Gen. E. M. Law on Gettysburg (Law filed none); Forty-eighth / 48th Ala near Devil's Den, Round Top in all of Part 2 (only Sheffield, Bane and the order of battle name the regiment)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "BL-3",
+   "query": "Law, 'The Struggle for Round Top' (pp. 318-330): 44th, 48th, Forty-eighth, Sheffield",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "HOOD-1880-C016",
+   "query": "Hood, Advance and Retreat: 48th, Forty-eighth, Sheffield, Forty-fourth, Devil's Den (Hood was wounded at the start and names no regiment of Law's brigade)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "BACH-WHATTOSEE-1873, BACH-WHATTOSEE-1889, BACH-STORY-1904, BACH-KEY-1864, BACH-REPULSE-1870",
+   "query": "Alabama / Law's near Devil's Den, Round Top, Plum Run (only the brigade is named: 'Law's brigade of Alabamians on its right')",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OATES-1905-C016",
+   "query": "appendix 'The Forty-eighth Alabama Regiment' (muster rolls and battles list): where the regiment stood on 2 July",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "archive.org",
+   "query": "W. F. Perry, 'At Devil's Den' (cited by the Park Service study, p. 161): one full-text search for the title and for '44th Alabama' Gettysburg returned only unrelated crawl records and newspaper issues",
+   "outcome": "failed",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Bachelder troop-movement maps and the Government map of the position of troops (cited by Norton)",
+   "query": "the 5.30 p.m. position of the 48th Alabama: maps are images, not read in this research",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report, letter or map of 1863-64 placing the 48th Alabama on the Houck's Ridge ground itself (a report by Law if one is found, Perry's article 'At Devil's Den', or the Bachelder troop-movement map of the evening) would move the default; so would a Union report that names the 48th in front of Ward's brigade instead of Vincent's."
+}
