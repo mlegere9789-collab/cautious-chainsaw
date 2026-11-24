@@ -1,0 +1,1246 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-013",
+ "topic": "Chamberlain’s charge",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-013",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Chamberlain’s charge | 17:30; no clock time in the sources | 17:30 (labelled inferred) | none",
+  "values": [
+   "17:30",
+   "no clock time in the sources"
+  ],
+  "recommended_default": "17:30 (labelled inferred)",
+  "selectable_alternatives": [
+   "none"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-013-DEFAULT",
+  "default_label": "about 17:30, labelled inferred, window 16:00 to dusk",
+  "tier": "inferred",
+  "basis": "inferred",
+  "scenario_ids": [
+   "C-013-S1",
+   "C-013-S2",
+   "C-013-S3",
+   "C-013-DEFAULT"
+  ]
+ },
+ "class": "irreducible",
+ "tier": "inferred",
+ "basis": {
+  "kind": "inferred",
+  "text": "No writer of the time gives a clock reading for the charge. The reports of Rice, Chamberlain, Bane and Barnes (July and August 1863), read with Norton's computation (1913), bound it at about 17:30 at the earliest and before dusk; the only reading of an hour is the Maine commission's volume of 1898 (about 6:30 p.m., no source named). The two readings are an hour apart and nothing in the record separates them."
+ },
+ "default": {
+  "mode": "window",
+  "positions": [
+   "C-013-P1",
+   "C-013-P3"
+  ],
+  "label": "About 17:30 to 18:30: no report of 1863 gives a clock time; reasoned from the reports, with one later reading",
+  "basis_text": "The early end (17:30) is reasoned from the reports of 1863: the Confederate attack on the brigade about 16:30 to 17:00 (Bane, Norton) and an hour of severe fighting before the bayonet order (Chamberlain; above half an hour in Rice). The late end (18:30) is the Maine commission's 'about 6:30 p. m.' (1898), whose basis is not named. Every reading is an 'about'; the window is wider than the 20 minutes by which the two armies' clocks reportedly differed, which is not applied.",
+  "animation": {
+   "at": "1863-07-02T18:00",
+   "rule": "midpoint",
+   "note": "The picture draws the bayonet charge at 18:00, the midpoint of the window, because no source gives a point; it is not a documented time. The 17:30 of the plan and the first delegated window 16:00 to dusk stay selectable, and the window is shown with the animation."
+  },
+  "note": "A window, not a point: nothing in the record dates the charge to the minute. The plan's own timeline row for the charge names a range 17:30 to 18:15; the window here is half an hour longer at the late end, by the 1898 volume."
+ },
+ "positions": [
+  {
+   "id": "C-013-P1",
+   "origin": "pdf_value",
+   "pdf_label": "17:30",
+   "scenario_ids": [
+    "C-013-S1"
+   ],
+   "label": "17:30: the early end of the window; the plan's value, reasoned from the reports (no writer gives it)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T17:30",
+    "approx": true,
+    "tolerance_min": 30,
+    "note": "the early end of the window; no writer states it"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "default",
+   "derived": true,
+   "flags": [
+    "weak"
+   ],
+   "inference": {
+    "step": "No writer of the time gives a clock reading for the charge. The reports start the fight at the brigade's order into position about 16:00 (Rice) and the Confederate attack on it about 16:30 to 17:00 (Bane, Norton), the first infantry attack coming as Chamberlain's line was formed, and give a length of 'above half an hour' to 'an hour' of severe fighting before the bayonet order (Rice, Chamberlain). 16:30 plus about an hour is 17:30: the earliest the charge can be placed by those reports, and the plan's value. Later fits within the same lengths run to about 18:00 or later.",
+    "from": [
+     "C-013-P1-c1",
+     "C-013-P1-c2",
+     "C-013-P1-c3",
+     "C-013-P1-c4",
+     "C-013-P1-c5",
+     "C-013-P1-c6",
+     "C-013-P1-c7"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-013-P1-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R195",
+     "page": "616",
+     "page_basis": "scan_leaf",
+     "text_offset": 2164781,
+     "quote": "was detached from the division and ordered into position at about 4 p. m. of the 2d instant",
+     "witness": {
+      "name": "James C. Rice",
+      "role": "Colonel, 44th New York Infantry; took command of Vincent's (Third) brigade when Vincent fell",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "rice",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Rice, brigade report of 31 July 1863: Vincent's brigade ordered into position about 4 p.m. This dates the order, not the charge; it is the start of the reckoning."
+    },
+    {
+     "id": "C-013-P1-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "623",
+     "page_basis": "scan_leaf",
+     "text_offset": 2186419,
+     "quote": "my formation was scarcely complete when the artillery was replaced by a vigorous infantry assault upon the center of our brigade to my right",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, 20th Maine Infantry (Vincent's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "formation was scarcely complete"
+      ]
+     },
+     "note": "Chamberlain, report of 6 July 1863: the first infantry attack on the brigade came as his line was formed. No clock reading."
+    },
+    {
+     "id": "C-013-P1-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R455",
+     "page": "410",
+     "page_basis": "scan_leaf",
+     "text_offset": 1518568,
+     "quote": "About 4.30 p. m. the 2d instant, we were ordered to advance on the enemy",
+     "witness": {
+      "name": "John P. Bane",
+      "role": "Major, commanding the 4th Texas Infantry (Robertson's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "bane",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:30"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Bane, report of 9 July 1863: the 4th Texas was ordered forward about 4.30 p.m., on the Confederate clock. The Texans were against the centre of Vincent's brigade, not the 20th Maine's ledge."
+    },
+    {
+     "id": "C-013-P1-c4",
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page": "246",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 246 stands before the paragraph on the 83rd Pennsylvania)",
+     "text_offset": 531807,
+     "quote": "The attack on Vincent's brigade must have commenced at some time between 4:30 and 5 p. M.",
+     "witness": {
+      "name": "Oliver Willcox Norton",
+      "role": "Private (bugler), 83rd Pennsylvania Infantry (Vincent's brigade), 1863; author of the book of 1913",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "not_stated",
+     "knew_by": "computed",
+     "clock": "unspecified",
+     "hedge": "window",
+     "group": "norton",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:30",
+       "17:00"
+      ]
+     },
+     "note": "Norton, writing in 1913, reasons from the movements of the Fifth Corps and of the Confederate infantry that the attack on the brigade began between 4:30 and 5 p.m. His own inference, not a reading of a clock; he gives it to correct Woodward's earlier hours."
+    },
+    {
+     "id": "C-013-P1-c5",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "624",
+     "page_basis": "scan_leaf",
+     "text_offset": 2188738,
+     "quote": "They renewed the assault on our whole front, and for an hour the fighting was severe",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, 20th Maine Infantry (Vincent's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "for an hour the fighting was severe"
+      ]
+     },
+     "note": "Chamberlain, report of 6 July 1863: after the flanking column's first rush, an hour of severe fighting; the passage on the bayonet order follows a few lines later on the same page. A length of time, no clock reading."
+    },
+    {
+     "id": "C-013-P1-c6",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R195",
+     "page": "617",
+     "page_basis": "scan_leaf",
+     "text_offset": 2168311,
+     "quote": "Now occurred the most critical time of the action. For above half an hour the struggle was desperate.",
+     "witness": {
+      "name": "James C. Rice",
+      "role": "Colonel, 44th New York Infantry; took command of Vincent's (Third) brigade when Vincent fell",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "rice",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "For above half an hour the struggle was desperate"
+      ]
+     },
+     "note": "Rice, report of 31 July 1863, on the attack on the 20th Maine: above half an hour of desperate struggle before Chamberlain 'ordered a charge'. Shorter than Chamberlain's hour; both are lengths of time."
+    },
+    {
+     "id": "C-013-P1-c7",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R200",
+     "page": "630",
+     "page_basis": "scan_leaf",
+     "text_offset": 2213347,
+     "quote": "After we had been engaged about one hour, Colonel Vincent, commanding brigade, was wounded",
+     "witness": {
+      "name": "Freeman Conner (printed Cormer in the text)",
+      "role": "Lieutenant Colonel, 44th New York Infantry (Vincent's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "conner",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "engaged about one hour"
+      ]
+     },
+     "note": "Conner (printed 'Cormer'), report of 6 July 1863: the 44th New York had been engaged about an hour when Vincent fell; Rice's report puts the 20th Maine's desperate struggle after that. A length of time."
+    },
+    {
+     "id": "C-013-P1-c8",
+     "source": "OATES-1905-C016",
+     "source_class": "book",
+     "page": "207",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 207 stands before the paragraph, the head of 208 after it)",
+     "text_offset": 559173,
+     "quote": "Thus formed, about 3.30 o'clock P M., both battalions of artillery opened fire",
+     "witness": {
+      "name": "William C. Oates",
+      "role": "Colonel, 15th Alabama Infantry (Law's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1905",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "oates",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:30"
+      ]
+     },
+     "note": "Oates, book of 1905: the Confederate guns opened about 3.30 p.m. and his line advanced 'within a few minutes'. His 15th Alabama then had the longest march, over Big Round Top, so this is the start of the whole attack, not of the fight at the 20th Maine's ledge. It is the earliest reading and is a memoir written 42 years later."
+    },
+    {
+     "id": "C-013-P1-c9",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "624",
+     "page_basis": "scan_leaf",
+     "text_offset": 2191585,
+     "quote": "At that crisis, I ordered the bayonet",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, 20th Maine Infantry (Vincent's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "I ordered the bayonet"
+      ]
+     },
+     "note": "Chamberlain, report of 6 July 1863: the order itself, given when his ammunition was almost gone and a second attack was coming on. The sentence carries no clock reading."
+    },
+    {
+     "id": "C-013-P1-c10",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R195",
+     "page": "617",
+     "page_basis": "scan_leaf",
+     "text_offset": 2168694,
+     "quote": "He then ordered a charge, and repulsed the enemy at every point",
+     "witness": {
+      "name": "James C. Rice",
+      "role": "Colonel, 44th New York Infantry; took command of Vincent's (Third) brigade when Vincent fell",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "rice",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "ordered a charge"
+      ]
+     },
+     "note": "Rice, report of 31 July 1863: Chamberlain ordered a charge after the struggle of above half an hour. No clock reading."
+    }
+   ],
+   "note": "17:30 is a computation, not a statement. The earlier Confederate hour (Oates 3.30) is for the whole line's advance; the 15th Alabama still had to climb Big Round Top, so it does not move the charge earlier."
+  },
+  {
+   "id": "C-013-P2",
+   "origin": "pdf_value",
+   "pdf_label": "no clock time in the sources",
+   "scenario_ids": [
+    "C-013-S2"
+   ],
+   "label": "No clock time in the sources of 1863 (true of every report read; a later volume gives about 18:30)",
+   "kind": "none",
+   "value": {
+    "text": "no clock time in the sources"
+   },
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced"
+   ],
+   "reason_not_chosen": {
+    "kind": "unclear_expression",
+    "text": "A statement about the record, not a time. True of the writers of 1863, but their reports bound the charge and a later volume gives an hour, so a window is shown; this stays as the visible gap."
+   },
+   "failed_lookups": [
+    {
+     "where": "OR27-1 (R187 Sykes, R189 Barnes, R194-R202 Third Brigade, R203 Ayres, R218 Crawford, R220 Fisher)",
+     "query": "a clock reading, in digits or words, for the bayonet order or for the repulse of the 15th and 47th Alabama: only 'about 4 p. m.' (order into position), 'for an hour', 'nearly dark', 'at dusk', 8 and 9 p.m. for the later advance, 10 p.m. (Fisher)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-2 (R443 Scruggs, R444 Oates, R445 Perry, R446 Campbell, R447 Sheffield, R452 Robertson, R455 Bane)",
+     "query": "the hour of the repulse in front of the 20th Maine: Bane has 4.30 p.m. for the advance; Perry's 'past 5 p. m.' is at Devil's Den; Oates's report has no hour",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "GERRISH-1882-C013 (a private of the 20th Maine, pp. 104-112)",
+     "query": "any hour for the charge: the chapter has only 'ten minutes have passed since we formed the line' and 'after dark an order came to advance'",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "note": "Kept as the plan prints it. It describes the record of 1863 correctly; it is not a time the animation can use."
+  },
+  {
+   "id": "C-013-P3",
+   "origin": "research",
+   "label": "About 18:30: the one reading of the hour, in a Maine volume of 1898 (its basis not named)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T18:30",
+    "approx": true,
+    "tolerance_min": 15,
+    "note": "'about 6:30 p. m.' for the moment the Alabamians were driven from the 20th Maine's front"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "default",
+   "derived": true,
+   "flags": [
+    "single_source",
+    "weak"
+   ],
+   "inference": {
+    "step": "The Maine commission's volume of 1898 states 'about 6:30 p. m.' for the moment the Confederates were driven from the south side of Little Round Top by the 20th Maine's charge; it gives no source for the hour, and its own account starts the action about 4 p.m. A state volume is a later narrative and documents only that its writer said so; read with the reports (an hour or more of fighting after the attack began between 4:30 and 5) it makes about 18:30 the late end of the window.",
+    "from": [
+     "C-013-P3-c1",
+     "C-013-P3-c2",
+     "C-013-P3-c3"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-013-P3-c1",
+     "source": "ME-GB-1898",
+     "source_class": "book",
+     "page": "258",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 258 stands before the passage, the head of 259 after it)",
+     "text_offset": 701856,
+     "quote": "At the hour when the Twentieth Maine dashed upon the 15th and 47th Ala. regiments. Little Round Top was saved, not to be attacked again. It was about 6 : 30 p. m. when the Confederates were driven",
+     "witness": {
+      "name": "Maine Gettysburg commission volume, chapter on the 20th Maine (the writer is not named in the text read)",
+      "role": "State commission volume, Maine at Gettysburg (1898)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1898",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "me1898",
+     "exact": true,
+     "states": {
+      "times": [
+       "18:30"
+      ]
+     },
+     "note": "The one clock reading that ties itself to the charge: 'about 6:30 p.m.' for the moment the 15th and 47th Alabama were driven from the front of the 20th Maine. The volume gives no source for the hour; the sentence reads as the writer's reckoning. Printed 35 years after the battle."
+    },
+    {
+     "id": "C-013-P3-c2",
+     "source": "ME-GB-1898",
+     "source_class": "book",
+     "page": "253",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 253 stands before the passage, the head of 254 after it)",
+     "text_offset": 686737,
+     "quote": "Suddenly, at about 4 o'clock p. m. July 2d, an artillery fire opened on our extreme left",
+     "witness": {
+      "name": "Maine Gettysburg commission volume, chapter on the 20th Maine (the writer is not named in the text read)",
+      "role": "State commission volume, Maine at Gettysburg (1898)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1898",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "me1898",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "The same chapter dates the start of the afternoon's action about 4 p.m. Its 6:30 therefore follows from the same reading of the reports (an hour or two of fighting after 4); the chapter does not say how it was reckoned."
+    },
+    {
+     "id": "C-013-P3-c3",
+     "source": "PA-GB-1914-v2",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the printed page cannot be read in the text layer: the running head before the inscription reads 'J022 Pennsylvania at Gettysburg', a damaged page number; the page image was not viewed",
+     "text_offset": 1494709,
+     "quote": "The Brigade was hurried to Little Round Top about 5 p. m. of July 2d",
+     "witness": {
+      "name": "Pennsylvania state commission volume (the inscription on the 83rd Pennsylvania monument)",
+      "role": "Inscription printed in Pennsylvania at Gettysburg (1914 ed.), vol. 2",
+      "side": "other"
+     },
+     "written": {
+      "date": "1914",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "pa1914",
+     "exact": false,
+     "states": {
+      "times": [
+       "17:00"
+      ]
+     },
+     "note": "A monument inscription puts the arrival of the brigade about 5 p.m., an hour later than the reports of 1863 (about 4 p.m.). It dates the arrival, not the charge; it shows how far later writers' hours drift beyond the reports, and it fits a charge nearer 18:30 than 17:30."
+    }
+   ],
+   "note": "Only a state commission volume states a clock for the charge. A monument inscription of the same kind puts the brigade's arrival at 5 p.m. instead of 4, which suggests how later writers' hours run late."
+  },
+  {
+   "id": "C-013-P4",
+   "origin": "research",
+   "label": "About 18:00: the 83rd Pennsylvania's 'nearly 6 p. m.' for the enemy falling back (a clock its writer disowned)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T18:00",
+    "approx": true,
+    "tolerance_min": 15,
+    "note": "'nearly 6 p. m.'; at or a little before 18:00"
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [
+    "single_source",
+    "unclear_clock",
+    "different_event"
+   ],
+   "inference": {
+    "step": "Woodward of the 83rd Pennsylvania, on the 20th Maine's right, wrote that the enemy fell back from his front 'nearly 6 p. m.', which bounds the end of the attack on the brigade, not the bayonet order itself, and his other clock readings were later called mistaken by Norton.",
+    "from": [
+     "C-013-P4-c1",
+     "C-013-P4-c2"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-013-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R201",
+     "page": "632",
+     "page_basis": "scan_leaf",
+     "text_offset": 2217531,
+     "quote": "The contest continued lively until nearly 6 p. m.",
+     "witness": {
+      "name": "Orpheus S. Woodward",
+      "role": "Captain, commanding the 83rd Pennsylvania Infantry (Vincent's brigade, on the right of the 20th Maine)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "upper",
+     "group": "woodward",
+     "exact": false,
+     "states": {
+      "times": [
+       "18:00"
+      ]
+     },
+     "note": "Woodward, report of 6 July 1863 (the text prints 'p. m.j'): the enemy fell back from the front of the 83rd 'nearly 6 p. m.'. The same report has 2.30 p.m. and 3.15 p.m. for the order into position and first contact, hours that Norton says Woodward himself later admitted were mistaken."
+    },
+    {
+     "id": "C-013-P4-c2",
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page": "246",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text",
+     "text_offset": 531456,
+     "quote": "Captain Woodward is mistaken about the time of the engagement",
+     "witness": {
+      "name": "Oliver Willcox Norton",
+      "role": "Private (bugler), 83rd Pennsylvania Infantry (Vincent's brigade), 1863; author of the book of 1913",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "norton",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Woodward is mistaken about the time"
+      ]
+     },
+     "note": "Norton (1913) on Woodward's hours; he adds that Woodward in a letter of 12 January 1912 admitted the mistake about the time. Applies to the hours of the order and first contact; the 'nearly 6 p.m.' is on the same clock."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "It lies inside the window. It dates the enemy falling back from the 83rd's front, not Chamberlain's order, and its writer's other hours were later called mistaken."
+   },
+   "note": "Woodward is the only writer of 1863 who gives a clock reading near the end of the fight, and it falls inside the window."
+  },
+  {
+   "id": "C-013-P5",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-013-DEFAULT"
+   ],
+   "label": "About 17:30, labelled inferred, window 16:00 to dusk (the first delegated default)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T16:00",
+    "to": "1863-07-02T19:32",
+    "note": "the end is sunset (19:32); dusk follows"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [
+    "weak"
+   ],
+   "inference": {
+    "step": "The brigade's order into position about 16:00 (Rice, Welch) is the earliest the fight can start; Chamberlain's report puts Vincent's fall being told to him 'at dusk', after the charge, and Barnes has 'nearly dark' after the charge. These are the widest bounds the reports give; the fight of an hour narrows them.",
+    "from": [
+     "C-013-P5-c1",
+     "C-013-P5-c2",
+     "C-013-P5-c3",
+     "C-013-P5-c4",
+     "C-013-P5-c5",
+     "C-013-P5-c6"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-013-P5-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R198",
+     "page": "628",
+     "page_basis": "scan_leaf",
+     "text_offset": 2203913,
+     "quote": "About 4 p. m. we moved rapidly to the extreme left of our line of battle",
+     "witness": {
+      "name": "Norval E. Welch",
+      "role": "Lieutenant Colonel, 16th Michigan Infantry (Vincent's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "welch",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Welch, report of 6 July 1863: the brigade moved to the left about 4 p.m. With Rice's 4 p.m. and Chamberlain's 'somewhere near 4 p.m.' this is the lower end of the first delegated window."
+    },
+    {
+     "id": "C-013-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "625",
+     "page_basis": "scan_leaf",
+     "text_offset": 2193639,
+     "quote": "At dusk. Colonel Rice informed me of the fall of Colonel Vincent",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, 20th Maine Infantry (Vincent's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "At dusk"
+      ]
+     },
+     "note": "Chamberlain, report of 6 July 1863, after the charge and the return to the original position: at dusk Rice told him of Vincent's fall. Sunset was 19:32; dusk is the upper end of the window."
+    },
+    {
+     "id": "C-013-P5-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R189",
+     "page": "604",
+     "page_basis": "scan_leaf",
+     "text_offset": 2118745,
+     "quote": "It was now nearly dark. A portion of the enemy appeared to have occupied the summit of the rocky hill to the left",
+     "witness": {
+      "name": "James Barnes",
+      "role": "Brigadier General, commanding the First Division, Fifth Corps (Vincent's brigade was in his division)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-24",
+      "kind": "official_report"
+     },
+     "vantage": "not_stated",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "barnes",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "nearly dark"
+      ]
+     },
+     "note": "Barnes, division report of 24 August 1863: the charge is told first (368 prisoners), then 'nearly dark', then Rice's order to take the hill (Chamberlain and Rice have that at 9 p.m. and 8 p.m.). The charge precedes 'nearly dark'. Barnes writes of the brigade's fight in the third person and does not say he stood at the ledge; he relays the reports of his brigades."
+    },
+    {
+     "id": "C-013-P5-c4",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R195",
+     "page": "616",
+     "page_basis": "scan_leaf",
+     "text_offset": 2164781,
+     "quote": "was detached from the division and ordered into position at about 4 p. m. of the 2d instant",
+     "witness": {
+      "name": "James C. Rice",
+      "role": "Colonel, 44th New York Infantry; took command of Vincent's (Third) brigade when Vincent fell",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "rice",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Rice, brigade report of 31 July 1863: Vincent's brigade ordered into position about 4 p.m. This dates the order, not the charge; it is the start of the reckoning."
+    },
+    {
+     "id": "C-013-P5-c5",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R195",
+     "page": "618",
+     "page_basis": "scan_leaf",
+     "text_offset": 2171540,
+     "quote": "It was now 8 o'clock in the evening, and before 9 o'clock we had entire possession",
+     "witness": {
+      "name": "James C. Rice",
+      "role": "Colonel, 44th New York Infantry; took command of Vincent's (Third) brigade when Vincent fell",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "rice",
+     "exact": false,
+     "states": {
+      "times": [
+       "20:00",
+       "21:00"
+      ]
+     },
+     "note": "Rice, report of 31 July 1863: 8 o'clock in the evening, after the later advance on Round Top and the securing of the ground. A later act than the charge; an outer bound."
+    },
+    {
+     "id": "C-013-P5-c6",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "625",
+     "page_basis": "scan_leaf",
+     "text_offset": 2194541,
+     "quote": "It was now 9 p. m. Without waiting to get ammunition",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, 20th Maine Infantry (Vincent's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": false,
+     "states": {
+      "times": [
+       "21:00"
+      ]
+     },
+     "note": "Chamberlain, report of 6 July 1863: the advance on Big Round Top began at 9 p.m. A later act than the charge, which came before dusk; an outer bound (Rice has 8 o'clock for the same evening)."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Its ends date other acts: the brigade's order into position (about 4 p.m.) and the dusk that follows the charge. The hour of fighting between them narrows it to about 17:30 to 18:30."
+   },
+   "note": "Kept as the first pass's window. The default window is inside it."
+  },
+  {
+   "id": "C-013-P6",
+   "origin": "pdf_default",
+   "pdf_label": "17:30 (labelled inferred)",
+   "scenario_ids": [
+    "C-013-S3"
+   ],
+   "label": "17:30, labelled inferred (the plan's recommended default, drawn as a point)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T17:30",
+    "approx": true,
+    "tolerance_min": 30,
+    "note": "the plan's recommended default as a single time; the same moment as the early end of the window"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "derived": true,
+   "flags": [
+    "weak"
+   ],
+   "inference": {
+    "step": "The same reasoning as C-013-P1: the order into position about 16:00 and the Confederate attack about 16:30 to 17:00, plus an hour of severe fighting before the bayonet order, give about 17:30 at the earliest. No writer states it; the plan labels it inferred and so does this record.",
+    "from": [
+     "C-013-P6-c1",
+     "C-013-P6-c2",
+     "C-013-P6-c3"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-013-P6-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R195",
+     "page": "616",
+     "page_basis": "scan_leaf",
+     "text_offset": 2164781,
+     "quote": "was detached from the division and ordered into position at about 4 p. m. of the 2d instant",
+     "witness": {
+      "name": "James C. Rice",
+      "role": "Colonel, 44th New York Infantry; took command of Vincent's (Third) brigade when Vincent fell",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-31",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "rice",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Rice, brigade report of 31 July 1863: Vincent's brigade ordered into position about 4 p.m. This dates the order, not the charge; it is the start of the reckoning."
+    },
+    {
+     "id": "C-013-P6-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "624",
+     "page_basis": "scan_leaf",
+     "text_offset": 2188738,
+     "quote": "They renewed the assault on our whole front, and for an hour the fighting was severe",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, 20th Maine Infantry (Vincent's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "for an hour the fighting was severe"
+      ]
+     },
+     "note": "Chamberlain, report of 6 July 1863: after the flanking column's first rush, an hour of severe fighting; the passage on the bayonet order follows a few lines later on the same page. A length of time, no clock reading."
+    },
+    {
+     "id": "C-013-P6-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R455",
+     "page": "410",
+     "page_basis": "scan_leaf",
+     "text_offset": 1518568,
+     "quote": "About 4.30 p. m. the 2d instant, we were ordered to advance on the enemy",
+     "witness": {
+      "name": "John P. Bane",
+      "role": "Major, commanding the 4th Texas Infantry (Robertson's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "bane",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:30"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Bane, report of 9 July 1863: the 4th Texas was ordered forward about 4.30 p.m., on the Confederate clock. The Texans were against the centre of Vincent's brigade, not the 20th Maine's ledge."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "The same 17:30 as the early end of the window. Drawn as the single point of the charge it would claim more than the reports give; the 1898 volume puts the charge an hour later."
+   },
+   "note": "Kept because the plan recommends it. It is not a different time from C-013-P1; it is the plan's wording of that time as a default point."
+  }
+ ],
+ "weighing": {
+  "summary": "No writer of 1863 gives a clock time for the bayonet charge. Rice and Welch put the order into position about 4 p.m.; Bane and Norton put the Confederate attack on the brigade at 4:30 or between 4:30 and 5; Chamberlain has an hour of severe fighting after the flanking column came and then the order 'At that crisis, I ordered the bayonet', and Rice has above half an hour on the 20th Maine; both put the charge before dusk. Read together the reports give about 17:30 at the earliest. The only clock reading of the charge is later: a Maine volume of 1898 has about 6:30 p.m. and names no source. The reports and that volume are an hour apart and the record has nothing to choose between them, so the default is the window 17:30 to 18:30 (class irreducible, tier inferred), not a point.",
+  "who": "Rice (44th New York, then the brigade), Chamberlain (20th Maine), Conner (44th New York), Welch (16th Michigan) and Woodward (83rd Pennsylvania) wrote as officers of Vincent's brigade on the hill; they are the best class of writing there is (reports within a month) and none gives a clock for the charge. Bane (4th Texas) wrote for the Confederates against the brigade's centre. Barnes, the division commander, does not say he was at the ledge and relays the brigade's reports. Norton was a private of the brigade, writing in 1913, and computes his 4:30 to 5 from the movements of the corps. Oates (15th Alabama) wrote in 1905. The Maine and Pennsylvania volumes are state commission books with no named writer for the passages.",
+  "when": "The reports are of 6 July to 24 August 1863, 4 to 53 days after, the best class of writing the rubric knows, but they state lengths of time and the order into position, not an hour for the charge. Bane's report is of 9 July. Norton (1913), Oates (1905) and the state volumes (1898, 1914) are 35 to 51 years after. The one clock reading of the charge, in the Maine volume, is of the weakest class that gives one; it is not outweighed by a contrary report because the reports give none, and it is not a better one either because no basis is named. Woodward (6 July 1863) is the only writer of the time near an hour for the end of the fight and his other readings were disowned by him.",
+  "where": "Chamberlain and Rice stood at the 20th Maine's position, Conner and Woodward at the 44th New York and the 83rd Pennsylvania next to it; Welch at the right end of the brigade. Bane's Texans attacked the brigade's centre and right, so his 4:30 dates the first attack, which came before the flanking column reached the 20th Maine (Chamberlain: the flanking column was seen after the assault on the centre was under way). The charge itself therefore came later than the first attack by the length of the fight at the 20th Maine's ledge. Barnes's 'nearly dark' and Chamberlain's 'At dusk' come after the charge.",
+  "how_knew": "Chamberlain and Rice report their own commands and say what they saw; their lengths of time ('an hour', 'above half an hour') are estimates made with the action in mind and are not clock readings. Bane reports an order he received. Norton and the Maine volume do not say how they know: Norton computes, and the Maine volume names no source for 6:30. The monument inscription (about 5 p.m. for the brigade's arrival) names none either.",
+  "clock": "The Union reports use the Union clock, Bane the Confederate, Norton and the state volumes no stated clock. The reported difference of about 20 minutes between the two armies' clocks is not applied; it is much smaller than the hour between the two ends of the window. Woodward's readings, taken on his own clock, are also disowned by him.",
+  "independence": "The early end rests on four lines of knowledge that do not copy one another for the hours: Rice and Chamberlain (independent reports from the 44th New York and the 20th Maine), Bane (the Confederate side) and Norton (a computation from the corps's movements); but none of them states 17:30, which is a reasoned point, so the position is flagged weak. The late end rests on one line: the Maine volume (the same chapter dates the start about 4 p.m.; the monument inscription is a different volume and speaks to the arrival). Powell (1896) and Lossing (1868) follow the reports and do not give an hour; the Park Service texts give only 'twilight' for the later withdrawal and 'night fell' for the advance on Big Round Top; Gerrish (1882) has none."
+ },
+ "source_panel_text": "About 17:30 to 18:30 on Jul 2. No report of 1863 gives a clock time for the charge: Rice and Bane date the fight from about 4 to 4:30 p.m., and Chamberlain has an hour of hard fighting before his bayonet order. A Maine volume of 1898 says about 6:30 p.m., naming no source. The plan's 17:30 is the early end; 'no clock time' is also listed. Four other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "17:30 holds as the early end of the window and as an inference, labelled inferred as the plan says; it does not hold as the point of the charge: no source states it, and the only reading of an hour (the Maine volume of 1898, about 6:30 p.m.) is an hour later. 'No clock time in the sources' is true of the writers of 1863 and stays as the visible gap."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "About 17:30, labelled inferred, holds as the early end of the window; the window 16:00 to dusk is too wide, since 16:00 is the order into position, not the charge: the fight of about an hour and the Maine volume narrow it to about 17:30 to 18:30. The first pass searched the Official Records only and did not read the Maine volume."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T2-165",
+   "must_change": true,
+   "note": "Row 'Jul 2 ~17:30', Little Round Top crest, tier documented, note \"Clock time 17:30 is single-sourced (SS2); neither Chamberlain's report nor Wikipedia gives one (B.2.5 range 17:30-18:15)\". Under this resolution the hour is a window 17:30 to 18:30 at inferred (no source of the time gives it), drawn at 18:00; the row's tier for the clock must follow (the strengths and the prisoners of the row are another workstream's). timeline_verified.jsonl and timeline_windows.jsonl (default_iso 17:30, point, tier documented) carry the same row."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-136",
+   "must_change": false,
+   "note": "Row 'Jul 2 late afternoon, Plum Run to the Granite Spur, 20th Maine ordered to the left about 16:00, Chamberlain gives no clock time'. Another event (the movement). Chamberlain's 'Somewhere near 4 p. m.' is the start of this reckoning; no change."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-215",
+   "must_change": false,
+   "note": "Row 'Jul 2 ~21:00, Round Top crest, 20th Maine's night advance'. A later event; Chamberlain has 9 p.m., Rice 8 o'clock, Fisher 10 p.m. (no change; belongs to another conflict). The charge precedes it by an hour or more."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-223",
+   "must_change": false,
+   "note": "Row 'Jul 2 ~22:00, Round Top crest, 20th Maine holds the crest, night advance'. Same later event; no change."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-013)",
+   "must_change": true,
+   "note": "default_scenario_id C-013-DEFAULT, label 'about 17:30, labelled inferred, window 16:00 to dusk' becomes the window 17:30 to 18:30 (class irreducible, tier inferred, drawn at 18:00); the four scenarios stay selectable and the three new values (about 18:30, about 18:00, the first pass's window as its own value) are added."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-013)",
+   "must_change": true,
+   "note": "First delegated default: same change as the app copy."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-013 row, line 23)",
+   "must_change": true,
+   "note": "The row says about 17:30, labelled inferred, window 16:00 to dusk, inferred; superseded by this resolution (record the reconciliation in the open; do not edit the old line)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md (DEC-C-013, line 41)",
+   "must_change": true,
+   "note": "Stays 'PENDING OWNER'. The integration step records that a delegated resolution (window 17:30 to 18:30, inferred, class irreducible) exists; it never writes DECIDED."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md line 785 and GATE-SPEC-A.md line 467",
+   "must_change": false,
+   "note": "Both list C-013 among the seven inferred defaults (C-006, C-008, C-011, C-013, C-024, C-041, C-044). C-013 stays inferred, so the count is unchanged."
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0108.md and register/proposed/r03-1/r03-1-EG-06.md",
+   "must_change": true,
+   "note": "Evidence-gap entry 'Clock time of Chamberlain's bayonet charge': substitute 'show the bounding window; if a point is drawn, 17:30 with the inferred tag', bounds 'about 16:00 to dusk', evidence searched OR27-1 R196 and R195 only. Under this resolution the window is 17:30 to 18:30 (inferred), the evidence searched includes Bane, Barnes, Woodward, Norton, the Maine volume of 1898 and Gerrish, and the owner question 'window or inferred point 17:30' is answered by the window; the entry's tier, marking and status follow the integration step."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q02 and Q19 (gate_results/Q02.json lines 4693 and 8637; Q19.json lines 1101 and 4345), reading conflict-defaults.json $.conflicts.C-013",
+   "must_change": true,
+   "note": "They read the delegated default (about 17:30, inferred, basis inferred). The default becomes the window with its basis text, flagged weak and single-source at the late end: Q19 needs two independent sources or a flag, and the flags are present; Q02 needs source and tier, which are given. Expected values are reconciled in the open; no gate is lowered."
+  },
+  {
+   "kind": "gate",
+   "ref": "CF-1 to CF-8 (conflict gate, gate_results/GATE-SPEC-A.md)",
+   "must_change": false,
+   "note": "Every value stays selectable, the default is labelled and each value carries its flags; no gate value is lowered or skipped."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/build_arrivals.py line 730 (unit_conflicts C-013: us-5c-1d-vincent-20me)",
+   "must_change": false,
+   "note": "Only links the conflict to the 20th Maine unit (conflict_refs). The charge is not an arrival; the unit's arrival gate is the V Corps arrival (C-003) and reads nothing from this value. No change."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/or27_claims.py line 405 (claim check m, pdf('C-011', 'C-012', 'C-013'); check m2)",
+   "must_change": false,
+   "note": "Check m2 says 17:30 is an inference not found in the Official Records and is still true: the Official Records give no clock for the charge."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/history/positions/positions_C.jsonl (POS-C-0080, us-5c-1d-vincent-20me, 'for an hour the fighting was severe', t_iso null)",
+   "must_change": false,
+   "note": "The claim has no clock (t_iso null, description of a time in another sentence); it states a length of time that is one of the reasons for the window. No change."
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/horde/r03-1/results.jsonl (R03.C-013) and horde/OR-RECHECK/results.jsonl",
+   "must_change": false,
+   "note": "First research pass of 2026-11-04: 'no clock in OR; bounded between about 16:00 and dusk; position secure by about 20:00-21:00'. History of another workstream; superseded here, not edited."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/requirements.json (R03.C-013), subreq_links.json, conflicts_structured.json, tools/bt/conflicts_structured_data.py",
+   "must_change": false,
+   "note": "Copies of the PDF row and the requirement text ('default is an owner decision'); the row is quoted exactly here and no change is needed."
+  },
+  {
+   "kind": "test",
+   "ref": "docs/battle-theatre/app/tests/scenario-defaults.test.mjs, tests/governance/gates/test_q19.py, tests/bt-pack/pack.test.mjs (read conflict-defaults.json)",
+   "must_change": true,
+   "note": "Tests that read the defaults for every conflict; their expected C-013 label, tier and basis follow the integration step (window 17:30 to 18:30). The scenario list gains values; the existing four stay."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1 (R187 Sykes, R189 Barnes, R194-R202 Third Brigade, R203 Ayres, R217 Garrard, R218 Crawford, R220 Fisher, R221 Martin)",
+   "query": "a clock reading for the bayonet order or the repulse of the 15th and 47th Alabama, in digits and words, a. m./p. m./o'clock, dusk, dark: only 'about 4 p. m.' for the order into position (Rice, Welch), 'between 4 and 6 o'clock' (Barnes), 'for an hour', 'nearly dark', 'at dusk', 8 and 9 p.m. (Rice, Chamberlain) and 10 p.m. (Fisher) for the later advance; Martin's 'about 4.30 p. m.' dates Hazlett's battery, not the charge",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2 (R443 Scruggs, R444 Oates, R445 Perry, R446 Campbell, R447 Sheffield, R452 Robertson, R455 Bane, R458 Benning)",
+   "query": "an hour for the repulse in front of the 20th Maine: Bane has about 4.30 p.m. for his advance, Perry 'past 5 p. m.' at Devil's Den (another event), Oates's report none; no Confederate report names an hour for the retreat from the ledge",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OATES-1905-C016 and SHSP-06 (Oates, 1878)",
+   "query": "the hour of the repulse by the 20th Maine: only 'about 3.30 o'clock P M.' for the guns (1905); the account of 1878 has 'less than ten minutes' and 'five minutes' of delays and no clock",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "GERRISH-1882-C013 (a private of the 20th Maine, pp. 104-112, fetched for this conflict)",
+   "query": "any hour for the charge or the fight: 'ten minutes have passed since we formed the line' and 'after dark an order came to advance' are the only time words",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "NORTON-1913-C016, POWELL-1896-C012, LOSSING-FIELDBOOK-V3",
+   "query": "an hour for the charge: Norton computes 4:30 to 5 for the first attack and says the hours of the 83rd Pennsylvania are mistaken; Powell follows Chamberlain's report; Lossing (1868) has only 'that hot July evening' and 'for half an hour'",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "CHAMBERLAIN-1915-C012 (The Passing of the Armies)",
+   "query": "Little Round Top, Oates, Vincent with any hour: the book is about the last campaign and mentions Gettysburg only in passing",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "NPS-CLI-LRT and NPS-CLR-LRT (Park Service cultural landscape texts on the Round Tops)",
+   "query": "bayonet charge with a clock: the texts give 'at twilight, the Confederates withdrew' and 'as night fell' for the advance on Big Round Top and no hour for the charge",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "ME-GB-1898 (Maine at Gettysburg), the chapter on the 20th Maine",
+   "query": "the source of 'about 6 : 30 p. m.' (footnotes (a) to (c) of the page cite the Official Records and Prince's address of 1889 only for other statements); the chapter names no basis for the hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "archive.org (advanced search)",
+   "query": "Chamberlain's article 'Through Blood and Fire at Gettysburg' (Hearst's Magazine, June 1913) and Spear's paper on the 20th Maine: only the issue of July 1913 of the magazine is listed, not June; no text found",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Gettysburg National Military Park archive, the Bachelder papers, Spear's and Oates's letters to the battlefield commission",
+   "query": "letters that give an hour for the charge; not online on the reachable hosts",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "en.wikipedia.org and the plan's key SS2 for the 17:30 of T2-165",
+   "query": "the page and the source behind '17:30 ... single-sourced (SS2) ... range 17:30-18:15'; neither is among the hosts reachable for this research, and a web page is only a lead",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report, letter or diary of 1863 to 1864 that gives a clock reading for the bayonet order or for the repulse in front of the 20th Maine (Spear, Morrill, Prince, Tozier or Melcher of the 20th Maine; the Oates or Law letters; the papers of the battlefield commission or the Bachelder papers) would replace the window. So would the Maine commission's source for 'about 6:30 p. m.', or the key (SS2) the plan prints for 17:30. Two independent writers of the time for one hour would make the conflict weighted.",
+ "owner_note": "The first delegated default (about 17:30, window 16:00 to dusk) is replaced by a narrower window, 17:30 to 18:30, drawn at 18:00; nothing is deleted. If the owner wants a point instead of a window, the candidates are 17:30 (the plan's value, an inference) and 18:30 (the Maine volume): no source of the time supports either as a point. The charge is not an arrival and is not read by the arrival gate."
+}
