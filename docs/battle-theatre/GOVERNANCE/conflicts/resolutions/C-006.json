@@ -46,7 +46,7 @@
   "animation": {
    "at": "1863-07-02T05:00",
    "rule": "best_supported",
-   "note": "05:00 is the instant by which the diary has Longstreet with Lee; it is not the hour of his arrival, which is earlier and unrecorded (inferred: first light to soon after sunrise, about 04:35). He rides in ahead of his troops, from a camp some miles back; the start of that ride is given only by Cullen's recollection of 1875 (about 3 o'clock). Nothing is drawn as a documented arrival and no gate floor is moved. At 05:00 the sun is up (sunrise about 04:35), so the headquarters scene is in dawn light, not under stars; the 'stars' and 08:00 readings stay selectable."
+   "note": "05:00 is the instant at which, or a few minutes after which, the diary sees Longstreet with Lee; it is not the hour of his arrival, which is earlier and unrecorded (inferred: first light to soon after sunrise, about 04:35). He rides in ahead of his troops, from a camp some miles back; the start of that ride is given only by Cullen's recollection of 1875 (about 3 o'clock). Nothing is drawn as a documented arrival and no gate floor is moved. At 05:00 the sun is up (sunrise about 04:35), so the headquarters scene is in dawn light, not under stars; the 'stars' and 08:00 readings stay selectable."
   },
   "note": "The meeting of Lee, Longstreet, Hill and Hood on the ridge is seen by a diary at about 5 a.m. Longstreet's three later accounts differ from each other (8 a.m. in 1875, daylight in 1877, stars in 1896) and the diary agrees best with the middle one."
  },
@@ -383,7 +383,7 @@
     }
    ],
    "inference": {
-    "step": "Longstreet 1896 says the stars were shining when he reported; Cullen has him leaving camp about 3 o'clock under the stars for a ride of several miles; so a report before sunrise (about 04:35, computed) cannot be ruled out, but nobody of the day gives an hour and Cullen found him with Lee only after sunrise",
+    "step": "Longstreet 1896 says the stars were shining when he reported; Cullen has him leaving camp about 3 o'clock under the stars for a ride of several miles; so a report before sunrise (about 04:35, computed) cannot be ruled out, but nobody of the day gives an hour and Cullen found him with Lee after sunrise (a lower bound for Cullen, not the hour of arrival)",
     "from": [
      "C-006-P3-c1",
      "C-006-P3-c2"
@@ -573,7 +573,9 @@
    "approx": true,
    "clock": "unspecified",
    "tier": "inferred",
-   "flags": [],
+   "flags": [
+    "single_source"
+   ],
    "support": [
     {
      "id": "C-006-P5-c1",
@@ -711,7 +713,7 @@
     }
    ],
    "inference": {
-    "step": "The diary has Lee, Hill, Longstreet and Hood seated together when its writer, who arrived at 5 a.m., looks down from a tree, so Longstreet was with Lee by about 5 a.m. (a little after at the latest: Freeman reads the diary as 'after 5' and estimates 5:15); Hood, Cullen, Alexander and Longstreet's article of 1877 put him there at daybreak or soon after sunrise (about 04:35); the hour of his arrival is earlier and is not given by anyone of the day",
+    "step": "The diary has Lee, Hill, Longstreet and Hood seated together when its writer, who arrived at 5 a.m., looks down from a tree, so Longstreet was with Lee by about 5 a.m. (a little after at the latest: Freeman reads the diary as 'after 5' and estimates 5:15); Hood, Cullen, Alexander and Longstreet's article of 1877 put him there at daybreak or soon after sunrise (about 04:35); in the article Longstreet and Lee discuss and observe the enemy, and 'about sunrise' Lee sends Venable to Ewell (Venable's own letter of 1875 has the same 'about sunrise'), which puts the meeting under way by about sunrise; the hour of his arrival is earlier and is not given by anyone of the day. Ross and McLaws are consistent with this but give no hour that bounds it (McLaws's arrival is 'early in the morning', later than 05:00 by the other reports of his division, C-007)",
     "from": [
      "C-006-P5-c1",
      "C-006-P5-c2",
@@ -723,15 +725,15 @@
   }
  ],
  "weighing": {
-  "summary": "The record fixes one thing, an upper bound: a British officer's diary of 2 July has Lee, Hill, Longstreet and Hood seated together when he arrives at the ridge at 5 a.m. Everything else is memory. Longstreet himself gave three different accounts (8 a.m. in a letter of 1875, 'daylight' in an article of 1877, 'stars shining brightly' in his book of 1896); Hood, his medical director Cullen and Alexander say daybreak, after sunrise and about dawn; Freeman estimates 5:15. The diary contradicts 8 a.m.; the others are compatible with it and with each other from first light to about 5. 'Stars' (before about 04:20) cannot be excluded as an earlier arrival, but one recollection of 33 years stands alone for it, and Cullen finds Longstreet with Lee after sunrise. The default is therefore the upper bound, by about 05:00, an inference; no source gives the hour of arrival.",
+  "summary": "The record fixes one thing, an upper bound: a British officer's diary of 2 July has Lee, Hill, Longstreet and Hood seated together when he arrives at the ridge at 5 a.m. Everything else is memory. Longstreet himself gave three different accounts (8 a.m. in a letter of 1875, 'daylight' in an article of 1877, 'stars shining brightly' in his book of 1896); Hood, his medical director Cullen and Alexander say daybreak, after sunrise and about dawn; Freeman estimates 5:15. The diary contradicts 8 a.m.; the others are compatible with it and with each other from first light to about 5. 'Stars' (before about 04:20) cannot be excluded as an earlier arrival, but one recollection of 33 years stands alone for it, and Cullen finds Longstreet with Lee after sunrise (a lower bound for Cullen's own arrival, not the hour Longstreet came). Longstreet's own article of 1877 puts the meeting at daylight and has Lee send Venable to Ewell 'about sunrise', which Venable's letter of 1875 repeats; read together they tilt the arrival toward first light, before or about sunrise, not toward 05:00, which stays the upper bound the diary fixes. The default is therefore the upper bound, by about 05:00, an inference; no source gives the hour of arrival.",
   "who": "Fremantle, a British officer riding with Longstreet's staff, wrote the diary and saw the group himself. Longstreet (corps commander), Hood and McLaws (division commanders), Cullen (medical director) and Ross (a visitor) were present at the camp or on the ridge; Alexander came up with the reserve artillery about 9 a.m. and Taylor, of Lee's staff, gives no hour of his own; Freeman (1935) was not there and computed.",
   "when": "Fremantle's entry is of 2 July 1863 (rank 5, a diary of the time, though first printed in 1863). Longstreet's letter (April 1875), Cullen's (May 1875) and Hood's (June 1875) are 12 years after the day; Longstreet's article is of November 1877, McLaws's address of 1879, Ross's book of 1865, Alexander's of 1907, Longstreet's book of 1896 and Taylor's of 1906 (all rank 2, reminiscence); Freeman (1935) is later history (rank 1). Only the diary is a writing of the time, so by the rubric it outranks every other value; the rejected values are all lower-ranked, and the 8 a.m. is contradicted by the diary, by McLaws and by Longstreet himself.",
   "where": "Fremantle sat in a tree on the ridge and looked down on the generals; Ross rode with him; McLaws stood before Lee and saw Longstreet walking nearby; Hood and Cullen were with Longstreet that morning. Longstreet's 8 a.m. speaks of his divisions and himself together ('My two divisions nor myself'); the divisions reached the ridge at different hours (see C-005 and C-007), so 8 a.m. may date their closing up, which is a different event; Taylor, who endorses it, was on Lee's staff but names no hour and no evidence.",
   "how_knew": "Fremantle: eyewitness, a diary kept day by day; he gives the hour of his own arrival and what he saw, not the hour Longstreet came. Longstreet: memory, three times, with three different results; he had taken sides in a public quarrel over the 'attack at sunrise' when he wrote the 1875 and 1877 statements. Cullen, Hood, McLaws: memory, written to or for Longstreet in the same quarrel. Ross: eyewitness of the ride, no hour. Alexander: does not say. Freeman: computed from sunrise and the diary. Nobody gives a clock for the arrival itself.",
   "clock": "The diary's watch is not named (Fremantle was British, with Longstreet's staff); the Confederate writers (Longstreet, Hood, Cullen, McLaws) used the Confederate clock; Freeman and the plan use local mean time (sunrise 4:32 or about 04:35). The 20-minute difference between the two armies' clocks is not applied; it is an uncertainty in the 05:00 and 05:15 values and does not touch the conflict with 08:00.",
-  "independence": "The default rests on four groups: the diary (Fremantle), Ross, McLaws and Freeman. They are not wholly independent: Ross rode in Fremantle's party, and Freeman built his estimate from the diary and the sunrise. The memoir positions are separate too, but Taylor's endorsement of 8 a.m. repeats Longstreet's letter (one line of knowledge), and the 'stars' rest on Longstreet 1896 alone (Cullen's stars are those of the 3 a.m. departure). Longstreet's three accounts are three statements of one witness, not three witnesses."
+  "independence": "The default rests on one witness, the diary (Fremantle); it is flagged single_source. Freeman's 5:15 is computed from the diary and the sunrise, so it is not a second witness. Ross rode in Fremantle's party but names no hour and does not say Longstreet was on the hill; McLaws saw Longstreet with Lee only when his own division came up, which was later than 05:00, so he bounds nothing at 05:00. The memoirs (Longstreet 1877, Hood, Cullen, Alexander) say daybreak or sunrise without a clock and, with Venable's 'about sunrise', agree in direction; they do not give the hour. The memoir positions are separate too, but Taylor's endorsement of 8 a.m. repeats Longstreet's letter (one line of knowledge), and the 'stars' rest on Longstreet 1896 alone (Cullen's stars are those of the 3 a.m. departure). Longstreet's three accounts are three statements of one witness, not three witnesses."
  },
- "source_panel_text": "By about 05:00: a British officer's diary of 2 July has Longstreet already seated with Lee on the ridge when he arrived there at 5 a.m. Longstreet's own accounts differ (8 a.m. in 1875, 'daylight' in 1877, 'stars shining' in 1896); no record of the day gives the hour he came, which was earlier. Four other values are listed, including 08:00.",
+ "source_panel_text": "By about 05:00: a British officer's diary of 2 July (one witness) sees Longstreet seated with Lee on the ridge soon after he arrived there at 5 a.m. Longstreet's own accounts differ (8 a.m. in 1875, 'daylight' in 1877, 'stars shining' in 1896); no record of the day gives the hour he came, which was earlier. Four other values are listed, including 08:00.",
  "holds": {
   "pdf_default": {
    "holds": "no",
@@ -781,13 +783,13 @@
   },
   {
    "kind": "doc",
-   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 16, the C-006 row; line 950, which names C-006 among the single-memoir inferred defaults)",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 16, the C-006 row; row DD-CONF-PREP-03 at line 950, which names C-006 among the single-memoir inferred defaults)",
    "must_change": true,
    "note": "the row 'pre-dawn \"stars bright\"... Longstreet 1896... PDF default 08:00 has no source' is superseded by this resolution (by about 05:00, inferred, weighted); the sentence about single memoirs at line 950 no longer describes C-006, whose default rests on a diary of the day with later accounts"
   },
   {
    "kind": "doc",
-   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md (line 34 DEC-C-006, PENDING OWNER; line 296, which lists C-006 among the conflicts where the PDF default is first and the PDF value stays selectable)",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md (line 34 DEC-C-006, PENDING OWNER; line 296, DEC-023, which lists C-006 among the conflicts where the PDF default is first and the PDF value stays selectable)",
    "must_change": true,
    "note": "the entry stays PENDING OWNER; the delegated reading changes as above; line 296 ('C-004, C-006 partly') should say the PDF value 08:00 does not hold as the hour Longstreet reached Lee"
   },
@@ -832,18 +834,6 @@
    "ref": "T2-064, T2-072 (Hood and McLaws on the ridge)",
    "must_change": false,
    "note": "the same morning, resolved in C-005 and C-007; consistent: Longstreet with Lee by about 05:00 and the head of Hood's division on the ridge about the same time; no change from this resolution"
-  },
-  {
-   "kind": "doc",
-   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-CONF-PREP-03 row)",
-   "must_change": false,
-   "note": "computed: delegated-decision row line 950 names this conflict; read it and set must_change if its value differs from this resolution"
-  },
-  {
-   "kind": "doc",
-   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-023",
-   "must_change": false,
-   "note": "computed: decision log line 296 names this conflict; read it and set must_change if its value differs from this resolution"
   }
  ],
  "failed_searches": [
