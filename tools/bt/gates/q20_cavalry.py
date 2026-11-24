@@ -192,15 +192,25 @@ def evaluate(rec, env, D, K, gait=None, gap_cover=None):
         else:
             mk('Q20.4', uid, 'default', 'PASS', 'one horse per drawn trooper, passing only against the flagged value whose register entry is complete', ev4)
     # ---- Q20.1 for kit cards with no unit in the layer
+    # one item per id: a kit card id may be shared with a verified-OOB unit id (and a card by several units); every finding on the id is kept in the one item
+    orphan = {}
     for kid in sorted(cards):
         if kid not in seen_cards:
-            mk('Q20.1', kid, 'default', 'FAIL', 'kit card %s (%s) has no unit in the layer' % (kid, cards[kid].get('name')), {'card': {k: cards[kid].get(k) for k in ('name', 'army', 'parent', 'commander_printed')}}, unit=kid)
+            orphan.setdefault(kid, {})['card'] = ('kit card %s (%s) has no unit in the layer' % (kid, cards[kid].get('name')), {k: cards[kid].get(k) for k in ('name', 'army', 'parent', 'commander_printed')})
     if T is not None:
         have = set(D.get('all_unit_ids') or [u['id'] for u in D['units']])
         for tid, tu in sorted((T.get('units') or {}).items()):
             if tu.get('arm') == 'cavalry' and tu.get('level') in ('regiment', 'battalion', 'troop', 'battery', 'company') and tid not in have:
-                mk('Q20.1', tid, 'default', 'FAIL', 'cavalry unit %s of the verified OOB is missing from the layer' % tid, {'table_row': {k: tu.get(k) for k in ('name', 'level', 'parent', 'in_roster')}}, unit=tid)
-    else:
+                orphan.setdefault(tid, {})['table'] = ('cavalry unit %s of the verified OOB is missing from the layer' % tid, {k: tu.get(k) for k in ('name', 'level', 'parent', 'in_roster')})
+    for oid in sorted(orphan):
+        f_ = orphan[oid]
+        if len(f_) == 1 and 'card' in f_:
+            mk('Q20.1', oid, 'default', 'FAIL', f_['card'][0], {'card': f_['card'][1]}, unit=oid)
+        elif len(f_) == 1:
+            mk('Q20.1', oid, 'default', 'FAIL', f_['table'][0], {'table_row': f_['table'][1]}, unit=oid)
+        else:
+            mk('Q20.1', oid, 'default', 'FAIL', f_['card'][0] + '; ' + f_['table'][0], {'card': f_['card'][1], 'table_row': f_['table'][1], 'shared_id': oid}, unit=oid)
+    if T is None:
         rec.item('Q20/Q20.1/verified-oob/default', 'BLOCKED-INPUT', MISSING_TABLE, {'missing': TABLE_REL}, check='Q20.1', scenario='default', subjects=['verified-oob'], sub_requirements=rows)
     # ---- Q20.5 arms, per kit card
     drawn_by_kit = {}

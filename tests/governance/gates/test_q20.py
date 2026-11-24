@@ -86,6 +86,19 @@ class TheSet(unittest.TestCase):                # Q20.1
         self.assertEqual(r['result'], 'FAIL')
         self.assertIn('missing from the layer', r['reason'])
 
+    def test_an_id_shared_by_a_kit_card_without_layer_unit_and_a_table_unit_missing_from_the_layer_gives_one_unique_item_naming_both(self):
+        def add(K):
+            K['kit']['cards']['CS.CAV.11VA'] = {'id': 'CS.CAV.11VA', 'name': '11th Virginia Cavalry', 'army': 'confederate'}
+            K['table']['units']['CS.CAV.11VA'] = {'name': '11th Virginia Cavalry', 'arm': 'cavalry', 'level': 'regiment', 'in_roster': True}
+        out = run(mutate_k=add)
+        r = one(out, 'Q20.1', 'CS.CAV.11VA')
+        self.assertEqual(r['result'], 'FAIL')
+        self.assertIn('no unit in the layer', r['reason'])
+        self.assertIn('missing from the layer', r['reason'])
+        ids = [i['id'] for i in out['items']]
+        self.assertEqual(len(ids), len(set(ids)))
+        self.assertEqual(json.dumps(out['items'], sort_keys=True), json.dumps(run(mutate_k=add)['items'], sort_keys=True))
+
     def test_a_layer_unit_that_the_table_holds_as_infantry_fails(self):
         def mod(K):
             K['table']['units'][U1]['arm'] = 'infantry'
