@@ -29,25 +29,25 @@
   ]
  },
  "event_date": "1863-07-02",
- "class": "weighted",
+ "class": "irreducible",
  "tier": "documented",
  "basis": {
   "kind": "official_records",
-  "text": "Meade's dispatch headed 3 p.m. on July 2 has the Sixth Corps 'just coming in' and his report says it arrived at 3; Wright has it at Gettysburg about 4 and halting two hours; Grant, Bartlett and Howe have brigades on the left about 5. Sedgwick's testimony of 1864 says he arrived about 2."
+  "text": "The two commanders, in sworn testimony of 1864, put the corps' arrival at about 2 p.m. (Meade: 'did not reach the scene until about two o'clock in the afternoon'; reported to him about two; Sedgwick: 'I arrived at Gettysburg about 2 o'clock'). Meade's dispatch headed 3 p.m. has it 'just coming in' and his report says it arrived at 3; Wright has it at Gettysburg about 4 and halting two hours; Grant, Bartlett and Howe have brigades on the left about 5."
  },
  "default": {
   "mode": "window",
   "positions": [
    "C-022-P8"
   ],
-  "label": "Window 15:00-17:00 on Jul 2: head about 15:00, the corps at Gettysburg about 16:00, brigades on the left about 17:00",
-  "basis_text": "Lower bound: Meade's dispatch headed 3 p.m. (the Sixth Corps just coming in) and his report (arrived at 3), with Kohler's regiment about 3. Middle: Wright (about 4, a halt of about two hours). Upper bound: Grant (about 5 p.m. July 2), Bartlett (a little after 5) and Howe (5) on the left center. Sedgwick's own 2 p.m. is earlier and stays selectable.",
+  "label": "Window 14:00-17:00 on Jul 2: head 14:00-15:00 (record divided), corps about 16:00, left about 17:00",
+  "basis_text": "Lower bound: the head about 2 p.m. in Meade's sworn testimony of 1864 and Sedgwick's, with Everett (1863) and the New Jersey narrative (1888). Inside: Meade's dispatch headed 3 p.m. (the Sixth Corps just coming in) and his report (arrived at 3), Kohler's regiment about 3, Wright about 4. Upper bound: Grant (about 5 p.m. July 2), Bartlett (a little after 5) and Howe (5) on the left center. Whether the head came in at 2 or 3 is not settled: the dispatch of the day and the later testimony may describe the head and the main body of a column 35 miles long, but no source says so.",
   "animation": {
    "at": "1863-07-02T15:00",
    "rule": "best_supported",
-   "note": "The head is drawn arriving at 15:00, the hour of the army commander's dispatch; Sedgwick's about 14:00 is the earliest hour any writer gives and sets the floor of the arrival gate (selectable, not lowered); the main body is drawn at Gettysburg about 16:00 and on the left about 17:00."
+   "note": "The head is drawn arriving at 15:00, the hour of the only dispatch of the day (the army commander's, 'just coming in'); it is not the earliest source-supported time: about 14:00 (Meade's and Sedgwick's testimony of 1864) is earlier, stays selectable and sets the floor of the arrival gate. The main body is drawn at Gettysburg about 16:00 and on the left about 17:00."
   },
-  "note": "The plan's pair (head 14:00, main body 17:00) is half right: 17:00 holds for the brigades on the left, but the head came in about an hour after 14:00 by the army commander's dispatch."
+  "note": "The plan's pair (head 14:00, main body 17:00) holds as the two ends of the window; the head's hour between 14:00 and 15:00 is a divided record, shown as a window, not narrowed."
  },
  "positions": [
   {
@@ -58,7 +58,7 @@
     "C-022-S1"
    ],
    "source_keys": [],
-   "label": "Head about 14:00: Sedgwick reaches Gettysburg about 2 p.m. (his testimony of 1864)",
+   "label": "Head about 14:00: Sedgwick and Meade both say about 2 p.m. (sworn testimony of 1864; Everett; New Jersey 1888)",
    "kind": "time",
    "value": {
     "at": "1863-07-02T14:00",
@@ -69,9 +69,7 @@
    "clock": "union",
    "tier": "documented",
    "stance": "selectable",
-   "flags": [
-    "single_source"
-   ],
+   "flags": [],
    "support": [
     {
      "id": "C-022-P1-c1",
@@ -106,11 +104,135 @@
       ]
      },
      "note": "Sedgwick's testimony: 'I arrived at Gettysburg about 2 o'clock on the afternoon of the 2d of July'; he reported to Meade's headquarters, found Meade out at the Third Corps' position, waited a few minutes and received his orders. His own report of 8 Aug 1863 says only 'afternoon'."
+    },
+    {
+     "id": "C-022-P1-c3",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "331",
+     "page_basis": "as_read",
+     "page_note": "printed page 331 read from the running head 'GENERAL MEADE. 331' before the passage; the text layer has no other page marks. Sworn testimony of Meade before the Joint Committee on the Conduct of the War, 5 March 1864 (247 days after the day): the heading over this part of the testimony reads 'Washington, March 5, 1863' in the text layer, but the committee's own minute earlier in the same volume reads 'Washington, March 5, 1864 ... The following witness was examined: Major General George G. Meade', which fixes the year as 1864 (the page image was not viewed).",
+     "text_offset": 1546038,
+     "quote": "did not reach the scene until about two o'clock in the afternoon",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-05",
+      "kind": "early_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "meade-testimony",
+     "exact": true,
+     "states": {
+      "times": [
+       "14:00"
+      ],
+      "dates": []
+     },
+     "note": "Meade, sworn: 'the 6th corps, having so long a distance to march, and leaving at nine o'clock at night, did not reach the scene until about two o'clock in the afternoon.' He is the army commander writing of the corps' arrival at the field, 247 days later; he does not say whether he means the head or the whole corps."
+    },
+    {
+     "id": "C-022-P1-c4",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "331",
+     "page_basis": "as_read",
+     "page_note": "printed page 331 read from the running head 'GENERAL MEADE. 331' before the passage; the text layer has no other page marks. Sworn testimony of Meade before the Joint Committee on the Conduct of the War, 5 March 1864 (247 days after the day): the heading over this part of the testimony reads 'Washington, March 5, 1863' in the text layer, but the committee's own minute earlier in the same volume reads 'Washington, March 5, 1864 ... The following witness was examined: Major General George G. Meade', which fixes the year as 1864 (the page image was not viewed).",
+     "text_offset": 1546451,
+     "quote": "it having been reported to me about two o'clock that the 6th corps had arrived",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-05",
+      "kind": "early_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "about",
+     "group": "meade-testimony",
+     "exact": true,
+     "states": {
+      "times": [
+       "14:00"
+      ],
+      "dates": []
+     },
+     "note": "Meade, sworn: 'About three or half past three o'clock in the afternoon - it having been reported to me about two o'clock that the 6th corps had arrived - I proceeded from my headquarters ... to the extreme left.' It relays a report made to him; the hour 'about two' is that of the report to him."
+    },
+    {
+     "id": "C-022-P1-c5",
+     "source": "EVERETT-1864",
+     "source_class": "primary",
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer",
+     "text_offset": 95705,
+     "quote": "it was not till two o'clock in the afternoon that Sedgwick arrived with the Sixth Corps",
+     "witness": {
+      "name": "Edward Everett",
+      "role": "Orator at the consecration of the National Cemetery, 19 Nov 1863; not present on 2 July",
+      "side": "other"
+     },
+     "written": {
+      "date": "1863-11-19",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "everett",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:00"
+      ]
+     },
+     "note": "Everett's oration of Nov 1863: Sedgwick arrived 'not till two o'clock in the afternoon'. He names no source (his account of the battle was drawn from officers of the army); counted as a separate line, not shown to be drawn from Meade."
+    },
+    {
+     "id": "C-022-P1-c6",
+     "source": "NJ-TOOMBS-1888",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer",
+     "text_offset": 257314,
+     "quote": "At two o'clock in the afternoon the advance brigade of the Sixth Army Corps, came upon the field",
+     "witness": {
+      "name": "New Jersey volume (Toombs, 1888), reminiscence of the Sixth Corps' march",
+      "role": "State and regimental narrative; not shown to be a participant",
+      "side": "union"
+     },
+     "written": {
+      "date": "1888",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "toombs",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:00"
+      ]
+     },
+     "note": "The New Jersey narrative of 1888 has the advance brigade on the field at two o'clock and the whole corps reported at 6 p. m., after a forced march 'variously estimated at from thirty to thirty-five miles'. A later memory naming no source; it fits a head at 14:00 and the main body later."
     }
    ],
    "reason_not_chosen": {
-    "kind": "outweighed",
-    "text": "Sedgwick's 2 p.m. is one recollection 281 days later (his own report says only 'afternoon'); Meade's dispatch headed 3 p.m. has the corps 'just coming in', and Sedgwick found Meade out at the front."
+    "kind": "within_range",
+    "text": "About 2 p.m. is the lower end of the default window. Sedgwick and Meade swore to it in 1864; Meade's own dispatch and report of 1863 put the corps 'just coming in' at 3. The head may differ from the body."
    }
   },
   {
@@ -291,6 +413,70 @@
      "note": "Sedgwick's testimony: 'I arrived at Gettysburg about 2 o'clock on the afternoon of the 2d of July'; he reported to Meade's headquarters, found Meade out at the Third Corps' position, waited a few minutes and received his orders. His own report of 8 Aug 1863 says only 'afternoon'."
     },
     {
+     "id": "C-022-P3-c3",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "331",
+     "page_basis": "as_read",
+     "page_note": "printed page 331 read from the running head 'GENERAL MEADE. 331' before the passage; the text layer has no other page marks. Sworn testimony of Meade before the Joint Committee on the Conduct of the War, 5 March 1864 (247 days after the day): the heading over this part of the testimony reads 'Washington, March 5, 1863' in the text layer, but the committee's own minute earlier in the same volume reads 'Washington, March 5, 1864 ... The following witness was examined: Major General George G. Meade', which fixes the year as 1864 (the page image was not viewed).",
+     "text_offset": 1546038,
+     "quote": "did not reach the scene until about two o'clock in the afternoon",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-05",
+      "kind": "early_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "meade-testimony",
+     "exact": true,
+     "states": {
+      "times": [
+       "14:00"
+      ],
+      "dates": []
+     },
+     "note": "Meade, sworn: 'the 6th corps, having so long a distance to march, and leaving at nine o'clock at night, did not reach the scene until about two o'clock in the afternoon.' He is the army commander writing of the corps' arrival at the field, 247 days later; he does not say whether he means the head or the whole corps."
+    },
+    {
+     "id": "C-022-P3-c4",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "331",
+     "page_basis": "as_read",
+     "page_note": "printed page 331 read from the running head 'GENERAL MEADE. 331' before the passage; the text layer has no other page marks. Sworn testimony of Meade before the Joint Committee on the Conduct of the War, 5 March 1864 (247 days after the day): the heading over this part of the testimony reads 'Washington, March 5, 1863' in the text layer, but the committee's own minute earlier in the same volume reads 'Washington, March 5, 1864 ... The following witness was examined: Major General George G. Meade', which fixes the year as 1864 (the page image was not viewed).",
+     "text_offset": 1546451,
+     "quote": "it having been reported to me about two o'clock that the 6th corps had arrived",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-05",
+      "kind": "early_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "about",
+     "group": "meade-testimony",
+     "exact": true,
+     "states": {
+      "times": [
+       "14:00"
+      ],
+      "dates": []
+     },
+     "note": "Meade, sworn: 'About three or half past three o'clock in the afternoon - it having been reported to me about two o'clock that the 6th corps had arrived - I proceeded from my headquarters ... to the extreme left.' It relays a report made to him; the hour 'about two' is that of the report to him."
+    },
+    {
      "id": "C-022-P3-c2",
      "source": "OR27-1",
      "source_class": "primary",
@@ -326,8 +512,8 @@
     }
    ],
    "reason_not_chosen": {
-    "kind": "outweighed",
-    "text": "The 17:00 end holds (brigades on the left); the 14:00 head rests on Sedgwick's testimony alone and is outweighed by Meade's dispatch headed 3 p.m. and his report."
+    "kind": "within_range",
+    "text": "The plan's pair (head 14:00, main body 17:00) is the two ends of the default window; the default keeps both and adds the corps at Gettysburg about 15:00 to 16:00."
    }
   },
   {
@@ -547,7 +733,7 @@
    ],
    "reason_not_chosen": {
     "kind": "within_range",
-    "text": "3 p.m. is the lower end of the default window: the head of the corps coming in, from the army commander's dispatch and report."
+    "text": "3 p.m. is Meade's hour of 1863 for the corps coming in: inside the default window, an hour after the head at about 2 that he and Sedgwick swore to in 1864."
    }
   },
   {
@@ -799,10 +985,10 @@
    "origin": "research",
    "scenario_ids": [],
    "source_keys": [],
-   "label": "Window 15:00-17:00 on Jul 2: head about 15:00, the corps at Gettysburg about 16:00, the brigades on the left about 17:00",
+   "label": "Window 14:00-17:00 on Jul 2: head 14:00 to 15:00, the corps at Gettysburg about 16:00, brigades on the left about 17:00",
    "kind": "time_window",
    "value": {
-    "from": "1863-07-02T15:00",
+    "from": "1863-07-02T14:00",
     "to": "1863-07-02T17:00"
    },
    "approx": true,
@@ -811,6 +997,38 @@
    "stance": "default",
    "flags": [],
    "support": [
+    {
+     "id": "C-022-P8-c0",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "331",
+     "page_basis": "as_read",
+     "page_note": "printed page 331 read from the running head 'GENERAL MEADE. 331' before the passage; the text layer has no other page marks. Sworn testimony of Meade before the Joint Committee on the Conduct of the War, 5 March 1864 (247 days after the day): the heading over this part of the testimony reads 'Washington, March 5, 1863' in the text layer, but the committee's own minute earlier in the same volume reads 'Washington, March 5, 1864 ... The following witness was examined: Major General George G. Meade', which fixes the year as 1864 (the page image was not viewed).",
+     "text_offset": 1546038,
+     "quote": "did not reach the scene until about two o'clock in the afternoon",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-05",
+      "kind": "early_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "meade-testimony",
+     "exact": true,
+     "states": {
+      "times": [
+       "14:00"
+      ],
+      "dates": []
+     },
+     "note": "Meade, sworn: 'the 6th corps, having so long a distance to march, and leaving at nine o'clock at night, did not reach the scene until about two o'clock in the afternoon.' He is the army commander writing of the corps' arrival at the field, 247 days later; he does not say whether he means the head or the whole corps."
+    },
     {
      "id": "C-022-P8-c1",
      "source": "OR27-1",
@@ -879,27 +1097,28 @@
      },
      "note": "The Vermont brigade (Second Division), 'near the scene of action' about 5 p.m. on July 2, and very soon moved out to the left center. The same record's first dateline (June 6) is a heading error; this report is dated 3 Aug 1863."
     }
-   ]
+   ],
+   "derived": true
   }
  ],
  "weighing": {
-  "summary": "The plan gives the head about 14:00 and the main body about 17:00. The record gives a spread over the afternoon. Sedgwick, testifying in 1864, put his own arrival at Gettysburg at about 2 p.m. Meade's dispatch to Halleck, headed 3 p.m., has the Sixth Corps 'just coming in', and his report says it arrived at 3; a major of the Third Division puts his regiment near the field about 3. Wright has the corps at Gettysburg about 4 and halting about two hours before it moved up to the left; Grant, Bartlett and Howe have brigades on the left about 5 and a little after. A dispatch of the time is the best class of writing, so the head is put at about 15:00; Sedgwick's 2 p.m. is one memory 281 days later, his own report of 1863 says only 'afternoon', and he found Meade out at the front, who rode out about 3 p.m. The window 15:00-17:00 shows the head, the corps at Gettysburg and the brigades on the left.",
-  "who": "Meade commanded the army and wrote the dispatch at his headquarters; Sedgwick commanded the corps and testified about his own arrival; Wright and Howe commanded divisions; Grant, Bartlett, Kohler, Adams and Cowan commanded a brigade, a regiment and two batteries and give their own movements.",
-  "when": "Meade's dispatch is of 2 July at 3 p.m. (his own hour). Kohler wrote 1 Aug, Grant 3 Aug, Bartlett 6 Aug, Wright and Howe 7 Aug, Sedgwick 8 Aug, Adams 14 Aug, Cowan 15 Aug 1863; Meade's report 1 Oct 1863; Sedgwick's testimony 8 Apr 1864.",
-  "where": "The army headquarters was at the Leister house behind the cemetery; Sedgwick reports having gone there on arrival and found Meade out at the front. Wright's 'arrived' is at Gettysburg, where the corps halted; Grant, Bartlett and Howe date the arrival on the left, after the move up. These are two places and two moments, which is why the first arrival (about 3 or 4) and the 5 p.m. do not contradict each other.",
-  "how_knew": "Meade saw the head come in and wrote it the same hour; Sedgwick's hour is his own recollection of his arrival; Wright, Grant, Bartlett, Howe, Kohler, Adams and Cowan state their own units' movements.",
+  "summary": "The plan gives the head about 14:00 and the main body about 17:00. The record gives a spread over the afternoon. Both commanders swore in 1864 to about 2 p.m.: Sedgwick 'I arrived at Gettysburg about 2 o'clock on the afternoon of the 2d of July'; Meade, in the same inquiry, that the corps 'did not reach the scene until about two o'clock in the afternoon' and that 'it [was] reported to me about two o'clock that the 6th corps had arrived'. Everett's oration (Nov 1863) says 'not till two o'clock' and the New Jersey narrative of 1888 has the advance brigade on the field at two. Against that, Meade's dispatch to Halleck, headed 3 p.m., has the corps 'just coming in, very much worn out', and his report of 1863 says 'At 3 p. m. the Sixth Corps arrived'; a major of the Third Division puts his regiment near the field about 3; Wright and a battery commander have the corps at Gettysburg about 4 and halting about two hours; Grant, Bartlett and Howe have brigades on the left about 5. A dispatch of the day is the best class of writing, but it says 'just coming in' (the corps arriving, not its first man), and the two statements of 1864 are early narratives by the two men who were there, giving the same hour; one is the army commander who also wrote the dispatch. Both can be true of a column 35 miles long: a first report to headquarters about 2 and the corps coming in about 3, but no source says so, and the report of 1863 states 'At 3 p. m. the Sixth Corps arrived'. The best-classed evidence does not separate them, so the head is a window from 14:00 to 15:00 inside the whole window 14:00-17:00, and the 14:00 is no longer a lone memory: it is two sworn statements of 1864 by two commanders, not independent of each other as to the day (Meade says it was reported to him, perhaps by Sedgwick's staff).",
+  "who": "Meade commanded the army, wrote the dispatch at his headquarters, and testified in March 1864; Sedgwick commanded the corps and testified in April 1864 about his own arrival; Wright and Howe commanded divisions; Grant, Bartlett, Kohler, Adams and Cowan commanded a brigade, a regiment and two batteries and give their own movements; Everett and the New Jersey narrative were not present.",
+  "when": "Meade's dispatch is of 2 July at 3 p.m. (his own hour). Kohler wrote 1 Aug, Grant 3 Aug, Bartlett 6 Aug, Wright and Howe 7 Aug, Sedgwick's report 8 Aug, Adams 14 Aug, Cowan 15 Aug 1863; Everett 19 Nov 1863; Meade's report 1 Oct 1863; Meade's testimony 5 Mar 1864 (247 days); Sedgwick's testimony 8 Apr 1864 (281 days); the New Jersey narrative 1888.",
+  "where": "The army headquarters was at the Leister house behind the cemetery. Sedgwick reports having gone there on arrival and found Meade out at the Third Corps' position; Meade says he left about 3 or half past 3 and was told about 2 that the corps had arrived. The order of Sedgwick's own story (Meade out at the front, back a few minutes later) would fit a later hour for his reporting, but that is an inference about when he reported, not when the head arrived; Sedgwick says separately that he arrived about 2 and is not shown to be wrong. Wright's 'arrived' is at Gettysburg, where the corps halted; Grant, Bartlett and Howe date the arrival on the left, after the move up. These are different places and moments, which is why the first arrival (about 2 or 3 or 4) and the 5 p.m. do not contradict each other.",
+  "how_knew": "Meade wrote the dispatch the same hour and later relays a report made to him about 2; Sedgwick's hour is his own recollection of his arrival; Wright, Grant, Bartlett, Howe, Kohler, Adams and Cowan state their own units' movements; Everett and the New Jersey narrative name no source.",
   "clock": "All the witnesses are Union and no correction is applied (the plan's note of about 20 minutes between the armies' clocks plays no part here). 'About 2', 'about 3', 'about 4' and 'about 5' are read as plus or minus a quarter hour; Meade's '3 p. m.' is the hour of his dispatch.",
-  "independence": "Meade's dispatch and report are one line (the lower end is flagged single_source where it stands alone). Sedgwick's testimony stands alone for 2 p.m. Wright and Adams (the artillery) are two reports for the 4 p.m.; Grant, Bartlett and Howe are three brigade and division commanders for the 5 p.m. and are independent of each other as reports, but the three brigades marched in one column. Kohler is a separate regiment."
+  "independence": "Meade's dispatch and report are one line. Meade's testimony and Sedgwick's testimony are two lines for about 2 p.m. (Meade relays a report that may have come from Sedgwick's staff); Everett (1863) is a third, not shown to be drawn from Meade, and the New Jersey narrative (1888) a fourth with no source. Wright and Adams (the artillery) are two reports for the 4 p.m.; Grant, Bartlett and Howe are three brigade and division commanders for the 5 p.m. and are independent of each other as reports, but the three brigades marched in one column. Kohler is a separate regiment."
  },
- "source_panel_text": "The Sixth Corps came in on Jul 2 after a march of about 35 miles: Meade's dispatch headed 3 p.m. has it 'just coming in', Wright puts it at Gettysburg about 4, and brigades reached the left about 5. Sedgwick's later memory of about 2 p.m. is the earliest hour and stays listed. Eight other values are listed.",
+ "source_panel_text": "The Sixth Corps came in on Jul 2 after a march of about 35 miles. Meade and Sedgwick both swore in 1864 to about 2 p.m.; Meade's dispatch headed 3 p.m. has it 'just coming in'; Wright has it at Gettysburg about 4 and brigades reached the left about 5. The head's hour is a divided record: window 14:00-17:00. Eight other values are listed.",
  "holds": {
   "pdf_default": {
    "holds": "partly",
-   "note": "17:00 holds for the brigades on the left; the head at 14:00 rests on Sedgwick's testimony of 1864 alone, and Meade's dispatch of 3 p.m. puts the head about an hour later. Found in the Joint Committee testimony, which the first pass did not read."
+   "note": "Both ends hold: 17:00 for the brigades on the left, and the head about 14:00 on two sworn statements of 1864 (Meade, Sedgwick); but Meade's dispatch of 3 p.m. and report put the corps coming in an hour later. The plan's pair is the window's two ends."
   },
   "first_delegated": {
    "holds": "yes",
-   "note": "Head 15:00-16:00 and first brigades about 17:00 hold. The research adds Sedgwick's 14:00 (testimony), Kohler, Adams' battery and Cowan's 22:00, and sets Meade's dispatch as the lower bound; class weighted, tier documented."
+   "note": "Head 15:00-16:00 and first brigades about 17:00 lie inside the window; the research adds the head about 14:00 (Meade's and Sedgwick's testimony of 1864), Kohler, Adams' battery and Cowan's 22:00, and sets the head at 14:00 to 15:00; class irreducible, tier documented."
   }
  },
  "readers": [
@@ -925,7 +1144,7 @@
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-022",
    "must_change": true,
-   "note": "computed: decision log line 50 names this conflict; record the resolved default (window 15:00-17:00, weighted, documented) as a delegated decision; the PENDING OWNER text is superseded."
+   "note": "computed: decision log line 50 names this conflict; record the resolved default (window 14:00-17:00, irreducible, documented) as a delegated decision; the PENDING OWNER text is superseded."
   },
   {
    "kind": "timeline_row",
@@ -937,13 +1156,13 @@
    "kind": "arrivals_row",
    "ref": "us-6c",
    "must_change": true,
-   "note": "gate printed_clock default 1863-07-02T14:00 (the plan's recommended default), earliest 14:00, latest 17:00: the default becomes 15:00 (window 15:00-17:00); the earliest 14:00 stays (Sedgwick, documented, selectable; never lowered) and the latest 17:00 holds. Report only; the integration step reconciles the gate spec and re-runs Q04, Q05, Q06."
+   "note": "gate printed_clock default 1863-07-02T14:00 (the plan's recommended default), earliest 14:00, latest 17:00: the default is the window 14:00-17:00 (head 14:00 to 15:00 a divided record), drawn at 15:00 (best_supported); the earliest 14:00 stays (Meade's and Sedgwick's testimony, documented) and the latest 17:00 is unchanged. Report only."
   },
   {
    "kind": "timeline_row",
    "ref": "T2-108",
    "must_change": true,
-   "note": "The VI Corps arrival row named by the first pass as contradicted by the Official Records (head about 14:00): the head's hour becomes 15:00 with 14:00 documented by Sedgwick's testimony; read the row before changing."
+   "note": "The VI Corps arrival row named by the first pass as contradicted by the Official Records (head about 14:00): the head's hour about 14:00 is documented by the sworn testimony of Meade and Sedgwick (1864); the row stays selectable with 15:00 from the dispatch; read the row before editing."
   },
   {
    "kind": "timeline_row",
@@ -955,7 +1174,7 @@
    "kind": "gate",
    "ref": "Q04",
    "must_change": true,
-   "note": "Report only, no gate changed: the unit row's default hour moves from 14:00 to 15:00 inside its window 14:00-17:00; the floor 14:00 must not be lowered or raised by this resolution."
+   "note": "Report only, no gate changed: the unit row's default hour moves from 14:00 to 15:00 (drawn) inside its window 14:00-17:00; the floor 14:00 must not be lowered or raised by this resolution."
   },
   {
    "kind": "app_data",
@@ -1003,10 +1222,10 @@
   },
   {
    "where": "JCCW-1865-C012 (Joint Committee testimony of 1864): Meade, Butterfield, Hunt and others",
-   "query": "Sixth corps within 250 characters of arrived|coming in|came up and o'clock|afternoon; only Sedgwick's testimony gives an hour; Meade says he went out \"as soon as I heard that the 6th corps had arrived\" without one",
+   "query": "Sixth corps within 250 characters of arrived|coming in|came up|reach the scene and o'clock|afternoon: two passages of Meade's testimony (p. 331) and Sedgwick's testimony (p. 460) found and cited; Butterfield, Hunt and the other witnesses of the volume give no hour for the Sixth Corps",
    "outcome": "not_found",
    "at": "2026-11-24"
   }
  ],
- "what_would_change_it": "A log, diary or report of the corps' leading brigade or of Sedgwick's staff giving the hour the head crossed the Rock Creek bridge or reached Gettysburg would settle 14:00 against 15:00. A page image of Howe's and Neill's reports, and the sources behind the plan's 14:00 and 17:00, would be weighed on their own."
+ "what_would_change_it": "A log or report of the corps' leading brigade or of Sedgwick's staff giving the hour the head crossed the Rock Creek bridge or reached Gettysburg would settle 14:00 against 15:00; a page image of Meade's testimony (the heading reads 1863 in the text layer; the minute of the committee says 1864); page images of Howe's and Neill's reports; the sources behind the plan's 14:00 and 17:00."
 }

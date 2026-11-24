@@ -30,24 +30,25 @@
   ]
  },
  "event_date": "1863-07-02",
- "class": "weighted",
- "tier": "documented",
+ "class": "irreducible",
+ "tier": "inferred",
  "basis": {
   "kind": "official_records",
-  "text": "Humphreys' own report of 16 Aug 1863 (Official Records 27/1, p. 531): after retracing his steps from the Black Horse Tavern road he marched on, 'bivouacking at 1 a. m. on July 2 about 1 mile from Gettysburg'. A letter of his about fifteen years later says the division 'reached the ground towards midnight of July 1st'; no source gives 02:00."
+  "text": "Four officers of the division, writing within 45 days, give three hours: Brewster, commanding the Second Brigade, 'about midnight' (15 Aug 1863, p. 558); Humphreys, 'bivouacking at 1 a. m.' (16 Aug 1863, p. 531); Tripp (11th Massachusetts, 27 Jul, p. 549) and Bodine (26th Pennsylvania, 28 Jul, p. 556), 'arrived at 2 a. m.'. None says which part of the column was first."
  },
  "default": {
-  "mode": "position",
+  "mode": "window",
   "positions": [
-   "C-002-P4"
+   "C-002-P6"
   ],
-  "label": "01:00 on Jul 2: the division is in bivouac a mile from Gettysburg (Humphreys's report)",
+  "label": "Between about 00:00 and 02:00 on Jul 2 (Brewster about midnight; Humphreys 01:00; Tripp and Bodine 02:00)",
+  "basis_text": "Lower bound: Brewster's report of 15 Aug 1863 (about midnight; Humphreys's letter of 1878 says the same). Upper bound: the reports of Tripp (27 Jul 1863) and Bodine (28 Jul 1863) of two regiments of the First Brigade, 2 a.m. Inside: Humphreys's own report, bivouacking at 1 a.m.",
   "animation": {
-   "at": "1863-07-02T01:00",
-   "rule": "best_supported",
-   "note": "01:00 is the hour of the division commander's report for the end of the march; the head of the column reached the ground before it (his letter of 1878 says 'towards midnight'), so the march is drawn arriving up to that hour and the unit is never drawn before the earliest source-supported time, 'towards midnight'. The Third Brigade and Smith's battery are drawn arriving at 09:00."
+   "at": "1863-07-02T00:00",
+   "rule": "earliest_documented",
+   "note": "The units are drawn arriving between 00:00 and 02:00; no unit of the division is drawn on the field before about midnight (Brewster, Humphreys's letter), the earliest source-supported time. Which unit arrives when is not documented: the hours of the three reports belong to different units, and the drawing does not fix the order. The Third Brigade and Smith's battery arrive at 09:00."
   },
-  "note": "A single line of knowledge (the division commander's report) carries 01:00; the later books that say 1 a.m. name no source."
+  "note": "Three hours given by three different units of one division, all in reports of 1863. Nothing in the record says which regiment led; the window is shown and no hour is struck for the whole division."
  },
  "positions": [
   {
@@ -58,7 +59,7 @@
     "C-002-S1"
    ],
    "source_keys": [],
-   "label": "About midnight: the division reaches the ground (Humphreys 1878, Bachelder 1873)",
+   "label": "About midnight: the Second Brigade (Brewster) and the division (Humphreys 1878) reach the ground",
    "kind": "time",
    "value": {
     "at": "1863-07-02T00:00",
@@ -69,11 +70,40 @@
    "clock": "union",
    "tier": "inferred",
    "stance": "selectable",
-   "flags": [
-    "memoir_only",
-    "single_source"
-   ],
+   "flags": [],
    "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R169",
+     "page": "558",
+     "page_basis": "scan_leaf",
+     "text_offset": 1955385,
+     "quote": "Marched to a point near Gettysburg, passing through Emmitsburg, reaching there about midnight",
+     "witness": {
+      "name": "William R. Brewster",
+      "role": "Colonel, commanding the Second (Excelsior) Brigade, Second Division, Third Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-15",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "brewster",
+     "exact": false,
+     "states": {
+      "times": [
+       "00:00"
+      ],
+      "dates": []
+     },
+     "note": "Brewster's report of 15 Aug 1863 (45 days after), for his brigade: 'July 1. - Marched to a point near Gettysburg, passing through Emmitsburg, reaching there about midnight.' The antecedent of 'there' is not stated; it is read as the point near Gettysburg, because Burling's report has the Third Brigade of the division reaching Emmitsburg at 12 m. on July 1 (the division's other brigades marching on from there) and Brewster's next entry opens at 1 p. m. of the 2d with the brigade at the front. The reading is a reading (the sentence can be taken to speak of Emmitsburg) and is carried in the inference step.",
+     "id": "C-002-P1-c0"
+    },
     {
      "id": "C-002-P1-c1",
      "source": "SHSP-05",
@@ -142,15 +172,16 @@
    ],
    "derived": true,
    "inference": {
-    "step": "Humphreys' letter says 'towards midnight of July 1st', that is just before 00:00 of the 2d; read as 00:00 with half an hour of tolerance. Bachelder (1873) gives 'midnight' and names no source; he is counted with the letter.",
+    "step": "Brewster's report of 15 Aug 1863 says his brigade, in the march through Emmitsburg to a point near Gettysburg, was 'reaching there about midnight'; 'there' is read as the point near Gettysburg (not Emmitsburg, which Burling's report has the division's Third Brigade reaching at 12 m. on July 1). Humphreys's letter of 1878 says 'towards midnight of July 1st'; Bachelder (1873) says 'midnight' and names no source. Read at 00:00 with half an hour of tolerance.",
     "from": [
+     "C-002-P1-c0",
      "C-002-P1-c1",
      "C-002-P1-c2"
     ]
    },
    "reason_not_chosen": {
-    "kind": "later_memory",
-    "text": "Humphreys himself wrote 1 a.m. in his report of 1863; 'towards midnight' comes from a private letter fifteen years later, and Bachelder's 'midnight' names no source."
+    "kind": "equal_standing",
+    "text": "Brewster (1863) and Humphreys's letter (1878) say about midnight; Humphreys's report and Tripp and Bodine say 1 and 2 a.m. Probably different moments of one march; no source says which unit led."
    }
   },
   {
@@ -161,7 +192,7 @@
     "C-002-S2"
    ],
    "source_keys": [],
-   "label": "02:00: the plan's second value (one timeline page); no report found gives it",
+   "label": "02:00: the 11th Massachusetts (Tripp) and the 26th Pennsylvania (Bodine) arrive at Gettysburg at 2 a.m.",
    "kind": "time",
    "value": {
     "at": "1863-07-02T02:00",
@@ -169,38 +200,84 @@
     "tolerance_min": 15
    },
    "approx": true,
-   "clock": "unspecified",
-   "tier": "open gap",
+   "clock": "union",
+   "tier": "documented",
    "stance": "selectable",
-   "flags": [
-    "unsourced",
-    "lead_only"
-   ],
-   "support": [],
-   "reason_not_chosen": {
-    "kind": "no_source",
-    "text": "No report, letter or book found gives 02:00 for the division; the division commander's report has it in bivouac at 1 a.m. It comes from a timeline page that could not be read."
-   },
-   "failed_lookups": [
+   "flags": [],
+   "support": [
     {
-     "where": "SS1 (Stone Sentinels July 1 timeline, the plan's key for 02:00) and the seed rows T1-222 and T2-042",
-     "query": "the page and the source it gives for 02:00: not among the hosts reachable for this research; a web page is only a pointer",
-     "outcome": "not_read",
-     "at": "2026-11-24"
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R162",
+     "page": "549",
+     "page_basis": "scan_leaf",
+     "text_offset": 1922512,
+     "quote": "where we arrived at 2 a. m. on the 2d",
+     "witness": {
+      "name": "Porter D. Tripp",
+      "role": "Lieutenant Colonel, commanding the 11th Massachusetts (First Brigade, Second Division, Third Corps)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-27",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "tripp",
+     "exact": true,
+     "states": {
+      "times": [
+       "02:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Tripp's report of 27 Jul 1863 (26 days after), for his regiment: left Bridgeport at 7 a. m. on July 1, 'marched through Emmitsburg to Gettysburg, Pa., where we arrived at 2 a. m. on the 2d instant'. The regiment belonged to Carr's First Brigade of Humphreys's division; the hour is the regiment's own arrival, not the division's head or tail.",
+     "id": "C-002-P2-c1"
     },
     {
-     "where": "all local non-lead texts of the ledger (Official Records 27/1-3, the books and papers of the library, the Park Service texts)",
-     "query": "Humphreys / Third Corps / Second Division within 250 characters of arrived|reached|came up|bivouac and 2 a. m. / two o'clock / 2 o'clock (both orders)",
-     "outcome": "not_found",
-     "at": "2026-11-24"
-    },
-    {
-     "where": "Official Records 27/1: reports of Carr (R160), Brewster (R169), Burling (R174), Birney (R133) and Humphreys (R158)",
-     "query": "hours of 1-2 July: Burling gives nearly 4 a.m. for leaving Emmitsburg and 9 a.m. for joining; Carr and Brewster give no hour for the night of 1-2 July; none gives 2 a.m. for the division",
-     "outcome": "not_found",
-     "at": "2026-11-24"
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R167",
+     "page": "556",
+     "page_basis": "scan_leaf",
+     "text_offset": 1948225,
+     "quote": "where we arrived at 2 a. m. of July 2",
+     "witness": {
+      "name": "Robert L. Bodine",
+      "role": "Major, commanding the 26th Pennsylvania (First Brigade, Second Division, Third Corps)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-28",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "bodine",
+     "exact": true,
+     "states": {
+      "times": [
+       "02:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Bodine's report of 28 Jul 1863 (27 days after), for his regiment: 'Marched, via Emmitsburg, to Gettysburg, distance 14 miles, where we arrived at 2 a. m. of July 2.' The regiment belonged to Carr's First Brigade of Humphreys's division.",
+     "id": "C-002-P2-c2"
     }
-   ]
+   ],
+   "reason_not_chosen": {
+    "kind": "equal_standing",
+    "text": "Two regiments of the First Brigade report 2 a.m.; Humphreys's report (1 a.m.) and Brewster (about midnight) report earlier hours of other parts of the division. The window keeps all three."
+   }
   },
   {
    "id": "C-002-P3",
@@ -210,7 +287,7 @@
     "C-002-S3"
    ],
    "source_keys": [],
-   "label": "02:00: the plan's recommended default, kept as a marked stand-in",
+   "label": "02:00: the plan's recommended default; the 11th Massachusetts and 26th Pennsylvania report arriving at 2 a.m.",
    "kind": "time",
    "value": {
     "at": "1863-07-02T02:00",
@@ -218,33 +295,84 @@
     "tolerance_min": 15
    },
    "approx": true,
-   "clock": "unspecified",
-   "tier": "plausible-procedural",
+   "clock": "union",
+   "tier": "documented",
    "stance": "selectable",
-   "flags": [
-    "unsourced",
-    "lead_only"
-   ],
-   "support": [],
-   "procedural_basis": "The plan recommended 02:00 as its default and the first delegated pass replaced it by 01:00; it is kept as a selectable value and stands in for no record, since none gives 02:00.",
-   "reason_not_chosen": {
-    "kind": "no_source",
-    "text": "The plan's default has no source behind it: the division commander has the division in bivouac at 1 a.m., an hour earlier."
-   },
-   "failed_lookups": [
+   "flags": [],
+   "support": [
     {
-     "where": "SS1 (Stone Sentinels July 1 timeline) and the seed rows T1-222 and T2-042",
-     "query": "the page and the source it gives for 02:00: not reachable here; a web page is only a pointer",
-     "outcome": "not_read",
-     "at": "2026-11-24"
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R162",
+     "page": "549",
+     "page_basis": "scan_leaf",
+     "text_offset": 1922512,
+     "quote": "where we arrived at 2 a. m. on the 2d",
+     "witness": {
+      "name": "Porter D. Tripp",
+      "role": "Lieutenant Colonel, commanding the 11th Massachusetts (First Brigade, Second Division, Third Corps)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-27",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "tripp",
+     "exact": true,
+     "states": {
+      "times": [
+       "02:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Tripp's report of 27 Jul 1863 (26 days after), for his regiment: left Bridgeport at 7 a. m. on July 1, 'marched through Emmitsburg to Gettysburg, Pa., where we arrived at 2 a. m. on the 2d instant'. The regiment belonged to Carr's First Brigade of Humphreys's division; the hour is the regiment's own arrival, not the division's head or tail.",
+     "id": "C-002-P3-c1"
     },
     {
-     "where": "all local non-lead texts of the ledger",
-     "query": "Humphreys / Third Corps / Second Division within 250 characters of arrived|reached|came up|bivouac and 2 a. m. / two o'clock (both orders); 0 hits for the division",
-     "outcome": "not_found",
-     "at": "2026-11-24"
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R167",
+     "page": "556",
+     "page_basis": "scan_leaf",
+     "text_offset": 1948225,
+     "quote": "where we arrived at 2 a. m. of July 2",
+     "witness": {
+      "name": "Robert L. Bodine",
+      "role": "Major, commanding the 26th Pennsylvania (First Brigade, Second Division, Third Corps)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-28",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "bodine",
+     "exact": true,
+     "states": {
+      "times": [
+       "02:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Bodine's report of 28 Jul 1863 (27 days after), for his regiment: 'Marched, via Emmitsburg, to Gettysburg, distance 14 miles, where we arrived at 2 a. m. of July 2.' The regiment belonged to Carr's First Brigade of Humphreys's division.",
+     "id": "C-002-P3-c2"
     }
-   ]
+   ],
+   "reason_not_chosen": {
+    "kind": "equal_standing",
+    "text": "Two regiments of the First Brigade report 2 a.m.; Humphreys's report (1 a.m.) and Brewster (about midnight) report earlier hours of other parts of the division. The window keeps all three."
+   }
   },
   {
    "id": "C-002-P4",
@@ -264,7 +392,7 @@
    "approx": true,
    "clock": "union",
    "tier": "documented",
-   "stance": "default",
+   "stance": "selectable",
    "flags": [
     "single_source"
    ],
@@ -301,7 +429,7 @@
        "07-02"
       ]
      },
-     "note": "Humphreys' report of 16 Aug 1863: after finding the enemy near the Black Horse Tavern he retraced his steps and marched by the main route, 'bivouacking at 1 a. m. on July 2 about 1 mile from Gettysburg and eastward of the Emmitsburg road'. Two brigades (the First and Second) and one battery; the Third Brigade and Smith's battery had been left on the Waynesborough pike. The time is that of settling into bivouac, the end of the march; the head of the column reached the ground earlier by an amount the report does not give."
+     "note": "Humphreys' report of 16 Aug 1863: after finding the enemy near the Black Horse Tavern he retraced his steps and marched by the main route, 'bivouacking at 1 a. m. on July 2 about 1 mile from Gettysburg and eastward of the Emmitsburg road'. Two brigades (the First and Second) and one battery; the Third Brigade and Smith's battery had been left on the Waynesborough pike. The time is that of settling into bivouac, the end of the march; other units of the division gave different hours (Brewster about midnight, Tripp and Bodine 2 a.m.); the report does not say which part of the column reached the ground when."
     },
     {
      "id": "C-002-P4-c2",
@@ -396,7 +524,11 @@
      },
      "note": "Says the division was put on the wrong road by a staff officer of Sickles's and reached the ridge at 1 a.m.; no source named; counted with Humphreys' report."
     }
-   ]
+   ],
+   "reason_not_chosen": {
+    "kind": "equal_standing",
+    "text": "Humphreys's own report of 1 a.m. is one of three hours given by officers of the division in 1863 (about midnight, 1 a.m., 2 a.m.); it sits inside the window and is not struck."
+   }
   },
   {
    "id": "C-002-P5",
@@ -486,26 +618,189 @@
     "kind": "different_event",
     "text": "This is the third brigade and one battery, which had been left behind at Emmitsburg; the question is the division's two brigades and battery that marched up in the night."
    }
+  },
+  {
+   "id": "C-002-P6",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Between about midnight and 2 a.m.: units of the division arrive one after another (Brewster, Humphreys, Tripp, Bodine)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T00:00",
+    "to": "1863-07-02T02:00"
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R169",
+     "page": "558",
+     "page_basis": "scan_leaf",
+     "text_offset": 1955385,
+     "quote": "Marched to a point near Gettysburg, passing through Emmitsburg, reaching there about midnight",
+     "witness": {
+      "name": "William R. Brewster",
+      "role": "Colonel, commanding the Second (Excelsior) Brigade, Second Division, Third Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-15",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "brewster",
+     "exact": false,
+     "states": {
+      "times": [
+       "00:00"
+      ],
+      "dates": []
+     },
+     "note": "Brewster's report of 15 Aug 1863 (45 days after), for his brigade: 'July 1. - Marched to a point near Gettysburg, passing through Emmitsburg, reaching there about midnight.' The antecedent of 'there' is not stated; it is read as the point near Gettysburg, because Burling's report has the Third Brigade of the division reaching Emmitsburg at 12 m. on July 1 (the division's other brigades marching on from there) and Brewster's next entry opens at 1 p. m. of the 2d with the brigade at the front. The reading is a reading (the sentence can be taken to speak of Emmitsburg) and is carried in the inference step.",
+     "id": "C-002-P6-c1"
+    },
+    {
+     "id": "C-002-P6-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R158",
+     "page": "531",
+     "page_basis": "scan_leaf",
+     "text_offset": 1851857,
+     "quote": "bivouacking at 1 a. m. on July 2 about 1 mile from Gettysburg",
+     "witness": {
+      "name": "Andrew A. Humphreys",
+      "role": "Brigadier General commanding the Second Division, Third Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-16",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "humphreys-report",
+     "exact": true,
+     "states": {
+      "times": [
+       "01:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Humphreys' report of 16 Aug 1863: after finding the enemy near the Black Horse Tavern he retraced his steps and marched by the main route, 'bivouacking at 1 a. m. on July 2 about 1 mile from Gettysburg and eastward of the Emmitsburg road'. Two brigades (the First and Second) and one battery; the Third Brigade and Smith's battery had been left on the Waynesborough pike. The time is that of settling into bivouac, the end of the march; other units of the division gave different hours (Brewster about midnight, Tripp and Bodine 2 a.m.); the report does not say which part of the column reached the ground when."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R162",
+     "page": "549",
+     "page_basis": "scan_leaf",
+     "text_offset": 1922512,
+     "quote": "where we arrived at 2 a. m. on the 2d",
+     "witness": {
+      "name": "Porter D. Tripp",
+      "role": "Lieutenant Colonel, commanding the 11th Massachusetts (First Brigade, Second Division, Third Corps)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-27",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "tripp",
+     "exact": true,
+     "states": {
+      "times": [
+       "02:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Tripp's report of 27 Jul 1863 (26 days after), for his regiment: left Bridgeport at 7 a. m. on July 1, 'marched through Emmitsburg to Gettysburg, Pa., where we arrived at 2 a. m. on the 2d instant'. The regiment belonged to Carr's First Brigade of Humphreys's division; the hour is the regiment's own arrival, not the division's head or tail.",
+     "id": "C-002-P6-c3"
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R167",
+     "page": "556",
+     "page_basis": "scan_leaf",
+     "text_offset": 1948225,
+     "quote": "where we arrived at 2 a. m. of July 2",
+     "witness": {
+      "name": "Robert L. Bodine",
+      "role": "Major, commanding the 26th Pennsylvania (First Brigade, Second Division, Third Corps)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-28",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "bodine",
+     "exact": true,
+     "states": {
+      "times": [
+       "02:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Bodine's report of 28 Jul 1863 (27 days after), for his regiment: 'Marched, via Emmitsburg, to Gettysburg, distance 14 miles, where we arrived at 2 a. m. of July 2.' The regiment belonged to Carr's First Brigade of Humphreys's division.",
+     "id": "C-002-P6-c4"
+    }
+   ],
+   "flags": [],
+   "stance": "default",
+   "inference": {
+    "step": "Three officers of Humphreys's division, writing within 45 days, give three hours for their own units: Brewster (Second Brigade) about midnight, Humphreys (division, end of the march) 1 a.m., Tripp and Bodine (11th Massachusetts and 26th Pennsylvania of the First Brigade) 2 a.m. The window from the earliest to the latest is shown; whether they are the head, middle and tail of one column is not said by any of them and is not claimed.",
+    "from": [
+     "C-002-P1-c0",
+     "C-002-P4-c1",
+     "C-002-P2-c1",
+     "C-002-P2-c2"
+    ]
+   },
+   "derived": true
   }
  ],
  "weighing": {
-  "summary": "The plan lists midnight and 02:00 and recommends 02:00. Neither value has a source I could read. The division commander, Humphreys, wrote in August 1863 that the division was 'bivouacking at 1 a. m. on July 2 about 1 mile from Gettysburg'. Fifteen years later he wrote privately that it 'reached the ground towards midnight of July 1st'. The report of 1863 is the better class of writing and gives the end of the march (settling into bivouac); the letter gives 'reached the ground' and may mean the head of the column, but nothing says so, so the rule that the report of the time beats the memory is applied and 01:00 is the default. The later books that say 1 a.m. (1878, 1900, 1913) name no source, and Bachelder in 1873 says midnight, so they do not add a witness. Nothing gives 02:00. The third brigade is a separate event at 09:00 (Humphreys and Burling).",
-  "who": "Humphreys commanded the division and gives its movements under his own orders, with the Black Horse Tavern detour he describes. Burling commanded the third brigade, which was left at Emmitsburg. Bachelder (1873, 1878), the New York commission (1900) and the 1913 Meade volume were not present and name no source.",
-  "when": "Humphreys' report is dated 16 Aug 1863 (45 days after, within the best written class); his letter to Fitz Lee is from before early 1878, 14 to 15 years later; Burling wrote on 20 Aug 1863. The books are 10 to 50 years later.",
-  "where": "Humphreys rode with the division through the detour and the night march and bivouacked with it. The report says 'bivouacking', the end of the march, a mile from Gettysburg, east of the Emmitsburg road, not on Cemetery Ridge; the letter says 'reached the ground'. Whether they are the same moment is not stated.",
-  "how_knew": "Humphreys: his own division, own orders, eyewitness, with a round hour ('1 a. m.'). The letter is a recollection. The later books give no basis.",
-  "clock": "Humphreys is Union and uses a plain hour without saying whose watch; no clock correction is applied, and the plan's note of about 20 minutes between the armies' clocks plays no part for a Union witness. The 1 a.m. is a round hour: it may stand for the quarter or half hour around it.",
-  "independence": "One line of knowledge carries 01:00: Humphreys' report. Bachelder's letter of 1878, the New York volume and the 1913 book repeat it without a source and are counted with it, so the default carries a single_source flag. Humphreys' letter and Bachelder's 1873 'midnight' are one other line (Bachelder gives no source and may have had the hour from Humphreys). The 09:00 junction of the third brigade is independent: Humphreys and Burling are two reports."
+  "summary": "The plan lists midnight and 02:00 and recommends 02:00. Four officers of the division wrote within 45 days. Brewster, commanding the Second Brigade, wrote 15 Aug 1863 that his brigade marched through Emmitsburg to a point near Gettysburg, 'reaching there about midnight' (the antecedent of 'there' is read, not stated). Humphreys wrote 16 Aug that the division was 'bivouacking at 1 a. m. on July 2 about 1 mile from Gettysburg'. Tripp (11th Massachusetts, 27 Jul) and Bodine (26th Pennsylvania, 28 Jul), both of the First Brigade, wrote that they 'arrived at 2 a. m.' on the 2d. Fifteen years later Humphreys wrote privately that the division 'reached the ground towards midnight of July 1st'. All four are of the best class of writing, present with their units, on the Union clock, and the hours differ by an hour or two. The three hours may well be three moments of one march (head, middle and tail of a column, a brigade's front, a regiment's halt), but the sources do not say which regiment led or what each hour marks, so no one is preferred to the others on the rubric. The record is divided: the window about midnight to 2 a.m. is the default; Humphreys's 1 a.m. is inside it. The plan's midnight and 02:00 are both sourced and neither is struck. The later books that say 1 a.m. name no source and are counted with Humphreys's report. The third brigade is a separate event at 09:00 (Humphreys and Burling).",
+  "who": "Humphreys commanded the division; Brewster the Second (Excelsior) Brigade; Tripp and Bodine commanded two regiments of Carr's First Brigade, each reporting for his own unit. Burling commanded the third brigade, which was left at Emmitsburg. Bachelder (1873, 1878), the New York commission (1900) and the 1913 Meade volume were not present and name no source.",
+  "when": "Tripp's report is dated 27 Jul 1863 (26 days after), Bodine's 28 Jul, Brewster's 15 Aug (45 days), Humphreys's 16 Aug (46 days), Burling's 20 Aug; Humphreys's letter to Fitz Lee is from before early 1878 (14 to 15 years later); the books are 10 to 50 years later. The four reports of 1863 are of the same rank.",
+  "where": "Each officer stood with his own unit: Tripp and Bodine with their regiments, Brewster with the Second Brigade, Humphreys with the division on the march after the detour near the Black Horse Tavern. The hours therefore describe different units and different moments (a regiment's arrival, a brigade reaching a point, the division's settling into bivouac a mile from Gettysburg, east of the Emmitsburg road); no one says which unit led. Whether Humphreys's 'reached the ground' of 1878 is the head of the column is not stated.",
+  "how_knew": "Tripp, Bodine and Brewster each report their own unit's march: eyewitness or own orders, with round hours ('2 a. m.', 'about midnight'). Humphreys: his own division, own orders, round hour. The letter is a recollection. The later books give no basis.",
+  "clock": "All four are Union writers and use plain hours without saying whose watch; no clock correction is applied, and the plan's note of about 20 minutes between the armies' clocks plays no part for Union witnesses. The round hours ('1 a. m.', '2 a. m.') may stand for the quarter or half hour around them; Brewster's is 'about'.",
+  "independence": "Four lines of knowledge for the window: Brewster; Humphreys's report; Tripp; Bodine (Tripp and Bodine served in one brigade and may have received the same order or taken the hour from one brigade log, but each wrote his own report, and are counted as two groups). Humphreys's letter and Bachelder's 1873 'midnight' are one other line (Bachelder gives no source and may have had it from Humphreys). Bachelder's letter of 1878, the New York volume and the 1913 book repeat 1 a.m. and are treated as dependent on Humphreys's report; that is an assumption, not shown (they name no source). The 09:00 junction of the third brigade is independent: Humphreys and Burling are two reports."
  },
- "source_panel_text": "About 01:00 on Jul 2: General Humphreys' own report of Aug 1863 has his division bivouacking a mile from Gettysburg at 1 a.m. His letter of 1878 says 'towards midnight', a later memory; no source found gives the plan's 02:00. The brigade left at Emmitsburg joined at 9 a.m. Four other values are listed.",
+ "source_panel_text": "Between about midnight and 2 a.m. on Jul 2. Four officers of the division wrote in 1863: Brewster has his brigade arriving about midnight, Humphreys has the division bivouacking at 1 a.m., and Tripp and Bodine of two regiments say 2 a.m. No source says which unit led, so the window stays. The brigade left at Emmitsburg joined at 9 a.m.",
  "holds": {
   "pdf_default": {
-   "holds": "no",
-   "note": "No report, letter or book found gives the plan's 02:00; the division commander has the division in bivouac at 1 a.m., and the plan's own pages could not be read here."
+   "holds": "partly",
+   "note": "The plan's 02:00 is the hour two regiments of the division report (Tripp and Bodine); it is the upper end of the window, not the hour for the whole division, since Humphreys and Brewster give earlier hours. The plan's midnight is Brewster's about midnight."
   },
   "first_delegated": {
-   "holds": "yes",
-   "note": "01:00 holds as the default: Humphreys' report, in context. The research adds his letter of 1878 (about midnight) and the third brigade's 09:00 as listed values and finds the later books that say 1 a.m. to be echoes; class weighted, tier documented, flagged single_source."
+   "holds": "partly",
+   "note": "01:00 is Humphreys's own report and is inside the window; it is not the hour of the whole division, because Brewster (about midnight) and Tripp and Bodine (2 a.m.) give other hours in 1863 reports. Class irreducible, tier inferred."
   }
  },
  "readers": [
@@ -513,7 +808,7 @@
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-002 row)",
    "must_change": false,
-   "note": "computed: delegated-decision row line 12 names this conflict; the row's default 01:00 is unchanged; add class weighted and the new positions."
+   "note": "computed: delegated-decision row line 12 names this conflict; the row's default 01:00 is replaced by the window 00:00-02:00 (class irreducible); add the new positions."
   },
   {
    "kind": "doc",
@@ -525,25 +820,25 @@
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0104.md",
    "must_change": true,
-   "note": "computed: register entry names this conflict; states that both plan clocks (00:00, 02:00) are contradicted by Humphreys' 01:00: midnight is now carried by Humphreys' own later letter and Bachelder (inferred), so the wording 'contradicted' becomes 'outweighed' for 00:00."
+   "note": "computed: register entry names this conflict; it states that both plan clocks (00:00, 02:00) are contradicted by Humphreys' 01:00: both plan hours are now carried by 1863 reports (Brewster about midnight; Tripp and Bodine 2 a.m.), so 'contradicted' becomes 'outweighed by none; window shown'."
   },
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0105.md",
    "must_change": true,
-   "note": "computed: register entry names this conflict; states that both plan clocks (00:00, 02:00) are contradicted by Humphreys' 01:00: midnight is now carried by Humphreys' own later letter and Bachelder (inferred), so the wording 'contradicted' becomes 'outweighed' for 00:00."
+   "note": "computed: register entry names this conflict; it states that both plan clocks (00:00, 02:00) are contradicted by Humphreys' 01:00: both plan hours are now carried by 1863 reports (Brewster about midnight; Tripp and Bodine 2 a.m.), so 'contradicted' becomes 'outweighed by none; window shown'."
   },
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-023",
    "must_change": true,
-   "note": "computed: decision log line 296 names this conflict; record the resolved default (01:00, weighted, documented) as a delegated decision; the PENDING OWNER text is superseded."
+   "note": "computed: decision log line 296 names this conflict; record the resolved default (window 00:00-02:00, irreducible, inferred) as a delegated decision; the PENDING OWNER text is superseded."
   },
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-002",
    "must_change": true,
-   "note": "computed: decision log line 30 names this conflict; record the resolved default (01:00, weighted, documented) as a delegated decision; the PENDING OWNER text is superseded."
+   "note": "computed: decision log line 30 names this conflict; record the resolved default (window 00:00-02:00, irreducible, inferred) as a delegated decision; the PENDING OWNER text is superseded."
   },
   {
    "kind": "timeline_row",
@@ -555,25 +850,25 @@
    "kind": "arrivals_row",
    "ref": "us-3c-2d",
    "must_change": true,
-   "note": "gate printed_clock default 1863-07-02T02:00 (PDF recommended default), earliest 00:00, latest 02:00: the default becomes 01:00, inside the existing window; the earliest 00:00 stays (the 1878 letter and Bachelder give about midnight) and the latest 02:00 has no source of its own but is not widened. Report only; the integration step reconciles the gate spec and expected values in the open and re-runs Q04, Q05, Q06."
+   "note": "gate printed_clock default 1863-07-02T02:00 (PDF recommended default), earliest 00:00, latest 02:00: the default becomes the window 00:00-02:00 drawn from 00:00 (earliest_documented); the earliest 00:00 and latest 02:00 stay, now both documented by 1863 reports (Brewster, Tripp, Bodine); the row must not draw the division before 00:00."
   },
   {
    "kind": "timeline_row",
    "ref": "T2-040",
    "must_change": true,
-   "note": "Seed row 'Jul 2 ~00:00 (night)' (EPP, inferred single weak source, Cemetery Ridge): midnight is carried by Humphreys' 1878 letter and Bachelder 1873 (inferred); the place 'Cemetery Ridge' is not what the report says (east of the Emmitsburg road)."
+   "note": "Seed row 'Jul 2 ~00:00 (night)' (EPP, inferred single weak source, Cemetery Ridge): midnight is carried by Brewster's report of 1863 (about midnight) and Humphreys's letter of 1878; the place 'Cemetery Ridge' is not what the report says (east of the Emmitsburg road)."
   },
   {
    "kind": "timeline_row",
    "ref": "T2-042",
    "must_change": true,
-   "note": "Seed row 'Jul 2 ~02:00' (SS1) 'Humphreys joins Sickles': the hour is 01:00 by the report; row not edited here."
+   "note": "Seed row 'Jul 2 ~02:00' (SS1) 'Humphreys joins Sickles': 02:00 is the hour of two regiments of the First Brigade (Tripp, Bodine) and the upper end of the window; row not edited here."
   },
   {
    "kind": "gate",
    "ref": "Q04",
    "must_change": true,
-   "note": "Report only, no gate changed: the unit row's default hour moves from 02:00 to 01:00, inside its window 00:00-02:00. The floor 00:00 must not be lowered; the Third Brigade and Smith's battery have a later arrival (09:00, report) that the row does not carry."
+   "note": "Report only, no gate changed: the unit row's default hour changes from 02:00 to the window 00:00-02:00 drawn from 00:00, inside its existing window. The floor 00:00 must not be lowered; the Third Brigade and Smith's battery have a later arrival (09:00, report) that the row does not carry."
   },
   {
    "kind": "app_data",
@@ -603,7 +898,7 @@
   },
   {
    "where": "all local non-lead texts of the ledger",
-   "query": "Humphreys / Third Corps / Second Division within 250 characters of arrived|reached|came up|got up|bivouac and midnight|1 a. m.|2 a. m.|one o'clock|two o'clock (both orders); the hits are the report, Humphreys' letter and the later books above",
+   "query": "Humphreys / Third Corps / Second Division within 250 characters of arrived|reached|came up|got up|bivouac and midnight|1 a. m.|2 a. m.|one o'clock|two o'clock (both orders); the hits are the reports of Humphreys, Brewster, Tripp and Bodine, Humphreys's letter and the later books above; the regiments of the First Brigade other than the 11th Massachusetts and 26th Pennsylvania (1st, 16th Massachusetts, 11th New Jersey, 12th New Hampshire, 84th Pennsylvania) give no hour in the regex hits",
    "outcome": "not_found",
    "at": "2026-11-24"
   },
@@ -614,8 +909,8 @@
    "at": "2026-11-24"
   },
   {
-   "where": "Official Records 27/1: Birney (R133), Carr (R160), Brewster (R169), Burling (R174)",
-   "query": "bivouac|arrived|reached|halted within 200 characters of a. m.|midnight|o'clock for the night of 1-2 July: Carr, Brewster and Birney give no hour for the second division's arrival; Burling gives nearly 4 a.m. (leaving Emmitsburg) and 9 a.m. (joining)",
+   "where": "Official Records 27/1: Birney (R133), Carr (R160), Burling (R174)",
+   "query": "bivouac|arrived|reached|halted within 200 characters of a. m.|midnight|o'clock for the night of 1-2 July: Carr and Birney give no hour for the second division's arrival; Burling gives nearly 4 a.m. (leaving Emmitsburg) and 9 a.m. (joining). (Brewster, Tripp and Bodine do give hours, found afterwards and cited in the positions.)",
    "outcome": "not_found",
    "at": "2026-11-24"
   },
@@ -626,5 +921,5 @@
    "at": "2026-11-24"
   }
  ],
- "what_would_change_it": "Humphreys' own note, letter of 1863 or the war diary of one of his brigades or batteries giving the hour at which the head of the column reached the Union lines would settle whether 'towards midnight' is the head of the column and 01:00 the bivouac. A source behind the plan's 02:00 or 00:00, or the text of the Stone Sentinels or Epperson pages with their own source, would reopen the choice."
+ "what_would_change_it": "A note, letter or diary of 1-2 July from the division's staff or brigades, or a brigade log, saying which regiment or brigade led the column and when the head reached the Union lines; the page image of Brewster's report to settle whether 'there' is the point near Gettysburg; the sources behind Epperson's and Stone Sentinels' times."
 }

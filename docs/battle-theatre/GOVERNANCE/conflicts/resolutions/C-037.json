@@ -29,20 +29,25 @@
    "C-037-DEFAULT"
   ]
  },
- "class": "weighted",
+ "class": "irreducible",
  "tier": "inferred",
  "basis": {
   "kind": "official_records",
-  "text": "Doubleday's report of the third day (Official Records 27/1 p. 260) names the third day for the death; Meade's dispatch of 3 July 8 a.m. (27/1 p. 74) and the New York Times special of 7:45 a.m. say the body is already within the lines; Longstreet (27/2 p. 362) dates the wound to the evening of 2 July."
+  "text": "The record is divided on whether he died before or after midnight. Butterfield (sworn testimony of 29 Mar 1864, p. 434) says it was reported on the night of the 2d that he lay wounded and that he was dead when found; Doubleday (report of 14 Dec 1863, p. 260) names the third day, and the Vermont and Pennsylvania volumes have him found alive; Meade's dispatch of 3 July 8 a.m. (27/1 p. 74) and a Times special of 7:45 a.m. have the body within the lines; Longstreet (27/2 p. 362) dates the wound to the evening of 2 July."
  },
  "default": {
-  "mode": "position",
+  "mode": "window",
   "positions": [
-   "C-037-P2"
+   "C-037-P5"
   ],
-  "label": "Wounded the evening of Jul 2; died early on Jul 3 (dead by about 08:00); hour unknown",
-  "basis_text": "The wound is dated by Longstreet and Hall to the evening of Jul 2. The death is dated by Doubleday to the third day and bounded above by Meade and the Times (dead at 8 a.m. and 7:45 a.m. of Jul 3). No hour is stated by anyone; whether midnight had passed rests on Doubleday's day name and the Pennsylvania regiment's \"the next day\".",
-  "note": "Two parts, kept apart: the wound (Jul 2 evening, position P4) and the death (Jul 3 early, P2). The range Jul 2-3 of the plan stays selectable (P3)."
+  "label": "Wounded the evening of Jul 2; died between that night and about 08:00 on Jul 3; day and hour not settled",
+  "basis_text": "Lower bound: the wound on the evening of Jul 2 (Longstreet's report of 27 Jul 1863, Hall's report of 17 Jul). Upper bound: Meade's dispatch of Jul 3, 8 a.m., and a Times special of 7:45 a.m., which already have the body within the lines. Inside the window the record is divided: Butterfield (sworn, 1864) has him dead when found on the night of the 2d; Doubleday (report of Dec 1863), the Vermont volume and the 149th Pennsylvania have him found alive, dying later and Doubleday naming the third day. No one gives an hour.",
+  "note": "Two parts kept apart: the wound (Jul 2 evening, position P4, documented) and the death (window, P5). 'Jul 2' (P1) and 'Jul 3' (P2) each stay selectable with the witnesses that say them.",
+  "animation": {
+   "at": null,
+   "rule": "none",
+   "note": "No hour is documented for the death; nothing is drawn at an instant inside the window. The window shows the span from the evening of Jul 2 to about 08:00 on Jul 3 and the body is within the lines from the upper bound."
+  }
  },
  "positions": [
   {
@@ -53,43 +58,65 @@
     "C-037-S1"
    ],
    "source_keys": [],
-   "label": "Died on Jul 2 (before midnight): the plan's first value",
+   "label": "Died on the night of Jul 2 (before the body was reached): the plan's first value",
    "kind": "date",
    "value": {
     "date": "1863-07-02"
    },
    "approx": false,
    "clock": "unspecified",
-   "tier": "open gap",
-   "support": [],
-   "flags": [
-    "unsourced"
-   ],
-   "stance": "selectable",
-   "failed_lookups": [
+   "tier": "inferred",
+   "support": [
     {
-     "where": "OR27-1, OR27-2, OR27-3",
-     "query": "Barksdale within 300 characters of died|death|dead|buried|hospital|midnight|o'clock: every hit read in its report; the wound is dated Jul 2 (Longstreet), the death only \"third day\" (Doubleday) or \"dead\" by 8 a.m. of Jul 3 (Meade); no report says he died on Jul 2 or before midnight",
-     "outcome": "not_found",
-     "at": "2026-11-24"
-    },
-    {
-     "where": "ws9 books and papers, CA-1863 pages of Jul 1863, ADAMS-SENTINEL-1863, JACOBS-1864, FREMANTLE-1864",
-     "query": "Barksdale with died|death|dead|killed|buried|\"that night\"|\"July 2\"; Haskell and Jacobs date his fall on the 2d, Longstreet on its evening; none dates the death",
-     "outcome": "not_found",
-     "at": "2026-11-24"
-    },
-    {
-     "where": "SS-HUM (Stone Sentinels, Hummelbaugh farm page, the plan's source for Jul 2)",
-     "query": "the page the plan cites for the Jul 2 value",
-     "outcome": "not_read",
-     "at": "2026-11-24"
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "434",
+     "page_basis": "as_read",
+     "page_note": "printed page 434 read from the running head '434 ARMY OF THE POTOMAC' above the heading 'Tuesday, March 29, 1864 ... Major General Daniel Butterfield recalled and examined'; the next running head, 'GENERAL MEADE. 435', follows the passage. Sworn testimony before the Joint Committee on the Conduct of the War, 29 March 1864, 270 days after the day. The text layer is damaged in places ('nighc' for 'night', 'lield' for 'field', 'b:fo»e' for 'before', 'fovmd' for 'found'): the quote skips those words with [...] and uses only clean text, so no repair is made; the full sentence reads 'Before the battle was over (on the night of the 2d) it was reported that General Barksdale was on the field wounded, and desired to be brought in; but he died before we reached him. I sent for him, but he was dead when found.' The page image could not be fetched in this run (the image host is refused by the network).",
+     "text_offset": 2000248,
+     "quote": "of the 2d) it was reported that General Barksdale [...] wounded, and desired to be brought in; but he died [...] we reached him. I sent for him, but he was dead when",
+     "witness": {
+      "name": "Daniel Butterfield",
+      "role": "Major General, chief of staff of the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-29",
+      "kind": "early_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "butterfield",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "desired to be brought in",
+       "he was dead when"
+      ]
+     },
+     "note": "Butterfield says that 'before the battle was over (on the night of the 2d) it was reported that General Barksdale was on the field wounded, and desired to be brought in; but he died before we reached him. I sent for him, but he was dead when found.' He is the only witness found who dates the death to the night of the 2d; he does not give an hour or say whether midnight had passed, and the sentence is a recollection 270 days later. The same passage first speaks of Trimble's note to Meade, so it is Meade's headquarters that sent for him."
     }
    ],
+   "flags": [
+    "single_source"
+   ],
+   "stance": "selectable",
    "reason_not_chosen": {
-    "kind": "no_source",
-    "text": "No report or book found says he died on Jul 2; the Jul 2 sources date the wound. The plan's own source page for this value was not read."
-   }
+    "kind": "equal_standing",
+    "text": "Butterfield, who sent for him, says he was dead when found on the night of the 2d; Doubleday, Vermont and the 149th Pennsylvania have him alive when brought in. The record is divided, so both stay."
+   },
+   "inference": {
+    "step": "Butterfield, who sent for Barksdale, says it was reported 'on the night of the 2d' that he lay wounded and wanted to be brought in, and that 'he died before we reached him ... he was dead when found'. Read together, the death comes during the night of the 2d, which is Jul 2 only if the night is taken as before midnight; no hour is stated.",
+    "from": [
+     "Butterfield testimony of 29 Mar 1864 (Joint Committee, p. 434)"
+    ]
+   },
+   "derived": true
   },
   {
    "id": "C-037-P2",
@@ -169,7 +196,7 @@
        "Barksdale"
       ]
      },
-     "note": "Dispatch to Halleck headed 'Headquarters Army of the Potomac, July 3, 1863, 8 a. m.' (received 5.10 p. m.). It follows 'Prisoners report ... many general officers killed'. Meade states the body is within the lines at 8 a. m. of Jul 3; it does not say when he died. The printed first dateline of the record ('June 37') is a misprint of the volume."
+     "note": "Dispatch to Halleck headed 'Headquarters Army of the Potomac, July 3, 1863, 8 a. m.' (received 5.10 p. m.). It follows 'Prisoners report Longstreet's and A. P. Hill's forces much injured yesterday and many general officers killed;' it is not clear from the sentence whether prisoners reported the body or Meade states it himself. Meade states the body is within the lines at 8 a. m. of Jul 3; it does not say when he died. The printed first dateline of the record ('June 37') is a misprint of the volume."
     },
     {
      "source": "CA-1863",
@@ -287,11 +314,41 @@
        "dying on the third"
       ]
      },
-     "note": "Says 'dying on the third day' and then prints Doubleday's sentence about Livingston; counted with Doubleday, not as a second witness. (Hall's report, which it names, gives no day of death.)"
+     "note": "Says 'dying on the third' and gives 'See Colonel Hall's report' as its authority; Hall's report has no such words, so the words are the history's own. It then quotes Doubleday's sentence about Livingston for the last messages. Counted in the Doubleday group as an assumption (it quotes him, but 'dying on the third' is not his wording); it is a later book and not a second witness."
+    },
+    {
+     "source": "DOUBLEDAY-1882-C041",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "page_note": "printed page not read; footnote in the narrative of 2 July of 'Chancellorsville and Gettysburg' (1882)",
+     "text_offset": 351142,
+     "quote": "Barksdale soon after was brought into my lines and died like a brave man, with dignity and resignation",
+     "witness": {
+      "name": "Abner Doubleday",
+      "role": "Major General, commanding the Third Division, I Corps, on 2-3 July",
+      "side": "union"
+     },
+     "written": {
+      "date": "1882",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "doubleday",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "brought into my lines",
+       "died like a brave man"
+      ]
+     },
+     "note": "Doubleday in 1882: Barksdale was brought into his lines and 'soon after' died. The footnote sits in the account of 2 July and gives no day or hour; it has him alive when brought in, which Butterfield's 'dead when found' does not. Same author as the report of 1863, so one group."
     }
    ],
    "flags": [],
-   "stance": "default",
+   "stance": "selectable",
    "inference": {
     "step": "Doubleday places the death on \"the third day\"; Meade at 8 a. m. and the Times correspondent at 7:45 on Jul 3 say the body is already within the lines, and Longstreet and Hall date the wound to the evening of Jul 2. Joined, the death falls between nightfall of Jul 2 and about 08:00 on Jul 3, and the calendar day is Jul 3 only if Doubleday's day name is taken at its word; no hour is stated.",
     "from": [
@@ -301,7 +358,11 @@
      "Longstreet report p.362"
     ]
    },
-   "derived": true
+   "derived": true,
+   "reason_not_chosen": {
+    "kind": "equal_standing",
+    "text": "Doubleday, the Vermont volume and the 149th Pennsylvania have him alive when brought in and dying the next day; Butterfield says dead when found on the night of the 2d. No hour settles it."
+   }
   },
   {
    "id": "C-037-P3",
@@ -417,7 +478,7 @@
        "Barksdale"
       ]
      },
-     "note": "Dispatch to Halleck headed 'Headquarters Army of the Potomac, July 3, 1863, 8 a. m.' (received 5.10 p. m.). It follows 'Prisoners report ... many general officers killed'. Meade states the body is within the lines at 8 a. m. of Jul 3; it does not say when he died. The printed first dateline of the record ('June 37') is a misprint of the volume."
+     "note": "Dispatch to Halleck headed 'Headquarters Army of the Potomac, July 3, 1863, 8 a. m.' (received 5.10 p. m.). It follows 'Prisoners report Longstreet's and A. P. Hill's forces much injured yesterday and many general officers killed;' it is not clear from the sentence whether prisoners reported the body or Meade states it himself. Meade states the body is within the lines at 8 a. m. of Jul 3; it does not say when he died. The printed first dateline of the record ('June 37') is a misprint of the volume."
     }
    ],
    "flags": [],
@@ -432,7 +493,7 @@
    "derived": true,
    "reason_not_chosen": {
     "kind": "within_range",
-    "text": "The range is true but wider than the record: the wound is dated Jul 2 and Doubleday names Jul 3 for the death. It stays selectable as the safe reading."
+    "text": "The plan's range Jul 2 to Jul 3 is the same window as the default, drawn only by day; the default adds the part of the day (evening of Jul 2 to about 08:00 on Jul 3) and why it stays open."
    }
   },
   {
@@ -628,6 +689,40 @@
      "note": "Report dated 27 July 1863 (25 days after). Gives the day and the part of the day of the wounding only; no date or hour of death."
     },
     {
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "434",
+     "page_basis": "as_read",
+     "page_note": "printed page 434 read from the running head '434 ARMY OF THE POTOMAC' above the heading 'Tuesday, March 29, 1864 ... Major General Daniel Butterfield recalled and examined'; the next running head, 'GENERAL MEADE. 435', follows the passage. Sworn testimony before the Joint Committee on the Conduct of the War, 29 March 1864, 270 days after the day. The text layer is damaged in places ('nighc' for 'night', 'lield' for 'field', 'b:fo»e' for 'before', 'fovmd' for 'found'): the quote skips those words with [...] and uses only clean text, so no repair is made; the full sentence reads 'Before the battle was over (on the night of the 2d) it was reported that General Barksdale was on the field wounded, and desired to be brought in; but he died before we reached him. I sent for him, but he was dead when found.' The page image could not be fetched in this run (the image host is refused by the network).",
+     "text_offset": 2000248,
+     "quote": "of the 2d) it was reported that General Barksdale [...] wounded, and desired to be brought in; but he died [...] we reached him. I sent for him, but he was dead when",
+     "witness": {
+      "name": "Daniel Butterfield",
+      "role": "Major General, chief of staff of the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-29",
+      "kind": "early_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "butterfield",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "desired to be brought in",
+       "he was dead when"
+      ]
+     },
+     "note": "Butterfield says that 'before the battle was over (on the night of the 2d) it was reported that General Barksdale was on the field wounded, and desired to be brought in; but he died before we reached him. I sent for him, but he was dead when found.' He is the only witness found who dates the death to the night of the 2d; he does not give an hour or say whether midnight had passed, and the sentence is a recollection 270 days later. The same passage first speaks of Trimble's note to Meade, so it is Meade's headquarters that sent for him."
+    },
+    {
      "source": "NY-GB-1900",
      "source_class": "book",
      "page_basis": "as_read",
@@ -655,6 +750,35 @@
       ]
      },
      "note": "'That night' is the night of Jul 2-3; the phrase does not say whether the death came before or after midnight."
+    },
+    {
+     "source": "VT-GB-1914",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer",
+     "text_offset": 21413,
+     "quote": "During the night word was brought by a prisoner to Col. Nichols that Gen. Barksdale of Mississippi lay mortally wounded on the field in front of his line",
+     "witness": {
+      "name": "Thomas C. Cheney (compiler), quoting Col. Veazey",
+      "role": "Compiler of the commission volume Vermont at Gettysburg (1914), not a participant",
+      "side": "other"
+     },
+     "written": {
+      "date": "1914",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "vt1914",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "During the night"
+      ]
+     },
+     "note": "Word came during the night (of Jul 2-3) that Barksdale lay mortally wounded in front of the 13th Vermont's line; eight men brought him in on a stretcher; his body lay in the rear during the forenoon. The volume has him alive when found and does not say when he died."
     },
     {
      "source": "VT-GB-1914",
@@ -713,7 +837,7 @@
        "Barksdale"
       ]
      },
-     "note": "Dispatch to Halleck headed 'Headquarters Army of the Potomac, July 3, 1863, 8 a. m.' (received 5.10 p. m.). It follows 'Prisoners report ... many general officers killed'. Meade states the body is within the lines at 8 a. m. of Jul 3; it does not say when he died. The printed first dateline of the record ('June 37') is a misprint of the volume."
+     "note": "Dispatch to Halleck headed 'Headquarters Army of the Potomac, July 3, 1863, 8 a. m.' (received 5.10 p. m.). It follows 'Prisoners report Longstreet's and A. P. Hill's forces much injured yesterday and many general officers killed;' it is not clear from the sentence whether prisoners reported the body or Meade states it himself. Meade states the body is within the lines at 8 a. m. of Jul 3; it does not say when he died. The printed first dateline of the record ('June 37') is a misprint of the volume."
     },
     {
      "source": "CA-1863",
@@ -748,42 +872,39 @@
     }
    ],
    "flags": [],
-   "stance": "selectable",
+   "stance": "default",
    "inference": {
-    "step": "Wounded in the evening of Jul 2 (Longstreet); found and carried in during the night (Vermont volume, 1914); \"died that night\" (New York volume, 1900); the body lay within the lines at 8 a. m. and 7:45 a. m. of Jul 3 (Meade, Times). None of them gives an hour or says whether midnight had passed.",
+    "step": "Wounded in the evening of Jul 2 (Longstreet). Butterfield (1864) puts the death on the night of the 2d, dead when found; Doubleday, the Vermont volume (word came 'during the night') and the 149th Pennsylvania have him found alive and dying later; 'died that night' (New York, 1900); dead within the lines at 8 a. m. and 7:45 a. m. of Jul 3 (Meade, Times). Joined, the death falls between the evening of Jul 2 and about 08:00 on Jul 3. No source gives an hour or says whether midnight had passed.",
     "from": [
      "Longstreet report p.362",
+     "Butterfield testimony 1864 p.434",
      "Vermont at Gettysburg 1914",
      "New York at Gettysburg 1900",
      "Meade dispatch p.74",
      "NY Times special"
     ]
    },
-   "derived": true,
-   "reason_not_chosen": {
-    "kind": "within_range",
-    "text": "Doubleday's report names Jul 3 and the Pennsylvania regiment says \"the next day\"; only \"that night\" (1900) leaves the day open. Kept as the cautious reading."
-   }
+   "derived": true
   }
  ],
  "weighing": {
-  "summary": "Two questions, kept apart. The wound: Longstreet (report of 27 Jul 1863) dates it to the evening of Jul 2 and Hall, Jacobs and McLaws place it in the fighting of that day; nobody disputes it. The death: no witness gives an hour. The best-classed writing is Meade's dispatch of Jul 3, 8 a.m. (rank 6) and a New York Times special of Jul 3, 7:45 a.m. (rank 4), which both have the body already within the lines, and Doubleday's report of Dec 1863 (rank 4), which names 'the third day'; the later regimental and state books say 'that night' (1900) or 'the next day' (1914). Nothing says he died on Jul 2 before midnight. Doubleday's day name is taken at its word, which puts the death after midnight and before about 08:00 on Jul 3; because that rests on one day name and no hour, the default is inferred and the range of the plan stays selectable. The first delegated 'open gap' is replaced because sources were found, not because an hour was.",
-  "who": "Meade commanded the army and wrote from headquarters; Doubleday commanded the division in whose lines Barksdale was brought and his staff officer Livingston brought him in; Longstreet commanded Barksdale's corps and McLaws his division; Hall's brigade stood where he fell; the Times correspondent was with the army. The Pennsylvania regiment history was written by survivors of the unit that found him; the Vermont and New York volumes are by compilers, not participants. Nobody who attended the death wrote an account that is local.",
-  "when": "Meade's dispatch and the Times special are of the morning of Jul 3 (hours after the event); Longstreet is 25 days after; Hall 15 days; Doubleday 164 days; Jacobs 1864; McLaws 1878; the regiment and state volumes 1900-1916. The earliest two say only that he was dead.",
+  "summary": "Two questions, kept apart. The wound: Longstreet (27 Jul 1863) dates it to the evening of Jul 2; Hall, Jacobs and McLaws place it in the fighting of that day; nobody disputes it. The death: no witness gives an hour. Dead by about 08:00 of Jul 3 is fixed by Meade's dispatch (rank 6) and a Times special (rank 4). Inside that bound the record is divided. Butterfield, Meade's chief of staff, swore in March 1864 that on the night of the 2d it was reported Barksdale lay wounded, 'he died before we reached him. I sent for him, but he was dead when found'; he sent for him himself, which counts for him, but the passage is a recollection after 270 days, an early narrative, and gives no hour. Doubleday's report of Dec 1863 (rank 3, 164 days after) names 'the third day' and says his staff officer brought him in; Doubleday relays rather than saw, and the Vermont volume, the 149th Pennsylvania ('the next day he died') and Doubleday in 1882 ('soon after') have him alive when brought in, all later books or relayed. Butterfield outranks none of them on the rubric by enough to settle it, and none outranks him: the best-placed witnesses disagree, so the death is a window, not a day. It is inferred, not documented, because no source states the day and hour. Doubleday's day name is a day, not an hour, and 'the night of the 2d' is not clearly before midnight. Also read and undated: Hancock (27/1 p. 371, 'left on the field, mortally wounded'), the Duncan medical history ('died in a Union hospital') and a New York address of 1902 ('in the presence of a Union general'). The first delegated 'open gap' is replaced because sources were found, not because an hour was.",
+  "who": "Meade commanded the army and wrote from headquarters; Butterfield was his chief of staff and says he sent for Barksdale; Doubleday commanded the division in whose lines Barksdale was brought and his staff officer Livingston brought him in; Longstreet commanded Barksdale's corps and McLaws his division; Hall's brigade stood where he fell; the Times correspondent was with the army. The Pennsylvania regiment history was written by survivors of the unit that found him; the Vermont and New York volumes are by compilers. Nobody who attended the death wrote an account that is local.",
+  "when": "Meade's dispatch and the Times special are of the morning of Jul 3 (hours after the event); Hall 15 days; Longstreet 25 days; Doubleday 164 days (report) and 19 years (1882); Butterfield 270 days (testimony of 29 Mar 1864); Jacobs 1864; McLaws 1878; the regiment and state volumes 1900-1916. The earliest two say only that he was dead.",
   "where": "Doubleday's report relays what his staff officer did; the Times correspondent and Meade relay what prisoners and staff told them ('Prisoners report ...'); Longstreet commanded the corps and writes of the attack in general; Hall's brigade stood where he fell, within 20 yards of the Seventh Michigan. The place of death is a hospital within the Union lines; the Historic American Buildings Survey record of the Hummelbaugh house (Park Service programme) says he died at the house and was buried there but gives no date.",
-  "how_knew": "Doubleday, Meade and the Times all relay: none says he saw the death. Hall saw the repulse and the fall. The 1914 and 1900 volumes retell the unit stories. So the death date rests on relayed reports, which is why the tier is inferred.",
+  "how_knew": "Butterfield says he sent for him and found him dead, so his knowledge is of his own orders, though he gives the night of the 2d for the report and no hour for the death. Doubleday, Meade and the Times relay: none says he saw the death. Hall saw the repulse and the fall. The 1914 and 1900 volumes retell unit stories. So the date of death rests on conflicting accounts, which is why the tier is inferred and the class irreducible.",
   "clock": "Clock readings: Meade's 8 a.m. is the Union headquarters clock and the Times 7:45 a newspaper's; the Union and Confederate clocks reportedly differed by about 20 minutes and no row corrects for it. The upper bound (about 08:00 on Jul 3) is read to within that uncertainty; the bound is not used to date the death within the night.",
-  "independence": "Groups: Meade's dispatch (printed in many papers, one group); the Times correspondent (a separate telegram, though he may draw on the same headquarters talk); Doubleday (the Minnesota history copies him); the 149th Pennsylvania history; the Vermont volume; the New York volume. The default P2 therefore rests on three groups of 1863 writing (Meade, Times, Doubleday) and two later volumes; the 'Jul 2' value rests on none. The wound rests on Longstreet, Hall, McLaws and Jacobs, four independent groups."
+  "independence": "Groups: Meade's dispatch (one group); the Times correspondent (a separate telegram, though he may draw on the same headquarters talk); Butterfield (sworn testimony; he served at Meade's headquarters, but the passage is his own account of his own errand); Doubleday (report and book of 1882, one author; the Minnesota history quotes him for the last messages and writes 'dying on the third' in its own words, and is counted with his group only as an assumption); the 149th Pennsylvania; the Vermont volume; the New York volume. The window rests on Longstreet (wound), Meade and the Times (upper bound); the day inside it is carried by Butterfield on one side and Doubleday, Vermont and Pennsylvania on the other. The wound rests on Longstreet, Hall, McLaws and Jacobs, four independent groups."
  },
- "source_panel_text": "Wounded on the evening of Jul 2 (Longstreet's report). Died early on Jul 3: Doubleday's report puts his death on the third day, and Meade's 8 a.m. dispatch and a Times correspondent at 7:45 a.m. already have the body within the lines. No source gives an hour. No source found says Jul 2 for the death; that value and a Jul 2-3 range stay listed.",
+ "source_panel_text": "Wounded the evening of Jul 2 (Longstreet). Death: the record is divided. Butterfield swore he was dead when found on the night of the 2d; Doubleday names the third day and others have him found alive. Meade's 8 a.m. dispatch has the body within the lines. The window runs to about 08:00 on Jul 3; no hour; two other values listed.",
  "holds": {
   "pdf_default": {
    "holds": "partly",
-   "note": "The wound on Jul 2 holds and is documented. The death 'Jul 2-3 as a range' holds as the safe reading but the record narrows it: dead by about 08:00 on Jul 3, Doubleday naming the third day; the range stays selectable."
+   "note": "The wound on Jul 2 holds and is documented. The death 'Jul 2-3 as a range' holds: the record is divided between the night of the 2d (Butterfield) and the third day (Doubleday), and dead by about 08:00 on Jul 3; the range is shown as a window and the two single days stay selectable."
   },
   "first_delegated": {
    "holds": "no",
-   "note": "The delegated 'open gap' for the death date does not hold: sources dating the death (Doubleday, Meade, the Times special) exist. The wound is documented as delegated (Longstreet, evening of Jul 2); the death is inferred, not an open gap; the Jul 2-3 range remains selectable."
+   "note": "The delegated 'open gap' for the death date does not hold: sources that bear on the death (Butterfield, Doubleday, Meade, the Times special) exist. The wound is documented as delegated (Longstreet, evening of Jul 2); the death is inferred as a window, not an open gap; the Jul 2-3 range remains selectable."
   }
  },
  "readers": [
@@ -791,13 +912,13 @@
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-037 row)",
    "must_change": true,
-   "note": "computed: delegated-decision row line 47; its open-gap default (wounded Jul 2, death Jul 2-3 range, marked gap) is replaced by an inferred default (death early Jul 3); the integration step records the new default."
+   "note": "computed: delegated-decision row line 47; its open-gap default (wounded Jul 2, death Jul 2-3 range, marked gap) is replaced by an inferred window default (irreducible: Butterfield's night of the 2d against Doubleday's third day); the integration step records the new default."
   },
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0114.md",
    "must_change": true,
-   "note": "computed: register entry for this conflict; read it: the gap (date of death) is narrowed by sources, tier inferred; update with the failed searches."
+   "note": "computed: register entry for this conflict; read it: the gap (date of death) is narrowed to a window by sources, tier inferred, class irreducible; update with the failed searches."
   },
   {
    "kind": "doc",
@@ -851,7 +972,7 @@
  "failed_searches": [
   {
    "where": "OR27-1, OR27-2, OR27-3 (all hits of Barksdale)",
-   "query": "Barksdale|Barksdel|Barkesdale in all three parts, each hit read in its report (Meade, Doubleday, Hancock, Hall, Tripp, Sykes, Lee, Longstreet, Patterson, Kershaw, and the brigade report at p. 617): no report gives an hour or a calendar day of his death; the local text of Part 2 holds no report of McLaws, and the reports of Humphreys, Birney and Sickles have no hit for his name",
+   "query": "Barksdale|Barksdel|Barkesdale in all three parts, each hit read in its report (Meade, Doubleday, Hancock, Hall, Tripp, Sykes, Lee, Longstreet, Patterson, Kershaw, and the brigade report at p. 617): no report gives an hour of his death; Doubleday gives 'the third day'; the local text of Part 2 holds no report of McLaws, and the reports of Humphreys, Birney and Sickles have no hit for his name",
    "outcome": "not_found",
    "at": "2026-11-24"
   },
@@ -863,13 +984,19 @@
   },
   {
    "where": "ws9 books, weeklies of 1863 (ADAMS-SENTINEL, GBG-COMPILER), CA-1863 pages Jul-Nov 1863, FREMANTLE-1864, LONGSTREET-1896, ALEXANDER-1907, EVERETT-1864",
-   "query": "Barksdale within 400 characters of midnight|o'clock|\"that night\"|\"next morning\"|died|buried|hospital: the passages printed by the search (about 30) were read: none of Fremantle, Longstreet 1896 or Alexander gives a death date; the Sentinel of 14 Jul gives only the Richmond report that he was killed; the Tribune of 6 Jul says dead and buried in our lines; no hour",
+   "query": "Barksdale within 400 characters of midnight|o'clock|\"that night\"|\"next morning\"|died|buried|hospital in ws9 books, weeklies and CA-1863 pages: about 30 passages read; none of Fremantle, Longstreet 1896 or Alexander gives a death date or hour; the Sentinel of 14 Jul gives only the Richmond report that he was killed; the Tribune of 6 Jul says dead and buried in our lines. The Joint Committee volume, which holds Butterfield's testimony, was not searched at first and was found afterwards (see the positions)",
    "outcome": "not_found",
    "at": "2026-11-24"
   },
   {
    "where": "NPS texts (HABS pa1357 Hummelbaugh record, NPS Record of Treatment, NPS-CLR texts)",
    "query": "Barksdale with Hummelbaugh|died at the house|buried: the HABS record says he died at the house; none gives a day or hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "JCCW-1865-C012 (Joint Committee testimony of 1864) and the other Joint Committee witnesses",
+   "query": "Barksdale with died|dead|wounded|\"night of the 2d\": one passage (Butterfield, 29 Mar 1864) found and cited; no other testimony in the volume names the hour or day of his death (Meade, Doubleday, Hancock, Sickles and others have no further hit)",
    "outcome": "not_found",
    "at": "2026-11-24"
   },
@@ -886,5 +1013,5 @@
    "at": "2026-11-24"
   }
  ],
- "what_would_change_it": "An account by Lt. Col. C. E. Livingston, a Union or Confederate surgeon at the Hummelbaugh house, or a member of Barksdale's staff or of the detail of the 13th Vermont that carried him in, giving the hour of death; a Mississippi regimental history or letter of 1863 dating it; the page of the plan's Stone Sentinels source. A time before midnight would move the default to Jul 2 night; a time after would settle Jul 3."
+ "what_would_change_it": "An account by Lt. Col. C. E. Livingston, a Union or Confederate surgeon at the Hummelbaugh house, or a member of Barksdale's staff or of the detail of the 13th Vermont that carried him in, giving the hour of death; a Mississippi regimental history or letter of 1863 dating it; the page image of Butterfield's testimony (the digits were not seen on the page); the page of the plan's Stone Sentinels source. A time before midnight would move the window to the night of Jul 2; a time after would settle Jul 3."
 }

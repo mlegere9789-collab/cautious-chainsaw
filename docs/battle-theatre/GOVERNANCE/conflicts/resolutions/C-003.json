@@ -42,13 +42,13 @@
    "C-003-P7"
   ],
   "label": "Window 07:00-08:00 on Jul 2: the Fifth Corps comes up on the right of the line; drawn at 07:00",
-  "basis_text": "Lower bound: Chamberlain (about 7 a.m.), Barnes (about 7) and Meade (by 7 a.m.), after the headquarters dispatch of 6.15 a.m. that the Fifth is still expected. Upper bound: Sykes (about 8 a.m. on the 2d), with a battery of the corps in position about 8 and the Third Division at noon as the tail.",
+  "basis_text": "Lower bound: Chamberlain (about 7 a.m.) and Barnes (about 7), after the headquarters dispatch of 6.15 a.m. that the Fifth is still expected. Upper bound: Sykes (about 8 a.m. on the 2d), with a battery of the corps in position about 8; the Third Division was at the position by noon at the latest (Crawford). Meade's 'by 7 a.m.' is an upper bound for the corps and is not used for the lower bound.",
   "animation": {
    "at": "1863-07-02T07:00",
-   "rule": "earliest_documented",
-   "note": "07:00 is the earliest hour that a report of the Fifth Corps itself gives for its first troops; Slocum's 5 a.m., which is earlier, stays selectable and sets the floor of the arrival gate. Sykes's 8 a.m. and the third division's noon are the later parts of the column."
+   "rule": "best_supported",
+   "note": "07:00 is the hour that two reports of the corps' own first division give for its arrival (Chamberlain, Barnes); it is not the earliest documented hour: Slocum's 5 a.m. (with Powell, 1896) is earlier and stays selectable, and sets the floor of the arrival gate. Sykes's 8 a.m. and the third division's 'by noon' are the later parts of the column."
   },
-  "note": "The corps came up over several hours: the first division at about 7, Sykes with the rest about 8, the Third Division about noon; the reports give different moments of one march, so the window shows the spread."
+  "note": "The corps came up over several hours: the first division at about 7, Sykes with the rest about 8, the Third Division by noon at the latest; the reports give different moments of one march, so the window shows the spread."
  },
  "positions": [
   {
@@ -172,6 +172,39 @@
       ]
      },
      "note": "Rice's itinerary: his regiment (Vincent's brigade) bivouacked within 3 miles of Gettysburg at 1 a.m., started at 4 a.m., went about 2 miles and got into position, stayed about 2 hours and then crossed the creek. It dates no arrival hour; it fits an arrival on the right in the early morning."
+    },
+    {
+     "source": "POWELL-1896-C012",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer",
+     "text_offset": 1080756,
+     "quote": "the Fifth Corps reached Gettysburg about 5 A.M. July 2d",
+     "witness": {
+      "name": "William H. Powell, The Fifth Army Corps (1896)",
+      "role": "Officer of the Fifth Corps writing its history, 33 years later",
+      "side": "union"
+     },
+     "written": {
+      "date": "1896",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "about",
+     "group": "slocum",
+     "exact": false,
+     "states": {
+      "times": [
+       "05:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "'the Fifth Corps reached Gettysburg about 5 A.M. July 2d, and was placed in reserve on the right of the line.' Powell gives the same hour as Slocum's report and the same placing on the right; he names no source, so he is counted with Slocum.",
+     "id": "C-003-P1-c4"
     }
    ],
    "reason_not_chosen": {
@@ -449,7 +482,7 @@
     "C-003-S4"
    ],
    "source_keys": [],
-   "label": "About 07:00: the first division reaches the heights (Chamberlain, Barnes; Meade: by 7 a.m.)",
+   "label": "About 07:00: the first division reaches the heights (Chamberlain, Barnes); the corps on the ground by 7 a.m. (Meade)",
    "kind": "time",
    "value": {
     "at": "1863-07-02T07:00",
@@ -560,12 +593,42 @@
        "07-02"
       ]
      },
-     "note": "Meade's report: by 7 a.m. the Second and Fifth Corps and the rest of the Third had reached the ground; an upper bound for 'the Fifth Corps' as a whole."
+     "note": "Meade's report of 1 Oct 1863: by 7 a.m. the Second and Fifth Corps and the rest of the Third had reached the ground. 'By' is an upper bound for the corps as a whole: it is as true of an arrival at 5 a.m. (Slocum) as at 7, so it does not support 7 a.m. as a lower bound. Everett's oration of Nov 1863 repeats it."
+    },
+    {
+     "source": "EVERETT-1864",
+     "source_class": "primary",
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer",
+     "text_offset": 95575,
+     "quote": "The Second and Fifth Corps, with the rest of the Third, had reached the ground by seven o'clock, A. M.",
+     "witness": {
+      "name": "Edward Everett, address at the consecration of the National Cemetery, 19 Nov 1863",
+      "role": "Orator; not present on 2 July",
+      "side": "other"
+     },
+     "written": {
+      "date": "1863-11-19",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "upper",
+     "group": "meade",
+     "exact": false,
+     "states": {
+      "times": [
+       "07:00"
+      ]
+     },
+     "note": "Everett's oration of 19 Nov 1863 repeats Meade's 'by 7 a. m.' for the Second and Fifth Corps and the rest of the Third, almost in Meade's words; counted with Meade, not a second witness. An upper bound, not an arrival hour.",
+     "id": "C-003-P4-c4"
     }
    ],
    "reason_not_chosen": {
     "kind": "within_range",
-    "text": "About 7 a.m. is the lower end of the default window; Sykes with the rest of the column puts the corps' arrival an hour later."
+    "text": "About 7 a.m. is the lower end of the default window; Sykes with the rest of the column puts the corps' arrival an hour later. Meade's 'by 7' is only an upper bound."
    }
   },
   {
@@ -632,14 +695,13 @@
    "origin": "research",
    "scenario_ids": [],
    "source_keys": [],
-   "label": "About noon: the Third Division (Pennsylvania Reserves) reaches the corps' position",
+   "label": "By noon: the Third Division (Pennsylvania Reserves) is at the corps' position (Crawford: 'by noon')",
    "kind": "time",
    "value": {
     "at": "1863-07-02T12:00",
-    "approx": true,
-    "tolerance_min": 30
+    "approx": false
    },
-   "approx": true,
+   "approx": false,
    "clock": "union",
    "tier": "documented",
    "stance": "selectable",
@@ -679,12 +741,12 @@
        "07-02"
       ]
      },
-     "note": "Crawford's Third Division (Pennsylvania Reserves): at daylight near McSherrystown after marching nearly all the previous night, ordered to Gettysburg, by noon at the position of the First and Second Divisions."
+     "note": "Crawford's Third Division (Pennsylvania Reserves): at daylight near McSherrystown after marching nearly all the previous night, ordered to Gettysburg, by noon at the position of the First and Second Divisions. 'By noon' is an upper bound (the division was there at or before noon), not an hour of arrival."
     }
    ],
    "reason_not_chosen": {
     "kind": "different_event",
-    "text": "The Third Division came from McSherrystown after a night march and joined the other two about noon; the question is the corps' first arrival."
+    "text": "The Third Division came from McSherrystown after a night march and was at the others' position by noon at the latest; the question is the corps' first arrival."
    }
   },
   {
@@ -780,18 +842,242 @@
      "C-003-P7-c2"
     ]
    }
+  },
+  {
+   "id": "C-003-P8",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 10:00: the Fifth Corps seen two miles out on the Baltimore Pike (Sanitary Commission journal, 1863)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T10:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "documented",
+   "support": [
+    {
+     "source": "USSC-GETTYSBURG-1863",
+     "source_class": "primary",
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer",
+     "text_offset": 32372,
+     "quote": "Thursday, July 2d, and second day of the battle. [...] The 5th corps arrived two miles from town, on the Baltimore Pike about ten A. M.",
+     "witness": {
+      "name": "Major Bush (Sanitary Commission), journal printed in J. H. Douglas's report to F. L. Olmsted",
+      "role": "Major Bush, with the Sanitary Commission's wagons at Gettysburg; the text does not call him an officer of the army",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "early_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "bush",
+     "exact": true,
+     "states": {
+      "times": [
+       "10:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The journal entry for 'Thursday, July 2d, and second day of the battle' in the Sanitary Commission's report of 1863: 'The 2d corps arrived by the Taneytown road, below Cemetery Hill at day break. The 5th corps arrived two miles from town, on the Baltimore Pike about ten A. M. One division of the 6th corps on the same Pike from Westminster, at two P. M.' The entry is Major Bush's own account given for the report; whether it was written day by day is not stated. He saw a body of the corps two miles out on the pike, not the corps' first troops on the right of the line, and he does not say which part he saw.",
+     "id": "C-003-P8-c1"
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "place_of_observation",
+    "text": "A Sanitary Commission visitor saw a body of the corps two miles out on the pike; the corps' own reports put its first division on the heights by about 7 and Sykes at about 8. He may have seen the tail."
+   }
+  },
+  {
+   "id": "C-003-P9",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 06:00: the Fifth Corps reaches the field, stationed near the Rock Creek bridge (New York volume 1902, Norton 1913)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T06:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "NY-GB-1902-v3",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer",
+     "text_offset": 120575,
+     "quote": "The Fifth corps, after marching nearly all night, reached the Gettysburg field about 6 a. m., July 2d",
+     "witness": {
+      "name": "New York Monuments Commission, Final Report (1902), text on the 140th New York in Weed's brigade",
+      "role": "State commission text by a participant of Weed's brigade ('as we understood')",
+      "side": "union"
+     },
+     "written": {
+      "date": "1902",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "ny1902",
+     "exact": false,
+     "states": {
+      "times": [
+       "06:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "'The Fifth corps, after marching nearly all night, reached the Gettysburg field about 6 a. m., July 2d, and was stationed on the west side of Rock Creek, near the bridge on the Baltimore Pike, on the extreme right of the Union line.' A later memory of 39 years, naming no source; Weed's brigade was in the Third Brigade of Ayres's division.",
+     "id": "C-003-P9-c1"
+    },
+    {
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer",
+     "text_offset": 639442,
+     "quote": "The Fifth corps, after marching nearly all night, reached the Gettysburg field about 6 a. m. July 2",
+     "witness": {
+      "name": "Oliver Willcox Norton, The Attack and Defense of Little Round Top (1913)",
+      "role": "Participant (44th New York, Vincent's brigade) printing an earlier account",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "about",
+     "group": "ny1902",
+     "exact": false,
+     "states": {
+      "times": [
+       "06:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Norton prints, in a footnote, the same sentence as the New York volume of 1902, with 'as we understood' after it: the two are one text, counted as one group.",
+     "id": "C-003-P9-c2"
+    }
+   ],
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "A later text of 1902, repeated in 1913, naming no source; the dispatch of 6.15 a.m. has the corps still expected at headquarters, and the corps' own reports of 1863 say about 7 and 8."
+   },
+   "inference": {
+    "step": "The sentence of the New York volume (1902), repeated by Norton (1913), says the Fifth Corps 'reached the Gettysburg field about 6 a. m., July 2d'; it is read as the corps' arrival on the right near the Rock Creek bridge. It is a later memory and names no source; it is counted as one group.",
+    "from": [
+     "C-003-P9-c1",
+     "C-003-P9-c2"
+    ]
+   },
+   "derived": true
+  },
+  {
+   "id": "C-003-P10",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "A little after sunrise: the Second and Fifth Corps reach the ground (county history of 1886)",
+   "kind": "period",
+   "value": {
+    "text": "a little after sunrise",
+    "date": "1863-07-02",
+    "part_of_day": "early_morning"
+   },
+   "approx": false,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "HISTORY-ADAMS-1886",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer",
+     "text_offset": 3829442,
+     "quote": "The Second and Fifth Corps and the remainder of the Third reached the grounds a little after sunrise",
+     "witness": {
+      "name": "History of Cumberland and Adams Counties, Pennsylvania (1886)",
+      "role": "County history by a non-participant",
+      "side": "other"
+     },
+     "written": {
+      "date": "1886",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "soon_after",
+     "group": "adams1886",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "a little after sunrise"
+      ]
+     },
+     "note": "The county history of 1886 has the Second and Fifth Corps and the rest of the Third reaching the ground 'a little after sunrise'. Sunrise was at 04:35 local mean time; the phrase is not a clock reading, and the sentence covers three corps without distinguishing them. No source named.",
+     "id": "C-003-P10-c1"
+    }
+   ],
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "unclear_expression",
+    "text": "A county history of 1886 covers three corps in one sentence and gives no clock; sunrise was at 04:35, so it is not a reading of 7 or 8 a.m. and cannot be tested."
+   },
+   "inference": {
+    "step": "The county history of 1886 puts the arrival of the Second and Fifth Corps and the rest of the Third 'a little after sunrise'; sunrise on 2 July was at 04:35 local mean time, so the phrase points to the early morning, with no clock reading.",
+    "from": [
+     "C-003-P10-c1"
+    ]
+   },
+   "derived": true
   }
  ],
  "weighing": {
-  "summary": "The plan lists 05:00 and 08:00 (head of column) and recommends 'head at 08:00 near Power's Hill'. The Official Records give five hours for the same morning: 5 a.m. (Slocum), 6.15 a.m. not yet up (Seth Williams, a dispatch of the time), about 7 (Chamberlain, Barnes; Meade: by 7), about 8 (Sykes; one battery) and noon (Crawford's division). The dispatch of the morning is the best class of writing and has the Fifth Corps not yet at the army's headquarters at 6.15; the corps' own commanders put the first division at about 7 and the corps commander at about 8. Slocum's 5 a.m. is one report written 51 days after, by a man on the right of the line, and runs against the dispatch; it is kept, not chosen. The arrival was spread over hours, which is why the default is the window between about 7 and about 8, drawn at 7.",
+  "summary": "The plan lists 05:00 and 08:00 (head of column) and recommends 'head at 08:00 near Power's Hill'. The Official Records give five hours for the same morning: 5 a.m. (Slocum), 6.15 a.m. not yet up (Seth Williams, a dispatch of the time), about 7 (Chamberlain, Barnes; Meade says only that the corps was on the ground by 7, an upper bound), about 8 (Sykes; one battery) and by noon (Crawford's division). The dispatch of the morning is the best class of writing and has the Fifth Corps not yet at the army's headquarters at 6.15; the corps' own commanders put the first division at about 7 and the corps commander at about 8. Slocum's 5 a.m. is one report written 51 days after, by a man on the right of the line; the dispatch shows only that the corps had not reported at army headquarters at 6.15, not that no troops stood on the far right, so Slocum's hour is not disproved and stays selectable. The library holds more hours: a Sanitary Commission journal of 1863 has the corps two miles out on the Baltimore Pike 'about ten A. M.' (a Sanitary Commission visitor on the road; which part of the column he saw is not stated); Powell (1896) has 'about 5 A.M.', as Slocum, and is counted with him; the New York volume of 1902 and Norton (1913) have 'about 6 a. m.' near the Rock Creek bridge, a later memory; the county history of 1886 has 'a little after sunrise' for three corps. Everett's oration repeats Meade's 'by seven'. The arrival was spread over hours, which is why the default is the window between about 7 and about 8, drawn at 7.",
   "who": "Seth Williams, Meade's assistant adjutant general, wrote from the field to Butterfield. Chamberlain commanded a regiment of the first division and wrote four days after; Barnes commanded that division; Sykes commanded the corps; Meade the army; Crawford the third division. Slocum commanded the Twelfth Corps and the right wing, where the Fifth was first placed, and A. S. Williams his first division; Rice was in the same brigade as Chamberlain. Gibbs was a battery commander; Bachelder, the 1913 volume and the New York volume were not present.",
   "when": "The dispatch is of 2 July at 6.15 a.m. (the sender's own time). Chamberlain 6 Jul and Gibbs 4 Jul are within a week; Sykes 31 Jul (29 days); Barnes 24 Aug, Slocum 23 Aug and A. S. Williams 22 Aug (51 to 53 days); Meade 1 Oct (91 days). The books are 10 to 50 years later.",
   "where": "The dispatch was written at the army's headquarters on Cemetery Hill; Slocum's right wing lay on Culp's Hill and east of the turnpike, where the Fifth was first placed ('on the right of the Twelfth Corps'), a different stretch of the line from the one Williams's dispatch watched. Chamberlain, Barnes and Sykes were with their own troops. Whether headquarters could have known of troops standing on the far right at 5 or 6 a.m. is not stated.",
   "how_knew": "Williams, Chamberlain, Barnes, Sykes, Crawford and Gibbs state their own corps' or unit's movements; Slocum and A. S. Williams state what they saw come up on their flank; Meade's 'by 7 a.m.' is his own report of the army's concentration, not a timed observation.",
   "clock": "All the witnesses are Union and no correction is applied. The plan's note of about 20 minutes between the armies' clocks concerns the two armies and plays no part here. 'About 7' and 'about 8' are read as plus or minus a quarter hour; Meade's 'by 7 a.m.' is an upper bound; the dispatch is a lower bound (not yet there at 6.15).",
-  "independence": "Chamberlain, Barnes and Rice belong to one division, and Barnes may have drawn on his brigades' reports, so the 'about 7' is two reports close to each other plus Meade's relayed 'by 7'. Slocum and A. S. Williams are one wing, and the second gives no hour. Sykes's 8 a.m. is echoed by the 1913 volume and the New York volume, which name no source and are counted with him; Gibbs is a separate report of a battery. The dispatch stands alone."
+  "independence": "Chamberlain, Barnes and Rice belong to one division, and Barnes may have drawn on his brigades' reports, so the 'about 7' is two reports close to each other plus Meade's relayed 'by 7'. Slocum and A. S. Williams are one wing, and the second gives no hour. Sykes's 8 a.m. is echoed by the 1913 volume and the New York volume, which name no source and are counted with him; Gibbs is a separate report of a battery. The dispatch stands alone. Everett's oration of 1863 copies Meade's 'by 7 a.m.' and is counted with him; Powell (1896) gives Slocum's hour and the same placing and is counted with him; the New York volume (1902) and Norton (1913) print one sentence and are one group; the Sanitary Commission journal is independent of the army's reports."
  },
- "source_panel_text": "The Fifth Corps came up over several hours on Jul 2: its first division at about 7 a.m. (Chamberlain, Barnes, Meade), Sykes at about 8, the Third Division at noon. A headquarters dispatch at 6.15 a.m. still had it 'momentarily expected', so Slocum's 5 a.m. was not chosen. The plan's 05:00 and 08:00 stay listed; six other values are listed.",
+ "source_panel_text": "The Fifth Corps came up over several hours on Jul 2: its first division at about 7 a.m. (Chamberlain, Barnes), Sykes at about 8, the Third Division by noon. A headquarters dispatch at 6.15 a.m. had the corps not yet reported there; that is why Slocum's 5 a.m. was not chosen. The plan's 05:00 and 08:00 stay listed with eight other values.",
  "holds": {
   "pdf_default": {
    "holds": "partly",
@@ -799,7 +1085,7 @@
   },
   "first_delegated": {
    "holds": "yes",
-   "note": "The window 07:00-08:00 holds. The research adds the headquarters dispatch of 6.15 a.m. (the Fifth not yet up), Barnes (about 7), A. S. Williams and Rice (consistent with an early arrival on the right) and Crawford's noon; class weighted, tier inferred (the upper bound reads Sykes's 'latter date' as July 2)."
+   "note": "The window 07:00-08:00 holds. The research adds the headquarters dispatch of 6.15 a.m. (the Fifth not yet reported there), Barnes (about 7), A. S. Williams and Rice (consistent with an early arrival on the right), Crawford's 'by noon', and the hours of a Sanitary Commission journal (about 10), Powell (about 5), the New York volume (about 6) and the county history (after sunrise); class weighted, tier inferred (the upper bound reads Sykes's 'latter date' as July 2)."
   }
  },
  "readers": [
@@ -837,7 +1123,7 @@
    "kind": "arrivals_row",
    "ref": "us-5c",
    "must_change": true,
-   "note": "gate printed_clock default 1863-07-02T08:00 (the plan's recommended default), earliest 05:00, latest 08:00; the row also prints 'lead regiments about 07:00 (CHAM)'. The default becomes the window 07:00-08:00 drawn at 07:00; the earliest 05:00 stays (Slocum, selectable, never lowered) and the latest 08:00 is unchanged. Report only; the integration step reconciles the gate spec and re-runs Q04, Q05, Q06."
+   "note": "gate printed_clock default 1863-07-02T08:00 (the plan's recommended default), earliest 05:00, latest 08:00; the row also prints 'lead regiments about 07:00 (CHAM)'. The default becomes the window 07:00-08:00 drawn at 07:00 (rule best_supported, not earliest_documented: the earliest documented hour is Slocum's 05:00); the earliest 05:00 stays (Slocum, selectable, never lowered) and the latest 08:00 is unchanged. Report only; the integration step reconciles the gate spec and re-runs Q04, Q05, Q06."
   },
   {
    "kind": "timeline_row",
@@ -855,7 +1141,7 @@
    "kind": "gate",
    "ref": "Q04",
    "must_change": true,
-   "note": "Report only, no gate changed: the unit row's default hour moves from 08:00 to 07:00 inside its window 05:00-08:00; the floor 05:00 must not be lowered (the plan's 05:00 is a documented selectable value) and must not rise without the owner's decision."
+   "note": "Report only, no gate changed: the unit row's default hour moves from 08:00 to 07:00 inside its window 05:00-08:00; the floor 05:00 must not be lowered (the plan's 05:00 is a documented selectable value, Slocum and Powell) and must not rise without the owner's decision."
   },
   {
    "kind": "test",
@@ -932,5 +1218,5 @@
    "at": "2026-11-24"
   }
  ],
- "what_would_change_it": "A report or diary of the Fifth Corps' first troops (Sweitzer's or Vincent's brigade, the 20th Maine's or 44th New York's own notes, the corps' signal or headquarters log) giving the hour they reached the position on the right would settle 5 a.m. against about 7. A page image of Barnes's report showing 'July 2' would add a third group for 7 a.m. The sources behind the plan's 05:00 and 08:00 would be weighed on their own."
+ "what_would_change_it": "A report or diary of the Fifth Corps' first troops (Sweitzer's or Vincent's brigade, the 20th Maine's or 44th New York's own notes, the corps' signal or headquarters log) giving the hour they reached the position on the right would settle 5 a.m. against about 7. A page image of Barnes's report showing 'July 2' would add a third group for 7 a.m. The sources behind the plan's 05:00 and 08:00 would be weighed on their own. A diary or log placing the Sanitary Commission journal's 'about ten' at the head or the tail of the corps would settle which part he saw."
 }
