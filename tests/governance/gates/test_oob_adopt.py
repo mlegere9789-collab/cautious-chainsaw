@@ -150,7 +150,7 @@ class GeneratedLayerData(unittest.TestCase):
             self.assertEqual(r['tier'], 'documented')
             lo, hi = (r['by_as_of'][s['as_of']]['low'], r['by_as_of'][s['as_of']]['high']) if s.get('as_of') and r['by_as_of'].get(s['as_of']) else (r['low'], r['high'])
             self.assertEqual((s['min'], s['max']), (lo, hi))
-            self.assertNotEqual(table[u['id']]['fields']['strength'], 'conflict', u['id'])
+            self.assertNotEqual(table[u['id']]['fields'].get('strength'), 'conflict', u['id'])
         self.assertGreater(n, 100)
 
 

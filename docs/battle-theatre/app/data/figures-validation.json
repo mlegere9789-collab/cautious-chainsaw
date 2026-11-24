@@ -1,16 +1,16 @@
 {
 "_doc": "The B.6.12 validator run in Python over every figure the shell draws. export_digest ties it to the shell figures (a changed unit, figure count, kit unit or manifest changes the digest and the test fails until this is re-run).",
-"export_digest": "9b3b110a58f48879869d0d8a",
+"export_digest": "aeaa11af526e5789c9c7a029",
 "seed": 1863,
 "totals": {
-"figures": 131406,
+"figures": 131366,
 "fail": 0,
-"flag": 2366,
+"flag": 2354,
 "units": 439,
 "flag_codes": {
 "DISPUTED_FLAGGED": 1070,
 "FLAG_BADGE_UNRESOLVED": 1051,
-"FLAG_KEPI_PRIVATE_PURCHASE": 245
+"FLAG_KEPI_PRIVATE_PURCHASE": 233
 }
 },
 "units": {
@@ -1928,13 +1928,13 @@
 "kit_presence_agrees": null
 },
 "cs-cav-hampton-1nc": {
-"figures": 290,
+"figures": 534,
 "kit_unit": "CS.CAV.1NC",
 "date": "1863-07-02",
 "fail": 0,
-"flag": 35,
+"flag": 56,
 "flags": {
-"FLAG_KEPI_PRIVATE_PURCHASE": 35
+"FLAG_KEPI_PRIVATE_PURCHASE": 56
 },
 "digest_match": true,
 "disputed": false,
@@ -1943,13 +1943,13 @@
 "kit_presence_agrees": null
 },
 "cs-cav-hampton-1sc": {
-"figures": 290,
+"figures": 100,
 "kit_unit": "CS.CAV.1SC",
 "date": "1863-07-02",
 "fail": 0,
-"flag": 32,
+"flag": 8,
 "flags": {
-"FLAG_KEPI_PRIVATE_PURCHASE": 32
+"FLAG_KEPI_PRIVATE_PURCHASE": 8
 },
 "digest_match": true,
 "disputed": false,
@@ -1958,13 +1958,13 @@
 "kit_presence_agrees": null
 },
 "cs-cav-hampton-2sc": {
-"figures": 290,
+"figures": 220,
 "kit_unit": "CS.CAV.2SC",
 "date": "1863-07-02",
 "fail": 0,
-"flag": 47,
+"flag": 38,
 "flags": {
-"FLAG_KEPI_PRIVATE_PURCHASE": 47
+"FLAG_KEPI_PRIVATE_PURCHASE": 38
 },
 "digest_match": true,
 "disputed": false,
@@ -5640,7 +5640,7 @@
 "kit_presence_agrees": null
 },
 "us-cav-1d-merritt-6us": {
-"figures": 380,
+"figures": 356,
 "kit_unit": "US.CAV.6US",
 "date": "1863-07-03",
 "fail": 0,

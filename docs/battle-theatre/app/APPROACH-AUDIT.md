@@ -14,7 +14,7 @@ The question (brief sibling-roads): 164 leaf units were open gaps at v5 because 
 | placed (a road and a place) | 362 | 418 | +56 |
 | at the arrival edge only | 21 | 21 | +0 |
 | open gap (leaf units, not drawn) | 164 | 108 | -56 |
-| figures drawn (one soldier per figure) | 112,869 | 131,126 | +18,257 |
+| figures drawn (one soldier per figure) | 112,829 | 131,086 | +18,257 |
 | approach records | 43 | 51 | +8 |
 | drawn units, approach tier inferred | 213 | 213 | +0 |
 | drawn units, approach tier plausible-procedural | 170 | 226 | +56 |
@@ -29,10 +29,10 @@ The question (brief sibling-roads): 164 leaf units were open gaps at v5 because 
 | basis of the approach | tier | units | share of the 726 | share of the units drawn | figures | share of the figures drawn |
 |---|---|---|---|---|---|---|
 | documented | documented | 0 | 0.0% | 0.0% | 0 | 0.0% |
-| a road printed for the unit itself or for a formation below the corps (a PDF ledger row or a re-read claim of the Official Records) | inferred | 213 | 29.3% | 48.5% | 66,938 | 51.0% |
+| a road printed for the unit itself or for a formation below the corps (a PDF ledger row or a re-read claim of the Official Records) | inferred | 213 | 29.3% | 48.5% | 66,898 | 51.0% |
 | a road printed only for the corps, inherited down the line of command | plausible-procedural | 170 | 23.4% | 38.7% | 45,931 | 35.0% |
 | a MODELLED road taken from the sibling formations of the corps (DEC-015) | plausible-procedural | 56 | 7.7% | 12.8% | 18,257 | 13.9% |
-| **all drawn units** | | 439 | 60.5% | 100.0% | 131,126 | 100.0% |
+| **all drawn units** | | 439 | 60.5% | 100.0% | 131,086 | 100.0% |
 
 By tier of the approach: documented 0 (0.0% of the 726), inferred 213 (29.3%), plausible-procedural 226 (31.1%; 170 of them inherit a corps-level road and 56 rest on a modelled road). At v5: inferred 213 (29.3%), plausible-procedural 170 (23.4%). Every drawn unit is plausible-procedural as a unit (its slot, formation and strength share are modelled); the tiers here are those of its road of approach. The position on each day is the troop-map position, documented for the day (DEC-010), for modelled units as for the others.
 
@@ -157,7 +157,7 @@ The rule used for a road of approach (DEC-009, DEC-012, extended by DEC-013 a an
 | placed | 242 | 362 | +120 |
 | at the arrival edge only | 21 | 21 | +0 |
 | open gap (leaf units) | 285 | 164 | -121 |
-| figures drawn | 82,700 | 112,869 | +30,169 |
+| figures drawn | 82,660 | 112,829 | +30,169 |
 | approach records | 32 | 43 | +11 |
 | drawn units, approach tier inferred | 152 | 213 | +61 |
 | drawn units, approach tier plausible-procedural | 111 | 170 | +59 |

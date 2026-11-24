@@ -3,12 +3,12 @@
  "counts": {
   "BLOCKED-INPUT": 51,
   "COVERED": 0,
-  "FAIL": 91,
+  "FAIL": 72,
   "N/A": 0,
   "NOT-RUN": 1,
-  "PASS": 63
+  "PASS": 94
  },
- "finished_utc": "2026-11-24T23:10:06Z",
+ "finished_utc": "2026-11-24T23:12:23Z",
  "gate": "Q14",
  "incomplete_reasons": [
   "52 item(s) NOT-RUN or BLOCKED-INPUT",
@@ -18,12 +18,12 @@
   "docs/battle-theatre/BIBLE/plan-clean.txt": "5515b8ce322c142bdadcfd1a97c2a68c066e27c971b226ef852aa54a2f9210e7",
   "docs/battle-theatre/GOVERNANCE/conflicts_structured.json": "8dda5d91e0021309e1261e62a7a020b2f5b5d6645745dec8663f1710620f70da",
   "docs/battle-theatre/GOVERNANCE/gate_results/thresholds.json": "7d7264ba373465255031d29c266d9b8fad5a506e654ffe856545aa3513fe1faf",
-  "docs/battle-theatre/app/data/battery-guns.json": "94a5c1d83a46496b767c1fa07827fd8a158ab4d841cf1a54c1a83184a762b260",
+  "docs/battle-theatre/app/data/battery-guns.json": "e99bad7ca0a6db1cd93a9076578b414c88479070db5a18f4c1ceb59f5e412167",
   "docs/battle-theatre/app/data/fx3d/weapons.json": "eeb839f2d8b41e502df4ddd41b67be9121b64eb2c69681a996be79455125caa7",
   "docs/battle-theatre/app/src/anim3d/ballistics.mjs": "bf68d1b15cbd85c03629528ae52064cb33b63fa717751174daacb9293c4a79d8",
   "docs/battle-theatre/app/src/anim3d/fire-plan.mjs": "d4933c3a1a37335657c05ba7e358471486121f9c184a85e89625b8db74e3a84e",
   "docs/battle-theatre/app/src/crowd/anim.mjs": "d43eb01b25676eb0d57ad4c109147902332d4c3bb6bc2908e9c80b8b1cd8242f",
-  "docs/battle-theatre/app/src/history/real.mjs": "9acbc9abf4fbbac0cb02d5ebc8c038ac58988b8851f7e765dbf1a639ed4f698a",
+  "docs/battle-theatre/app/src/history/real.mjs": "3a57b442be4f0bd9b74559c6054438817cbef75391a07987fa317381365be023",
   "docs/battle-theatre/app/src/world-from-units.mjs": "b9c1d5cc691ef5266e9ce2edaf5707f6f0616bad81f6ef92ddb3e889b21fe5b9",
   "docs/battle-theatre/drill/drill_artillery.json": "b0f017b003b187db60935ff9857fbf0b132439e3eed0844fa08161903cc93cfa",
   "docs/battle-theatre/drill/drill_infantry.json": "c5b5d5e689afbddd1ba1dca26836a06ca267f5d4bec51507edf8cb6975820f7b",
@@ -56,10 +56,10 @@
    "sha256": "7d7264ba373465255031d29c266d9b8fad5a506e654ffe856545aa3513fe1faf"
   },
   {
-   "bytes": 16499,
+   "bytes": 45806,
    "path": "docs/battle-theatre/app/data/battery-guns.json",
    "role": "data",
-   "sha256": "94a5c1d83a46496b767c1fa07827fd8a158ab4d841cf1a54c1a83184a762b260"
+   "sha256": "e99bad7ca0a6db1cd93a9076578b414c88479070db5a18f4c1ceb59f5e412167"
   },
   {
    "bytes": 29647,
@@ -86,10 +86,10 @@
    "sha256": "d43eb01b25676eb0d57ad4c109147902332d4c3bb6bc2908e9c80b8b1cd8242f"
   },
   {
-   "bytes": 78229,
+   "bytes": 79475,
    "path": "docs/battle-theatre/app/src/history/real.mjs",
    "role": "code",
-   "sha256": "9acbc9abf4fbbac0cb02d5ebc8c038ac58988b8851f7e765dbf1a639ed4f698a"
+   "sha256": "3a57b442be4f0bd9b74559c6054438817cbef75391a07987fa317381365be023"
   },
   {
    "bytes": 7661,
@@ -3657,11 +3657,13 @@
   {
    "check": "Q14.2",
    "evidence": {
-    "batteries": 5,
+    "batteries": 7,
     "guns_drawn_in": [
      "us-2c-art-1nyb",
+     "us-3c-art-1njb",
      "us-3c-art-4ny",
      "us-5c-art-5usd",
+     "us-12c-art-1nym",
      "us-art-reserve-huntington-wvc",
      "us-art-reserve-fitzhugh-1nj"
     ],
@@ -3671,7 +3673,7 @@
    },
    "id": "Q14/Q14.2/10pdr_parrott/gap",
    "pass": false,
-   "reason": "the product draws 10pdr_parrott (5 batteries) and no per-elevation table of it is documented (W.1 gap); the gap is not covered: no register entry names this gap",
+   "reason": "the product draws 10pdr_parrott (7 batteries) and no per-elevation table of it is documented (W.1 gap); the gap is not covered: no register entry names this gap",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -3900,6 +3902,49 @@
    ],
    "subjects": [
     "20pdr_parrott"
+   ]
+  },
+  {
+   "check": "Q14.2",
+   "evidence": {
+    "batteries": 1,
+    "guns_drawn_in": [
+     "cs-1c-res-art-alexander-madisonla"
+    ],
+    "no_table_in": "drill/ordnance_tables.json negative_findings (the manuals hold no table for this piece)",
+    "product_marking_checked": false,
+    "register": []
+   },
+   "id": "Q14/Q14.2/24pdr_howitzer/gap",
+   "pass": false,
+   "reason": "the product draws 24pdr_howitzer (1 batteries) and no per-elevation table of it is documented (W.1 gap); the gap is not covered: no register entry names this gap",
+   "renderer_class": "mixed",
+   "result": "FAIL",
+   "scenario": "default",
+   "sub_requirements": [
+    "R03.0000",
+    "R04.0000",
+    "R13.G-01",
+    "R13.G-02",
+    "R13.G-03",
+    "R13.G-04",
+    "R13.G-05",
+    "R13.G-06",
+    "R13.G-07",
+    "R13.G-08",
+    "R13.G-09",
+    "R13.G-10",
+    "R13.G-11",
+    "R13.G-12",
+    "R13.G-13",
+    "R13.G-14",
+    "R13.G-15",
+    "R13.G-16",
+    "R13.G-17",
+    "R13.G-18"
+   ],
+   "subjects": [
+    "24pdr_howitzer"
    ]
   },
   {
@@ -4958,7 +5003,7 @@
   {
    "check": "Q14.2",
    "evidence": {
-    "plans": 35,
+    "plans": 112,
     "scenarios": [
      "default",
      "sample-1",
@@ -5075,7 +5120,7 @@
   {
    "check": "Q14.3",
    "evidence": {
-    "plans": 35
+    "plans": 112
    },
    "id": "Q14/Q14.3/events/default",
    "pass": false,
@@ -5120,11 +5165,11 @@
       "unit": "us-cav-2d-mcintosh-3pa"
      }
     ],
-    "plans": 5
+    "plans": 16
    },
    "id": "Q14/Q14.4/plans-scan/sample-1",
    "pass": false,
-   "reason": "1 of 5 plans exceed the ceiling in scenario sample-1",
+   "reason": "1 of 16 plans exceed the ceiling in scenario sample-1",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "sample-1",
@@ -5165,11 +5210,11 @@
       "unit": "us-cav-2d-mcintosh-3pa"
      }
     ],
-    "plans": 5
+    "plans": 16
    },
    "id": "Q14/Q14.4/plans-scan/sample-2",
    "pass": false,
-   "reason": "1 of 5 plans exceed the ceiling in scenario sample-2",
+   "reason": "1 of 16 plans exceed the ceiling in scenario sample-2",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "sample-2",
@@ -5210,11 +5255,11 @@
       "unit": "us-cav-2d-mcintosh-3pa"
      }
     ],
-    "plans": 5
+    "plans": 16
    },
    "id": "Q14/Q14.4/plans-scan/sample-3",
    "pass": false,
-   "reason": "1 of 5 plans exceed the ceiling in scenario sample-3",
+   "reason": "1 of 16 plans exceed the ceiling in scenario sample-3",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "sample-3",
@@ -5255,11 +5300,11 @@
       "unit": "us-cav-2d-mcintosh-3pa"
      }
     ],
-    "plans": 5
+    "plans": 16
    },
    "id": "Q14/Q14.4/plans-scan/sample-4",
    "pass": false,
-   "reason": "1 of 5 plans exceed the ceiling in scenario sample-4",
+   "reason": "1 of 16 plans exceed the ceiling in scenario sample-4",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "sample-4",
@@ -5300,11 +5345,11 @@
       "unit": "us-cav-2d-mcintosh-3pa"
      }
     ],
-    "plans": 5
+    "plans": 16
    },
    "id": "Q14/Q14.4/plans-scan/sample-5",
    "pass": false,
-   "reason": "1 of 5 plans exceed the ceiling in scenario sample-5",
+   "reason": "1 of 16 plans exceed the ceiling in scenario sample-5",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "sample-5",
@@ -5345,11 +5390,11 @@
       "unit": "us-cav-2d-mcintosh-3pa"
      }
     ],
-    "plans": 5
+    "plans": 16
    },
    "id": "Q14/Q14.4/plans-scan/sample-6",
    "pass": false,
-   "reason": "1 of 5 plans exceed the ceiling in scenario sample-6",
+   "reason": "1 of 16 plans exceed the ceiling in scenario sample-6",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "sample-6",
@@ -5413,8 +5458,8 @@
     "documented_maximum": true,
     "max_in_60s": {
      "count": 3,
-     "figure": 1,
-     "t_s": 2783310.461783
+     "figure": 0,
+     "t_s": 3030129.892055
     },
     "plan": {
      "activity": "serve_guns",
@@ -5423,17 +5468,17 @@
      "end_s": null,
      "floor_s": 18,
      "mode": "by_piece",
-     "n": 33,
-     "shots": 784105,
+     "n": 1,
+     "shots": 28990,
      "start_s": 2781000,
      "unit": "us-12c-art-1nym",
      "weapon": "cannon",
      "window_s": 1020600
     }
    },
-   "id": "Q14/Q14.4/us-12c-art-1nym:serve_guns/default",
+   "id": "Q14/Q14.4/us-12c-art-1nym#gun94:serve_guns/default",
    "pass": true,
-   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 3, 784105 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
+   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 3, 28990 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
    "renderer_class": "mixed",
    "result": "PASS",
    "scenario": "default",
@@ -5496,9 +5541,9 @@
     "ceiling_per_60s": 3,
     "documented_maximum": true,
     "max_in_60s": {
-     "count": 3,
+     "count": 2,
      "figure": 0,
-     "t_s": 2781052.285422
+     "t_s": 2781011.902476
     },
     "plan": {
      "activity": "serve_guns",
@@ -5507,17 +5552,437 @@
      "end_s": null,
      "floor_s": 18,
      "mode": "by_piece",
-     "n": 33,
-     "shots": 790293,
+     "n": 1,
+     "shots": 27011,
+     "start_s": 2781000,
+     "unit": "us-12c-art-1nym",
+     "weapon": "cannon",
+     "window_s": 1020600
+    }
+   },
+   "id": "Q14/Q14.4/us-12c-art-1nym#gun95:serve_guns/default",
+   "pass": true,
+   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 2, 27011 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
+   "renderer_class": "mixed",
+   "result": "PASS",
+   "scenario": "default",
+   "sub_requirements": [
+    "R03.0000",
+    "R04.0000",
+    "R13.G-01",
+    "R13.G-02",
+    "R13.G-03",
+    "R13.G-04",
+    "R13.G-05",
+    "R13.G-06",
+    "R13.G-07",
+    "R13.G-08",
+    "R13.G-09",
+    "R13.G-10",
+    "R13.G-11",
+    "R13.G-12",
+    "R13.G-13",
+    "R13.G-14",
+    "R13.G-15",
+    "R13.G-16",
+    "R13.G-17",
+    "R13.G-18"
+   ],
+   "subjects": [
+    "us-12c-art-1nym"
+   ]
+  },
+  {
+   "check": "Q14.4",
+   "evidence": {
+    "ceiling_evidence": {
+     "figures": [
+      1,
+      2,
+      3
+     ],
+     "items": [
+      {
+       "item": "ART-FA-100",
+       "manual": "FIELDART-1863",
+       "phrases": [
+        "found"
+       ],
+       "text": "with sufficient deliberation for pointing, two solid shot or three canisters per minute"
+      },
+      {
+       "item": "ART-GB-21",
+       "manual": "GIBBON-1860",
+       "phrases": [
+        "found",
+        "found"
+       ],
+       "text": "The mean rate is about one shot per minute, but when close pressed, | two or three shots per minute can be fired."
+      }
+     ],
+     "reading": "documented maximum: the highest rate a manual prints (Gibbon: two or three shots a minute when pressed; the Instruction: two solid shot or three canisters a minute)"
+    },
+    "ceiling_per_60s": 3,
+    "documented_maximum": true,
+    "max_in_60s": {
+     "count": 2,
+     "figure": 0,
+     "t_s": 2781011.684366
+    },
+    "plan": {
+     "activity": "serve_guns",
+     "cycle_max": 60,
+     "cycle_min": 30,
+     "end_s": null,
+     "floor_s": 18,
+     "mode": "by_piece",
+     "n": 1,
+     "shots": 16985,
+     "start_s": 2781000,
+     "unit": "us-12c-art-1nym",
+     "weapon": "cannon",
+     "window_s": 1020600
+    }
+   },
+   "id": "Q14/Q14.4/us-12c-art-1nym#gun96:serve_guns/default",
+   "pass": true,
+   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 2, 16985 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
+   "renderer_class": "mixed",
+   "result": "PASS",
+   "scenario": "default",
+   "sub_requirements": [
+    "R03.0000",
+    "R04.0000",
+    "R13.G-01",
+    "R13.G-02",
+    "R13.G-03",
+    "R13.G-04",
+    "R13.G-05",
+    "R13.G-06",
+    "R13.G-07",
+    "R13.G-08",
+    "R13.G-09",
+    "R13.G-10",
+    "R13.G-11",
+    "R13.G-12",
+    "R13.G-13",
+    "R13.G-14",
+    "R13.G-15",
+    "R13.G-16",
+    "R13.G-17",
+    "R13.G-18"
+   ],
+   "subjects": [
+    "us-12c-art-1nym"
+   ]
+  },
+  {
+   "check": "Q14.4",
+   "evidence": {
+    "ceiling_evidence": {
+     "figures": [
+      1,
+      2,
+      3
+     ],
+     "items": [
+      {
+       "item": "ART-FA-100",
+       "manual": "FIELDART-1863",
+       "phrases": [
+        "found"
+       ],
+       "text": "with sufficient deliberation for pointing, two solid shot or three canisters per minute"
+      },
+      {
+       "item": "ART-GB-21",
+       "manual": "GIBBON-1860",
+       "phrases": [
+        "found",
+        "found"
+       ],
+       "text": "The mean rate is about one shot per minute, but when close pressed, | two or three shots per minute can be fired."
+      }
+     ],
+     "reading": "documented maximum: the highest rate a manual prints (Gibbon: two or three shots a minute when pressed; the Instruction: two solid shot or three canisters a minute)"
+    },
+    "ceiling_per_60s": 3,
+    "documented_maximum": true,
+    "max_in_60s": {
+     "count": 2,
+     "figure": 0,
+     "t_s": 2781078.930359
+    },
+    "plan": {
+     "activity": "serve_guns",
+     "cycle_max": 60,
+     "cycle_min": 30,
+     "end_s": null,
+     "floor_s": 18,
+     "mode": "by_piece",
+     "n": 1,
+     "shots": 18145,
+     "start_s": 2781000,
+     "unit": "us-12c-art-1nym",
+     "weapon": "cannon",
+     "window_s": 1020600
+    }
+   },
+   "id": "Q14/Q14.4/us-12c-art-1nym#gun97:serve_guns/default",
+   "pass": true,
+   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 2, 18145 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
+   "renderer_class": "mixed",
+   "result": "PASS",
+   "scenario": "default",
+   "sub_requirements": [
+    "R03.0000",
+    "R04.0000",
+    "R13.G-01",
+    "R13.G-02",
+    "R13.G-03",
+    "R13.G-04",
+    "R13.G-05",
+    "R13.G-06",
+    "R13.G-07",
+    "R13.G-08",
+    "R13.G-09",
+    "R13.G-10",
+    "R13.G-11",
+    "R13.G-12",
+    "R13.G-13",
+    "R13.G-14",
+    "R13.G-15",
+    "R13.G-16",
+    "R13.G-17",
+    "R13.G-18"
+   ],
+   "subjects": [
+    "us-12c-art-1nym"
+   ]
+  },
+  {
+   "check": "Q14.4",
+   "evidence": {
+    "ceiling_evidence": {
+     "figures": [
+      1,
+      2,
+      3
+     ],
+     "items": [
+      {
+       "item": "ART-FA-100",
+       "manual": "FIELDART-1863",
+       "phrases": [
+        "found"
+       ],
+       "text": "with sufficient deliberation for pointing, two solid shot or three canisters per minute"
+      },
+      {
+       "item": "ART-GB-21",
+       "manual": "GIBBON-1860",
+       "phrases": [
+        "found",
+        "found"
+       ],
+       "text": "The mean rate is about one shot per minute, but when close pressed, | two or three shots per minute can be fired."
+      }
+     ],
+     "reading": "documented maximum: the highest rate a manual prints (Gibbon: two or three shots a minute when pressed; the Instruction: two solid shot or three canisters a minute)"
+    },
+    "ceiling_per_60s": 3,
+    "documented_maximum": true,
+    "max_in_60s": {
+     "count": 2,
+     "figure": 0,
+     "t_s": 2781017.383212
+    },
+    "plan": {
+     "activity": "serve_guns",
+     "cycle_max": 60,
+     "cycle_min": 30,
+     "end_s": null,
+     "floor_s": 18,
+     "mode": "by_piece",
+     "n": 1,
+     "shots": 19071,
      "start_s": 2781000,
      "unit": "us-12c-art-4usf",
      "weapon": "cannon",
      "window_s": 1020600
     }
    },
-   "id": "Q14/Q14.4/us-12c-art-4usf:serve_guns/default",
+   "id": "Q14/Q14.4/us-12c-art-4usf#gun100:serve_guns/default",
    "pass": true,
-   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 3, 790293 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
+   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 2, 19071 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
+   "renderer_class": "mixed",
+   "result": "PASS",
+   "scenario": "default",
+   "sub_requirements": [
+    "R03.0000",
+    "R04.0000",
+    "R13.G-01",
+    "R13.G-02",
+    "R13.G-03",
+    "R13.G-04",
+    "R13.G-05",
+    "R13.G-06",
+    "R13.G-07",
+    "R13.G-08",
+    "R13.G-09",
+    "R13.G-10",
+    "R13.G-11",
+    "R13.G-12",
+    "R13.G-13",
+    "R13.G-14",
+    "R13.G-15",
+    "R13.G-16",
+    "R13.G-17",
+    "R13.G-18"
+   ],
+   "subjects": [
+    "us-12c-art-4usf"
+   ]
+  },
+  {
+   "check": "Q14.4",
+   "evidence": {
+    "ceiling_evidence": {
+     "figures": [
+      1,
+      2,
+      3
+     ],
+     "items": [
+      {
+       "item": "ART-FA-100",
+       "manual": "FIELDART-1863",
+       "phrases": [
+        "found"
+       ],
+       "text": "with sufficient deliberation for pointing, two solid shot or three canisters per minute"
+      },
+      {
+       "item": "ART-GB-21",
+       "manual": "GIBBON-1860",
+       "phrases": [
+        "found",
+        "found"
+       ],
+       "text": "The mean rate is about one shot per minute, but when close pressed, | two or three shots per minute can be fired."
+      }
+     ],
+     "reading": "documented maximum: the highest rate a manual prints (Gibbon: two or three shots a minute when pressed; the Instruction: two solid shot or three canisters a minute)"
+    },
+    "ceiling_per_60s": 3,
+    "documented_maximum": true,
+    "max_in_60s": {
+     "count": 2,
+     "figure": 0,
+     "t_s": 2781049.262568
+    },
+    "plan": {
+     "activity": "serve_guns",
+     "cycle_max": 60,
+     "cycle_min": 30,
+     "end_s": null,
+     "floor_s": 18,
+     "mode": "by_piece",
+     "n": 1,
+     "shots": 20216,
+     "start_s": 2781000,
+     "unit": "us-12c-art-4usf",
+     "weapon": "cannon",
+     "window_s": 1020600
+    }
+   },
+   "id": "Q14/Q14.4/us-12c-art-4usf#gun101:serve_guns/default",
+   "pass": true,
+   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 2, 20216 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
+   "renderer_class": "mixed",
+   "result": "PASS",
+   "scenario": "default",
+   "sub_requirements": [
+    "R03.0000",
+    "R04.0000",
+    "R13.G-01",
+    "R13.G-02",
+    "R13.G-03",
+    "R13.G-04",
+    "R13.G-05",
+    "R13.G-06",
+    "R13.G-07",
+    "R13.G-08",
+    "R13.G-09",
+    "R13.G-10",
+    "R13.G-11",
+    "R13.G-12",
+    "R13.G-13",
+    "R13.G-14",
+    "R13.G-15",
+    "R13.G-16",
+    "R13.G-17",
+    "R13.G-18"
+   ],
+   "subjects": [
+    "us-12c-art-4usf"
+   ]
+  },
+  {
+   "check": "Q14.4",
+   "evidence": {
+    "ceiling_evidence": {
+     "figures": [
+      1,
+      2,
+      3
+     ],
+     "items": [
+      {
+       "item": "ART-FA-100",
+       "manual": "FIELDART-1863",
+       "phrases": [
+        "found"
+       ],
+       "text": "with sufficient deliberation for pointing, two solid shot or three canisters per minute"
+      },
+      {
+       "item": "ART-GB-21",
+       "manual": "GIBBON-1860",
+       "phrases": [
+        "found",
+        "found"
+       ],
+       "text": "The mean rate is about one shot per minute, but when close pressed, | two or three shots per minute can be fired."
+      }
+     ],
+     "reading": "documented maximum: the highest rate a manual prints (Gibbon: two or three shots a minute when pressed; the Instruction: two solid shot or three canisters a minute)"
+    },
+    "ceiling_per_60s": 3,
+    "documented_maximum": true,
+    "max_in_60s": {
+     "count": 2,
+     "figure": 0,
+     "t_s": 2781027.633124
+    },
+    "plan": {
+     "activity": "serve_guns",
+     "cycle_max": 60,
+     "cycle_min": 30,
+     "end_s": null,
+     "floor_s": 18,
+     "mode": "by_piece",
+     "n": 1,
+     "shots": 19754,
+     "start_s": 2781000,
+     "unit": "us-12c-art-4usf",
+     "weapon": "cannon",
+     "window_s": 1020600
+    }
+   },
+   "id": "Q14/Q14.4/us-12c-art-4usf#gun102:serve_guns/default",
+   "pass": true,
+   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 2, 19754 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
    "renderer_class": "mixed",
    "result": "PASS",
    "scenario": "default",
@@ -5581,8 +6046,8 @@
     "documented_maximum": true,
     "max_in_60s": {
      "count": 3,
-     "figure": 2,
-     "t_s": 2781289.128134
+     "figure": 0,
+     "t_s": 2781604.221689
     },
     "plan": {
      "activity": "serve_guns",
@@ -5591,17 +6056,521 @@
      "end_s": null,
      "floor_s": 18,
      "mode": "by_piece",
-     "n": 33,
-     "shots": 814275,
+     "n": 1,
+     "shots": 29903,
+     "start_s": 2781000,
+     "unit": "us-12c-art-4usf",
+     "weapon": "cannon",
+     "window_s": 1020600
+    }
+   },
+   "id": "Q14/Q14.4/us-12c-art-4usf#gun103:serve_guns/default",
+   "pass": true,
+   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 3, 29903 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
+   "renderer_class": "mixed",
+   "result": "PASS",
+   "scenario": "default",
+   "sub_requirements": [
+    "R03.0000",
+    "R04.0000",
+    "R13.G-01",
+    "R13.G-02",
+    "R13.G-03",
+    "R13.G-04",
+    "R13.G-05",
+    "R13.G-06",
+    "R13.G-07",
+    "R13.G-08",
+    "R13.G-09",
+    "R13.G-10",
+    "R13.G-11",
+    "R13.G-12",
+    "R13.G-13",
+    "R13.G-14",
+    "R13.G-15",
+    "R13.G-16",
+    "R13.G-17",
+    "R13.G-18"
+   ],
+   "subjects": [
+    "us-12c-art-4usf"
+   ]
+  },
+  {
+   "check": "Q14.4",
+   "evidence": {
+    "ceiling_evidence": {
+     "figures": [
+      1,
+      2,
+      3
+     ],
+     "items": [
+      {
+       "item": "ART-FA-100",
+       "manual": "FIELDART-1863",
+       "phrases": [
+        "found"
+       ],
+       "text": "with sufficient deliberation for pointing, two solid shot or three canisters per minute"
+      },
+      {
+       "item": "ART-GB-21",
+       "manual": "GIBBON-1860",
+       "phrases": [
+        "found",
+        "found"
+       ],
+       "text": "The mean rate is about one shot per minute, but when close pressed, | two or three shots per minute can be fired."
+      }
+     ],
+     "reading": "documented maximum: the highest rate a manual prints (Gibbon: two or three shots a minute when pressed; the Instruction: two solid shot or three canisters a minute)"
+    },
+    "ceiling_per_60s": 3,
+    "documented_maximum": true,
+    "max_in_60s": {
+     "count": 3,
+     "figure": 0,
+     "t_s": 2782348.438052
+    },
+    "plan": {
+     "activity": "serve_guns",
+     "cycle_max": 60,
+     "cycle_min": 30,
+     "end_s": null,
+     "floor_s": 18,
+     "mode": "by_piece",
+     "n": 1,
+     "shots": 29494,
+     "start_s": 2781000,
+     "unit": "us-12c-art-4usf",
+     "weapon": "cannon",
+     "window_s": 1020600
+    }
+   },
+   "id": "Q14/Q14.4/us-12c-art-4usf#gun98:serve_guns/default",
+   "pass": true,
+   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 3, 29494 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
+   "renderer_class": "mixed",
+   "result": "PASS",
+   "scenario": "default",
+   "sub_requirements": [
+    "R03.0000",
+    "R04.0000",
+    "R13.G-01",
+    "R13.G-02",
+    "R13.G-03",
+    "R13.G-04",
+    "R13.G-05",
+    "R13.G-06",
+    "R13.G-07",
+    "R13.G-08",
+    "R13.G-09",
+    "R13.G-10",
+    "R13.G-11",
+    "R13.G-12",
+    "R13.G-13",
+    "R13.G-14",
+    "R13.G-15",
+    "R13.G-16",
+    "R13.G-17",
+    "R13.G-18"
+   ],
+   "subjects": [
+    "us-12c-art-4usf"
+   ]
+  },
+  {
+   "check": "Q14.4",
+   "evidence": {
+    "ceiling_evidence": {
+     "figures": [
+      1,
+      2,
+      3
+     ],
+     "items": [
+      {
+       "item": "ART-FA-100",
+       "manual": "FIELDART-1863",
+       "phrases": [
+        "found"
+       ],
+       "text": "with sufficient deliberation for pointing, two solid shot or three canisters per minute"
+      },
+      {
+       "item": "ART-GB-21",
+       "manual": "GIBBON-1860",
+       "phrases": [
+        "found",
+        "found"
+       ],
+       "text": "The mean rate is about one shot per minute, but when close pressed, | two or three shots per minute can be fired."
+      }
+     ],
+     "reading": "documented maximum: the highest rate a manual prints (Gibbon: two or three shots a minute when pressed; the Instruction: two solid shot or three canisters a minute)"
+    },
+    "ceiling_per_60s": 3,
+    "documented_maximum": true,
+    "max_in_60s": {
+     "count": 3,
+     "figure": 0,
+     "t_s": 2783914.218845
+    },
+    "plan": {
+     "activity": "serve_guns",
+     "cycle_max": 60,
+     "cycle_min": 30,
+     "end_s": null,
+     "floor_s": 18,
+     "mode": "by_piece",
+     "n": 1,
+     "shots": 29289,
+     "start_s": 2781000,
+     "unit": "us-12c-art-4usf",
+     "weapon": "cannon",
+     "window_s": 1020600
+    }
+   },
+   "id": "Q14/Q14.4/us-12c-art-4usf#gun99:serve_guns/default",
+   "pass": true,
+   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 3, 29289 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
+   "renderer_class": "mixed",
+   "result": "PASS",
+   "scenario": "default",
+   "sub_requirements": [
+    "R03.0000",
+    "R04.0000",
+    "R13.G-01",
+    "R13.G-02",
+    "R13.G-03",
+    "R13.G-04",
+    "R13.G-05",
+    "R13.G-06",
+    "R13.G-07",
+    "R13.G-08",
+    "R13.G-09",
+    "R13.G-10",
+    "R13.G-11",
+    "R13.G-12",
+    "R13.G-13",
+    "R13.G-14",
+    "R13.G-15",
+    "R13.G-16",
+    "R13.G-17",
+    "R13.G-18"
+   ],
+   "subjects": [
+    "us-12c-art-4usf"
+   ]
+  },
+  {
+   "check": "Q14.4",
+   "evidence": {
+    "ceiling_evidence": {
+     "figures": [
+      1,
+      2,
+      3
+     ],
+     "items": [
+      {
+       "item": "ART-FA-100",
+       "manual": "FIELDART-1863",
+       "phrases": [
+        "found"
+       ],
+       "text": "with sufficient deliberation for pointing, two solid shot or three canisters per minute"
+      },
+      {
+       "item": "ART-GB-21",
+       "manual": "GIBBON-1860",
+       "phrases": [
+        "found",
+        "found"
+       ],
+       "text": "The mean rate is about one shot per minute, but when close pressed, | two or three shots per minute can be fired."
+      }
+     ],
+     "reading": "documented maximum: the highest rate a manual prints (Gibbon: two or three shots a minute when pressed; the Instruction: two solid shot or three canisters a minute)"
+    },
+    "ceiling_per_60s": 3,
+    "documented_maximum": true,
+    "max_in_60s": {
+     "count": 2,
+     "figure": 0,
+     "t_s": 2781038.785954
+    },
+    "plan": {
+     "activity": "serve_guns",
+     "cycle_max": 60,
+     "cycle_min": 30,
+     "end_s": null,
+     "floor_s": 18,
+     "mode": "by_piece",
+     "n": 1,
+     "shots": 21974,
      "start_s": 2781000,
      "unit": "us-12c-art-5usk",
      "weapon": "cannon",
      "window_s": 1020600
     }
    },
-   "id": "Q14/Q14.4/us-12c-art-5usk:serve_guns/default",
+   "id": "Q14/Q14.4/us-12c-art-5usk#gun104:serve_guns/default",
    "pass": true,
-   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 3, 814275 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
+   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 2, 21974 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
+   "renderer_class": "mixed",
+   "result": "PASS",
+   "scenario": "default",
+   "sub_requirements": [
+    "R03.0000",
+    "R04.0000",
+    "R13.G-01",
+    "R13.G-02",
+    "R13.G-03",
+    "R13.G-04",
+    "R13.G-05",
+    "R13.G-06",
+    "R13.G-07",
+    "R13.G-08",
+    "R13.G-09",
+    "R13.G-10",
+    "R13.G-11",
+    "R13.G-12",
+    "R13.G-13",
+    "R13.G-14",
+    "R13.G-15",
+    "R13.G-16",
+    "R13.G-17",
+    "R13.G-18"
+   ],
+   "subjects": [
+    "us-12c-art-5usk"
+   ]
+  },
+  {
+   "check": "Q14.4",
+   "evidence": {
+    "ceiling_evidence": {
+     "figures": [
+      1,
+      2,
+      3
+     ],
+     "items": [
+      {
+       "item": "ART-FA-100",
+       "manual": "FIELDART-1863",
+       "phrases": [
+        "found"
+       ],
+       "text": "with sufficient deliberation for pointing, two solid shot or three canisters per minute"
+      },
+      {
+       "item": "ART-GB-21",
+       "manual": "GIBBON-1860",
+       "phrases": [
+        "found",
+        "found"
+       ],
+       "text": "The mean rate is about one shot per minute, but when close pressed, | two or three shots per minute can be fired."
+      }
+     ],
+     "reading": "documented maximum: the highest rate a manual prints (Gibbon: two or three shots a minute when pressed; the Instruction: two solid shot or three canisters a minute)"
+    },
+    "ceiling_per_60s": 3,
+    "documented_maximum": true,
+    "max_in_60s": {
+     "count": 2,
+     "figure": 0,
+     "t_s": 2781004.394102
+    },
+    "plan": {
+     "activity": "serve_guns",
+     "cycle_max": 60,
+     "cycle_min": 30,
+     "end_s": null,
+     "floor_s": 18,
+     "mode": "by_piece",
+     "n": 1,
+     "shots": 24340,
+     "start_s": 2781000,
+     "unit": "us-12c-art-5usk",
+     "weapon": "cannon",
+     "window_s": 1020600
+    }
+   },
+   "id": "Q14/Q14.4/us-12c-art-5usk#gun105:serve_guns/default",
+   "pass": true,
+   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 2, 24340 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
+   "renderer_class": "mixed",
+   "result": "PASS",
+   "scenario": "default",
+   "sub_requirements": [
+    "R03.0000",
+    "R04.0000",
+    "R13.G-01",
+    "R13.G-02",
+    "R13.G-03",
+    "R13.G-04",
+    "R13.G-05",
+    "R13.G-06",
+    "R13.G-07",
+    "R13.G-08",
+    "R13.G-09",
+    "R13.G-10",
+    "R13.G-11",
+    "R13.G-12",
+    "R13.G-13",
+    "R13.G-14",
+    "R13.G-15",
+    "R13.G-16",
+    "R13.G-17",
+    "R13.G-18"
+   ],
+   "subjects": [
+    "us-12c-art-5usk"
+   ]
+  },
+  {
+   "check": "Q14.4",
+   "evidence": {
+    "ceiling_evidence": {
+     "figures": [
+      1,
+      2,
+      3
+     ],
+     "items": [
+      {
+       "item": "ART-FA-100",
+       "manual": "FIELDART-1863",
+       "phrases": [
+        "found"
+       ],
+       "text": "with sufficient deliberation for pointing, two solid shot or three canisters per minute"
+      },
+      {
+       "item": "ART-GB-21",
+       "manual": "GIBBON-1860",
+       "phrases": [
+        "found",
+        "found"
+       ],
+       "text": "The mean rate is about one shot per minute, but when close pressed, | two or three shots per minute can be fired."
+      }
+     ],
+     "reading": "documented maximum: the highest rate a manual prints (Gibbon: two or three shots a minute when pressed; the Instruction: two solid shot or three canisters a minute)"
+    },
+    "ceiling_per_60s": 3,
+    "documented_maximum": true,
+    "max_in_60s": {
+     "count": 2,
+     "figure": 0,
+     "t_s": 2781013.537495
+    },
+    "plan": {
+     "activity": "serve_guns",
+     "cycle_max": 60,
+     "cycle_min": 30,
+     "end_s": null,
+     "floor_s": 18,
+     "mode": "by_piece",
+     "n": 1,
+     "shots": 23653,
+     "start_s": 2781000,
+     "unit": "us-12c-art-5usk",
+     "weapon": "cannon",
+     "window_s": 1020600
+    }
+   },
+   "id": "Q14/Q14.4/us-12c-art-5usk#gun106:serve_guns/default",
+   "pass": true,
+   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 2, 23653 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
+   "renderer_class": "mixed",
+   "result": "PASS",
+   "scenario": "default",
+   "sub_requirements": [
+    "R03.0000",
+    "R04.0000",
+    "R13.G-01",
+    "R13.G-02",
+    "R13.G-03",
+    "R13.G-04",
+    "R13.G-05",
+    "R13.G-06",
+    "R13.G-07",
+    "R13.G-08",
+    "R13.G-09",
+    "R13.G-10",
+    "R13.G-11",
+    "R13.G-12",
+    "R13.G-13",
+    "R13.G-14",
+    "R13.G-15",
+    "R13.G-16",
+    "R13.G-17",
+    "R13.G-18"
+   ],
+   "subjects": [
+    "us-12c-art-5usk"
+   ]
+  },
+  {
+   "check": "Q14.4",
+   "evidence": {
+    "ceiling_evidence": {
+     "figures": [
+      1,
+      2,
+      3
+     ],
+     "items": [
+      {
+       "item": "ART-FA-100",
+       "manual": "FIELDART-1863",
+       "phrases": [
+        "found"
+       ],
+       "text": "with sufficient deliberation for pointing, two solid shot or three canisters per minute"
+      },
+      {
+       "item": "ART-GB-21",
+       "manual": "GIBBON-1860",
+       "phrases": [
+        "found",
+        "found"
+       ],
+       "text": "The mean rate is about one shot per minute, but when close pressed, | two or three shots per minute can be fired."
+      }
+     ],
+     "reading": "documented maximum: the highest rate a manual prints (Gibbon: two or three shots a minute when pressed; the Instruction: two solid shot or three canisters a minute)"
+    },
+    "ceiling_per_60s": 3,
+    "documented_maximum": true,
+    "max_in_60s": {
+     "count": 2,
+     "figure": 0,
+     "t_s": 2781019.815139
+    },
+    "plan": {
+     "activity": "serve_guns",
+     "cycle_max": 60,
+     "cycle_min": 30,
+     "end_s": null,
+     "floor_s": 18,
+     "mode": "by_piece",
+     "n": 1,
+     "shots": 27536,
+     "start_s": 2781000,
+     "unit": "us-12c-art-5usk",
+     "weapon": "cannon",
+     "window_s": 1020600
+    }
+   },
+   "id": "Q14/Q14.4/us-12c-art-5usk#gun107:serve_guns/default",
+   "pass": true,
+   "reason": "no piece fires more than 3 shots in any 60-second window of this plan (largest 2, 27536 shots over 1020600 s); the documented maximum was found again in the manuals' OCR text",
    "renderer_class": "mixed",
    "result": "PASS",
    "scenario": "default",
@@ -6485,7 +7454,7 @@
   {
    "check": "Q14.5",
    "evidence": {
-    "layer_guns_drawn": 0,
+    "layer_guns_drawn": 8,
     "plan_line": 19308,
     "plan_range": [
      281,
@@ -6495,7 +7464,7 @@
    },
    "id": "Q14/Q14.5/army-total/CS",
    "pass": false,
-   "reason": "the layer draws 0 confederate guns; the plan prints 281 to 282 on the field (p. 79, line 19308 of the plan text)",
+   "reason": "the layer draws 8 confederate guns; the plan prints 281 to 282 on the field (p. 79, line 19308 of the plan text)",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -6528,7 +7497,7 @@
   {
    "check": "Q14.5",
    "evidence": {
-    "layer_guns_drawn": 124,
+    "layer_guns_drawn": 222,
     "plan_line": 19308,
     "plan_range": [
      366,
@@ -6538,7 +7507,7 @@
    },
    "id": "Q14/Q14.5/army-total/US",
    "pass": false,
-   "reason": "the layer draws 124 union guns; the plan prints 366 to 372 on the field (p. 79, line 19308 of the plan text)",
+   "reason": "the layer draws 222 union guns; the plan prints 366 to 372 on the field (p. 79, line 19308 of the plan text)",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -6888,41 +7857,48 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 4, world 4",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"engaged\": [4, 4]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
-      "detail": "layer [], table []",
+      "detail": "layer ['napoleon_12pdr_m1857'], table []",
       "name": "the type is one the verified figures allow",
       "ok": true
      }
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
+     "count": 4,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "four Napoleons",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-2"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
-     "types": [],
-     "weak_source": null
+     "status": "drawn",
+     "tier": "documented",
+     "types": [
+      {
+       "count": 4,
+       "printed_type": "four Napoleons",
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-02",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 4,
+      "ok": true,
       "present": true,
       "table": {
        "engaged": [
@@ -6933,16 +7909,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 4,
+     "crew_total": 36,
+     "guns": 4
     }
    },
    "id": "Q14/Q14.5/cs-1c-res-art-alexander-bath/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"engaged\": [4, 4]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -7101,41 +8077,48 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 4, world 4",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"engaged\": [4, 4]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
-      "detail": "layer [], table []",
+      "detail": "layer ['24pdr_howitzer'], table []",
       "name": "the type is one the verified figures allow",
       "ok": true
      }
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
+     "count": 4,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "four 24-pounder howitzers",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-2"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
-     "types": [],
-     "weak_source": null
+     "status": "drawn",
+     "tier": "documented",
+     "types": [
+      {
+       "count": 4,
+       "printed_type": "four 24-pounder howitzers",
+       "type_id": "24pdr_howitzer"
+      }
+     ],
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-03",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 4,
+      "ok": true,
       "present": true,
       "table": {
        "engaged": [
@@ -7146,16 +8129,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 4,
+     "crew_total": 36,
+     "guns": 4
     }
    },
    "id": "Q14/Q14.5/cs-1c-res-art-alexander-madisonla/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"engaged\": [4, 4]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -8213,7 +9196,7 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 6, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
@@ -8230,17 +9213,18 @@
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
+     "count": 6,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "six 12-pounders",
+     "reason": "a gun count is stated (six 12-pounders) but this battery is not drawn: no place",
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "not_drawn",
-     "tier": "open gap",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
     "render": "not_drawn",
     "table_dates": [
@@ -8498,43 +9482,73 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 4, world 4",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "the crowd driver fires 33 piece(s); the layer draws 0 (status not_drawn)",
+      "detail": "the crowd driver fires 4 piece(s); the layer draws 4 (status drawn)",
       "name": "the pieces whose fire the crowd driver builds equal the guns drawn for the battery (a battery whose count is not stated fires no invented number of pieces)",
-      "ok": false
+      "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['10pdr_parrott'], table ['10pdr_parrott']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
-    "fired_pieces": 33,
+    "fired_pieces": 4,
     "layer_guns": {
-     "count": null,
+     "count": 4,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "four 10-pounders",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
-     "types": [],
-     "weak_source": null
+     "status": "drawn",
+     "tier": "documented",
+     "types": [
+      {
+       "count": 4,
+       "printed_type": "four 10-pounders",
+       "type_id": "10pdr_parrott"
+      }
+     ],
+     "weak_source": false
     },
-    "layer_only_result": "FAIL",
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-03",
+      "layer_guns": 4,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 4,
+     "crew_total": 36,
+     "guns": 4
     }
    },
    "id": "Q14/Q14.5/us-12c-art-1nym/default",
-   "pass": false,
-   "reason": "gun count: the pieces whose fire the crowd driver builds equal the guns drawn for the battery (a battery whose count is not stated fires no invented number of pieces): the crowd driver fires 33 piece(s); the layer draws 0 (status not_drawn)",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -8567,43 +9581,67 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "the crowd driver fires 33 piece(s); the layer draws 0 (status not_drawn)",
+      "detail": "the crowd driver fires 6 piece(s); the layer draws 6 (status drawn)",
       "name": "the pieces whose fire the crowd driver builds equal the guns drawn for the battery (a battery whose count is not stated fires no invented number of pieces)",
-      "ok": false
+      "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
-    "fired_pieces": 33,
+    "fired_pieces": 6,
     "layer_guns": {
-     "count": null,
+     "count": 6,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "six 12-pounders",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
-    "layer_only_result": "FAIL",
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-03",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 6,
+     "crew_total": 54,
+     "guns": 6
     }
    },
    "id": "Q14/Q14.5/us-12c-art-4usf/default",
-   "pass": false,
-   "reason": "gun count: the pieces whose fire the crowd driver builds equal the guns drawn for the battery (a battery whose count is not stated fires no invented number of pieces): the crowd driver fires 33 piece(s); the layer draws 0 (status not_drawn)",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -8636,43 +9674,67 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 4, world 4",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "the crowd driver fires 33 piece(s); the layer draws 0 (status not_drawn)",
+      "detail": "the crowd driver fires 4 piece(s); the layer draws 4 (status drawn)",
       "name": "the pieces whose fire the crowd driver builds equal the guns drawn for the battery (a battery whose count is not stated fires no invented number of pieces)",
-      "ok": false
+      "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
-    "fired_pieces": 33,
+    "fired_pieces": 4,
     "layer_guns": {
-     "count": null,
+     "count": 4,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "four 12-pounders",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
-    "layer_only_result": "FAIL",
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-03",
+      "layer_guns": 4,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 4,
+     "crew_total": 36,
+     "guns": 4
     }
    },
    "id": "Q14/Q14.5/us-12c-art-5usk/default",
-   "pass": false,
-   "reason": "gun count: the pieces whose fire the crowd driver builds equal the guns drawn for the battery (a battery whose count is not stated fires no invented number of pieces): the crowd driver fires 33 piece(s); the layer draws 0 (status not_drawn)",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -8960,14 +10022,14 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 4, world 4",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"disabled\": [1, 1], \"present\": [4, 4]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
@@ -8977,24 +10039,25 @@
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
+     "count": 4,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "four 3-inch",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-01",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 4,
+      "ok": true,
       "present": true,
       "table": {
        "disabled": [
@@ -9009,8 +10072,8 @@
      },
      {
       "date": "1863-07-03",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 4,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -9021,16 +10084,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 4,
+     "crew_total": 36,
+     "guns": 4
     }
    },
    "id": "Q14/Q14.5/us-1c-art-1pab/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"disabled\": [1, 1], \"present\": [4, 4]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9297,14 +10360,14 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-01T16:00/1863-07-01T23:59\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
@@ -9314,24 +10377,26 @@
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
+     "count": 6,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "six 12-pounders",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "ME-GB-1898",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-01",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -9342,8 +10407,8 @@
      },
      {
       "date": "1863-07-01T16:00/1863-07-01T23:59",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -9354,8 +10419,8 @@
      },
      {
       "date": "1863-07-03",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -9366,16 +10431,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 6,
+     "crew_total": 54,
+     "guns": 6
     }
    },
    "id": "Q14/Q14.5/us-1c-art-5me/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-01T16:00/1863-07-01T23:59\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9533,16 +10598,15 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.1st_RI_A",
+     "kit_battery": null,
      "printed": "six 3-inch",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "Wiki-OOB-Union",
-      "IronBrigader-Hazard"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
-     "tier": "inferred",
+     "tier": "documented",
      "types": [
       {
        "count": 6,
@@ -9550,7 +10614,7 @@
        "type_id": "3inch_ordnance_rifle"
       }
      ],
-     "weak_source": true
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
@@ -9751,16 +10815,15 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.1st_US_I",
-     "printed": "six \"light 12-pdrs\"",
+     "kit_battery": null,
+     "printed": "six 12-pounders",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "Wiki-OOB-Union",
-      "IronBrigader-Hazard"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
-     "tier": "inferred",
+     "tier": "documented",
      "types": [
       {
        "count": 6,
@@ -9768,7 +10831,7 @@
        "type_id": "napoleon_12pdr_m1857"
       }
      ],
-     "weak_source": true
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
@@ -9846,13 +10909,12 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.4th_US_A",
-     "printed": "six 3-inch rifles",
+     "kit_battery": null,
+     "printed": "six 3-inch",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "Wiki-OOB-Union",
-      "SS-Cushing-7888"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
@@ -9923,41 +10985,48 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
-      "detail": "layer [], table ['10pdr_parrott']",
+      "detail": "layer ['10pdr_parrott'], table ['10pdr_parrott']",
       "name": "the type is one the verified figures allow",
       "ok": true
      }
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
+     "count": 6,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "six 10-pounders",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
-     "types": [],
-     "weak_source": null
+     "status": "drawn",
+     "tier": "documented",
+     "types": [
+      {
+       "count": 6,
+       "printed_type": "six 10-pounders",
+       "type_id": "10pdr_parrott"
+      }
+     ],
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-02",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -9968,16 +11037,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 6,
+     "crew_total": 54,
+     "guns": 6
     }
    },
    "id": "Q14/Q14.5/us-3c-art-1njb/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10010,14 +11079,14 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
@@ -10027,24 +11096,25 @@
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
+     "count": 6,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "six 12-pounders",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-02",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -10055,16 +11125,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 6,
+     "crew_total": 54,
+     "guns": 6
     }
    },
    "id": "Q14/Q14.5/us-3c-art-1nyd/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10097,14 +11167,14 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
@@ -10114,24 +11184,25 @@
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
+     "count": 6,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "six 12-pounders",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-02",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -10142,16 +11213,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 6,
+     "crew_total": 54,
+     "guns": 6
     }
    },
    "id": "Q14/Q14.5/us-3c-art-1rie/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10202,21 +11273,19 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.4th_NY",
-     "printed": "six 10-pdr Parrotts (monument)",
+     "kit_battery": null,
+     "printed": "six 10-pounders",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "Wiki-OOB-Union",
-      "GburgDaily-Smith4NY",
-      "SS-NYArt-1958"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
      "types": [
       {
        "count": 6,
-       "printed_type": "six 10-pdr Parrotts (monument)",
+       "printed_type": "six 10-pounders",
        "type_id": "10pdr_parrott"
       }
      ],
@@ -10383,14 +11452,14 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 4, world 4",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
@@ -10400,24 +11469,25 @@
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
+     "count": 4,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "four 3-inch",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-02",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 4,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -10428,16 +11498,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 4,
+     "crew_total": 36,
+     "guns": 4
     }
    },
    "id": "Q14/Q14.5/us-5c-art-1nyc/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10470,14 +11540,14 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
@@ -10487,24 +11557,25 @@
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
+     "count": 6,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "six 12-pounders",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-02",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -10515,16 +11586,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 6,
+     "crew_total": 54,
+     "guns": 6
     }
    },
    "id": "Q14/Q14.5/us-5c-art-1ohl/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10557,14 +11628,14 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
@@ -10574,24 +11645,25 @@
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
+     "count": 6,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "six 12-pounders",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-02",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -10602,16 +11674,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 6,
+     "crew_total": 54,
+     "guns": 6
     }
    },
    "id": "Q14/Q14.5/us-5c-art-3ma/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10662,20 +11734,19 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.5th_US_D",
-     "printed": "six 10-pdr Parrotts",
+     "kit_battery": null,
+     "printed": "six 10-pounders",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "Wiki-OOB-Union",
-      "SS-Hazlett-10491"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
      "types": [
       {
        "count": 6,
-       "printed_type": "six 10-pdr Parrotts",
+       "printed_type": "six 10-pounders",
        "type_id": "10pdr_parrott"
       }
      ],
@@ -10739,14 +11810,14 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 4, world 4",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
@@ -10756,24 +11827,25 @@
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
+     "count": 4,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "four 3-inch",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-02",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 4,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -10784,16 +11856,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 4,
+     "crew_total": 36,
+     "guns": 4
     }
    },
    "id": "Q14/Q14.5/us-5c-art-5usi/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10889,14 +11961,14 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
@@ -10906,24 +11978,25 @@
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
+     "count": 6,
      "kit_battery": null,
-     "printed": null,
-     "reason": "no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied",
+     "printed": "six 3-inch",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-03",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -10934,16 +12007,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 6,
+     "crew_total": 54,
+     "guns": 6
     }
    },
    "id": "Q14/Q14.5/us-6c-art-1ny/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -11372,19 +12445,19 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.1st_NJ",
-     "printed": "6 10-pdr Parrotts",
+     "kit_battery": null,
+     "printed": "six 10-pounders",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "SS-ArtReserve"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
      "types": [
       {
        "count": 6,
-       "printed_type": "6 10-pdr Parrotts",
+       "printed_type": "six 10-pounders",
        "type_id": "10pdr_parrott"
       }
      ],
@@ -11466,12 +12539,12 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.1st_NY_G",
-     "printed": "6 Napoleons",
+     "kit_battery": null,
+     "printed": "six 12-pounders",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "SS-ArtReserve"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
@@ -11554,14 +12627,14 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
@@ -11571,24 +12644,25 @@
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
-     "kit_battery": "US.ART.1st_NY_K_with_11th_NY_attached",
-     "printed": "6 3-inch",
-     "reason": "the kit entry “1st NY K with 11th NY attached” joins or attaches more than one battery; the printed count belongs to the entry and is not split between batteries",
+     "count": 6,
+     "kit_battery": null,
+     "printed": "six 3-inch",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-03",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -11599,16 +12673,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 6,
+     "crew_total": 54,
+     "guns": 6
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-fitzhugh-1nyk/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -11659,12 +12733,13 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 4,
-     "kit_battery": "US.ART.6th_Maine",
-     "printed": "4 Napoleons",
+     "kit_battery": null,
+     "printed": "four 12-pounders",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "SS-ArtReserve"
+      "KIT-VERIFIED-GUNS",
+      "ME-GB-1898",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
@@ -11765,12 +12840,12 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.Md_A",
-     "printed": "6 3-inch",
+     "kit_battery": null,
+     "printed": "six 3-inch",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "SS-ArtReserve"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
@@ -11859,12 +12934,12 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.1st_New_Hampshire",
-     "printed": "6 3-inch",
+     "kit_battery": null,
+     "printed": "six 3-inch",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "SS-ArtReserve"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
@@ -11953,12 +13028,12 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.1st_Ohio_H",
-     "printed": "6 3-inch",
+     "kit_battery": null,
+     "printed": "six 3-inch",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "SS-ArtReserve"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
@@ -12029,14 +13104,14 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
@@ -12046,24 +13121,25 @@
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
-     "kit_battery": "US.ART.1st_Pennsylvania_F_G",
-     "printed": "6 3-inch",
-     "reason": "the kit entry “1st Pennsylvania F&G” joins or attaches more than one battery; the printed count belongs to the entry and is not split between batteries",
+     "count": 6,
+     "kit_battery": null,
+     "printed": "six 3-inch",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-02",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -12074,8 +13150,8 @@
      },
      {
       "date": "1863-07-03",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -12086,16 +13162,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 6,
+     "crew_total": 54,
+     "guns": 6
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-huntington-1paf/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -12128,14 +13204,14 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
@@ -12145,24 +13221,25 @@
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
-     "kit_battery": "US.ART.1st_Pennsylvania_F_G",
-     "printed": "6 3-inch",
-     "reason": "the kit entry “1st Pennsylvania F&G” joins or attaches more than one battery; the printed count belongs to the entry and is not split between batteries",
+     "count": 6,
+     "kit_battery": null,
+     "printed": "six 3-inch",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-02",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -12173,8 +13250,8 @@
      },
      {
       "date": "1863-07-03",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -12185,16 +13262,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 6,
+     "crew_total": 54,
+     "guns": 6
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-huntington-1pag/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -12245,19 +13322,19 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 4,
-     "kit_battery": "US.ART.W_Va_C",
-     "printed": "4 10-pdr Parrotts",
+     "kit_battery": null,
+     "printed": "four 10-pounders",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "SS-ArtReserve"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
      "types": [
       {
        "count": 4,
-       "printed_type": "4 10-pdr Parrotts",
+       "printed_type": "four 10-pounders",
        "type_id": "10pdr_parrott"
       }
      ],
@@ -12351,12 +13428,12 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 4,
-     "kit_battery": "US.ART.15th_New_York",
-     "printed": "4 Napoleons",
+     "kit_battery": null,
+     "printed": "four 12-pounders",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "SS-ArtReserve"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
@@ -12457,12 +13534,12 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.5th_Massachusetts",
-     "printed": "6 3-inch rifles (conflict: Civil War News says Napoleons)",
+     "kit_battery": null,
+     "printed": "six 3-inch",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "SS-ArtReserve"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
@@ -12859,12 +13936,12 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.1st_US_H",
-     "printed": "6 Napoleons",
+     "kit_battery": null,
+     "printed": "six 12-pounders",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "SS-ArtReserve"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
@@ -12947,14 +14024,14 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6], \"recovered\": [4, 4]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
@@ -12964,24 +14041,25 @@
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
-     "kit_battery": "US.ART.3rd_US_F_K",
-     "printed": "6 Napoleons",
-     "reason": "the kit entry “3rd US F&K” joins or attaches more than one battery; the printed count belongs to the entry and is not split between batteries",
+     "count": 6,
+     "kit_battery": null,
+     "printed": "six 12-pounders",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-02",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -12996,16 +14074,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 6,
+     "crew_total": 54,
+     "guns": 6
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-ransom-3usf/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6], \"recovered\": [4, 4]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -13038,14 +14116,14 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "layer None, world 0",
+      "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6], \"recovered\": [4, 4]}, \"ok\": false}]",
+      "detail": "[]",
       "name": "the count equals a verified total for every date the table has",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
@@ -13055,24 +14133,25 @@
     ],
     "fired_pieces": null,
     "layer_guns": {
-     "count": null,
-     "kit_battery": "US.ART.3rd_US_F_K",
-     "printed": "6 Napoleons",
-     "reason": "the kit entry “3rd US F&K” joins or attaches more than one battery; the printed count belongs to the entry and is not split between batteries",
+     "count": 6,
+     "kit_battery": null,
+     "printed": "six 12-pounders",
+     "reason": null,
      "sources": [
-      "KIT-GUNS"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
-     "status": "not_drawn",
-     "tier": "open gap",
+     "status": "drawn",
+     "tier": "documented",
      "types": [],
-     "weak_source": null
+     "weak_source": false
     },
     "render": "moving",
     "table_dates": [
      {
       "date": "1863-07-02",
-      "layer_guns": 0,
-      "ok": false,
+      "layer_guns": 6,
+      "ok": true,
       "present": true,
       "table": {
        "present": [
@@ -13087,16 +14166,16 @@
      }
     ],
     "world": {
-     "crew_groups": 0,
-     "crew_total": 0,
-     "guns": 0
+     "crew_groups": 6,
+     "crew_total": 54,
+     "guns": 6
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-ransom-3usk/default",
-   "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6], \"recovered\": [4, 4]}, \"ok\": false}]",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -13147,12 +14226,12 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.4th_US_C",
-     "printed": "6 Napoleons",
+     "kit_battery": null,
+     "printed": "six 12-pounders",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "SS-ArtReserve"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
@@ -13253,12 +14332,12 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.5th_US_C",
-     "printed": "6 Napoleons",
+     "kit_battery": null,
+     "printed": "six 12-pounders",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "SS-ArtReserve"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
@@ -13485,24 +14564,24 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.2nd_Connecticut",
-     "printed": "4 James rifles; 2 12-pdr howitzers",
+     "kit_battery": null,
+     "printed": "four James rifled guns + two howitzers",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "SS-ArtReserve"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
      "types": [
       {
        "count": 4,
-       "printed_type": "4 James rifles",
+       "printed_type": "four James rifled guns",
        "type_id": "14pdr_james_rifle"
       },
       {
        "count": 2,
-       "printed_type": "2 12-pdr howitzers",
+       "printed_type": "two howitzers",
        "type_id": "12pdr_howitzer"
       }
      ],
@@ -13596,19 +14675,19 @@
     "fired_pieces": null,
     "layer_guns": {
      "count": 6,
-     "kit_battery": "US.ART.5th_New_York",
-     "printed": "6 20-pdr Parrotts",
+     "kit_battery": null,
+     "printed": "six 20-pounders",
      "reason": null,
      "sources": [
-      "KIT-GUNS",
-      "SS-ArtReserve"
+      "KIT-VERIFIED-GUNS",
+      "OR27-1"
      ],
      "status": "drawn",
      "tier": "documented",
      "types": [
       {
        "count": 6,
-       "printed_type": "6 20-pdr Parrotts",
+       "printed_type": "six 20-pounders",
        "type_id": "20pdr_parrott"
       }
      ],
@@ -13753,10 +14832,10 @@
     "exceeding": [
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 1792,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 784105,
+      "pieces": 4,
+      "rounds_expended": 91131,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -13766,10 +14845,10 @@
      },
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 2688,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 790293,
+      "pieces": 6,
+      "rounds_expended": 147727,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -13779,10 +14858,10 @@
      },
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 1792,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 814275,
+      "pieces": 4,
+      "rounds_expended": 97503,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -13847,10 +14926,10 @@
     "exceeding": [
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 1792,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 784105,
+      "pieces": 4,
+      "rounds_expended": 91131,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -13860,10 +14939,10 @@
      },
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 2688,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 790293,
+      "pieces": 6,
+      "rounds_expended": 147727,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -13873,10 +14952,10 @@
      },
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 1792,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 814275,
+      "pieces": 4,
+      "rounds_expended": 97503,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -13941,10 +15020,10 @@
     "exceeding": [
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 1792,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 784105,
+      "pieces": 4,
+      "rounds_expended": 91131,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -13954,10 +15033,10 @@
      },
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 2688,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 790293,
+      "pieces": 6,
+      "rounds_expended": 147727,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -13967,10 +15046,10 @@
      },
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 1792,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 814275,
+      "pieces": 4,
+      "rounds_expended": 97503,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -14035,10 +15114,10 @@
     "exceeding": [
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 1792,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 784105,
+      "pieces": 4,
+      "rounds_expended": 91131,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -14048,10 +15127,10 @@
      },
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 2688,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 790293,
+      "pieces": 6,
+      "rounds_expended": 147727,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -14061,10 +15140,10 @@
      },
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 1792,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 814275,
+      "pieces": 4,
+      "rounds_expended": 97503,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -14129,10 +15208,10 @@
     "exceeding": [
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 1792,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 784105,
+      "pieces": 4,
+      "rounds_expended": 91131,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -14142,10 +15221,10 @@
      },
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 2688,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 790293,
+      "pieces": 6,
+      "rounds_expended": 147727,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -14155,10 +15234,10 @@
      },
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 1792,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 814275,
+      "pieces": 4,
+      "rounds_expended": 97503,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -14223,10 +15302,10 @@
     "exceeding": [
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 1792,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 784105,
+      "pieces": 4,
+      "rounds_expended": 91131,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -14236,10 +15315,10 @@
      },
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 2688,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 790293,
+      "pieces": 6,
+      "rounds_expended": 147727,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -14249,10 +15328,10 @@
      },
      {
       "campaign_allowance_double": true,
-      "ceiling": 14784,
+      "ceiling": 1792,
       "documented_stock_per_gun": 224,
-      "pieces": 33,
-      "rounds_expended": 814275,
+      "pieces": 4,
+      "rounds_expended": 97503,
       "sources": [
        "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
        "ART-FA-116 (campaign allowance)"
@@ -14314,10 +15393,10 @@
    "check": "Q14.6",
    "evidence": {
     "campaign_allowance_double": true,
-    "ceiling": 14784,
+    "ceiling": 1792,
     "documented_stock_per_gun": 224,
-    "pieces": 33,
-    "rounds_expended": 784105,
+    "pieces": 4,
+    "rounds_expended": 91131,
     "sources": [
      "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
      "ART-FA-116 (campaign allowance)"
@@ -14327,7 +15406,7 @@
    },
    "id": "Q14/Q14.6/us-12c-art-1nym/default",
    "pass": false,
-   "reason": "the battery fires 784105 rounds from 33 pieces over 1020600 s; the documented stock is 224 a gun and the campaign allowance double that (14784 for the battery)",
+   "reason": "the battery fires 91131 rounds from 4 pieces over 1020600 s; the documented stock is 224 a gun and the campaign allowance double that (1792 for the battery)",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -14361,10 +15440,10 @@
    "check": "Q14.6",
    "evidence": {
     "campaign_allowance_double": true,
-    "ceiling": 14784,
+    "ceiling": 2688,
     "documented_stock_per_gun": 224,
-    "pieces": 33,
-    "rounds_expended": 790293,
+    "pieces": 6,
+    "rounds_expended": 147727,
     "sources": [
      "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
      "ART-FA-116 (campaign allowance)"
@@ -14374,7 +15453,7 @@
    },
    "id": "Q14/Q14.6/us-12c-art-4usf/default",
    "pass": false,
-   "reason": "the battery fires 790293 rounds from 33 pieces over 1020600 s; the documented stock is 224 a gun and the campaign allowance double that (14784 for the battery)",
+   "reason": "the battery fires 147727 rounds from 6 pieces over 1020600 s; the documented stock is 224 a gun and the campaign allowance double that (2688 for the battery)",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -14408,10 +15487,10 @@
    "check": "Q14.6",
    "evidence": {
     "campaign_allowance_double": true,
-    "ceiling": 14784,
+    "ceiling": 1792,
     "documented_stock_per_gun": 224,
-    "pieces": 33,
-    "rounds_expended": 814275,
+    "pieces": 4,
+    "rounds_expended": 97503,
     "sources": [
      "ORD-BATT-WAR (Instruction for Field Artillery, Part I Art. II, war establishment)",
      "ART-FA-116 (campaign allowance)"
@@ -14421,7 +15500,7 @@
    },
    "id": "Q14/Q14.6/us-12c-art-5usk/default",
    "pass": false,
-   "reason": "the battery fires 814275 rounds from 33 pieces over 1020600 s; the documented stock is 224 a gun and the campaign allowance double that (14784 for the battery)",
+   "reason": "the battery fires 97503 rounds from 4 pieces over 1020600 s; the documented stock is 224 a gun and the campaign allowance double that (1792 for the battery)",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -14679,7 +15758,7 @@
   "Q14.7: the drill state machine of a gun detachment (ten states, B.6.14.3) is not compared with the product (needs a machine list of the product's detachment states)"
  ],
  "renderer_class": "mixed",
- "run_id": "20261124T231001Z-Q14",
+ "run_id": "20261124T231218Z-Q14",
  "runnable_here": true,
  "runner_files": [
   "oob_layer_lib.mjs",
@@ -14696,7 +15775,7 @@
   "note": "default and the six sample scenarios of history.test.mjs: a sample, never S*"
  },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T23:10:01Z",
+ "started_utc": "2026-11-24T23:12:18Z",
  "thresholds": [
   {
    "decision": "PLAN",
@@ -14723,7 +15802,7 @@
    "Q14.2": {
     "BLOCKED-INPUT": 1,
     "COVERED": 0,
-    "FAIL": 4,
+    "FAIL": 5,
     "N/A": 0,
     "NOT-RUN": 0,
     "PASS": 18
@@ -14742,15 +15821,15 @@
     "FAIL": 7,
     "N/A": 0,
     "NOT-RUN": 0,
-    "PASS": 4
+    "PASS": 15
    },
    "Q14.5": {
     "BLOCKED-INPUT": 49,
     "COVERED": 0,
-    "FAIL": 36,
+    "FAIL": 16,
     "N/A": 0,
     "NOT-RUN": 0,
-    "PASS": 20
+    "PASS": 40
    },
    "Q14.6": {
     "BLOCKED-INPUT": 0,
@@ -14770,12 +15849,12 @@
    }
   },
   "covered": 0,
-  "fail": 91,
-  "items": 206,
+  "fail": 72,
+  "items": 218,
   "n_a": 0,
-  "not_passing": 143,
+  "not_passing": 124,
   "not_run": 1,
-  "pass": 63
+  "pass": 94
  },
  "verdict": "FAIL",
  "verified_battery_table": {

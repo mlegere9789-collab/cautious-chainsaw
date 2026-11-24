@@ -49,10 +49,10 @@
   "regimental_commanders": "not in the PDF (stripped from the fetched order of battle, B.3); none supplied from the PDF. Commanders and strengths that the verified table (kit/verified_oob.json, Official Records and state volumes) documents are in commanders_verified and strength_verified (oob_adoption below)",
   "oob_adoption": {
    "applied": true,
-   "table_sha256": "eb00abe5be8bd4a88608d9c1d491aa1c81d4a37baeb2aa37b1216611ad3d4d92",
+   "table_sha256": "106be8be2d014eee4332cfe1c7a8a68857a1199e5a7b2fccf1d892b428b59eb8",
    "counts": {
-    "commanders": 671,
-    "strength_adopted": 159,
+    "commanders": 706,
+    "strength_adopted": 167,
     "strength_conflict": 33,
     "strength_date_unresolved": 0,
     "strength_no_documented_range": 5
@@ -187,7 +187,19 @@
     "us-hancock-acting",
     "us-4nj-train-guard"
    ],
-   "own_gate": true
+   "own_gate": true,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "George G. Meade",
+     "rank": "Maj. Gen.",
+     "tier": "documented",
+     "evidence_ids": [
+      "army-hq:0008"
+     ],
+     "role": "commanding the army"
+    }
+   ]
   },
   {
    "army": "CS",
@@ -218,7 +230,19 @@
     "cs-44nc-hanover-junction",
     "cs-corse-hanover-junction"
    ],
-   "own_gate": true
+   "own_gate": true,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "Robert E. Lee",
+     "rank": "General",
+     "tier": "documented",
+     "evidence_ids": [
+      "army-hq:0036"
+     ],
+     "role": "commanding the army"
+    }
+   ]
   },
   {
    "army": "US",
@@ -23130,7 +23154,7 @@
      "rank": "Maj. Gen.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0002"
+      "us-cav:0014"
      ],
      "role": "commanding the corps"
     }
@@ -23170,7 +23194,7 @@
      "rank": "Brig. Gen.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0004"
+      "us-cav:0016"
      ],
      "role": "commanding the division"
     }
@@ -23208,7 +23232,7 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0006"
+      "us-cav:0018"
      ],
      "role": "commanding the brigade"
     }
@@ -23239,7 +23263,7 @@
      "rank": "Maj.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0008"
+      "us-cav:0020"
      ]
     }
    ]
@@ -23269,7 +23293,7 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0010"
+      "us-cav:0022"
      ],
      "role": "commanding the 12th Illinois (four companies) and the 3d Indiana (six companies)"
     }
@@ -23300,7 +23324,7 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0013"
+      "us-cav:0025"
      ],
      "role": "commanding the 12th Illinois (four companies) and the 3d Indiana (six companies)"
     }
@@ -23331,7 +23355,7 @@
      "rank": "Lieut. Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0016"
+      "us-cav:0028"
      ]
     }
    ]
@@ -23368,7 +23392,7 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0018"
+      "us-cav:0030"
      ],
      "role": "commanding the brigade"
     }
@@ -23401,7 +23425,7 @@
      "rank": "Maj. Wm. E.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0020"
+      "us-cav:0032"
      ]
     }
    ]
@@ -23431,10 +23455,43 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0022"
+      "us-cav:0034"
      ]
     }
-   ]
+   ],
+   "strength_verified": {
+    "status": "adopted",
+    "basis_key": "estimate_in_report|not_stated",
+    "min": 450,
+    "max": 450,
+    "tier": "documented",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-06-14; 1 line; range 450 to 450 on 1863-06-14. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "sources": [],
+    "cites": [
+     {
+      "evidence_id": "us-cav:0212"
+     }
+    ],
+    "evidence_ids": [
+     "us-cav:0212"
+    ],
+    "alternatives": [
+     {
+      "key": "estimate_in_report|not_stated",
+      "low": 450,
+      "high": 450,
+      "tier": "documented",
+      "spans_dates": false,
+      "by_as_of": {
+       "1863-06-14": [
+        450,
+        450
+       ]
+      }
+     }
+    ],
+    "as_of": "1863-06-14"
+   }
   },
   {
    "army": "US",
@@ -23461,7 +23518,7 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0024"
+      "us-cav:0036"
      ]
     }
    ]
@@ -23493,7 +23550,7 @@
      "rank": "Capt.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0026"
+      "us-cav:0038"
      ],
      "role": "commanding the two companies"
     }
@@ -23532,7 +23589,7 @@
      "rank": "Brig. Gen.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0032"
+      "us-cav:0044"
      ],
      "role": "commanding the brigade"
     }
@@ -23563,7 +23620,7 @@
      "rank": "Maj.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0034"
+      "us-cav:0046"
      ]
     }
    ]
@@ -23595,7 +23652,7 @@
      "rank": "Capt.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0036"
+      "us-cav:0048"
      ]
     }
    ]
@@ -23627,7 +23684,7 @@
      "rank": "Capt.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0038"
+      "us-cav:0050"
      ]
     }
    ]
@@ -23659,7 +23716,7 @@
      "rank": "Capt.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0040"
+      "us-cav:0052"
      ]
     }
    ]
@@ -23689,7 +23746,7 @@
      "rank": "Maj.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0042"
+      "us-cav:0054"
      ]
     },
     {
@@ -23698,7 +23755,7 @@
      "rank": "Lieut.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0043"
+      "us-cav:0055"
      ]
     },
     {
@@ -23707,7 +23764,7 @@
      "rank": "Lieut.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0044"
+      "us-cav:0056"
      ]
     },
     {
@@ -23716,10 +23773,47 @@
      "rank": "Capt.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0045"
+      "us-cav:0057"
      ]
     }
-   ]
+   ],
+   "strength_verified": {
+    "status": "adopted",
+    "basis_key": "taken_into_action|officers_and_men",
+    "min": 356,
+    "max": 356,
+    "tier": "documented",
+    "basis": "documented: the report says the unit went into action with N; officers and men; as of 1863-06-21; 1 line (OR27-1-R342); range 356 to 356 on 1863-06-21. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "sources": [
+     "OR27-1"
+    ],
+    "cites": [
+     {
+      "report_id": "OR27-1-R342",
+      "printed_page": 947,
+      "evidence_id": "us-cav:0187"
+     }
+    ],
+    "evidence_ids": [
+     "us-cav:0187"
+    ],
+    "alternatives": [
+     {
+      "key": "taken_into_action|officers_and_men",
+      "low": 356,
+      "high": 356,
+      "tier": "documented",
+      "spans_dates": false,
+      "by_as_of": {
+       "1863-06-21": [
+        356,
+        356
+       ]
+      }
+     }
+    ],
+    "as_of": "1863-06-21"
+   }
   },
   {
    "army": "US",
@@ -23755,7 +23849,7 @@
      "rank": "Brig. Gen.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0047"
+      "us-cav:0059"
      ],
      "role": "commanding the division"
     }
@@ -23794,7 +23888,7 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0051"
+      "us-cav:0063"
      ],
      "role": "commanding the brigade"
     }
@@ -23825,7 +23919,7 @@
      "rank": "Lieut. Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0053"
+      "us-cav:0065"
      ]
     }
    ]
@@ -23855,7 +23949,7 @@
      "rank": "Lieut. Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0058"
+      "us-cav:0070"
      ]
     }
    ]
@@ -23885,7 +23979,7 @@
      "rank": "Maj.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0060"
+      "us-cav:0072"
      ]
     }
    ]
@@ -23917,7 +24011,7 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0062"
+      "us-cav:0074"
      ]
     }
    ]
@@ -23947,7 +24041,7 @@
      "rank": "Lieut. Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0064"
+      "us-cav:0076"
      ]
     }
    ]
@@ -23984,7 +24078,7 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0078"
+      "us-cav:0090"
      ],
      "role": "commanding the brigade"
     }
@@ -24015,7 +24109,7 @@
      "rank": "Lieut. Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0080"
+      "us-cav:0092"
      ]
     }
    ]
@@ -24045,7 +24139,7 @@
      "rank": "Maj.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0083"
+      "us-cav:0095"
      ]
     }
    ]
@@ -24077,7 +24171,7 @@
      "rank": "Lieut. Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0085"
+      "us-cav:0097"
      ]
     }
    ]
@@ -24107,7 +24201,7 @@
      "rank": "Lieut. Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0087"
+      "us-cav:0099"
      ]
     }
    ]
@@ -24145,7 +24239,7 @@
      "rank": "Brig. Gen.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0089"
+      "us-cav:0101"
      ],
      "role": "commanding the division"
     }
@@ -24184,7 +24278,7 @@
      "rank": "Brig. Gen.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0093"
+      "us-cav:0105"
      ],
      "role": "commanding the brigade"
     },
@@ -24194,7 +24288,7 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0094"
+      "us-cav:0106"
      ],
      "role": "commanding the brigade after Farnsworth"
     }
@@ -24225,7 +24319,7 @@
      "rank": "Maj.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0096"
+      "us-cav:0108"
      ]
     }
    ]
@@ -24255,7 +24349,7 @@
      "rank": "Lieut. Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0098"
+      "us-cav:0110"
      ]
     }
    ]
@@ -24285,7 +24379,7 @@
      "rank": "Lieut. Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0100"
+      "us-cav:0112"
      ]
     }
    ]
@@ -24315,7 +24409,7 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0102"
+      "us-cav:0114"
      ]
     },
     {
@@ -24324,7 +24418,7 @@
      "rank": "Maj.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0103"
+      "us-cav:0115"
      ]
     }
    ]
@@ -24361,7 +24455,7 @@
      "rank": "Brig. Gen.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0106"
+      "us-cav:0118"
      ],
      "role": "commanding the brigade"
     }
@@ -24394,7 +24488,7 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0108"
+      "us-cav:0120"
      ]
     }
    ]
@@ -24426,7 +24520,7 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0110"
+      "us-cav:0122"
      ]
     }
    ]
@@ -24458,7 +24552,7 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0112"
+      "us-cav:0124"
      ]
     }
    ]
@@ -24488,7 +24582,7 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0114"
+      "us-cav:0126"
      ]
     }
    ]
@@ -30095,7 +30189,18 @@
    "notes": [],
    "id": "cs-2c-early-35vacavalrybn",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "E. V. White",
+     "rank": "Lieutenant-Colonel",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0182"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36232,7 +36337,18 @@
     "cs-cav-flee-chambliss",
     "cs-cav-robertson-jones-imboden"
    ],
-   "own_gate": true
+   "own_gate": true,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "J. E. B. Stuart",
+     "rank": "Maj. Gen.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0019"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36262,7 +36378,38 @@
     "cs-cav-hampton-jeffdavislegion",
     "cs-cav-hampton-phillipslegion"
    ],
-   "own_gate": true
+   "own_gate": true,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "Wade Hampton",
+     "rank": "Brigadier-General",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0164"
+     ],
+     "change": {
+      "event": "wounded",
+      "date": "1863-07-03",
+      "detail": "seriously wounded twice in the engagement of 3 July"
+     }
+    },
+    {
+     "order": 2,
+     "name": "L. S. Baker",
+     "rank": "Col.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0165"
+     ],
+     "role": "commanded the brigade after Hampton was wounded",
+     "change": {
+      "event": "assumed_command",
+      "date": "1863-07-03",
+      "detail": "commanded Hampton's brigade after Hampton was wounded"
+     }
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36281,7 +36428,72 @@
    "notes": [],
    "id": "cs-cav-hampton-1nc",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "L. S. Baker",
+     "rank": "Colonel",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0166"
+     ],
+     "role": "commanded the brigade after Hampton was wounded",
+     "change": {
+      "event": "assumed_command",
+      "date": "1863-07-03",
+      "detail": "took command of Hampton's brigade"
+     }
+    },
+    {
+     "order": 2,
+     "name": "J. B. Gordon",
+     "rank": "Lieutenant-Colonel",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0167"
+     ],
+     "role": "in charge of the regiment while Baker commanded the brigade",
+     "change": {
+      "event": "assumed_command",
+      "date": "1863-07-03",
+      "detail": "left in charge of the regiment"
+     }
+    }
+   ],
+   "strength_verified": {
+    "status": "adopted",
+    "basis_key": "estimate_in_report|officers_and_men",
+    "min": 534,
+    "max": 534,
+    "tier": "documented",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-05-01/1863-06-08; 1 line; range 534 to 534 on 1863-05-01/1863-06-08. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "sources": [],
+    "cites": [
+     {
+      "evidence_id": "cs-cav:0203"
+     }
+    ],
+    "evidence_ids": [
+     "cs-cav:0203"
+    ],
+    "alternatives": [
+     {
+      "key": "estimate_in_report|officers_and_men",
+      "low": 534,
+      "high": 534,
+      "tier": "documented",
+      "spans_dates": false,
+      "by_as_of": {
+       "1863-05-01/1863-06-08": [
+        534,
+        534
+       ]
+      }
+     }
+    ],
+    "as_of": "1863-05-01/1863-06-08"
+   }
   },
   {
    "army": "CS",
@@ -36302,7 +36514,51 @@
    "notes": [],
    "id": "cs-cav-hampton-1sc",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "John L. Black",
+     "rank": "Colonel",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0174"
+     ]
+    }
+   ],
+   "strength_verified": {
+    "status": "adopted",
+    "basis_key": "estimate_in_report|not_stated",
+    "min": 100,
+    "max": 100,
+    "tier": "documented",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-03; 1 line; range 100 to 100 on 1863-07-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "sources": [],
+    "cites": [
+     {
+      "evidence_id": "cs-cav:0207"
+     }
+    ],
+    "evidence_ids": [
+     "cs-cav:0207"
+    ],
+    "alternatives": [
+     {
+      "key": "estimate_in_report|not_stated",
+      "low": 100,
+      "high": 100,
+      "tier": "documented",
+      "spans_dates": false,
+      "by_as_of": {
+       "1863-07-03": [
+        100,
+        100
+       ]
+      }
+     }
+    ],
+    "as_of": "1863-07-03"
+   }
   },
   {
    "army": "CS",
@@ -36323,7 +36579,70 @@
    "notes": [],
    "id": "cs-cav-hampton-2sc",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "M. C. Butler",
+     "rank": "Col.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0175"
+     ],
+     "change": {
+      "event": "wounded",
+      "date": "1863-06-09",
+      "detail": "severely wounded at Brandy Station"
+     }
+    },
+    {
+     "order": 2,
+     "name": "T. J. Lipscomb",
+     "rank": "Maj.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0176"
+     ],
+     "role": "took command after Butler was wounded"
+    }
+   ],
+   "strength_verified": {
+    "status": "adopted",
+    "basis_key": "taken_into_action|enlisted_only",
+    "min": 220,
+    "max": 220,
+    "tier": "documented",
+    "basis": "documented: the report says the unit went into action with N; enlisted only; as of 1863-06-09; 1 line (OR27-2-R570); range 220 to 220 on 1863-06-09. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "sources": [
+     "OR27-2"
+    ],
+    "cites": [
+     {
+      "report_id": "OR27-2-R570",
+      "printed_page": 729,
+      "evidence_id": "cs-cav:0206"
+     }
+    ],
+    "evidence_ids": [
+     "cs-cav:0206"
+    ],
+    "alternatives": [
+     {
+      "key": "taken_into_action|enlisted_only",
+      "low": 220,
+      "high": 220,
+      "tier": "documented",
+      "spans_dates": false,
+      "by_as_of": {
+       "1863-06-09": [
+        220,
+        220
+       ]
+      }
+     }
+    ],
+    "as_of": "1863-06-09"
+   }
   },
   {
    "army": "CS",
@@ -36344,7 +36663,18 @@
    "notes": [],
    "id": "cs-cav-hampton-cobbslegion",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "P. M. B. Young",
+     "rank": "Colonel",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0177"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36365,7 +36695,18 @@
    "notes": [],
    "id": "cs-cav-hampton-jeffdavislegion",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "J. F. Waring",
+     "rank": "Lieutenant-Colonel",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0178"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36412,7 +36753,18 @@
     "cs-cav-flee-4va",
     "cs-cav-flee-5va"
    ],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "Fitzhugh Lee",
+     "rank": "Brig. Gen.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0036"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36431,7 +36783,27 @@
    "notes": [],
    "id": "cs-cav-flee-1mdbn",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "Harry Gilmor",
+     "rank": "Maj.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0038"
+     ]
+    },
+    {
+     "order": 2,
+     "name": "Ridgely Brown",
+     "rank": "Maj.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0039"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36452,7 +36824,18 @@
    "notes": [],
    "id": "cs-cav-flee-1va",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "James H. Drake",
+     "rank": "Col.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0041"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36473,7 +36856,18 @@
    "notes": [],
    "id": "cs-cav-flee-2va",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "T. T. Munford",
+     "rank": "Col.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0043"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36494,7 +36888,18 @@
    "notes": [],
    "id": "cs-cav-flee-3va",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "Thomas H. Owen",
+     "rank": "Col.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0045"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36515,7 +36920,18 @@
    "notes": [],
    "id": "cs-cav-flee-4va",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "Williams C. Wickham",
+     "rank": "Col.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0047"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36536,7 +36952,18 @@
    "notes": [],
    "id": "cs-cav-flee-5va",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "T. L. Rosser",
+     "rank": "Col.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0049"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36566,7 +36993,38 @@
     "cs-cav-jenkins-34vabn",
     "cs-cav-jenkins-36vabn"
    ],
-   "own_gate": true
+   "own_gate": true,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "A. G. Jenkins",
+     "rank": "Brig. Gen.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0168"
+     ],
+     "change": {
+      "event": "wounded",
+      "date": "1863-07-02",
+      "detail": "wounded the day before 3 July, before reporting to Stuart"
+     }
+    },
+    {
+     "order": 2,
+     "name": "M. J. Ferguson",
+     "rank": "Colonel",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0169"
+     ],
+     "role": "Sixteenth Virginia Cavalry",
+     "change": {
+      "event": "assumed_command",
+      "date": "1863-07-03",
+      "detail": "commanded Jenkins' brigade on 3 July"
+     }
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36587,7 +37045,28 @@
    "notes": [],
    "id": "cs-cav-jenkins-14va",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "James Cochrane",
+     "rank": "Col.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0172"
+     ]
+    },
+    {
+     "order": 2,
+     "name": "Thomas Bouldin",
+     "rank": "Captain",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0173"
+     ],
+     "role": "commanded the regiment on 3 July (senior captain of those engaged)"
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36608,7 +37087,24 @@
    "notes": [],
    "id": "cs-cav-jenkins-16va",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "M. J. Ferguson",
+     "rank": "Colonel",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0170"
+     ],
+     "role": "colonel of the regiment; commanded Jenkins' brigade on 3 July",
+     "change": {
+      "event": "assumed_command",
+      "date": "1863-07-03",
+      "detail": "commanded Jenkins' brigade on 3 July"
+     }
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36627,7 +37123,18 @@
    "notes": [],
    "id": "cs-cav-jenkins-17va",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "William H. French",
+     "rank": "Colonel",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0171"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36648,7 +37155,18 @@
    "notes": [],
    "id": "cs-cav-jenkins-34vabn",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "V. A. Witcher",
+     "rank": "Lieut. Col.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0057"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36696,7 +37214,18 @@
     "cs-cav-chambliss-10va",
     "cs-cav-chambliss-13va"
    ],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "J. R. Chambliss, Jr.",
+     "rank": "Col.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0068"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36715,7 +37244,86 @@
    "notes": [],
    "id": "cs-cav-chambliss-2nc",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "Solomon Williams",
+     "rank": "Colonel",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0183"
+     ],
+     "change": {
+      "event": "killed",
+      "date": "1863-06-09",
+      "detail": "killed at Brandy Station"
+     }
+    },
+    {
+     "order": 2,
+     "name": "W. A. Graham",
+     "rank": "Captain",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0184"
+     ],
+     "role": "officer commanding the remnant of the regiment on 3 July",
+     "change": {
+      "event": "wounded",
+      "date": "1863-07-03",
+      "detail": "wounded while supporting a section of Breathed's battery"
+     }
+    },
+    {
+     "order": 3,
+     "name": "Joseph Baker",
+     "rank": "Lieutenant",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0185"
+     ],
+     "role": "Company D; command of the regiment devolved on him",
+     "change": {
+      "event": "assumed_command",
+      "date": "1863-07-03",
+      "detail": "command devolved on him when Graham was wounded"
+     }
+    }
+   ],
+   "strength_verified": {
+    "status": "adopted",
+    "basis_key": "estimate_in_report|not_stated",
+    "min": 40,
+    "max": 40,
+    "tier": "documented",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-03; 1 line; range 40 to 40 on 1863-07-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "sources": [],
+    "cites": [
+     {
+      "evidence_id": "cs-cav:0208"
+     }
+    ],
+    "evidence_ids": [
+     "cs-cav:0208"
+    ],
+    "alternatives": [
+     {
+      "key": "estimate_in_report|not_stated",
+      "low": 40,
+      "high": 40,
+      "tier": "documented",
+      "spans_dates": false,
+      "by_as_of": {
+       "1863-07-03": [
+        40,
+        40
+       ]
+      }
+     }
+    ],
+    "as_of": "1863-07-03"
+   }
   },
   {
    "army": "CS",
@@ -36736,7 +37344,64 @@
    "notes": [],
    "id": "cs-cav-chambliss-9va",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "R. L. T. Beale",
+     "rank": "Col.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0071"
+     ]
+    }
+   ],
+   "strength_verified": {
+    "status": "adopted",
+    "basis_key": "present_for_duty|not_stated",
+    "min": 750,
+    "max": 750,
+    "tier": "documented",
+    "basis": "documented: present for duty on the date of a return; not stated; as of 1863-04-01/1863-06-08; 1 line; range 750 to 750 on 1863-04-01/1863-06-08. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
+    "sources": [],
+    "cites": [
+     {
+      "evidence_id": "cs-cav:0205"
+     }
+    ],
+    "evidence_ids": [
+     "cs-cav:0205"
+    ],
+    "alternatives": [
+     {
+      "key": "present_for_duty|not_stated",
+      "low": 750,
+      "high": 750,
+      "tier": "documented",
+      "spans_dates": false,
+      "by_as_of": {
+       "1863-04-01/1863-06-08": [
+        750,
+        750
+       ]
+      }
+     },
+     {
+      "key": "estimate_in_report|officers_and_men",
+      "low": 616,
+      "high": 616,
+      "tier": "documented",
+      "spans_dates": false,
+      "by_as_of": {
+       "1863-05-01/1863-06-08": [
+        616,
+        616
+       ]
+      }
+     }
+    ],
+    "as_of": "1863-04-01/1863-06-08"
+   }
   },
   {
    "army": "CS",
@@ -36757,7 +37422,18 @@
    "notes": [],
    "id": "cs-cav-chambliss-10va",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "J. Lucius Davis",
+     "rank": "Col.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0073"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36776,7 +37452,38 @@
    "notes": [],
    "id": "cs-cav-chambliss-13va",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "J. R. Chambliss, Jr.",
+     "rank": "Col.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0224"
+     ],
+     "role": "colonel; took W. H. F. Lee's brigade when Lee was wounded",
+     "change": {
+      "event": "assumed_command",
+      "date": "1863-06-09",
+      "detail": "the command of W. H. F. Lee's brigade devolved on him"
+     }
+    },
+    {
+     "order": 2,
+     "name": "J. C. Phillips",
+     "rank": "Lieutenant-Colonel",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0225"
+     ],
+     "change": {
+      "event": "wounded",
+      "date": "1863-06-09",
+      "detail": "wounded at Brandy Station"
+     }
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36797,7 +37504,18 @@
    "notes": [],
    "id": "cs-cav-horse-art",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "R. F. Beckham",
+     "rank": "Maj.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0076"
+     ]
+    }
+   ]
   },
   {
    "army": "US",
@@ -36820,7 +37538,19 @@
    "name_ledger": "Army headquarters",
    "commanders_ledger_cell": "Meade (took command Jun 28 early morning at Frederick); chief of staff Butterfield; chief of artillery Hunt; chief engineer Warren",
    "children": [],
-   "own_gate": true
+   "own_gate": true,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "George G. Meade",
+     "rank": "Maj. Gen.",
+     "tier": "documented",
+     "evidence_ids": [
+      "army-hq:0010"
+     ],
+     "role": "commanding the army, of whose headquarters the table is headed"
+    }
+   ]
   },
   {
    "army": "US",
@@ -36886,7 +37616,19 @@
    "name_ledger": "Army headquarters",
    "commanders_ledger_cell": "Lee",
    "children": [],
-   "own_gate": true
+   "own_gate": true,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "Robert E. Lee",
+     "rank": "General",
+     "tier": "documented",
+     "evidence_ids": [
+      "army-hq:0037"
+     ],
+     "role": "commanding the army whose headquarters issued the report"
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36950,7 +37692,29 @@
     "cs-cav-flee",
     "cs-cav-chambliss"
    ],
-   "own_gate": true
+   "own_gate": true,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "Fitzhugh Lee",
+     "rank": "Brig. Gen.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0216"
+     ],
+     "role": "Fitz. Lee's brigade"
+    },
+    {
+     "order": 2,
+     "name": "J. R. Chambliss, Jr.",
+     "rank": "Col.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0217"
+     ],
+     "role": "W. H. F. Lee's brigade"
+    }
+   ]
   },
   {
    "army": "CS",
@@ -36979,7 +37743,37 @@
     "cs-cav-jones",
     "cs-cav-imboden"
    ],
-   "own_gate": true
+   "own_gate": true,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "Beverly H. Robertson",
+     "rank": "Brig. Gen.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0219"
+     ],
+     "role": "commanded his own and W. E. Jones' brigade"
+    },
+    {
+     "order": 2,
+     "name": "William E. Jones",
+     "rank": "Brig. Gen.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0220"
+     ]
+    },
+    {
+     "order": 3,
+     "name": "J. D. Imboden",
+     "rank": "Brig. Gen.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0221"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -37002,7 +37796,65 @@
    ],
    "id": "cs-cav-robertson",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "Beverly H. Robertson",
+     "rank": "Brig. Gen.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0031"
+     ],
+     "role": "commanded his own and W. E. Jones' brigade (footnote)"
+    }
+   ],
+   "strength_verified": {
+    "status": "adopted",
+    "basis_key": "effective_total|enlisted_only",
+    "min": 1068,
+    "max": 1068,
+    "tier": "documented",
+    "basis": "documented: effective total of a return; enlisted only; as of 1863-05-01/1863-06-08; 1 line; range 1068 to 1068 on 1863-05-01/1863-06-08. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
+    "sources": [],
+    "cites": [
+     {
+      "evidence_id": "cs-cav:0197"
+     }
+    ],
+    "evidence_ids": [
+     "cs-cav:0197"
+    ],
+    "alternatives": [
+     {
+      "key": "effective_total|enlisted_only",
+      "low": 1068,
+      "high": 1068,
+      "tier": "documented",
+      "spans_dates": false,
+      "by_as_of": {
+       "1863-05-01/1863-06-08": [
+        1068,
+        1068
+       ]
+      }
+     },
+     {
+      "key": "effective_total|officers_only",
+      "low": 67,
+      "high": 67,
+      "tier": "documented",
+      "spans_dates": false,
+      "by_as_of": {
+       "1863-05-01/1863-06-08": [
+        67,
+        67
+       ]
+      }
+     }
+    ],
+    "as_of": "1863-05-01/1863-06-08"
+   }
   },
   {
    "army": "CS",
@@ -37025,7 +37877,18 @@
    ],
    "id": "cs-cav-jones",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "William E. Jones",
+     "rank": "Brig. Gen.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0060"
+     ]
+    }
+   ]
   },
   {
    "army": "CS",
@@ -37048,7 +37911,18 @@
    ],
    "id": "cs-cav-imboden",
    "children": [],
-   "own_gate": false
+   "own_gate": false,
+   "commanders_verified": [
+    {
+     "order": 1,
+     "name": "J. D. Imboden",
+     "rank": "Brig. Gen.",
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0090"
+     ]
+    }
+   ]
   },
   {
    "army": "US",
@@ -37082,7 +37956,7 @@
      "rank": "Col.",
      "tier": "documented",
      "evidence_ids": [
-      "us-cav:0068"
+      "us-cav:0080"
      ],
      "role": "commanding the brigade"
     }

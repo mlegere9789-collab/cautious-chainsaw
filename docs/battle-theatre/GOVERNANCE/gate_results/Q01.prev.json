@@ -3,12 +3,12 @@
  "counts": {
   "BLOCKED-INPUT": 558,
   "COVERED": 0,
-  "FAIL": 293,
+  "FAIL": 286,
   "N/A": 170,
   "NOT-RUN": 0,
-  "PASS": 2882
+  "PASS": 2889
  },
- "finished_utc": "2026-11-24T23:08:43Z",
+ "finished_utc": "2026-11-24T23:09:50Z",
  "gate": "Q01",
  "incomplete_reasons": [
   "558 item(s) NOT-RUN or BLOCKED-INPUT",
@@ -26,7 +26,7 @@
   "docs/battle-theatre/app/src/world-from-units.mjs": "b9c1d5cc691ef5266e9ce2edaf5707f6f0616bad81f6ef92ddb3e889b21fe5b9",
   "docs/battle-theatre/history/arrivals.json": "03c13a35620c416e29972ef7d311b775f3f0674562af6b6545dc98f34958bbce",
   "docs/battle-theatre/history/not_on_field.json": "1ff7c3f4a07130a4dd53f0c40eb503f799d2db0a79b2e51a7cfc01f1c93cbc1f",
-  "docs/battle-theatre/history/units.json": "0f81ca05687032390dc2a03faf7d90fd48426f5ac267f670a3417ad14fa6f7c2",
+  "docs/battle-theatre/history/units.json": "44a65e80b2b5ca8fa6a104e2dc768670bf1ff3201bd26f5fed9ad228e4ddefac",
   "docs/battle-theatre/kit/evidence/cs-anderson.jsonl": "19c4e7f44f9ad14ca4d167321d91544a5cf770dd5d658471acb902a79a077c9c",
   "docs/battle-theatre/kit/evidence/cs-art-1c.jsonl": "fbcdc6493a501a3d4446ae0e0d7e339140a8bb0761750340337e6355e3b6263d",
   "docs/battle-theatre/kit/evidence/cs-art-2c.jsonl": "1934525accb07a874700a827ad87ad370976175dcec6858173b6794f2bfc1655",
@@ -120,10 +120,10 @@
    "sha256": "1ff7c3f4a07130a4dd53f0c40eb503f799d2db0a79b2e51a7cfc01f1c93cbc1f"
   },
   {
-   "bytes": 844726,
+   "bytes": 848924,
    "path": "docs/battle-theatre/history/units.json",
    "role": "data",
-   "sha256": "0f81ca05687032390dc2a03faf7d90fd48426f5ac267f670a3417ad14fa6f7c2"
+   "sha256": "44a65e80b2b5ca8fa6a104e2dc768670bf1ff3201bd26f5fed9ad228e4ddefac"
   },
   {
    "bytes": 195286,
@@ -79096,34 +79096,35 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "the layer record (basis_key None, sources ['SS-B3', 'PDF-B3']) names no basis or source of the table row (taken_into_action|not_stated)",
       "name": "same basis: the layer names the basis key or cites a source of the table row",
-      "ok": false
+      "ok": true
      },
      {
-      "detail": "305 not in {'taken_into_action|not_stated': [310, 321]}",
+      "detail": "[321, 321] not in {'taken_into_action|not_stated': [321, 321]}",
       "name": "the layer figure lies in a verified range",
-      "ok": false
+      "ok": true
      },
      {
-      "detail": "taken_into_action|not_stated spans the dates ['1863-07-01', '1863-07-02', '1863-07-03'] and the layer figure names no date",
       "name": "the date of the figure: a layer figure is compared only with the table figures of its own date, and a range that spans dates is never used on its wide span",
-      "ok": false
+      "ok": true
+     },
+     {
+      "name": "the figures drawn lie inside the range the layer carries",
+      "ok": true
      }
     ],
     "layer": {
-     "as_of": null,
-     "basis": "plausible-procedural: corps figure shared by regiment count, Busey and Martin not available. Share 305 = 9,755 (XII Corps figure) / 32 leaf units on the field.",
-     "basis_key": null,
-     "kind": "procedural",
-     "max": null,
-     "min": null,
-     "point": 305,
+     "as_of": "1863-07-01",
+     "basis": "documented: the report says the unit went into action with N; not stated; as of 1863-07-01 to 1863-07-03; 3 lines (OR27-1-R274); range 321 to 321 on 1863-07-01 ",
+     "basis_key": "taken_into_action|not_stated",
+     "kind": "documented",
+     "max": 321,
+     "min": 321,
+     "point": 321,
      "sources": [
-      "SS-B3",
-      "PDF-B3"
+      "OR27-1"
      ],
-     "tier": "plausible-procedural"
+     "tier": "documented"
     },
     "table": {
      "ranges": {
@@ -79137,10 +79138,10 @@
     }
    },
    "id": "Q01/Q01.3/us-12c-1d-mcdougall-20ct/default",
-   "pass": false,
-   "reason": "strength: same basis: the layer names the basis key or cites a source of the table row: the layer record (basis_key None, sources ['SS-B3', 'PDF-B3']) names no basis or source of the table row (taken_into_action|not_stated); the layer figure lies in a verified range: 305 not in {'taken_into_action|not_stated': [310, 321]}; the date of the figure: a layer figure is compared only with the table figures of its own date, and a range that spans dates is never used on its wide span: taken_into_action|not_stated spans the dates ['1863-07-01', '1863-07-02', '1863-07-03'] and the layer figure names no date",
+   "pass": true,
+   "reason": "the layer figure lies in the verified range of the same basis and carries it",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -80257,34 +80258,36 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "the layer record (basis_key None, sources ['SS-B3', 'PDF-B3']) names no basis or source of the table row (taken_into_action|officers_and_men)",
       "name": "same basis: the layer names the basis key or cites a source of the table row",
-      "ok": false
+      "ok": true
      },
      {
-      "detail": "305 not in {'taken_into_action|officers_and_men': [149, 149]}",
+      "detail": "[149, 149] not in {'taken_into_action|officers_and_men': [149, 149]}",
       "name": "the layer figure lies in a verified range",
-      "ok": false
+      "ok": true
      },
      {
-      "detail": "taken_into_action|officers_and_men spans the dates ['1863-07-01/1863-07-03', '1863-07-02/1863-07-03'] and the layer figure names no date",
       "name": "the date of the figure: a layer figure is compared only with the table figures of its own date, and a range that spans dates is never used on its wide span",
-      "ok": false
+      "ok": true
+     },
+     {
+      "name": "the figures drawn lie inside the range the layer carries",
+      "ok": true
      }
     ],
     "layer": {
-     "as_of": null,
-     "basis": "plausible-procedural: corps figure shared by regiment count, Busey and Martin not available. Share 305 = 9,755 (XII Corps figure) / 32 leaf units on the field.",
-     "basis_key": null,
-     "kind": "procedural",
-     "max": null,
-     "min": null,
-     "point": 305,
+     "as_of": "1863-07-01/1863-07-03",
+     "basis": "documented: the report says the unit went into action with N; officers and men; as of 1863-07-01/1863-07-03 to 1863-07-02/1863-07-03; 2 lines (OR27-1-R305, PA2-",
+     "basis_key": "taken_into_action|officers_and_men",
+     "kind": "documented",
+     "max": 149,
+     "min": 149,
+     "point": 149,
      "sources": [
-      "SS-B3",
-      "PDF-B3"
+      "PA-GB-1914-v2",
+      "OR27-1"
      ],
-     "tier": "plausible-procedural"
+     "tier": "documented"
     },
     "table": {
      "ranges": {
@@ -80298,10 +80301,10 @@
     }
    },
    "id": "Q01/Q01.3/us-12c-2d-kane-109pa/default",
-   "pass": false,
-   "reason": "strength: same basis: the layer names the basis key or cites a source of the table row: the layer record (basis_key None, sources ['SS-B3', 'PDF-B3']) names no basis or source of the table row (taken_into_action|officers_and_men); the layer figure lies in a verified range: 305 not in {'taken_into_action|officers_and_men': [149, 149]}; the date of the figure: a layer figure is compared only with the table figures of its own date, and a range that spans dates is never used on its wide span: taken_into_action|officers_and_men spans the dates ['1863-07-01/1863-07-03', '1863-07-02/1863-07-03'] and the layer figure names no date",
+   "pass": true,
+   "reason": "the layer figure lies in the verified range of the same basis and carries it",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -88912,34 +88915,35 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "the layer record (basis_key None, sources ['SS-B3', 'PDF-B3']) names no basis or source of the table row (aggregate_present|officers_and_men, present_for_duty|officers_and_men)",
       "name": "same basis: the layer names the basis key or cites a source of the table row",
-      "ok": false
+      "ok": true
      },
      {
-      "detail": "224 not in {'aggregate_present|officers_and_men': [463, 596], 'present_for_duty|officers_and_men': [401, 532]}",
+      "detail": "[532, 532] not in {'present_for_duty|officers_and_men': [532, 532]}",
       "name": "the layer figure lies in a verified range",
-      "ok": false
+      "ok": true
      },
      {
-      "detail": "aggregate_present|officers_and_men spans the dates ['1863-06-30', '1863-07-13'] and the layer figure names no date; present_for_duty|officers_and_men spans the dates ['1863-06-30', '1863-07-13'] and the layer figure names no date",
       "name": "the date of the figure: a layer figure is compared only with the table figures of its own date, and a range that spans dates is never used on its wide span",
-      "ok": false
+      "ok": true
+     },
+     {
+      "name": "the figures drawn lie inside the range the layer carries",
+      "ok": true
      }
     ],
     "layer": {
-     "as_of": null,
-     "basis": "plausible-procedural: corps figure shared by regiment count, Busey and Martin not available. Share 224 = 11,216 (II Corps figure) / 50 leaf units on the field.",
-     "basis_key": null,
-     "kind": "procedural",
-     "max": null,
-     "min": null,
-     "point": 224,
+     "as_of": "1863-06-30",
+     "basis": "documented: present for duty on the date of a return; officers and men; as of 1863-06-30 to 1863-07-13; 2 lines; range 532 to 532 on 1863-06-30 (latest dated fi",
+     "basis_key": "present_for_duty|officers_and_men",
+     "kind": "documented",
+     "max": 532,
+     "min": 532,
+     "point": 532,
      "sources": [
-      "SS-B3",
-      "PDF-B3"
+      "NJ-TOOMBS-1888"
      ],
-     "tier": "plausible-procedural"
+     "tier": "documented"
     },
     "table": {
      "ranges": {
@@ -88958,10 +88962,10 @@
     }
    },
    "id": "Q01/Q01.3/us-2c-3d-smyth-12nj/default",
-   "pass": false,
-   "reason": "strength: same basis: the layer names the basis key or cites a source of the table row: the layer record (basis_key None, sources ['SS-B3', 'PDF-B3']) names no basis or source of the table row (aggregate_present|officers_and_men, present_for_duty|officers_and_men); the layer figure lies in a verified range: 224 not in {'aggregate_present|officers_and_men': [463, 596], 'present_for_duty|officers_and_men': [401, 532]}; the date of the figure: a layer figure is compared only with the table figures of its own date, and a range that spans dates is never used on its wide span: aggregate_present|officers_and_men spans the dates ['1863-06-30', '1863-07-13'] and the layer figure names no date; present_for_duty|officers_and_men spans the dates ['1863-06-30', '1863-07-13'] and the layer figure names no date",
+   "pass": true,
+   "reason": "the layer figure lies in the verified range of the same basis and carries it",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -96489,7 +96493,7 @@
     ],
     "layer": {
      "as_of": "1863-07-02",
-     "basis": "documented: present for duty on the date of a return; officers and men; as of 1863-07-02 to 1863-07-04; 2 lines (OR27-1-R193); range 342 to 342 on 1863-07-02. D",
+     "basis": "documented: present for duty on the date of a return; officers and men; as of 1863-07-02 to 1863-07-04; 2 lines (OR27-1-R193); range 342 to 342 on 1863-07-02 (e",
      "basis_key": "present_for_duty|officers_and_men",
      "kind": "documented",
      "max": 342,
@@ -108686,34 +108690,36 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "the layer record (basis_key None, sources ['SS-B3', 'PDF-B3']) names no basis or source of the table row (taken_into_action|officers_and_men)",
       "name": "same basis: the layer names the basis key or cites a source of the table row",
-      "ok": false
+      "ok": true
      },
      {
-      "detail": "107 not in {'taken_into_action|officers_and_men': [70, 70]}",
+      "detail": "[70, 70] not in {'taken_into_action|officers_and_men': [70, 70]}",
       "name": "the layer figure lies in a verified range",
-      "ok": false
+      "ok": true
      },
      {
-      "detail": "taken_into_action|officers_and_men spans the dates ['1863-07-02', '1863-07-02/1863-07-03'] and the layer figure names no date",
       "name": "the date of the figure: a layer figure is compared only with the table figures of its own date, and a range that spans dates is never used on its wide span",
-      "ok": false
+      "ok": true
+     },
+     {
+      "name": "the figures drawn lie inside the range the layer carries",
+      "ok": true
      }
     ],
     "layer": {
-     "as_of": null,
-     "basis": "plausible-procedural: corps figure shared by regiment count, Busey and Martin not available. Share 107 = 2,364 (Artillery Reserve figure) / 22 leaf units on the",
-     "basis_key": null,
-     "kind": "procedural",
-     "max": null,
-     "min": null,
-     "point": 107,
+     "as_of": "1863-07-02",
+     "basis": "documented: the report says the unit went into action with N; officers and men; as of 1863-07-02 to 1863-07-02/1863-07-03; 2 lines (NY3-S029, OR27-1-R319); rang",
+     "basis_key": "taken_into_action|officers_and_men",
+     "kind": "documented",
+     "max": 70,
+     "min": 70,
+     "point": 70,
      "sources": [
-      "SS-B3",
-      "PDF-B3"
+      "OR27-1",
+      "NY-GB-1902-v3"
      ],
-     "tier": "plausible-procedural"
+     "tier": "documented"
     },
     "table": {
      "ranges": {
@@ -108727,10 +108733,10 @@
     }
    },
    "id": "Q01/Q01.3/us-art-reserve-mcgilvery-15ny/default",
-   "pass": false,
-   "reason": "strength: same basis: the layer names the basis key or cites a source of the table row: the layer record (basis_key None, sources ['SS-B3', 'PDF-B3']) names no basis or source of the table row (taken_into_action|officers_and_men); the layer figure lies in a verified range: 107 not in {'taken_into_action|officers_and_men': [70, 70]}; the date of the figure: a layer figure is compared only with the table figures of its own date, and a range that spans dates is never used on its wide span: taken_into_action|officers_and_men spans the dates ['1863-07-02', '1863-07-02/1863-07-03'] and the layer figure names no date",
+   "pass": true,
+   "reason": "the layer figure lies in the verified range of the same basis and carries it",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -108805,34 +108811,36 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "the layer record (basis_key None, sources ['SS-B3', 'PDF-B3']) names no basis or source of the table row (taken_into_action|officers_and_men)",
       "name": "same basis: the layer names the basis key or cites a source of the table row",
-      "ok": false
+      "ok": true
      },
      {
-      "detail": "107 not in {'taken_into_action|officers_and_men': [104, 104]}",
+      "detail": "[104, 104] not in {'taken_into_action|officers_and_men': [104, 104]}",
       "name": "the layer figure lies in a verified range",
-      "ok": false
+      "ok": true
      },
      {
-      "detail": "taken_into_action|officers_and_men spans the dates ['1863-07-02', '1863-07-02/1863-07-03'] and the layer figure names no date",
       "name": "the date of the figure: a layer figure is compared only with the table figures of its own date, and a range that spans dates is never used on its wide span",
-      "ok": false
+      "ok": true
+     },
+     {
+      "name": "the figures drawn lie inside the range the layer carries",
+      "ok": true
      }
     ],
     "layer": {
-     "as_of": null,
-     "basis": "plausible-procedural: corps figure shared by regiment count, Busey and Martin not available. Share 107 = 2,364 (Artillery Reserve figure) / 22 leaf units on the",
-     "basis_key": null,
-     "kind": "procedural",
-     "max": null,
-     "min": null,
-     "point": 107,
+     "as_of": "1863-07-02",
+     "basis": "documented: the report says the unit went into action with N; officers and men; as of 1863-07-02 to 1863-07-02/1863-07-03; 2 lines (FOX-S230, OR27-1-R319); rang",
+     "basis_key": "taken_into_action|officers_and_men",
+     "kind": "documented",
+     "max": 104,
+     "min": 104,
+     "point": 104,
      "sources": [
-      "SS-B3",
-      "PDF-B3"
+      "OR27-1",
+      "FOX-1889"
      ],
-     "tier": "plausible-procedural"
+     "tier": "documented"
     },
     "table": {
      "ranges": {
@@ -108846,10 +108854,10 @@
     }
    },
    "id": "Q01/Q01.3/us-art-reserve-mcgilvery-9ma/default",
-   "pass": false,
-   "reason": "strength: same basis: the layer names the basis key or cites a source of the table row: the layer record (basis_key None, sources ['SS-B3', 'PDF-B3']) names no basis or source of the table row (taken_into_action|officers_and_men); the layer figure lies in a verified range: 107 not in {'taken_into_action|officers_and_men': [104, 104]}; the date of the figure: a layer figure is compared only with the table figures of its own date, and a range that spans dates is never used on its wide span: taken_into_action|officers_and_men spans the dates ['1863-07-02', '1863-07-02/1863-07-03'] and the layer figure names no date",
+   "pass": true,
+   "reason": "the layer figure lies in the verified range of the same basis and carries it",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -114223,14 +114231,15 @@
    "evidence": {
     "layer_leaves": 6,
     "layer_leaves_drawn": 6,
-    "layer_sum": 1818,
+    "layer_sum": 1834,
     "own_ranges_not_usable_for_want_of_a_date": {},
-    "sums_not_usable_for_want_of_a_date": {
+    "sums_not_usable_for_want_of_a_date": {},
+    "table_leaf_sums": {
      "taken_into_action|not_stated": [
-      "us-12c-1d-mcdougall-20ct: the range spans the dates ['1863-07-01', '1863-07-02', '1863-07-03'] and the layer figure names no date"
+      1834,
+      1834
      ]
     },
-    "table_leaf_sums": {},
     "table_leaves": 6,
     "table_own_ranges": {
      "taken_into_action|not_stated": [
@@ -114241,10 +114250,10 @@
     "unverified_table_leaves": []
    },
    "id": "Q01/Q01.4/us-12c-1d-mcdougall/default",
-   "pass": false,
-   "reason": "roll-up: the layer sum lies inside the sum of the table ranges of one kind (a range that spans dates only on the figure of the date the layer names, never on its wide span): layer 1818, table sums {}; not usable for want of a date: {'taken_into_action|not_stated': [\"us-12c-1d-mcdougall-20ct: the range spans the dates ['1863-07-01', '1863-07-02', '1863-07-03'] and the layer figure names no date\"]}",
+   "pass": true,
+   "reason": "the layer sum 1834 lies inside the sum of the verified ranges",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -114259,7 +114268,7 @@
    "evidence": {
     "layer_leaves": 14,
     "layer_leaves_drawn": 14,
-    "layer_sum": 4348,
+    "layer_sum": 4364,
     "own_ranges_not_usable_for_want_of_a_date": {},
     "sums_not_usable_for_want_of_a_date": {},
     "table_leaf_sums": {},
@@ -114278,7 +114287,7 @@
    },
    "id": "Q01/Q01.4/us-12c-1d/default",
    "pass": false,
-   "reason": "input missing: the table has no verified range for 3 of the 14 units under it, so it has no roll-up to compare with (layer sum 4348)",
+   "reason": "input missing: the table has no verified range for 3 of the 14 units under it, so it has no roll-up to compare with (layer sum 4364)",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -114373,7 +114382,7 @@
    "evidence": {
     "layer_leaves": 3,
     "layer_leaves_drawn": 3,
-    "layer_sum": 1049,
+    "layer_sum": 893,
     "own_ranges_not_usable_for_want_of_a_date": {},
     "sums_not_usable_for_want_of_a_date": {},
     "table_leaf_sums": {},
@@ -114392,7 +114401,7 @@
    },
    "id": "Q01/Q01.4/us-12c-2d-kane/default",
    "pass": false,
-   "reason": "input missing: the table has no verified range for 3 of the 3 units under it, so it has no roll-up to compare with (layer sum 1049)",
+   "reason": "input missing: the table has no verified range for 3 of the 3 units under it, so it has no roll-up to compare with (layer sum 893)",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -114409,7 +114418,7 @@
    "evidence": {
     "layer_leaves": 14,
     "layer_leaves_drawn": 14,
-    "layer_sum": 4476,
+    "layer_sum": 4320,
     "own_ranges_not_usable_for_want_of_a_date": {},
     "sums_not_usable_for_want_of_a_date": {},
     "table_leaf_sums": {},
@@ -114433,7 +114442,7 @@
    },
    "id": "Q01/Q01.4/us-12c-2d/default",
    "pass": false,
-   "reason": "input missing: the table has no verified range for 4 of the 14 units under it, so it has no roll-up to compare with (layer sum 4476)",
+   "reason": "input missing: the table has no verified range for 4 of the 14 units under it, so it has no roll-up to compare with (layer sum 4320)",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -114487,7 +114496,7 @@
    "evidence": {
     "layer_leaves": 32,
     "layer_leaves_drawn": 32,
-    "layer_sum": 10044,
+    "layer_sum": 9904,
     "own_ranges_not_usable_for_want_of_a_date": {},
     "sums_not_usable_for_want_of_a_date": {},
     "table_leaf_sums": {},
@@ -114513,7 +114522,7 @@
    },
    "id": "Q01/Q01.4/us-12c/default",
    "pass": false,
-   "reason": "input missing: the table has no verified range for 11 of the 32 units under it, so it has no roll-up to compare with (layer sum 10044)",
+   "reason": "input missing: the table has no verified range for 11 of the 32 units under it, so it has no roll-up to compare with (layer sum 9904)",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -115286,7 +115295,7 @@
    "evidence": {
     "layer_leaves": 5,
     "layer_leaves_drawn": 5,
-    "layer_sum": 967,
+    "layer_sum": 1275,
     "own_ranges_not_usable_for_want_of_a_date": {},
     "sums_not_usable_for_want_of_a_date": {},
     "table_leaf_sums": {},
@@ -115298,7 +115307,7 @@
    },
    "id": "Q01/Q01.4/us-2c-3d-smyth/default",
    "pass": false,
-   "reason": "input missing: the table has no verified range for 1 of the 5 units under it, so it has no roll-up to compare with (layer sum 967)",
+   "reason": "input missing: the table has no verified range for 1 of the 5 units under it, so it has no roll-up to compare with (layer sum 1275)",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -115349,7 +115358,7 @@
    "evidence": {
     "layer_leaves": 13,
     "layer_leaves_drawn": 13,
-    "layer_sum": 3126,
+    "layer_sum": 3434,
     "own_ranges_not_usable_for_want_of_a_date": {},
     "sums_not_usable_for_want_of_a_date": {},
     "table_leaf_sums": {},
@@ -115369,7 +115378,7 @@
    },
    "id": "Q01/Q01.4/us-2c-3d/default",
    "pass": false,
-   "reason": "input missing: the table has no verified range for 4 of the 13 units under it, so it has no roll-up to compare with (layer sum 3126)",
+   "reason": "input missing: the table has no verified range for 4 of the 13 units under it, so it has no roll-up to compare with (layer sum 3434)",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -115424,7 +115433,7 @@
    "evidence": {
     "layer_leaves": 50,
     "layer_leaves_drawn": 50,
-    "layer_sum": 11119,
+    "layer_sum": 11427,
     "own_ranges_not_usable_for_want_of_a_date": {
      "aggregate_present|aggregate": "the range spans the dates ['1863-06-10', '1863-06-20', '1863-06-30', '1863-07-10', '1863-07-20', '1863-07-31'] and the layer names no date for this unit",
      "derived|officers_and_men": "the range spans the dates ['1863-06-10', '1863-06-20', '1863-06-30', '1863-07-10', '1863-07-20', '1863-07-31'] and the layer names no date for this unit",
@@ -115456,7 +115465,7 @@
    },
    "id": "Q01/Q01.4/us-2c/default",
    "pass": false,
-   "reason": "input missing: the table has no verified range for 12 of the 51 units under it, so it has no roll-up to compare with (layer sum 11119)",
+   "reason": "input missing: the table has no verified range for 12 of the 51 units under it, so it has no roll-up to compare with (layer sum 11427)",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -116804,7 +116813,7 @@
    "evidence": {
     "layer_leaves": 338,
     "layer_leaves_drawn": 286,
-    "layer_sum": 81287,
+    "layer_sum": 81415,
     "own_ranges_not_usable_for_want_of_a_date": {},
     "sums_not_usable_for_want_of_a_date": {},
     "table_leaf_sums": {},
@@ -116825,7 +116834,7 @@
    },
    "id": "Q01/Q01.4/us-aop/default",
    "pass": false,
-   "reason": "input missing: the table has no verified range for 167 of the 353 units under it, so it has no roll-up to compare with (layer sum 81287)",
+   "reason": "input missing: the table has no verified range for 167 of the 353 units under it, so it has no roll-up to compare with (layer sum 81415)",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -116905,24 +116914,24 @@
    "evidence": {
     "layer_leaves": 5,
     "layer_leaves_drawn": 5,
-    "layer_sum": 528,
+    "layer_sum": 488,
     "own_ranges_not_usable_for_want_of_a_date": {},
-    "sums_not_usable_for_want_of_a_date": {
+    "sums_not_usable_for_want_of_a_date": {},
+    "table_leaf_sums": {
      "taken_into_action|officers_and_men": [
-      "us-art-reserve-mcgilvery-15ny: the range spans the dates ['1863-07-02', '1863-07-02/1863-07-03'] and the layer figure names no date",
-      "us-art-reserve-mcgilvery-9ma: the range spans the dates ['1863-07-02', '1863-07-02/1863-07-03'] and the layer figure names no date"
+      488,
+      488
      ]
     },
-    "table_leaf_sums": {},
     "table_leaves": 5,
     "table_own_ranges": {},
     "unverified_table_leaves": []
    },
    "id": "Q01/Q01.4/us-art-reserve-mcgilvery/default",
-   "pass": false,
-   "reason": "roll-up: the layer sum lies inside the sum of the table ranges of one kind (a range that spans dates only on the figure of the date the layer names, never on its wide span): layer 528, table sums {}; not usable for want of a date: {'taken_into_action|officers_and_men': [\"us-art-reserve-mcgilvery-15ny: the range spans the dates ['1863-07-02', '1863-07-02/1863-07-03'] and the layer figure names no date\", \"us-art-reserve-mcgilvery-9ma: the range spans the dates ['1863-07-02', '1863-07-02/1863-07-03'] and the layer figure names no date\"]}",
+   "pass": true,
+   "reason": "the layer sum 488 lies inside the sum of the verified ranges",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -117019,7 +117028,7 @@
    "evidence": {
     "layer_leaves": 24,
     "layer_leaves_drawn": 22,
-    "layer_sum": 2417,
+    "layer_sum": 2377,
     "own_ranges_not_usable_for_want_of_a_date": {
      "aggregate_present|aggregate": "the range spans the dates ['1863-06-30', '1863-07-10'] and the layer names no date for this unit",
      "present_for_duty|enlisted_only": "the range spans the dates ['1863-06-30', '1863-07-10'] and the layer names no date for this unit",
@@ -117044,7 +117053,7 @@
    },
    "id": "Q01/Q01.4/us-art-reserve/default",
    "pass": false,
-   "reason": "input missing: the table has no verified range for 14 of the 22 units under it, so it has no roll-up to compare with (layer sum 2417)",
+   "reason": "input missing: the table has no verified range for 14 of the 22 units under it, so it has no roll-up to compare with (layer sum 2377)",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -132763,8 +132772,8 @@
      "default": 45120,
      "earliest": 45120,
      "entry": {
-      "lat": 39.78487092999867,
-      "lng": -77.178020318878,
+      "lat": 39.78504561208885,
+      "lng": -77.17836055787456,
       "sigma_m": 2000
      },
      "latest": 45120,
@@ -132810,8 +132819,8 @@
      "default": 45120,
      "earliest": 45120,
      "entry": {
-      "lat": 39.78529515793197,
-      "lng": -77.17884661358391,
+      "lat": 39.78546984002216,
+      "lng": -77.17918685258047,
       "sigma_m": 2000
      },
      "latest": 45120,
@@ -132857,8 +132866,8 @@
      "default": 45120,
      "earliest": 45120,
      "entry": {
-      "lat": 39.78571938586528,
-      "lng": -77.17967290828983,
+      "lat": 39.78589406795546,
+      "lng": -77.18001314728639,
       "sigma_m": 2000
      },
      "latest": 45120,
@@ -132939,8 +132948,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.795854413432096,
-      "lng": -77.19702374208379,
+      "lat": 39.795824882018664,
+      "lng": -77.19699698712802,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -132986,8 +132995,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.79510874524296,
-      "lng": -77.1963481794509,
+      "lat": 39.79507921382953,
+      "lng": -77.19632142449514,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133033,8 +133042,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.797232916197906,
-      "lng": -77.19832627932662,
+      "lat": 39.797218271269564,
+      "lng": -77.1983126804646,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133080,8 +133089,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.7966401950077,
-      "lng": -77.19773668525731,
+      "lat": 39.79661113421504,
+      "lng": -77.19770907750429,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133127,8 +133136,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.79458781378909,
-      "lng": -77.1958478137891,
+      "lat": 39.79455929325759,
+      "lng": -77.1958192746591,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133291,8 +133300,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.791578542255365,
-      "lng": -77.19108708451073,
+      "lat": 39.79155894427143,
+      "lng": -77.19104788854285,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133338,8 +133347,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.791998469601374,
-      "lng": -77.19191703485265,
+      "lat": 39.79197843285013,
+      "lng": -77.19187821364712,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133385,8 +133394,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.792842961974635,
-      "lng": -77.19356414676449,
+      "lat": 39.79281848217851,
+      "lng": -77.19352987504992,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133432,8 +133441,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.79394517402962,
-      "lng": -77.19517897913512,
+      "lat": 39.793917376559094,
+      "lng": -77.19514926459766,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133479,8 +133488,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.79240909306725,
-      "lng": -77.19274771982336,
+      "lat": 39.79238966448423,
+      "lng": -77.19270838937611,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133526,8 +133535,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.79336547988695,
-      "lng": -77.19440412733749,
+      "lat": 39.79334135011626,
+      "lng": -77.19436944079212,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133608,8 +133617,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.79053494969667,
-      "lng": -77.18906989939335,
+      "lat": 39.790515351712735,
+      "lng": -77.18903070342547,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133655,8 +133664,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.79000763257398,
-      "lng": -77.18805220664632,
+      "lat": 39.78998788032453,
+      "lng": -77.1880131410863,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133702,8 +133711,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.78945045947155,
-      "lng": -77.18695501083742,
+      "lat": 39.78943216718516,
+      "lng": -77.18691476780735,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133749,8 +133758,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.79118359510814,
-      "lng": -77.19031971998774,
+      "lat": 39.791163479337534,
+      "lng": -77.19028096754731,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133796,8 +133805,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.790856713835815,
-      "lng": -77.18968999283076,
+      "lat": 39.79083659806521,
+      "lng": -77.18965124039033,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133878,8 +133887,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.78831174234449,
-      "lng": -77.18475426446541,
+      "lat": 39.78838632144241,
+      "lng": -77.1849072802008,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133925,8 +133934,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.78793162952284,
-      "lng": -77.18397437781411,
+      "lat": 39.788100033937496,
+      "lng": -77.18431989721658,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -133972,8 +133981,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.788846725546506,
-      "lng": -77.18580042094982,
+      "lat": 39.78882647205873,
+      "lng": -77.1857617892972,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -134089,8 +134098,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.787473806907016,
-      "lng": -77.18309299978276,
+      "lat": 39.78764774434518,
+      "lng": -77.18343387556808,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -134136,8 +134145,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.786630782777664,
-      "lng": -77.18143574341518,
+      "lat": 39.78680434274267,
+      "lng": -77.1817769465282,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -134183,8 +134192,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.78619341814257,
-      "lng": -77.18062427212593,
+      "lat": 39.786365381287226,
+      "lng": -77.18096595682357,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -134230,8 +134239,8 @@
      "default": 44250,
      "earliest": 44250,
      "entry": {
-      "lat": 39.78705228554982,
-      "lng": -77.18226437954681,
+      "lat": 39.78722584551483,
+      "lng": -77.18260558265983,
       "sigma_m": 2000
      },
      "latest": 44250,
@@ -143901,8 +143910,8 @@
      "default": 45540,
      "earliest": 45480,
      "entry": {
-      "lat": 39.78227470197644,
-      "lng": -77.17298723507936,
+      "lat": 39.782450023549806,
+      "lng": -77.17332692062776,
       "sigma_m": 2000
      },
      "latest": 45660,
@@ -143946,8 +143955,8 @@
      "default": 45540,
      "earliest": 45480,
      "entry": {
-      "lat": 39.782682950783,
-      "lng": -77.17377821714206,
+      "lat": 39.782858272356364,
+      "lng": -77.17411790269045,
       "sigma_m": 2000
      },
      "latest": 45660,
@@ -143991,8 +144000,8 @@
      "default": 45540,
      "earliest": 45480,
      "entry": {
-      "lat": 39.78181636129178,
-      "lng": -77.17209920000283,
+      "lat": 39.78199168286515,
+      "lng": -77.17243888555123,
       "sigma_m": 2000
      },
      "latest": 45660,
@@ -144036,8 +144045,8 @@
      "default": 45540,
      "earliest": 45480,
      "entry": {
-      "lat": 39.78133047007417,
-      "lng": -77.1711577857687,
+      "lat": 39.78150579164753,
+      "lng": -77.1714974713171,
       "sigma_m": 2000
      },
      "latest": 45660,
@@ -144114,8 +144123,8 @@
      "default": 45540,
      "earliest": 45480,
      "entry": {
-      "lat": 39.779951023145024,
-      "lng": -77.16851167923579,
+      "lat": 39.78012836845109,
+      "lng": -77.16884959394059,
       "sigma_m": 2000
      },
      "latest": 45660,
@@ -144159,8 +144168,8 @@
      "default": 45540,
      "earliest": 45480,
      "entry": {
-      "lat": 39.78038722856943,
-      "lng": -77.16934158571063,
+      "lat": 39.78056570417125,
+      "lng": -77.16967848413573,
       "sigma_m": 2000
      },
      "latest": 45660,
@@ -144204,8 +144213,8 @@
      "default": 45540,
      "earliest": 45480,
      "entry": {
-      "lat": 39.77951345530696,
-      "lng": -77.16768298574401,
+      "lat": 39.779692605699054,
+      "lng": -77.16801928923739,
       "sigma_m": 2000
      },
      "latest": 45660,
@@ -144249,8 +144258,8 @@
      "default": 45540,
      "earliest": 45480,
      "entry": {
-      "lat": 39.78084708345045,
-      "lng": -77.17022122418525,
+      "lat": 39.78102240502382,
+      "lng": -77.17056090973365,
       "sigma_m": 2000
      },
      "latest": 45660,
@@ -144327,8 +144336,8 @@
      "default": 45540,
      "earliest": 45480,
      "entry": {
-      "lat": 39.783091329159134,
-      "lng": -77.17456908672091,
+      "lat": 39.783266758291155,
+      "lng": -77.1749086788939,
       "sigma_m": 2000
      },
      "latest": 45660,
@@ -144372,8 +144381,8 @@
      "default": 45540,
      "earliest": 45480,
      "entry": {
-      "lat": 39.784382049966176,
-      "lng": -77.1770744785054,
+      "lat": 39.78455819307452,
+      "lng": -77.17741344822022,
       "sigma_m": 2000
      },
      "latest": 45660,
@@ -144417,8 +144426,8 @@
      "default": 45540,
      "earliest": 45480,
      "entry": {
-      "lat": 39.7839534380365,
-      "lng": -77.17623793968534,
+      "lat": 39.78412793100077,
+      "lng": -77.1765783414777,
       "sigma_m": 2000
      },
      "latest": 45660,
@@ -144462,8 +144471,8 @@
      "default": 45540,
      "earliest": 45480,
      "entry": {
-      "lat": 39.78352238359782,
-      "lng": -77.17540351320312,
+      "lat": 39.78369781272984,
+      "lng": -77.17574310537611,
       "sigma_m": 2000
      },
      "latest": 45660,
@@ -144596,8 +144605,8 @@
      "default": 45540,
      "earliest": 45480,
      "entry": {
-      "lat": 39.77907083712571,
-      "lng": -77.16685880016512,
+      "lat": 39.77925097243203,
+      "lng": -77.16719422452861,
       "sigma_m": 2000
      },
      "latest": 45660,
@@ -144641,8 +144650,8 @@
      "default": 45540,
      "earliest": 45480,
      "entry": {
-      "lat": 39.77865201058068,
-      "lng": -77.16601402116136,
+      "lat": 39.77882329730149,
+      "lng": -77.16635714865721,
       "sigma_m": 2000
      },
      "latest": 45660,
@@ -157849,14 +157858,14 @@
    "check": "Q01.6",
    "evidence": {
     "crew_groups": 0,
-    "expected": 305,
-    "rendered_when_present": 305,
+    "expected": 321,
+    "rendered_when_present": 321,
     "violations": [],
-    "world_count": 305
+    "world_count": 321
    },
    "id": "Q01/Q01.6/us-12c-1d-mcdougall-20ct/default/default",
    "pass": true,
-   "reason": "rendered instances equal the present strength (305) at every time evaluated",
+   "reason": "rendered instances equal the present strength (321) at every time evaluated",
    "renderer_class": "mixed",
    "result": "PASS",
    "scenario": "default",
@@ -158286,14 +158295,14 @@
    "check": "Q01.6",
    "evidence": {
     "crew_groups": 0,
-    "expected": 305,
-    "rendered_when_present": 305,
+    "expected": 149,
+    "rendered_when_present": 149,
     "violations": [],
-    "world_count": 305
+    "world_count": 149
    },
    "id": "Q01/Q01.6/us-12c-2d-kane-109pa/default/default",
    "pass": true,
-   "reason": "rendered instances equal the present strength (305) at every time evaluated",
+   "reason": "rendered instances equal the present strength (149) at every time evaluated",
    "renderer_class": "mixed",
    "result": "PASS",
    "scenario": "default",
@@ -160793,14 +160802,14 @@
    "check": "Q01.6",
    "evidence": {
     "crew_groups": 0,
-    "expected": 224,
-    "rendered_when_present": 224,
+    "expected": 532,
+    "rendered_when_present": 532,
     "violations": [],
-    "world_count": 224
+    "world_count": 532
    },
    "id": "Q01/Q01.6/us-2c-3d-smyth-12nj/default/default",
    "pass": true,
-   "reason": "rendered instances equal the present strength (224) at every time evaluated",
+   "reason": "rendered instances equal the present strength (532) at every time evaluated",
    "renderer_class": "mixed",
    "result": "PASS",
    "scenario": "default",
@@ -165324,14 +165333,14 @@
    "check": "Q01.6",
    "evidence": {
     "crew_groups": 4,
-    "expected": 107,
-    "rendered_when_present": 107,
+    "expected": 70,
+    "rendered_when_present": 70,
     "violations": [],
-    "world_count": 71
+    "world_count": 34
    },
    "id": "Q01/Q01.6/us-art-reserve-mcgilvery-15ny/default/default",
    "pass": true,
-   "reason": "rendered instances equal the present strength (107) at every time evaluated",
+   "reason": "rendered instances equal the present strength (70) at every time evaluated",
    "renderer_class": "mixed",
    "result": "PASS",
    "scenario": "default",
@@ -165370,14 +165379,14 @@
    "check": "Q01.6",
    "evidence": {
     "crew_groups": 6,
-    "expected": 107,
-    "rendered_when_present": 107,
+    "expected": 104,
+    "rendered_when_present": 104,
     "violations": [],
-    "world_count": 53
+    "world_count": 50
    },
    "id": "Q01/Q01.6/us-art-reserve-mcgilvery-9ma/default/default",
    "pass": true,
-   "reason": "rendered instances equal the present strength (107) at every time evaluated",
+   "reason": "rendered instances equal the present strength (104) at every time evaluated",
    "renderer_class": "mixed",
    "result": "PASS",
    "scenario": "default",
@@ -166775,8 +166784,8 @@
     "layer_only_result": "PASS",
     "world": {
      "layer_units": 726,
-     "sum_strength_drawn": 130998,
-     "total_soldiers": 130998,
+     "sum_strength_drawn": 131126,
+     "total_soldiers": 131126,
      "world_units": 850
     },
     "world_static": true
@@ -199284,7 +199293,7 @@
   "Q01.6: the scenario set S* (every combination of source-conflict values inside each interaction group) was not enumerated; this run covered 7 scenario(s): default and the six sample scenarios of history.test.mjs: a sample, never S*"
  ],
  "renderer_class": "mixed",
- "run_id": "20261124T230823Z-Q01",
+ "run_id": "20261124T230931Z-Q01",
  "runnable_here": true,
  "runner_files": [
   "oob_layer_lib.mjs",
@@ -199301,7 +199310,7 @@
   "note": "default and the six sample scenarios of history.test.mjs: a sample, never S*"
  },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T23:08:23Z",
+ "started_utc": "2026-11-24T23:09:31Z",
  "table": {
   "diagnostic_copy": false,
   "path": "docs/battle-theatre/kit/verified_oob.json",
@@ -199352,18 +199361,18 @@
    "Q01.3": {
     "BLOCKED-INPUT": 356,
     "COVERED": 0,
-    "FAIL": 58,
+    "FAIL": 53,
     "N/A": 158,
     "NOT-RUN": 0,
-    "PASS": 154
+    "PASS": 159
    },
    "Q01.4": {
     "BLOCKED-INPUT": 152,
     "COVERED": 0,
-    "FAIL": 8,
+    "FAIL": 6,
     "N/A": 3,
     "NOT-RUN": 0,
-    "PASS": 2
+    "PASS": 4
    },
    "Q01.5": {
     "BLOCKED-INPUT": 0,
@@ -199391,12 +199400,12 @@
    }
   },
   "covered": 0,
-  "fail": 293,
+  "fail": 286,
   "items": 3903,
   "n_a": 170,
-  "not_passing": 1021,
+  "not_passing": 1014,
   "not_run": 0,
-  "pass": 2882
+  "pass": 2889
  },
  "verdict": "FAIL"
 }
