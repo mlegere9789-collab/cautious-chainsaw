@@ -42,6 +42,8 @@ CAUSE = collections.OrderedDict([
     ('range-missing', ('A mover class has no documented range of movement (limbers, caissons, gun pieces, wagon and forge, cavalry column).', 'real record gap: register entry owed (Q05_5_ENTRIES), research of the manuals')),
     ('formation-tier-tuning-duration', ('A change of formation shows the tier of the clause that dates it (inferred) but its duration, 90 s, is a tuning value (plausible-procedural): the weakest tier of its parts must be shown.',
         'product marking defect: fixed in app/src/history/real.mjs (tier is the weaker of the clause and plausible-procedural); the item then needs the open register entry that holds the 90 s (proposal q456-formation-duration-90s)')),
+    ('formation-duration-register-owed', ('The tier shown is now the weakest of the parts (plausible-procedural); the 90 s deployment duration has no open register entry (no drill-manual figure read), so the gate holds the item BLOCKED-INPUT.',
+        'register entry owed: proposal q456-formation-duration-90s (search log owed: nobody has searched a manual for it)')),
     ('no-road-unplaceable', ('The unit has no path: a report of its line of command names a road or route the repository cannot place (the road from Scotland, the route by Horner\'s Mill, a railroad, a road named only by its ends), so the sibling-road rule (DEC-015) is not applied.', 'real record gap: register entry owed (path inferred only with an owner-visible marked entry); research of the gazetteer')),
     ('sibling-no-day-position', ('The unit has no path: the sibling road is available but the unit has no single-label day position (a Bachelder sheet), so it would only stand in a column at the edge.', 'real record gap: register entry owed; research of the troop-map sheets')),
     ('edge-only-no-place', ('The unit is shown only at the edge of the loaded ground: a road of approach is printed, no place after arrival is printed.', 'real record gap: register entry owed; research of the unit\'s reports (history/undrawn)')),
@@ -115,7 +117,9 @@ def classify(gate, it, FH, links):
         return 'unclassified'
     if gate == 'Q06':
         if c == 'Q06.2':
-            return 'formation-tier-tuning-duration' if 'the weakest tier' in r else 'unclassified'
+            if 'the weakest tier' in r:
+                return 'formation-tier-tuning-duration'
+            return 'formation-duration-register-owed' if it['result'] == 'BLOCKED-INPUT' and 'deployment duration' in r else 'unclassified'
         if c == 'Q06.3':
             if it['result'] == 'N/A':
                 return 'na-not-on-field'
