@@ -19,7 +19,7 @@ Rules (each is declared in the record, none is hidden):
   * kinds are never mixed (the table's own rule): the layer names ONE basis key (basis|men) and the range of that key. Where a unit has several documented bases (a return of 30 June, a statement of the men taken
     into action) they measure different things, not one conflicted thing; the layer draws the basis that counts the men who went into the battle (BASIS_ORDER: taken into action first) and carries every other
     documented basis as an alternative. That order is a modelling choice of this builder, recorded in each record (`selection`) and open to the owner.
-  * a range that spans dates is adopted on the figure of ONE date only when exactly one of its dates lies in the battle (1-3 July 1863); otherwise status date_unresolved (no date is picked for the owner).
+  * a range that spans dates is adopted on the figure of ONE date, the one that stands at the unit's entry into the battle (pick_date: the same figure on every date; else the earliest dated figure inside 1-3 July 1863; else the latest before it; else the earliest after it); the date and the rule are in the basis text and every other date stays in the alternatives.
   * the figures drawn = the top of the declared range (contract strengthDrawn); a documented figure and its basis replace a procedural share, nothing else changes an instanced count.
 """
 import argparse, copy, hashlib, json, os, sys
@@ -35,7 +35,7 @@ BASIS_ORDER = ['taken_into_action', 'present_for_duty', 'effective_total', 'aggr
 MEN_ORDER = ['officers_and_men', 'not_stated', 'enlisted_only', 'officers_only']
 BATTLE = ('1863-07-01', '1863-07-03')
 SELECTION = ('basis preference taken_into_action > present_for_duty > effective_total > aggregate_present > estimate_in_report > muster_or_roll > derived > aggregate_present_and_absent; '
-             'men kind officers_and_men > not_stated > enlisted_only; a date-spanning range only on its one battle date; a conflict set is never resolved here (tools/bt/oob_adopt.py)')
+             'men kind officers_and_men > not_stated > enlisted_only; a date-spanning range on the figure that stands at the unit\'s entry into the battle (pick_date: same figure on every date, else earliest inside 1-3 July 1863, else latest before, else earliest after); a conflict set is never resolved here (tools/bt/oob_adopt.py)')
 
 
 def load_table(path=TABLE):
@@ -89,8 +89,30 @@ def _lines_of(tu, key):
     return [f for f in (tu.get('strength') or {}).get('figures') or [] if f.get('basis') == basis and f.get('men') == men and f.get('tier') == 'documented']
 
 
-def _battle_dates(by):
-    return sorted(d for d in by if d != 'undated' and BATTLE[0] <= d <= BATTLE[1])
+def _span(d):
+    """(start, end) of a by_as_of key: '1863-07-01' or '1863-07-01/1863-07-03'; None for 'undated'."""
+    if d == 'undated':
+        return None
+    a, _, b = d.partition('/')
+    return a, (b or a)
+
+
+def pick_date(by):
+    """The date of a range that spans dates, by the declared rule, or None. The figure that stands at the unit's entry into the battle:
+    the same figure on every date -> the earliest key (no date is chosen over another); else the earliest key that overlaps the battle (1-3 July 1863);
+    else the latest key before the battle; else the earliest key after it. The other dates stay in `alternatives.by_as_of`."""
+    keys = sorted((d for d in by if _span(d)), key=lambda d: (_span(d), d))
+    if not keys:
+        return None, None
+    if len({(by[d]['low'], by[d]['high']) for d in keys}) == 1:
+        return keys[0], 'the same figure on every date'
+    inside = [d for d in keys if _span(d)[0] <= BATTLE[1] and _span(d)[1] >= BATTLE[0]]
+    if inside:
+        return inside[0], 'earliest dated figure inside the battle'
+    before = [d for d in keys if _span(d)[1] < BATTLE[0]]
+    if before:
+        return before[-1], 'latest dated figure before the battle'
+    return keys[0], 'earliest dated figure after the battle'
 
 
 def strength_record(tu, sources=None):
@@ -108,12 +130,12 @@ def strength_record(tu, sources=None):
         by = r.get('by_as_of') or {}
         as_of = None
         lo, hi = r['low'], r['high']
+        how = None
         if r.get('spans_dates'):
-            bd = _battle_dates(by)
-            if len(bd) != 1:
+            as_of, how = pick_date(by)
+            if as_of is None:
                 unresolved = unresolved or key
                 continue
-            as_of = bd[0]
             lo, hi = by[as_of]['low'], by[as_of]['high']
         else:
             real = [d for d in by if d != 'undated']
@@ -129,7 +151,7 @@ def strength_record(tu, sources=None):
                 srcs.append(sid)                                   # the volume; the reports and pages are in `cites`: a report id in `sources` would tie other basis keys of the same report to this figure (Q01.3 pick_ranges)
             cites.append({k: c[k] for k in ('report_id', 'printed_page') if c.get(k) is not None} | {'evidence_id': (f.get('evidence_ids') or [None])[0]})
         text = r.get('basis') or key
-        basis = 'documented: %s; range %s to %s%s. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).%s' % (text, lo, hi, ' on %s' % as_of if as_of else '',
+        basis = 'documented: %s; range %s to %s%s. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).%s' % (text, lo, hi, ' on %s%s' % (as_of, ' (%s; the other dates are in the alternatives)' % how if how else '') if as_of else '',
                                                                                           ' Other documented bases of this unit are carried as alternatives; the record does not rank them.' if len(alts) > 1 else '')
         rec = {'status': 'adopted', 'basis_key': key, 'min': lo, 'max': hi, 'tier': 'documented', 'basis': basis, 'sources': srcs, 'cites': cites, 'evidence_ids': ev, 'alternatives': alts}
         if as_of:

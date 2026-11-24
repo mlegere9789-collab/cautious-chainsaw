@@ -26,6 +26,7 @@ const inputs = { structures: rj('structures/structures.json'), sched: rj('struct
 const gaz = new Gazetteer(rj('app/data/gazetteer.json')), kitArt = rj('kit/artillery_batteries.json');
 const plan = planArtillery({ units: L.units, train, batteryGuns: bg, arrivals }), AT = new ArtilleryTrain({ plan, train, units: L.units });
 const W = buildWorks3D({ data: d3, inputs, T, gaz, units: L.units, events });
+const STATED = L.units.reduce((s, u) => s + (u.guns && u.guns.status === 'drawn' ? u.guns.count : 0), 0);   // 124 stated by the kit data when the layer adopted no verified count; more with the verified battery table
 const t0 = (d, h = 0, m = 0) => (d - 1) * 1440 + h * 60 + m + 30 * 1440;            // minutes since 1 June 00:00 for July day d
 const pose = stagePoseAt(stage, L.units.map(u => u.id), train.layout.train_turn_s);
 const at = (t, ch = null) => AT.at(t, pose, ch);
@@ -39,17 +40,17 @@ test('Q14: every drawn battery has a gun count with a basis (stated, Official Re
   const gapIds = new Set(plan.gaps.map(g => g.unit));
   for (const b of plan.batteries) {
     const u = L.units[b.unit]; assert.equal(u.id, b.id);
-    if (u.guns.status === 'drawn') { assert.equal(b.stated, u.guns.count); assert.equal(b.fill, null); const m = bg.matched.find(x => x.history === b.id); assert.ok(m && m.total === b.stated, `${b.id}: the kit table says ${m && m.total}`); }
+    if (u.guns.status === 'drawn') { assert.equal(b.stated, u.guns.count); assert.equal(b.fill, null); const m = (bg.verified || []).find(x => x.history === b.id) || bg.matched.find(x => x.history === b.id); assert.ok(m && m.total === b.stated, `${b.id}: the kit table says ${m && m.total}`); }
     else if (b.unresolved) assert.ok(gapIds.has(b.id), b.id + ' has no count and is not listed as a gap');
     else { assert.ok(b.fill && b.fill.basis && b.fill.tier && b.fill.count > 0, b.id); assert.notEqual(b.fill.tier, 'documented', b.id + ': a filled count is never documented'); assert.ok(['or_report', 'combined_entry_split', 'printed_total', 'battalion_fill', 'pdf_default_fill'].includes(b.fill.source)); }
   }
   assert.deepEqual([...gapIds].sort(), ['cs-2c-johnson-andrews', 'cs-3c-anderson-cutts', 'cs-3c-pender-poague']);
-  // the stated pieces are exactly the 124 the history layer reports
-  assert.equal(plan.batteries.reduce((s, b) => s + b.stated, 0), L.units.reduce((s, u) => s + (u.guns && u.guns.status === 'drawn' ? u.guns.count : 0), 0)); assert.equal(plan.batteries.reduce((s, b) => s + b.stated, 0), 124);
+  // the stated pieces are exactly the guns the history layer reports as drawn (the kit's stated counts and the counts the layer adopts from the verified battery table)
+  assert.equal(plan.batteries.reduce((s, b) => s + b.stated, 0), L.units.reduce((s, u) => s + (u.guns && u.guns.status === 'drawn' ? u.guns.count : 0), 0)); assert.equal(plan.batteries.reduce((s, b) => s + b.stated, 0), STATED);
   // a joined kit entry keeps its printed total across the drawn batteries it joins
   for (const c of bg.combined) { const mem = plan.batteries.filter(b => (c.history || []).includes(b.id) && b.fill); if (mem.length) assert.equal(mem.reduce((s, b) => s + b.fill.count, 0), c.total, c.kit); }
-  // the Official Records counts are tier inferred and only for the four kit gap batteries
-  for (const [id, v] of Object.entries(train.or_counts)) if (typeof v === 'object') { const b = plan.batteries.find(x => x.id === id); assert.ok(b && !b.stated && b.fill.source === 'or_report' && b.fill.tier === 'inferred', id); }
+  // the Official Records counts are tier inferred and only for the four kit gap batteries (a battery that has since taken a documented count from the verified battery table is stated, and the two must agree)
+  for (const [id, v] of Object.entries(train.or_counts)) if (typeof v === 'object') { const b = plan.batteries.find(x => x.id === id); if (b && b.stated) { assert.equal(b.stated, v.count, id + ': the Official Records count read by terrain-1 and the count the layer adopts from the verified table must agree'); continue; } assert.ok(b && !b.stated && b.fill.source === 'or_report' && b.fill.tier === 'inferred', id); }
 });
 
 test('the battalion table equals the kit data (batteries per formation) and the printed defaults are the PDF ones; no default is applied to a battalion with no kit battery list', () => {
@@ -77,10 +78,10 @@ test('the constants agree with the stage and the world builder (crew of nine, gu
   const drill = rj('drill/drill_artillery.json').items; for (const id of ['ART-FA-01', 'ART-FA-09', 'ART-FA-72', 'ART-FA-80']) assert.ok(drill.some(x => x.id === id), id);
 });
 
-test('totals: the default reading draws every stated and filled gun, never more than the printed inventory, and says how far it is from it; stated_only draws exactly the 124', () => {
+test('totals: the default reading draws every stated and filled gun, never more than the printed inventory, and says how far it is from it; stated_only draws exactly the stated guns', () => {
   const t = AT.totals(null), so = AT.totals({ gun_policy: 'stated_only' });
-  assert.equal(so.union.guns + so.confederate.guns, 124); assert.equal(so.union.extra + so.confederate.extra, 0);
-  assert.equal(t.union.stated, 124); assert.ok(t.union.guns > 124 && t.confederate.guns > 0);
+  assert.equal(so.union.guns + so.confederate.guns, STATED); assert.equal(so.union.extra + so.confederate.extra, 0);
+  assert.equal(t.union.stated + t.confederate.stated, STATED); assert.ok(t.union.guns > t.union.stated && t.confederate.guns > 0);
   assert.ok(t.union.guns <= t.union.inventory.high && t.confederate.guns <= t.confederate.inventory.high, 'more guns drawn than the printed inventory');
   assert.ok(t.union.guns + t.confederate.guns > 400, 'total ' + (t.union.guns + t.confederate.guns));
   console.log(`# guns drawn: Union ${t.union.guns} (stated ${t.union.stated}, extra ${t.union.extra}) of the inventory ${t.union.inventory.low}-${t.union.inventory.high}; Confederate ${t.confederate.guns} of ${t.confederate.inventory.low}-${t.confederate.inventory.high}; ${t.union.byBasis ? JSON.stringify(t.union.byBasis) : ''} ${JSON.stringify(t.confederate.byBasis)}`);

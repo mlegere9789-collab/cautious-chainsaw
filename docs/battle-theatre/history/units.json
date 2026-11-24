@@ -52,12 +52,12 @@
    "table_sha256": "eb00abe5be8bd4a88608d9c1d491aa1c81d4a37baeb2aa37b1216611ad3d4d92",
    "counts": {
     "commanders": 671,
-    "strength_adopted": 154,
+    "strength_adopted": 159,
     "strength_conflict": 33,
-    "strength_date_unresolved": 5,
+    "strength_date_unresolved": 0,
     "strength_no_documented_range": 5
    },
-   "selection": "basis preference taken_into_action > present_for_duty > effective_total > aggregate_present > estimate_in_report > muster_or_roll > derived > aggregate_present_and_absent; men kind officers_and_men > not_stated > enlisted_only; a date-spanning range only on its one battle date; a conflict set is never resolved here (tools/bt/oob_adopt.py)",
+   "selection": "basis preference taken_into_action > present_for_duty > effective_total > aggregate_present > estimate_in_report > muster_or_roll > derived > aggregate_present_and_absent; men kind officers_and_men > not_stated > enlisted_only; a date-spanning range on the figure that stands at the unit's entry into the battle (pick_date: same figure on every date, else earliest inside 1-3 July 1863, else latest before, else earliest after); a conflict set is never resolved here (tools/bt/oob_adopt.py)",
    "sources": {
     "OR27-1": {
      "label": "The War of the Rebellion: Official Records, Series I, volume 27 (Gettysburg campaign), part 1",
@@ -97,6 +97,11 @@
     "NY-GB-1900": {
      "label": "New York at Gettysburg (1900) vol. 1",
      "cite": "New York at Gettysburg (1900) vol. 1",
+     "weak": false
+    },
+    "NJ-TOOMBS-1888": {
+     "label": "New Jersey troops in the Gettysburg campaign from June 5 to July 31, 1863 (1888)",
+     "cite": "New Jersey troops in the Gettysburg campaign from June 5 to July 31, 1863 (1888)",
      "weak": false
     },
     "PA-GB-1914a": {
@@ -7009,7 +7014,7 @@
     "min": 343,
     "max": 343,
     "tier": "documented",
-    "basis": "documented: present for duty on the date of a return; officers and men; as of 1863-06-30 to 1863-07-02/1863-07-03; 2 lines (PA2-S036); range 343 to 343 on 1863-07-02/1863-07-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
+    "basis": "documented: present for duty on the date of a return; officers and men; as of 1863-06-30 to 1863-07-02/1863-07-03; 2 lines (PA2-S036); range 343 to 343 on 1863-07-02/1863-07-03 (earliest dated figure inside the battle; the other dates are in the alternatives). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
     "sources": [
      "PA-GB-1914-v2"
     ],
@@ -8119,7 +8124,27 @@
     }
    ],
    "strength_verified": {
-    "status": "date_unresolved",
+    "status": "adopted",
+    "basis_key": "present_for_duty|officers_and_men",
+    "min": 532,
+    "max": 532,
+    "tier": "documented",
+    "basis": "documented: present for duty on the date of a return; officers and men; as of 1863-06-30 to 1863-07-13; 2 lines; range 532 to 532 on 1863-06-30 (latest dated figure before the battle; the other dates are in the alternatives). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
+    "sources": [
+     "NJ-TOOMBS-1888"
+    ],
+    "cites": [
+     {
+      "evidence_id": "us-2c-2d3d:0443"
+     },
+     {
+      "evidence_id": "us-2c-2d3d:0445"
+     }
+    ],
+    "evidence_ids": [
+     "us-2c-2d3d:0443",
+     "us-2c-2d3d:0445"
+    ],
     "alternatives": [
      {
       "key": "present_for_duty|officers_and_men",
@@ -8156,8 +8181,7 @@
       }
      }
     ],
-    "default": null,
-    "note": "the range of present_for_duty|officers_and_men spans several dates and not exactly one of them lies in the battle: no date is picked for the owner"
+    "as_of": "1863-06-30"
    }
   },
   {
@@ -13304,7 +13328,7 @@
     "min": 342,
     "max": 342,
     "tier": "documented",
-    "basis": "documented: present for duty on the date of a return; officers and men; as of 1863-07-02 to 1863-07-04; 2 lines (OR27-1-R193); range 342 to 342 on 1863-07-02. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: present for duty on the date of a return; officers and men; as of 1863-07-02 to 1863-07-04; 2 lines (OR27-1-R193); range 342 to 342 on 1863-07-02 (earliest dated figure inside the battle; the other dates are in the alternatives). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "OR27-1"
     ],
@@ -20951,7 +20975,37 @@
     }
    ],
    "strength_verified": {
-    "status": "date_unresolved",
+    "status": "adopted",
+    "basis_key": "taken_into_action|not_stated",
+    "min": 321,
+    "max": 321,
+    "tier": "documented",
+    "basis": "documented: the report says the unit went into action with N; not stated; as of 1863-07-01 to 1863-07-03; 3 lines (OR27-1-R274); range 321 to 321 on 1863-07-01 (earliest dated figure inside the battle; the other dates are in the alternatives). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "sources": [
+     "OR27-1"
+    ],
+    "cites": [
+     {
+      "report_id": "OR27-1-R274",
+      "printed_page": 788,
+      "evidence_id": "us-12c:0154"
+     },
+     {
+      "report_id": "OR27-1-R274",
+      "printed_page": 788,
+      "evidence_id": "us-12c:0156"
+     },
+     {
+      "report_id": "OR27-1-R274",
+      "printed_page": 788,
+      "evidence_id": "us-12c:0157"
+     }
+    ],
+    "evidence_ids": [
+     "us-12c:0154",
+     "us-12c:0156",
+     "us-12c:0157"
+    ],
     "alternatives": [
      {
       "key": "taken_into_action|not_stated",
@@ -20975,8 +21029,7 @@
       }
      }
     ],
-    "default": null,
-    "note": "the range of taken_into_action|not_stated spans several dates and not exactly one of them lies in the battle: no date is picked for the owner"
+    "as_of": "1863-07-01"
    }
   },
   {
@@ -22363,7 +22416,32 @@
     }
    ],
    "strength_verified": {
-    "status": "date_unresolved",
+    "status": "adopted",
+    "basis_key": "taken_into_action|officers_and_men",
+    "min": 149,
+    "max": 149,
+    "tier": "documented",
+    "basis": "documented: the report says the unit went into action with N; officers and men; as of 1863-07-01/1863-07-03 to 1863-07-02/1863-07-03; 2 lines (OR27-1-R305, PA2-S036); range 149 to 149 on 1863-07-01/1863-07-03 (the same figure on every date; the other dates are in the alternatives). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "sources": [
+     "PA-GB-1914-v2",
+     "OR27-1"
+    ],
+    "cites": [
+     {
+      "report_id": "PA2-S036",
+      "printed_page": "1099-1111",
+      "evidence_id": "us-12c:0186"
+     },
+     {
+      "report_id": "OR27-1-R305",
+      "printed_page": 854,
+      "evidence_id": "us-12c:0166"
+     }
+    ],
+    "evidence_ids": [
+     "us-12c:0166",
+     "us-12c:0186"
+    ],
     "alternatives": [
      {
       "key": "taken_into_action|officers_and_men",
@@ -22383,8 +22461,7 @@
       }
      }
     ],
-    "default": null,
-    "note": "the range of taken_into_action|officers_and_men spans several dates and not exactly one of them lies in the battle: no date is picked for the owner"
+    "as_of": "1863-07-01/1863-07-03"
    }
   },
   {
@@ -24919,7 +24996,32 @@
     }
    ],
    "strength_verified": {
-    "status": "date_unresolved",
+    "status": "adopted",
+    "basis_key": "taken_into_action|officers_and_men",
+    "min": 104,
+    "max": 104,
+    "tier": "documented",
+    "basis": "documented: the report says the unit went into action with N; officers and men; as of 1863-07-02 to 1863-07-02/1863-07-03; 2 lines (FOX-S230, OR27-1-R319); range 104 to 104 on 1863-07-02 (the same figure on every date; the other dates are in the alternatives). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "sources": [
+     "OR27-1",
+     "FOX-1889"
+    ],
+    "cites": [
+     {
+      "report_id": "OR27-1-R319",
+      "printed_page": 884,
+      "evidence_id": "us-art-reserve-horse:0194"
+     },
+     {
+      "report_id": "FOX-S230",
+      "printed_page": "462-463",
+      "evidence_id": "us-art-reserve-horse:0198"
+     }
+    ],
+    "evidence_ids": [
+     "us-art-reserve-horse:0194",
+     "us-art-reserve-horse:0198"
+    ],
     "alternatives": [
      {
       "key": "taken_into_action|officers_and_men",
@@ -24939,8 +25041,7 @@
       }
      }
     ],
-    "default": null,
-    "note": "the range of taken_into_action|officers_and_men spans several dates and not exactly one of them lies in the battle: no date is picked for the owner"
+    "as_of": "1863-07-02"
    }
   },
   {
@@ -24979,7 +25080,32 @@
     }
    ],
    "strength_verified": {
-    "status": "date_unresolved",
+    "status": "adopted",
+    "basis_key": "taken_into_action|officers_and_men",
+    "min": 70,
+    "max": 70,
+    "tier": "documented",
+    "basis": "documented: the report says the unit went into action with N; officers and men; as of 1863-07-02 to 1863-07-02/1863-07-03; 2 lines (NY3-S029, OR27-1-R319); range 70 to 70 on 1863-07-02 (the same figure on every date; the other dates are in the alternatives). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "sources": [
+     "OR27-1",
+     "NY-GB-1902-v3"
+    ],
+    "cites": [
+     {
+      "report_id": "OR27-1-R319",
+      "printed_page": 884,
+      "evidence_id": "us-art-reserve-horse:0195"
+     },
+     {
+      "report_id": "NY3-S029",
+      "printed_page": "1328-1329",
+      "evidence_id": "us-art-reserve-horse:0199"
+     }
+    ],
+    "evidence_ids": [
+     "us-art-reserve-horse:0195",
+     "us-art-reserve-horse:0199"
+    ],
     "alternatives": [
      {
       "key": "taken_into_action|officers_and_men",
@@ -24999,8 +25125,7 @@
       }
      }
     ],
-    "default": null,
-    "note": "the range of taken_into_action|officers_and_men spans several dates and not exactly one of them lies in the battle: no date is picked for the owner"
+    "as_of": "1863-07-02"
    }
   },
   {

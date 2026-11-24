@@ -702,6 +702,1465 @@
    "reason": "no battery of that name in history/units.json (the order of battle has no such unit or the name differs)"
   }
  ],
+ "verified": [
+  {
+   "history": "cs-1c-res-art-alexander-bath",
+   "history_name": "Bath",
+   "total": 4,
+   "range": [
+    4,
+    4
+   ],
+   "guns": [
+    {
+     "count": 4,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "four Napoleons"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [],
+   "guns_printed": "four Napoleons",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     4,
+     4
+    ]
+   },
+   "source_keys": [
+    "OR27-2"
+   ],
+   "evidence_ids": [
+    "cs-art-1c:0101"
+   ],
+   "basis": "documented in the verified battery table: one count (4) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "cs-1c-res-art-alexander-madisonla",
+   "history_name": "Madison LA",
+   "total": 4,
+   "range": [
+    4,
+    4
+   ],
+   "guns": [
+    {
+     "count": 4,
+     "type_id": "24pdr_howitzer",
+     "printed_type": "four 24-pounder howitzers"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [],
+   "guns_printed": "four 24-pounder howitzers",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-03": [
+     4,
+     4
+    ]
+   },
+   "source_keys": [
+    "OR27-2"
+   ],
+   "evidence_ids": [
+    "cs-art-1c:0102"
+   ],
+   "basis": "documented in the verified battery table: one count (4) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-11c-art-1ohi",
+   "history_name": "1st OH I",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "six 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-01T10:00/1863-07-01T16:00": [
+     6,
+     6
+    ],
+    "1863-07-01T10:15/1863-07-01T16:00": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0148",
+    "us-art-corps:0149"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 2 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-12c-art-1nym",
+   "history_name": "1st NY M",
+   "total": 4,
+   "range": [
+    4,
+    4
+   ],
+   "guns": [
+    {
+     "count": 4,
+     "type_id": "10pdr_parrott",
+     "printed_type": "four 10-pounders"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "10pdr_parrott"
+   ],
+   "guns_printed": "four 10-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-03": [
+     4,
+     4
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0159"
+   ],
+   "basis": "documented in the verified battery table: one count (4) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-12c-art-4usf",
+   "history_name": "4th US F",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "six 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0160"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-12c-art-5usk",
+   "history_name": "5th US K",
+   "total": 4,
+   "range": [
+    4,
+    4
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "four 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-03": [
+     4,
+     4
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0278",
+    "us-art-corps:0161"
+   ],
+   "basis": "documented in the verified battery table: one count (4) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-1c-art-1pab",
+   "history_name": "1st PA B",
+   "total": 4,
+   "range": [
+    4,
+    4
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "3inch_navy_rifle",
+    "3inch_ordnance_rifle"
+   ],
+   "guns_printed": "four 3-inch",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-01": [
+     4,
+     4
+    ],
+    "1863-07-03": [
+     4,
+     4
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0117",
+    "us-art-corps:0118"
+   ],
+   "basis": "documented in the verified battery table: one count (4) lies inside the documented figures of all 2 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-1c-art-5me",
+   "history_name": "5th ME",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "six 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-01": [
+     6,
+     6
+    ],
+    "1863-07-01T16:00/1863-07-01T23:59": [
+     6,
+     6
+    ],
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "ME-GB-1898",
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0110",
+    "us-art-corps:0111",
+    "us-art-corps:0112"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 3 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-2c-art-1ria",
+   "history_name": "1st RI A",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "six 3-inch"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "3inch_navy_rifle",
+    "3inch_ordnance_rifle"
+   ],
+   "guns_printed": "six 3-inch",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ],
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0126",
+    "us-art-corps:0127"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 2 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-2c-art-1usi",
+   "history_name": "1st US I",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "six \"light 12-pdrs\""
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "six 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0131"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-2c-art-4usa",
+   "history_name": "4th US A",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "six 3-inch rifles"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "3inch_navy_rifle",
+    "3inch_ordnance_rifle"
+   ],
+   "guns_printed": "six 3-inch",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0132"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-3c-art-1njb",
+   "history_name": "1st NJ B",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "10pdr_parrott",
+     "printed_type": "six 10-pounders"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "10pdr_parrott"
+   ],
+   "guns_printed": "six 10-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0136"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-3c-art-1nyd",
+   "history_name": "1st NY D",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "six 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0135"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-3c-art-1rie",
+   "history_name": "1st RI E",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "six 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0137"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-3c-art-4ny",
+   "history_name": "4th NY",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "10pdr_parrott",
+     "printed_type": "six 10-pounders"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "10pdr_parrott"
+   ],
+   "guns_printed": "six 10-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0133"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-5c-art-1nyc",
+   "history_name": "1st NY C",
+   "total": 4,
+   "range": [
+    4,
+    4
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "3inch_navy_rifle",
+    "3inch_ordnance_rifle"
+   ],
+   "guns_printed": "four 3-inch",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     4,
+     4
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0144"
+   ],
+   "basis": "documented in the verified battery table: one count (4) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-5c-art-1ohl",
+   "history_name": "1st OH L",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "six 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0143"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-5c-art-3ma",
+   "history_name": "3rd MA",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "six 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0141"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-5c-art-5usd",
+   "history_name": "5th US D",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "10pdr_parrott",
+     "printed_type": "six 10-pounders"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "10pdr_parrott"
+   ],
+   "guns_printed": "six 10-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0140"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-5c-art-5usi",
+   "history_name": "5th US I",
+   "total": 4,
+   "range": [
+    4,
+    4
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "3inch_navy_rifle",
+    "3inch_ordnance_rifle"
+   ],
+   "guns_printed": "four 3-inch",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     4,
+     4
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0142"
+   ],
+   "basis": "documented in the verified battery table: one count (4) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-6c-art-1ny",
+   "history_name": "1st NY",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "3inch_navy_rifle",
+    "3inch_ordnance_rifle"
+   ],
+   "guns_printed": "six 3-inch",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-corps:0145"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-fitzhugh-1nj",
+   "history_name": "1st NJ",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "10pdr_parrott",
+     "printed_type": "six 10-pounders"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "10pdr_parrott"
+   ],
+   "guns_printed": "six 10-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0181"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-fitzhugh-1nyg",
+   "history_name": "1st NY G",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "6 Napoleons"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "six 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ],
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0182",
+    "us-art-reserve-horse:0183"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 2 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-fitzhugh-1nyk",
+   "history_name": "1st NY K",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "3inch_navy_rifle",
+    "3inch_ordnance_rifle"
+   ],
+   "guns_printed": "six 3-inch",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0184"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-fitzhugh-6me",
+   "history_name": "6th ME",
+   "total": 4,
+   "range": [
+    4,
+    4
+   ],
+   "guns": [
+    {
+     "count": 4,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "4 Napoleons"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "four 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     4,
+     4
+    ],
+    "1863-07-03": [
+     4,
+     4
+    ]
+   },
+   "source_keys": [
+    "ME-GB-1898",
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0179",
+    "us-art-reserve-horse:0178"
+   ],
+   "basis": "documented in the verified battery table: one count (4) lies inside the documented figures of all 2 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-fitzhugh-mda",
+   "history_name": "MD A",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "6 3-inch"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "3inch_navy_rifle",
+    "3inch_ordnance_rifle"
+   ],
+   "guns_printed": "six 3-inch",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0180"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-huntington-1nh",
+   "history_name": "1st NH",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "6 3-inch"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "3inch_navy_rifle",
+    "3inch_ordnance_rifle"
+   ],
+   "guns_printed": "six 3-inch",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0170"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-huntington-1ohh",
+   "history_name": "1st OH H",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "6 3-inch"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "3inch_navy_rifle",
+    "3inch_ordnance_rifle"
+   ],
+   "guns_printed": "six 3-inch",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0171"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-huntington-1paf",
+   "history_name": "1st PA F",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "3inch_navy_rifle",
+    "3inch_ordnance_rifle"
+   ],
+   "guns_printed": "six 3-inch",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ],
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0172",
+    "us-art-reserve-horse:0174"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 2 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-huntington-1pag",
+   "history_name": "1st PA G",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "3inch_navy_rifle",
+    "3inch_ordnance_rifle"
+   ],
+   "guns_printed": "six 3-inch",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ],
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0173",
+    "us-art-reserve-horse:0175"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 2 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-huntington-wvc",
+   "history_name": "WV C",
+   "total": 4,
+   "range": [
+    4,
+    4
+   ],
+   "guns": [
+    {
+     "count": 4,
+     "type_id": "10pdr_parrott",
+     "printed_type": "four 10-pounders"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "10pdr_parrott"
+   ],
+   "guns_printed": "four 10-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     4,
+     4
+    ],
+    "1863-07-03": [
+     4,
+     4
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0176",
+    "us-art-reserve-horse:0177"
+   ],
+   "basis": "documented in the verified battery table: one count (4) lies inside the documented figures of all 2 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-mcgilvery-15ny",
+   "history_name": "15th NY",
+   "total": 4,
+   "range": [
+    4,
+    4
+   ],
+   "guns": [
+    {
+     "count": 4,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "4 Napoleons"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "four 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     4,
+     4
+    ],
+    "1863-07-03": [
+     4,
+     4
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0157",
+    "us-art-reserve-horse:0158"
+   ],
+   "basis": "documented in the verified battery table: one count (4) lies inside the documented figures of all 2 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-mcgilvery-5ma",
+   "history_name": "5th MA",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "6 3-inch rifles (conflict: Civil War News says Napoleons)"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "3inch_navy_rifle",
+    "3inch_ordnance_rifle"
+   ],
+   "guns_printed": "six 3-inch",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ],
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0153",
+    "us-art-reserve-horse:0154"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 2 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-ransom-1ush",
+   "history_name": "1st US H",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "6 Napoleons"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "six 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ],
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0145",
+    "us-art-reserve-horse:0146"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 2 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-ransom-3usf",
+   "history_name": "3rd US F",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "six 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0147"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-ransom-3usk",
+   "history_name": "3rd US K",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [],
+   "type_open": true,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "six 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0148"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 1 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-ransom-4usc",
+   "history_name": "4th US C",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "6 Napoleons"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "six 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ],
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0168",
+    "us-art-reserve-horse:0151"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 2 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-ransom-5usc",
+   "history_name": "5th US C",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "6 Napoleons"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "12pdr_howitzer",
+    "napoleon_12pdr_m1857"
+   ],
+   "guns_printed": "six 12-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ],
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0152",
+    "us-art-reserve-horse:0169"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 2 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-taft-2ct",
+   "history_name": "2nd CT",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 4,
+     "type_id": "14pdr_james_rifle",
+     "printed_type": "four James rifled guns"
+    },
+    {
+     "count": 2,
+     "type_id": "12pdr_howitzer",
+     "printed_type": "two howitzers"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "12pdr_howitzer"
+   ],
+   "guns_printed": "four James rifled guns + two howitzers",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ],
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0166",
+    "us-art-reserve-horse:0167"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 2 date(s) in the states present or engaged"
+  },
+  {
+   "history": "us-art-reserve-taft-5ny",
+   "history_name": "5th NY",
+   "total": 6,
+   "range": [
+    6,
+    6
+   ],
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "20pdr_parrott",
+     "printed_type": "six 20-pounders"
+    }
+   ],
+   "type_open": false,
+   "type_candidates": [
+    "20pdr_parrott"
+   ],
+   "guns_printed": "six 20-pounders",
+   "tier": "documented",
+   "weak_source": false,
+   "dates": {
+    "1863-07-02": [
+     6,
+     6
+    ],
+    "1863-07-03": [
+     6,
+     6
+    ]
+   },
+   "source_keys": [
+    "OR27-1"
+   ],
+   "evidence_ids": [
+    "us-art-reserve-horse:0163",
+    "us-art-reserve-horse:0164"
+   ],
+   "basis": "documented in the verified battery table: one count (6) lies inside the documented figures of all 2 date(s) in the states present or engaged"
+  }
+ ],
  "detachment": {
   "crew_per_piece": 9,
   "basis": "the printed manuals’ detachment: gunner and Nos. 1-7, chief of caisson ninth (kit/KIT-NOTES.md section 4 item 11; drill/drill_artillery.json); the PDF’s “eight at the piece” leaves the chief of caisson with the caisson",

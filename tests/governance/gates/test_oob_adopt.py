@@ -63,12 +63,19 @@ class Strength(unittest.TestCase):
         self.assertEqual((r['basis_key'], r['min'], r['max']), ('taken_into_action|officers_and_men', 350, 350))
         self.assertEqual({a['key'] for a in r['alternatives']}, {'present_for_duty|officers_and_men', 'taken_into_action|officers_and_men'})
 
-    def test_a_range_that_spans_dates_is_adopted_on_its_one_battle_date_only(self):
-        one = A.strength_record(row([fig('taken_into_action', 'officers_and_men', 300, 300, as_of='1863-06-30', ev='g:1'), fig('taken_into_action', 'officers_and_men', 340, 340, as_of='1863-07-01', ev='g:2')]))
-        self.assertEqual((one['min'], one['max'], one['as_of']), (340, 340, '1863-07-01'))
-        two = A.strength_record(row([fig('taken_into_action', 'officers_and_men', 300, 300, as_of='1863-07-01', ev='g:1'), fig('taken_into_action', 'officers_and_men', 340, 340, as_of='1863-07-03', ev='g:2')]))
-        self.assertEqual(two['status'], 'date_unresolved')
-        self.assertNotIn('min', two)
+    def test_a_range_that_spans_dates_is_adopted_on_the_figure_at_the_units_entry(self):
+        mk = lambda *pairs: A.strength_record(row([fig('taken_into_action', 'officers_and_men', v, v, as_of=d, ev='g:%d' % i) for i, (d, v) in enumerate(pairs)]))
+        inside = mk(('1863-06-30', 300), ('1863-07-01', 340), ('1863-07-03', 310))
+        self.assertEqual((inside['min'], inside['max'], inside['as_of']), (340, 340, '1863-07-01'), 'earliest figure inside the battle')
+        before = mk(('1863-06-30', 532), ('1863-07-13', 401))
+        self.assertEqual((before['max'], before['as_of']), (532, '1863-06-30'), 'latest before the battle, not the post-battle return')
+        after = mk(('1863-07-05', 100), ('1863-07-13', 90))
+        self.assertEqual(after['as_of'], '1863-07-05')
+        same = mk(('1863-07-01/1863-07-03', 149), ('1863-07-02/1863-07-03', 149))
+        self.assertEqual((same['min'], same['max'], same['as_of']), (149, 149, '1863-07-01/1863-07-03'))
+        self.assertIn('same figure on every date', same['basis'])
+        self.assertEqual({a['key'] for a in same['alternatives']}, {'taken_into_action|officers_and_men'})
+        self.assertEqual(set(same['alternatives'][0]['by_as_of']), {'1863-07-01/1863-07-03', '1863-07-02/1863-07-03'}, 'every date stays in the alternatives')
 
     def test_an_inferred_range_is_never_adopted(self):
         r = A.strength_record(row([fig('estimate_in_report', 'not_stated', 500, 500, tier='inferred')], status='inferred'))

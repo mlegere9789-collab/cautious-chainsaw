@@ -1,17 +1,17 @@
 {
- "command": "python3 tools/bt/gates/q14_ordnance.py",
+ "command": "python3 tools/bt/gates/q14_ordnance.py --quiet",
  "counts": {
-  "BLOCKED-INPUT": 101,
+  "BLOCKED-INPUT": 51,
   "COVERED": 0,
-  "FAIL": 61,
+  "FAIL": 91,
   "N/A": 0,
   "NOT-RUN": 1,
-  "PASS": 43
+  "PASS": 63
  },
- "finished_utc": "2026-11-24T20:27:31Z",
+ "finished_utc": "2026-11-24T23:10:06Z",
  "gate": "Q14",
  "incomplete_reasons": [
-  "102 item(s) NOT-RUN or BLOCKED-INPUT",
+  "52 item(s) NOT-RUN or BLOCKED-INPUT",
   "scenario set: sample (default and the six sample scenarios of history.test.mjs: a sample, never S*)"
  ],
  "input_hashes": {
@@ -23,12 +23,12 @@
   "docs/battle-theatre/app/src/anim3d/ballistics.mjs": "bf68d1b15cbd85c03629528ae52064cb33b63fa717751174daacb9293c4a79d8",
   "docs/battle-theatre/app/src/anim3d/fire-plan.mjs": "d4933c3a1a37335657c05ba7e358471486121f9c184a85e89625b8db74e3a84e",
   "docs/battle-theatre/app/src/crowd/anim.mjs": "d43eb01b25676eb0d57ad4c109147902332d4c3bb6bc2908e9c80b8b1cd8242f",
-  "docs/battle-theatre/app/src/history/real.mjs": "ccbc2dda6d012629be76ef5670d7bb5a5e891acd0f6ab1da4a6fc7ed818ffdf7",
+  "docs/battle-theatre/app/src/history/real.mjs": "9acbc9abf4fbbac0cb02d5ebc8c038ac58988b8851f7e765dbf1a639ed4f698a",
   "docs/battle-theatre/app/src/world-from-units.mjs": "b9c1d5cc691ef5266e9ce2edaf5707f6f0616bad81f6ef92ddb3e889b21fe5b9",
   "docs/battle-theatre/drill/drill_artillery.json": "b0f017b003b187db60935ff9857fbf0b132439e3eed0844fa08161903cc93cfa",
   "docs/battle-theatre/drill/drill_infantry.json": "c5b5d5e689afbddd1ba1dca26836a06ca267f5d4bec51507edf8cb6975820f7b",
   "docs/battle-theatre/drill/ordnance_tables.json": "f7dab4cf42cec57a840fda1d4ad43a60c06db06c13962b8dee1acd362d124e2d",
-  "docs/battle-theatre/kit/verified_batteries.json": "219249541179c7a1db09784c60222c43c17135930f185647f34fde971589f279",
+  "docs/battle-theatre/kit/verified_batteries.json": "c2521e4a860585c44cf4ca222de293602aa85237a306ecce18511f27a7c42e34",
   "docs/battle-theatre/kit/weapons.json": "412396eada9819f2a0185d771c6555f3025939607991f18b3db11461948a5d02",
   "docs/battle-theatre/structures/structures.json": "b223dacf386d9983167d24561dc05a8466248096a7715a23dd25fa5bd2b1ad53",
   "tools/bt/gates/oob_layer_lib.mjs": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d",
@@ -86,10 +86,10 @@
    "sha256": "d43eb01b25676eb0d57ad4c109147902332d4c3bb6bc2908e9c80b8b1cd8242f"
   },
   {
-   "bytes": 75406,
+   "bytes": 78229,
    "path": "docs/battle-theatre/app/src/history/real.mjs",
    "role": "code",
-   "sha256": "ccbc2dda6d012629be76ef5670d7bb5a5e891acd0f6ab1da4a6fc7ed818ffdf7"
+   "sha256": "9acbc9abf4fbbac0cb02d5ebc8c038ac58988b8851f7e765dbf1a639ed4f698a"
   },
   {
    "bytes": 7661,
@@ -116,10 +116,10 @@
    "sha256": "f7dab4cf42cec57a840fda1d4ad43a60c06db06c13962b8dee1acd362d124e2d"
   },
   {
-   "bytes": 80693,
+   "bytes": 224096,
    "path": "docs/battle-theatre/kit/verified_batteries.json",
    "role": "table",
-   "sha256": "219249541179c7a1db09784c60222c43c17135930f185647f34fde971589f279"
+   "sha256": "c2521e4a860585c44cf4ca222de293602aa85237a306ecce18511f27a7c42e34"
   },
   {
    "bytes": 171362,
@@ -6853,7 +6853,7 @@
    },
    "id": "Q14/Q14.5/cs-1c-res-art-alexander-ashland/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "input missing: the verified battery table has no verified gun count (status gap) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -6891,6 +6891,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"engaged\": [4, 4]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table []",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -6908,6 +6918,20 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "engaged": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -6916,9 +6940,9 @@
    },
    "id": "Q14/Q14.5/cs-1c-res-art-alexander-bath/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"engaged\": [4, 4]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -6979,7 +7003,7 @@
    },
    "id": "Q14/Q14.5/cs-1c-res-art-alexander-bedford/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "input missing: the verified battery table has no verified gun count (status gap) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7042,7 +7066,7 @@
    },
    "id": "Q14/Q14.5/cs-1c-res-art-alexander-brookssc/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "input missing: the verified battery table has no verified gun count (status gap) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7080,6 +7104,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"engaged\": [4, 4]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table []",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -7097,6 +7131,20 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-03",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "engaged": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -7105,9 +7153,9 @@
    },
    "id": "Q14/Q14.5/cs-1c-res-art-alexander-madisonla/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"engaged\": [4, 4]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -7168,7 +7216,7 @@
    },
    "id": "Q14/Q14.5/cs-1c-res-art-alexander-richmond/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "input missing: the verified battery table has no verified gun count (status gap) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -7962,6 +8010,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-01T10:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}, {\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [3, 3]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer ['3inch_ordnance_rifle'], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -7987,6 +8045,32 @@
      "weak_source": false
     },
     "render": "not_drawn",
+    "table_dates": [
+     {
+      "date": "1863-07-01T10:00/1863-07-01T16:00",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     },
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        3,
+        3
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -7995,9 +8079,9 @@
    },
    "id": "Q14/Q14.5/us-11c-art-13ny/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-01T10:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}, {\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [3, 3]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -8033,6 +8117,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-01T10:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-01T16:00/1863-07-01T23:59\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -8050,6 +8144,32 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-01T10:00/1863-07-01T16:00",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-01T16:00/1863-07-01T23:59",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -8058,9 +8178,9 @@
    },
    "id": "Q14/Q14.5/us-11c-art-1nyi/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-01T10:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-01T16:00/1863-07-01T23:59\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -8096,6 +8216,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-01T10:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-01T10:15/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -8113,6 +8243,32 @@
      "weak_source": null
     },
     "render": "not_drawn",
+    "table_dates": [
+     {
+      "date": "1863-07-01T10:00/1863-07-01T16:00",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-01T10:15/1863-07-01T16:00",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -8121,9 +8277,9 @@
    },
    "id": "Q14/Q14.5/us-11c-art-1ohi/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-01T10:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-01T10:15/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -8159,6 +8315,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"lost\": [1, 2]}, \"ok\": false}, {\"date\": \"1863-07-01T10:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -8176,6 +8342,32 @@
      "weak_source": null
     },
     "render": "not_drawn",
+    "table_dates": [
+     {
+      "date": "1863-07-01",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "lost": [
+        1,
+        2
+       ]
+      }
+     },
+     {
+      "date": "1863-07-01T10:00/1863-07-01T16:00",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -8184,9 +8376,9 @@
    },
    "id": "Q14/Q14.5/us-11c-art-1ohk/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"lost\": [1, 2]}, \"ok\": false}, {\"date\": \"1863-07-01T10:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -8222,6 +8414,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-01T11:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 6]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -8239,6 +8441,20 @@
      "weak_source": null
     },
     "render": "not_drawn",
+    "table_dates": [
+     {
+      "date": "1863-07-01T11:00/1863-07-01T16:00",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -8247,9 +8463,9 @@
    },
    "id": "Q14/Q14.5/us-11c-art-4usg/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-01T11:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -8586,7 +8802,7 @@
    },
    "id": "Q14/Q14.5/us-1c-art-1nye/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "input missing: the verified battery table has no verified gun count (status gap) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -8624,6 +8840,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"lost\": [1, 1]}, \"ok\": false}, {\"date\": \"1863-07-01T11:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -8641,6 +8867,56 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-01",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "lost": [
+        1,
+        1
+       ]
+      }
+     },
+     {
+      "date": "1863-07-01T11:00/1863-07-01T16:00",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-01T16:00/1863-07-01T23:59",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        5,
+        5
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -8649,9 +8925,9 @@
    },
    "id": "Q14/Q14.5/us-1c-art-1nyl/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"lost\": [1, 1]}, \"ok\": false}, {\"date\": \"1863-07-01T11:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -8687,6 +8963,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"disabled\": [1, 1], \"present\": [4, 4]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -8704,6 +8990,36 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-01",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "disabled": [
+        1,
+        1
+       ],
+       "present": [
+        4,
+        4
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -8712,9 +9028,9 @@
    },
    "id": "Q14/Q14.5/us-1c-art-1pab/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"disabled\": [1, 1], \"present\": [4, 4]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -8750,6 +9066,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"disabled\": [3, 3]}, \"ok\": false}, {\"date\": \"1863-07-01T10:15\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -8767,6 +9093,44 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-01",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "disabled": [
+        3,
+        3
+       ]
+      }
+     },
+     {
+      "date": "1863-07-01T10:15",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        3,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -8775,9 +9139,9 @@
    },
    "id": "Q14/Q14.5/us-1c-art-2me/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"disabled\": [3, 3]}, \"ok\": false}, {\"date\": \"1863-07-01T10:15\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -8813,6 +9177,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"disabled\": [2, 2]}, \"ok\": false}, {\"date\": \"1863-07-01T10:15/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -8830,6 +9204,56 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-01",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "disabled": [
+        2,
+        2
+       ]
+      }
+     },
+     {
+      "date": "1863-07-01T10:15/1863-07-01T16:00",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-01T16:00/1863-07-01T23:59",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -8838,9 +9262,9 @@
    },
    "id": "Q14/Q14.5/us-1c-art-4usb/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"disabled\": [2, 2]}, \"ok\": false}, {\"date\": \"1863-07-01T10:15/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -8876,6 +9300,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-01T16:00/1863-07-01T23:59\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -8893,6 +9327,44 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-01",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-01T16:00/1863-07-01T23:59",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -8901,9 +9373,9 @@
    },
    "id": "Q14/Q14.5/us-1c-art-5me/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-01T16:00/1863-07-01T23:59\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -8939,6 +9411,16 @@
       "detail": "layer 4, world 4",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['10pdr_parrott'], table ['10pdr_parrott']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -8964,6 +9446,32 @@
      "weak_source": true
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 4,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 4,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 4,
      "crew_total": 36,
@@ -8971,10 +9479,10 @@
     }
    },
    "id": "Q14/Q14.5/us-2c-art-1nyb/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9010,6 +9518,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['3inch_ordnance_rifle'], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -9035,6 +9553,32 @@
      "weak_source": true
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -9042,10 +9586,10 @@
     }
    },
    "id": "Q14/Q14.5/us-2c-art-1ria/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9081,6 +9625,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-03\", \"layer_guns\": 6, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer ['napoleon_12pdr_m1857'], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -9106,6 +9660,36 @@
      "weak_source": true
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "detached": [
+        2,
+        2
+       ],
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 6,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -9114,9 +9698,9 @@
    },
    "id": "Q14/Q14.5/us-2c-art-1rib/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-03\", \"layer_guns\": 6, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9152,6 +9736,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['napoleon_12pdr_m1857'], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -9177,6 +9771,20 @@
      "weak_source": true
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -9184,10 +9792,10 @@
     }
    },
    "id": "Q14/Q14.5/us-2c-art-1usi/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9223,6 +9831,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['3inch_ordnance_rifle'], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -9248,6 +9866,20 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -9255,10 +9887,10 @@
     }
    },
    "id": "Q14/Q14.5/us-2c-art-4usa/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9294,6 +9926,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['10pdr_parrott']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -9311,6 +9953,20 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -9319,9 +9975,9 @@
    },
    "id": "Q14/Q14.5/us-3c-art-1njb/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9357,6 +10013,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -9374,6 +10040,20 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -9382,9 +10062,9 @@
    },
    "id": "Q14/Q14.5/us-3c-art-1nyd/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9420,6 +10100,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -9437,6 +10127,20 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -9445,9 +10149,9 @@
    },
    "id": "Q14/Q14.5/us-3c-art-1rie/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9483,6 +10187,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['10pdr_parrott'], table ['10pdr_parrott']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -9509,6 +10223,24 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "captured": [
+        3,
+        3
+       ],
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -9516,10 +10248,10 @@
     }
    },
    "id": "Q14/Q14.5/us-3c-art-4ny/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9555,6 +10287,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-02T15:00/1863-07-02T17:30\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-02T17:30/1863-07-02T23:59\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -9572,6 +10314,32 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02T15:00/1863-07-02T17:30",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-02T17:30/1863-07-02T23:59",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -9580,9 +10348,9 @@
    },
    "id": "Q14/Q14.5/us-3c-art-4usk/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02T15:00/1863-07-02T17:30\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-02T17:30/1863-07-02T23:59\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9618,6 +10386,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -9635,6 +10413,20 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -9643,9 +10435,9 @@
    },
    "id": "Q14/Q14.5/us-5c-art-1nyc/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9681,6 +10473,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -9698,6 +10500,20 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -9706,9 +10522,9 @@
    },
    "id": "Q14/Q14.5/us-5c-art-1ohl/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9744,6 +10560,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -9761,6 +10587,20 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -9769,9 +10609,9 @@
    },
    "id": "Q14/Q14.5/us-5c-art-3ma/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9807,6 +10647,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['10pdr_parrott'], table ['10pdr_parrott']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -9832,6 +10682,20 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -9839,10 +10703,10 @@
     }
    },
    "id": "Q14/Q14.5/us-5c-art-5usd/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9878,6 +10742,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -9895,6 +10769,20 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -9903,9 +10791,9 @@
    },
    "id": "Q14/Q14.5/us-5c-art-5usi/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -9966,7 +10854,7 @@
    },
    "id": "Q14/Q14.5/us-6c-art-1maa/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "input missing: the verified battery table has no verified gun count (status gap) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10004,6 +10892,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -10021,6 +10919,20 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-03",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -10029,9 +10941,9 @@
    },
    "id": "Q14/Q14.5/us-6c-art-1ny/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10092,7 +11004,7 @@
    },
    "id": "Q14/Q14.5/us-6c-art-1ric/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "input missing: the verified battery table has no verified gun count (status gap) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10155,7 +11067,7 @@
    },
    "id": "Q14/Q14.5/us-6c-art-1rig/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "input missing: the verified battery table has no verified gun count (status gap) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10218,7 +11130,7 @@
    },
    "id": "Q14/Q14.5/us-6c-art-2usd/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "input missing: the verified battery table has no verified gun count (status gap) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10281,7 +11193,7 @@
    },
    "id": "Q14/Q14.5/us-6c-art-2usg/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "input missing: the verified battery table has no verified gun count (status gap) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10344,7 +11256,7 @@
    },
    "id": "Q14/Q14.5/us-6c-art-3ny/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "input missing: the verified battery table has no verified gun count (status gap) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10407,7 +11319,7 @@
    },
    "id": "Q14/Q14.5/us-6c-art-5usf/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "input missing: the verified battery table has no verified gun count (status gap) for this battery",
    "renderer_class": "mixed",
    "result": "BLOCKED-INPUT",
    "scenario": "default",
@@ -10445,6 +11357,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['10pdr_parrott'], table ['10pdr_parrott']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -10469,6 +11391,20 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-03",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -10476,10 +11412,10 @@
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-fitzhugh-1nj/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10515,6 +11451,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['napoleon_12pdr_m1857'], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -10539,6 +11485,32 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -10546,10 +11518,10 @@
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-fitzhugh-1nyg/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10585,6 +11557,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -10602,6 +11584,20 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-03",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -10610,9 +11606,9 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-fitzhugh-1nyk/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10648,6 +11644,16 @@
       "detail": "layer 4, world 4",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['napoleon_12pdr_m1857'], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -10672,6 +11678,32 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 4,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 4,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 4,
      "crew_total": 36,
@@ -10679,10 +11711,10 @@
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-fitzhugh-6me/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10718,6 +11750,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['3inch_ordnance_rifle'], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -10742,6 +11784,20 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-03",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -10749,10 +11805,10 @@
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-fitzhugh-mda/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10788,6 +11844,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['3inch_ordnance_rifle'], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -10812,6 +11878,20 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -10819,10 +11899,10 @@
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-huntington-1nh/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10858,6 +11938,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['3inch_ordnance_rifle'], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -10882,6 +11972,20 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -10889,10 +11993,10 @@
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-huntington-1ohh/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10928,6 +12032,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -10945,6 +12059,32 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -10953,9 +12093,9 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-huntington-1paf/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -10991,6 +12131,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -11008,6 +12158,32 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -11016,9 +12192,9 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-huntington-1pag/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -11054,6 +12230,16 @@
       "detail": "layer 4, world 4",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['10pdr_parrott'], table ['10pdr_parrott']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -11078,6 +12264,32 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 4,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 4,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 4,
      "crew_total": 36,
@@ -11085,10 +12297,10 @@
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-huntington-wvc/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -11124,6 +12336,16 @@
       "detail": "layer 4, world 4",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['napoleon_12pdr_m1857'], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -11148,6 +12370,32 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 4,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 4,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 4,
      "crew_total": 36,
@@ -11155,10 +12403,10 @@
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-mcgilvery-15ny/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -11194,6 +12442,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['3inch_ordnance_rifle'], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -11218,6 +12476,32 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -11225,10 +12509,10 @@
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-mcgilvery-5ma/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -11264,6 +12548,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['napoleon_12pdr_m1857'], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -11288,6 +12582,24 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        4,
+        6
+       ],
+       "recovered": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -11295,10 +12607,10 @@
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-mcgilvery-9ma/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -11334,6 +12646,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [5, 5]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -11351,6 +12673,32 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        5,
+        5
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -11359,9 +12707,9 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-mcgilvery-pac/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [5, 5]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -11397,6 +12745,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [5, 5]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['3inch_navy_rifle', '3inch_ordnance_rifle']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -11414,6 +12772,32 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        5,
+        5
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -11422,9 +12806,9 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-mcgilvery-paf/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-03\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [5, 5]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -11460,6 +12844,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['napoleon_12pdr_m1857'], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -11484,6 +12878,32 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -11491,10 +12911,10 @@
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-ransom-1ush/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -11530,6 +12950,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6], \"recovered\": [4, 4]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -11547,6 +12977,24 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ],
+       "recovered": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -11555,9 +13003,9 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-ransom-3usf/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6], \"recovered\": [4, 4]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -11593,6 +13041,16 @@
       "detail": "layer None, world 0",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6], \"recovered\": [4, 4]}, \"ok\": false}]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": false
+     },
+     {
+      "detail": "layer [], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -11610,6 +13068,24 @@
      "weak_source": null
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 0,
+      "ok": false,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ],
+       "recovered": [
+        4,
+        4
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 0,
      "crew_total": 0,
@@ -11618,9 +13094,9 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-ransom-3usk/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6], \"recovered\": [4, 4]}, \"ok\": false}]",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -11656,6 +13132,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['napoleon_12pdr_m1857'], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -11680,6 +13166,32 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -11687,10 +13199,10 @@
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-ransom-4usc/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -11726,6 +13238,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['napoleon_12pdr_m1857'], table ['12pdr_howitzer', 'napoleon_12pdr_m1857']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -11750,6 +13272,32 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -11757,10 +13305,10 @@
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-ransom-5usc/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -11922,6 +13470,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['12pdr_howitzer', '14pdr_james_rifle'], table ['12pdr_howitzer']",
+      "name": "the type is one the verified figures allow",
+      "ok": false
      }
     ],
     "fired_pieces": null,
@@ -11951,6 +13509,32 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -11959,9 +13543,9 @@
    },
    "id": "Q14/Q14.5/us-art-reserve-taft-2ct/default",
    "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "reason": "gun count: the type is one the verified figures allow: layer ['12pdr_howitzer', '14pdr_james_rifle'], table ['12pdr_howitzer']",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "FAIL",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -11997,6 +13581,16 @@
       "detail": "layer 6, world 6",
       "name": "the guns the world draws equal the count the layer states",
       "ok": true
+     },
+     {
+      "detail": "[]",
+      "name": "the count equals a verified total for every date the table has",
+      "ok": true
+     },
+     {
+      "detail": "layer ['20pdr_parrott'], table ['20pdr_parrott']",
+      "name": "the type is one the verified figures allow",
+      "ok": true
      }
     ],
     "fired_pieces": null,
@@ -12021,6 +13615,36 @@
      "weak_source": false
     },
     "render": "moving",
+    "table_dates": [
+     {
+      "date": "1863-07-02",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "present": [
+        6,
+        6
+       ]
+      }
+     },
+     {
+      "date": "1863-07-03",
+      "layer_guns": 6,
+      "ok": true,
+      "present": true,
+      "table": {
+       "disabled": [
+        1,
+        1
+       ],
+       "present": [
+        6,
+        6
+       ]
+      }
+     }
+    ],
     "world": {
      "crew_groups": 6,
      "crew_total": 54,
@@ -12028,10 +13652,10 @@
     }
    },
    "id": "Q14/Q14.5/us-art-reserve-taft-5ny/default",
-   "pass": false,
-   "reason": "input missing: the verified battery table has no verified gun count (status unverified) for this battery",
+   "pass": true,
+   "reason": "guns by type and number equal the verified battery table on every date it has",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R03.0000",
@@ -13055,7 +14679,7 @@
   "Q14.7: the drill state machine of a gun detachment (ten states, B.6.14.3) is not compared with the product (needs a machine list of the product's detachment states)"
  ],
  "renderer_class": "mixed",
- "run_id": "20261124T202726Z-Q14",
+ "run_id": "20261124T231001Z-Q14",
  "runnable_here": true,
  "runner_files": [
   "oob_layer_lib.mjs",
@@ -13072,7 +14696,7 @@
   "note": "default and the six sample scenarios of history.test.mjs: a sample, never S*"
  },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T20:27:26Z",
+ "started_utc": "2026-11-24T23:10:01Z",
  "thresholds": [
   {
    "decision": "PLAN",
@@ -13086,7 +14710,7 @@
   "python": "3.13.18"
  },
  "totals": {
-  "blocked_input": 101,
+  "blocked_input": 51,
   "by_check": {
    "Q14.1": {
     "BLOCKED-INPUT": 0,
@@ -13121,12 +14745,12 @@
     "PASS": 4
    },
    "Q14.5": {
-    "BLOCKED-INPUT": 99,
+    "BLOCKED-INPUT": 49,
     "COVERED": 0,
-    "FAIL": 6,
+    "FAIL": 36,
     "N/A": 0,
     "NOT-RUN": 0,
-    "PASS": 0
+    "PASS": 20
    },
    "Q14.6": {
     "BLOCKED-INPUT": 0,
@@ -13146,12 +14770,12 @@
    }
   },
   "covered": 0,
-  "fail": 61,
+  "fail": 91,
   "items": 206,
   "n_a": 0,
-  "not_passing": 163,
+  "not_passing": 143,
   "not_run": 1,
-  "pass": 43
+  "pass": 63
  },
  "verdict": "FAIL",
  "verified_battery_table": {
