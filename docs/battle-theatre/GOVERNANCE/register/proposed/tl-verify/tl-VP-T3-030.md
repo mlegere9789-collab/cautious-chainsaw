@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T3-030 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T3-030 |
 | Description | Seed row T3-030 (Jul 3 before daylight, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-09) gave verdict "supported". Shard note: Eshleman p434: placed before daylight; left thrown back at daybreak to avoid enfilade; Dearing on his left; five guns of Cabell's between Norcom and Richardson; fire moderate; Norcom struck by shell early and retired (audit; quote OCR "dayliglit" verified against the OCR text). Row ESH tag is the OR report. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

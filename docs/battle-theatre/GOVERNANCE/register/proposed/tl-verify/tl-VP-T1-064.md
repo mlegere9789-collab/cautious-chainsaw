@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T1-064 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T1-064 |
 | Description | Seed row T1-064 (Jun 30 NIGHT, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-02) gave verdict "supported". Shard note: Heth: division at Cashtown, Pettigrew returned to Cashtown from the Gettysburg reconnaissance, Hill arrived that evening. Matches the row. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

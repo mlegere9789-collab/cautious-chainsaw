@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T1-216 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T1-216 |
 | Description | Seed row T1-216 (Jul 1 NIGHT, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-04) gave verdict "supported". Shard note: Stuart: arrived afternoon of Jul 1, shelled the town, burned the barracks, received Lee's dispatch during the night. Union Brig. Gen. Smith confirms the shelling that night (OCR 'shell>>ed'). The evening shelling has no clock time. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

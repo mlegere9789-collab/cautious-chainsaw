@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T1-027 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T1-027 |
 | Description | Seed row T1-027 (Jun 28, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-01) gave verdict "supported". Shard note: Special Orders No. 98, Cav Corps, Jun 28 (OR27-3-D0840, p.376) assign Farnsworth the 1st and Custer the 2nd (Michigan) Brigade of the 3rd Division. OR Itinerary p.143 also dates this Jun 28. Supports the Jun 28 reading for Custer over the Jun 29 alternative. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

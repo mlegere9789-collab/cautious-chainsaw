@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T1-025 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T1-025 |
 | Description | Seed row T1-025 (Jun 28 early morning, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-01) gave verdict "supported". Shard note: Meade to Halleck, Frederick, Jun 28, 7 a.m. acknowledging the order (OR27-1-R006 p.61); Hancock p.367 says Meade had that day assumed command. Hour of assumption not stated (7 a.m. is the dispatch). |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T2-206 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T2-206 |
 | Description | Seed row T2-206 (Jul 2 ~20:00 [DUSK], tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-08) gave verdict "supported". Shard note: Message text and the 8 p.m. send time supported. The 20:00 hour is the dispatch heading; Washington received it Jul 3 at 5.15 p.m. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T1-087 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T1-087 |
 | Description | Seed row T1-087 (Jul 1 ≈08:00, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-02) gave verdict "supported". Shard note: Wadsworth: 8 a.m., 1st Division moved from Marsh Creek toward Gettysburg under Reynolds' immediate direction. Matches the row (Moritz's Tavern vs Marsh Creek is a place-label difference, same camp area). |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

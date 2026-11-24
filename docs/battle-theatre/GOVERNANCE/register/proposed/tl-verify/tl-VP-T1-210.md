@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T1-210 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T1-210 |
 | Description | Seed row T1-210 (Jul 1 NIGHT, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-04) gave verdict "supported_partial". Shard note: Doles supports the street line; Rodes' and Ramseur's own reports were not re-read here for the street. Blackford places the 5th Alabama Battalion on Ramseur's left in the Fairfield road (T1-211). The seed text has a duplicated fragment (parse artefact). |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

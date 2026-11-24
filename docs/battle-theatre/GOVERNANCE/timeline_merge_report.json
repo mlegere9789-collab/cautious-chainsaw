@@ -1,18 +1,15 @@
 {
- "rule_version": 2,
+ "rule_version": 3,
  "summary": {
   "rows": 691,
-  "verified": 36,
-  "seeded_unverified": 655,
+  "verified": 26,
+  "seeded_unverified": 665,
   "with_shard_evidence": 691,
-  "not_promoted": 655,
+  "not_promoted": 665,
   "rows_without_shard_close_out": 0,
   "verified_ids": [
    "T1-001",
    "T1-002",
-   "T1-025",
-   "T1-027",
-   "T1-031",
    "T1-034",
    "T1-038",
    "T1-052",
@@ -20,9 +17,6 @@
    "T1-064",
    "T1-077",
    "T1-081",
-   "T1-087",
-   "T1-204",
-   "T1-209",
    "T1-210",
    "T1-212",
    "T1-216",
@@ -34,11 +28,7 @@
    "T2-206",
    "T2-236",
    "T2-237",
-   "T2-245",
-   "T2-247",
    "T3-020",
-   "T3-030",
-   "T3-036",
    "T3-043",
    "T3-056",
    "T3-080",
@@ -274,6 +264,7 @@
    "state": "not_promoted",
    "gaps": [
     "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 rests only on secondary/compiled source(s) (MEADE-LL-v2); a contemporaneous primary source is required",
     "sub-claim 4 is open gap/unsupported",
     "sub-claim 4 has no non-lead source citation",
     "remains unsupported: 1 item(s)"
@@ -314,8 +305,13 @@
    ]
   },
   "T1-025": {
-   "state": "verified",
-   "gaps": []
+   "state": "not_promoted",
+   "gaps": [
+    "sub-claim 2 is inferred/partially_supported",
+    "sub-claim 2 rests only on secondary/compiled source(s) (MEADE-LL-v2); a contemporaneous primary source is required",
+    "sub-claim 3 rests only on secondary/compiled source(s) (MEADE-LL-v2); a contemporaneous primary source is required",
+    "remains unsupported: 1 item(s)"
+   ]
   },
   "T1-026": {
    "state": "not_promoted",
@@ -325,8 +321,10 @@
    ]
   },
   "T1-027": {
-   "state": "verified",
-   "gaps": []
+   "state": "not_promoted",
+   "gaps": [
+    "remains unsupported: 1 item(s)"
+   ]
   },
   "T1-028": {
    "state": "not_promoted",
@@ -357,8 +355,10 @@
    ]
   },
   "T1-031": {
-   "state": "verified",
-   "gaps": []
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written"
+   ]
   },
   "T1-032": {
    "state": "not_promoted",
@@ -423,6 +423,7 @@
    "gaps": [
     "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
     "seed tier is open gap, not documented",
+    "sub-claim 5 rests only on secondary/compiled source(s) (MEADE-LL-v2); a contemporaneous primary source is required",
     "sub-claim 8 is inferred/supported",
     "sub-claim 9 is open gap/unsupported",
     "sub-claim 9 has no non-lead source citation",
@@ -638,6 +639,7 @@
    "state": "not_promoted",
    "gaps": [
     "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
+    "sub-claim 6 rests only on secondary/compiled source(s) (MEADE-LL-v2); a contemporaneous primary source is required",
     "sub-claim 8 is inferred/unsupported",
     "sub-claim 8 has no non-lead source citation",
     "remains unsupported: 1 item(s)",
@@ -789,10 +791,13 @@
    "state": "not_promoted",
    "gaps": [
     "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
+    "sub-claim 4 rests only on secondary/compiled source(s) (WELD-1912); a contemporaneous primary source is required",
     "sub-claim 5 is documented/conflict",
+    "sub-claim 5 rests only on secondary/compiled source(s) (WELD-1912); a contemporaneous primary source is required",
     "sub-claim 6 is open gap/unsupported",
     "sub-claim 6 has no non-lead source citation",
     "sub-claim 8 is documented/conflict",
+    "sub-claim 8 rests only on secondary/compiled source(s) (MEADE-LL-v2); a contemporaneous primary source is required",
     "remains unsupported: 1 item(s)",
     "2 scenario(s) carried (source conflict, no default)"
    ]
@@ -805,6 +810,7 @@
     "sub-claim 1 has no non-lead source citation",
     "sub-claim 2 is documented/conflict",
     "sub-claim 3 is documented/conflict",
+    "sub-claim 3 rests only on secondary/compiled source(s) (WELD-1912); a contemporaneous primary source is required",
     "sub-claim 4 is inferred/unsupported",
     "sub-claim 4 has no non-lead source citation",
     "sub-claim 5 is inferred/unsupported",
@@ -832,6 +838,7 @@
    "gaps": [
     "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
     "seed tier is inferred, not documented",
+    "sub-claim 5 rests only on secondary/compiled source(s) (WELD-1912); a contemporaneous primary source is required",
     "sub-claim 6 is inferred/unsupported",
     "sub-claim 6 has no non-lead source citation",
     "sub-claim 7 is documented/conflict",
@@ -857,6 +864,7 @@
     "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
     "seed tier is inferred, not documented",
     "sub-claim 1 is documented/conflict",
+    "sub-claim 1 rests only on secondary/compiled source(s) (WELD-1912); a contemporaneous primary source is required",
     "sub-claim 2 is documented/conflict",
     "sub-claim 3 is inferred/unsupported",
     "sub-claim 3 has no non-lead source citation",
@@ -931,8 +939,10 @@
    ]
   },
   "T1-087": {
-   "state": "verified",
-   "gaps": []
+   "state": "not_promoted",
+   "gaps": [
+    "sub-claim 2 rests only on secondary/compiled source(s) (WELD-1912); a contemporaneous primary source is required"
+   ]
   },
   "T1-088": {
    "state": "not_promoted",
@@ -974,6 +984,10 @@
    "state": "not_promoted",
    "gaps": [
     "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
+    "sub-claim 1 rests only on secondary/compiled source(s) (WELD-1912); a contemporaneous primary source is required",
+    "sub-claim 2 rests only on secondary/compiled source(s) (WELD-1912); a contemporaneous primary source is required",
+    "sub-claim 3 rests only on secondary/compiled source(s) (MEADE-LL-v2, WELD-1912); a contemporaneous primary source is required",
+    "sub-claim 4 rests only on secondary/compiled source(s) (WELD-1912); a contemporaneous primary source is required",
     "sub-claim 6 is open gap/unsupported",
     "sub-claim 6 has no non-lead source citation",
     "sub-claim 7 is documented/conflict",
@@ -987,6 +1001,7 @@
     "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
     "seed tier is inferred, not documented",
     "sub-claim 10 is documented/conflict",
+    "sub-claim 10 rests only on secondary/compiled source(s) (WELD-1912); a contemporaneous primary source is required",
     "sub-claim 11 is open gap/unsupported",
     "sub-claim 11 has no non-lead source citation",
     "sub-claim 12 is inferred/unsupported",
@@ -1039,6 +1054,7 @@
    "state": "not_promoted",
    "gaps": [
     "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
+    "sub-claim 2 rests only on secondary/compiled source(s) (WELD-1912); a contemporaneous primary source is required",
     "sub-claim 4 is inferred/supported",
     "sub-claim 5 is documented/conflict",
     "5 scenario(s) carried (source conflict, no default)"
@@ -2255,8 +2271,10 @@
    ]
   },
   "T1-204": {
-   "state": "verified",
-   "gaps": []
+   "state": "not_promoted",
+   "gaps": [
+    "remains unsupported: 1 item(s)"
+   ]
   },
   "T1-205": {
    "state": "not_promoted",
@@ -2300,8 +2318,10 @@
    ]
   },
   "T1-209": {
-   "state": "verified",
-   "gaps": []
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written"
+   ]
   },
   "T1-210": {
    "state": "verified",
@@ -2937,7 +2957,8 @@
     "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
     "seed tier is inferred, not documented",
     "sub-claim 2 is inferred/unsupported",
-    "sub-claim 2 has no non-lead source citation"
+    "sub-claim 2 has no non-lead source citation",
+    "conflict C-005 (weighted) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T2-050": {
@@ -3018,7 +3039,8 @@
     "shard verdict is unsupported: the sources support only part of it or none of it, not the seed claim as written",
     "sub-claim 1 is open gap/unsupported",
     "sub-claim 1 has no non-lead source citation",
-    "remains unsupported: 1 item(s)"
+    "remains unsupported: 1 item(s)",
+    "conflict C-006 (weighted) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T2-059": {
@@ -3072,7 +3094,8 @@
     "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
     "sub-claim 1 is open gap/unsupported",
     "sub-claim 1 has no non-lead source citation",
-    "remains unsupported: 1 item(s)"
+    "remains unsupported: 1 item(s)",
+    "conflict C-005 (weighted) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T2-065": {
@@ -3104,7 +3127,8 @@
     "sub-claim 1 has no non-lead source citation",
     "sub-claim 2 is plausible-procedural/procedural",
     "sub-claim 2 has no non-lead source citation",
-    "remains unsupported: 1 item(s)"
+    "remains unsupported: 1 item(s)",
+    "conflict C-045 (gap) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T2-069": {
@@ -3143,7 +3167,8 @@
     "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
     "sub-claim 1 is open gap/unsupported",
     "sub-claim 1 has no non-lead source citation",
-    "remains unsupported: 1 item(s)"
+    "remains unsupported: 1 item(s)",
+    "conflict C-007 (weighted) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T2-073": {
@@ -3260,7 +3285,8 @@
     "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
     "sub-claim 2 is inferred/unsupported",
     "sub-claim 2 has no non-lead source citation",
-    "remains unsupported: 1 item(s)"
+    "remains unsupported: 1 item(s)",
+    "conflict C-008 (irreducible) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T2-086": {
@@ -3356,7 +3382,8 @@
     "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
     "sub-claim 3 is open gap/unsupported",
     "sub-claim 3 has no non-lead source citation",
-    "remains unsupported: 1 item(s)"
+    "remains unsupported: 1 item(s)",
+    "conflict C-023 (weighted) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T2-096": {
@@ -3732,7 +3759,9 @@
    "gaps": [
     "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
     "sub-claim 2 is inferred/unsupported",
-    "sub-claim 2 has no non-lead source citation"
+    "sub-claim 2 has no non-lead source citation",
+    "conflict C-011 (weighted) is carried on the row (conflict_update) with no scenarios recorded",
+    "conflict C-016 (weighted) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T2-140": {
@@ -3756,7 +3785,8 @@
    "gaps": [
     "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
     "sub-claim 2 is inferred/unsupported",
-    "sub-claim 2 has no non-lead source citation"
+    "sub-claim 2 has no non-lead source citation",
+    "conflict C-012 (weighted) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T2-143": {
@@ -3947,7 +3977,10 @@
     "sub-claim 2 is inferred/unsupported",
     "sub-claim 2 has no non-lead source citation",
     "sub-claim 3 is inferred/unsupported",
-    "sub-claim 3 has no non-lead source citation"
+    "sub-claim 3 has no non-lead source citation",
+    "conflict C-013 (weighted) is carried on the row (conflict_update) with no scenarios recorded",
+    "conflict C-014 (irreducible) is carried on the row (conflict_update) with no scenarios recorded",
+    "conflict C-015 (weighted) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T2-166": {
@@ -4150,7 +4183,8 @@
    "gaps": [
     "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
     "sub-claim 2 is inferred/conflict",
-    "sub-claim 2 has no non-lead source citation"
+    "sub-claim 2 has no non-lead source citation",
+    "conflict C-018 (weighted) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T2-190": {
@@ -4243,7 +4277,8 @@
    "gaps": [
     "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
     "sub-claim 3 is inferred/unsupported",
-    "sub-claim 3 has no non-lead source citation"
+    "sub-claim 3 has no non-lead source citation",
+    "conflict C-023 (weighted) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T2-201": {
@@ -4572,7 +4607,8 @@
     "seed tier is open gap, not documented",
     "sub-claim 1 is open gap/unsupported",
     "sub-claim 1 has no non-lead source citation",
-    "remains unsupported: 1 item(s)"
+    "remains unsupported: 1 item(s)",
+    "conflict C-021 (weighted) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T2-240": {
@@ -4638,8 +4674,11 @@
    ]
   },
   "T2-245": {
-   "state": "verified",
-   "gaps": []
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
+    "remains unsupported: 1 item(s)"
+   ]
   },
   "T2-246": {
    "state": "not_promoted",
@@ -4650,8 +4689,11 @@
    ]
   },
   "T2-247": {
-   "state": "verified",
-   "gaps": []
+   "state": "not_promoted",
+   "gaps": [
+    "remains unsupported: 1 item(s)",
+    "conflict C-028 (irreducible) is carried on the row (conflict_update) with no scenarios recorded"
+   ]
   },
   "T2-248": {
    "state": "not_promoted",
@@ -4963,8 +5005,11 @@
    ]
   },
   "T3-030": {
-   "state": "verified",
-   "gaps": []
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
+    "remains unsupported: 1 item(s)"
+   ]
   },
   "T3-031": {
    "state": "not_promoted",
@@ -5020,8 +5065,11 @@
    ]
   },
   "T3-036": {
-   "state": "verified",
-   "gaps": []
+   "state": "not_promoted",
+   "gaps": [
+    "remains unsupported: 1 item(s)",
+    "conflict C-028 (irreducible) is carried on the row (conflict_update) with no scenarios recorded"
+   ]
   },
   "T3-037": {
    "state": "not_promoted",
@@ -5304,7 +5352,8 @@
     "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
     "sub-claim 1 is open gap/unsupported",
     "sub-claim 1 has no non-lead source citation",
-    "remains unsupported: 1 item(s)"
+    "remains unsupported: 1 item(s)",
+    "conflict C-032 (irreducible) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T3-064": {
@@ -6768,7 +6817,8 @@
     "sub-claim 2 has no non-lead source citation",
     "sub-claim 3 is open gap/unsupported",
     "sub-claim 3 has no non-lead source citation",
-    "remains unsupported: 1 item(s)"
+    "remains unsupported: 1 item(s)",
+    "conflict C-035 (irreducible) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T3-206": {
@@ -6797,7 +6847,8 @@
     "sub-claim 1 has no non-lead source citation",
     "sub-claim 2 is open gap/unsupported",
     "sub-claim 2 has no non-lead source citation",
-    "remains unsupported: 1 item(s)"
+    "remains unsupported: 1 item(s)",
+    "conflict C-035 (irreducible) is carried on the row (conflict_update) with no scenarios recorded"
    ]
   },
   "T3-209": {

@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T2-164 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T2-164 |
 | Description | Seed row T2-164 (Jul 2 ~17:30, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-07) gave verdict "supported". Shard note:  |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

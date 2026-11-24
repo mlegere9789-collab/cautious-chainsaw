@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T3-036 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T3-036 |
 | Description | Seed row T3-036 (Jul 3 04:30 TWILIGHT, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-09) gave verdict "supported". Shard note: Hunt p237: 4.30 a.m., fifteen minutes, 600-800 yards, Muhlenberg and Kinzie. Muhlenberg p870 counts four batteries (20 guns) at 4.30 (audit). See T2-242 for the conflict about the hour of the dawn fight. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

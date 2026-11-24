@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T1-081 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T1-081 |
 | Description | Seed row T1-081 (Jul 1 07:00-08:00, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-02) gave verdict "supported". Shard note: Doubleday: Reynolds explained the telegrams (enemy in force at Cashtown and Mummasburg), Wadsworth and Hall already ordered forward, 1.5-2 hours before the rest of the corps could follow. Matches the row. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

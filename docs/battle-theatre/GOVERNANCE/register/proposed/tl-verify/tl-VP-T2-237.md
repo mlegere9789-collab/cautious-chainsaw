@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T2-237 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T2-237 |
 | Description | Seed row T2-237 (Jul 3 ~01:00, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-09) gave verdict "supported". Shard note: Hunt: 1 a.m. of the 3d, opposite the centre of XII Corps, to command the ravine formed by Rock Creek. Exact match of time, place, batteries. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

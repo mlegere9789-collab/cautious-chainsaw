@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T2-247 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T2-247 |
 | Description | Seed row T2-247 (Jul 3 ~04:30 [DAWN], tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-09) gave verdict "supported". Shard note: Hunt p237: 4.30 a.m., fifteen minutes into the wood, 600-800 yards. Exact. Muhlenberg (audit) counts four batteries at 4.30; see T2-242 for the hour conflict. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

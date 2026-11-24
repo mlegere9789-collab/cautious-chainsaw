@@ -9,11 +9,11 @@ def good():
             'sub_claims': [{'n': 1, 'tier': 'documented', 'support': 'supported', 'citations': ['c1']}], 'citations': [cit]}
     return corr, {'id': 'T1-001', 'tier': 'documented'}
 
-def run(corr, seed, ok=True):
+def run(corr, seed, ok=True, overlay=None):
     orig = M.check_quote
     M.check_quote = lambda c, cache, stats: (ok, 'ok' if ok else 'quote not found at the stored offsets')
     try:
-        return M.evaluate(corr, seed, {}, {'hits': 0, 'misses': 0})
+        return M.evaluate(corr, seed, {}, {'hits': 0, 'misses': 0}, overlay)
     finally:
         M.check_quote = orig
 
@@ -39,6 +39,29 @@ class Rule(unittest.TestCase):
         self.assertFalse(run(*good(), ok=False)[0])
     def test_missing_source_file_blocks(self):
         c, s = good(); self.assertFalse(M.evaluate(c, s, {}, {'hits': 0, 'misses': 0})[0])
+
+class Tightened(unittest.TestCase):
+    def test_overlay_irreducible_without_scenarios_blocks(self):
+        for cls in ('irreducible', 'gap', 'weighted'):
+            c, s = good(); p, b = run(c, s, overlay=[{'conflict': 'C-028', 'class': cls}])
+            self.assertFalse(p, cls); self.assertTrue(any('C-028' in g for g in b['gaps']))
+    def test_overlay_settled_does_not_block(self):
+        c, s = good(); self.assertTrue(run(c, s, overlay=[{'conflict': 'C-001', 'class': 'settled'}])[0])
+    def test_overlay_with_scenarios_is_blocked_by_scenarios_rule(self):
+        c, s = good(); c['scenarios'] = [{}]; self.assertFalse(run(c, s, overlay=[{'conflict': 'C-028', 'class': 'irreducible'}])[0])
+    def test_secondary_only_subclaim_blocks(self):
+        for sid in ('MEADE-LL-v2', 'WELD-1912'):
+            c, s = good(); c['citations'][0]['source_id'] = sid
+            p, b = run(c, s); self.assertFalse(p, sid); self.assertTrue(any('primary' in g for g in b['gaps']))
+    def test_secondary_with_primary_promotes(self):
+        c, s = good(); c['citations'].append(dict(c['citations'][0], key='c2', source_id='MEADE-LL-v2')); c['sub_claims'][0]['citations'] = ['c1', 'c2']
+        self.assertTrue(run(c, s)[0])
+    def test_window_start_needs_primary(self):
+        c, s = good(); c['citations'][0]['source_id'] = 'MEADE-LL-v2'; c['corrected_claim'] = {'time_window': {'start': '1863-06-28T03:00'}}
+        self.assertFalse(run(c, s)[0])
+    def test_remains_unsupported_any_blocks(self):
+        for v in (['x'], [{'a': 1}], 'text'):
+            c, s = good(); c['remains_unsupported'] = v; self.assertFalse(run(c, s)[0])
 
 class OnDisk(unittest.TestCase):
     def test_file_matches_evidence(self):

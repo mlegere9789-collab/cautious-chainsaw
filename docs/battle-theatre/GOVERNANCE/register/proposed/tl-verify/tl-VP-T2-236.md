@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T2-236 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T2-236 |
 | Description | Seed row T2-236 (Jul 2-3 night, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-09) gave verdict "supported". Shard note: Union half: Tyler (Artillery Reserve) p873 and Hunt p237 (night of the 2d spent repairing damages, replenishing chests, reorganizing batteries). Confederate half: Alexander p430 (audit). The audit paraphrase "seventy wagon-loads issued" is looser than Tyler's "Seventy wagons were unloaded"; use Tyler's wording. HUNT/ALEXR tags in the seed row are OR reports. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

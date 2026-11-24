@@ -8,7 +8,9 @@ Rule (CLAUDE.md Law cl.4, never promote on weaker evidence). A row leaves `seede
   1. shard verdict is `confirmed` (the seed claim stands as written; `corrected` means the sources support a DIFFERENT claim,
      so the seed row stays unverified and keeps the corrected claim on file);
   2. the seed tier is `documented` and every sub-claim is tier documented, support `supported`;
-  3. nothing remains unsupported, no scenario/conflict is carried, no default pending;
+  3. nothing remains unsupported, no scenario/conflict is carried (also the conflict overlay timeline_conflict_updates.jsonl: an open
+     conflict update with no scenarios blocks), no default pending;
+  3b. every sub-claim cites a contemporaneous primary source, not only SECONDARY ones (MEADE-LL-v2, WELD-1912);
   4. every sub-claim cites at least one NON-LEAD source (not COMPUTED, PROJECT-DATA, wiki/forum/blog/auction/EPP/CWT-type ids);
   5. every such citation's quote is re-read in the stored source text at its stored offsets (file sha256 and quote match).
 Everything else keeps `seeded_unverified`, gets a `verification` block with state and reasons (the gap stays visible).
@@ -27,8 +29,12 @@ REPORT = os.path.join(G, 'timeline_merge_report.json')
 CACHE = os.path.join(G, '.timeline_merge_cache.json')
 OVERLAY = os.path.join(G, 'timeline_conflict_updates.jsonl')   # conflict-resolution windows/defaults per row (tools/bt/conflicts/apply_readers.py)
 SHARDS = ['tl-01', 'tl-02', 'tl-03', 'tl-04', 'tl-05', 'tl-06', 'tl-07', 'tl-08', 'tl-09', 'tl-10', 'tl-11', 'tl-12']
-RULE_VERSION = 2
+RULE_VERSION = 3
 NOT_SOURCES = {'COMPUTED', 'PROJECT-DATA'}
+# Secondary / compiled sources: later biographies, compilations, regimental or state-commission volumes. They may corroborate but a documented
+# sub-claim (and any window start) must also cite a contemporaneous primary source (CLAUDE.md Law cl.4).
+SECONDARY = {'MEADE-LL-v2', 'WELD-1912'}
+SETTLED_CLASSES = {'settled'}   # every other overlay class (irreducible, gap, weighted, unresolved ...) is an open conflict
 LEAD = re.compile(r'^(WIKI|WP-|EPP|CWT|PADRE|WHB|WOMENHIST|ROSEB|CALEF-CWT|DW|HNN|FORUM|BLOG|AUCTION|EBAY)', re.I)
 
 
@@ -93,8 +99,12 @@ def check_quote(c, cache, stats):
     return ok, why
 
 
-def evaluate(corr, seed, cache, stats):
-    """-> (promote: bool, verification block)"""
+def is_secondary(c):
+    return (c.get('source_id') or '') in SECONDARY
+
+
+def evaluate(corr, seed, cache, stats, overlay=None):
+    """-> (promote: bool, verification block). overlay: the row's conflict_updates from timeline_conflict_updates.jsonl."""
     reasons = []
     v = corr.get('verdict')
     if v != 'confirmed':
@@ -111,12 +121,19 @@ def evaluate(corr, seed, cache, stats):
         good = [cites[k] for k in s.get('citations') or [] if k in cites and not is_lead(cites[k])]
         if not good:
             reasons.append('sub-claim %s has no non-lead source citation' % s.get('n'))
-    if corr.get('remains_unsupported'):
-        reasons.append('remains unsupported: %d item(s)' % len(corr['remains_unsupported']))
+        elif not [c for c in good if not is_secondary(c)]:
+            reasons.append('sub-claim %s rests only on secondary/compiled source(s) (%s); a contemporaneous primary source is required' % (s.get('n'), ', '.join(sorted({c.get('source_id') for c in good}))))
+    ru = corr.get('remains_unsupported')
+    if ru:
+        reasons.append('remains unsupported: %d item(s)' % (len(ru) if isinstance(ru, (list, tuple, dict)) else 1))
     if corr.get('scenarios'):
         reasons.append('%d scenario(s) carried (source conflict, no default)' % len(corr['scenarios']))
     if corr.get('default'):
         reasons.append('a default is recorded')
+    if not corr.get('scenarios'):
+        for u in overlay or []:
+            if (u.get('class') or '') not in SETTLED_CLASSES:
+                reasons.append('conflict %s (%s) is carried on the row (conflict_update) with no scenarios recorded' % (u.get('conflict'), u.get('class')))
     used = sorted({k for s in subs for k in s.get('citations') or [] if k in cites and not is_lead(cites[k])})
     if not reasons:
         for k in used:
@@ -176,7 +193,7 @@ def build(use_cache=True):
         if c is None:
             r['status'] = 'seeded_unverified'
         else:
-            ok, blk = evaluate(c, r, cache, stats)
+            ok, blk = evaluate(c, r, cache, stats, overlay.get(r['id']))
             r['status'] = 'verified' if ok else 'seeded_unverified'
             r['verification'] = blk
             rep[r['id']] = {'state': blk['state'], 'gaps': blk['gaps']}

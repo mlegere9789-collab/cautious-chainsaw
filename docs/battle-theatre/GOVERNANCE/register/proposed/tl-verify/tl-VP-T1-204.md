@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T1-204 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T1-204 |
 | Description | Seed row T1-204 (Jul 1-2 (time n/s), tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-04) gave verdict "supported". Shard note: Letterman (OCR 'Julv'). Six ambulances and four wagons per corps left (four ambulances for the cavalry): library OR27-CLAIM-CHECKS n2 CONFIRMED at Letterman p.198, not re-read here. Hooker's two-wagons-per-brigade cut: see T1-001. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

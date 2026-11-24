@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T3-056 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T3-056 |
 | Description | Seed row T3-056 (Jul 3 10:00, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-10) gave verdict "supported". Shard note: Regex --verify confirmed the quoted phrase this pass. SEED DEFECT: text_raw has a column-wrap fragment ("battery." displaced after the source tags). |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

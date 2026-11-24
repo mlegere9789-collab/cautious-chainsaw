@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T2-136 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T2-136 |
 | Description | Seed row T2-136 (Jul 2 late afternoon, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-07) gave verdict "supported_partial". Shard note: ROW NOTE ERROR: the note says Chamberlain gives no clock time; he does for this move (about 16:00). Only the later charge has no clock time. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

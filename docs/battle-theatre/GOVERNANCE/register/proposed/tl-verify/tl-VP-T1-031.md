@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T1-031 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T1-031 |
 | Description | Seed row T1-031 (Jun 29 morning, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-01) gave verdict "supported_partial". Shard note: Gordon pt2 p.492: left Wrightsville the morning of the 29th, cavalry burned fourteen railroad bridges toward York, marched to York and rejoined the division. Early (p.467) is consistent. The date of the separation ("June 2U") is OCR. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

@@ -36,7 +36,7 @@ def main():
         desc = ('Seed row %s (%s, tier %s) is ' + ('marked verified in the seed but has no passing visual realization record. ' if verified else 'still seeded_unverified; this proposal is not a verification and the row has no visual realization record. ') +
                 'The shard reading (%s) gave verdict "%s". Shard note: %s') % (rid, cl(s['time_window_raw'], 80), s['tier'], t.get('shard', 'no shard'), v, cl(t.get('notes'), 500))
         rows = [('ID', 'tl-VP-' + rid), ('Requirement IDs', 'R11, R04'),
-                ('Category', 'source conflict (selectable scenario)' if conflict else 'evidence missing (row not yet verified or realized)'),
+                ('Category', 'source conflict (selectable scenario)' if conflict else ('evidence missing (row not yet realized)' if verified else 'evidence missing (row not yet verified or realized)')),
                 ('Seed rows', rid), ('Description', desc),
                 ('Why literal 100% is not possible or blocked', ('The row is not realized until a realization record passes gate Q17; that has not happened.' if verified else 'The row stays seeded_unverified until a recorded primary-source check marks it verified (CLAUDE.md hard rule); it is not realized until a realization record passes gate Q17. Neither has happened.')),
                 ('Evidence searched', 'Shard %s results (timeline_verified.jsonl): citation %s; passage %s. Reading status: %s.' % (t.get('shard', 'none'), cl(t.get('citation'), 300) or 'none recorded', cl(t.get('passage_ref'), 300) or 'none recorded', t.get('status_effective') or t.get('status') or 'none')),

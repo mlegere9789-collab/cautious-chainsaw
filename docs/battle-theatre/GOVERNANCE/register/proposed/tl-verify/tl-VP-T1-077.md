@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T1-077 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T1-077 |
 | Description | Seed row T1-077 (Jul 1 morning, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-02) gave verdict "supported". Shard note: Matches the row, including no stated start time. The road name "Fayetteville" is the row's; Hill speaks of the same direction. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

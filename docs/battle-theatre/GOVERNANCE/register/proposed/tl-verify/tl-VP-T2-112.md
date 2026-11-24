@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T2-112 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T2-112 |
 | Description | Seed row T2-112 (Jul 2 14:00, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-06) gave verdict "supported". Shard note: Re-read this session (percussion/canister and 850 rounds). Row timing matches. Gun number not stated (as the row says). |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

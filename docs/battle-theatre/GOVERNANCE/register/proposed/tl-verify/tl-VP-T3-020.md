@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T3-020 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T3-020 |
 | Description | Seed row T3-020 (Jul 3 ~01:00 NIGHT, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-09) gave verdict "supported". Shard note: Hunt p237 and Muhlenberg p870: 1 a.m., opposite the XII Corps centre, commanding the Rock Creek ravine. Night spent repairing damage, replenishing chests, reorganizing batteries (Hunt p237, audit). Duplicate of T2-237. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T1-038 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T1-038 |
 | Description | Seed row T1-038 (Jun 29, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-01) gave verdict "supported". Shard note: Williams pt1 p.771: Jun 29 through Frederick to Taneytown; Jun 30 Taneytown to Littlestown. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

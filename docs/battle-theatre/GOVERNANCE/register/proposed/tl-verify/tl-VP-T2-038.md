@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T2-038 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T2-038 |
 | Description | Seed row T2-038 (Jul 2 ~00:00, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-05) gave verdict "supported". Shard note: Own-report support. No Hood or McLaws report exists in the indexed OR. |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

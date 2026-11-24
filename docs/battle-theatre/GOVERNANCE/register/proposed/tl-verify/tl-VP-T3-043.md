@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T3-043 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T3-043 |
 | Description | Seed row T3-043 (Jul 3 early (hour not given), tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-09) gave verdict "supported". Shard note: Supported without an hour (matches the row's "hour not given"). |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

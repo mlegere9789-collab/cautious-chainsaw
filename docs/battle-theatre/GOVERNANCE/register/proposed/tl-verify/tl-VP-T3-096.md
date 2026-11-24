@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T3-096 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T3-096 |
 | Description | Seed row T3-096 (Jul 3 ~14:30, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-10) gave verdict "supported". Shard note: Re-verified verbatim by regex (OCR spacing "2. 30"). |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

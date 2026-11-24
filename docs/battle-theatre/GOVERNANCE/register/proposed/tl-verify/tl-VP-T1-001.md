@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T1-001 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T1-001 |
 | Description | Seed row T1-001 (June (before Jun 26; date, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-01) gave verdict "supported". Shard note: Date in OR is Jun 19 (inside the row window). Letterman also says three wagons per 1,500-man brigade elsewhere in the same passage (2 vs 3 inside the OR). |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |

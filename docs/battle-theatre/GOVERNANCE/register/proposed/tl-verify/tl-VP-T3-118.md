@@ -4,7 +4,7 @@
 |---|---|
 | ID | tl-VP-T3-118 |
 | Requirement IDs | R11, R04 |
-| Category | evidence missing (row not yet verified or realized) |
+| Category | evidence missing (row not yet realized) |
 | Seed rows | T3-118 |
 | Description | Seed row T3-118 (Jul 3 after the peak, tier documented) is marked verified in the seed but has no passing visual realization record. The shard reading (tl-11) gave verdict "supported". Shard note: Exact match. Hays (R115 p.454) separately reports 15 flags for his division (different scope, not a conflict). |
 | Why literal 100% is not possible or blocked | The row is not realized until a realization record passes gate Q17; that has not happened. |
