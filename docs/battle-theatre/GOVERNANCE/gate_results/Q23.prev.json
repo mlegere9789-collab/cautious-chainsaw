@@ -21,7 +21,7 @@
   "NOT-RUN": 2,
   "PASS": 50
  },
- "finished_utc": "2026-11-24T18:21:32Z",
+ "finished_utc": "2026-11-24T18:30:25Z",
  "gate": "Q23",
  "incomplete_reasons": [
   "3 item(s) NOT-RUN or BLOCKED-INPUT"
@@ -474,6 +474,7 @@
   "docs/battle-theatre/GOVERNANCE/register/EG-FX-G15.md": "f26f643f8dbc526d45b35eabe0028e863951d7ade94e4dc074d67feb1afead07",
   "docs/battle-theatre/GOVERNANCE/register/EG-FX-G16.md": "40d67c4e15dc476e0ea7c3a5968b2aedb33e463867136a1558c86053198d014d",
   "docs/battle-theatre/GOVERNANCE/register/EG-LIB-BACHELDER.md": "0d98dba0b140084746decff98f7dbfc7aed5bc1299d0a4b750bd3ea514d9c8af",
+  "docs/battle-theatre/GOVERNANCE/register/EG-LIB-BOT-BLOCKED-HOSTS.md": "6221e1b1418f91eed4456c068b80cd205e99f98189aac7a52954e7a3b3ac2621",
   "docs/battle-theatre/GOVERNANCE/register/EG-LIB-LOC-MAPS.md": "46fb921fa4065c5ad43323ab5c758c46b08bb7ef147ba4c9b08a899c3ea7c0d8",
   "docs/battle-theatre/GOVERNANCE/register/EG-LIB-NARA-WARREN.md": "208a2d275b4a63871b00d9b483a6aa02f5ff1a2d45198462282bd8036ceecaea",
   "docs/battle-theatre/GOVERNANCE/register/EG-LIB-NPS-SEM.md": "53e8daa4bcfc446f7bcf61413f62e7ded74c66f143d3d85a4334138fd94d1d03",
@@ -540,7 +541,7 @@
   "docs/battle-theatre/GOVERNANCE/register/EG-W3D-G06.md": "4c7017048cb416a5e633712d20ea69ec78f16546f6c51ee2291a421beec16aab",
   "docs/battle-theatre/GOVERNANCE/register/EG-W3D-G07.md": "96acb7c964240d275a14821973828c0a84d55209c6c237a81863902607095340",
   "docs/battle-theatre/GOVERNANCE/register/EG-W3D-G08.md": "ba8577de97f540c68d38b6d47a244864bf877bfcb2e7ccf3589ceeda524ac803",
-  "docs/battle-theatre/GOVERNANCE/register_index.json": "cc3abed31dc83e1225901c04432e86c31d29632d7cf35d8c4fd699a8b3125359",
+  "docs/battle-theatre/GOVERNANCE/register_index.json": "1f1f08961a1e37f482c32c43323a091095ff23933bfca99750cf0bfcee0bf3e6",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "97a3139ef408bfeb221632916445f3000ccf5a93dc8df2fa36356690e78552b5",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "5ac7d8db1790e5e47f99b982c21c9906555d9cc20ab5bb0453ea4fcff2f31a2b",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "9a5fa49814cf6b6d27df1f8267bdefad8915616d300a547fc99bfcc23d71c0d0",
@@ -569,7 +570,7 @@
   "docs/battle-theatre/app/data/fx3d/fires.json": "9ea4ae152d03364abba3cdf133c743241fba089bf0b2f9a6b2d1a7a0763d19d4",
   "docs/battle-theatre/app/data/fx3d/weapons.json": "eeb839f2d8b41e502df4ddd41b67be9121b64eb2c69681a996be79455125caa7",
   "docs/battle-theatre/app/data/gazetteer.json": "004ca17282a789cda0ba4b4e8f612f5a7c0ec3c84d6afea6763b27df2c77e0ab",
-  "docs/battle-theatre/app/data/kit-crosswalk.json": "a3b97cb15ca6efc1a35ebc698bd6171cbafe0301c3d42c4f4ae977fefe100564",
+  "docs/battle-theatre/app/data/kit-crosswalk.json": "bd74472bf65c872829bfcf83b5d4f2c2c51fa475a0e629e63800231299726276",
   "docs/battle-theatre/app/data/placement-claims.json": "a3f736b5787d755ad255d478042bafdaf78ae4c5d2a7b9b341a04b1179bf8393",
   "docs/battle-theatre/app/data/placement.json": "3f4296b28fe033ffbfddd528b73063958b7281d8274ddc9f57aefaa82ddc5164",
   "docs/battle-theatre/app/data/sibling-approach.json": "9a9f8fa7b885b090481bbe53a5e21a3db190e87d59a00e408110e9c4f3e1535b",
@@ -3301,6 +3302,12 @@
    "sha256": "0d98dba0b140084746decff98f7dbfc7aed5bc1299d0a4b750bd3ea514d9c8af"
   },
   {
+   "bytes": 2044,
+   "path": "docs/battle-theatre/GOVERNANCE/register/EG-LIB-BOT-BLOCKED-HOSTS.md",
+   "role": "register entry file",
+   "sha256": "6221e1b1418f91eed4456c068b80cd205e99f98189aac7a52954e7a3b3ac2621"
+  },
+  {
    "bytes": 1440,
    "path": "docs/battle-theatre/GOVERNANCE/register/EG-LIB-LOC-MAPS.md",
    "role": "register entry file",
@@ -3697,10 +3704,10 @@
    "sha256": "ba8577de97f540c68d38b6d47a244864bf877bfcb2e7ccf3589ceeda524ac803"
   },
   {
-   "bytes": 611221,
+   "bytes": 612915,
    "path": "docs/battle-theatre/GOVERNANCE/register_index.json",
    "role": "datum class gov.register",
-   "sha256": "cc3abed31dc83e1225901c04432e86c31d29632d7cf35d8c4fd699a8b3125359"
+   "sha256": "1f1f08961a1e37f482c32c43323a091095ff23933bfca99750cf0bfcee0bf3e6"
   },
   {
    "bytes": 757393,
@@ -3871,10 +3878,10 @@
    "sha256": "004ca17282a789cda0ba4b4e8f612f5a7c0ec3c84d6afea6763b27df2c77e0ab"
   },
   {
-   "bytes": 67394,
+   "bytes": 67460,
    "path": "docs/battle-theatre/app/data/kit-crosswalk.json",
    "role": "datum class data.kit_crosswalk",
-   "sha256": "a3b97cb15ca6efc1a35ebc698bd6171cbafe0301c3d42c4f4ae977fefe100564"
+   "sha256": "bd74472bf65c872829bfcf83b5d4f2c2c51fa475a0e629e63800231299726276"
   },
   {
    "bytes": 367856,
@@ -6216,7 +6223,7 @@
      "EG-W3D-G07",
      "EG-W3D-G08"
     ],
-    "non_documented_entries": 400,
+    "non_documented_entries": 401,
     "unindexed_without_marking": [],
     "without_marking": [
      "EG-0006",
@@ -6235,7 +6242,7 @@
    },
    "id": "Q23/Q23.7/register",
    "pass": false,
-   "reason": "11 of 400 non-documented register entries have no marking (plus 0 unindexed entry file(s))",
+   "reason": "11 of 401 non-documented register entries have no marking (plus 0 unindexed entry file(s))",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -6843,10 +6850,10 @@
   "Q23.3 frames: the marks drawn at the default overlay state in frames (tools/horde/bench.sh node docs/battle-theatre/app/tests/ui.spec.mjs, software GL) and a person looking at the saved images (U-10); real-GPU confirmation is owed"
  ],
  "renderer_class": "python",
- "run_id": "20261124T182129Z-Q23",
+ "run_id": "20261124T183022Z-Q23",
  "runnable_here": true,
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:21:29Z",
+ "started_utc": "2026-11-24T18:30:22Z",
  "thresholds": [],
  "tool_versions": {
   "node": "v22.23.4",

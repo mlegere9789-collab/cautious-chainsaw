@@ -8,14 +8,14 @@
   "NOT-RUN": 0,
   "PASS": 30
  },
- "finished_utc": "2026-11-24T18:21:18Z",
+ "finished_utc": "2026-11-24T18:30:13Z",
  "gate": "Q19",
  "incomplete_reasons": [
   "1 item(s) NOT-RUN or BLOCKED-INPUT"
  ],
  "independence": {
   "entries_with_a_recorded_relation": 0,
-  "manifest_entries": 3838
+  "manifest_entries": 3840
  },
  "input_hashes": {
   "docs/battle-theatre/GOVERNANCE/claim_ledger.json": null,
@@ -25,7 +25,8 @@
   "docs/battle-theatre/GOVERNANCE/library/status_2.json": "cd2c01f9920387e790134db8b4ce9ddcd6a193534505d1bebcc293ea268ca847",
   "docs/battle-theatre/GOVERNANCE/library/status_3.json": "faf77daaf011303222f60d4a1adcae8394d8c32895e949f78150d5b46dcd7e76",
   "docs/battle-theatre/GOVERNANCE/library/status_4.json": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e",
-  "docs/battle-theatre/GOVERNANCE/register_index.json": "cc3abed31dc83e1225901c04432e86c31d29632d7cf35d8c4fd699a8b3125359",
+  "docs/battle-theatre/GOVERNANCE/library/status_5.json": "6c7ac45aed89b2955c5e414eb81f41549afa26d88fc07693f383286fbe40f682",
+  "docs/battle-theatre/GOVERNANCE/register_index.json": "1f1f08961a1e37f482c32c43323a091095ff23933bfca99750cf0bfcee0bf3e6",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "97a3139ef408bfeb221632916445f3000ccf5a93dc8df2fa36356690e78552b5",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "5ac7d8db1790e5e47f99b982c21c9906555d9cc20ab5bb0453ea4fcff2f31a2b",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "9a5fa49814cf6b6d27df1f8267bdefad8915616d300a547fc99bfcc23d71c0d0",
@@ -55,7 +56,7 @@
   "docs/battle-theatre/app/data/fx3d/fires.json": "9ea4ae152d03364abba3cdf133c743241fba089bf0b2f9a6b2d1a7a0763d19d4",
   "docs/battle-theatre/app/data/fx3d/weapons.json": "eeb839f2d8b41e502df4ddd41b67be9121b64eb2c69681a996be79455125caa7",
   "docs/battle-theatre/app/data/gazetteer.json": "004ca17282a789cda0ba4b4e8f612f5a7c0ec3c84d6afea6763b27df2c77e0ab",
-  "docs/battle-theatre/app/data/kit-crosswalk.json": "a3b97cb15ca6efc1a35ebc698bd6171cbafe0301c3d42c4f4ae977fefe100564",
+  "docs/battle-theatre/app/data/kit-crosswalk.json": "bd74472bf65c872829bfcf83b5d4f2c2c51fa475a0e629e63800231299726276",
   "docs/battle-theatre/app/data/placement-claims.json": "a3f736b5787d755ad255d478042bafdaf78ae4c5d2a7b9b341a04b1179bf8393",
   "docs/battle-theatre/app/data/placement.json": "3f4296b28fe033ffbfddd528b73063958b7281d8274ddc9f57aefaa82ddc5164",
   "docs/battle-theatre/app/data/sibling-approach.json": "9a9f8fa7b885b090481bbe53a5e21a3db190e87d59a00e408110e9c4f3e1535b",
@@ -136,10 +137,16 @@
    "sha256": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e"
   },
   {
-   "bytes": 611221,
+   "bytes": 6734,
+   "path": "docs/battle-theatre/GOVERNANCE/library/status_5.json",
+   "role": "status file",
+   "sha256": "6c7ac45aed89b2955c5e414eb81f41549afa26d88fc07693f383286fbe40f682"
+  },
+  {
+   "bytes": 612915,
    "path": "docs/battle-theatre/GOVERNANCE/register_index.json",
    "role": "datum class gov.register",
-   "sha256": "cc3abed31dc83e1225901c04432e86c31d29632d7cf35d8c4fd699a8b3125359"
+   "sha256": "1f1f08961a1e37f482c32c43323a091095ff23933bfca99750cf0bfcee0bf3e6"
   },
   {
    "bytes": 757393,
@@ -316,10 +323,10 @@
    "sha256": "004ca17282a789cda0ba4b4e8f612f5a7c0ec3c84d6afea6763b27df2c77e0ab"
   },
   {
-   "bytes": 67394,
+   "bytes": 67460,
    "path": "docs/battle-theatre/app/data/kit-crosswalk.json",
    "role": "datum class data.kit_crosswalk",
-   "sha256": "a3b97cb15ca6efc1a35ebc698bd6171cbafe0301c3d42c4f4ae977fefe100564"
+   "sha256": "bd74472bf65c872829bfcf83b5d4f2c2c51fa475a0e629e63800231299726276"
   },
   {
    "bytes": 367856,
@@ -7663,7 +7670,7 @@
    "check": "Q19.6",
    "evidence": {
     "conflicts": 47,
-    "manifest_entries": 3838,
+    "manifest_entries": 3840,
     "manifest_entries_with_a_relation": 0,
     "reasons": {
      "a value names no source key, so its support cannot be computed": 107,
@@ -7744,10 +7751,10 @@
   "Q19.3 independence needs a recorded relation (`independent_of` or `derived_from`) on every Source Manifest entry; the owner of the manifest writes it, no runner invents one"
  ],
  "renderer_class": "python",
- "run_id": "20261124T182115Z-Q19",
+ "run_id": "20261124T183008Z-Q19",
  "runnable_here": true,
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:21:15Z",
+ "started_utc": "2026-11-24T18:30:08Z",
  "thresholds": [],
  "tool_versions": {
   "node": "v22.23.4",

@@ -15,7 +15,7 @@
   "stored_file_is_current": true,
   "units": 439
  },
- "finished_utc": "2026-11-24T18:44:14Z",
+ "finished_utc": "2026-11-24T18:50:46Z",
  "gate": "Q03",
  "incomplete_reasons": [
   "4 item(s) NOT-RUN or BLOCKED-INPUT",
@@ -30,8 +30,8 @@
   "docs/basemap1863/features/structures/structures.geojson": "185bff78f23202f11dc951fe4ad236a7059d8516f8f6e380f4b9d8809f0204df",
   "docs/battle-theatre/GOVERNANCE/conflicts_structured.json": "8dda5d91e0021309e1261e62a7a020b2f5b5d6645745dec8663f1710620f70da",
   "docs/battle-theatre/GOVERNANCE/ground_audit/audit.json": null,
-  "docs/battle-theatre/GOVERNANCE/register_index.json": "b03ce81ab344d43cb00cf7e0c38282707a94e66e313c19b643baecc72c78c23d",
-  "docs/battle-theatre/GOVERNANCE/requirements.json": "010f0f4fcb0dce855a9a264ac64460d4d7578dd6b6e3bc34ef846f86466eafaf",
+  "docs/battle-theatre/GOVERNANCE/register_index.json": "fb64343aedfee31e3a0418371e28f06938829d6a36df120d558f7abfeafbd4d6",
+  "docs/battle-theatre/GOVERNANCE/requirements.json": "957aa6ca339cedafcbb9648fc6635adc278d236add2c0e79e142442313b270d5",
   "docs/battle-theatre/app/data/artillery-train.json": "6737bb8bbde0ca44dc087f4cf928b971271d3ab721b3c99858082ba7d44ac030",
   "docs/battle-theatre/app/data/figures-validation.json": "590ca88df6a75a67f5011370742a314119f7fdfa8ce181708c0b483da95b944e",
   "docs/battle-theatre/app/data/structures3d.json": "9e70d4751fdf6da22a111e7ef46251d727c7d32627befda937eb273edbbd36f4",
@@ -106,16 +106,16 @@
    "sha256": null
   },
   {
-   "bytes": 1619069,
+   "bytes": 1673289,
    "path": "docs/battle-theatre/GOVERNANCE/register_index.json",
    "role": "register index",
-   "sha256": "b03ce81ab344d43cb00cf7e0c38282707a94e66e313c19b643baecc72c78c23d"
+   "sha256": "fb64343aedfee31e3a0418371e28f06938829d6a36df120d558f7abfeafbd4d6"
   },
   {
-   "bytes": 354129,
+   "bytes": 354849,
    "path": "docs/battle-theatre/GOVERNANCE/requirements.json",
    "role": "sub-requirement rows",
-   "sha256": "010f0f4fcb0dce855a9a264ac64460d4d7578dd6b6e3bc34ef846f86466eafaf"
+   "sha256": "957aa6ca339cedafcbb9648fc6635adc278d236add2c0e79e142442313b270d5"
   },
   {
    "bytes": 14667,
@@ -53592,10 +53592,10 @@
   "Q03.4(b): the ground audit (GOVERNANCE/ground_audit/audit.json) from the terrain work: the layers the page loads classified, every modern feature removed, painted out or replaced with a recorded correction; until it exists Q03 cannot pass"
  ],
  "renderer_class": "mixed",
- "run_id": "20261124T184233Z-Q03",
+ "run_id": "20261124T184912Z-Q03",
  "runnable_here": true,
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:42:33Z",
+ "started_utc": "2026-11-24T18:49:12Z",
  "thresholds": [],
  "tool_versions": {
   "node": "v22.23.4",
