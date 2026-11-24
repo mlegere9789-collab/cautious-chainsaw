@@ -501,8 +501,8 @@
      "part": "OR27-2-R426",
      "page": "320",
      "page_basis": "scan_leaf",
-     "text_offset": 1215617,
-     "quote": "which arrived near the battle [...] during the afternoon of the 2d, was ordered to attack the next morning",
+     "text_offset": 1215558,
+     "quote": "Longstreet, re-enforced by Pickett's three brigades [...] was ordered to attack the next morning",
      "witness": {
       "name": "Robert E. Lee",
       "role": "General, commanding the Army of Northern Virginia",
@@ -521,12 +521,9 @@
      "states": {
       "phrases": [
        "ordered to attack the next morning"
-      ],
-      "dates": [
-       "07-02"
       ]
      },
-     "note": "Lee's detailed report says Longstreet was ordered to attack the next morning with Pickett's brigades; it is the other side of the dispute and gives no hour for an order to Pickett."
+     "note": "Lee's detailed report says Longstreet, re-enforced by Pickett's three brigades, was ordered to attack the next morning (the subject of 'was ordered' is Longstreet); it is the other side of the dispute and gives no hour for an order to Pickett."
     },
     {
      "id": "C-021-P4-c3",
@@ -580,7 +577,7 @@
     "C-021-S5",
     "C-021-DEFAULT"
    ],
-   "label": "On the field the morning of Jul 3 (not before dawn): the plan's default, the first delegated default",
+   "label": "On the field the morning of Jul 3: the plan's default, the first delegated default",
    "kind": "period",
    "value": {
     "text": "the morning",
@@ -896,8 +893,8 @@
      "part": "OR27-2-R426",
      "page": "320",
      "page_basis": "scan_leaf",
-     "text_offset": 1215617,
-     "quote": "which arrived near the battle [...] during the afternoon of the 2d, was ordered to attack the next morning",
+     "text_offset": 1215588,
+     "quote": "Pickett's three brigades, which arrived near the battle [...] during the afternoon of the 2d",
      "witness": {
       "name": "Robert E. Lee",
       "role": "General, commanding the Army of Northern Virginia",
@@ -1189,19 +1186,19 @@
      "quote": "Pickett's division left its bivouac at dawn of day and moving around to the right reached the position assigned it in the ravine behind Cemetery Ridge soon after six o'clock",
      "page_note": "printed page 367 read from the running head of the page before the passage; the text has no page marks",
      "witness": {
-      "name": "Jacob Hoke (quoting Captain Owen)",
-      "role": "civilian of Chambersburg who wrote a history of the invasion; the words are printed as those of Captain Owen",
-      "side": "other"
+      "name": "Henry T. Owen (printed by Jacob Hoke)",
+      "role": "Captain, 18th Virginia, Garnett's brigade of Pickett's division",
+      "side": "confederate"
      },
      "written": {
-      "date": "1887",
-      "kind": "later_history"
+      "date": "1881-03-26",
+      "kind": "postwar_narrative"
      },
-     "vantage": "not_stated",
-     "knew_by": "relayed_report",
+     "vantage": "present",
+     "knew_by": "eyewitness",
      "clock": "unspecified",
      "hedge": "lower",
-     "group": "hoke-owen",
+     "group": "owen-ht-1881",
      "exact": false,
      "states": {
       "times": [
@@ -1214,7 +1211,7 @@
        "soon after six o'clock"
       ]
      },
-     "note": "Hoke prints the words as Captain Owen's. They are not in Owen's own book of 1885 (searched for 'soon after six' and 'left its bivouac'); where Hoke took them is not stated. The 'Cemetery Ridge' of the print is the wrong ridge for Confederate lines."
+     "note": "Hoke (1887) prints the passage as the words of Captain H. T. Owen of the 18th Virginia, written for the Philadelphia Weekly Times of 26 March 1881; he is not William M. Owen of the Washington Artillery (whose book of 1885 is cited elsewhere). A regimental officer of the brigade whose commander (Peyton) wrote on 9 July 1863 that it reached the field about 9 a.m. The 'Cemetery Ridge' of the print is the wrong ridge for Confederate lines."
     },
     {
      "id": "C-021-P9-c2",
@@ -1256,7 +1253,7 @@
     }
    ],
    "inference": {
-    "step": "Hoke prints Owen as having the division in position soon after six o'clock and Toombs has Pickett report to Longstreet at seven o'clock; the window runs from the first to the second hour. Neither names a source and neither is in the reports of 1863.",
+    "step": "Captain H. T. Owen (18th Virginia, 1881, printed by Hoke) has the division in position soon after six o'clock and Toombs has Pickett report to Longstreet at seven o'clock; the window runs from the first to the second hour. Neither names a source and neither is in the reports of 1863.",
     "from": [
      "C-021-P9-c1",
      "C-021-P9-c2"
@@ -1264,7 +1261,7 @@
    },
    "reason_not_chosen": {
     "kind": "later_memory",
-    "text": "Two books of 1887 and 1888 without a named source; the reports written within a month give 3 a.m. for the start of one brigade and about 9 a.m. for another's arrival."
+    "text": "A reminiscence of 1881 and a book of 1888 without a source; Peyton's report of 9 July 1863 gives about 9 a. m. for his brigade give 3 a.m. for the start of one brigade and about 9 a.m. for another's arrival."
    }
   },
   {
@@ -1442,27 +1439,27 @@
   "positions": [
    "C-021-P5"
   ],
-  "label": "On the field the morning of Jul 3 (not before dawn); one brigade starts at 03:00, another arrives about 09:00",
+  "label": "Morning of Jul 3: a brigade starts 4 miles out at 03:00, another reaches the field about 09:00",
   "animation": {
    "at": "1863-07-03T03:00",
    "rule": "earliest_documented",
-   "note": "The earliest documented time is the start of Armistead's brigade at 3 a.m. from a bivouac about four miles out on the Chambersburg turnpike; it is drawn as a march, not a spawn. No report times its arrival on the field; Garnett's brigade reached the field about 9 a.m. The later readings stay selectable. This bears on gate Q04, which keeps the division off the scene until sunrise (04:36): see the readers."
+   "note": "The earliest documented time is the start of Armistead's brigade at 3 a.m. from a bivouac about four miles out on the Chambersburg turnpike; 03:00 is the start of a march from off the field, not a presence on it; it is drawn as a march, not a spawn. No report times its arrival on the field; Garnett's brigade reached the field about 9 a.m. The later readings stay selectable. This bears on gate Q04, which keeps the division off the scene until sunrise (04:36): see the readers."
   },
   "note": "The record gives brigade times, not a division time: the morning is certain, the hour is not. Dearing's guns were on the field at dusk of the 2d."
  },
  "weighing": {
   "summary": "Two questions were run together. Date: the division came within about three or four miles of Gettysburg on the afternoon of 2 Jul (Lee 1864, Alexander, Hoke, Aylett, Dearing) and spent the night there; it did not reach the field that night except Dearing's guns, which moved up at dusk. On the field: the infantry brigades went in on the morning of 3 Jul (Lee 1863: joined Longstreet the following morning; Aylett: Armistead's brigade moved at 3 a.m.; Peyton: Garnett's brigade reached the field about 9 a.m.; Fremantle, Dickert and Owen: just come up). The values that look opposed (night of the 2d, afternoon of the 2d, the 3rd) are different events: arrival in the neighbourhood, the guns at dusk, the infantry on the field. No source gives 06:00 on the 2d. No order to Pickett is in the record. The default is the plan's own morning of Jul 3, with the brigade hours it rests on.",
-  "who": "Aylett commanded Armistead's brigade, Peyton Garnett's brigade and Dearing the artillery battalion attached to the division: all three were with the units they describe. Lee commanded the army and ordered the division forward. Fremantle, Dickert, Owen and Wilcox saw the division on the ridge but not its march. Alexander, Hoke, Toombs, Hunt and the Park Service handbook were not with it. No report of Pickett, Kemper or Garnett exists (Garnett was killed, Kemper wounded; Lee asked Pickett to modify his and he did not).",
+  "who": "Aylett commanded Armistead's brigade, Peyton Garnett's brigade and Dearing the artillery battalion attached to the division: all three were with the units they describe. Lee commanded the army and ordered the division forward. Fremantle, Dickert, Owen and Wilcox saw the division on the ridge but not its march. Alexander, Hoke, Toombs, Hunt and the Park Service handbook were not with it. No report of Pickett, Kemper or Garnett exists (Garnett was killed and Kemper wounded, Fremantle and Lee's report; Lee asked Pickett to modify his and he did not, Alexander 1907).",
   "when": "Peyton wrote on 9 Jul, Aylett on 12 Jul, Lee on 31 Jul 1863, Dearing on 16 Aug 1863 (days to six weeks after); Lee's detailed report is of Jan 1864. Hunt (1887), Hoke (1887), Toombs (1888), Longstreet (1896), Taylor (1906) and Alexander (1907) are 24 to 44 years later; the Park Service handbook is of 1954. The reports of 1863 outrank the memoirs and the books.",
   "where": "Aylett was with Armistead's brigade on the turnpike four miles out and then on the field; Peyton with Garnett's brigade; Dearing with the guns, which went up at dusk. Lee, at his headquarters, wrote of the three brigades together. Fremantle was on the ridge from 6 a.m. on the 3d.",
-  "how_knew": "Aylett, Peyton and Dearing give the hours of their own commands and say how (moved at 3 a.m.; reached the field about 9 a.m.; orders received about dusk). Lee had it from reports. Alexander, Hoke, Toombs, Hunt and the handbook give no source; Owen compiled his book from his diary.",
+  "how_knew": "Aylett, Peyton and Dearing give the hours of their own commands and say how (moved at 3 a.m.; reached the field about 9 a.m.; orders received about dusk). Lee had it from reports. Alexander, Hoke, Toombs, Hunt and the handbook give no source; W. M. Owen compiled his book of 1885 from his diary; Captain H. T. Owen (1881) wrote as an officer of Garnett's brigade.",
   "clock": "Every writer is Confederate or unspecified; the Confederate hours (3 a.m., 9 a.m., about dusk) are not corrected for the reported 20-minute difference between the armies' clocks, which would not change a morning or an afternoon. 'About 9' keeps a quarter hour either way.",
-  "independence": "The default rests on the separate reports of two brigades (Aylett, Peyton), the artillery battalion (Dearing) and Lee, with Fremantle, Dickert, Owen and Wilcox as witnesses on the ridge that morning; they are independent of each other. Lee 1863 and Lee 1864 are one writer. Hoke and Owen overlap (Hoke prints Owen); Toombs, Hunt and the handbook name no source."
+  "independence": "The default rests on the separate reports of two brigades (Aylett, Peyton), the artillery battalion (Dearing) and Lee, with Fremantle, Dickert, Owen and Wilcox as witnesses on the ridge that morning; they are independent of each other. Lee 1863 and Lee 1864 are one writer. Hoke is only the carrier of Captain H. T. Owen's article of 1881; Toombs, Hunt and the handbook name no source."
  },
  "source_panel_text": "The morning of Jul 3: Armistead's brigade left its camp four miles out at 3 a.m. and Garnett's brigade reached the field about 9 a.m. (reports of July 1863); Lee has the brigades joining Longstreet that morning. On Jul 2 they were only near the field, apart from the artillery at dusk. Ten other values are listed.",
  "holds": {
   "pdf_default": {
-   "holds": "yes",
+   "holds": "partly",
    "note": "The morning of Jul 3 holds: three reports of 1863 and Lee put the infantry on the field then. The plan's clause not shown before dawn also holds for the infantry, since the earliest report is a 3 a.m. start from four miles out; Dearing's guns were on the field at dusk of the 2d, which the clause does not allow for."
   },
   "first_delegated": {
@@ -1596,12 +1593,6 @@
   {
    "where": "OR27-2 and OR27-3, all reports and letters",
    "query": "Pickett near arrived / reached / joined / came up with night, morning, o'clock, dusk: Lee (two), Longstreet (not yet relieved at Chambersburg), Peyton, Dearing, Aylett only",
-   "outcome": "not_found",
-   "at": "2026-11-24"
-  },
-  {
-   "where": "OWEN-1885-C021 (fetched from archive.org cu31924030922680)",
-   "query": "soon after six, left its bivouac, dawn of day: not in Owen's book; Hoke prints them as Owen's words without naming a source",
    "outcome": "not_found",
    "at": "2026-11-24"
   },

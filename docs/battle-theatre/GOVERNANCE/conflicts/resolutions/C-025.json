@@ -180,7 +180,7 @@
     }
    ],
    "inference": {
-    "step": "Meade and Slocum say Geary returned during the night and attacked at early dawn on the 3d; Kane has his brigade fired on in the woods on Thursday night (2 Jul): the night is that of 2 to 3 Jul.",
+    "step": "Meade says Geary, 'having returned during the night', attacked at early dawn on the 3d (Slocum has the movement complete 'nearly midnight' and orders for an attack at daybreak); Kane has his brigade fired on in the woods on Thursday night (2 Jul): the night is that of 2 to 3 Jul.",
     "from": [
      "C-025-P1-c1",
      "C-025-P1-c2"
@@ -667,7 +667,7 @@
   {
    "id": "C-025-P6",
    "origin": "research",
-   "label": "About 22:00: Kane's brigade is back at the works (Greene)",
+   "label": "About 22:00: Kane's brigade is reported returning, fired on at the works (Greene)",
    "kind": "time",
    "value": {
     "at": "1863-07-02T22:00",
@@ -992,7 +992,7 @@
    },
    "reason_not_chosen": {
     "kind": "place_of_observation",
-    "text": "The upper end of the default window and one brigade (Candy's) only; Kane's brigade was back about three hours earlier."
+    "text": "Upper end of the window, one brigade. Geary has Candy held on the turnpike from 9 p. m., Candy east of Rock Creek until about midnight: they disagree on when and where he was ordered."
    }
   }
  ],
@@ -1011,16 +1011,16 @@
   "basis_text": "the lower end is Geary's order to return at 9 p. m.; the upper end is the First Brigade back at 1.30 a. m. (Greene), in line at 1 a. m. (Geary).",
   "animation": {
    "at": "1863-07-02T21:00",
-   "rule": "earliest_documented",
-   "note": "Geary's order to return at 21:00 starts the march of Kane's brigade; Kane's brigade is at the works (met by fire) before about 22:00 (Greene) and Candy's brigade follows, in line at 1 a. m. to 1.30 a. m. Nothing is drawn before the order. The plan's 02:00 to 04:00 stays selectable but lies after every report of the return."
+   "rule": "best_supported",
+   "note": "Geary's printed hour for the order to return, 21:00, starts the march of Kane's brigade (Kane says he was ordered shortly after twilight, earlier; Geary puts the end of the enemy's attack about 10 p. m.); Kane's brigade is reported returning about 22:00 and arrives soon after (Greene); Candy's brigade follows, in line at 1 a. m. to 1.30 a. m. Nothing is drawn before 21:00, the earliest hour printed for an order. The plan's 02:00 to 04:00 stays selectable but lies after every report of the return."
   },
   "note": "The record gives hours per brigade (Kane's about 22:00, Candy's 01:00 to 01:30) and one corps-level 'nearly midnight'; the window is their span, not a mean."
  },
  "weighing": {
-  "summary": "The plan's window 02:00 to 04:00 matches no report of the return: the writers who were there give 9 p. m. (Geary's order), about 10 (Kane's brigade back, Greene), about 12 p. m. (Candy's brigade ordered up), 1 a. m. (Geary: Candy's in line) and 1.30 a. m. (Greene), and Slocum has the whole movement complete nearly at midnight. The 04:00 of the plan is the hour the artillery opened for the morning attack (Greene, Slocum), after the return; 23:00 has no source. The reports differ because they date different acts and brigades: the order (Geary), the arrival of the first brigade (Kane's, about 10), the last brigade ordered up (Candy), placed in line (Geary) and back at Greene's support (Greene), and the corps commander's 'movement completed'. The default is the span from the order to the last brigade in line.",
+  "summary": "The plan's window 02:00 to 04:00 matches no report of the return: the writers who were there give 9 p. m. (Geary's order), about 10 (Kane's brigade back, Greene), about 12 p. m. (Candy's brigade ordered up), 1 a. m. (Geary: Candy's in line) and 1.30 a. m. (Greene), and Slocum has the whole movement complete nearly at midnight. The 04:00 of the plan is the hour the artillery opened for the morning attack (Greene, Slocum), after the return; 23:00 has no source. Kane says he was ordered back shortly after twilight (sunset 19:32), earlier than Geary's 9 p. m., and Geary's own report puts the end of the enemy's attack about 10 p. m., just before his 9 p. m. order; the two stay side by side and the default's lower end is Geary's printed hour, not the earliest time implied. Geary has Candy's brigade ordered back with Kane at 9 and held on the turnpike, while Candy has it east of Rock Creek until about midnight: a real disagreement on when and where Candy was ordered, which the span covers. The other differences are different acts and brigades: the order (Geary), the arrival of the first brigade (Kane's, about 10), the last brigade ordered up (Candy), placed in line (Geary) and back at Greene's support (Greene), and the corps commander's 'movement completed'. The default is the span from the order to the last brigade in line.",
   "who": "Geary commanded the division and gave the orders; Kane and Candy commanded the two brigades that returned; Greene held the works and the right of the line; Slocum and Williams were above them, Slocum commanding the right wing and Williams the corps at the dateline (Slocum was at the council at headquarters in the evening). The county history of 1886 and the Park Service handbook were not there.",
   "when": "Kane and Candy wrote on 6 Jul, Greene on 12 Jul, Geary on 29 Jul, Williams on 22 Aug, Slocum in August and Meade on 1 Oct 1863, all within weeks to months; the county history is of 1886 and the handbook of 1954. The reports of the officers who gave or carried out the orders outweigh the later books.",
-  "where": "Greene was in the works with the enemy in front of his right when Kane and Candy came; Kane was in the woods near the works when fired on; Candy was east of Rock Creek until ordered up. Geary was at the turnpike with the First Brigade held in readiness. Slocum and Williams were at the headquarters of the army.",
+  "where": "Greene was in the works with the enemy in front of his right when Kane and Candy came; Kane was in the woods near the works when fired on; Candy was east of Rock Creek until ordered up. Geary was at the turnpike with the First Brigade held in readiness. Williams was called to the headquarters of the army on returning from the left.",
   "how_knew": "Geary, Kane, Candy and Greene give hours for their own orders and movements; Slocum and Williams give the end of the movement as they learned it; Meade repeats Slocum. The books name no source.",
   "clock": "All the writers are Union; none says whose clock. The hours are not corrected for the reported 20-minute difference between the armies' clocks, which would not move a midnight to the 02:00 to 04:00 window. 'About', 'nearly' and 'shortly after' keep their tolerance. Candy's '12 p. m.' is read as midnight.",
   "independence": "The default rests on four separate reports (Geary, Greene, Kane, Candy) of the units that moved; Slocum and Williams give the corps' view; Meade repeats Slocum. The county history and the Park Service handbook name no source and are not independent of the reports."
@@ -1033,7 +1033,7 @@
   },
   "first_delegated": {
    "holds": "partly",
-   "note": "The night of Jul 2-3 from the evening to about 01:30 holds. Its 'evening' lower end is read here as Geary's order at 21:00; the hours per brigade are added (Kane about 22:00, Candy 01:00 to 01:30), and 'nearly midnight' (Slocum) is kept as its own value."
+   "note": "The night of Jul 2-3 from the evening to about 01:30 holds. Its 'evening' lower end is read here as Geary's order at 21:00; the hours per brigade are added (Kane reported returning about 22:00, Candy 01:00 to 01:30), and 'nearly midnight' (Slocum) is kept as its own value."
   }
  },
  "readers": [
@@ -1047,7 +1047,7 @@
    "kind": "timeline_row",
    "ref": "T3-026",
    "must_change": true,
-   "note": "Row 'Jul 3 overnight' (Geary misreads orders, marches down the Baltimore Pike, then returns to his works; exact hour of return: gap): the hour is now documented by brigade (Kane about 22:00, Candy 01:00 to 01:30). Not edited here."
+   "note": "Row 'Jul 3 overnight' (Geary misreads orders, marches down the Baltimore Pike, then returns to his works; exact hour of return: gap): the hour is now documented by brigade (Kane reported returning about 22:00, Candy 01:00 to 01:30). Not edited here."
   },
   {
    "kind": "timeline_row",
