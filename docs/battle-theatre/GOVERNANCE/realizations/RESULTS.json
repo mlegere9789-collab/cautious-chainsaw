@@ -1,9 +1,9 @@
 {
  "harness": "bt-realize-1",
  "harness_digest": "2f5b52080685548b",
- "inputs_digest": "5a59f26ae3e67bba",
+ "inputs_digest": "9642d609cfa4cd4d",
  "inputs_parts": {
-  "governance": "cd573dae45bb9e86",
+  "governance": "b786fc8b2bd8036a",
   "app_src": "d0d54dd929dc1faa",
   "data": "c91ad86ddcd21536",
   "records": "fbe031e1a6fad484"
@@ -46,12 +46,12 @@
    "realized_group_incomplete": 0,
    "realized_clock_margin_used": 0,
    "realized_by_card_only": 0,
-   "uncovered_strict": 2,
+   "uncovered_strict": 0,
    "not_realized": 14,
    "with_record": 0,
    "no_record": 14,
-   "covered_by_open_register_entry_only": 12,
-   "uncovered": 2
+   "covered_by_open_register_entry_only": 14,
+   "uncovered": 0
   },
   "realized_by_kind": {
    "not_realized": 687,
@@ -87,8 +87,8 @@
   "complete": true,
   "rows_expected": 691,
   "epilogue_rows_expected": 14,
-  "ok": false,
-  "ok_strict": false,
+  "ok": true,
+  "ok_strict": true,
   "rows": 691,
   "epilogue_rows": 14,
   "realized": 4,
@@ -100,8 +100,8 @@
   "covered_by_open_register_entry_only": 687,
   "uncovered": 0,
   "uncovered_strict": 0,
-  "epilogue_uncovered": 2,
-  "epilogue_uncovered_strict": 2
+  "epilogue_uncovered": 0,
+  "epilogue_uncovered_strict": 0
  },
  "record_file_problems": [],
  "rows": {
@@ -22118,7 +22118,9 @@
    "shard": "tl-12",
    "realization_class": null,
    "register_open": [
-    "EG-0379"
+    "EG-0379",
+    "EG-0917",
+    "EG-0918"
    ],
    "q17_covered": true,
    "q17_covered_strict": true,
@@ -22390,10 +22392,12 @@
    "status": "seeded_unverified",
    "shard": "epilogue",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0900"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "E-010": {
    "realized": false,
@@ -22441,10 +22445,12 @@
    "status": "seeded_unverified",
    "shard": "epilogue",
    "realization_class": null,
-   "register_open": [],
-   "q17_covered": false,
-   "q17_covered_strict": false,
-   "coverage": "none"
+   "register_open": [
+    "EG-0901"
+   ],
+   "q17_covered": true,
+   "q17_covered_strict": true,
+   "coverage": "open_register_entry"
   },
   "E-012": {
    "realized": false,

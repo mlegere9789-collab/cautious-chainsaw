@@ -29,6 +29,7 @@ def main():
             if byid[i]['status'] != 'closed' and i not in out: out.append(i)
         return out
     links = J('subreq_links.json')
+    gaplinks = J('subreq_gap_links.json')['links'] if os.path.exists(os.path.join(G, 'subreq_gap_links.json')) else {}   # curated, tools/bt/propose_subreq_gaps.py
     rowreg = {}   # timeline row -> open entries whose proposal names the row (register_index `rows`, set by register_from_proposed.py)
     for e in reg:
         for r in e.get('rows') or []:
@@ -41,6 +42,8 @@ def main():
     for s in subs:
         want = list(s['register_ids'])
         for i in resolve(links.get(s['id'], {}).get('register_refs')):
+            if i not in want: want.append(i)
+        for i in resolve(gaplinks.get(s['id'], {}).get('register_ids')):
             if i not in want: want.append(i)
         m = re.match(r'Timeline row (T\d-\d+)', s['text'])
         if m:

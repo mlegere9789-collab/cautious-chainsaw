@@ -2,27 +2,27 @@
  "ok": true,
  "fails": [],
  "notes": [
-  "sub-requirements 969: passing 0, linked to open register entry 884, UNLINKED (unfinished work) 85",
-  "horde evidence links (subreq_links.json, informational, not passes): 950 sub-requirements have a shard evidence row; still without register link or evidence row: 19",
-  "links: 884 sub-requirements linked to an OPEN register entry (links are not passes); 64 more have only a verified evidence row and no register entry (not counted as linked); 85 not passing and without an open register link",
+  "sub-requirements 969: passing 0, linked to open register entry 969, UNLINKED (unfinished work) 0",
+  "horde evidence links (subreq_links.json, informational, not passes): 950 sub-requirements have a shard evidence row; still without register link or evidence row: 0",
+  "links: 969 sub-requirements linked to an OPEN register entry (links are not passes); 0 more have only a verified evidence row and no register entry (not counted as linked); 0 not passing and without an open register link",
   "coverage Q17: PASS {\"rows\": 691, \"covered_by_open_register_entry\": 691, \"covered_by_visual_realization\": 0, \"uncovered\": 0}",
-  "coverage Q18: FAIL (unfinished work, reported not hidden) {\"requirements_without_subrequirements\": [], \"requirements\": 22, \"subrequirements\": 969, \"unlinked_and_not_passing\": 85, \"structure_ok\": true}",
-  "coverage Q23: FAIL (unfinished work, reported not hidden) {\"non_documented_register_entries\": 587, \"unmarked_register_entries\": 10, \"timeline_rows_without_tier\": 0}",
+  "coverage Q18: PASS {\"requirements_without_subrequirements\": [], \"requirements\": 22, \"subrequirements\": 969, \"unlinked_and_not_passing\": 0, \"structure_ok\": true}",
+  "coverage Q23: FAIL (unfinished work, reported not hidden) {\"non_documented_register_entries\": 608, \"unmarked_register_entries\": 10, \"timeline_rows_without_tier\": 0}",
   "timeline: 24 of 691 rows verified through shard evidence (rule v3); the rest stay seeded_unverified"
  ],
  "counts": {
   "requirements": 22,
   "sub_requirements": 969,
-  "register_entries": 1024,
+  "register_entries": 1045,
   "timeline_rows": 691,
   "conflicts": 47,
   "gates": 28,
-  "linked_open_register": 884,
+  "linked_open_register": 969,
   "passing": 0
  },
  "coverage": {
   "Q17": true,
-  "Q18": false,
+  "Q18": true,
   "Q23": false
  }
 }
