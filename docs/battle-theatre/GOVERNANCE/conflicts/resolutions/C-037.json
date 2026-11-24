@@ -1,0 +1,890 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-037",
+ "topic": "Barksdale’s death",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-037",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Barksdale’s death | Jul 2; Jul 3 | Jul 2 (wounded), death Jul 2-3 shown as a | range | Jul 3",
+  "values": [
+   "Jul 2",
+   "Jul 3"
+  ],
+  "recommended_default": "Jul 2 (wounded), death Jul 2-3 shown as a range",
+  "selectable_alternatives": [
+   "Jul 3"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-037-DEFAULT",
+  "default_label": "wounded Jul 2 (documented); death Jul 2-3 as a range, marked gap",
+  "tier": "open gap",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-037-S1",
+   "C-037-S2",
+   "C-037-S3",
+   "C-037-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "inferred",
+ "basis": {
+  "kind": "official_records",
+  "text": "Doubleday's report of the third day (Official Records 27/1 p. 260) names the third day for the death; Meade's dispatch of 3 July 8 a.m. (27/1 p. 74) and the New York Times special of 7:45 a.m. say the body is already within the lines; Longstreet (27/2 p. 362) dates the wound to the evening of 2 July."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-037-P2"
+  ],
+  "label": "Wounded the evening of Jul 2; died early on Jul 3 (dead by about 08:00); hour unknown",
+  "basis_text": "The wound is dated by Longstreet and Hall to the evening of Jul 2. The death is dated by Doubleday to the third day and bounded above by Meade and the Times (dead at 8 a.m. and 7:45 a.m. of Jul 3). No hour is stated by anyone; whether midnight had passed rests on Doubleday's day name and the Pennsylvania regiment's \"the next day\".",
+  "note": "Two parts, kept apart: the wound (Jul 2 evening, position P4) and the death (Jul 3 early, P2). The range Jul 2-3 of the plan stays selectable (P3)."
+ },
+ "positions": [
+  {
+   "id": "C-037-P1",
+   "origin": "pdf_value",
+   "pdf_label": "Jul 2",
+   "scenario_ids": [
+    "C-037-S1"
+   ],
+   "source_keys": [],
+   "label": "Died on Jul 2 (before midnight): the plan's first value",
+   "kind": "date",
+   "value": {
+    "date": "1863-07-02"
+   },
+   "approx": false,
+   "clock": "unspecified",
+   "tier": "open gap",
+   "support": [],
+   "flags": [
+    "unsourced"
+   ],
+   "stance": "selectable",
+   "failed_lookups": [
+    {
+     "where": "OR27-1, OR27-2, OR27-3",
+     "query": "Barksdale within 300 characters of died|death|dead|buried|hospital|midnight|o'clock: every hit read in its report; the wound is dated Jul 2 (Longstreet), the death only \"third day\" (Doubleday) or \"dead\" by 8 a.m. of Jul 3 (Meade); no report says he died on Jul 2 or before midnight",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "ws9 books and papers, CA-1863 pages of Jul 1863, ADAMS-SENTINEL-1863, JACOBS-1864, FREMANTLE-1864",
+     "query": "Barksdale with died|death|dead|killed|buried|\"that night\"|\"July 2\"; Haskell and Jacobs date his fall on the 2d, Longstreet on its evening; none dates the death",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "SS-HUM (Stone Sentinels, Hummelbaugh farm page, the plan's source for Jul 2)",
+     "query": "the page the plan cites for the Jul 2 value",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No report or book found says he died on Jul 2; the Jul 2 sources date the wound. The plan's own source page for this value was not read."
+   }
+  },
+  {
+   "id": "C-037-P2",
+   "origin": "pdf_value",
+   "pdf_label": "Jul 3",
+   "scenario_ids": [
+    "C-037-S2"
+   ],
+   "source_keys": [],
+   "label": "Died early on Jul 3, dead by about 08:00 (wounded the evening before); hour unknown",
+   "kind": "date",
+   "value": {
+    "date": "1863-07-03"
+   },
+   "approx": false,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R029",
+     "page": "260",
+     "page_basis": "scan_leaf",
+     "text_offset": 883380,
+     "quote": "occurred on the third day was the death of the rebel General Barksdale. He was brought into my lines by my acting assistant inspector-general",
+     "witness": {
+      "name": "Abner Doubleday",
+      "role": "Major General, commanding the Third Division, I Corps, on 2-3 July",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-12-14",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "doubleday",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-03"
+      ],
+      "phrases": [
+       "death of the rebel General Barksdale"
+      ]
+     },
+     "note": "Doubleday's report on the third day (p. 260, dated 14 Dec 1863, 164 days after). His staff officer Lt. Col. C. E. Livingston brought Barksdale in; Doubleday does not say he saw the death himself, and 'the third day' is a day name, not an hour. Read with Meade's 8 a.m. dispatch it falls in the small hours of Jul 3."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "74",
+     "page_basis": "scan_leaf",
+     "text_offset": 262260,
+     "quote": "Barksdale's (Mississippi) dead body is within our lines",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General, commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-03",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade-hq",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Barksdale"
+      ]
+     },
+     "note": "Dispatch to Halleck headed 'Headquarters Army of the Potomac, July 3, 1863, 8 a. m.' (received 5.10 p. m.). It follows 'Prisoners report ... many general officers killed'. Meade states the body is within the lines at 8 a. m. of Jul 3; it does not say when he died. The printed first dateline of the record ('June 37') is a misprint of the volume."
+    },
+    {
+     "source": "CA-1863",
+     "source_class": "primary",
+     "part": "sn83021205/1863-07-04/ed-1/seq-3",
+     "page_basis": "as_read",
+     "text_offset": 10821,
+     "quote": "Gen. Barksdale of Mississippi, wounded yesterday, is lying dead within our lines",
+     "page_note": "printed page not readable in the text layer",
+     "witness": {
+      "name": "Unnamed correspondent of the New York Times (Special to the New York Times)",
+      "role": "Newspaper correspondent with the army at Gettysburg",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-03",
+      "kind": "newspaper_1863"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "times-corr",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "wounded yesterday",
+       "lying dead"
+      ]
+     },
+     "note": "Printed in the Worcester Daily Spy of 4 July 1863 (Library of Congress page): 'Special to the New York Times. Gettysburg, July 3', entry timed '7 3-4 a. m.' (the time is outside the quoted words). Says he was wounded 'yesterday' (Jul 2) and was dead at 7:45 on Jul 3; no hour of death."
+    },
+    {
+     "source": "PA-GB-1914-v2",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "text_offset": 539535,
+     "quote": "They sent him into our lines and the next day he died at the little house in the apple orchard",
+     "page_note": "printed page not readable in the text layer",
+     "witness": {
+      "name": "Committee of the 149th Pennsylvania (regimental history in Pennsylvania at Gettysburg)",
+      "role": "Regimental history printed 1914, by survivors",
+      "side": "union"
+     },
+     "written": {
+      "date": "1914",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "pa149",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "next day he died"
+      ]
+     },
+     "note": "The regiment is said to have found him on the field on the night of the 2d. 'The next day he died' is read as Jul 3 (the passage then turns to 'the morning of the 3d'). It does not say whether before or after midnight, and is later than the dispatches."
+    },
+    {
+     "source": "VT-GB-1914",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "text_offset": 22107,
+     "quote": "His body, with a ball hole through his breast, and legs bandaged and bloody from gun-shots through both of them, lay in the rear of the position of the Vermont brigade during the forenoon",
+     "page_note": "printed page not readable in the text layer",
+     "witness": {
+      "name": "Thomas C. Cheney (compiler), quoting Col. Veazey",
+      "role": "Compiler of the commission volume Vermont at Gettysburg (1914), not a participant",
+      "side": "other"
+     },
+     "written": {
+      "date": "1914",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "vt1914",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "during the forenoon"
+      ]
+     },
+     "note": "The sentence before it says that during the night word was brought to Col. Nichols that Barksdale lay mortally wounded in front of his line and eight men brought him in on a stretcher. The forenoon is the forenoon after that night, read as Jul 3 (the next paragraph opens on 'the morning of the third day')."
+    },
+    {
+     "source": "MN-1ST-1916",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "text_offset": 663138,
+     "quote": "mortally wounded, dying on the third",
+     "page_note": "printed page not readable in the text layer",
+     "witness": {
+      "name": "Minnesota regimental history committee (1916)",
+      "role": "Regimental history, cites Colonel Hall's report as its authority",
+      "side": "union"
+     },
+     "written": {
+      "date": "1916",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "doubleday",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "dying on the third"
+      ]
+     },
+     "note": "Says 'dying on the third day' and then prints Doubleday's sentence about Livingston; counted with Doubleday, not as a second witness. (Hall's report, which it names, gives no day of death.)"
+    }
+   ],
+   "flags": [],
+   "stance": "default",
+   "inference": {
+    "step": "Doubleday places the death on \"the third day\"; Meade at 8 a. m. and the Times correspondent at 7:45 on Jul 3 say the body is already within the lines, and Longstreet and Hall date the wound to the evening of Jul 2. Joined, the death falls between nightfall of Jul 2 and about 08:00 on Jul 3, and the calendar day is Jul 3 only if Doubleday's day name is taken at its word; no hour is stated.",
+    "from": [
+     "Doubleday report p.260",
+     "Meade dispatch 3 Jul 8 a.m. p.74",
+     "NY Times special 3 Jul 7:45 a.m.",
+     "Longstreet report p.362"
+    ]
+   },
+   "derived": true
+  },
+  {
+   "id": "C-037-P3",
+   "origin": "pdf_default",
+   "pdf_label": "Jul 2 (wounded), death Jul 2-3 shown as a range",
+   "scenario_ids": [
+    "C-037-S3",
+    "C-037-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "Wounded Jul 2; death shown as a range, Jul 2 to Jul 3 (the plan's default; first delegated default)",
+   "kind": "date_window",
+   "value": {
+    "from": "1863-07-02",
+    "to": "1863-07-03"
+   },
+   "approx": false,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R430",
+     "page": "362",
+     "page_basis": "scan_leaf",
+     "text_offset": 1345753,
+     "quote": "Brigadier-General Barksdale was mortally wounded in the attack on the evening of the 2d",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General, commanding the First Corps (Barksdale served in his corps)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-27",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "mortally wounded",
+       "evening of the 2d"
+      ]
+     },
+     "note": "Report dated 27 July 1863 (25 days after). Gives the day and the part of the day of the wounding only; no date or hour of death."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R029",
+     "page": "260",
+     "page_basis": "scan_leaf",
+     "text_offset": 883380,
+     "quote": "occurred on the third day was the death of the rebel General Barksdale. He was brought into my lines by my acting assistant inspector-general",
+     "witness": {
+      "name": "Abner Doubleday",
+      "role": "Major General, commanding the Third Division, I Corps, on 2-3 July",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-12-14",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "doubleday",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-03"
+      ],
+      "phrases": [
+       "death of the rebel General Barksdale"
+      ]
+     },
+     "note": "Doubleday's report on the third day (p. 260, dated 14 Dec 1863, 164 days after). His staff officer Lt. Col. C. E. Livingston brought Barksdale in; Doubleday does not say he saw the death himself, and 'the third day' is a day name, not an hour. Read with Meade's 8 a.m. dispatch it falls in the small hours of Jul 3."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "74",
+     "page_basis": "scan_leaf",
+     "text_offset": 262260,
+     "quote": "Barksdale's (Mississippi) dead body is within our lines",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General, commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-03",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade-hq",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Barksdale"
+      ]
+     },
+     "note": "Dispatch to Halleck headed 'Headquarters Army of the Potomac, July 3, 1863, 8 a. m.' (received 5.10 p. m.). It follows 'Prisoners report ... many general officers killed'. Meade states the body is within the lines at 8 a. m. of Jul 3; it does not say when he died. The printed first dateline of the record ('June 37') is a misprint of the volume."
+    }
+   ],
+   "flags": [],
+   "stance": "selectable",
+   "inference": {
+    "step": "The sources fix the wound on the evening of Jul 2 (Longstreet) and the death before 8 a. m. of Jul 3 (Meade, Times), so a range Jul 2 to Jul 3 contains the death; the range is a statement of what the record cannot separate, not a value any witness gives.",
+    "from": [
+     "Longstreet report p.362",
+     "Meade dispatch p.74"
+    ]
+   },
+   "derived": true,
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "The range is true but wider than the record: the wound is dated Jul 2 and Doubleday names Jul 3 for the death. It stays selectable as the safe reading."
+   }
+  },
+  {
+   "id": "C-037-P4",
+   "origin": "research",
+   "label": "Mortally wounded in the evening of Jul 2 (the wound, not the death)",
+   "kind": "date",
+   "value": {
+    "date": "1863-07-02"
+   },
+   "approx": false,
+   "clock": "confederate",
+   "tier": "documented",
+   "support": [
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R430",
+     "page": "362",
+     "page_basis": "scan_leaf",
+     "text_offset": 1345753,
+     "quote": "Brigadier-General Barksdale was mortally wounded in the attack on the evening of the 2d",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General, commanding the First Corps (Barksdale served in his corps)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-27",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "mortally wounded",
+       "evening of the 2d"
+      ]
+     },
+     "note": "Report dated 27 July 1863 (25 days after). Gives the day and the part of the day of the wounding only; no date or hour of death."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R109",
+     "page": "436",
+     "page_basis": "scan_leaf",
+     "text_offset": 1527292,
+     "quote": "The rebel General Barksdale was mortally wounded and two colors left on the ground within 20 yards of the line of the Seventh Michigan",
+     "witness": {
+      "name": "Norman J. Hall",
+      "role": "Colonel, commanding the Third Brigade, Second Division, II Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hall",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "mortally wounded"
+      ]
+     },
+     "note": "Hall's brigade stood at the point of Barksdale's advance on the evening of Jul 2 (his report is of the fighting of the 2d). The quote gives no day or hour."
+    },
+    {
+     "source": "SHSP-07-C005",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "text_offset": 237330,
+     "quote": "The night of the 2d was spent in reorganization and attending the wounded, as I had one Brigadier-General (Barksdale) killed",
+     "page_note": "printed page not readable in the text layer",
+     "witness": {
+      "name": "Lafayette McLaws",
+      "role": "Major General, commanding the division of which Barksdale's brigade was part",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1878",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "mclaws",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "Barksdale"
+      ]
+     },
+     "note": "Address before the Georgia Historical Society, printed in the Southern Historical Society Papers vol. 7 (1879). McLaws counts Barksdale among the losses of the day and says 'killed' with no date of death."
+    },
+    {
+     "source": "JACOBS-1864",
+     "source_class": "primary",
+     "page_basis": "as_read",
+     "text_offset": 57927,
+     "quote": "On this day, the Rebel General Barksdale fell near Hancock's extreme left",
+     "page_note": "printed page not readable in the text layer",
+     "witness": {
+      "name": "Michael Jacobs",
+      "role": "Professor at Pennsylvania College, Gettysburg, author of Notes on the Rebel Invasion (1864)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864",
+      "kind": "early_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "jacobs",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Barksdale"
+      ]
+     },
+     "note": "The paragraph is about the fighting of Jul 2 (Crawford's charge, 6 p.m.); 'On this day' is Jul 2. He was in the town and gives the fall of Barksdale on his account of that day, with no source named."
+    }
+   ],
+   "flags": [],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "This is the wounding, which the record settles on the evening of Jul 2; the dispute is the date of death. It is shown beside the default."
+   }
+  },
+  {
+   "id": "C-037-P5",
+   "origin": "research",
+   "label": "Died some time between the evening of Jul 2 and about 08:00 on Jul 3; calendar day not fixed",
+   "kind": "date_window",
+   "value": {
+    "from": "1863-07-02",
+    "to": "1863-07-03"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R430",
+     "page": "362",
+     "page_basis": "scan_leaf",
+     "text_offset": 1345753,
+     "quote": "Brigadier-General Barksdale was mortally wounded in the attack on the evening of the 2d",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General, commanding the First Corps (Barksdale served in his corps)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-27",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "mortally wounded",
+       "evening of the 2d"
+      ]
+     },
+     "note": "Report dated 27 July 1863 (25 days after). Gives the day and the part of the day of the wounding only; no date or hour of death."
+    },
+    {
+     "source": "NY-GB-1900",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "text_offset": 187862,
+     "quote": "He fell mortally wounded, and died that night within the Union lines",
+     "page_note": "printed page not readable in the text layer",
+     "witness": {
+      "name": "New York Monuments Commission (Final Report on the Battlefield of Gettysburg, 1900)",
+      "role": "State commission text, not a participant",
+      "side": "union"
+     },
+     "written": {
+      "date": "1900",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "ny1900",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "died that night"
+      ]
+     },
+     "note": "'That night' is the night of Jul 2-3; the phrase does not say whether the death came before or after midnight."
+    },
+    {
+     "source": "VT-GB-1914",
+     "source_class": "book",
+     "page_basis": "as_read",
+     "text_offset": 22107,
+     "quote": "His body, with a ball hole through his breast, and legs bandaged and bloody from gun-shots through both of them, lay in the rear of the position of the Vermont brigade during the forenoon",
+     "page_note": "printed page not readable in the text layer",
+     "witness": {
+      "name": "Thomas C. Cheney (compiler), quoting Col. Veazey",
+      "role": "Compiler of the commission volume Vermont at Gettysburg (1914), not a participant",
+      "side": "other"
+     },
+     "written": {
+      "date": "1914",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "vt1914",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "during the forenoon"
+      ]
+     },
+     "note": "The sentence before it says that during the night word was brought to Col. Nichols that Barksdale lay mortally wounded in front of his line and eight men brought him in on a stretcher. The forenoon is the forenoon after that night, read as Jul 3 (the next paragraph opens on 'the morning of the third day')."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "74",
+     "page_basis": "scan_leaf",
+     "text_offset": 262260,
+     "quote": "Barksdale's (Mississippi) dead body is within our lines",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General, commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-03",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "meade-hq",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Barksdale"
+      ]
+     },
+     "note": "Dispatch to Halleck headed 'Headquarters Army of the Potomac, July 3, 1863, 8 a. m.' (received 5.10 p. m.). It follows 'Prisoners report ... many general officers killed'. Meade states the body is within the lines at 8 a. m. of Jul 3; it does not say when he died. The printed first dateline of the record ('June 37') is a misprint of the volume."
+    },
+    {
+     "source": "CA-1863",
+     "source_class": "primary",
+     "part": "sn83021205/1863-07-04/ed-1/seq-3",
+     "page_basis": "as_read",
+     "text_offset": 10821,
+     "quote": "Gen. Barksdale of Mississippi, wounded yesterday, is lying dead within our lines",
+     "page_note": "printed page not readable in the text layer",
+     "witness": {
+      "name": "Unnamed correspondent of the New York Times (Special to the New York Times)",
+      "role": "Newspaper correspondent with the army at Gettysburg",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-03",
+      "kind": "newspaper_1863"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "times-corr",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "wounded yesterday",
+       "lying dead"
+      ]
+     },
+     "note": "Printed in the Worcester Daily Spy of 4 July 1863 (Library of Congress page): 'Special to the New York Times. Gettysburg, July 3', entry timed '7 3-4 a. m.' (the time is outside the quoted words). Says he was wounded 'yesterday' (Jul 2) and was dead at 7:45 on Jul 3; no hour of death."
+    }
+   ],
+   "flags": [],
+   "stance": "selectable",
+   "inference": {
+    "step": "Wounded in the evening of Jul 2 (Longstreet); found and carried in during the night (Vermont volume, 1914); \"died that night\" (New York volume, 1900); the body lay within the lines at 8 a. m. and 7:45 a. m. of Jul 3 (Meade, Times). None of them gives an hour or says whether midnight had passed.",
+    "from": [
+     "Longstreet report p.362",
+     "Vermont at Gettysburg 1914",
+     "New York at Gettysburg 1900",
+     "Meade dispatch p.74",
+     "NY Times special"
+    ]
+   },
+   "derived": true,
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "Doubleday's report names Jul 3 and the Pennsylvania regiment says \"the next day\"; only \"that night\" (1900) leaves the day open. Kept as the cautious reading."
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "Two questions, kept apart. The wound: Longstreet (report of 27 Jul 1863) dates it to the evening of Jul 2 and Hall, Jacobs and McLaws place it in the fighting of that day; nobody disputes it. The death: no witness gives an hour. The best-classed writing is Meade's dispatch of Jul 3, 8 a.m. (rank 6) and a New York Times special of Jul 3, 7:45 a.m. (rank 4), which both have the body already within the lines, and Doubleday's report of Dec 1863 (rank 4), which names 'the third day'; the later regimental and state books say 'that night' (1900) or 'the next day' (1914). Nothing says he died on Jul 2 before midnight. Doubleday's day name is taken at its word, which puts the death after midnight and before about 08:00 on Jul 3; because that rests on one day name and no hour, the default is inferred and the range of the plan stays selectable. The first delegated 'open gap' is replaced because sources were found, not because an hour was.",
+  "who": "Meade commanded the army and wrote from headquarters; Doubleday commanded the division in whose lines Barksdale was brought and his staff officer Livingston brought him in; Longstreet commanded Barksdale's corps and McLaws his division; Hall's brigade stood where he fell; the Times correspondent was with the army. The Pennsylvania regiment history was written by survivors of the unit that found him; the Vermont and New York volumes are by compilers, not participants. Nobody who attended the death wrote an account that is local.",
+  "when": "Meade's dispatch and the Times special are of the morning of Jul 3 (hours after the event); Longstreet is 25 days after; Hall 15 days; Doubleday 164 days; Jacobs 1864; McLaws 1878; the regiment and state volumes 1900-1916. The earliest two say only that he was dead.",
+  "where": "Doubleday's report relays what his staff officer did; the Times correspondent and Meade relay what prisoners and staff told them ('Prisoners report ...'); Longstreet commanded the corps and writes of the attack in general; Hall's brigade stood where he fell, within 20 yards of the Seventh Michigan. The place of death is a hospital within the Union lines; the Historic American Buildings Survey record of the Hummelbaugh house (Park Service programme) says he died at the house and was buried there but gives no date.",
+  "how_knew": "Doubleday, Meade and the Times all relay: none says he saw the death. Hall saw the repulse and the fall. The 1914 and 1900 volumes retell the unit stories. So the death date rests on relayed reports, which is why the tier is inferred.",
+  "clock": "Clock readings: Meade's 8 a.m. is the Union headquarters clock and the Times 7:45 a newspaper's; the Union and Confederate clocks reportedly differed by about 20 minutes and no row corrects for it. The upper bound (about 08:00 on Jul 3) is read to within that uncertainty; the bound is not used to date the death within the night.",
+  "independence": "Groups: Meade's dispatch (printed in many papers, one group); the Times correspondent (a separate telegram, though he may draw on the same headquarters talk); Doubleday (the Minnesota history copies him); the 149th Pennsylvania history; the Vermont volume; the New York volume. The default P2 therefore rests on three groups of 1863 writing (Meade, Times, Doubleday) and two later volumes; the 'Jul 2' value rests on none. The wound rests on Longstreet, Hall, McLaws and Jacobs, four independent groups."
+ },
+ "source_panel_text": "Wounded on the evening of Jul 2 (Longstreet's report). Died early on Jul 3: Doubleday's report puts his death on the third day, and Meade's 8 a.m. dispatch and a Times correspondent at 7:45 a.m. already have the body within the lines. No source gives an hour. No source found says Jul 2 for the death; that value and a Jul 2-3 range stay listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "The wound on Jul 2 holds and is documented. The death 'Jul 2-3 as a range' holds as the safe reading but the record narrows it: dead by about 08:00 on Jul 3, Doubleday naming the third day; the range stays selectable."
+  },
+  "first_delegated": {
+   "holds": "no",
+   "note": "The delegated 'open gap' for the death date does not hold: sources dating the death (Doubleday, Meade, the Times special) exist. The wound is documented as delegated (Longstreet, evening of Jul 2); the death is inferred, not an open gap; the Jul 2-3 range remains selectable."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-037 row)",
+   "must_change": true,
+   "note": "computed: delegated-decision row line 47; its open-gap default (wounded Jul 2, death Jul 2-3 range, marked gap) is replaced by an inferred default (death early Jul 3); the integration step records the new default."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0114.md",
+   "must_change": true,
+   "note": "computed: register entry for this conflict; read it: the gap (date of death) is narrowed by sources, tier inferred; update with the failed searches."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-037",
+   "must_change": true,
+   "note": "computed: decision log line 65 (PENDING OWNER); the integration step records the delegated default and keeps the owner able to reverse it."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md",
+   "must_change": true,
+   "note": "computed: names C-037 among the three open-gap defaults (C-018, C-037, C-038); the count of open gaps changes by one; reconcile in the open, no gate lowered. Q04 is not affected: no unit arrival depends on this date."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md",
+   "must_change": true,
+   "note": "computed: same count of open-gap defaults (documented 29, inferred 7, plausible-procedural 8, open gap 3); reconcile; CF-3 no longer blocks C-037 once the tier is inferred."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json C-037",
+   "must_change": true,
+   "note": "the first delegated default (C-037-DEFAULT, tier open gap) is replaced by the resolution default."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json C-037",
+   "must_change": true,
+   "note": "copy of the delegated default shown in the viewer; same change."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/src/data.mjs line 44 (C-037 values list)",
+   "must_change": false,
+   "note": "lists the PDF values and recommended default; they stay selectable, unchanged."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-173 (timeline_seed.jsonl, Jul 2 ~18:00, Plum Run west)",
+   "must_change": false,
+   "note": "the row says Barksdale is mortally wounded and dies at the Hummelbaugh farm; the wound at about 18:00 is supported (Longstreet: evening of the 2d); the row gives no date of death, which the resolution does not contradict; its hospital claim stays a lead (no local text names a corps)."
+  },
+  {
+   "kind": "other",
+   "ref": "tools/bt/build_arrivals.py conflict map C-037 -> cs-1c-mclaws-barksdale; tools/bt/positions_D/12_mclaws_hood_gaps.py",
+   "must_change": false,
+   "note": "ties the conflict to the Barksdale brigade position row; no arrival time or position changes because of this date."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1, OR27-2, OR27-3 (all hits of Barksdale)",
+   "query": "Barksdale|Barksdel|Barkesdale in all three parts, each hit read in its report (Meade, Doubleday, Hancock, Hall, Tripp, Sykes, Lee, Longstreet, Patterson, Kershaw, and the brigade report at p. 617): no report gives an hour or a calendar day of his death; the local text of Part 2 holds no report of McLaws, and the reports of Humphreys, Birney and Sickles have no hit for his name",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "CMH-1899-V7-C037 (Confederate Military History, Mississippi, fetched from archive.org)",
+   "query": "Barksdale with died|death|fell|wounded|killed; the passage on the Peach Orchard (state chapter) says he \"fell mortally wounded\" with his last words and gives no day or hour; the 21st Mississippi chapter says only that he was killed in that battle",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "ws9 books, weeklies of 1863 (ADAMS-SENTINEL, GBG-COMPILER), CA-1863 pages Jul-Nov 1863, FREMANTLE-1864, LONGSTREET-1896, ALEXANDER-1907, EVERETT-1864",
+   "query": "Barksdale within 400 characters of midnight|o'clock|\"that night\"|\"next morning\"|died|buried|hospital: the passages printed by the search (about 30) were read: none of Fremantle, Longstreet 1896 or Alexander gives a death date; the Sentinel of 14 Jul gives only the Richmond report that he was killed; the Tribune of 6 Jul says dead and buried in our lines; no hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "NPS texts (HABS pa1357 Hummelbaugh record, NPS Record of Treatment, NPS-CLR texts)",
+   "query": "Barksdale with Hummelbaugh|died at the house|buried: the HABS record says he died at the house; none gives a day or hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "SS-HUM (Stone Sentinels Hummelbaugh page, the plan's source for Jul 2) and the plan's source for Jul 3",
+   "query": "the pages the plan cites",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Livingston, Lieut. Col. C. E. (Doubleday's staff officer who took the dying messages) and the Mississippi regimental histories (13th, 17th, 18th, 21st)",
+   "query": "any account by Livingston or by Barksdale's staff, and the regimental histories; none is in the local library and none was acquired in this run",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "An account by Lt. Col. C. E. Livingston, a Union or Confederate surgeon at the Hummelbaugh house, or a member of Barksdale's staff or of the detail of the 13th Vermont that carried him in, giving the hour of death; a Mississippi regimental history or letter of 1863 dating it; the page of the plan's Stone Sentinels source. A time before midnight would move the default to Jul 2 night; a time after would settle Jul 3."
+}
