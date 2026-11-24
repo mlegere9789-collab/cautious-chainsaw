@@ -1,0 +1,979 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-008",
+ "topic": "Lee’s attack order",
+ "researched": "2026-11-24",
+ "researcher": "researcher-c008",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Lee’s attack order | about 09:00 (forum, weak, CWT); 11:00 | 11:00 | 09:00 (flagged weak)",
+  "values": [
+   "about 09:00 (forum, weak, CWT)",
+   "11:00"
+  ],
+  "recommended_default": "11:00",
+  "selectable_alternatives": [
+   "09:00 (flagged weak)"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-008-DEFAULT",
+  "default_label": "11:00 (Longstreet 1896 memoir; OR bound before about noon)",
+  "tier": "inferred",
+  "basis": "memoir",
+  "scenario_ids": [
+   "C-008-S1",
+   "C-008-S2",
+   "C-008-S3",
+   "C-008-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "inferred",
+ "basis": {
+  "kind": "reminiscence",
+  "text": "Longstreet's article of 1877 ('fully eleven o'clock when General Lee ... ordered the movement') and his book of 1896 ('It was eleven o'clock when General Lee's order was issued'), repeated by Alexander (1907), bounded by Longstreet's report of 27 July 1863 and Kershaw's of 1 October 1863 (instructions before about noon; Kershaw directed to move about noon). No report of the time gives an hour."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-008-P2"
+  ],
+  "label": "About 11:00: Lee's order to Longstreet to attack the enemy's left (Longstreet's hour); before about noon",
+  "animation": {
+   "at": "1863-07-02T11:00",
+   "rule": "best_supported",
+   "note": "11:00 is the best-supported instant for the formal order and is the plan's own time; it is later than the early-morning plan (Fremantle, 7 a.m.) and earlier than the march (about noon), so it is not earlier than any source-supported time of the order. It drives no unit, arrival or gate; the plan to attack the left is shown as known in the morning and the earlier values stay selectable."
+  },
+  "note": "Longstreet is the only source of the hour and wrote 14 and 33 years later; 'fully eleven' leaves room for a little after eleven. The reports of the time bound it before about noon."
+ },
+ "positions": [
+  {
+   "id": "C-008-P1",
+   "origin": "pdf_value",
+   "pdf_label": "about 09:00 (forum, weak, CWT)",
+   "scenario_ids": [
+    "C-008-S1"
+   ],
+   "source_keys": [
+    "CWT"
+   ],
+   "label": "About 09:00: Lee's attack order (one forum thread; the plan flags it weak)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T09:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "open gap",
+   "support": [],
+   "failed_lookups": [
+    {
+     "where": "Civil War Talk, countermarch thread (plan key CWT)",
+     "query": "the thread that gives about 09:00 for Lee's order: the host is not on the list of reachable hosts and the thread was not opened",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "Epperson timeline (plan key EPP, cited beside the row)",
+     "query": "the page cited for the row 'Lee orders the attack': not opened (no local text)",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "all local non-lead texts of the ledger (Official Records, ws9 books and papers, Park Service texts)",
+     "query": "Lee|commanding general ... order|ordered|instructions ... (nine|9|9.00) o'clock|a. m. ... Longstreet, in both orders, and with 'Lee's order' near 'nine': no report, diary or book states Lee's order to Longstreet at nine",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "flags": [
+    "lead_only",
+    "weak",
+    "unsourced"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "lead_only",
+    "text": "Only a forum thread gives 09:00, and no report, diary or book found states the order at nine. Nine o'clock is the hour Lee came back from Ewell's lines (Longstreet) and the artillery arrived."
+   },
+   "note": "The plan itself flags this value weak. The sources do put other events near nine (Lee's return from the left, Alexander's arrival); they are listed as their own value."
+  },
+  {
+   "id": "C-008-P2",
+   "origin": "pdf_value",
+   "pdf_label": "11:00",
+   "scenario_ids": [
+    "C-008-S2",
+    "C-008-S3",
+    "C-008-DEFAULT"
+   ],
+   "label": "About 11:00: Lee's order to Longstreet (the plan's value and its recommended default; Longstreet's own hour)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T11:00",
+    "approx": true,
+    "tolerance_min": 30,
+    "note": "'fully eleven o'clock' (1877) and 'eleven o'clock' (1896): eleven or a little after, and before about noon"
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "id": "C-008-P2-c1",
+     "source": "ANNALS-1879-C005",
+     "source_class": "book",
+     "page": "422",
+     "page_basis": "as_read",
+     "page_note": "Longstreet, 'The Campaign of Gettysburg', first printed in the Philadelphia Weekly Times in 1877 and reprinted in The Annals of the War (1879) p. 422; the page head 422 stands before the passage and the head 423 after it. Hoke (1887) and the Southern Historical Society Papers vol. 5 print the same sentence.",
+     "text_offset": 1255712,
+     "quote": "It was fully eleven o'clock when General Lee arrived at this conclusion and ordered the movement",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet",
+     "exact": false,
+     "states": {
+      "times": [
+       "11:00"
+      ],
+      "phrases": [
+       "fully eleven o'clock"
+      ]
+     },
+     "note": "Longstreet received the order, so he writes as the man it was given to. 'Fully' keeps the hour as a lower bound (eleven or a little after). The same paragraph has Lee back from Ewell's lines 'at about nine o'clock' and 'about forty minutes' of waiting for Law's brigade."
+    },
+    {
+     "id": "C-008-P2-c2",
+     "source": "LONGSTREET-1896",
+     "source_class": "book",
+     "page": "365",
+     "page_basis": "as_read",
+     "page_note": "From Manassas to Appomattox (1896), chapter on the second day at Gettysburg, p. 365 (running heads 365 and 366 read in the text layer).",
+     "text_offset": 840283,
+     "quote": "It was eleven o'clock when General Lee's order was issued, but he had ordered Law's brigade to its division",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1896",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet",
+     "exact": false,
+     "states": {
+      "times": [
+       "11:00"
+      ],
+      "phrases": [
+       "General Lee's order was issued"
+      ]
+     },
+     "note": "The book repeats and shortens the article of 1877 (the same writer and the same story, 33 years after the day)."
+    },
+    {
+     "id": "C-008-P2-c3",
+     "source": "LONGSTREET-1896",
+     "source_class": "book",
+     "page": "382",
+     "page_basis": "as_read",
+     "page_note": "From Manassas to Appomattox (1896) p. 382 (head 382 before the passage, head 383 after). Taylor, General Lee (1906) prints the same sentence while answering it.",
+     "text_offset": 882308,
+     "quote": "Not one word did he utter to me of their march until he gave his orders at eleven o'clock for the move to his right",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1896",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet",
+     "exact": false,
+     "states": {
+      "times": [
+       "11:00"
+      ],
+      "phrases": [
+       "gave his orders at eleven o'clock"
+      ]
+     },
+     "note": "Longstreet answering Walter Taylor's statement that Lee was impatient for the First Corps: Lee said nothing to him of the march until the orders of eleven o'clock."
+    },
+    {
+     "id": "C-008-P2-c4",
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": "391",
+     "page_basis": "as_read",
+     "page_note": "Military Memoirs of a Confederate (1907), chapter 'Gettysburg: Second Day', p. 391 (head 391 before the passage, head 392 after). The text layer prints 'About 11 A.M.'; the same page prints 'Lee's order at 11 A.M.' a page later.",
+     "text_offset": 1029412,
+     "quote": "About 11 A.M., his orders were issued",
+     "witness": {
+      "name": "E. Porter Alexander",
+      "role": "Colonel, commanding the reserve artillery battalion of the First Corps (later chief of the corps artillery)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "longstreet",
+     "exact": false,
+     "states": {
+      "times": [
+       "11:00"
+      ],
+      "phrases": [
+       "his orders were issued"
+      ]
+     },
+     "note": "Alexander reached the field at 9 a.m. and was not at Lee's headquarters; he does not say how he knew the hour. His sequence (Lee to the left about nine, back about ten, orders about eleven) is the sequence of Longstreet's book (Freeman, Lee vol. 3 note, reads Longstreet's book as 'It was 10 o'clock when Lee returned'), so it is counted with Longstreet's line of knowledge."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "derived": true,
+   "stance": "default",
+   "inference": {
+    "step": "The day is the 2 July of each chapter. Longstreet, who received the order, put it at 'fully eleven o'clock' in 1877 and at eleven in 1896; Alexander's book follows the same sequence; Longstreet's report of 1863 and Kershaw's report put the instructions before Law's brigade joined about noon and the march order about noon, which an order at about eleven fits; so about 11:00 is the best-supported hour, stated by one line of knowledge.",
+    "from": [
+     "C-008-P2-c1",
+     "C-008-P2-c2",
+     "C-008-P2-c3",
+     "C-008-P2-c4",
+     "C-008-P3-c1",
+     "C-008-P3-c2"
+    ]
+   }
+  },
+  {
+   "id": "C-008-P3",
+   "origin": "research",
+   "label": "Not later than about noon: Lee's instructions had reached Longstreet before Law's brigade joined",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T12:00",
+    "approx": true,
+    "tolerance_min": 15,
+    "note": "an upper bound ('previous to his joining', Law joined about noon), not an hour"
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "id": "C-008-P3-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R430",
+     "page": "358",
+     "page_basis": "scan_leaf",
+     "text_offset": 1326880,
+     "quote": "joined about noon on the 2d. Previous to his joining, I received instructions from the commanding general to move",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-27",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "longstreet-report-1863",
+     "exact": false,
+     "states": {
+      "times": [
+       "12:00"
+      ],
+      "phrases": [
+       "Previous to his joining, I received instructions from the commanding general to move"
+      ]
+     },
+     "note": "Longstreet's report of 27 July 1863 (25 days after the day). It gives no hour for the instructions; it says only that they came before Law's brigade joined, about noon. It says nothing against 11:00."
+    },
+    {
+     "id": "C-008-P3-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R432",
+     "page": "366",
+     "page_basis": "scan_leaf",
+     "text_offset": 1354671,
+     "quote": "halted until about noon. We were then directed to move under cover of the hills toward the right",
+     "witness": {
+      "name": "Joseph B. Kershaw",
+      "role": "Brigadier General commanding the South Carolina brigade of McLaws's division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "kershaw",
+     "exact": false,
+     "states": {
+      "times": [
+       "12:00"
+      ],
+      "phrases": [
+       "We were then directed to move under cover of the hills toward the right"
+      ]
+     },
+     "note": "Kershaw's brigade was halted 'until about noon' and then directed to move. That is the march order reaching a brigade, which follows Lee's order to Longstreet and the wait for Law; it does not date Lee's order."
+    },
+    {
+     "id": "C-008-P3-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R428",
+     "page": "350",
+     "page_basis": "scan_leaf",
+     "text_offset": 1297204,
+     "quote": "about midday General Longstreet arrived and viewed the ground",
+     "witness": {
+      "name": "William N. Pendleton",
+      "role": "Brigadier General, chief of artillery of the Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-09-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "pendleton",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "about midday General Longstreet arrived and viewed the ground"
+      ]
+     },
+     "note": "Pendleton's report of 12 September 1863. Longstreet was at the forward ground on the right about midday: the order to him had been given by then. Pendleton also says that after sunrise he understood the commanding general's purpose to be an attack on the enemy's left (see the early-plan position)."
+    }
+   ],
+   "flags": [
+    "different_event"
+   ],
+   "derived": true,
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "tolerance",
+    "text": "This is the ceiling the reports of 1863 give, not an hour: the order was given before about noon. 11:00 satisfies it, so it limits the default and does not replace it."
+   },
+   "inference": {
+    "step": "The day is 2 July in each report. Longstreet's report says Law joined about noon and that his instructions came previously; Kershaw's brigade was halted until about noon and then directed to move; Pendleton has Longstreet at the forward ground about midday; so the order was given before about noon.",
+    "from": [
+     "C-008-P3-c1",
+     "C-008-P3-c2",
+     "C-008-P3-c3"
+    ]
+   }
+  },
+  {
+   "id": "C-008-P4",
+   "origin": "research",
+   "label": "Early morning: the plan to attack the enemy's left already known in the First Corps before the formal order",
+   "kind": "period",
+   "value": {
+    "text": "early in the morning",
+    "date": "1863-07-02",
+    "part_of_day": "morning"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "support": [
+    {
+     "id": "C-008-P4-c1",
+     "source": "FREMANTLE-1863-GUT-C007",
+     "source_class": "primary",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "Diary entry for 2 July 1863 in the transcription of the Edinburgh edition of 1863 (no page numbers); the same entry is on p. 257 of the American edition of 1864.",
+     "text_offset": 351796,
+     "quote": "At 7 A.M. I rode over part of the ground with General Longstreet, and saw him disposing M'Laws's division for to-day's fight",
+     "witness": {
+      "name": "Arthur J. L. Fremantle",
+      "role": "Lieutenant Colonel, Coldstream Guards, British observer with Longstreet's staff",
+      "side": "other"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "fremantle",
+     "exact": false,
+     "states": {
+      "times": [
+       "07:00"
+      ],
+      "phrases": [
+       "disposing M'Laws's division"
+      ]
+     },
+     "note": "The diary of the day: at 7 a.m. Longstreet was placing McLaws's division 'for to-day's fight'. It does not say that Lee's order had been given."
+    },
+    {
+     "id": "C-008-P4-c2",
+     "source": "FREMANTLE-1863-GUT-C007",
+     "source_class": "primary",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "Same entry, a few paragraphs later; no page numbers in this transcription (p. 257 of the American edition of 1864).",
+     "text_offset": 353278,
+     "quote": "As the whole morning was evidently to be occupied in disposing the troops for the attack",
+     "witness": {
+      "name": "Arthur J. L. Fremantle",
+      "role": "Lieutenant Colonel, Coldstream Guards, British observer with Longstreet's staff",
+      "side": "other"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "fremantle",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "disposing the troops for the attack"
+      ]
+     },
+     "note": "The diarist's own reading of the morning: the troops were being disposed for an attack, which he took to occupy the whole forenoon."
+    },
+    {
+     "id": "C-008-P4-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R467",
+     "page": "446",
+     "page_basis": "scan_leaf",
+     "text_offset": 1657472,
+     "quote": "I received a communication from the commanding general, the tenor of which was that he intended the main attack to be made by the First Corps",
+     "witness": {
+      "name": "Richard S. Ewell",
+      "role": "Lieutenant General commanding the Second Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "ewell",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "the main attack to be made by the First Corps"
+      ]
+     },
+     "note": "Ewell's report; the sentence before it begins 'Early in the morning'. He gives no hour, and the dateline of the report prints only '1863' (the month is blank in the scan); it is read here only for the order of events (a message of Lee's about the main attack came to Ewell in the morning), not as a clock."
+    },
+    {
+     "id": "C-008-P4-c4",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R464",
+     "page": "429",
+     "page_basis": "scan_leaf",
+     "text_offset": 1590679,
+     "quote": "Shortly after our arrival, I was directed by General Longstreet to accompany with my battalion the divisions of Major-Generals McLaws and Hood in the attack upon the left",
+     "witness": {
+      "name": "E. Porter Alexander",
+      "role": "Colonel, commanding the reserve artillery battalion of the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-03",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "alexander-report-1863",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Shortly after our arrival",
+       "in the attack upon the left"
+      ]
+     },
+     "note": "Alexander's report of 3 August 1863. The arrival is 'at 9 a. m. on July 2' (the sentence before). 'Shortly after' is not a clock, and the order named is Longstreet's to Alexander, not Lee's to Longstreet; the report was written 32 days later and may compress the morning."
+    },
+    {
+     "id": "C-008-P4-c5",
+     "source": "SHSP-07-C005",
+     "source_class": "book",
+     "page": "68",
+     "page_basis": "as_read",
+     "page_note": "McLaws, 'The Battle of Gettysburg', address of 1879, Southern Historical Society Papers vol. 7 pp. 67-69; the quoted words are on p. 68 (heads 67 and 68 read in the text layer).",
+     "text_offset": 206099,
+     "quote": "General, I wish you to place your division across this road",
+     "witness": {
+      "name": "Lafayette McLaws",
+      "role": "Major General commanding the division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1879",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "mclaws-1879",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "I wish you to place your division across this road"
+      ]
+     },
+     "note": "McLaws says that soon after his division reached the hill, early in the morning, Lee himself told him where to place it. No hour. A memory of 1879 about the morning."
+    }
+   ],
+   "flags": [
+    "different_event",
+    "unclear_clock"
+   ],
+   "derived": true,
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "These show the plan and the first dispositions in the morning, before the formal order to move; none gives an hour for Lee's order, and Longstreet places that order later, about eleven."
+   },
+   "inference": {
+    "step": "The day is 2 July (the diary entry's date; the reports' own days). A diary of the day has Longstreet disposing McLaws's division at 7 a.m. 'for to-day's fight'; Ewell was told in the morning that the main attack was the First Corps's; Alexander was directed 'shortly after' his 9 a.m. arrival to go with the divisions 'in the attack upon the left'; McLaws says Lee himself told him where to place his division soon after he arrived; so the intent to attack on the right was in the corps's hands in the morning, though not dated by any clock as an order.",
+    "from": [
+     "C-008-P4-c1",
+     "C-008-P4-c2",
+     "C-008-P4-c3",
+     "C-008-P4-c4",
+     "C-008-P4-c5"
+    ]
+   }
+  },
+  {
+   "id": "C-008-P5",
+   "origin": "research",
+   "label": "About 09:00: Lee back from Ewell's lines (not the order)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T09:00",
+    "approx": true,
+    "tolerance_min": 15,
+    "note": "Longstreet: Lee 'returned at about nine o'clock'; Freeman and Alexander place the trip later or differently"
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "id": "C-008-P5-c1",
+     "source": "ANNALS-1879-C005",
+     "source_class": "book",
+     "page": "422",
+     "page_basis": "as_read",
+     "page_note": "Same article and page as the 'fully eleven' sentence.",
+     "text_offset": 1255493,
+     "quote": "He returned at about nine o'clock, and informed me that it would not do to have Ewell open the attack",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "longstreet",
+     "exact": false,
+     "states": {
+      "times": [
+       "09:00"
+      ],
+      "phrases": [
+       "He returned at about nine o'clock"
+      ]
+     },
+     "note": "'He' is Lee, back from Ewell's lines. Longstreet gives about nine for the return and about eleven for the order. Freeman calls the nine 'an impossibility'."
+    },
+    {
+     "id": "C-008-P5-c2",
+     "source": "FREEMAN-RELEE-V3-C005",
+     "source_class": "book",
+     "page": "92",
+     "page_basis": "as_read",
+     "page_note": "R. E. Lee vol. 3, p. 92, a footnote answering Longstreet's chronology (head 92 before the passage, head 93 after).",
+     "text_offset": 223070,
+     "quote": "there are abundant witnesses that Lee was at Ewell's headquarters about 9 A.M",
+     "witness": {
+      "name": "Douglas Southall Freeman",
+      "role": "historian, biographer of Lee (not a participant)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1935",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "freeman",
+     "exact": false,
+     "states": {
+      "times": [
+       "09:00"
+      ],
+      "phrases": [
+       "Lee was at Ewell's headquarters"
+      ]
+     },
+     "note": "Freeman puts Lee at Ewell's headquarters at about nine, so the return was later (he says the incidents before the return 'could hardly have consumed less than two hours'). He does not name the witnesses in the passage cited here."
+    },
+    {
+     "id": "C-008-P5-c3",
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": "391",
+     "page_basis": "as_read",
+     "page_note": "Military Memoirs of a Confederate (1907) p. 391, the paragraph before 'About 11 A.M., his orders were issued'.",
+     "text_offset": 1029064,
+     "quote": "About nine o'clock, he rode to the left and conferred again with Ewell and Early",
+     "witness": {
+      "name": "E. Porter Alexander",
+      "role": "Colonel, commanding the reserve artillery battalion of the First Corps (later chief of the corps artillery)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "alexander-1907",
+     "exact": false,
+     "states": {
+      "times": [
+       "09:00"
+      ],
+      "phrases": [
+       "he rode to the left and conferred again with Ewell and Early"
+      ]
+     },
+     "note": "Alexander has Lee riding to the left at nine and back at ten, which differs from Longstreet (left after sunrise, back about nine). The two accounts of the same trip disagree by an hour or more."
+    }
+   ],
+   "flags": [
+    "different_event",
+    "unclear_clock"
+   ],
+   "derived": true,
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Nine o'clock is where the sources put Lee's visit to Ewell's lines or his return; Longstreet says the order came about two hours after it. The accounts of the trip itself disagree."
+   },
+   "inference": {
+    "step": "The day is 2 July in each source. Longstreet says the return from Ewell's lines was about nine and the order about eleven; Freeman has Lee still at Ewell's headquarters about nine; Alexander has him riding left at nine and back at ten; so a nine o'clock event exists in the record, and it is Lee's trip, not the order.",
+    "from": [
+     "C-008-P5-c1",
+     "C-008-P5-c2",
+     "C-008-P5-c3"
+    ]
+   }
+  },
+  {
+   "id": "C-008-P6",
+   "origin": "research",
+   "label": "About 15:00: decision to go on without Pickett (Hood's memory)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T15:00",
+    "approx": true,
+    "tolerance_min": 30
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "id": "C-008-P6-c1",
+     "source": "HOOD-1880-C005",
+     "source_class": "book",
+     "page": "57",
+     "page_basis": "as_read",
+     "page_note": "Hood's letter to Longstreet of 28 June 1875, printed in Advance and Retreat (1880) pp. 55-58; the sentence is on p. 57 (head 57 before it, head 58 after the following paragraph).",
+     "text_offset": 133030,
+     "quote": "in the afternoon about 3 o'clock it was decided to no longer await Pickett's Division",
+     "witness": {
+      "name": "John B. Hood",
+      "role": "Major General commanding the division",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1875-06-28",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "hood-letter-1875",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ],
+      "phrases": [
+       "it was decided to no longer await Pickett's Division"
+      ]
+     },
+     "note": "Hood, writing 'from memory', has Lee anxious for an attack in the morning, Longstreet wishing to wait for Pickett, and the decision to go on without him at about 3 in the afternoon. The march began about noon (Kershaw; Longstreet's report), so the 3 o'clock is not the order."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "memoir_only",
+    "contradicted"
+   ],
+   "derived": true,
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "Hood wrote from memory in 1875. Longstreet's report and Kershaw's report of 1863 have the instructions before about noon and the march ordered about noon, hours before 3 p.m."
+   },
+   "inference": {
+    "step": "The day is 2 July (Hood's letter). Hood says that about 3 in the afternoon it was decided to go forward without Pickett; the reports of 1863 have the march ordered about noon, so Hood's hour dates his own advance or a later decision, not Lee's order.",
+    "from": [
+     "C-008-P6-c1"
+    ]
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "One line of knowledge gives an hour: Longstreet, who received the order, wrote 'fully eleven o'clock' in 1877 and 'eleven o'clock' in 1896; Alexander's book (1907) and Hoke (1887) repeat it. No report of 1863 gives an hour; the reports only bound the order before about noon (Longstreet's report: instructions before Law's brigade joined about noon; Kershaw: directed to move about noon). The other value, 09:00, has no source found: it is a forum's figure, and nine o'clock is where Longstreet puts Lee's return from Ewell's lines. The plan to attack the left was already known in the corps in the morning (Fremantle at 7, Alexander's report, McLaws), so 'order' means the formal order to move.",
+  "who": "Longstreet received the order and was the corps commander, so he stands where the order landed; Alexander was a colonel who arrived at nine and was not at Lee's headquarters; Kershaw, Pendleton and Ewell wrote reports of 1863 as officers present. Lee's own report gives the assignments and no hour. Taylor, Marshall, Long and Venable wrote in 1875 and say only that they never heard of a sunrise order.",
+  "when": "Longstreet's report of 27 July 1863 (25 days) and Alexander's of 3 August 1863 (rank 5), Pendleton's of 12 September (rank 4) and Kershaw's of 1 October (91 days, rank 4) outrank the memoirs; but none states an hour for the order. The hour comes from reminiscence of 14 years (1877, rank 2) and 33 years (1896), and from Alexander's book of 1907 (rank 2).",
+  "where": "Longstreet was with Lee and received the order; the reports of the time that bound it were written on the spot. Hood was with his division, not at headquarters, and his 3 p.m. is his decision about the march. Fremantle was with Longstreet from 7 a.m. and describes dispositions, not an order.",
+  "how_knew": "Longstreet knew by being given the order, and says in the same paragraph that Lee came back from Ewell about nine and that he waited about forty minutes for Law. Alexander does not say how he knew the hour; his sequence follows Longstreet's. The reports of 1863 give the bounds from the writers' own movements.",
+  "clock": "Longstreet, Alexander, Kershaw, Pendleton and Ewell wrote on the Confederate clock. Fremantle's watch is not named. The reported difference of about 20 minutes between the two armies' clocks is not applied; it is small beside the two hours between the plan's two values and cannot move 11:00 to 09:00.",
+  "independence": "Groups: longstreet (his article of 1877, his book of 1896 and Alexander's book, whose sequence of the morning is Longstreet's); longstreet-report-1863; kershaw; pendleton; ewell; alexander-report-1863; fremantle; mclaws-1879; freeman; hood-letter-1875. The hour 11:00 therefore rests on one group and carries the flags single_source and memoir_only. The bound 'before about noon' rests on three groups of reports of the time.",
+  "overrides": "A rejected value outranks the default by class only where it is a report of the time: Alexander's report ('shortly after' his 9 a.m. arrival) and Ewell's ('early in the morning') are better classed than Longstreet's memoirs, but they date Longstreet's order to Alexander and a message to Ewell, not Lee's order to Longstreet; they are carried as the early-plan value and do not contradict the formal order at about eleven. The 09:00 of the plan has no document at all."
+ },
+ "source_panel_text": "About 11:00 on Jul 2: Longstreet, who received Lee's order, wrote in 1877 'fully eleven o'clock' and in 1896 eleven; his 1863 report only puts it before about noon. No report of the time gives an hour. The plan's 09:00 rests on a forum and has no source found; nine o'clock is when Lee came back from Ewell. Five other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "yes",
+   "note": "11:00 is Longstreet's own hour, kept by the reports of 1863 (instructions before about noon); it is a memory of one line of knowledge, so it is inferred, not documented. The plan's 09:00 stays selectable and has no source found."
+  },
+  "first_delegated": {
+   "holds": "yes",
+   "note": "11:00 with tier inferred holds: the Official Records give only the bound (before about noon), and the hour is Longstreet's memoir. The research adds his article of 1877 (the origin of the sentence), Alexander's repetition of 1907, and the early-morning plan, so the first pass's reasoning is kept and extended."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T2-085",
+   "must_change": true,
+   "note": "Row 'Jul 2 ~11:00 Lee / Longstreet: Orders the attack ... A forum claims a 09:00 order (low quality)', tier documented (seed), verified verdict partial (Lee R426 p.318 and Longstreet R430 p.358 support the assignments and the wait for Law, not the hour). Under this resolution the hour 11:00 is inferred (Longstreet's memoirs), not documented, and carries single_source and memoir_only; the 09:00 note stays as a flagged alternative. The row's tier and marking change; its time window stays 11:00."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-080, T2-086, T2-106, T2-119",
+   "must_change": false,
+   "note": "The other headquarters rows of register entry EG-0260 (hours with no Official Records hour); they are not this value and are not changed by it."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-anv-hq",
+   "must_change": false,
+   "note": "Army headquarters row: the cell key_positions reads 'Jul 2 05:15 (range) conference with Longstreet; about 11:00 attack order'; the conflict link C-008 is 'topic_other_cell' (history/arrivals.json line 6288). The text agrees with the default. The row's gate default is Lee's arrival on Jul 1 (13:30, C-042); this value drives no arrival, so no gate default or floor changes."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-008)",
+   "must_change": true,
+   "note": "default_scenario_id C-008-DEFAULT, label '11:00 (Longstreet 1896 memoir; OR bound before about noon)', tier inferred, basis memoir. The resolution keeps 11:00 and tier inferred; its label should add Longstreet's article of 1877 and the flags, and the scenarios C-008-S1, S2, S3 and DEFAULT must be joined by the research values (bound before about noon, early-morning plan, about 09:00 Lee's return, about 15:00 Hood)."
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-008)",
+   "must_change": true,
+   "note": "First delegated default: same change as the app copy."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-008 row, line 18)",
+   "must_change": true,
+   "note": "The row says 'Single memoir witness, OR terminus ante quem about noon (R03.C-008); 09:00 forum/CWT unsupported and flagged weak. Agrees with PDF.' It stands in outcome; the integration step records that the research found the origin of the sentence (Longstreet 1877) and confirms the single line of knowledge."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md line 36 (DEC-C-008, PENDING OWNER)",
+   "must_change": false,
+   "note": "Stays PENDING OWNER: the PDF default is a hypothesis and the owner decides; the resolution is a delegated default."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md line 785 and GATE-SPEC-A.md lines 467-468",
+   "must_change": false,
+   "note": "Both list C-008 among the seven inferred defaults and say a value resting on a lead only ('about 09:00, forum, weak') is never the default. Both statements stay true; the count of inferred defaults is unchanged."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q02 and Q19 (gate_results/Q02.json lines 4691 and 8632, Q19.json lines 1096 and 4340), reading conflict-defaults.json $.conflicts.C-008",
+   "must_change": false,
+   "note": "They read the delegated default; its tier (inferred) and hour are unchanged, so no expected value changes. The scenario list grows when the integration step adds the research values."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04, Q05, Q06",
+   "must_change": false,
+   "note": "No unit, soldier or march is gated on the hour of Lee's order; the order is a headquarters event. No floor or default instant of these gates changes and no gate is lowered."
+  },
+  {
+   "kind": "gate",
+   "ref": "CF-1 to CF-8 (conflict gate)",
+   "must_change": false,
+   "note": "Every value stays selectable; the default is labelled inferred and carries the flags single_source and memoir_only; the plan's 09:00 stays selectable with the flags lead_only, weak and unsourced."
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0260.md and register/proposed/tl-06/tl-06-EG-005.md",
+   "must_change": true,
+   "note": "The evidence-gap entry for 'Lee ordering the attack about 11:00' says no Official Records passage gives the hour, which stays true, and its substitute shows 'no minute asserted'. The hour is now carried at 11:00 as inferred from Longstreet's memoirs with the report bounds; the entry should say so."
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0106.md, register/proposed/r03-1/r03-1-EG-04.md, register/EG-0103.md and register/proposed/r03-1/r03-1-EG-01.md",
+   "must_change": false,
+   "note": "They name C-008 beside C-005 to C-007 and report Longstreet's 1896 memoir (eleven o'clock) and the absence of an Official Records hour. Both statements are still true; the entry could add Longstreet's article of 1877 as the origin of the sentence."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/arrivals_data.py line 258 and tools/bt/conflicts_structured_data.py line 13",
+   "must_change": false,
+   "note": "The arrivals link of C-008 to the row cs-anv-hq and the copy of the plan's row (values about 09:00 and 11:00, default 11:00, alternative 09:00 flagged weak); the plan's row is quoted unchanged."
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/requirements.json R03.C-008 and subreq_links.json R03.C-008",
+   "must_change": false,
+   "note": "R03.C-008: 'carries every value as a selectable scenario; default is an owner decision': the resolution keeps every value selectable and the default remains reversible by the owner."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/positions_D/05_longstreet_corps.py line 30",
+   "must_change": false,
+   "note": "A note that mentions C-008 beside C-005 and C-007; no value of this conflict."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "Civil War Talk (plan key CWT) and Epperson timeline (plan key EPP)",
+   "query": "the forum thread and the timeline page cited by the plan row for 'about 09:00' and 'about 11:00': neither host is reachable and neither was opened",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-1, OR27-2, OR27-3",
+   "query": "an hour for Lee's order to Longstreet on 2 July in Lee's report (R426 pp. 318-319), Longstreet's (R430 p. 358), Ewell's (R467 p. 446), Pendleton's (R428 p. 350), Alexander's (R464 p. 429), Kershaw's (R432 p. 366): bounds only ('before ... noon', 'about noon', 'early in the morning'), no hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "all local non-lead texts of the ledger",
+   "query": "(Longstreet|Lee|commanding general) ... (order|ordered|instructions) ... (nine|ten|eleven|twelve|9|10|11|12) o'clock|a. m., both orders, and 'about eleven|fully eleven|at 11': every 11 o'clock hit is Longstreet (1877, 1896) or relays him (Alexander 1907, Hoke 1887, Wilcox 1878, Taylor 1906 printing Longstreet)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "SHSP-05 (the letters of Taylor, Marshall, Long and Venable of April and May 1875, as Longstreet printed them)",
+   "query": "an hour for Lee's order: Taylor, Marshall and Long never heard of a sunrise order; Venable says Lee came himself to Ewell's lines; none gives an hour for the order of the day",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "LONG-1886-C042, TAYLOR-1877-C042, SORREL-1905-C005",
+   "query": "Longstreet ... attack ... forenoon|eleven|ten o'clock near the second day: no hour for the order (Sorrel: 'the commanding General's expectation of one in the forenoon'); the books were searched, not read through",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Johnston's own account (Colonel S. R. Johnston, engineer)",
+   "query": "his statement that he left headquarters about 4 a.m. and joined the head of Longstreet's corps about 9 a.m. is read only as Fitz Lee printed it (SHSP-05 p. 183, a relayed quotation); his own letter was not found locally",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "chroniclingamerica.loc.gov and the newspapers of 1863 (CA-1863)",
+   "query": "not searched: a newspaper of July 1863 would not carry the hour of Lee's order",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report, letter, diary or dispatch of 2 July 1863 that gives the hour of Lee's order to Longstreet (a staff diary, Lee's or Longstreet's headquarters log, a dispatch to Ewell or Hill timing the order, Johnston's own account, or a regimental diary of the First Corps), or a page of the Civil War Talk thread and the Epperson timeline that names a primary source for 09:00 or 11:00. A witness with Lee at headquarters that morning (Taylor, Marshall, Venable, Long) stating the hour would also settle it.",
+ "owner_note": "The plan's default 11:00 and the first delegated default hold. 11:00 is Longstreet's memory alone; the Official Records give only 'before about noon'. The plan's 09:00 has no source found. Neither 09:00 nor 11:00 can be documented from the local record."
+}
