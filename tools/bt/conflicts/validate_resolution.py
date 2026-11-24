@@ -7,6 +7,9 @@
     python3 -I tools/bt/conflicts/validate_resolution.py --all --complete     every one of the 47 must exist and pass
     python3 -I tools/bt/conflicts/validate_resolution.py --self-test          plants defects in a good fixture; every one must be caught (exit 1 if one slips through)
     python3 -I tools/bt/conflicts/validate_resolution.py --schema             print the enumerations of the format (schema.json)
+    --readers / --no-readers: force the computed-readers check on (any file) or off; by default it runs on the files of the resolutions folder
+                              (every register entry, decision-log and delegated-decision line, timeline row and gate file that names the id must be in `readers`;
+                              `python3 -I tools/bt/conflicts/readers.py C-0xx` prints the list to paste)
     options: --strict (a warning is an error)   --json (machine output)   --max-errors N (default 60 lines per file)
 
 What a file must satisfy is written in docs/battle-theatre/GOVERNANCE/conflicts/PLAN.md (sections 3 to 9) and listed in schema.json. In short: the id and topic are
@@ -27,6 +30,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import cfl_lib as L
 import cfl_parse as P
 import cfl_cite as C
+import readers as RD
 
 L.utf8_stdout()
 MAX_PANEL = 400
@@ -700,6 +704,17 @@ def load_file(path):
         return None, 'cannot read: %s' % e
 
 
+READERS = None          # None: on for files of the resolutions folder; True/False from --readers / --no-readers
+
+
+def check_readers_computed(R, obj):
+    cid = obj.get('id')
+    if not (isinstance(cid, str) and L.ID_RE.match(cid)):
+        return
+    for it in RD.missing(cid, obj.get('readers')):
+        R.err('readers_incomplete', 'readers lacks %s %s (%s names %s); add it (python3 -I tools/bt/conflicts/readers.py %s prints the list)' % (it['kind'], it['key'], it['where'], cid, cid))
+
+
 def validate_path(path, ctx):
     obj, err = load_file(path)
     R = Report(os.path.basename(path))
@@ -708,6 +723,9 @@ def validate_path(path, ctx):
         return R
     fid = os.path.splitext(os.path.basename(path))[0]
     R = validate_obj(obj, os.path.basename(path), ctx, fid if L.ID_RE.match(fid) else None)
+    inside = os.path.abspath(os.path.dirname(path)) == os.path.abspath(L.RESOLUTIONS) and not os.environ.get('CFL_RESOLUTIONS_DIR')   # the self-test folder is not the real one
+    if READERS or (READERS is None and inside):
+        _safe(R, 'readers_computed', check_readers_computed, R, obj)
     if L.ID_RE.match(fid) and os.path.abspath(os.path.dirname(path)) == os.path.abspath(L.RESOLUTIONS):
         md = os.path.join(os.path.dirname(path), fid + '.md')
         if not os.path.exists(md):
@@ -752,6 +770,11 @@ def main(argv):
         maxn = int(argv[i + 1])
         args = [a for a in args if a != argv[i + 1]]
     strict = '--strict' in flags
+    global READERS
+    if '--readers' in flags:
+        READERS = True
+    elif '--no-readers' in flags:
+        READERS = False
     if '--schema' in flags:
         print(json.dumps(schema(), indent=1, ensure_ascii=False))
         return 0

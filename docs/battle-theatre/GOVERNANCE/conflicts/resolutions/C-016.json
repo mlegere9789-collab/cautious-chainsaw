@@ -1118,6 +1118,18 @@
    "ref": "docs/battle-theatre/history/units.json cs-1c-hood-law-48al (conflict_refs C-016)",
    "must_change": false,
    "note": "The unit only carries the link to C-016; the arrivals gates Q04 to Q06 do not read this place (no arrivals row carries C-016)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0110.md",
+   "must_change": false,
+   "note": "computed: register entry names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-016",
+   "must_change": false,
+   "note": "computed: decision log line 44 names this conflict; read it and set must_change if its value differs from this resolution"
   }
  ],
  "failed_searches": [

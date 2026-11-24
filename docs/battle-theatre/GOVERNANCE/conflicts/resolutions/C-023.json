@@ -1075,6 +1075,36 @@
    "ref": "docs/battle-theatre/app/tests/history.test.mjs",
    "must_change": false,
    "note": "line 27 picks C-023 'v1' = mid-afternoon in a sample scenario; the value stays selectable"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0103.md",
+   "must_change": false,
+   "note": "computed: register entry names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md",
+   "must_change": false,
+   "note": "computed: gate file names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-B.md",
+   "must_change": false,
+   "note": "computed: gate file names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md",
+   "must_change": false,
+   "note": "computed: gate file names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "gate",
+   "ref": "tools/bt/gates/oob_layer_lib.mjs",
+   "must_change": false,
+   "note": "computed: gate file names this conflict; read it and set must_change if its value differs from this resolution"
   }
  ],
  "failed_searches": [
