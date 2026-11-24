@@ -2,10 +2,10 @@
  "rule_version": 3,
  "summary": {
   "rows": 691,
-  "verified": 26,
-  "seeded_unverified": 665,
+  "verified": 24,
+  "seeded_unverified": 667,
   "with_shard_evidence": 691,
-  "not_promoted": 665,
+  "not_promoted": 667,
   "rows_without_shard_close_out": 0,
   "verified_ids": [
    "T1-001",
@@ -20,10 +20,8 @@
    "T1-210",
    "T1-212",
    "T1-216",
-   "T2-038",
    "T2-066",
    "T2-112",
-   "T2-136",
    "T2-164",
    "T2-206",
    "T2-236",
@@ -2848,8 +2846,11 @@
    ]
   },
   "T2-038": {
-   "state": "verified",
-   "gaps": []
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
+    "remains unsupported: 1 item(s)"
+   ]
   },
   "T2-039": {
    "state": "not_promoted",
@@ -3734,8 +3735,10 @@
    ]
   },
   "T2-136": {
-   "state": "verified",
-   "gaps": []
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written"
+   ]
   },
   "T2-137": {
    "state": "not_promoted",
