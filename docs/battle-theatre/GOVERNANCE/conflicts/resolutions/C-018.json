@@ -1,0 +1,1624 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-018",
+ "topic": "Wright’s brigade stopped by",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-018",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Wright’s brigade stopped by | Webb; Stannard; reached the crest or not | stopped short of the crest, attribution | unresolved | all",
+  "values": [
+   "Webb",
+   "Stannard",
+   "reached the crest or not"
+  ],
+  "recommended_default": "stopped short of the crest, attribution unresolved",
+  "selectable_alternatives": [
+   "all"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-018-DEFAULT",
+  "default_label": "attribution unresolved; Wright claims the crest (his claim, documented as a claim)",
+  "tier": "open gap",
+  "basis": "gap",
+  "scenario_ids": [
+   "C-018-S1",
+   "C-018-S2",
+   "C-018-S3",
+   "C-018-S4",
+   "C-018-DEFAULT"
+  ]
+ },
+ "class": "irreducible",
+ "tier": "inferred",
+ "basis": {
+  "kind": "official_records",
+  "text": "The reports of 1863 are divided in kind, not in value: Wright (28 Sep) says his brigade went to the top of the crest and withdrew because the brigade on his right gave way and none came on his left; four reports of his regiments (17-18 Jul) say the same of the withdrawal and do not name the crest; Union regiments (106th Pa., 82nd N.Y., 59th N.Y., 19th Me.) report taking the 48th Georgia's colonel and flags; no report names Wright's brigade as stopped by Webb, by Stannard or by any one unit."
+ },
+ "default": {
+  "mode": "unresolved_set",
+  "positions": [
+   "C-018-P3",
+   "C-018-P5",
+   "C-018-P6"
+  ],
+  "label": "No single stopper: Gibbon's regiments counter-charged and Wright's flanks gave way; the crest is Wright's claim",
+  "note": "Three claims shown side by side: (1) Wright, Lee and Anderson say the brigade reached the top of the crest, which no other witness confirms or denies; (2) regiments of Webb's, Harrow's and Hall's brigades took the 48th Georgia's colonel and flags and checked the line at Brown's battery; (3) Wright and his four regiments say they withdrew when the brigade on their right gave way and no support came on their left. Webb, Stannard and the plan's 'stopped short of the crest' stay selectable."
+ },
+ "positions": [
+  {
+   "id": "C-018-P1",
+   "origin": "pdf_value",
+   "pdf_label": "Webb",
+   "scenario_ids": [
+    "C-018-S1"
+   ],
+   "source_keys": [],
+   "label": "Webb: Webb's brigade (106th, 72nd, 71st, 69th Pennsylvania) turned Wright's line back",
+   "kind": "person",
+   "value": {
+    "text": "Webb"
+   },
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "inference": {
+    "step": "Webb's report says his regiments fired on a line of battle that had gone beyond one gun of Brown's battery, that it halted, wavered and fell back, and that the 106th and 72nd pursued it; the 106th's colonel says his charge took Colonel Gibson of the 48th Georgia, a regiment of Wright's brigade. From this the 106th Pennsylvania of Webb's brigade is placed against Wright's left; Webb's report itself names no enemy brigade.",
+    "from": [
+     "C-018-P1-c1",
+     "C-018-P1-c2",
+     "C-018-P1-c3"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-018-P1-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R104",
+     "page": "427",
+     "page_basis": "scan_leaf",
+     "text_offset": 1496289,
+     "quote": "Their line of battle advanced beyond one gun of Brown's battery",
+     "witness": {
+      "name": "Alexander S. Webb",
+      "role": "Brigadier General, commanding the 2d Brigade, 2d Division, 2d Corps (69th, 71st, 72nd, 106th Pennsylvania)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-13",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "webb-brigade",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "one gun of Brown's battery"
+      ]
+     },
+     "note": "Webb p. 427: his regiments fired on the enemy line at Brown's gun; the report does not name the brigade."
+    },
+    {
+     "id": "C-018-P1-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R104",
+     "page": "427",
+     "page_basis": "scan_leaf",
+     "text_offset": 1496848,
+     "quote": "They halted, wavered, and fell back, pursued by the One hundred and Sixth",
+     "witness": {
+      "name": "Alexander S. Webb",
+      "role": "Brigadier General, commanding the 2d Brigade, 2d Division, 2d Corps (69th, 71st, 72nd, 106th Pennsylvania)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-13",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "webb-brigade",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "halted, wavered, and fell back"
+      ]
+     },
+     "note": "Webb p. 427."
+    },
+    {
+     "id": "C-018-P1-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R108",
+     "page": "434",
+     "page_basis": "scan_leaf",
+     "text_offset": 1519465,
+     "quote": "among whom were 1 colonel ([William] Gibson, Forty-eighth Georgia)",
+     "witness": {
+      "name": "William L. Curry",
+      "role": "Lieutenant Colonel, commanding the 106th Pennsylvania Infantry (Webb's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-11",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "webb-brigade",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Forty-eighth Georgia"
+      ]
+     },
+     "note": "The only report of Webb's brigade that names a regiment of Wright's brigade."
+    },
+    {
+     "id": "C-018-P1-c4",
+     "source": "PA-GB-1904",
+     "source_class": "book",
+     "part": null,
+     "page_basis": "as_read",
+     "text_offset": 1901371,
+     "quote": "served to check Wright's advance",
+     "page_note": "the running head of the page is damaged in the text layer (it reads about 551); the printed page is not certain",
+     "page": null,
+     "witness": {
+      "name": "Speaker at the dedication of the Pennsylvania monuments, 1904 (name not read in the text layer)",
+      "role": "Address printed in the proceedings of the Pennsylvania Gettysburg commission",
+      "side": "union"
+     },
+     "written": {
+      "date": "1904",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "not_stated",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "webb-brigade",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "check Wright's advance"
+      ]
+     },
+     "note": "Later address of 1904: the 106th Pennsylvania 'was moved forward from behind the crest and ordered to attack the exposed left flank of Wright's Brigade'; a few volleys 'served to check Wright's advance' before Curry's charge. The author is not named in the text read; it follows Curry's report and is counted in the same line."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "equal_standing",
+    "text": "Webb's regiments did drive a line back and took the 48th Georgia's colonel, but regiments of two other brigades (82nd New York, 59th New York, 19th Maine) report the same work, and Webb names no enemy brigade."
+   }
+  },
+  {
+   "id": "C-018-P2",
+   "origin": "pdf_value",
+   "pdf_label": "Stannard",
+   "scenario_ids": [
+    "C-018-S2"
+   ],
+   "source_keys": [],
+   "label": "Stannard: the 13th Vermont of Stannard's brigade retook guns and checked the Georgians",
+   "kind": "person",
+   "value": {
+    "text": "Stannard"
+   },
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "weak",
+    "memoir_only"
+   ],
+   "inference": {
+    "step": "Stannard's and Randall's reports show the 13th Vermont charged a rebel line, retook guns and took about 80 prisoners at the Emmitsburg road at dusk; the book of 1914 and the Park Service study of 1981 name the guns' captors as Wright's men. The identification of the enemy as Wright's brigade is made only by those later writers; the reports of 1863 do not make it.",
+    "from": [
+     "C-018-P2-c1",
+     "C-018-P2-c2",
+     "C-018-P2-c3",
+     "C-018-P2-c4",
+     "C-018-P2-c6"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-018-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R069",
+     "page": "349",
+     "page_basis": "scan_leaf",
+     "text_offset": 1210388,
+     "quote": "was granted by Major-General Hancock, commanding upon the spot, the privilege of making the effort to retake the guns",
+     "witness": {
+      "name": "George J. Stannard",
+      "role": "Brigadier General, commanding the 3d Brigade, 3d Division, 1st Corps (2d Vermont Brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "vt13",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "retake the guns"
+      ]
+     },
+     "note": "Stannard's report (p. 349): just before dark, with the line on the left center broken 'under a desperate charge of the enemy', his brigade was ordered up; the right wing of the 13th Vermont retook four guns of Company C (regular battery) and took two rebel guns and about 80 prisoners. He names no enemy brigade."
+    },
+    {
+     "id": "C-018-P2-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R070",
+     "page": "352",
+     "page_basis": "scan_leaf",
+     "text_offset": 1220931,
+     "quote": "I discovered a rebel line debouching from the woods on our left",
+     "witness": {
+      "name": "Francis V. Randall",
+      "role": "Colonel, commanding the 13th Vermont Infantry (Stannard's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-10",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "vt13",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "rebel line"
+      ]
+     },
+     "note": "Randall (13th Vermont), 10 July 1863, p. 352: the enemy line he met was unnamed; his men then recaptured guns he was told were Lieutenant Weir's (5th U. S.) and reached the Emmitsburg road."
+    },
+    {
+     "id": "C-018-P2-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "371",
+     "page_basis": "scan_leaf",
+     "text_offset": 1297922,
+     "quote": "One of the regiments of the Vermont Brigade afterward advanced upon its right, and retook the guns of one of the reserve batteries",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding the 2d Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-24",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "hancock",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Vermont Brigade"
+      ]
+     },
+     "note": "Hancock, p. 371: after the First Minnesota drove back an enemy regiment, one regiment of the Vermont brigade retook the guns; no brigade named."
+    },
+    {
+     "id": "C-018-P2-c4",
+     "source": "VT-GB-1914",
+     "source_class": "book",
+     "part": null,
+     "page": "11",
+     "page_basis": "as_read",
+     "text_offset": 19375,
+     "quote": "now in danger of capture by Wright's men",
+     "page_note": "running head 11 (Vermont at Gettysburg, 1914) stands just before the sentence",
+     "witness": {
+      "name": "Thomas C. Cheney and Frank Kenfield (Vermont Gettysburg commission)",
+      "role": "Compilers of the Vermont volume of 1914",
+      "side": "union"
+     },
+     "written": {
+      "date": "1914",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "not_stated",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "vt1914",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "capture by Wright's men"
+      ]
+     },
+     "note": "The Vermont volume of 1914 (51 years after) puts Wright's men at Weir's guns."
+    },
+    {
+     "id": "C-018-P2-c5",
+     "source": "VT-GB-1914",
+     "source_class": "book",
+     "part": null,
+     "page": "11",
+     "page_basis": "as_read",
+     "text_offset": 20194,
+     "quote": "took a captain and eighty men of an Alabama Regiment",
+     "page_note": "running head 11 (Vermont at Gettysburg, 1914) stands before the paragraph",
+     "witness": {
+      "name": "Thomas C. Cheney and Frank Kenfield (Vermont Gettysburg commission)",
+      "role": "Compilers of the Vermont volume of 1914",
+      "side": "union"
+     },
+     "written": {
+      "date": "1914",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "not_stated",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "vt1914",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Alabama Regiment"
+      ]
+     },
+     "note": "The same account names the 80 prisoners of Company A's capture as of 'an Alabama Regiment', which was not in Wright's Georgia brigade."
+    },
+    {
+     "id": "C-018-P2-c6",
+     "source": "NPS-COMMON-PRIDE-1",
+     "source_class": "official",
+     "part": null,
+     "page": "30",
+     "page_basis": "pdf_marker",
+     "text_offset": 39098,
+     "quote": "advanced to meet Wright's Georgia Brigade, which had captured Turnbull's and Weir's batteries",
+     "witness": {
+      "name": "Kathleen R. Georg",
+      "role": "Research Historian, Gettysburg National Military Park",
+      "side": "institutional"
+     },
+     "written": {
+      "date": "1981-01",
+      "kind": "institutional"
+     },
+     "vantage": "not_stated",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "georg",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Wright's Georgia Brigade"
+      ]
+     },
+     "note": "National Park Service study of 1981, p. 30: Stannard's brigade 'restored the line' and the 13th Vermont recaptured the guns. A modern summary; it gives no source for the identification."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "The 13th Vermont retook Weir's guns and took prisoners the 1914 book calls an Alabama regiment's; no report of 1863 puts it against Wright's Georgians, and the claim rests on writers of 1914 and 1981."
+   }
+  },
+  {
+   "id": "C-018-P3",
+   "origin": "pdf_value",
+   "pdf_label": "reached the crest or not",
+   "scenario_ids": [
+    "C-018-S3",
+    "C-018-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "Reached the crest or not: Wright says he did (his report; Lee and Anderson repeat it); his colonels and Webb do not say so",
+   "kind": "category",
+   "value": {
+    "text": "top of the crest"
+   },
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "default",
+   "flags": [
+    "single_source"
+   ],
+   "inference": {
+    "step": "Wright's report ('charged up to the top of the crest'), Lee's report ('Wright gained the crest') and Anderson's ('possessed themselves of the ridge') say the crest was reached; Lee and Anderson relay the brigade's own accounts. The reports of Wright's own colonels name only the enemy's 'first line', 'reserves on the height' and the batteries, and Webb puts the enemy line at one gun of Brown's battery in front of the ridge. No witness states which crest line or landmark Wright means. The claim is therefore carried as Wright's claim, not as a fact.",
+    "from": [
+     "C-018-P3-c1",
+     "C-018-P3-c2",
+     "C-018-P3-c3",
+     "C-018-P3-c4",
+     "C-018-P3-c5",
+     "C-018-P3-c6",
+     "C-018-P3-c7"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-018-P3-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R539",
+     "page": "623",
+     "page_basis": "scan_leaf",
+     "text_offset": 2318100,
+     "quote": "charged up to the top of the crest",
+     "witness": {
+      "name": "A. R. Wright",
+      "role": "Brigadier General, commanding the Georgia brigade (3d, 22d, 48th Georgia, 2d Georgia Battalion), Anderson's division, Third Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-09-28",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "wright",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "top of the crest"
+      ]
+     },
+     "note": "Wright's report of 28 September 1863 (88 days after), printed Ser. I vol. 27 pt. 2 p. 623. He writes that he was ill on 1 July and rejoined the brigade at 7 a.m. on 2 July, and that the brigade, after taking guns, was within 100 yards of the crest, leapt the fence and went to the top of the crest, driving the Federal infantry into a rocky gorge on the eastern slope. He does not name the crest, a landmark or a unit he met there."
+    },
+    {
+     "id": "C-018-P3-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R539",
+     "page": "623",
+     "page_basis": "scan_leaf",
+     "text_offset": 2317765,
+     "quote": "We were now within less than 100 yards of the crest of the heights",
+     "witness": {
+      "name": "A. R. Wright",
+      "role": "Brigadier General, commanding the Georgia brigade (3d, 22d, 48th Georgia, 2d Georgia Battalion), Anderson's division, Third Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-09-28",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "wright",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "100 yards of the crest"
+      ]
+     },
+     "note": "The distance Wright gives before his last charge: the ridge crest was still about 100 yards ahead of the Emmitsburg-road line he had taken."
+    },
+    {
+     "id": "C-018-P3-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R426",
+     "page": "319",
+     "page_basis": "scan_leaf",
+     "text_offset": 1211587,
+     "quote": "Wilcox reached the foot and Wright gained the crest",
+     "witness": {
+      "name": "Robert E. Lee",
+      "role": "General, commanding the Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1864-01-20",
+      "kind": "official_report"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "wright",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Wright gained the crest"
+      ]
+     },
+     "note": "General Lee's report of the battle, dated 20 January 1864 (Ser. I vol. 27 pt. 2 p. 319). Lee drew on the reports of his subordinates; it repeats Wright's claim and is counted with Wright's report, not as a second witness."
+    },
+    {
+     "id": "C-018-P3-c4",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R536",
+     "page": "614",
+     "page_basis": "scan_leaf",
+     "text_offset": 2280866,
+     "quote": "possessed themselves of the ridge",
+     "witness": {
+      "name": "Richard H. Anderson",
+      "role": "Major General, commanding the division of the Third Corps that held Wright's brigade",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "anderson",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "possessed themselves of the ridge"
+      ]
+     },
+     "note": "Anderson's division report of 7 August 1863 (p. 614): the brigades 'possessed themselves of the ridge and of much of the artillery' before a second line of the enemy stopped them. He does not say which brigade got where, and his words are the least specific of the three."
+    },
+    {
+     "id": "C-018-P3-c5",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R541",
+     "page": "628",
+     "page_basis": "scan_leaf",
+     "text_offset": 2336189,
+     "quote": "had driven the enemy from his first line of battle back to his",
+     "witness": {
+      "name": "Edward J. Walker",
+      "role": "Colonel, commanding the 3d Georgia Infantry (center regiment of Wright's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "walker",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "first line of battle"
+      ]
+     },
+     "note": "Colonel of the center regiment of Wright's brigade, 15 days after. His regiment held eleven guns when it fell back; he speaks of the enemy's 'first line' and 'reserves on the height' and does not say the crest was reached."
+    },
+    {
+     "id": "C-018-P3-c6",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R543",
+     "page": "629",
+     "page_basis": "scan_leaf",
+     "text_offset": 2339681,
+     "quote": "pursued them some distance beyond their first line of",
+     "witness": {
+      "name": "M. R. Hall",
+      "role": "Captain, commanding the 48th Georgia Infantry (left regiment of Wright's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "mrhall",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "first line of"
+      ]
+     },
+     "note": "The captain commanding the left regiment (48th Georgia) writes that his regiment went some distance beyond the first line of Union batteries, then met rallied or re-enforced troops. No crest named."
+    },
+    {
+     "id": "C-018-P3-c7",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R104",
+     "page": "427",
+     "page_basis": "scan_leaf",
+     "text_offset": 1496289,
+     "quote": "Their line of battle advanced beyond one gun of Brown's battery",
+     "witness": {
+      "name": "Alexander S. Webb",
+      "role": "Brigadier General, commanding the 2d Brigade, 2d Division, 2d Corps (69th, 71st, 72nd, 106th Pennsylvania)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-13",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "webb-brigade",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "one gun of Brown's battery"
+      ]
+     },
+     "note": "Webb's report of 13 July 1863, p. 427: the enemy line he saw (6.30 p.m.) went beyond one gun of Brown's battery, which stood in front of the 69th Pennsylvania, and was fired on there. The report says 'the assault of the 3d' in the first text layer and 'the assault of the 2d' in a second scan (see weighing); the page image could not be fetched."
+    },
+    {
+     "id": "C-018-P3-c8",
+     "source": "SHSP-06",
+     "source_class": "book",
+     "part": null,
+     "page": "103",
+     "page_basis": "as_read",
+     "text_offset": 303809,
+     "quote": "I did not see Wright's brigade during the battle",
+     "page_note": "running head \"General C. M. Wilcox on the Battle of Gettysburg. 103\" stands just before the sentence",
+     "witness": {
+      "name": "C. M. Wilcox",
+      "role": "Brigadier General at Gettysburg (brigade on the right of Perry's and Wright's); writer of the paper of 1878",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1878",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "wilcox78",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "did not see Wright's brigade"
+      ]
+     },
+     "note": "General Wilcox on the battle, Southern Historical Society Papers vol. 6 (1878) p. 103, answering Longstreet. He says only that he did not see Wright's brigade: it neither confirms nor denies the crest."
+    },
+    {
+     "id": "C-018-P3-c9",
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "part": null,
+     "page": "422",
+     "page_basis": "as_read",
+     "text_offset": 1111215,
+     "quote": "I went there with my brigade yesterday",
+     "page_note": "running head 422 (Military Memoirs) stands inside the answer, before the sentence",
+     "witness": {
+      "name": "E. P. Alexander",
+      "role": "Colonel, commanding Longstreet's reserve and battalion artillery at Gettysburg; wrote the account in later years",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "alexander",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "I went there with my brigade yesterday"
+      ]
+     },
+     "note": "Alexander (1907, Military Memoirs p. 422) reports Wright's words on 3 July when Alexander asked if it was as hard to get there as it looked: 'there' is the hill Pickett would attack. Written 44 years later from memory."
+    },
+    {
+     "id": "C-018-P3-c10",
+     "source": "BL-3",
+     "source_class": "book",
+     "part": null,
+     "page": "363",
+     "page_basis": "as_read",
+     "text_offset": 1497888,
+     "quote": "nearly there with my brigade yesterday",
+     "page_note": "running head \"ARTILLERY FIGHTING AT GETTYSBURG. 363\" stands before the paragraph",
+     "witness": {
+      "name": "E. P. Alexander",
+      "role": "Colonel, commanding Longstreet's reserve and battalion artillery at Gettysburg; wrote the account in later years",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "alexander",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "nearly there with my brigade yesterday"
+      ]
+     },
+     "note": "The same remark in Alexander's article in Battles and Leaders vol. 3 (1887), with the hedge 'nearly there'. The two versions by the same writer differ ('nearly there' 1887; 'I went there' 1907); the hedge is kept."
+    },
+    {
+     "id": "C-018-P3-c11",
+     "source": "NPS-HB9-1954",
+     "source_class": "official",
+     "part": null,
+     "page": "27",
+     "page_basis": "pdf_marker",
+     "text_offset": 36346,
+     "quote": "pierced the Union center just south of the copse of trees on Cemetery Ridge",
+     "witness": {
+      "name": "Frederick Tilberg",
+      "role": "Historian, National Park Service (Historical Handbook No. 9)",
+      "side": "institutional"
+     },
+     "written": {
+      "date": "1954",
+      "kind": "institutional"
+     },
+     "vantage": "not_stated",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "tilberg",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "copse of trees"
+      ]
+     },
+     "note": "National Park Service handbook of 1954: Wright's brigade 'pierced the Union center just south of the copse of trees on Cemetery Ridge'; it was forced to retire because the brigades on its left had not moved forward. A modern institutional summary, not a witness."
+    }
+   ]
+  },
+  {
+   "id": "C-018-P4",
+   "origin": "pdf_default",
+   "pdf_label": "stopped short of the crest, attribution unresolved",
+   "scenario_ids": [
+    "C-018-S4"
+   ],
+   "source_keys": [],
+   "label": "PDF default: stopped short of the crest, attribution unresolved",
+   "kind": "category",
+   "value": {
+    "text": "stopped short of the crest"
+   },
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "inference": {
+    "step": "Only Webb's report bears on the point: the 69th Pennsylvania lay behind a fence a little in advance of the ridge, with Brown's battery in front of it, and the enemy line that came beyond one gun of that battery was halted and driven back. That puts the enemy short of the ridge line on Webb's front only; it says nothing of the rest of Wright's front, and Wright's report, the Park Service handbook and Lee say otherwise.",
+    "from": [
+     "C-018-P4-c1",
+     "C-018-P4-c2"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-018-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R104",
+     "page": "427",
+     "page_basis": "scan_leaf",
+     "text_offset": 1494925,
+     "quote": "The Sixty- ninth Regiment was placed behind a fence a little in advance of the ridge",
+     "witness": {
+      "name": "Alexander S. Webb",
+      "role": "Brigadier General, commanding the 2d Brigade, 2d Division, 2d Corps (69th, 71st, 72nd, 106th Pennsylvania)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-13",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "webb-brigade",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "a little in advance of the ridge"
+      ]
+     },
+     "note": "Webb p. 427: the 69th Pennsylvania lay behind a fence a little in front of the ridge line, with Brown's battery moved to its front in the course of the day."
+    },
+    {
+     "id": "C-018-P4-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R104",
+     "page": "427",
+     "page_basis": "scan_leaf",
+     "text_offset": 1496289,
+     "quote": "Their line of battle advanced beyond one gun of Brown's battery",
+     "witness": {
+      "name": "Alexander S. Webb",
+      "role": "Brigadier General, commanding the 2d Brigade, 2d Division, 2d Corps (69th, 71st, 72nd, 106th Pennsylvania)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-13",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "webb-brigade",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "one gun of Brown's battery"
+      ]
+     },
+     "note": "Webb p. 427: the line was halted and driven back at that point, in front of the 69th Pennsylvania; this is a statement about one sector (Webb's front), not about the whole brigade."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "place_of_observation",
+    "text": "Webb speaks only of his own front, where the enemy halted at Brown's gun in front of the ridge; Wright says he reached the top of the crest and the Park Service puts him south of the Copse. The whole front is not shown."
+   }
+  },
+  {
+   "id": "C-018-P5",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "No single stopper: regiments of Gibbon's division (106th Pa., 82nd N.Y., 59th N.Y., 19th Me.) counter-charged Wright's left",
+   "kind": "category",
+   "value": {
+    "text": "regiments of Gibbon's division"
+   },
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "default",
+   "flags": [],
+   "inference": {
+    "step": "Reports of the 106th Pennsylvania (Webb's brigade), the 82nd New York (Harrow's) and Hall's list of flags (59th New York, Hall's brigade) name the 48th Georgia, the left regiment of Wright's brigade, as the unit whose colonel or flags they took; Hancock credits the 19th Maine with checking the enemy at Brown's battery, and Gibbon the nearest troops and the Twelfth Corps. From these, regiments of three brigades of Gibbon's division turned back Wright's left; no report names Wright's brigade as a whole or any one brigade as its stopper.",
+    "from": [
+     "C-018-P5-c1",
+     "C-018-P5-c2",
+     "C-018-P5-c3",
+     "C-018-P5-c4",
+     "C-018-P5-c5",
+     "C-018-P5-c6",
+     "C-018-P5-c7",
+     "C-018-P5-c8",
+     "C-018-P5-c9"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-018-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R108",
+     "page": "434",
+     "page_basis": "scan_leaf",
+     "text_offset": 1519465,
+     "quote": "among whom were 1 colonel ([William] Gibson, Forty-eighth Georgia)",
+     "witness": {
+      "name": "William L. Curry",
+      "role": "Lieutenant Colonel, commanding the 106th Pennsylvania Infantry (Webb's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-11",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "webb-brigade",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Forty-eighth Georgia"
+      ]
+     },
+     "note": "Curry's report (106th Pennsylvania) of 11 July 1863, p. 434: his regiment, in its charge to the Emmitsburg road, sent to the rear about 250 prisoners including Colonel [William] Gibson of the 48th Georgia. Gibson commanded the 48th, the left regiment of Wright's brigade (OR27-2 order of battle)."
+    },
+    {
+     "id": "C-018-P5-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R108",
+     "page": "434",
+     "page_basis": "scan_leaf",
+     "text_offset": 1518421,
+     "quote": "ordered bayonets fixed and a charge to be made, which movement resulted in a complete success",
+     "witness": {
+      "name": "William L. Curry",
+      "role": "Lieutenant Colonel, commanding the 106th Pennsylvania Infantry (Webb's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-11",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "webb-brigade",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "bayonets fixed"
+      ]
+     },
+     "note": "Curry says his volleys 'checked his advance' and his charge sent the enemy back 'in confusion to his original position in the woods'; he does not name the enemy brigade."
+    },
+    {
+     "id": "C-018-P5-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R103",
+     "page": "426",
+     "page_basis": "scan_leaf",
+     "text_offset": 1492363,
+     "quote": "capturing the battle-flags of the Forty-eighth Georgia",
+     "witness": {
+      "name": "John Darrow",
+      "role": "Captain, commanding the 82nd New York Infantry (Harrow's brigade) after Colonel Huston fell",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-03",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "darrow",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Forty-eighth Georgia"
+      ]
+     },
+     "note": "Report of the 82nd New York (Harrow's brigade), 3 August 1863, p. 426: the regiment, driven back at about 6 p.m., reformed, advanced, regained its position and captured the battle-flags of the 48th Georgia."
+    },
+    {
+     "id": "C-018-P5-c4",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R109",
+     "page": "441",
+     "page_basis": "scan_leaf",
+     "text_offset": 1544214,
+     "quote": "Forty-eighth Georgia, by Sergt. James Wiley, Fifty-ninth New York Volunteers",
+     "witness": {
+      "name": "Norman J. Hall",
+      "role": "Colonel, commanding the 3d Brigade, 2d Division, 2d Corps (incl. 59th New York)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "nhall",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Forty-eighth Georgia"
+      ]
+     },
+     "note": "In Hall's list of flags taken (report of 17 July 1863, p. 441) the 48th Georgia flag was taken by Sergeant James Wiley of the 59th New York (Hall's brigade). The list does not give the day; the 48th Georgia, of Wright's brigade, fought on 2 July."
+    },
+    {
+     "id": "C-018-P5-c5",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R100",
+     "page": "422",
+     "page_basis": "scan_leaf",
+     "text_offset": 1480185,
+     "quote": "At a little past 6 p. m. the enemy advanced and my regiment became engaged",
+     "witness": {
+      "name": "Francis E. Heath",
+      "role": "Colonel, commanding the 19th Maine Infantry (Harrow's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "heath",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "little past 6 p. m."
+      ]
+     },
+     "note": "Heath's report (19th Maine, Harrow's brigade), 4 July 1863, p. 422: the 19th stood left of Brown's battery, advanced after about ten rounds, took prisoners and retook four Napoleon guns. No Confederate unit named."
+    },
+    {
+     "id": "C-018-P5-c6",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "371",
+     "page_basis": "scan_leaf",
+     "text_offset": 1298491,
+     "quote": "the Nineteenth Maine, Col. F. E. Heath commanding, bore a conspicuous part",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding the 2d Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-24",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "hancock",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Nineteenth Maine"
+      ]
+     },
+     "note": "Hancock's report (p. 371; undated in the text layer, its addendum is of 24 October 1863): on the right the enemy advancing from the brick house toward Gibbon's division was 'promptly checked and driven from that portion of Brown's battery temporarily captured', the 19th Maine bearing a conspicuous part. He names no Confederate brigade."
+    },
+    {
+     "id": "C-018-P5-c7",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R098",
+     "page": "417",
+     "page_basis": "scan_leaf",
+     "text_offset": 1460777,
+     "quote": "By the steadiness, however, of the troops in the immediate vicinity, and the timely arrival of the Twelfth Corps, this advance was checked and driven back with considerable loss",
+     "witness": {
+      "name": "John Gibbon",
+      "role": "Brigadier General, commanding the 2d Division, 2d Corps (later in command of the corps on the evening of 2 July)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "gibbon",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "advance was checked"
+      ]
+     },
+     "note": "Gibbon's report (p. 417), 7 August 1863, of the head of the enemy column that came 'quite through a vacancy in our line to the left of my division': checked by the nearest troops and the Twelfth Corps. He names no Confederate unit."
+    },
+    {
+     "id": "C-018-P5-c8",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R104",
+     "page": "427",
+     "page_basis": "scan_leaf",
+     "text_offset": 1496848,
+     "quote": "They halted, wavered, and fell back, pursued by the One hundred and Sixth, Seventy-second",
+     "witness": {
+      "name": "Alexander S. Webb",
+      "role": "Brigadier General, commanding the 2d Brigade, 2d Division, 2d Corps (69th, 71st, 72nd, 106th Pennsylvania)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-13",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "webb-brigade",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "One hundred and Sixth"
+      ]
+     },
+     "note": "Webb names his own regiments (106th, 72nd, part of the 71st Pennsylvania) as the pursuers who took about 250 prisoners; he does not name Wright's brigade."
+    },
+    {
+     "id": "C-018-P5-c9",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R106",
+     "page": "432",
+     "page_basis": "scan_leaf",
+     "text_offset": 1512186,
+     "quote": "taking some 20 prisoners and retaking a brass cannon and limber which the enemy held",
+     "witness": {
+      "name": "R. Penn Smith",
+      "role": "Colonel, commanding the 71st Pennsylvania Infantry (Webb's brigade)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "smith",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "20 prisoners"
+      ]
+     },
+     "note": "Smith's report (71st Pennsylvania, 12 July 1863, p. 432): his regiment, sent to support the 69th on the afternoon of the 2d, took some 20 prisoners and retook a gun and limber."
+    }
+   ]
+  },
+  {
+   "id": "C-018-P6",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Wright's side: the brigades on his flanks gave way or never came up, and he withdrew for want of support",
+   "kind": "category",
+   "value": {
+    "text": "actually given way"
+   },
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-018-P6-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R539",
+     "page": "624",
+     "page_basis": "scan_leaf",
+     "text_offset": 2318636,
+     "quote": "the brigade on our right had not only not advanced across the turnpike, but had actually given way",
+     "witness": {
+      "name": "A. R. Wright",
+      "role": "Brigadier General, commanding the Georgia brigade (3d, 22d, 48th Georgia, 2d Georgia Battalion), Anderson's division, Third Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-09-28",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "wright",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "actually given way"
+      ]
+     },
+     "note": "Wright: after 'the key, as it were, of the enemy's whole line' was gained, he saw that the brigade on his right had given way and that the brigade ordered to support his left had not advanced; then a Union force came on his right and rear and another on his left."
+    },
+    {
+     "id": "C-018-P6-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R539",
+     "page": "624",
+     "page_basis": "scan_leaf",
+     "text_offset": 2320185,
+     "quote": "no support could be seen coming to our assistance",
+     "witness": {
+      "name": "A. R. Wright",
+      "role": "Brigadier General, commanding the Georgia brigade (3d, 22d, 48th Georgia, 2d Georgia Battalion), Anderson's division, Third Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-09-28",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "wright",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "no support could be seen"
+      ]
+     },
+     "note": "Wright, p. 624: with converging lines closing on his rear he abandoned the captured guns and cut his way out."
+    },
+    {
+     "id": "C-018-P6-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R541",
+     "page": "628",
+     "page_basis": "scan_leaf",
+     "text_offset": 2336563,
+     "quote": "together with the brigades on our right, had fallen back",
+     "witness": {
+      "name": "Edward J. Walker",
+      "role": "Colonel, commanding the 3d Georgia Infantry (center regiment of Wright's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "walker",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "had fallen back"
+      ]
+     },
+     "note": "Walker (3d Georgia): held until the line on his right gave way, fearing a flank movement, and 'forced to fall back for want of support on the left'."
+    },
+    {
+     "id": "C-018-P6-c4",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R542",
+     "page": "629",
+     "page_basis": "scan_leaf",
+     "text_offset": 2337772,
+     "quote": "owing to the brigade giving way on our right, we were compelled to give back",
+     "witness": {
+      "name": "B. C. McCurry",
+      "role": "Captain, commanding the 22d Georgia Infantry (right regiment of Wright's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "mccurry",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "giving way on our right"
+      ]
+     },
+     "note": "McCurry (22d Georgia, right regiment of Wright's brigade, 17 July 1863, p. 629)."
+    },
+    {
+     "id": "C-018-P6-c5",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R543",
+     "page": "629",
+     "page_basis": "scan_leaf",
+     "text_offset": 2339858,
+     "quote": "and being unsupported, we were compelled to fall back",
+     "witness": {
+      "name": "M. R. Hall",
+      "role": "Captain, commanding the 48th Georgia Infantry (left regiment of Wright's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "mrhall",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "unsupported"
+      ]
+     },
+     "note": "Captain Hall (48th Georgia), p. 629."
+    },
+    {
+     "id": "C-018-P6-c6",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R544",
+     "page": "630",
+     "page_basis": "scan_leaf",
+     "text_offset": 2342976,
+     "quote": "the column on our right giving way. we were forced to retire",
+     "witness": {
+      "name": "Charles J. Moffett",
+      "role": "Captain, commanding the 2d Georgia Battalion (skirmishers of Wright's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-18",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "moffett",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "column on our right giving way"
+      ]
+     },
+     "note": "Moffett (2d Georgia Battalion), 18 July 1863, p. 630: numbers falling, not re-enforced, 'the column on our right giving way'."
+    },
+    {
+     "id": "C-018-P6-c7",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R536",
+     "page": "614",
+     "page_basis": "scan_leaf",
+     "text_offset": 2281209,
+     "quote": "Strong re-enforcements pressed upon our right flank",
+     "witness": {
+      "name": "Richard H. Anderson",
+      "role": "Major General, commanding the division of the Third Corps that held Wright's brigade",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "anderson",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "re-enforcements pressed upon our right flank"
+      ]
+     },
+     "note": "Anderson (p. 614): strong re-enforcements pressed on the right flank, which had become disconnected from McLaws' left, and the ridge was untenable."
+    },
+    {
+     "id": "C-018-P6-c8",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R537",
+     "page": "618",
+     "page_basis": "scan_leaf",
+     "text_offset": 2298503,
+     "quote": "Without support on either my right or left, my men were withdrawn",
+     "witness": {
+      "name": "C. M. Wilcox",
+      "role": "Brigadier General, commanding the Alabama brigade on the right of Wright's",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "wilcox63",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Without support on either my right or left"
+      ]
+     },
+     "note": "Wilcox, on the right of Perry's and Wright's brigades, p. 618: he asked for support, none came, and he withdrew."
+    }
+   ]
+  }
+ ],
+ "weighing": {
+  "summary": "No witness of the time says who stopped Wright's brigade as a whole. The Union reports name no Confederate brigade; they name the 48th Georgia (colonel and flags) and the regiments that took them, which belong to three brigades of Gibbon's division (Webb's, Harrow's, Hall's); Hancock and Gibbon credit the nearest troops, the 19th Maine and, further left, part of the Twelfth Corps. The 13th Vermont (Stannard) retook guns at dusk, but no report of 1863 puts it against Wright; the 1914 book names its prisoners as an Alabama regiment's. Wright and his four regimental reports agree on why he withdrew (the brigade on the right gave way, none came on the left). On the crest, only Wright's own report, with Lee and Anderson repeating it, says the top was reached; his colonels and Webb give places short of it, and nothing separates the two readings. The record is divided on the crest and not on a single stopper, so the default is a set of claims side by side.",
+  "who": "Wright, Anderson and Lee wrote about their own side's advance (Lee from reports, not from the ground). The regimental colonels and captains of Wright's brigade (Walker, McCurry, Hall, Moffett) were in the line. On the Union side Curry, Darrow, Heath and Smith led the regiments in the counter-charges; Webb, Hall, Gibbon and Hancock commanded the brigades, division and corps. Stannard and Randall led the Vermonters. Wilcox, on Wright's right, wrote that he did not see Wright's brigade. Alexander gives Wright's own remark of 3 July. The Park Service handbook (1954), the study of 1981 and the books of 1904 and 1914 are later summaries, not witnesses.",
+  "when": "Reports of the time: the regimental reports of both sides (11-18 July 1863, 9-16 days after), Stannard 4 July, Heath 4 July, Webb 13 July, Gibbon 7 August, Anderson 7 August, Darrow 3 August, Wright 28 September (88 days), Hancock by 24 October, Lee 20 January 1864. Later: Wilcox 1878, Alexander 1887 and 1907, the Pennsylvania address 1904, the Vermont book 1914, the Park Service 1954 and 1981. By the rubric the reports of 1863 outrank the memoirs; none of the later accounts is used to overrule a report.",
+  "where": "Wright was ill on 1 July and back with the brigade at 7 a.m. on 2 July; he led the advance. His regiments' officers were in the line. Webb, Curry and Smith were in the 69th-72nd-106th line at the Angle; Darrow's 82nd New York stood at the Codori house, Heath's 19th Maine left of Brown's battery, Hall's brigade south of Webb. Stannard came up at dusk from the rear of Cemetery Hill. Gibbon commanded the corps at that hour and Hancock rode the line. Lee was far from the ground.",
+  "how_knew": "Eyewitness for every regimental and brigade writer named. Lee and Anderson relay reports of the brigades. Alexander relays Wright's remark of 3 July. The later books and the Park Service summarize the reports and name the guns' captors without a source. No writer says how he knew that the Union regiment he fought was Wright's brigade; the Union writers know the 48th Georgia by its prisoners and flags.",
+  "clock": "Not applicable: the question is who and where. Wright's advance began at 5 p.m. on his clock (Confederate), Lang's at 6; Webb and Heath say about 6.30 and a little past 6 on the Union clock. The 20-minute difference between the two clocks is not applied.",
+  "independence": "Lines counted separately: Wright (with Lee, who repeats his report); Anderson; Walker; McCurry; Hall (48th); Moffett; Wilcox 1863; Wilcox 1878; Alexander (1887 and 1907 count once); Webb with Curry and the 1904 address (the address follows Curry); Smith; Darrow; N. J. Hall; Heath; Gibbon; Hancock; Stannard with Randall; the 1914 Vermont book; the Park Service handbook and the 1981 study. The 'who stopped it' claims of Webb and Stannard each rest on one line of evidence of the time, not two; the crest claim rests on one source (Wright) repeated by two."
+ },
+ "source_panel_text": "Unresolved. Wright's report says his Georgians reached the top of the crest; his colonels do not, and no Union report names his brigade or one stopper. Regiments of Gibbon's division took the 48th Georgia's colonel and flags; Stannard's Vermonters retook guns. Wright's flanks also gave way. 6 values listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "'Attribution unresolved' holds: no report names one stopper. 'Stopped short of the crest' is one of the two readings: Webb's front supports it, Wright says he reached the top of the crest, and no witness settles it; it stays selectable."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "The first pass held the attribution to be a gap. The reports of 1863 do name who took the 48th Georgia's colonel and flags (regiments of Gibbon's division), and Wright's and his colonels' reports say why he withdrew, so it is not a gap: it is an unresolved set (irreducible, inferred). 'Wright claims the crest' holds as his claim."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-018 row)",
+   "must_change": true,
+   "note": "Row of 2026-11-11: default 'attribution unresolved; Wright claims the crest' with tier open gap; the research makes it class irreducible, tier inferred, with the regiments of Gibbon's division named from the reports. To be reconciled by the integration step."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0111.md",
+   "must_change": true,
+   "note": "Register entry says Gibbon and Harrow were not mined and the Union reports do not name Wright; this research read them and the regimental reports (Curry, Darrow, Hall, Heath): they name the 48th Georgia and the units that took it. The entry should be closed or rewritten as the irreducible resolution; the failed searches listed here stay open."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-018",
+   "must_change": true,
+   "note": "DEC-C-018 is PENDING OWNER; the delegated resolution (irreducible, inferred) is to be recorded as a delegated decision, never as DECIDED; the PDF default stays selectable."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md",
+   "must_change": true,
+   "note": "Names C-018 as one of the three open-gap defaults (CF-3: an open-gap default never passes). The default is no longer an open gap: it is an unresolved set of claims, class irreducible, tier inferred. The gate spec expected values are to be reconciled in the open, not lowered."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md",
+   "must_change": true,
+   "note": "Same line as GATE-SPEC-A: 'open gap 3 (C-018, C-037, C-038)' is out of date for C-018 after this resolution."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-185",
+   "must_change": true,
+   "note": "Row says Webb's brigade repels Wright and that the 13th Vermont recaptures Lang's guns; Wikipedia credits Stannard. The reports show regiments of Webb's, Harrow's and Hall's brigades taking the 48th Georgia's colonel and flags and the 13th Vermont retaking guns, with no report naming Wright's brigade as stopped by one unit. The 'conflict' note needs the unresolved set."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-189",
+   "must_change": true,
+   "note": "Row says Wright's brigade 'reaches the crest (NPS)'. That is Wright's claim (his report, repeated by Lee and Anderson); his colonels and Webb do not state it. It should be marked as a claim."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-190",
+   "must_change": false,
+   "note": "Row says Union I and II Corps troops (some led by Meade) drive Wright back at sunset. Hancock and Gibbon say the Second Corps, with part of the Twelfth (Lockwood's two regiments, brought by Meade), checked and drove back the enemy; no report names Wright. Agrees, the unit list is wider than the row's."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-018)",
+   "must_change": true,
+   "note": "Holds default C-018-DEFAULT with tier open gap; to be replaced by the unresolved set (P3, P5, P6), class irreducible, tier inferred; every scenario stays selectable. Not edited here."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-018)",
+   "must_change": true,
+   "note": "Source of the app file; same change: tier open gap becomes inferred, basis gap becomes official_records."
+  },
+  {
+   "kind": "app_code",
+   "ref": "docs/battle-theatre/app/src/data.mjs line 41",
+   "must_change": false,
+   "note": "Lists the three PDF values and the PDF default; they are all still carried as positions P1, P2, P3, P4; no change to the values."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-3c-anderson-wright",
+   "must_change": false,
+   "note": "build_arrivals.py ties C-018 to this row; the resolution moves no arrival time or window."
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/requirements.json R03.C-018",
+   "must_change": false,
+   "note": "Requirement text (every value a selectable scenario; default an owner decision) is unchanged."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1",
+   "query": "Wright's brigade | General Wright | Georgia brigade | Georgians | Forty-eighth Georgia | 48th Georgia in all Union reports of Part 1 (Gibbon, Harrow, Hall, Webb, Hancock, Humphreys' division, Stannard, Randall, Lockwood)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2",
+   "query": "crest | top of the crest | Cemetery Ridge in the four regimental reports of Wright's brigade (R541-R544: Walker, McCurry, M. R. Hall, Moffett) and in Lang's and Posey's reports",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-1 (page image of p. 427, archive.org leaf 450)",
+   "query": "image of Webb's report to read the printed digit of 'the assault of the 3d/2d at about 6.30 p.m.' (first text layer 3d, second scan 2d)",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Stone Sentinels timeline (SS2) and Wikipedia article on 2 July (the plan keys SS2, W-D2)",
+   "query": "Webb's brigade repels Wright; Stannard's Vermonters stopped Wright; whether Wright reached the crest; the pages the plan cites for the row",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "ws9 library (Doubleday 1882, Longstreet 1896, Hoke, Fox, Bachelder, Minnigh, NY and Pennsylvania at Gettysburg), regex \"Wright.{0,250}(crest|Georgia|Emmitsburg)\"",
+   "query": "a witness who saw Wright's men on the crest line or at the Copse",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Walker, History of the Second Army Corps (1886), archive.org historyofseconda01walk (planned, not fetched)",
+   "query": "Second Corps history of the repulse of Wright's brigade",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report or letter of 1863 that names the Union unit Wright met at the farthest point (for example the brigade-level report of Harrow's 15th Massachusetts or of the First Maryland), or a statement of Wright's regimental officers that places them at a landmark of the ridge crest; or the page image of Webb's report p. 427 fixing the day of its 6.30 p.m. assault. Any of these would move the default from a set to a single weighted position."
+}
