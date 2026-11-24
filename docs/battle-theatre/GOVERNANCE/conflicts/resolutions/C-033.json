@@ -40,11 +40,11 @@
   "positions": [
    "C-033-P3"
   ],
-  "label": "Jul 4 afternoon: the head of the column leaves Cashtown about 16:00; Imboden after dark; the rear at dawn Jul 5",
+  "label": "Jul 4 afternoon: the head of the column leaves Cashtown about 16:00 (not Imboden himself)",
   "animation": {
    "at": "1863-07-04T16:00",
    "rule": "best_supported",
-   "note": "The head of the train starts at about 16:00 on July 4; Imboden follows after dark (sunset 19:32); the rear starts at dawn on July 5 (source-supported times). The 20:00 Jul 5 departure is not drawn."
+   "note": "The head of the train starts at about 16:00 on July 4. Selectable positions, memoir only: Imboden himself sets out after dusk the same day (P5); the rear starts at dawn on July 5 (P2). The 20:00 Jul 5 departure is not drawn."
   }
  },
  "positions": [
@@ -92,7 +92,7 @@
        "escorted by General Imboden"
       ]
      },
-     "note": "Lee: the trains were ordered to Williamsport on July 4, part through Cashtown and Greencastle escorted by Imboden."
+     "note": "Lee: the trains were ordered to Williamsport on July 4, part through Cashtown and Greencastle escorted by Imboden. Dates an order, not the movement."
     },
     {
      "id": "C-033-P1-c2",
@@ -132,8 +132,8 @@
      "part": "OR27-2-R428",
      "page": "353",
      "page_basis": "scan_leaf",
-     "text_offset": 1308649,
-     "quote": "were detailed to report to General Imboden, at Cashtown, and aid in guarding the main wagon train back to Williamsport",
+     "text_offset": 1308315,
+     "quote": "In the defensive measures directed for the 4th, my care was given to the whole line. [...] were detailed to report to General Imboden, at Cashtown, and aid in guarding the main wagon train back to Williamsport",
      "witness": {
       "name": "William N. Pendleton",
       "role": "Brigadier General, chief of artillery of the Army of Northern Virginia, report of 12 September 1863",
@@ -150,11 +150,12 @@
      "group": "pendleton",
      "exact": false,
      "states": {
+      "dates": [],
       "phrases": [
-       "report to General Imboden, at Cashtown"
+       "directed for the 4th"
       ]
      },
-     "note": "Pendleton: batteries were detailed in the defensive measures for the 4th to report to Imboden at Cashtown. The detail of the escort on the 4th."
+     "note": "Pendleton: among the measures for the 4th, batteries were detailed to report to Imboden at Cashtown. Dates a detail of escort, not the movement of the train."
     }
    ],
    "reason_not_chosen": {
@@ -362,7 +363,7 @@
      "knew_by": "not_stated",
      "clock": "unspecified",
      "hedge": "about",
-     "group": "hoke",
+     "group": "imboden",
      "exact": false,
      "states": {
       "times": [
@@ -372,12 +373,13 @@
        "07-04"
       ]
      },
-     "note": "Hoke, a Chambersburg writer, in 1887: the head of the train, in Imboden's charge, left in a terrific rain storm about four o'clock in the afternoon of Saturday, July 4th. No source named; the same hour and rain as Imboden's article of the same year, so possibly drawn from it.",
+     "note": "Hoke, a Chambersburg writer, in 1887: the head of the train, in Imboden's charge, left in a terrific rain storm about four o'clock in the afternoon of Saturday, July 4th. No source named; the same hour and rain as Imboden's article of the same year, so possibly drawn from it. Counted in Imboden's line of knowledge, not as a second witness.",
      "page_note": "no printed page marks in the text layer; the passage is in the chapter on the retreat"
     }
    ],
    "flags": [
-    "memoir_only"
+    "memoir_only",
+    "single_source"
    ],
    "pdf_label": "Jul 4 afternoon",
    "scenario_ids": [
@@ -437,7 +439,7 @@
        "evening of the 4th"
       ]
      },
-     "note": "Guild, medical director, 16 days after: 'on the evening of the 4th, our ambulance trains took up their line of march by two routes ... One train went by Cashtown, the other by Fairfield.' He does not name Imboden, but the Cashtown train is the one under him (Lee's report). 'Evening' in the usage of the time begins in the late afternoon."
+     "note": "Guild, medical director, 16 days after: 'on the evening of the 4th, our ambulance trains took up their line of march by two routes ... One train went by Cashtown, the other by Fairfield.' He does not name Imboden and gives no hour."
     },
     {
      "id": "C-033-P4-c2",
@@ -475,8 +477,8 @@
     }
    ],
    "reason_not_chosen": {
-    "kind": "rounding",
-    "text": "Guild's evening of the 4th and Imboden's about 4 p.m. are the same start worded loosely; the contemporary report names no hour."
+    "kind": "unclear_expression",
+    "text": "Guild gives the evening of the 4th for the ambulance trains with no hour; this may be the same start or the trains leaving Gettysburg before the head reached Cashtown."
    },
    "scenario_ids": [
     "C-033-DEFAULT"
@@ -538,7 +540,7 @@
    },
    "derived": true,
    "inference": {
-    "step": "Imboden says the head of the column moved about 4 p.m. and that he himself set out after dark; sunset was at 19:32, so his own start is after about 19:30 on the 4th.",
+    "step": "Imboden says the head of the column moved about 4 p.m. and that he himself set out after dark; sunset was at 19:32 and dusk falls after it, so his own start is after about 19:30 on the 4th.",
     "from": [
      "C-033-P5-c1"
     ]
@@ -552,9 +554,9 @@
   "where": "Imboden was at Cashtown directing the column on the 4th, and set out after dark; Guild saw the ambulance trains leave Gettysburg and stood at the army's hospitals; Lee, Pendleton and Hoke were not at Cashtown at the hour.",
   "how_knew": "Imboden gives the hour of his own order, with his rain-bound day around it; Guild reports what he saw and ordered; Hoke, no source.",
   "clock": "Confederate clock; the reported difference of about 20 minutes from the Union clock is not applied and is not at issue between these accounts.",
-  "independence": "Imboden, Guild, Lee and Pendleton are independent lines, but only Imboden gives an hour; Hoke may draw on Imboden. Two lines (Guild, Lee) give the 4th without an hour; one (Imboden) gives the hour."
+  "independence": "Imboden, Guild, Lee and Pendleton are separate writers, but Lee's report of January 1864 may rely on Pendleton and Guild; only Imboden gives an hour. Hoke may copy Imboden (same hour and rain, same year) and is counted in his line. Two lines (Guild, Lee) give the 4th without an hour; one (Imboden, with Hoke) gives the hour, so the value is single-source."
  },
- "source_panel_text": "Jul 4, about 16:00, from Cashtown: Imboden, who gave the order, says the head of the wagon train started then (1887); he left himself after dark; the rear started at dawn on Jul 5. Guild (1863) has the trains marching on the evening of the 4th. No source puts a departure on Jul 5. Three other values are listed.",
+ "source_panel_text": "Jul 4, about 16:00, from Cashtown: Imboden, who gave the order, says the head of the wagon train started then (1887); Imboden himself left only after dusk, and the rear at dawn on Jul 5. Guild (1863) has the trains marching on the evening of the 4th. No source puts a departure on Jul 5. Three other values are listed.",
  "holds": {
   "pdf_default": {
    "holds": "yes",
@@ -562,7 +564,7 @@
   },
   "first_delegated": {
    "holds": "partly",
-   "note": "Jul 4, evening start holds as Guild's wording of the same start (Guild is contemporary, with no hour); the default is the head at about 16:00, which Imboden gives."
+   "note": "Jul 4, evening start holds as the day and as Guild's contemporary wording for the ambulance trains, which gives no hour and may be the same start or the trains leaving Gettysburg; the default is the head at about 16:00, which Imboden gives."
   }
  },
  "readers": [
