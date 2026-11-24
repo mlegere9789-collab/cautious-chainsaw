@@ -894,7 +894,7 @@
   },
   {
    "where": "OR27-1 (Union I and XI Corps reports: Doubleday, Wadsworth, Robinson, Cutler, Rowley, Howard, Schurz and regimental reports of Baxter's and Paul's brigades)",
-   "query": "clock expressions near Ewell, Rodes, Oak Ridge, Mummasburg, Carlisle road, right flank: found Doubleday and Dobke 1.30 and the others at 12:30 to 3:45; no Union report names Rodes or Iverson with an hour; the reports between R030 and R070 were scanned for clock expressions, not all read in full",
+   "query": "clock expressions near Ewell, Rodes, Oak Ridge, Mummasburg, Carlisle road, right flank: found Doubleday's and Dobke's 1.30; other hours between 12:30 and 3:45 belong to other acts; no Union report names Rodes or Iverson with an hour; the reports between R030 and R070 were scanned for clock expressions only, not read in full",
    "outcome": "not_found",
    "at": "2026-11-24"
   },
@@ -905,14 +905,14 @@
    "at": "2026-11-24"
   },
   {
-   "where": "NPS Gettysburg Seminar, first day (the plan's NPS-Sem, cited for 'shortly after 13:30'), Stone Sentinels (SS, 14:30) and the plan's W-FD (14:00)",
-   "query": "the pages themselves; the Seminar paper is not identified by the plan and no local seminar paper gives 13:30; the two web pages are not among the hosts reachable for this research",
+   "where": "NPS Gettysburg Seminar, first day (the plan's NPS-Sem, cited for 'shortly after 13:30'), the plan's SS (14:30) and W-FD (14:00)",
+   "query": "the pages themselves; the Seminar paper is not identified by the plan and no local seminar paper gives 13:30; W-FD is not identified in the plan and the Stone Sentinels host is not among those reachable for this research",
    "outcome": "not_read",
    "at": "2026-11-24"
   },
   {
    "where": "Local books and papers of the ledger (ws9 texts, SHSP, Hoke, Battles and Leaders, Pennsylvania at Gettysburg, Minnigh) by regular expression",
-   "query": "Rodes, Iverson, O'Neal near 1:30, 2:00, 2:30, half past one, half past two, two o'clock (both orders): found Wilcox's 2:30 (SHSP vol. 4 and a second printing), Hoke's half past one (battery), a Pennsylvania battery's 'about 1 or 1.30' for the Oak Hill guns, Minnigh's map caption for 1.30; the last two were not read in context and are not cited",
+   "query": "Rodes, Iverson, O'Neal near 1:30, 2:00, 2:30, half past one, half past two, two o'clock (both orders): found Wilcox's 2:30 (SHSP-04, and again in SHSP-06), Hoke's half past one (battery), a Pennsylvania battery's 'about 1 or 1.30' for the Oak Hill guns, Minnigh's map caption for 1.30; the last two were not read in context and are not cited",
    "outcome": "not_found",
    "at": "2026-11-24"
   }
