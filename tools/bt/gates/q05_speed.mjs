@@ -162,7 +162,7 @@ const { records, scans } = driveScans(P, R, (sc, keep) => scanScenario(sc, keep)
 const sd = scenarioDump(P, S, R, { id: args.scenarios === 'default' ? 'default' : 'S*', complete: args.scenarios !== 'default' && !args.only && !selectedUnits });
 // the documented figures the python side judges against are read there from drill-timing.json and gait-sources.json (inputs with hashes); the product's own constants are reported here
 const { SPEED } = await imp('src/history/real.mjs');
-const stageConst = { TURN_S: 25, MAX_TURN_EDGE_MS: 4.4, note: 'read from src/stage.mjs (the shortest turn and the fastest the outer edge of a formation may move while it turns, by the stage\'s own words)' };
+const stageConst = { TURN_S: 25, MAX_TURN_EDGE_MS: 2.5146, note: 'read from src/stage.mjs (the shortest turn and the fastest the outer edge of a formation may move while it turns, by the stage\'s own words)' };
 writeOut(args.out, {
   schema: 'q05-dump/1', layer: { id: layer.meta.id, contract: layer.meta.contract, units: nL, counts: layer.counts }, ground: P.ground, battle: BATTLE,
   grid: { mode: gridMode, from: BATTLE.from, to: BATTLE.to, boundary_s: 1, resolution_m: RESOLUTION_M }, inputs_read: inputsRead(), ...sd, behaviours: records, scans, selected_units: selectedUnits ? [...selectedUnits] : null,

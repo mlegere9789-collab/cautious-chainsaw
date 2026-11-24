@@ -209,6 +209,11 @@ test('floors: a chosen conflict value earlier than the unit\'s own arrival floor
   assert.equal(eff(EARLY[0], 'cs-1c-hood').default, eff({}, 'cs-1c-hood').default, 'the clamped value is the default view\'s own drawn instant (FLOOR-HOLDS.md)');
 });
 
+test('formation changes: the duration is the shell\'s 90 s tuning value (plausible-procedural, no manual figure), so the tier an event shows is never better than that, whatever the clause that dates it (Q06.2)', () => {
+  const evs = L.events({}).filter(e => e.type === 'formation'); assert.ok(evs.length > 0);
+  for (const e of evs) { assert.equal(e.duration_s, 90, e.unit); assert.equal(e.tier, 'plausible-procedural', `${e.unit} clause ${e.clause} shows tier ${e.tier}`); assert.ok(e.clause, 'the dating clause stays named'); }
+});
+
 test('purity: arrivals, events and the world are the same whatever the order of evaluation (shuffled scenarios, fresh layers, repeated calls)', () => {
   const key = sc => JSON.stringify(sc), hash = o => crypto.createHash('sha256').update(JSON.stringify(o)).digest('hex');
   const ref = new Map(SCENARIOS.map(sc => [key(sc), hash(L.both(sc))]));
