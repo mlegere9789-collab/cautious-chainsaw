@@ -31,11 +31,11 @@
    "C-024-DEFAULT"
   ]
  },
- "class": "irreducible",
- "tier": "inferred",
+ "class": "gap",
+ "tier": "plausible-procedural",
  "basis": {
-  "kind": "official_records",
-  "text": "Gibbon's letter of 14 Mar 1864 (Official Records, p.127) ends the sitting at nearly 12 o'clock; Meade's sworn testimony of 1864 puts his call for the commanders after the battle had ceased and darkness had set in. No source gives the start hour."
+  "kind": "gap",
+  "text": "Gibbon's letter of 14 Mar 1864 (Official Records, p.127) ends the sitting at nearly 12 o'clock; Meade's sworn testimony of 1864 puts his call for the commanders after the battle had ceased and darkness had set in. No source gives the start hour; the window between those two bounds is a marked stand-in."
  },
  "default": {
   "mode": "window",
@@ -464,7 +464,7 @@
    ],
    "reason_not_chosen": {
     "kind": "outweighed",
-    "text": "The 24:00 end is Gibbon's \"nearly 12 o'clock\", but no source gives 21:00 as the start; Meade and Hancock tie the assembly to darkness and twilight, not to an hour."
+    "text": "The 24:00 end is Gibbon's \"nearly 12 o'clock\", but no source gives 21:00 as the start; Meade ties the call to darkness after the battle had ceased, not to an hour; Hancock dates the fighting, not the assembly."
    }
   },
   {
@@ -540,9 +540,10 @@
     "from": "1863-07-02T19:32",
     "to": "1863-07-03T00:00"
    },
-   "tier": "inferred",
+   "tier": "plausible-procedural",
    "stance": "default",
    "clock": "union",
+   "procedural_basis": "Stands in for the missing start hour: the bounds are Meade's darkness (after sunset 19:32, a standing note) and Gibbon's nearly 12 o'clock; no source says when inside the window the council began.",
    "approx": true,
    "derived": true,
    "inference": {
@@ -653,7 +654,7 @@
        "twilight"
       ]
      },
-     "note": "Hancock's sworn testimony of 22 Mar 1864: the fighting on the right (Howard's and Slocum's fronts, which he had just reinforced) was in progress at twilight, after the corps commanders had assembled. \"This fighting\" is the fighting he has just described; twilight is not a clock hour. Read with the 7 to 9.30 p.m. fight on East Cemetery Hill in Howard's report, it points to an assembly in the early evening, but the passage does not say that."
+     "note": "Hancock's sworn testimony of 22 Mar 1864: the fighting on the right (Howard's and Slocum's fronts, which he had just reinforced) was in progress at twilight and again after the corps commanders had assembled. \"This fighting\" is the fighting he has just described; twilight is not a clock hour. Read with the 7 to 9.30 p.m. fight on East Cemetery Hill in Howard's report, it points to an assembly in the early evening, but the passage does not say that."
     },
     {
      "id": "C-024-P6-c4",
@@ -1014,7 +1015,7 @@
   }
  ],
  "weighing": {
-  "summary": "No source states when the council began. The record is divided in no sharp way: every witness who sat in it says evening or night; Meade (1864) puts his call for the corps commanders after the battle had ceased and darkness had set in; Hancock says fighting was in progress at twilight after the commanders had assembled; Gibbon says the sitting continued up to nearly 12 o'clock, with fighting on the right during a part of it; Haskell says it was after evening came on and lasted some two hours; Gibbon's testimony says several hours. The Park Service handbook alone has \"at midnight\", and read as the start it is contradicted by Gibbon (it is the end). The plan's 21:00 has no source. So the default is the window the witnesses allow, from dusk to nearly midnight, and each of the plan's values stays selectable.",
+  "summary": "No source states when the council began: the start hour is a gap, bounded by two witnesses of the same council. every witness who sat in it says evening or night; Meade (1864) puts his call for the corps commanders after the battle had ceased and darkness had set in; Hancock says fighting on the right was in progress at twilight and again after the commanders had assembled (he dates the fighting, not the assembly); Gibbon says the sitting continued up to nearly 12 o'clock, with fighting on the right during a part of it; Haskell says it was after evening came on and lasted some two hours; Gibbon's testimony says several hours. The Park Service handbook alone has \"at midnight\", and read as the start it is contradicted by Gibbon (it is the end). The plan's 21:00 has no source. So the default is the window the witnesses allow, from dusk to nearly midnight, and each of the plan's values stays selectable.",
   "who": "Meade called the council and Gibbon, Hancock and Sedgwick sat in it: they are the best witnesses to its place in the evening, and none gives an hour. Haskell was Gibbon's aide. Pleasonton says he was away. The Park Service handbook (1954, 1962) is a modern summary that cites no source for \"midnight\". The hour 21:00 comes from a secondary book the plan names (SS2) that is not in the record.",
   "when": "Meade, Gibbon, Hancock and Sedgwick wrote or testified between March and April 1864, eight to nine months after the council, in answer to the charge that Meade had meant to retreat: rank 4 (official reports within two years). Haskell wrote within weeks or months (rank 5, a private letter, exact day unknown). Sickles wrote in 1886, Pleasonton in 1883, the Park Service in 1954 and 1962 (reminiscence or institutional). No writing of the night gives an hour: the minutes printed in the Official Records (p.74), in pencil and found among Meade's papers, are indorsed \"held Thursday p. m., July 2\" by the chief of staff and carry no hour.",
   "where": "All the main witnesses were in the room: Gibbon says it was not 10 feet square and that the corps commanders were close together. Haskell was at the house. Hancock and Gibbon came from the front and were summoned by a staff officer. Pleasonton was away. The Park Service author was not there.",
@@ -1026,7 +1027,7 @@
  "holds": {
   "pdf_default": {
    "holds": "partly",
-   "note": "The end of the plan's window (24:00) holds as Gibbon's \"nearly 12 o'clock\". The start, 21:00, has no source: Meade ties the call to darkness and Hancock to twilight, and the sitting lasted two or more hours, so the start may be earlier. The plan's window lies inside the default and stays selectable."
+   "note": "The end of the plan's window (24:00) holds as Gibbon's \"nearly 12 o'clock\". The start, 21:00, has no source: Meade ties the call to darkness (not an hour), and the sitting lasted two or more hours by Haskell and Gibbon, so the start may be earlier. The plan's window lies inside the default and stays selectable."
   },
   "first_delegated": {
    "holds": "partly",
@@ -1104,7 +1105,7 @@
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-024)",
    "must_change": true,
-   "note": "default_scenario_id C-024-DEFAULT, label \"window 21:00-24:00 (evening of Jul 2); two sittings possible\", tier inferred, basis OR: becomes the window from dusk to nearly 24:00 (class irreducible, tier inferred); S1 to S4 and the old default stay selectable."
+   "note": "default_scenario_id C-024-DEFAULT, label \"window 21:00-24:00 (evening of Jul 2); two sittings possible\", tier inferred, basis OR: becomes the window from dusk to nearly 24:00 (class gap, tier plausible-procedural); S1 to S4 and the old default stay selectable."
   },
   {
    "kind": "app_data",

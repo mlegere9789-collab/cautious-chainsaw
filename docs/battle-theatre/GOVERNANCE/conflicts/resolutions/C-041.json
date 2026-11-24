@@ -36,22 +36,22 @@
  "tier": "inferred",
  "basis": {
   "kind": "official_records",
-  "text": "Reports of the brigade and regiment commanders of Rodes's division (Official Records 27/2, pp. 566-590: Daniel, Owens, Lewis, Williams, Lambeth) and of Doubleday and Dobke (27/1, pp. 249, 734) put the infantry attack between about 13:00 and about 14:00; no report of the division commander or of Iverson or O'Neal gives an hour."
+  "text": "Reports of the brigade and regiment commanders of Rodes's division (Official Records 27/2, pp. 566-590: Daniel, Owens, Lewis, Williams, Lambeth) and of Doubleday and Dobke (27/1, pp. 249, 734) put the infantry advance between about 13:30 and about 14:00; no report of the division commander or of Iverson or O'Neal gives an hour."
  },
  "default": {
   "mode": "window",
   "positions": [
-   "C-041-P4",
+   "C-041-P1",
    "C-041-P2"
   ],
-  "label": "About 13:00 to 14:00 on Jul 1; the picture uses 13:30 (the middle)",
-  "basis_text": "Lower bound: four Confederate reports (Daniel, 53rd and 43rd North Carolina, 2nd North Carolina) put the advance or entry into action about 1 p.m. Upper bound: Daniel's own interval (about 12 m. plus an hour and a half) and Lambeth's about 2 p.m. Doubleday and Dobke (about 1.30, Union clock) fall inside.",
+  "label": "About 13:30 to 14:00 on Jul 1; the picture uses 13:45 (the middle)",
+  "basis_text": "Lower bound: Doubleday and Dobke (about 1.30, Union clock) for the advance of Ewell's forces and a long line on the I Corps right. Upper bound: Daniel's interval (about 12 m., a short move, then some hour and a half before Iverson advanced: about 13:45-14:00) and Lambeth's about 2 p.m. for the reserve brigade. Hours of about 13:00 date formation and first moves and are listed apart.",
   "animation": {
-   "at": "1863-07-01T13:30",
+   "at": "1863-07-01T13:45",
    "rule": "midpoint",
-   "note": "Middle of the window. No report of Rodes's division gives one hour for the attack; the earlier bound (13:00) is source-supported, so the instant is not earlier than the earliest source-supported time, and 14:00 stays selectable."
+   "note": "Middle of the window 13:30-14:00. No report gives one hour for the attack; the instant is not earlier than the earliest hour any witness gives for an infantry advance (13:30). The 13:00 formation hours, 13:30 and 14:00 stay selectable."
   },
-  "note": "The window is the record: no witness of the attack gives an hour for the division, and the readings of the units that took part run from about 13:00 to about 14:00."
+  "note": "The window is the record: no witness of the attack gives an hour for the division, and the readings that date an infantry advance run from about 13:30 (Union) to about 14:00 (Daniel, reserve brigade)."
  },
  "positions": [
   {
@@ -61,7 +61,7 @@
    "scenario_ids": [
     "C-041-S1"
    ],
-   "label": "About 13:30: the plan's first value, on the Union clock (Doubleday and Dobke)",
+   "label": "About 13:30: the plan's first value, on the Union clock (Doubleday and Dobke); lower bound",
    "kind": "time",
    "value": {
     "at": "1863-07-01T13:30",
@@ -199,11 +199,7 @@
     ]
    },
    "derived": true,
-   "stance": "selectable",
-   "reason_not_chosen": {
-    "kind": "within_range",
-    "text": "Lies inside the window the sources allow (about 13:00 to 14:00); the picture uses it as the middle of that window, so it is shown, but the window itself is the default."
-   }
+   "stance": "default"
   },
   {
    "id": "C-041-P2",
@@ -214,7 +210,7 @@
     "C-041-S4",
     "C-041-DEFAULT"
    ],
-   "label": "About 14:00: the plan's second value and recommended default (Daniel's account, Lambeth)",
+   "label": "About 14:00: the plan's second value and recommended default (Daniel's interval, Lambeth); upper bound",
    "kind": "time",
    "value": {
     "at": "1863-07-01T14:00",
@@ -515,7 +511,7 @@
   {
    "id": "C-041-P4",
    "origin": "research",
-   "label": "About 13:00: Confederate regiments of the division say they advanced or went into action",
+   "label": "About 13:00: Confederate units say they formed line or moved up (formation, not the attack)",
    "kind": "time",
    "value": {
     "at": "1863-07-01T13:00",
@@ -653,7 +649,7 @@
     }
    ],
    "inference": {
-    "step": "Daniel's report and two regiments of his brigade (53rd and 43rd North Carolina) put the line's advance at about 1 o'clock, and the 2nd North Carolina of Ramseur's brigade says it went into action about 1 p.m.; these units advanced beside or behind Iverson, so the infantry attack is read as beginning about then, rounded to the hour.",
+    "step": "Daniel's closing summary, the 53rd North Carolina (in line, then advanced) and the 43rd (drawn up in line of battle about 1 o'clock, ordered forward only after a cannonade) date the formation or a first move of Daniel's brigade; the 2nd North Carolina of Ramseur's reserve brigade says it went into action about 1 p.m., while Ramseur's 14th says about 2. Doles also gives about 1 p.m. for forming. These date formation, a first move or first contact, not Iverson's advance.",
     "from": [
      "daniel report p.569",
      "owens p.576",
@@ -662,7 +658,14 @@
     ]
    },
    "derived": true,
-   "stance": "default"
+   "stance": "selectable",
+   "flags": [
+    "different_event"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "These hours date forming line or a first move of supporting units; Daniel's own interval and the reserve brigade's 2 p.m. put Iverson's advance later, and Rodes puts the guns before the attack."
+   }
   },
   {
    "id": "C-041-P5",
@@ -762,23 +765,23 @@
   }
  ],
  "weighing": {
-  "summary": "No report of Rodes's division, of Rodes, Iverson, O'Neal, Ramseur or Carter, gives a clock reading for the infantry attack. Four Confederate units say about 1 p.m.; Daniel's own interval works out to about 14:00; the Union I Corps commander and a regiment of the XI Corps say about 1.30; Hill, Wilcox and a Park Service report say about 2.30, but Hill dates Ewell's wing appearing on his left and the other two give no source. The best-classed witnesses (reports written within 50 to 170 days) therefore span about 13:00 to 14:00 and nothing in the rubric separates them, so the record is a window and the picture takes its middle, 13:30. The plan's 14:30 is a different act; its 13:30 and 14:00 sit inside the window.",
+  "summary": "No report of Rodes's division, of Rodes, Iverson, O'Neal, Ramseur or Carter, gives a clock reading for the infantry attack. Confederate units say about 1 p.m. for forming line, a first move or first contact (Daniel's closing summary, the 53rd, 43rd and 2nd North Carolina, Doles), but Daniel's own interval for Iverson's advance works out to about 14:00 and Ramseur's 14th says about 2; the Union I Corps commander and a regiment of the XI Corps say about 1.30; Hill, Wilcox and a Park Service report say about 2.30, but Hill dates Ewell's wing appearing on his left and the other two give no source. The witnesses that date an infantry advance (reports written within 50 to 170 days) span about 13:30 to 14:00 and nothing in the rubric separates them, so the record is a window and the picture takes its middle, 13:45; the 13:00 hours are listed apart as formation or first contact. The plan's 14:30 is a different act; its 13:30 and 14:00 are the window's bounds.",
   "who": "Daniel and the colonels and captains of his and Ramseur's brigades were in the attacking line and wrote their own hours; Doubleday commanded the I Corps and Dobke a regiment on its right, both on the receiving end; Hill commanded the corps on the left but did not see this front; Wilcox led a division that reached the field after the fighting; the 1968 report and Hoke (1887) are not witnesses.",
   "when": "The unit reports are of 9 to 20 July and of 20 August 1863 (Daniel), Dobke 21 August, Doubleday 14 December 1863, Hill November 1863: all official reports within a year. Wilcox wrote in March 1877 and Doubleday's book is of 1882; Hoke 1887 and the Park Service report 1968 are later still.",
-  "where": "The Confederate regiments stood in the line that advanced; Daniel's brigade moved to the right behind Iverson, and Ramseur's was in reserve, so the 'about 1 o'clock' of the 53rd and 43rd North Carolina dates a brigade moving up, not Iverson's first step. Doubleday and Dobke watched from the side that was hit. Hill's 2.30 is the appearance of Ewell's wing seen from Hill's line.",
+  "where": "The Confederate regiments stood in the line that advanced; Daniel's brigade moved to the right behind Iverson, and Ramseur's was in reserve, so the 'about 1 o'clock' of the 53rd North Carolina (in line, then advanced) and the 43rd (drawn up in line of battle, ordered forward only after a cannonade) dates formation or a first move, not Iverson's first step; Doles's about 1 p.m. is also a formation hour, and the 2nd North Carolina belongs to the reserve brigade whose 14th says about 2. Doubleday and Dobke watched from the side that was hit. Hill's 2.30 is the appearance of Ewell's wing seen from Hill's line.",
   "how_knew": "Every unit commander gives a rounded hour from memory a few weeks later; none has a clock reading. Daniel's 'some hour and a half' is an interval, from which about 14:00 is worked out here. Doubleday's and Dobke's 'about 1.30' are estimates. Wilcox and the Park Service give no source.",
   "clock": "Confederate writers use their own clock and Doubleday and Dobke the Union one; the plan notes that the two clocks reportedly differed by about 20 minutes (an unsourced estimate) and corrects for neither. A Union 1.30 and a Confederate 1 p.m. could be the same moment on that estimate, so the difference is carried as uncertainty inside the window, not applied.",
-  "independence": "The Confederate regiments report along brigade chains (Daniel's brigade report and its regiments are one group, Ramseur's regiments another), so the window's two bounds rest on two groups each. Doubleday (report, book) and Hoke, who repeats his order of battle, are one group; Dobke is a second. Hill and Wilcox (who repeats Hill's hour without a source) are one group, the Park Service report a third. No two groups agree on one hour for the attack itself."
+  "independence": "The Confederate regiments report along brigade chains (Daniel's brigade report and its regiments are one group, Ramseur's regiments another), so the upper bound rests on two groups (Daniel's brigade, Ramseur's brigade) and the lower on two Union ones (Doubleday, Dobke). Doubleday (report, book) and Hoke, who repeats his order of battle, are one group; Dobke is a second. Hill and Wilcox (who repeats Hill's hour without a source) are one group, the Park Service report a third. No two groups agree on one hour for the attack itself."
  },
- "source_panel_text": "About 13:00 to 14:00 on Jul 1; the picture uses 13:30. No report of Rodes's division gives an hour for the attack: four Confederate units say about 1 p.m., Daniel's own interval gives about 2, Doubleday and Dobke about 1.30. 14:30 dates Ewell's wing appearing, not the attack. All values stay listed.",
+ "source_panel_text": "About 13:30 to 14:00 on Jul 1; the picture uses 13:45. No report of Rodes's division gives an hour for Iverson's advance: Doubleday and Dobke say about 1.30 (Union clock), Daniel's own interval gives about 2. Hours of about 1 p.m. date forming line; 14:30 dates Ewell's wing appearing. All values stay listed.",
  "holds": {
   "pdf_default": {
    "holds": "partly",
-   "note": "14:00 is inside the window and is its upper bound (Daniel's interval; Lambeth), so it stays selectable and sourced; it is not the best-supported single instant, because the units that advanced put it about 13:00 to 13:30."
+   "note": "14:00 is the window's upper bound (Daniel's interval; Lambeth), sourced and selectable; it is not the whole record, because the Union reports put the advance about 13:30."
   },
   "first_delegated": {
    "holds": "partly",
-   "note": "The delegated window 13:30-14:30 and its 14:00 picture are replaced by about 13:00-14:00 with the picture at 13:30: the regiments' 1 p.m. lowers the window, and 14:30 dates another act. 13:30, 14:00 and 14:30 all stay selectable; tier inferred holds."
+   "note": "The delegated window 13:30-14:30 and its 14:00 picture are replaced by 13:30-14:00 with the picture at 13:45: 14:30 dates another act (Ewell's wing appearing). 13:30, 14:00 and 14:30 all stay selectable; tier inferred holds."
   }
  },
  "readers": [
@@ -786,7 +789,7 @@
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-041 row)",
    "must_change": true,
-   "note": "Row names the default 14:00 inside window 13:30-14:30 (inferred); this resolution gives window 13:00-14:00, picture at 13:30 (irreducible, inferred). Not edited here."
+   "note": "Row names the default 14:00 inside window 13:30-14:30 (inferred); this resolution gives window 13:30-14:00, picture at 13:45 (irreducible, inferred). Not edited here."
   },
   {
    "kind": "doc",
@@ -804,19 +807,19 @@
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL03-02 row)",
    "must_change": true,
-   "note": "Applies C-041 14:00 inside 13:30-14:30 unchanged to T1-126; the integration step reconciles it with the window 13:00-14:00 and the 13:30 picture."
+   "note": "Applies C-041 14:00 inside 13:30-14:30 unchanged to T1-126; the integration step reconciles it with the window 13:30-14:00 and the 13:45 picture."
   },
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0116.md",
    "must_change": true,
-   "note": "Evidence-gap entry for Rodes's attack start: to cite the hours found (Daniel, Owens, Lewis, Williams, Lambeth, Doubleday, Dobke) and the window; the entry's competing 13:30/14:00/14:30 stay as listed values."
+   "note": "Evidence-gap entry for Rodes's attack start: to cite the hours found (Daniel, Lambeth, Doubleday, Dobke; Owens, Lewis, Williams as formation hours) and the window; the entry's competing 13:30/14:00/14:30 stay as listed values."
   },
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-041",
    "must_change": true,
-   "note": "Still reads PENDING OWNER with the plan's 14:00; the integration step records the delegated resolution (window 13:00-14:00, picture 13:30) as a reversible delegated decision."
+   "note": "Still reads PENDING OWNER with the plan's 14:00; the integration step records the delegated resolution (window 13:30-14:00, picture 13:45) as a reversible delegated decision."
   },
   {
    "kind": "gate",
@@ -840,13 +843,13 @@
    "kind": "timeline_row",
    "ref": "T1-126",
    "must_change": true,
-   "note": "Window 'Jul 1 about 13:30-14:00' and default 14:00 inside 13:30-14:30: the window becomes about 13:00-14:00 with the picture at 13:30; 14:00 and 14:30 stay selectable (14:30 marked as another act). Row not edited here."
+   "note": "Window 'Jul 1 about 13:30-14:00' and default 14:00 inside 13:30-14:30: the window becomes 13:30-14:00 with the picture at 13:45; 14:00 and 14:30 stay selectable (14:30 marked as another act). Row not edited here."
   },
   {
    "kind": "timeline_row",
    "ref": "T1-129",
    "must_change": true,
-   "note": "Iverson's advance 'about 14:00-14:30' shares the attack-start question; the same window about 13:00-14:00 applies to its start. Row not edited here."
+   "note": "Iverson's advance 'about 14:00-14:30' shares the attack-start question; the same window 13:30-14:00 applies to its start. Row not edited here."
   },
   {
    "kind": "timeline_row",
@@ -864,7 +867,7 @@
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-041)",
    "must_change": true,
-   "note": "Carries C-041-DEFAULT 14:00 inside 13:30-14:30; the integration step replaces it with the window 13:00-14:00, picture 13:30, and keeps all scenarios."
+   "note": "Carries C-041-DEFAULT 14:00 inside 13:30-14:30; the integration step replaces it with the window 13:30-14:00, picture 13:45, and keeps all scenarios."
   },
   {
    "kind": "other",
@@ -917,5 +920,5 @@
    "at": "2026-11-24"
   }
  ],
- "what_would_change_it": "A clock reading of Rodes's advance by Rodes, Iverson, O'Neal, Carter or a staff officer, or a dispatch of 1 July timed by its sender (Ewell or Rodes to Lee or Hill), would fix a point. A page image of the Official Records showing a different hour in Daniel's, Owens's, Lewis's or Williams's text would move the lower bound. A source behind the plan's 13:30, 14:00 or 14:30 (the Seminar paper, the Stone Sentinels page) would add a witness."
+ "what_would_change_it": "A clock reading of Rodes's advance by Rodes, Iverson, O'Neal, Carter or a staff officer, or a dispatch of 1 July timed by its sender (Ewell or Rodes to Lee or Hill), would fix a point. A page image of the Official Records showing a different hour in Daniel's or Lambeth's text would move the upper bound. A source behind the plan's 13:30, 14:00 or 14:30 (the Seminar paper, the Stone Sentinels page) would add a witness."
 }
