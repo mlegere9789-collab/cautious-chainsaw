@@ -14,7 +14,7 @@ test('source catalog: OR Atlas plates and the two NPS reports carry the register
   const C = catalogOf(OV), by = t => C.find(c => c.title.includes(t));
   assert.equal(by('OR Atlas').status, 'identified from index only, images unseen'); assert.match(by('OR Atlas').title, /28, 40, 43, 73 and 95/); assert.equal(by('OR Atlas').register, 'EG-0137');
   assert.equal(by('Pickett').status, 'not located'); assert.equal(by('Vegetation').status, 'not located'); assert.equal(by('Vegetation').register, 'EG-0139');
-  for (const c of C) assert.ok(['documented', 'inferred', 'plausible-procedural', 'open gap'].includes(c.tier) && c.detail && c.searched, c.title);
+  for (const c of C) assert.ok(['documented', 'inferred', 'plausible-procedural', 'open gap'].includes(c.tier) && c.detail, c.title);
 });
 test('timeline conflicts: every register row is selectable, with source and tier, and none has a default', () => {
   const C = tlConflictsOf(OV), ids = C.map(c => c.row);

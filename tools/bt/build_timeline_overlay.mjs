@@ -24,7 +24,7 @@ const CATALOG = [          // status wording is the register's own: "identified 
   { reg: 'EG-0139', title: 'NPS Historic Vegetation Study', status: 'not located', tail: 'Search IRMA by title for the Pickett\'s Charge CLR before any fence or field claim relies on it.' },
 ];
 export function build() {
-  const cat = CATALOG.map(c => { const f = fields(path.join(G, 'register', c.reg + '.md')); return { register: c.reg, title: c.title, status: c.status, tier: f['Confidence tier'].split(' ')[0], detail: f['Description'], note: c.tail, searched: f['Evidence searched'] }; });
+  const cat = CATALOG.map(c => { const f = fields(path.join(G, 'register', c.reg + '.md')); return { register: c.reg, title: c.title, status: c.status, tier: f['Confidence tier'].split(' ')[0], detail: f['Description'], note: c.tail }; });
   const corr = {}; for (const f of fs.readdirSync(path.join(G, 'timeline_corrections')).filter(n => /^tl-\d+\.jsonl$/.test(n))) for (const d of jl(path.join(G, 'timeline_corrections', f))) corr[d.id] = d;
   const updates = Object.fromEntries(jl(path.join(G, 'timeline_conflict_updates.jsonl')).map(u => [u.id, u.conflict_updates]));
   const rows = {}, conflicts = [];
