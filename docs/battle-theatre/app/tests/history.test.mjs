@@ -193,6 +193,22 @@ test('scenarios: a conflict choice moves exactly the gates linked to it, uses on
   assert.ok(L.report(SCENARIOS[5]).defects.some(d => d.stop === 'PO-03'), 'the late retreat is in the defect list'); assert.ok(!L.report({}).defects.some(d => d.stop === 'PO-03'));
 });
 
+test('floors: a chosen conflict value earlier than the unit\'s own arrival floor (the minimum of its ledger values) is drawn at the floor, never before it (Q04.1); the floor is not moved and the note says so', () => {
+  const H = { civilDawn: m => m + 4 * 60 + 3 }, eff = (sc, id) => L.model.effective(id, sc, H), par = new Map(raw.units.units.map(u => [u.id, u.parent]));
+  const floorOf = id => { for (let x = id; x; x = par.get(x)) { const g = raw.arrivals.gates[x]; if (g && g.kind !== 'none' && (g.earliest || g.default)) return Math.min(isoToMin(g.earliest || g.default), ...(g.values || []).filter(v => v.t).map(v => isoToMin(v.t))); } return null; };
+  const EARLY = [
+    { choices: { 'C-005': 'x:C-005-P5' }, optionText: { 'C-005': 'About 05:00: Hood and the head of his division on the ridge (sunrise to 05:30)' } },
+    { choices: { 'C-007': 'x:C-007-P5' }, optionText: { 'C-007': 'About 06:00: the head of the column on the field (Freeman\'s estimate of 1935)' } },
+    { choices: { 'C-004': 'v0' }, optionText: { 'C-004': '22:30 Jul 1' } }, { choices: { 'C-004': 'x:C-004-P10' }, optionText: { 'C-004': 'About 03:00 Jul 2: first brigades' } },
+    { choices: { 'C-023': 'v0' }, optionText: { 'C-023': 'noon-13:00' } },
+  ];
+  for (const sc of EARLY) for (const u of L.units) { const f = floorOf(u.id), g = eff(sc, u.id); if (f == null || !g) continue; assert.ok(g.earliest >= f - 1e-9 && g.default >= f - 1e-9, `${u.id} under ${JSON.stringify(sc.choices)}: earliest ${g.earliest} default ${g.default} before its floor ${f}`); }
+  const hood = eff(EARLY[0], 'cs-1c-hood'); assert.equal(hood.earliest, minOf(7, 2, 5, 30)); assert.match(hood.notes.join(' '), /earlier than the arrival floor/);
+  assert.equal(eff(EARLY[1], 'cs-1c-mclaws').earliest, minOf(7, 2, 8)); assert.equal(eff(EARLY[4], 'cs-cav-hampton').earliest, minOf(7, 2, 19, 32));
+  assert.equal(eff(EARLY[2], 'us-2c-2d').earliest, minOf(7, 2, 6), 'the division\'s own printed time is its floor'); assert.equal(eff(EARLY[2], 'us-2c').earliest, minOf(7, 1, 22, 30), 'the corps row prints 22:30 Jul 1 itself: its floor is that value');
+  assert.equal(eff(EARLY[0], 'cs-1c-hood').default, eff({}, 'cs-1c-hood').default, 'the clamped value is the default view\'s own drawn instant (FLOOR-HOLDS.md)');
+});
+
 test('purity: arrivals, events and the world are the same whatever the order of evaluation (shuffled scenarios, fresh layers, repeated calls)', () => {
   const key = sc => JSON.stringify(sc), hash = o => crypto.createHash('sha256').update(JSON.stringify(o)).digest('hex');
   const ref = new Map(SCENARIOS.map(sc => [key(sc), hash(L.both(sc))]));

@@ -20,8 +20,15 @@ import { SEED } from './config.mjs';
 
 export const HIDDEN = 1e6;                 // hidden units and guns are parked here: far outside every frustum and culled on the CPU
 export const FALL_NEVER = 1e9;             // the prototype's “never falls” time in the soldier table
-const UNIT_STRIDE = 12, TURN_S = 25, MAX_TURN_EDGE_MS = 4.4;      // TURN_S: the shortest turn; MAX_TURN_EDGE_MS: the fastest the outer edge of a formation may move while it turns (a train turned in 25 s moved its far end at 30 m/s)
+const UNIT_STRIDE = 12, TURN_S = 25, MAX_TURN_EDGE_MS = 2.5146;      // TURN_S: the shortest turn; MAX_TURN_EDGE_MS: the fastest the outer edge of a formation may move while it turns = the documented urgent double quick, 180 steps a minute of 33 in. (Hardee para 114; app/data/anim3d/drill-timing.json double_quick_urgent): a block cannot turn faster than a man can move (a train turned in 25 s moved its far end at 30 m/s; the earlier 4.4 m/s was an undocumented tuning value, gate Q05.3)
 const NEVER = { from: Infinity, to: null };      // a unit with no arrival record (not on the field, or no gate) is never present
+// the speed of the fastest segment of a path leg (seconds, metres) while t lies inside the leg; 0 outside it (the unit is not moving on that leg)
+const PATH_VMAX = new WeakMap();
+function pathSpeedAt(p, t) {
+  if (!p || !p.t || p.t.length < 2 || t < p.t[0] - 1e-9 || t > p.t[p.t.length - 1] + 1e-9) return 0;
+  let v = PATH_VMAX.get(p); if (v === undefined) { v = 0; for (let k = 0; k + 1 < p.t.length; k++) { const dt = p.t[k + 1] - p.t[k]; if (dt > 0) v = Math.max(v, Math.hypot(p.x[k + 1] - p.x[k], p.z[k + 1] - p.z[k]) / dt); } PATH_VMAX.set(p, v); }
+  return v;
+}
 const smooth = x => { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); };
 const bearingToH = deg => Math.PI - deg * Math.PI / 180;
 const upperBound = (a, t) => { let lo = 0, hi = a.length; while (lo < hi) { const m = (lo + hi) >> 1; if (a[m] <= t) lo = m + 1; else hi = m; } return lo; };
@@ -55,12 +62,14 @@ export class Stage {
   _step(cur, e) {
     if (e.type === 'enter') return { x: e.x, z: e.z, path: null, act: 'stand', head: null, headFrom: null, actT: e.t, t0: e.t, loss: null, fb0: 0, fb1: 0, ft0: e.t, fdur: 1 };
     if (!cur) return cur;                                                  // events for a unit that is not on the field do nothing
-    if (e.type === 'path') return { ...cur, path: e.path };
+    if (e.type === 'path') return { ...cur, path: e.path, pathPrev: cur.path };
     if (e.type === 'activity') {
       if (cur.head == null) return { ...cur, act: e.activity, head: e.head ?? 0, headFrom: e.head ?? 0, actT: e.t, turnS: TURN_S };
       const from = this._heading(cur, e.t), to = e.head ?? cur.head, bb = this.bbox[this.index.get(e.unit)] || [-1, 1, -1, 1], ext = Math.max(Math.abs(bb[0]), Math.abs(bb[1]), Math.abs(bb[2]), Math.abs(bb[3]));
       const dA = Math.abs(((to - from + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI);
-      return { ...cur, headFrom: from, act: e.activity, head: to, actT: e.t, turnS: Math.min(900, Math.max(TURN_S, dA * ext / MAX_TURN_EDGE_MS)) };      // a block turns as a rigid body: its outer edge may not move faster than 4.4 m/s
+      // a block turns as a rigid body: its outer edge, which also moves with the unit, may not move faster than MAX_TURN_EDGE_MS at the peak of the smoothstep turn (1.5 x the mean rate): sqrt(v^2 + (1.5 dA r / T)^2) <= MAX
+      const v = Math.max(pathSpeedAt(cur.path, e.t), pathSpeedAt(cur.pathPrev, e.t)), room = Math.sqrt(Math.max(MAX_TURN_EDGE_MS * MAX_TURN_EDGE_MS - v * v, 1e-4));
+      return { ...cur, headFrom: from, act: e.activity, head: to, actT: e.t, turnS: Math.min(900, Math.max(TURN_S, 1.5 * dA * ext / room)) };
     }
     if (e.type === 'state') return { ...cur, loss: e.loss };
     if (e.type === 'formation') return { ...cur, fb0: this._blend(cur, e.t), fb1: e.target, ft0: e.t, fdur: e.dur };

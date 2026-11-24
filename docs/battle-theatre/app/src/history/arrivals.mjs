@@ -58,7 +58,12 @@ export class ArrivalModel {
         g.conflicts.push(cid);
         if (choice === 'range') { g.default = g.earliest; notes.push(`${cid}: every value shown, none chosen; drawn from the earliest printed value (${own.kind})`); continue; }
         const r = this.parseOption(scenario.optionText && scenario.optionText[cid], g.default ?? g.earliest, helpers);
-        if (r) { g.default = r.t; g.earliest = Math.min(g.earliest, r.t); g.latest = Math.max(g.latest, r.t); notes.push(`${cid}: ${scenario.optionText[cid]} (${r.how})`); }
+        if (r) {
+          // a chosen value earlier than the gate's own floor (the minimum of its earliest and its printed values, the bound gate Q04.1 reads) stays selectable but is DRAWN at the floor: the floor is not moved (owner decision, conflicts/FLOOR-HOLDS.md)
+          const floor = Math.min(e, ...(own.values || []).map(v => T(v.t)).filter(x => x != null)), tt = Math.max(r.t, floor);
+          g.default = tt; g.earliest = Math.min(g.earliest, tt); g.latest = Math.max(g.latest, tt); notes.push(`${cid}: ${scenario.optionText[cid]} (${r.how})`);
+          if (tt !== r.t) notes.push(`${cid}: the chosen value is earlier than the arrival floor of this gate; drawn at the floor, which is not moved (owner decision)`);
+        }
         else notes.push(`${cid}: the chosen value "${scenario.optionText && scenario.optionText[cid]}" carries no clock this layer may use; the ledger gate is unchanged (no clock is invented)`);
       }
       if (parent && FLOOR_KINDS.has(own.kind)) {            // a floor never draws a child before its parent

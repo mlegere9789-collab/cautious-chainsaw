@@ -60,10 +60,19 @@ test('the mesh store packs 28 byte vertices with absolute indices, weights sum t
 test('the palette table: every material has a row, the variant slots are the figures3d slots, earth is material 63', () => {
   const p = buildPal({ us_national: [177, 121, 133] }); assert.equal(p.length, 128 * 3 * 4); assert.ok(p[(63) * 4] > 0 && p[(128 + 63) * 4 + 1] === -1); assert.ok(p[(256 + 1) * 4] > 0, 'flag mean colour of the national colour');
 });
-test('block turn time scales with the formation extent (a rigid train turned in 25 s moved its far end at 30 m/s)', () => {
-  const i = L.units.findIndex((u, k) => u.drawn && world.units[k].count > 200), rec = { x: 0, z: 0, path: null, act: 'stand', head: 0, headFrom: 0, actT: 0, turnS: 25 };
-  const nxt = stage._step(rec, { type: 'activity', unit: L.units[i].id, t: 100, activity: 'march', head: Math.PI }); const bb = stage.bbox[i], ext = Math.max(...bb.map(Math.abs));
-  assert.ok(nxt.turnS >= 25 && Math.abs(nxt.turnS - Math.max(25, Math.PI * ext / 4.4)) < 1e-6 || nxt.turnS === 900);
+test('block turn time scales with the formation extent and the unit\'s own speed: the far end never moves faster than the documented urgent double quick (2.5146 m/s, Hardee 114), peak of the smoothstep included (gate Q05.3)', () => {
+  const FOOT = 2.5146, i = L.units.findIndex((u, k) => u.drawn && world.units[k].count > 200), id = L.units[i].id, bb = stage.bbox[i], ext = Math.max(...bb.map(Math.abs));
+  const peak = (nxt, v, dA) => Math.hypot(v, 1.5 * dA / nxt.turnS * ext);
+  // standing: the turn time is the longer of the 25 s floor and the time the peak far-end speed allows
+  const rec0 = { x: 0, z: 0, path: null, act: 'stand', head: 0, headFrom: 0, actT: 0, turnS: 25 };
+  const n0 = stage._step(rec0, { type: 'activity', unit: id, t: 100, activity: 'march', head: Math.PI });
+  assert.ok(n0.turnS >= 25 && (Math.abs(n0.turnS - Math.max(25, 1.5 * Math.PI * ext / FOOT)) < 1e-6 || n0.turnS === 900), 'standing turn ' + n0.turnS);
+  if (n0.turnS < 900) assert.ok(peak(n0, 0, Math.PI) <= FOOT + 1e-9);
+  // marching at 2.0 m/s: the unit's own speed counts (the far end moves at sqrt(v^2 + (omega r)^2))
+  const path = { t: [0, 600], x: [0, 1200], z: [0, 0], s: [1, 1] }, rec1 = { ...rec0, path };
+  const n1 = stage._step(rec1, { type: 'activity', unit: id, t: 100, activity: 'march', head: Math.PI / 2 });
+  assert.ok(n1.turnS >= 25, 'turn time ' + n1.turnS);
+  if (n1.turnS < 900) assert.ok(peak(n1, 2.0, Math.PI / 2) <= FOOT + 1e-9, 'moving turn far end ' + peak(n1, 2.0, Math.PI / 2));
 });
 test('src/*-host.mjs modules: both exist and export init / update / dispose', async () => {
   for (const f of ['fx-host.mjs', 'audio-host.mjs']) { assert.ok(fs.existsSync(path.join(BT, 'app/src', f)), f); const src = fs.readFileSync(path.join(BT, 'app/src', f), 'utf8'); for (const n of ['init', 'update', 'dispose']) assert.match(src, new RegExp('export (async )?function ' + n + '\\b'), f + ' ' + n); }
