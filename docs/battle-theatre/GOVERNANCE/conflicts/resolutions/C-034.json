@@ -45,17 +45,17 @@
   "positions": [
    "C-034-P8"
   ],
-  "label": "150 to 300 wagons captured or destroyed (Huey, Capehart); about 30 to 40 carried off; range 40-500 shown",
+  "label": "150 to 300 wagons captured or destroyed (Huey, Capehart); Lee's hearsay 40 and the 30 kept shown; range 40-500 listed",
   "range": {
    "low": 150,
    "high": 300,
-   "basis": "the counts of wagons captured or taken by the two officers who wrote of it from the night attack (Huey 150; Capehart 300 wagons and 15 ambulances); each says what it counts; the figures of 40 and 30 count wagons carried off and 400 to 500 is a reported claim"
+   "basis": "the counts of wagons captured or taken by the two officers who wrote of it from the night attack (Huey 150; Capehart 300 wagons and 15 ambulances), possibly for different parts of one train; Lee's 40 is hearsay, the 40 and 30 of Stuart's citizen and Kilpatrick are wagons that stayed with the Union column, and 400 to 500 is a reported claim"
   },
-  "basis_text": "Lower end Huey (8th Pennsylvania Cavalry, report of 6 August 1863): 150 wagons captured; upper end Capehart (1st West Virginia Cavalry, 17 August 1863): 300 wagons and 15 ambulances taken. Neither says how he counted. The wagons carried off were about 30 to 40 (Kilpatrick, Lee, Stuart).",
+  "basis_text": "Lower end Huey (8th Pennsylvania Cavalry, report of 6 August 1863): 150 wagons captured at and near Monterey at 3 a.m.; upper end Capehart (1st West Virginia Cavalry, 17 August 1863): 300 wagons and 15 ambulances taken over about 8 miles. Neither says how he counted; they may be counting different parts of one train. Lee heard about 40 captured; Stuart's citizen and Kilpatrick give 40 and 30 that stayed with the Union column.",
   "animation": {
    "at": null,
-   "rule": "best_supported",
-   "note": "Draws 150 wagons, the figure a witness states (Huey) and the lower of the two eyewitness counts; 300 and ambulances stay selectable, about 30 to 40 wagons are shown going off with the column. A drawing choice, not a count."
+   "rule": "range_end",
+   "note": "Drawn at the low end of the sourced range, 150 (Huey). No source ranks Huey above Capehart; this is a drawing choice and is not a count. 300 and the ambulances stay selectable."
   },
   "note": "The figures of 40, 150, 300 and 400-500 count different things; the default keeps them apart and shows each with what it counts."
  },
@@ -63,13 +63,13 @@
   {
    "id": "C-034-P1",
    "origin": "pdf_value",
-   "label": "About 40 wagons: those carried off, as Lee heard it, Stuart's citizen said, and Kilpatrick kept 30",
+   "label": "About 40 wagons: Lee's hearsay figure of wagons captured; Stuart's citizen and Kilpatrick give 40 and 30 that stayed with the Union column",
    "kind": "count",
    "value": {
     "n": 40,
     "unit": "wagons"
    },
-   "tier": "documented",
+   "tier": "inferred",
    "clock": "not_applicable",
    "stance": "selectable",
    "support": [
@@ -102,7 +102,7 @@
        40
       ]
      },
-     "note": "Lee to President Davis near Hagerstown, 4 days after (the text layer does not print this letter's dateline; the next letter, of July 8, begins 'My letter of yesterday'): 'In sending back our trains in advance, that of General Ewell was cut by the enemy's cavalry, and a number of wagons, said to be about 40, were captured.' A figure he had heard ('said to be') for wagons of Ewell's train captured."
+     "note": "Lee to President Davis near Hagerstown, 4 days after (the text layer does not print this letter's dateline; the next letter, of July 8, begins 'My letter of yesterday'): 'In sending back our trains in advance, that of General Ewell was cut by the enemy's cavalry, and a number of wagons, said to be about 40, were captured.' A figure he had heard ('said to be') for wagons of Ewell's train captured; he was not at the pass. As a count of wagons captured it conflicts with 150 and 300."
     },
     {
      "id": "C-034-P1-c2",
@@ -169,14 +169,26 @@
     }
    ],
    "reason_not_chosen": {
-    "kind": "different_event",
-    "text": "Forty counts the wagons of Ewell's train that went off with the Union column (Lee, Stuart; Kilpatrick kept thirty), not the wagons captured or destroyed on the night."
+    "kind": "elsewhere",
+    "text": "Lee reports a hearsay figure of about 40 wagons captured; Stuart's citizen and Kilpatrick count 40 and 30 that stayed with the Union column. None was at the pass, or none counted the capture."
    },
    "pdf_label": "40",
    "scenario_ids": [
     "C-034-S1"
    ],
-   "approx": true
+   "approx": true,
+   "derived": true,
+   "inference": {
+    "step": "Lee reports a figure he had heard ('said to be about 40') for wagons of Ewell's train captured; Stuart's citizen ('not more than 40 wagons accompanied them') and Kilpatrick ('thirty wagons' kept) count wagons that stayed with the Union column. The resolution reads the three as one small number; none of them says it was the whole capture.",
+    "from": [
+     "C-034-P1-c1",
+     "C-034-P1-c2",
+     "C-034-P1-c3"
+    ]
+   },
+   "flags": [
+    "weak"
+   ]
   },
   {
    "id": "C-034-P2",
@@ -227,37 +239,6 @@
       ]
      },
      "note": "Huey, a month after: at 3 a.m. on July 5 the wagon train was reached at and near Monterey and 150 wagons were captured (his report adds 1,600 prisoners; the text layer of one scan prints 1,500, so the prisoners are not used). He counts wagons captured, by his brigade or the column, not wagons destroyed; he does not say how the 150 were counted."
-    },
-    {
-     "id": "C-034-P2-c2",
-     "source": "USSM-1864-V1",
-     "source_class": "primary",
-     "page": "76",
-     "page_basis": "as_read",
-     "text_offset": 216731,
-     "quote": "a train consisting of more than one hundred wagons was over- taken at Monterey, on the road to Hagerstown, and captured, by Kilpatrick",
-     "witness": {
-      "name": "unnamed contributor, United States Service Magazine, January 1864",
-      "role": "a periodical of 1864, not a participant",
-      "side": "civilian"
-     },
-     "written": {
-      "date": "1864-01",
-      "kind": "early_narrative"
-     },
-     "vantage": "not_applicable",
-     "knew_by": "not_stated",
-     "clock": "unspecified",
-     "hedge": "exact",
-     "group": "ussm",
-     "exact": false,
-     "states": {
-      "phrases": [
-       "more than one hundred wagons"
-      ]
-     },
-     "note": "A magazine of January 1864, no source named: 'a train consisting of more than one hundred wagons was overtaken at Monterey ... and captured, by Kilpatrick', part of it burnt to prevent recapture. A floor, not a count.",
-     "page_note": "the text layer has no printed page marks; the passage is on page 76 of the volume (the running head UNITED STATES SERVICE MAGAZINE 76 stands in the text)"
     }
    ],
    "reason_not_chosen": {
@@ -313,37 +294,6 @@
       ]
      },
      "note": "Capehart, six weeks after: the road was interspersed with wagons and ambulances for 8 miles 'and the whole train was taken: 300 wagons, 15 ambulances, together with all the horses and mules attached'; prisoners 1,300. He counts wagons and ambulances taken, in the dark ('inky darkness' in the same report), and says 'the whole train'."
-    },
-    {
-     "id": "C-034-P3-c2",
-     "source": "MINNIGH-1892-SCAN-A",
-     "source_class": "book",
-     "page": "54",
-     "page_basis": "as_read",
-     "text_offset": 82115,
-     "quote": "and destroyed over two hundred wagons laden with pro- visions",
-     "witness": {
-      "name": "Luther W. Minnigh",
-      "role": "author of a visitor's guide to the field, 1892 (not a participant)",
-      "side": "civilian"
-     },
-     "written": {
-      "date": "1892",
-      "kind": "later_history"
-     },
-     "vantage": "not_applicable",
-     "knew_by": "not_stated",
-     "clock": "unspecified",
-     "hedge": "exact",
-     "group": "minnigh",
-     "exact": false,
-     "states": {
-      "phrases": [
-       "over two hundred wagons"
-      ]
-     },
-     "note": "A guide of 1892, no source named: Kilpatrick 'captured a large wagon train of Lee's, cut off and destroyed over two hundred wagons laden with provisions, and captured fifteen hundred prisoners'. A floor, between the two eyewitness counts.",
-     "page_note": "printed page 54 read from the running head (GETTYSBURG: WHAT THEY DID HERE 54 stands before the passage)"
     }
    ],
    "reason_not_chosen": {
@@ -353,8 +303,7 @@
    "pdf_label": "300",
    "scenario_ids": [
     "C-034-S3"
-   ],
-   "note": "Capehart counts 300 wagons and 15 ambulances; the later guide says over 200 destroyed."
+   ]
   },
   {
    "id": "C-034-P4",
@@ -410,7 +359,7 @@
    ],
    "reason_not_chosen": {
     "kind": "elsewhere",
-    "text": "Only a citizen's report of a claim, relayed by Stuart, who was not at the pass; Kilpatrick's own dispatch and report give no wagon count and say 1,500 and 1,360 prisoners, not several thousand."
+    "text": "Only a citizen's report of a claim, relayed by Stuart, who was not at the pass; Kilpatrick's own dispatch and report give no count of wagons captured or destroyed and say 1,500 and 1,360 prisoners, not several thousand."
    },
    "pdf_label": "400-500",
    "scenario_ids": [
@@ -855,18 +804,142 @@
      "C-034-P9-c1"
     ]
    }
+  },
+  {
+   "id": "C-034-P10",
+   "origin": "research",
+   "label": "More than 100 wagons (a magazine of 1864)",
+   "kind": "count",
+   "value": {
+    "n": 100,
+    "unit": "wagons",
+    "approx": true
+   },
+   "tier": "inferred",
+   "clock": "not_applicable",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-034-P10-c1",
+     "source": "USSM-1864-V1",
+     "source_class": "primary",
+     "page": "76",
+     "page_basis": "as_read",
+     "text_offset": 216731,
+     "quote": "a train consisting of more than one hundred wagons was over- taken at Monterey, on the road to Hagerstown, and captured, by Kilpatrick",
+     "witness": {
+      "name": "unnamed contributor, United States Service Magazine, January 1864",
+      "role": "a periodical of 1864, not a participant",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1864-01",
+      "kind": "early_narrative"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "ussm",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "more than one hundred wagons"
+      ]
+     },
+     "note": "A magazine of January 1864, no source named: 'a train consisting of more than one hundred wagons was overtaken at Monterey ... and captured, by Kilpatrick', part of it burnt to prevent recapture. A floor, not a count.",
+     "page_note": "the text layer has no printed page marks; the passage is on page 76 of the volume (the running head UNITED STATES SERVICE MAGAZINE 76 stands in the text)"
+    }
+   ],
+   "flags": [
+    "weak",
+    "single_source"
+   ],
+   "derived": true,
+   "inference": {
+    "step": "The magazine says 'more than one hundred wagons'; read as a floor of 100, since it states no count.",
+    "from": [
+     "C-034-P10-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "unclear_expression",
+    "text": "A floor (\"more than\", \"over\") given without a source; it is not a count, and it lies under the figures of the officers who were there."
+   }
+  },
+  {
+   "id": "C-034-P11",
+   "origin": "research",
+   "label": "Over 200 wagons destroyed (a guide of 1892)",
+   "kind": "count",
+   "value": {
+    "n": 200,
+    "unit": "wagons",
+    "approx": true
+   },
+   "tier": "inferred",
+   "clock": "not_applicable",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-034-P11-c1",
+     "source": "MINNIGH-1892-SCAN-A",
+     "source_class": "book",
+     "page": "54",
+     "page_basis": "as_read",
+     "text_offset": 82115,
+     "quote": "and destroyed over two hundred wagons laden with pro- visions",
+     "witness": {
+      "name": "Luther W. Minnigh",
+      "role": "author of a visitor's guide to the field, 1892 (not a participant)",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1892",
+      "kind": "later_history"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "minnigh",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "over two hundred wagons"
+      ]
+     },
+     "note": "A guide of 1892, no source named: Kilpatrick 'captured a large wagon train of Lee's, cut off and destroyed over two hundred wagons laden with provisions, and captured fifteen hundred prisoners'. A floor, between the two eyewitness counts.",
+     "page_note": "printed page 54 read from the running head (GETTYSBURG: WHAT THEY DID HERE 54 stands before the passage)"
+    }
+   ],
+   "flags": [
+    "weak",
+    "single_source"
+   ],
+   "derived": true,
+   "inference": {
+    "step": "The guide says 'over two hundred wagons' destroyed; read as a floor of 200, since it states no count.",
+    "from": [
+     "C-034-P11-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "unclear_expression",
+    "text": "A floor (\"more than\", \"over\") given without a source; it is not a count, and it lies under the figures of the officers who were there."
+   }
   }
  ],
  "weighing": {
-  "summary": "Huey (150 wagons captured) and Capehart (300 wagons and 15 ambulances taken) are officers of the best class of writing, present at the pass, writing within weeks; nothing separates them, so the count of wagons captured or destroyed is a range. The 40 and the 30 count wagons carried away; the 400 to 500 is a claim reported by hearsay.",
+  "summary": "Huey (150 wagons captured) and Capehart (300 wagons and 15 ambulances taken) are officers of the best class of writing, present at the pass, writing within weeks; nothing separates them, so the count of wagons captured or destroyed is a range. Lee's 'about 40' is a figure he had heard, of wagons captured, and conflicts with both; the 40 of Stuart's citizen and the 30 of Kilpatrick count wagons that stayed with the Union column; the 400 to 500 is a claim reported by hearsay.",
   "who": "Huey and Capehart wrote as officers of Kilpatrick's column (a brigade at the rear; the regiment that led the charge). Kilpatrick commanded. Lee and Stuart were not at the pass: Lee writes what he heard from Ewell's side and Stuart what a citizen told him. The magazine, the guide and the medical history are not participants.",
   "when": "Huey 32 days, Capehart 43, Kilpatrick 36 days after; Lee 2 days, Stuart weeks after. The later figures are from 1864, 1892 and the 1910s, outweighed by reports of the time.",
-  "where": "Capehart's regiment charged the train in the dark on the mountain road; Huey's brigade was behind Custer and at the rear. Each counts wagons seen over a road of eight miles in the night; neither could count the whole.",
+  "where": "Capehart's regiment charged the train in the dark on the mountain road and says the train covered 8 miles; Huey's brigade came behind Custer and says the train 'was reached at and near Monterey' at 3 a.m. They may be counting different parts of one train, which is why the range stays; neither could count the whole, and neither says how he counted.",
   "how_knew": "Huey and Capehart give round numbers without a method; Kilpatrick counts the wagons he kept (thirty) because he took them away; Lee says \"said to be\"; Stuart repeats a citizen.",
   "clock": "Not applicable: a count has no clock; the reported difference of 20 minutes between the armies' clocks is not involved.",
-  "independence": "Huey and Capehart are two separate groups (different brigades) and disagree; Kilpatrick, Lee and Stuart are three groups for the 30 to 40 carried off, but Lee and Stuart may relay each other; the magazine and the guide give floors with no source; the medical history is unsourced."
+  "independence": "Huey and Capehart are two separate groups (different brigades) and disagree; Huey's prisoners (1,500 or 1,600 by the scan) exceed the 1,360 Kilpatrick reports for the division, a doubt about Huey's counting, not a settlement. Lee's 40, Stuart's and Kilpatrick's figures are of the same small size but Lee's is a captured count heard second-hand and conflicts with 150 and 300; Lee and Stuart may relay each other. The magazine and the guide give floors with no source (positions P10, P11); the medical history is unsourced."
  },
- "source_panel_text": "Monterey Pass, night of Jul 4-5: two officers who were there count 150 wagons captured (Huey) and 300 wagons with 15 ambulances (Capehart); only about 30 to 40 were carried off (Kilpatrick, Lee, Stuart). 400 to 500 is a claim told to Stuart. Range 150 to 300 shown; six other values listed.",
+ "source_panel_text": "Monterey Pass, night of Jul 4-5: two officers who were there count 150 wagons captured (Huey) and 300 wagons with 15 ambulances (Capehart), perhaps for different parts of the train. Lee heard about 40 captured; Stuart's citizen and Kilpatrick give 40 and 30 that stayed with the Union column. 400-500 is a claim told to Stuart. Range 150 to 300 shown.",
  "holds": {
   "pdf_default": {
    "holds": "partly",
@@ -959,5 +1032,5 @@
    "at": "2026-11-24"
   }
  ],
- "what_would_change_it": "A Confederate return of wagons lost by Ewell's or Rodes's train, a count by Kilpatrick, Custer, Richmond or Preston of the train taken, or a method for Huey's and Capehart's numbers would narrow or settle the range."
+ "what_would_change_it": "A Confederate return of wagons lost by Ewell's or Rodes's train, a count by Kilpatrick, Custer, Richmond or Preston of the train taken, or a method for Huey's and Capehart's numbers would narrow or settle the range. A Confederate return of wagons lost would test Lee's hearsay 40."
 }
