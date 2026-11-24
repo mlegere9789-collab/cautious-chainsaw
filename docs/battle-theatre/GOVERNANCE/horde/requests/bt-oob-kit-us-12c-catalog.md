@@ -1,0 +1,3 @@
+# bt-oob-kit us-12c: catalog items missing (code changes for the integrator)
+
+Items named by the evidence with `weapon_id` or `item_id` null: "Minnie" rifle with sword bayonet (27th Indiana, us-12c:0193 and the bayonet line), Belgian rifle (27th Indiana, in the exchange note), smooth-bore Springfield rifled for the minie ball (3d Wisconsin, 1861), converted flintlock muskets for buck and ball (7th Ohio, 1861), "muskets" and "swords" as brigade figures (Greene's five regiments), grey cap, jacket and pants of 1861 (29th Pennsylvania), "bright uniforms" (150th New York), packs with overcoats and extra shoes (109th Pennsylvania). Catalog ids used: p1853_enfield, springfield_model_unspecified, badge_XII_div1st, badge_XII_div2nd.

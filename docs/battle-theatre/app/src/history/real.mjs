@@ -455,7 +455,7 @@ export function createRealHistory({ raw, T, helpers = {} }) {          // T: any
         if (tf < t0) { actNotes.push({ unit: id, formation: f.id, skipped: 'before the unit enters the map' }); continue; }
         const leg = legs.find(([a, b]) => tf > a && tf < b); if (leg) tf = leg[1];
         if (leaveAt != null && tf >= leaveAt) { actNotes.push({ unit: id, formation: f.id, skipped: 'after the unit has left' }); continue; }
-        push({ t: tf, unit: id, type: 'formation', formation: f.formation, duration_s: FORMATION_SECONDS, clause: f.id, tier: f.tier, sources: ['PLACEMENT', ...f.sources.filter(k => sources[k])] });
+        push({ t: tf, unit: id, type: 'formation', formation: f.formation, duration_s: FORMATION_SECONDS, clause: f.id, tier: weaker(f.tier, 'plausible-procedural'), sources: ['PLACEMENT', ...f.sources.filter(k => sources[k])] });      // the time comes from the clause (its own tier); the 90 s duration is a tuning value, plausible-procedural: the weakest tier of its parts is shown (Q06.2)
       }
       // casualties (contract 1.3): the solver’s men who fall while the unit stands on the map. Falls outside that time (marching in, not arrived, gone) are NOT drawn and stay in the unit's total.
       const planEv = planOf(id);

@@ -1,0 +1,63 @@
+{
+ "Q04": {
+  "counts": {
+   "BLOCKED-INPUT": 0,
+   "COVERED": 0,
+   "FAIL": 153,
+   "N/A": 0,
+   "NOT-RUN": 0,
+   "PASS": 5034
+  },
+  "rows": {
+   "Q04.1|FAIL|floor-hold-conflict": 74,
+   "Q04.1|FAIL|selectable-value-below-floor": 70,
+   "Q04.5|FAIL|floor-hold-conflict": 6,
+   "Q04.6|FAIL|rollup-of-q04-1": 3
+  },
+  "run_id": "20261124T181517Z-Q04"
+ },
+ "Q05": {
+  "counts": {
+   "BLOCKED-INPUT": 467,
+   "COVERED": 0,
+   "FAIL": 2182,
+   "N/A": 0,
+   "NOT-RUN": 0,
+   "PASS": 4244
+  },
+  "rows": {
+   "Q05.1|FAIL|gait-gap": 233,
+   "Q05.2|FAIL|gun-piece-step": 78,
+   "Q05.3|FAIL|turn-too-fast": 1868,
+   "Q05.4|BLOCKED-INPUT|lateness-cascade": 8,
+   "Q05.4|BLOCKED-INPUT|lateness-defect": 26,
+   "Q05.4|BLOCKED-INPUT|lateness-ledger-vs-edge": 394,
+   "Q05.4|BLOCKED-INPUT|lateness-state-vs-window": 37,
+   "Q05.5|BLOCKED-INPUT|range-missing": 2,
+   "Q05.5|FAIL|range-missing": 3
+  },
+  "run_id": "20261124T191313Z-Q05"
+ },
+ "Q06": {
+  "counts": {
+   "BLOCKED-INPUT": 0,
+   "COVERED": 0,
+   "FAIL": 262,
+   "N/A": 14,
+   "NOT-RUN": 0,
+   "PASS": 5592
+  },
+  "rows": {
+   "Q06.2|FAIL|formation-tier-tuning-duration": 133,
+   "Q06.3|FAIL|edge-only-no-place": 21,
+   "Q06.3|FAIL|no-figure-open-gap": 4,
+   "Q06.3|FAIL|no-road-unplaceable": 39,
+   "Q06.3|FAIL|road-conflict-reports": 1,
+   "Q06.3|FAIL|road-off-ground": 12,
+   "Q06.3|FAIL|sibling-no-day-position": 25,
+   "Q06.3|FAIL|sibling-roads-differ": 11,
+   "Q06.3|FAIL|stuart-cavalry-no-own-road": 16
+  },
+  "run_id": "20261124T201854Z-Q06"
+ }
+}
