@@ -46,7 +46,7 @@
   "range": {
    "low": 2592,
    "high": 7000,
-   "basis": "the lowest and highest single-army counts among the four default positions (Confederate killed by the return; Confederate bodies buried, a floor \"not less than\"); the Union range, 3,155 to 5,291, lies inside it and is stated in the label"
+   "basis": "7,000 is a floor (\"not less than\"), not a ceiling; the lowest and highest single-army counts among the four default positions (Confederate killed by the return; Confederate bodies buried, a floor \"not less than\"); the Union range, 3,155 to 5,291, lies inside it and is stated in the label"
   },
   "animation": {
    "at": null,
@@ -574,6 +574,36 @@
       ]
      },
      "note": "The commission cites Fox (Regimental Losses, 1888) for the rolls and prints 5,091 where Fox's book prints 5,291 (two clean scans of the book and its own table, which sums to 5,291). The same figure, 5,091, stands in volume 3 of the same work (p. 1372). The 5,091 is a misprint of Fox's count or a reading nobody checked."
+    },
+    {
+     "source": "NY-GB-1902-v3",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (p. 1373 of the volume)",
+     "text_offset": 1503044,
+     "quote": "shows that 5,091 Union soldiers lost their lives on that field or died of wounds received there",
+     "witness": {
+      "name": "New York Monuments Commission",
+      "role": "State commission; the final report on the battlefield of Gettysburg (1900)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1902-01-01",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "nygb-fox",
+     "exact": true,
+     "states": {
+      "numbers": [
+       5091
+      ]
+     },
+     "note": "Volume 3 (1902): Col. William F. Fox's work \"shows that 5,091 Union soldiers lost their lives on that field or died of wounds received there\"."
     }
    ],
    "flags": [
@@ -585,7 +615,7 @@
     "text": "The New York volumes print 5,091 where Fox's own text and table (two clean scans) give 5,291; the commission's figure is a misprint of Fox's."
    },
    "inference": {
-    "step": "The commission prints 5,091 and names Fox's Regimental Losses as its source; Fox's text and the sum of his table give 5,291, so the printed figure is read as a misprint of Fox's count.",
+    "step": "Volume 3 of the New York work (1902) names Col. Fox as the source of 5,091; Fox's text and the sum of his table give 5,291, so the printed figure is read as a misprint of his count. The 1900 volume has a footnote that reads \"This number (246+2,909) was increased to 5,091 by deaths\" from wounds and missing ones who were killed, so the commission may have built the figure itself; the misprint is an inference and both numbers are kept.",
     "from": [
      "C-046-P8"
     ]
@@ -642,7 +672,7 @@
    ],
    "reason_not_chosen": {
     "kind": "different_event",
-    "text": "It counts bodies taken up from the field by one contractor, not men killed: it leaves out the wounded who died in hospitals elsewhere and may include the sick who died there."
+    "text": "It counts graves opened by one contractor, not men killed."
    }
   },
   {
@@ -697,8 +727,8 @@
     "single_source"
    ],
    "reason_not_chosen": {
-    "kind": "within_range",
-    "text": "Guild's own medical return of the dead on the field, without the cavalry; the Official Records' aggregate (2,592) is the fuller count and is the low end of the range shown."
+    "kind": "different_event",
+    "text": "Guild's own return counts killed and wounded of the infantry and artillery only, without the cavalry (36 killed in the editors' table); the Official Records' aggregate counts all arms. It lies just under the range shown."
    }
   },
   {
@@ -978,7 +1008,7 @@
     "text": "Livermore's computed estimate (the return plus 1,311 assumed from the ratio of killed to wounded); it lies inside the range shown and is not a count."
    },
    "inference": {
-    "step": "Livermore adds to the return's 2,592 killed an assumed 1,311 so that killed stand to wounded as 1 to 4.8, the proportion he takes from the Union side (and \"within bounds\" for the Confederates); the figure is computed, not counted.",
+    "step": "Livermore adds to the return's 2,592 killed an assumed 1,311 so that killed stand to wounded as 1 to 4.8, the average he cites from Fox (Regimental Losses, p. 22); the Union ratio in the same note is 1 to 4.6; the figure is computed, not counted.",
     "from": [
      "C-046-P12"
     ]
@@ -1125,10 +1155,9 @@
     "text": "It is one rounded figure for both armies together and counts the died of wounds; it cannot be split by army and is shown beside the army figures."
    },
    "inference": {
-    "step": "The Park Service rounds both armies' killed and died of wounds to 10,000, which fits the Union 5,291 plus a Confederate figure near 4,700 to 5,000 (the New York commission's remark that the Confederate dead would equal the Union's); it names no source.",
+    "step": "The Park Service rounds both armies' killed and died of wounds to 10,000; it names no source. Fox's Union 5,291 leaves about 4,700 for the Confederates, but that remainder is arithmetic on a rounded figure, not a count.",
     "from": [
-     "C-046-P8",
-     "C-046-P16"
+     "C-046-P8"
     ]
    }
   }
@@ -1136,13 +1165,13 @@
  "weighing": {
   "summary": "The sources do not give one dead count; they give different counts. (1) Killed on the field, by the armies' returns: Union 3,155 (the revised return; the first return said 2,834) and Confederate 2,592 (the Official Records' compilation; Guild's own table 2,396); in both armies the mortally wounded stand with the wounded. (2) Killed or died of wounds: Union 5,291 (Fox, from the regimental rolls); for the Confederates no roll count exists, only estimates (Livermore 3,903, the plan's Busey and Martin 4,708) and Weaver's 1864 estimate of the rebel bodies buried on the field and at the hospitals, not less than 7,000. (3) Bodies taken up: Union 3,512 (Weaver). (4) The plan's totals of 8,000, 8,900 and 3,100 plus 4,700 have no source in the record. The Union figures differ because they count different things and are explained by it (settled in kind). The Confederate figures differ in what they count and also in size, and no source separates a count from an estimate: the best witnesses disagree and no rule in the rubric ranks them, so the conflict is irreducible and the default is a range per army.",
   "who": "Meade and Guild signed returns of their armies (relayed from corps returns). The Official Records' Confederate aggregate was compiled in 1889 by War Department editors, who call it approximative. Fox compiled the rolls of the Union regiments; Livermore computed; Weaver opened the graves and counted. Alexander, the Comte de Paris and the New York commission relay the returns.",
-  "when": "Meade 1 Oct 1863, revised in the volume of 1889; Guild 1 Sep 1863; Weaver 19 Mar 1864; the Comte de Paris 1877; Fox 1889; Livermore 1900; the New York commission 1900; Alexander 1907; the Park Service 2018. By the rule a return or report of the time outranks a table compiled later, and a table of returns outranks a history; the records of the time (returns, Weaver) are therefore the ones carrying the range, and the later compilations are listed with what they count.",
+  "when": "Meade 1 Oct 1863, revised in the volume of 1889; Guild 1 Sep 1863; Weaver 19 Mar 1864; the Comte de Paris 1877; Fox 1889; Livermore 1900; the New York commission 1900; Alexander 1907; the Park Service 2018. By the rule a return or report of the time outranks a table compiled later (Guild's own return of Sep 1863 is the earlier document, but it leaves out the cavalry, so the editors' fuller aggregate is the low end of the range and Guild's 2,396 stays selectable); and a table of returns outranks a history; the records of the time (returns, Weaver) are therefore the ones carrying the range, and the later compilations are listed with what they count.",
   "where": "Weaver stood on the field for the five months of the disinterment and says how he knew; his count of bodies is a count of graves opened and Confederate burials he estimates. The returns of both armies were made from regimental reports, the Confederate one with no return from Jenkins' brigade and with the slightly wounded excluded (Lee's order of 14 May 1863, as the New York volume says), so it is known to be short. The Union return counts as killed only those killed or dying on the field.",
   "how_knew": "The Union return is a count from nominal lists; the Confederate return is the sum of commanders' reports, with the editors' caution. Fox's 5,291 is a name-by-name count of regimental rolls. Weaver's 7,000 is an estimate made \"from time to time, as I went over the field\". Livermore's 3,903 is computed from a ratio. The NPS 10,000 is rounded. Which digit Fox prints (5,291 or 5,091) was checked in three scans of his book and in his table, which sums to 5,291; the 5,091 of the New York volumes is not Fox's.",
   "clock": "not applicable: these are counts. The dates are the dates of the returns and reports.",
   "independence": "Groups: the Union return (Livermore, Alexander and the New York commission repeat it: one line), Meade's first return (with Halleck), Fox (rolls), Weaver, Guild, the Official Records' Confederate compilation (Alexander and Livermore repeat it), Livermore's estimate, the Comte de Paris, the Park Service. Each default end therefore rests on one line of knowledge and carries a single_source flag; no two independent counts of the same thing were found for the Confederate dead."
  },
- "source_panel_text": "No single figure: the dead are counted three ways. Killed on the field by the returns: Union 3,155, Confederate 2,592. With those who died of wounds: Union 5,291 (Fox), Confederate unknown, \"not less than 7,000\" buried (Weaver, 1864). The plan's 8,000 and 8,900 have no source. 13 other values listed.",
+ "source_panel_text": "No single figure: the dead are counted three ways. Killed on the field by the returns: Union 3,155, Confederate 2,592. With those who died of wounds: Union 5,291 (Fox), Confederate unknown, \"not less than 7,000\" buried (Weaver, 1864). The plan's 8,000 and 8,900 have no source. 14 other values listed.",
  "holds": {
   "pdf_default": {
    "holds": "yes",

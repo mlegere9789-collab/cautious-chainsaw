@@ -132,7 +132,7 @@
      "clock": "union",
      "hedge": "exact",
      "group": "wadsworth",
-     "exact": true,
+     "exact": false,
      "states": {
       "times": [
        "08:00"
@@ -141,7 +141,7 @@
        "07-01"
       ]
      },
-     "note": "Dates the day of the 3.45 sentence: the same report, the opening of its account of 1 July."
+     "note": "context. Dates the day of the 3.45 sentence: the same report, the opening of its account of 1 July."
     }
    ]
   },
@@ -165,7 +165,9 @@
    "tier": "inferred",
    "stance": "selectable",
    "derived": true,
-   "flags": [],
+   "flags": [
+    "different_event"
+   ],
    "support": [
     {
      "id": "C-043-P2-c1",
@@ -447,13 +449,13 @@
      "clock": "union",
      "hedge": "exact",
      "group": "robinson",
-     "exact": true,
+     "exact": false,
      "states": {
       "dates": [
        "07-01"
       ]
      },
-     "note": "Dates the day of the 'nearly 5 p. m.' sentence: the same report, headed 'Hdqrs. Second Division, First Army Corps, July 18, 1863'."
+     "note": "context. Dates the day of the 'nearly 5 p. m.' sentence: the same report, headed 'Hdqrs. Second Division, First Army Corps, July 18, 1863'."
     }
    ],
    "reason_not_chosen": {
@@ -481,7 +483,9 @@
    "tier": "inferred",
    "stance": "selectable",
    "derived": true,
-   "flags": [],
+   "flags": [
+    "different_event"
+   ],
    "support": [
     {
      "id": "C-043-P5-c1",
@@ -730,7 +734,7 @@
      "clock": "union",
      "hedge": "exact",
      "group": "howard",
-     "exact": true,
+     "exact": false,
      "states": {
       "times": [
        "03:30"
@@ -739,13 +743,44 @@
        "07-01"
       ]
      },
-     "note": "Dates the day of the 4.10 sentence: the same report narrates 1 July in order from this line."
+     "note": "context. Dates the day of the 4.10 sentence: the same report narrates 1 July in order from this line."
+    },
+    {
+     "id": "C-043-P7-c3",
+     "source": "BL-3",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not read in the text layer",
+     "text_offset": 1238411,
+     "quote": "finding that I could hold out no longer, and that the troops were already giving way, I sent a positive order to the commanders of the First and Eleventh corps to fall back gradually",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding Eleventh Corps and, after Reynolds fell, the field",
+      "side": "union"
+     },
+     "written": {
+      "date": "1887-01-01",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "howard",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:10"
+      ]
+     },
+     "note": "Howard's article in Battles and Leaders (1887) reprints the report's sentence; same group as the report, not an independent witness."
     }
    ]
   }
  ],
  "weighing": {
-  "summary": "The reports name two orders with clock readings, each given by the writer: Wadsworth's order to his division at 3.45 (written 4 Jul 1863) and Howard's positive order to both corps at 4.10 (written 31 Aug 1863). Everything else in the plan is the same retreat at another moment: 'about 4 p. m.' is Howard's conditional word to Doubleday (ten minutes before the positive order) and the enemy's advance in Doubleday's report, which then 'gave orders to fall back' with no clock reading; 'nearly 5 p. m.' is when Robinson's division received its order after all other troops had begun to move; 4.30 is the minute a regimental commander was hit just after ordering his men back, and the minute Howard puts the columns on Cemetery Hill. No report gives a general order at 4.30. The first delegated pass found these as 'different orders' but kept one hour inside a wide window; the window of this resolution is the span of the two orders themselves. Weighted, not settled: nothing says which order the picture should follow, only that both are documented.",
+  "summary": "The reports name two orders with clock readings, each given by the writer: Wadsworth's order to his division at 3.45 (written 4 Jul 1863) and Howard's positive order to both corps at 4.10 (written 31 Aug 1863). Everything else in the plan is the same retreat at another moment: 'about 4 p. m.' is Howard's conditional word to Doubleday (ten minutes before the positive order) and the enemy's advance in Doubleday's report, which then 'gave orders to fall back' with no clock reading; 'nearly 5 p. m.' is when Robinson's division received its order after all other troops had begun to move; 4.30 is the minute a regimental commander was hit just after ordering his men back, and the minute Howard puts the columns on Cemetery Hill. No report gives a general order at 4.30. The first delegated pass found these as 'different orders' but kept one hour inside a wide window; the window of this resolution is the span of the two orders themselves. Robinson's 'nearly 5' and Howard's 4.30 cannot both be exact clock readings of the same movement; 'nearly 5' is a round figure and the clocks of the two corps are not shown to agree, so the receipt hour is kept as a separate, unreconciled value and does not enter the window. Weighted, not settled: nothing says which order the picture should follow, only that both are documented.",
   "who": "Wadsworth commanded the First Division and gave its order; Howard commanded the field and gave the order to both corps; Doubleday commanded the First Corps; Robinson commanded the Second Division and received his order late; McFarland commanded the 151st Pennsylvania.",
   "when": "Wadsworth wrote on 4 Jul 1863 (three days, rank 5); Howard on 31 Aug 1863 (61 days, rank 4); Doubleday on 14 Dec 1863; McFarland on 15 Mar 1864; Robinson on 18 Jul 1863 (the date in his heading). Doubleday prints Wadsworth's sentence as 'General Wadsworth says' (p. 251): the same words, one line.",
   "where": "Wadsworth was on the ridge west of the seminary; Howard on Cemetery Hill (he sent aides); Doubleday at the seminary, superintending the final movement; Robinson on the right near the Mummasburg road; McFarland near the seminary.",

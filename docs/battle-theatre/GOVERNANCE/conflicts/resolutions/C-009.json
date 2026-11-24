@@ -36,7 +36,7 @@
  "tier": "documented",
  "basis": {
   "kind": "official_records",
-  "text": "Berdan's report of 29 July 1863 (27 days after) puts Birney's order at about 11 a. m.; Birney's sworn account of 1864 puts his request at about 11. The order to the detachment is the start; no source gives the minute the men moved off."
+  "text": "Berdan's report of 29 July 1863 (27 days after) puts Birney's order at about 11 a. m.; Birney's sworn account of 1864 puts his request for leave at about 11. The order to the detachment is the start; no source gives the minute the men moved off."
  },
  "default": {
   "mode": "position",
@@ -44,7 +44,7 @@
    "C-009-P1"
   ],
   "label": "About 11:00 on Jul 2: Berdan is ordered to send the detachment out",
-  "note": "The detachment is drawn leaving not before 11:00; contact is reported at 11:45 to 11:55 by the signal station. Noon and 11:15 stay selectable."
+  "note": "The detachment is drawn leaving not before 11:00; skirmishing a mile west of Round Top is reported at 11:45 to 11:55 by the signal station. Noon and 11:15 stay selectable."
  },
  "positions": [
   {
@@ -65,7 +65,9 @@
    "clock": "union",
    "tier": "documented",
    "stance": "default",
-   "flags": [],
+   "flags": [
+    "single_source"
+   ],
    "support": [
     {
      "id": "C-009-P1-c1",
@@ -105,6 +107,37 @@
      "note": "Berdan, report of 29 July 1863 (27 days after): after the first detachment of 100 had been posted at about 7.30 a. m., he reported to Birney and \"about 11 a. m.\" received Birney's order for a second detachment of 100, with the Third Maine in support, to feel the enemy farther to the left. This is the hour he got the order, not the minute the men moved off; he gives no hour for that."
     },
     {
+     "id": "C-009-P1-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R149",
+     "page": "514",
+     "page_basis": "scan_leaf",
+     "text_offset": 1794051,
+     "quote": "On the morning of July 2, I received instructions from the",
+     "witness": {
+      "name": "Hiram Berdan",
+      "role": "Colonel, 1st US Sharpshooters, commanding the Sharpshooters of the division",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-29",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "berdan",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Berdan, same report: the day of the value (the morning of July 2, he took command of the sharpshooters)."
+    },
+    {
      "id": "C-009-P1-c2",
      "source": "JCCW-1865-C012",
      "source_class": "primary",
@@ -127,7 +160,7 @@
      "clock": "union",
      "hedge": "about",
      "group": "birney",
-     "exact": true,
+     "exact": false,
      "states": {
       "times": [
        "11:00"
@@ -136,7 +169,69 @@
        "07-02"
       ]
      },
-     "note": "Birney, sworn testimony of 7 March 1864 before the Joint Committee (eight months after): about 11 o'clock he asked Sickles for leave to send a regiment and a battalion of sharpshooters to reconnoitre, and got it. He names the hour of the request; the permission follows without a new hour. It is his second account and differs from his report of August 1863 (noon)."
+     "note": "Birney, sworn testimony of 7 March 1864 before the Joint Committee (eight months after): about 11 o'clock he asked Sickles for leave to send a regiment and a battalion of sharpshooters to reconnoitre, and got it. He names the hour of his request for leave; the grant follows without a new hour, so this is not the hour of the order to Berdan. His report of August 1863 has the permission at 12 m.; request about 11 and grant at noon can both be true."
+    },
+    {
+     "id": "C-009-P1-h1",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "449",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (page 449 follows the head GENERAL MEADE. 449)",
+     "text_offset": 2064826,
+     "quote": "About 11 o'clock, I had just come into headquarters from an inspection of the ground, when General Meade sent for me",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery, Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-04-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hunt2",
+     "exact": false,
+     "states": {
+      "times": [
+       "11:00"
+      ]
+     },
+     "note": "Hunt, sworn testimony of 4 April 1864: about 11 o'clock he had just come into headquarters and Meade sent him with Sickles to examine the line. It fixes where Hunt was, not the order to Berdan."
+    },
+    {
+     "id": "C-009-P1-h2",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "449",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text",
+     "text_offset": 2067012,
+     "quote": "General Sickles said he would send in a couple of companies of Berdan's sharpshooters to examine the wood and see whether the enemy was there",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery, Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-04-04",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hunt2",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "a couple of companies of Berdan's sharpshooters"
+      ]
+     },
+     "note": "Hunt, same testimony: after riding out with Sickles from headquarters he heard Sickles say he would send in a couple of companies of Berdan's sharpshooters to examine the wood. This puts Sickles's decision after about 11 and after a ride out, so an order to Berdan at about 11 is the earliest it could be; it gives no hour."
     }
    ]
   },
@@ -206,7 +301,7 @@
    ],
    "reason_not_chosen": {
     "kind": "outweighed",
-    "text": "Birney's own sworn account of 1864 says about 11, Berdan who got the order says about 11, and a signal message of 11.55 already has the skirmishers falling back; Hunt did not see it sent."
+    "text": "Berdan, who got the order, says about 11, Birney's sworn account of 1864 dates his request for leave at about 11, and a signal message of 11.55 already has the skirmishers falling back; Hunt did not see it sent."
    },
    "support": [
     {
@@ -302,7 +397,7 @@
      "knew_by": "not_stated",
      "clock": "union",
      "hedge": "about",
-     "group": "birney",
+     "group": "stevens",
      "exact": false,
      "states": {
       "times": [
@@ -312,7 +407,7 @@
        100
       ]
      },
-     "note": "Stevens, regimental history of 1892 (29 years after): \"about noon\" Birney, after consulting Sickles, ordered Berdan out. He names no source for the hour and it matches Birney's report; it is counted with Birney, not as a second witness."
+     "note": "Stevens, regimental history of 1892 (29 years after): \"about noon\" Birney, after consulting Sickles, ordered Berdan out. He names no source for the hour and it matches Birney's report; it is a separate group, though it may rest on Birney's report."
     }
    ]
   },
@@ -639,7 +734,7 @@
      "quote": "2d July, noon. We have just come out of the fight. Part of our regiment, with the Third Maine, went out on a reconnoissance and ran on a snag",
      "witness": {
       "name": "F. E. Garrett",
-      "role": "Private or non-commissioned member, Company D, 1st US Sharpshooters (diary entry of 2 July 1863, seen only as printed by Buchanan)",
+      "role": "Member of Company D, 1st US Sharpshooters, rank not stated (diary entry of 2 July 1863, seen only as printed by Buchanan)",
       "side": "union"
      },
      "written": {
@@ -728,15 +823,15 @@
   }
  ],
  "weighing": {
-  "summary": "Berdan, who received the order, says about 11 a.m. Birney, who gave it, said about 11 in sworn testimony of 1864 but wrote 12 m. in his report of 1863; Hunt's about 12 m. is a second-hand hour from a man who reached the ground about 2. A signal station reported the enemy's skirmishers advancing at 11.45 and the rebels in force, our skirmishers giving way, at 11.55; two sharpshooters' diary entries headed noon have the fight on or over. Noon as the start sits badly with all of that. The start is taken to mean the order to the detachment: about 11:00, weighted, documented by Berdan's own report. No source states the minute the men stepped off; Wilcox's 9 a.m. is one stray hour.",
+  "summary": "Berdan, who received the order, says about 11 a.m. Birney, who gave it, dates his request for leave at about 11 in sworn testimony of 1864 and Sickles's permission at 12 m. in his report of 1863 (both can be true, so the order may have followed a grant before noon, but Berdan puts his order at about 11); Hunt's sworn testimony has Sickles deciding to send the sharpshooters only after about 11 and a ride out to the line; Hunt's about 12 m. is a second-hand hour from a man who reached the ground about 2. A signal station reported the enemy's skirmishers advancing at 11.45 and the rebels in force, our skirmishers giving way, at 11.55; two sharpshooters' diary entries headed noon have the fight on or over. Noon as the start sits badly with all of that. The start is taken to mean the order to the detachment: about 11:00, weighted, documented by Berdan's own report. No source states the minute the men stepped off; Wilcox's 9 a.m. is one stray hour.",
   "who": "Berdan commanded the detachment and received the order; Birney gave it (on Sickles's leave); Hunt was at headquarters and reached the ground about 2 p. m., so he relays. Jerome was the signal officer on Round Top and saw the skirmishing. Wilcox commanded the Alabama brigade that met the detachment. Marble and Garrett were sharpshooters; Buchanan, who printed their diary entries in 1889, was a lieutenant of the same regiment. The Maine commission's volume (1898) and the New York commission's narrative (1900) are later writers who name no witness for their hours.",
   "when": "Berdan wrote 27 days after (rank 5), Birney's report 36 days after and his testimony eight months after, Hunt 87 days after, Wilcox 15 days after: all reports of the best class. The signal messages are of the day (rank 6). The diary entries are of the day but are seen only as printed 26 to 39 years later. Stevens (1892), the Maine volume (1898) and the New York narrative (1900) are later. The better class of writing than Berdan's report is only the signal messages, and they do not name the detachment; they do not contradict about 11 and they are why noon cannot be the start.",
   "where": "Berdan was with the detachment and got the order; Birney was on the line and sent it; Hunt was elsewhere at the time. Jerome watched from the left end of the line, a mile from the woods. Wilcox was in his own line to the west.",
   "how_knew": "Berdan and Birney knew by the order itself (given and received). Hunt names no source. Jerome saw the skirmishing. The diarists were in it. The two commission writers name no source.",
   "clock": "All the Union writers use the army's clock (signal messages carry their own stamped times). Wilcox's is the Confederate clock; the reported 20-minute difference between the armies is not applied and could not turn 9 into 11 in any case. \"At 12 m.\" is a round figure that may stand for the quarter hour around it; \"about 11\" is read as 11:00 plus or minus 15 minutes, which is why 11:15 is not excluded but is not stated by anyone either.",
-  "independence": "11:00 rests on two groups: Berdan's report and Birney's testimony (two men, one gave the order and one took it; neither copies the other), so no flag. Noon rests on Birney's report and Hunt (who did not see it); Stevens is counted with Birney. Birney's two accounts contradict each other, and the later one agrees with Berdan. The signal messages are one line. Wilcox's 9 a.m. is one man. The Maine and New York volumes of 1898 and 1900 are later writers whose own sources are not named."
+  "independence": "The hour of the order, 11:00, rests on Berdan alone, so the default is flagged single-source; Birney's testimony dates only his request for leave about 11 and Hunt's only that Sickles decided after about 11. Noon rests on Birney's report and Hunt (who did not see it); Stevens names no source and is a group of his own. Birney's two accounts are not shown to contradict each other. The signal messages are one line. Wilcox's 9 a.m. is one man. The Maine and New York volumes of 1898 and 1900 are later writers whose own sources are not named."
  },
- "source_panel_text": "About 11:00 on Jul 2: Colonel Berdan's own report has the order about 11 a.m., and Birney's sworn account of 1864 puts his request at about 11. Birney's earlier report and Hunt's say noon, but a signal station reported skirmishing at 11:45 and 11:55. 11:15 has no source. Seven other values are listed.",
+ "source_panel_text": "About 11:00 on Jul 2: Colonel Berdan's own report has the order about 11 a.m., and Birney's sworn account of 1864 puts his request for leave at about 11. Birney's report and Hunt's say noon, but a signal station reported skirmishing at 11:45 and 11:55. 11:15 has no source. Seven other values are listed.",
  "holds": {
   "pdf_default": {
    "holds": "no",
@@ -744,7 +839,7 @@
   },
   "first_delegated": {
    "holds": "yes",
-   "note": "11:00 holds, and is now also supported by Birney's sworn account of 1864 and bounded by the signal messages of the day. The first pass called noon documented from Birney and Hunt; as claims they are, but Birney's own later account moves to 11, Hunt did not see it sent, and the 11.55 message is hard to square with a noon start."
+   "note": "11:00 holds, on Berdan's report alone, with Birney's sworn request at about 11 and Hunt's testimony (decision after about 11) consistent with it, and the signal messages of the day bounding it. The first pass called noon documented from Birney and Hunt; as claims they are, but Birney's testimony puts his request at about 11, Hunt did not see it sent, and the 11.55 message is hard to square with a noon start."
   }
  },
  "readers": [
