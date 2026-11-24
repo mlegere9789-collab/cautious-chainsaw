@@ -8,7 +8,7 @@
   "NOT-RUN": 0,
   "PASS": 2069
  },
- "finished_utc": "2026-11-24T18:13:56Z",
+ "finished_utc": "2026-11-24T18:19:17Z",
  "gate": "Q01",
  "incomplete_reasons": [
   "1238 item(s) NOT-RUN or BLOCKED-INPUT",
@@ -34,7 +34,7 @@
   "docs/battle-theatre/kit/evidence/us-3c-1d.jsonl": "20ea7a6735aca3769550f4899c9c19bfbe933ebfc2fe2a0bd9efd1834323fa97",
   "docs/battle-theatre/kit/verified_oob.json": "a00dd340185de9045849503cd03a8f2b0ae7ec72e0692d3ef45d26b531e322eb",
   "tools/bt/gates/oob_layer_lib.mjs": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d",
-  "tools/bt/gates/oobgates_common.py": "07b487e540b94c171db4e50ffe73575d3dfa01ea633085eb9074c6d7ad760002",
+  "tools/bt/gates/oobgates_common.py": "a592fe4a79459c8af1c5b0d3d4e7400f6be4faa60eb7ad568429be5c1c5d4730",
   "tools/bt/gates/q01_layer.mjs": "d3aeb1d12ee674131a30428a02997d372bcbef03957472a753ec519caea2694c",
   "tools/bt/gates/q01_oob.py": "fbe0c83498f2c5a93e6a1e466eee5ecdbd693ae0c3e518841f7688e8882337c2"
  },
@@ -148,10 +148,10 @@
    "sha256": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d"
   },
   {
-   "bytes": 13001,
+   "bytes": 13167,
    "path": "tools/bt/gates/oobgates_common.py",
    "role": "runner",
-   "sha256": "07b487e540b94c171db4e50ffe73575d3dfa01ea633085eb9074c6d7ad760002"
+   "sha256": "a592fe4a79459c8af1c5b0d3d4e7400f6be4faa60eb7ad568429be5c1c5d4730"
   },
   {
    "bytes": 7891,
@@ -134261,7 +134261,7 @@
   "Q01.6: the scenario set S* (every combination of source-conflict values inside each interaction group) was not enumerated; this run covered 7 scenario(s): default and the six sample scenarios of history.test.mjs: a sample, never S*"
  ],
  "renderer_class": "mixed",
- "run_id": "20261124T181339Z-Q01",
+ "run_id": "20261124T181900Z-Q01",
  "runnable_here": true,
  "runner_files": [
   "oob_layer_lib.mjs",
@@ -134269,7 +134269,7 @@
   "q01_layer.mjs",
   "q01_oob.py"
  ],
- "runner_version": "79d9b4803d5e5a87",
+ "runner_version": "838d3d29043d8e91",
  "scenario_set": {
   "complete": false,
   "count": 7,
@@ -134278,7 +134278,7 @@
   "note": "default and the six sample scenarios of history.test.mjs: a sample, never S*"
  },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:13:39Z",
+ "started_utc": "2026-11-24T18:19:00Z",
  "table": {
   "diagnostic_copy": false,
   "path": "docs/battle-theatre/kit/verified_oob.json",

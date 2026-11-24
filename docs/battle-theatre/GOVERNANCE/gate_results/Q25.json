@@ -2,13 +2,13 @@
  "command": "python3 tools/bt/gates/q25_library.py",
  "counts": {
   "BLOCKED-INPUT": 1,
-  "COVERED": 61,
-  "FAIL": 94,
+  "COVERED": 81,
+  "FAIL": 65,
   "N/A": 0,
   "NOT-RUN": 0,
-  "PASS": 219
+  "PASS": 226
  },
- "finished_utc": "2026-11-24T18:21:32Z",
+ "finished_utc": "2026-11-24T18:30:27Z",
  "gate": "Q25",
  "incomplete_reasons": [
   "1 item(s) NOT-RUN or BLOCKED-INPUT"
@@ -24,17 +24,18 @@
   "docs/battle-theatre/GOVERNANCE/library/status_2.json": "cd2c01f9920387e790134db8b4ce9ddcd6a193534505d1bebcc293ea268ca847",
   "docs/battle-theatre/GOVERNANCE/library/status_3.json": "faf77daaf011303222f60d4a1adcae8394d8c32895e949f78150d5b46dcd7e76",
   "docs/battle-theatre/GOVERNANCE/library/status_4.json": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e",
+  "docs/battle-theatre/GOVERNANCE/library/status_5.json": "6c7ac45aed89b2955c5e414eb81f41549afa26d88fc07693f383286fbe40f682",
   "docs/battle-theatre/GOVERNANCE/library/terms.json": null,
-  "docs/battle-theatre/GOVERNANCE/library/work_queue.json": "c407a93ebf8a2979b2767bda2935eb476951165d7455c7a54fa3c8c03ab7bd1c",
-  "docs/battle-theatre/GOVERNANCE/register_index.json": "cc3abed31dc83e1225901c04432e86c31d29632d7cf35d8c4fd699a8b3125359",
+  "docs/battle-theatre/GOVERNANCE/library/work_queue.json": "b4ec4a8b3cfef18b1bac0c5cc315dd8708de99a2cd84a33afd2ef4bc8d33f3f2",
+  "docs/battle-theatre/GOVERNANCE/register_index.json": "1f1f08961a1e37f482c32c43323a091095ff23933bfca99750cf0bfcee0bf3e6",
   "docs/battle-theatre/app/data/anim3d/clips.json": "c726d10cfce960175f4769b4873f426e612f6318e3baec7a870400b17fc7f01d",
   "docs/battle-theatre/app/data/audio3d/sources.json": "5eff983ec5d1a7f95a8a17cdeb77a76658cb3aac927d417b24c551933ef8e294",
   "docs/battle-theatre/app/data/figures3d/acw/manifest.json": "51a47aba61f767a905b02ae5cbbc6e09a98c46febec7597bd94da8ac27ea3724",
   "docs/battle-theatre/app/data/figures3d/manifest.json": "d1e0a5a6897347fe6ec97e943539705f2ca3cec066357425c370892f977a9e95",
   "docs/battle-theatre/medical/sources.json": "a0eff501c4847635deda3fe1e805e94ec30b64f83533205242d2c8f23739f7cd",
   "docs/battle-theatre/terrain/terrain_sources.json": "607aba583365719af7c67b8d947f32d1a189b9a9369985064138580ee75548e4",
-  "tools/bt/gates/lib/acquisition_list.json": "e77e36b8e06c3c845d4f927f059e121d7635a87d2a19dda48aca06f525dcc96e",
-  "tools/bt/gates/lib/library_ids.json": "58cb3cb6fcfc5d8c51eeb0a33e1a1079e6eb02be3064ef6e4a563e76ec31f37b"
+  "tools/bt/gates/lib/acquisition_list.json": "45a72aade87cc8341e5853c67138b20b24632fa1a023de1de7c983f393d70f51",
+  "tools/bt/gates/lib/library_ids.json": "74b126bd85aabe0216f96b8126947adb011adbddb974e51b4efb65ba7533034c"
  },
  "inputs": [
   {
@@ -98,22 +99,28 @@
    "sha256": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e"
   },
   {
+   "bytes": 6734,
+   "path": "docs/battle-theatre/GOVERNANCE/library/status_5.json",
+   "role": "status file",
+   "sha256": "6c7ac45aed89b2955c5e414eb81f41549afa26d88fc07693f383286fbe40f682"
+  },
+  {
    "missing": true,
    "path": "docs/battle-theatre/GOVERNANCE/library/terms.json",
    "role": "terms and robots record",
    "sha256": null
   },
   {
-   "bytes": 25328,
+   "bytes": 25738,
    "path": "docs/battle-theatre/GOVERNANCE/library/work_queue.json",
    "role": "work queue",
-   "sha256": "c407a93ebf8a2979b2767bda2935eb476951165d7455c7a54fa3c8c03ab7bd1c"
+   "sha256": "b4ec4a8b3cfef18b1bac0c5cc315dd8708de99a2cd84a33afd2ef4bc8d33f3f2"
   },
   {
-   "bytes": 611221,
+   "bytes": 612915,
    "path": "docs/battle-theatre/GOVERNANCE/register_index.json",
    "role": "register index",
-   "sha256": "cc3abed31dc83e1225901c04432e86c31d29632d7cf35d8c4fd699a8b3125359"
+   "sha256": "1f1f08961a1e37f482c32c43323a091095ff23933bfca99750cf0bfcee0bf3e6"
   },
   {
    "bytes": 286267,
@@ -152,16 +159,16 @@
    "sha256": "607aba583365719af7c67b8d947f32d1a189b9a9369985064138580ee75548e4"
   },
   {
-   "bytes": 18893,
+   "bytes": 19093,
    "path": "tools/bt/gates/lib/acquisition_list.json",
    "role": "acquisition list",
-   "sha256": "e77e36b8e06c3c845d4f927f059e121d7635a87d2a19dda48aca06f525dcc96e"
+   "sha256": "45a72aade87cc8341e5853c67138b20b24632fa1a023de1de7c983f393d70f51"
   },
   {
-   "bytes": 6635,
+   "bytes": 6928,
    "path": "tools/bt/gates/lib/library_ids.json",
    "role": "id map",
-   "sha256": "58cb3cb6fcfc5d8c51eeb0a33e1a1079e6eb02be3064ef6e4a563e76ec31f37b"
+   "sha256": "74b126bd85aabe0216f96b8126947adb011adbddb974e51b4efb65ba7533034c"
   }
  ],
  "items": [
@@ -196,8 +203,8 @@
     "parts": [
      {
       "part": "LOC-MAPS",
-      "reason": "no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "blocked"
      },
      {
@@ -220,8 +227,8 @@
      },
      {
       "part": "TM-BACHELDER-1886-HOURLY",
-      "reason": "no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded after 2026-10-21 (2026-11-11 JACOBS-1864; 2026-11-11 LETTERMAN-1866; 2026-11-11 BACH-KEY-1864)",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "blocked"
      }
     ],
@@ -234,9 +241,9 @@
    },
    "id": "Q25/Q25.2/row/C11-BACHELDER-MAPS-LOC",
    "pass": false,
-   "reason": "LOC-MAPS: no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record; TM-BACHELDER-1886-HOURLY: no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded after 2026-10-21 (2026-11-11 JACOBS-1864; 2026-11-11 LETTERMAN-1866; 2026-11-11 BACH-KEY-1864)",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -281,8 +288,8 @@
     "parts": [
      {
       "part": "LOC-MAPS",
-      "reason": "no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "blocked"
      }
     ],
@@ -292,9 +299,9 @@
    },
    "id": "Q25/Q25.2/row/C11-HOPKINS-1858",
    "pass": false,
-   "reason": "LOC-MAPS: no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -348,13 +355,38 @@
    "check": "Q25.2",
    "evidence": {
     "group": "C.1.1",
-    "label": "OR volume 27 alternate HathiTrust copies (second witness)"
+    "label": "OR volume 27 alternate HathiTrust copies (second witness)",
+    "parts": [
+     {
+      "part": "OR-27-1",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     },
+     {
+      "part": "OR-27-2",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     },
+     {
+      "part": "OR-27-3",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "OR-27-1",
+     "OR-27-2",
+     "OR-27-3"
+    ]
    },
    "id": "Q25/Q25.2/row/C11-OR27-ALT-HATHI",
-   "pass": false,
-   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.2",
@@ -456,8 +488,8 @@
     "parts": [
      {
       "part": "LOC-MAPS",
-      "reason": "no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "blocked"
      }
     ],
@@ -467,9 +499,9 @@
    },
    "id": "Q25/Q25.2/row/C11-WARREN-LOC-1886",
    "pass": false,
-   "reason": "LOC-MAPS: no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -624,13 +656,31 @@
    "check": "Q25.2",
    "evidence": {
     "group": "C.1.2",
-    "label": "NPS natural features and plants"
+    "label": "NPS natural features and plants",
+    "parts": [
+     {
+      "part": "NPSGOV-NATURAL-FEATURES",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     },
+     {
+      "part": "NPSGOV-PLANTS",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "NPSGOV-NATURAL-FEATURES",
+     "NPSGOV-PLANTS"
+    ]
    },
    "id": "Q25/Q25.2/row/C12-NPS-NATURAL",
-   "pass": false,
-   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.2",
@@ -803,8 +853,8 @@
     "parts": [
      {
       "part": "PRINT",
-      "reason": "the reason does not say print-only",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "blocked"
      }
     ],
@@ -814,9 +864,9 @@
    },
    "id": "Q25/Q25.2/row/C13-BUSEY-MARTIN",
    "pass": false,
-   "reason": "PRINT: the reason does not say print-only",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -867,8 +917,8 @@
     "parts": [
      {
       "part": "PRINT",
-      "reason": "the reason does not say print-only",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "blocked"
      }
     ],
@@ -878,9 +928,9 @@
    },
    "id": "Q25/Q25.2/row/C13-COATES-THOMAS",
    "pass": false,
-   "reason": "PRINT: the reason does not say print-only",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -890,8 +940,8 @@
     "parts": [
      {
       "part": "PRINT",
-      "reason": "the reason does not say print-only",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "blocked"
      }
     ],
@@ -901,9 +951,9 @@
    },
    "id": "Q25/Q25.2/row/C13-COCO",
    "pass": false,
-   "reason": "PRINT: the reason does not say print-only",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -913,8 +963,8 @@
     "parts": [
      {
       "part": "PRINT",
-      "reason": "the reason does not say print-only",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "blocked"
      }
     ],
@@ -924,9 +974,9 @@
    },
    "id": "Q25/Q25.2/row/C13-CODDINGTON",
    "pass": false,
-   "reason": "PRINT: the reason does not say print-only",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -983,8 +1033,8 @@
     "parts": [
      {
       "part": "PRINT",
-      "reason": "the reason does not say print-only",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "blocked"
      }
     ],
@@ -994,9 +1044,9 @@
    },
    "id": "Q25/Q25.2/row/C13-GOTTFRIED",
    "pass": false,
-   "reason": "PRINT: the reason does not say print-only",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1006,8 +1056,8 @@
     "parts": [
      {
       "part": "PRINT",
-      "reason": "the reason does not say print-only",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "blocked"
      }
     ],
@@ -1017,9 +1067,9 @@
    },
    "id": "Q25/Q25.2/row/C13-JENSEN",
    "pass": false,
-   "reason": "PRINT: the reason does not say print-only",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1158,9 +1208,9 @@
     "parts": [
      {
       "part": "NPS-SEM",
-      "reason": "stale block, retry owed: a request to the same host succeeded after 2026-11-11 (2026-11-13 PM-NPS-SLAUGHTER-PEN-PDF; 2026-11-13 NPS-DEV-POLICY; 2026-11-13 NPS-HSR-SLYDER)",
-      "result": "FAIL",
-      "terminal": "blocked"
+      "reason": "complete record",
+      "result": "COVERED",
+      "terminal": "scheduled"
      }
     ],
     "status_ids": [
@@ -1169,9 +1219,9 @@
    },
    "id": "Q25/Q25.2/row/C13-NPS-SEMINAR",
    "pass": false,
-   "reason": "NPS-SEM: stale block, retry owed: a request to the same host succeeded after 2026-11-11 (2026-11-13 PM-NPS-SLAUGHTER-PEN-PDF; 2026-11-13 NPS-DEV-POLICY; 2026-11-13 NPS-HSR-SLYDER)",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1279,8 +1329,8 @@
     "parts": [
      {
       "part": "PRINT",
-      "reason": "the reason does not say print-only",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "blocked"
      }
     ],
@@ -1290,9 +1340,9 @@
    },
    "id": "Q25/Q25.2/row/C13-PFANZ",
    "pass": false,
-   "reason": "PRINT: the reason does not say print-only",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1419,8 +1469,8 @@
     "parts": [
      {
       "part": "PRINT",
-      "reason": "the reason does not say print-only",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "blocked"
      }
     ],
@@ -1430,9 +1480,9 @@
    },
    "id": "Q25/Q25.2/row/C13-WARNER",
    "pass": false,
-   "reason": "PRINT: the reason does not say print-only",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -1556,13 +1606,38 @@
    "check": "Q25.2",
    "evidence": {
     "group": "D.4.1",
-    "label": "eHistory (Ohio State) transcribed text of the Official Records, serials 043 to 045"
+    "label": "eHistory (Ohio State) transcribed text of the Official Records, serials 043 to 045",
+    "parts": [
+     {
+      "part": "OR-27-1",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     },
+     {
+      "part": "OR-27-2",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     },
+     {
+      "part": "OR-27-3",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "OR-27-1",
+     "OR-27-2",
+     "OR-27-3"
+    ]
    },
    "id": "Q25/Q25.2/row/D41-EHISTORY-TEXT-LAYER",
-   "pass": false,
-   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.2",
@@ -2137,8 +2212,8 @@
     "parts": [
      {
       "part": "LOC-MAPS",
-      "reason": "no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "blocked"
      }
     ],
@@ -2148,9 +2223,9 @@
    },
    "id": "Q25/Q25.2/row/R12.001",
    "pass": false,
-   "reason": "LOC-MAPS: no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "COVERED",
    "sub_requirements": [
     "R12.001"
    ]
@@ -2297,8 +2372,8 @@
     "parts": [
      {
       "part": "LOC-MAPS",
-      "reason": "no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "blocked"
      }
     ],
@@ -2308,9 +2383,9 @@
    },
    "id": "Q25/Q25.2/row/R12.008",
    "pass": false,
-   "reason": "LOC-MAPS: no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "COVERED",
    "sub_requirements": [
     "R12.008"
    ]
@@ -2353,8 +2428,8 @@
     "parts": [
      {
       "part": "LOC-MAPS",
-      "reason": "no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
-      "result": "FAIL",
+      "reason": "complete record",
+      "result": "COVERED",
       "terminal": "blocked"
      }
     ],
@@ -2364,9 +2439,9 @@
    },
    "id": "Q25/Q25.2/row/R12.011",
    "pass": false,
-   "reason": "LOC-MAPS: no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "COVERED",
    "sub_requirements": [
     "R12.011"
    ]
@@ -2414,13 +2489,24 @@
    "check": "Q25.2",
    "evidence": {
     "group": "B.9 table 1",
-    "label": "NPS-cited War Department and Gettysburg Battlefield Memorial Association maps of 1863, 1868 and 1872"
+    "label": "NPS-cited War Department and Gettysburg Battlefield Memorial Association maps of 1863, 1868 and 1872",
+    "parts": [
+     {
+      "part": "NPSGOV-BATTLEFIELD-REHAB",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "NPSGOV-BATTLEFIELD-REHAB"
+    ]
    },
    "id": "Q25/Q25.2/row/R12.013",
-   "pass": false,
-   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "PASS",
    "sub_requirements": [
     "R12.013"
    ]
@@ -2459,13 +2545,24 @@
    "check": "Q25.2",
    "evidence": {
     "group": "B.9 table 2",
-    "label": "NPS rehabilitation program"
+    "label": "NPS rehabilitation program",
+    "parts": [
+     {
+      "part": "NPSGOV-BATTLEFIELD-REHAB",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "NPSGOV-BATTLEFIELD-REHAB"
+    ]
    },
    "id": "Q25/Q25.2/row/R12.016",
-   "pass": false,
-   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "PASS",
    "sub_requirements": [
     "R12.016"
    ]
@@ -2490,9 +2587,9 @@
      },
      {
       "part": "NPS-SEM",
-      "reason": "stale block, retry owed: a request to the same host succeeded after 2026-11-11 (2026-11-13 PM-NPS-SLAUGHTER-PEN-PDF; 2026-11-13 NPS-DEV-POLICY; 2026-11-13 NPS-HSR-SLYDER)",
-      "result": "FAIL",
-      "terminal": "blocked"
+      "reason": "complete record",
+      "result": "COVERED",
+      "terminal": "scheduled"
      }
     ],
     "status_ids": [
@@ -2502,9 +2599,9 @@
    },
    "id": "Q25/Q25.2/row/R12.017",
    "pass": false,
-   "reason": "NPS-SEM: stale block, retry owed: a request to the same host succeeded after 2026-11-11 (2026-11-13 PM-NPS-SLAUGHTER-PEN-PDF; 2026-11-13 NPS-DEV-POLICY; 2026-11-13 NPS-HSR-SLYDER)",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "COVERED",
    "sub_requirements": [
     "R12.017"
    ]
@@ -2975,13 +3072,24 @@
    "check": "Q25.2",
    "evidence": {
     "group": "B.9 table 5",
-    "label": "NPS natural features and ecosystems"
+    "label": "NPS natural features and ecosystems",
+    "parts": [
+     {
+      "part": "NPSGOV-NATURAL-FEATURES",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "NPSGOV-NATURAL-FEATURES"
+    ]
    },
    "id": "Q25/Q25.2/row/R12.042",
-   "pass": false,
-   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "PASS",
    "sub_requirements": [
     "R12.042"
    ]
@@ -2990,13 +3098,24 @@
    "check": "Q25.2",
    "evidence": {
     "group": "B.9 table 5",
-    "label": "NPS plants"
+    "label": "NPS plants",
+    "parts": [
+     {
+      "part": "NPSGOV-PLANTS",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "NPSGOV-PLANTS"
+    ]
    },
    "id": "Q25/Q25.2/row/R12.043",
-   "pass": false,
-   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL",
+   "result": "PASS",
    "sub_requirements": [
     "R12.043"
    ]
@@ -3035,25 +3154,59 @@
    "check": "Q25.2",
    "evidence": {
     "group": "X.1",
-    "label": "The biography and memoir sets"
+    "label": "The biography and memoir sets",
+    "parts": [
+     {
+      "part": "WITNESS#ingested",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     },
+     {
+      "part": "WITNESS#remainder",
+      "reason": "complete record",
+      "result": "COVERED",
+      "terminal": "scheduled"
+     }
+    ],
+    "status_ids": [
+     "WITNESS"
+    ]
    },
    "id": "Q25/Q25.2/row/X1-BIOGRAPHY-MEMOIR-SETS",
    "pass": false,
-   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
    "evidence": {
     "group": "X.1",
-    "label": "Regimental histories"
+    "label": "Regimental histories",
+    "parts": [
+     {
+      "part": "STATE-OTHER#ingested",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     },
+     {
+      "part": "STATE-OTHER#remainder",
+      "reason": "complete record",
+      "result": "COVERED",
+      "terminal": "scheduled"
+     }
+    ],
+    "status_ids": [
+     "STATE-OTHER"
+    ]
    },
    "id": "Q25/Q25.2/row/X1-REGIMENTAL-HISTORIES",
    "pass": false,
-   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "reason": "recorded as blocked or scheduled with its record (the gate text allows it)",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -3088,6 +3241,28 @@
     "title": "BL3"
    },
    "id": "Q25/Q25.2/status/BL3",
+   "pass": false,
+   "reason": "recorded as blocked or scheduled with its record",
+   "renderer_class": "python",
+   "result": "COVERED"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_5.json"
+    ],
+    "hosts": [
+     "babel.hathitrust.org",
+     "ehistory.osu.edu"
+    ],
+    "last_failed_lookup_date": "2026-11-13",
+    "status_word": "blocked",
+    "terminal": "blocked",
+    "title": "Hosts that answered with a bot block or a throttle breach (recorded, not retried)"
+   },
+   "id": "Q25/Q25.2/status/BOT-BLOCKED-HOSTS",
    "pass": false,
    "reason": "recorded as blocked or scheduled with its record",
    "renderer_class": "python",
@@ -4521,26 +4696,6 @@
     "local_files_missing": 0,
     "status_word": "ingested",
     "terminal": "ingested",
-    "title": "Battlefield Rehabilitation at Gettysburg - Gettysburg National Military Park (U.S. National Park Service)"
-   },
-   "id": "Q25/Q25.2/status/NPSGOV-BATTLEFIELD-REHAB",
-   "pass": true,
-   "reason": "ingested, with its evidence",
-   "renderer_class": "python",
-   "result": "PASS"
-  },
-  {
-   "check": "Q25.2",
-   "evidence": {
-    "acquisition_entries": 1,
-    "entries": 1,
-    "files": [
-     "status.json"
-    ],
-    "local_files_hashed": 1,
-    "local_files_missing": 0,
-    "status_word": "ingested",
-    "terminal": "ingested",
     "title": "Gettysburg National Cemetery - Gettysburg National Military Park (U.S. National Park Service)"
    },
    "id": "Q25/Q25.2/status/NPSGOV-CEMETERY",
@@ -5624,26 +5779,6 @@
     "title": "Little Round Top - Gettysburg National Military Park (U.S. National Park Service)"
    },
    "id": "Q25/Q25.2/status/NPSGOV-LRT-REHAB",
-   "pass": true,
-   "reason": "ingested, with its evidence",
-   "renderer_class": "python",
-   "result": "PASS"
-  },
-  {
-   "check": "Q25.2",
-   "evidence": {
-    "acquisition_entries": 1,
-    "entries": 1,
-    "files": [
-     "status.json"
-    ],
-    "local_files_hashed": 1,
-    "local_files_missing": 0,
-    "status_word": "ingested",
-    "terminal": "ingested",
-    "title": "Natural Features & Ecosystems - Gettysburg National Military Park (U.S. National Park Service)"
-   },
-   "id": "Q25/Q25.2/status/NPSGOV-NATURAL-FEATURES",
    "pass": true,
    "reason": "ingested, with its evidence",
    "renderer_class": "python",
@@ -6821,26 +6956,6 @@
     "local_files_missing": 0,
     "status_word": "ingested",
     "terminal": "ingested",
-    "title": "Plants - Gettysburg National Military Park (U.S. National Park Service)"
-   },
-   "id": "Q25/Q25.2/status/NPSGOV-PLANTS",
-   "pass": true,
-   "reason": "ingested, with its evidence",
-   "renderer_class": "python",
-   "result": "PASS"
-  },
-  {
-   "check": "Q25.2",
-   "evidence": {
-    "acquisition_entries": 1,
-    "entries": 1,
-    "files": [
-     "status.json"
-    ],
-    "local_files_hashed": 1,
-    "local_files_missing": 0,
-    "status_word": "ingested",
-    "terminal": "ingested",
     "title": "Town - Gettysburg National Military Park (U.S. National Park Service)"
    },
    "id": "Q25/Q25.2/status/NPSGOV-TOWN",
@@ -7456,49 +7571,49 @@
   {
    "check": "Q25.2",
    "evidence": {
-    "acquisition_entries": 0,
+    "acquisition_entries": 1,
+    "entries": 1,
     "files": [
      "status_3.json"
     ],
-    "missing": [
-     "no acquisition entry (hash, date, rights, quality) reaches this row through the id map"
-    ],
+    "local_files_hashed": 0,
+    "local_files_missing": 1,
     "status_word": "ingested",
     "terminal": "ingested",
     "title": "PM-NPS-ROT-FIGURES"
    },
    "id": "Q25/Q25.2/status/PM-NPS-ROT-FIGURES",
-   "pass": false,
-   "reason": "no acquisition entry (hash, date, rights, quality) reaches this row through the id map",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.2",
    "evidence": {
-    "acquisition_entries": 0,
+    "acquisition_entries": 1,
+    "entries": 1,
     "files": [
      "status.json",
      "status_3.json",
      "status_4.json"
     ],
-    "missing": [
-     "no acquisition entry (hash, date, rights, quality) reaches this row through the id map"
-    ],
+    "local_files_hashed": 1,
+    "local_files_missing": 0,
     "status_word": "partial",
     "terminal": "ingested",
     "title": "PM-NPS-SLAUGHTER-PEN-PDF"
    },
    "id": "Q25/Q25.2/status/PM-NPS-SLAUGHTER-PEN-PDF#ingested",
-   "pass": false,
-   "reason": "no acquisition entry (hash, date, rights, quality) reaches this row through the id map",
+   "pass": true,
+   "reason": "ingested, with its evidence",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.2",
    "evidence": {
-    "acquisition_entries": 0,
+    "acquisition_entries": 1,
     "files": [
      "status.json",
      "status_3.json",
@@ -7558,7 +7673,8 @@
    "evidence": {
     "acquisition_entries": 0,
     "files": [
-     "status.json"
+     "status.json",
+     "status_5.json"
     ],
     "hosts": [
      "archive.org",
@@ -7569,42 +7685,16 @@
      "loc.gov",
      "tile.loc.gov"
     ],
-    "last_failed_lookup_date": "2026-10-21",
-    "later_successes": [
-     {
-      "at": "2026-11-11 (109 records), 2026-11-13 (18 records), 2026-11-14 (2 records outside cwp and 62 records of the wide search)",
-      "entry": "PM-LOC-RECORDS"
-     },
-     {
-      "at": "2026-11-11T16:40:29Z",
-      "entry": "JACOBS-1864"
-     },
-     {
-      "at": "2026-11-11T16:40:32Z",
-      "entry": "LETTERMAN-1866"
-     },
-     {
-      "at": "2026-11-11T16:40:33Z",
-      "entry": "BACH-KEY-1864"
-     },
-     {
-      "at": "2026-11-11T16:40:40Z",
-      "entry": "BACH-REPULSE-1870"
-     }
-    ],
-    "missing": [
-     "no failed-lookup record (host, locator, date, response)",
-     "stale block, retry owed: a request to the same host succeeded after 2026-10-21 (2026-11-11 PM-LOC-RECORDS; 2026-11-11 JACOBS-1864; 2026-11-11 LETTERMAN-1866)"
-    ],
+    "last_failed_lookup_date": "2026-11-24",
     "status_word": "blocked",
     "terminal": "blocked",
     "title": "Access blocks met 2026-10-21 (recorded, not circumvented)"
    },
    "id": "Q25/Q25.2/status/TM-HOSTS-BLOCKED",
    "pass": false,
-   "reason": "no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded after 2026-10-21 (2026-11-11 PM-LOC-RECORDS; 2026-11-11 JACOBS-1864; 2026-11-11 LETTERMAN-1866)",
+   "reason": "recorded as blocked or scheduled with its record",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "COVERED"
   },
   {
    "check": "Q25.2",
@@ -7633,16 +7723,13 @@
      "babel.hathitrust.org",
      "ehistory.osu.edu"
     ],
-    "problems": [
-     "babel.hathitrust.org is not recorded as blocked in any status row (answered with a bot block on 2026-11-13)",
-     "ehistory.osu.edu is not recorded as blocked in any status row (answered with a bot block on 2026-11-13)"
-    ]
+    "problems": []
    },
    "id": "Q25/Q25.4/blocked-hosts",
-   "pass": false,
-   "reason": "babel.hathitrust.org is not recorded as blocked in any status row (answered with a bot block on 2026-11-13); ehistory.osu.edu is not recorded as blocked in any status row (answered with a bot block on 2026-11-13)",
+   "pass": true,
+   "reason": "the hosts that answered with a bot block are recorded as blocked and were not requested again",
    "renderer_class": "python",
-   "result": "FAIL"
+   "result": "PASS"
   },
   {
    "check": "Q25.4",
@@ -7810,10 +7897,10 @@
   "owner step for RUMSEY (viewer-only): Owner decides whether to ask the holder for permission beyond viewing (sending a permission request is an owner act)"
  ],
  "renderer_class": "python",
- "run_id": "20261124T182132Z-Q25",
+ "run_id": "20261124T183026Z-Q25",
  "runnable_here": true,
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:21:32Z",
+ "started_utc": "2026-11-24T18:30:26Z",
  "status_summary": {
   "acquisition_entries": 422,
   "source_rows": 138,
@@ -7821,9 +7908,10 @@
    "status.json",
    "status_2.json",
    "status_3.json",
-   "status_4.json"
+   "status_4.json",
+   "status_5.json"
   ],
-  "status_ids": 278,
+  "status_ids": 279,
   "untracked_entries": 0,
   "words": {
    "blocked": 6,
@@ -7833,7 +7921,7 @@
    "licence-checked": 2,
    "partial": 13,
    "print-only": 2,
-   "scheduled": 30,
+   "scheduled": 31,
    "targeted-lookup-only": 1,
    "unusable": 3,
    "viewer-only": 1
@@ -7863,19 +7951,19 @@
    },
    "Q25.2": {
     "BLOCKED-INPUT": 0,
-    "COVERED": 61,
-    "FAIL": 90,
+    "COVERED": 81,
+    "FAIL": 62,
     "N/A": 0,
     "NOT-RUN": 0,
-    "PASS": 213
+    "PASS": 219
    },
    "Q25.4": {
     "BLOCKED-INPUT": 1,
     "COVERED": 0,
-    "FAIL": 2,
+    "FAIL": 1,
     "N/A": 0,
     "NOT-RUN": 0,
-    "PASS": 1
+    "PASS": 2
    },
    "Q25.5": {
     "BLOCKED-INPUT": 0,
@@ -7886,13 +7974,13 @@
     "PASS": 3
    }
   },
-  "covered": 61,
-  "fail": 94,
-  "items": 375,
+  "covered": 81,
+  "fail": 65,
+  "items": 373,
   "n_a": 0,
-  "not_passing": 156,
+  "not_passing": 147,
   "not_run": 0,
-  "pass": 219
+  "pass": 226
  },
  "verdict": "FAIL"
 }

@@ -1,0 +1,187 @@
+{
+ "_doc": "library/status_5.json (2026-11-24 Q25 follow-up, tools/bt/library_q25_followup.py): PRINT reason from the ledger, dated re-tests of stale blocks, the bot-blocked hosts. Later file wins per key.",
+ "sources": [
+  {
+   "id": "PRINT",
+   "reason": "print-only: acquired_2.json blocked_or_failed records these eight works (Coddington, Busey and Martin, Pfanz, Gottfried, Warner, Thomas/Coates, Jensen, Coco) as \"not public domain: skipped by instruction\"; cited only, no digital copy ingested"
+  },
+  {
+   "id": "NPS-SEM",
+   "status": "scheduled",
+   "reason": "re-tested 2026-11-24: https://www.npshistory.com/ and https://www.npshistory.com/series/symposia/gettysburg_seminars/ answered HTTP 200 (one request each, one second apart); the 2026-11-11 no-connection no longer holds, and the ledger holds later acquisitions from this host (acquired_3.json 2026-11-13); the seminar papers (vols 4-13, 15, 16) are not yet acquired",
+   "retest": [
+    {
+     "host": "www.npshistory.com",
+     "locator": "/",
+     "date": "2026-11-24",
+     "response": "HTTP 200, 168295 bytes"
+    },
+    {
+     "host": "www.npshistory.com",
+     "locator": "/series/symposia/gettysburg_seminars/",
+     "date": "2026-11-24",
+     "response": "HTTP 200, 15980 bytes"
+    }
+   ],
+   "next_action": "Acquire Gettysburg Seminar Papers vols 4-13, 15, 16 from www.npshistory.com (public host, about one request per second), hash-record them in the acquisition ledger, record rights and text quality, then re-run gate Q25.",
+   "queue_entry": "WQ-NPS-SEM"
+  },
+  {
+   "id": "LOC-MAPS",
+   "status": "blocked-to-prior-research",
+   "reason": "unchanged by this pass (maps, not text); see status.json and TM-HOSTS-BLOCKED; re-tested 2026-11-24 (below)",
+   "earlier_research": "status.json 2026-10-21 (TM-HOSTS-BLOCKED); re-tested 2026-11-24",
+   "failed_lookup": [
+    {
+     "host": "www.loc.gov",
+     "locator": "/resource/g3823a.ct000648/ (item page, HTML)",
+     "date": "2026-11-24",
+     "response": "HTTP 403 (5487 bytes)"
+    },
+    {
+     "host": "www.loc.gov",
+     "locator": "/maps/ (collection page, HTML)",
+     "date": "2026-11-24",
+     "response": "HTTP 403 (5385 bytes)"
+    },
+    {
+     "host": "tile.loc.gov",
+     "locator": "/storage-services/master/pnp/ppmsca/12800/12834/ (directory)",
+     "date": "2026-11-24",
+     "response": "HTTP 403 (535 bytes)"
+    }
+   ],
+   "retest_answered": [
+    {
+     "host": "www.loc.gov",
+     "locator": "/item/99446453/?fo=json (Warren record, open JSON)",
+     "date": "2026-11-24",
+     "response": "HTTP 200, 46593 bytes"
+    },
+    {
+     "host": "www.loc.gov",
+     "locator": "/pictures/item/2018671576/?fo=json",
+     "date": "2026-11-24",
+     "response": "HTTP 200, 7879 bytes"
+    }
+   ]
+  },
+  {
+   "id": "TM-HOSTS-BLOCKED",
+   "status": "blocked",
+   "failed_lookup": [
+    {
+     "host": "davidrumsey.com",
+     "locator": "https://www.davidrumsey.com/",
+     "date": "2026-11-24",
+     "response": "no connection (curl status 000, proxy refusal); not circumvented"
+    },
+    {
+     "host": "digitalcommonwealth.org",
+     "locator": "https://digitalcommonwealth.org/",
+     "date": "2026-11-24",
+     "response": "no connection (curl status 000, proxy refusal); not circumvented"
+    },
+    {
+     "host": "geo.btaa.org",
+     "locator": "https://geo.btaa.org/",
+     "date": "2026-11-24",
+     "response": "no connection (curl status 000, proxy refusal); not circumvented"
+    },
+    {
+     "host": "collections.library.yale.edu",
+     "locator": "https://collections.library.yale.edu/",
+     "date": "2026-11-24",
+     "response": "no connection (curl status 000, proxy refusal); not circumvented"
+    },
+    {
+     "host": "loc.gov",
+     "locator": "https://www.loc.gov/resource/g3823a.ct000648/ (item page)",
+     "date": "2026-11-24",
+     "response": "HTTP 403"
+    },
+    {
+     "host": "tile.loc.gov",
+     "locator": "/storage-services/master/pnp/ppmsca/12800/12834/",
+     "date": "2026-11-24",
+     "response": "HTTP 403"
+    }
+   ],
+   "retest_answered": [
+    {
+     "host": "archive.org",
+     "locator": "/",
+     "date": "2026-11-24",
+     "response": "HTTP 200 (archive.org was never blocked; the row says it was used instead)"
+    },
+    {
+     "host": "loc.gov",
+     "locator": "open JSON records (?fo=json)",
+     "date": "2026-11-24",
+     "response": "HTTP 200"
+    }
+   ]
+  },
+  {
+   "id": "NARA-WARREN",
+   "retest_answered": [
+    {
+     "host": "catalog.archives.gov",
+     "locator": "/",
+     "date": "2026-11-24",
+     "response": "HTTP 200 (root only; the Warren item itself was not requested)"
+    }
+   ]
+  },
+  {
+   "id": "TM-BACHELDER-1886-HOURLY",
+   "failed_lookup": [
+    {
+     "host": "archive.org",
+     "locator": "/advancedsearch.php?q=bachelder AND (hourly OR \"tactical maps\" OR \"twenty-eight\")",
+     "date": "2026-11-24",
+     "response": "HTTP 200, numFound 0: no item"
+    },
+    {
+     "host": "loc.gov",
+     "locator": "https://www.loc.gov/search/?q=bachelder+tactical+maps+hourly&fo=json",
+     "date": "2026-11-24",
+     "response": "no answer within 30 s (curl status 000, timeout); not retried"
+    }
+   ]
+  },
+  {
+   "id": "BOT-BLOCKED-HOSTS",
+   "title": "Hosts that answered with a bot block or a throttle breach (recorded, not retried)",
+   "where": "babel.hathitrust.org and ehistory.osu.edu (bot block)",
+   "status": "blocked",
+   "note": "babel.hathitrust.org and ehistory.osu.edu answered with their own bot block on 2026-11-13 (library_ids.json bot_blocked_hosts; task rules of the bt-gates workstream); never retried. Earlier records: ehistory.osu.edu HTTP 403 to scripted requests 2026-10-19 (acquired.json blocked); babel.hathitrust.org no connection 2026-11-11 (status OR-27-1..3 second_witness).",
+   "throttle_breach": {
+    "host": "loc.gov (the www host)",
+    "entries": [
+     "NPS-HABS-pa0004",
+     "NPS-HABS-pa0010"
+    ],
+    "fetched_at": "2026-11-15T23:56:08",
+    "result": "both ledger entries carry the same second, so two requests fell in one second; the ledger time cannot be changed; gate item Q25/Q25.4/throttle stays FAIL"
+   },
+   "register_ids": [
+    "EG-LIB-BOT-BLOCKED-HOSTS"
+   ],
+   "failed_lookup": [
+    {
+     "host": "babel.hathitrust.org",
+     "locator": "bot block on the HathiTrust page fetch (second witness of OR vol. 27)",
+     "date": "2026-11-13",
+     "response": "bot block (recorded by the task rules; not retried, not circumvented)"
+    },
+    {
+     "host": "ehistory.osu.edu",
+     "locator": "eHistory OR transcription (serials 043 to 045)",
+     "date": "2026-11-13",
+     "response": "bot block (recorded by the task rules; not retried, not circumvented); earlier HTTP 403 to scripted requests 2026-10-19 (acquired.json blocked)"
+    }
+   ]
+  }
+ ]
+}

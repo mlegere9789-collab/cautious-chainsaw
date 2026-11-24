@@ -3,12 +3,12 @@
  "counts": {
   "BLOCKED-INPUT": 21,
   "COVERED": 0,
-  "FAIL": 212,
+  "FAIL": 211,
   "N/A": 8,
   "NOT-RUN": 0,
-  "PASS": 77
+  "PASS": 78
  },
- "finished_utc": "2026-11-24T18:16:16Z",
+ "finished_utc": "2026-11-24T18:27:26Z",
  "gate": "Q20",
  "incomplete_reasons": [
   "21 item(s) NOT-RUN or BLOCKED-INPUT"
@@ -419,13 +419,6 @@
   {
    "check": "Q20.1",
    "evidence": {
-    "card": {
-     "army": "union",
-     "commander_printed": "Capt Conger",
-     "name": "3rd West Virginia Cavalry (Cos A, C)",
-     "parent": "1st Division (Buford), 2nd Brigade (Devin)"
-    },
-    "shared_id": "US.CAV.3WV",
     "table_row": {
      "in_roster": false,
      "level": "regiment",
@@ -435,7 +428,7 @@
    },
    "id": "Q20/Q20.1/US.CAV.3WV/default",
    "pass": false,
-   "reason": "kit card US.CAV.3WV (3rd West Virginia Cavalry (Cos A, C)) has no unit in the layer; cavalry unit US.CAV.3WV of the verified OOB is missing from the layer",
+   "reason": "cavalry unit US.CAV.3WV of the verified OOB is missing from the layer",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -1455,9 +1448,8 @@
    "evidence": {
     "conditions": [
      {
-      "detail": "no kit card: the figure pass resolves it to DEFAULT.union.cavalry (default)",
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
-      "ok": false
+      "ok": true
      },
      {
       "detail": "table branch 'cavalry'",
@@ -1467,18 +1459,17 @@
     ],
     "drawn": false,
     "kit": {
-     "default": true,
-     "how": "default",
-     "unit": "DEFAULT.union.cavalry"
+     "default": false,
+     "how": "alias",
+     "unit": "US.CAV.3WV"
     },
-    "layer_only_result": "FAIL",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-1d-devin-3wvaandc/default",
-   "pass": false,
-   "reason": "cavalry set: the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card: no kit card: the figure pass resolves it to DEFAULT.union.cavalry (default)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "FAIL",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -16023,7 +16014,7 @@
   "Q20.6: a time-keyed schedule of the cavalry states per unit does not exist in the product; the foot-contact test checks the structure of the gaits, not documented speeds (G-ANIM-07)"
  ],
  "renderer_class": "mixed",
- "run_id": "20261124T181603Z-Q20",
+ "run_id": "20261124T182716Z-Q20",
  "runnable_here": true,
  "runner_files": [
   "oob_layer_lib.mjs",
@@ -16033,7 +16024,7 @@
  ],
  "runner_version": "5aab00cb952ddeac",
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:16:03Z",
+ "started_utc": "2026-11-24T18:27:16Z",
  "thresholds": [],
  "tool_versions": {
   "node": "v22.23.4",
@@ -16045,10 +16036,10 @@
    "Q20.1": {
     "BLOCKED-INPUT": 0,
     "COVERED": 0,
-    "FAIL": 12,
+    "FAIL": 11,
     "N/A": 0,
     "NOT-RUN": 0,
-    "PASS": 57
+    "PASS": 58
    },
    "Q20.2": {
     "BLOCKED-INPUT": 21,
@@ -16092,12 +16083,12 @@
    }
   },
   "covered": 0,
-  "fail": 212,
+  "fail": 211,
   "items": 318,
   "n_a": 8,
-  "not_passing": 241,
+  "not_passing": 240,
   "not_run": 0,
-  "pass": 77
+  "pass": 78
  },
  "verdict": "FAIL",
  "verified_oob_table": {

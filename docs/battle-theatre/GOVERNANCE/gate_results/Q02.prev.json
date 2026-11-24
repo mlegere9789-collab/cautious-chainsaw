@@ -46,7 +46,7 @@
   "NOT-RUN": 0,
   "PASS": 50
  },
- "finished_utc": "2026-11-24T18:14:10Z",
+ "finished_utc": "2026-11-24T18:19:30Z",
  "gate": "Q02",
  "incomplete_reasons": [],
  "input_hashes": {
@@ -57,7 +57,7 @@
   "docs/battle-theatre/GOVERNANCE/library/status_2.json": "cd2c01f9920387e790134db8b4ce9ddcd6a193534505d1bebcc293ea268ca847",
   "docs/battle-theatre/GOVERNANCE/library/status_3.json": "faf77daaf011303222f60d4a1adcae8394d8c32895e949f78150d5b46dcd7e76",
   "docs/battle-theatre/GOVERNANCE/library/status_4.json": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e",
-  "docs/battle-theatre/GOVERNANCE/register_index.json": "c8b00f6d6f347dff7688442cfbda1fbe930ab6d5b2c99cf874fa5f80b9861f50",
+  "docs/battle-theatre/GOVERNANCE/register_index.json": "cc3abed31dc83e1225901c04432e86c31d29632d7cf35d8c4fd699a8b3125359",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "97a3139ef408bfeb221632916445f3000ccf5a93dc8df2fa36356690e78552b5",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "5ac7d8db1790e5e47f99b982c21c9906555d9cc20ab5bb0453ea4fcff2f31a2b",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "9a5fa49814cf6b6d27df1f8267bdefad8915616d300a547fc99bfcc23d71c0d0",
@@ -211,10 +211,10 @@
    "sha256": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e"
   },
   {
-   "bytes": 611818,
+   "bytes": 611221,
    "path": "docs/battle-theatre/GOVERNANCE/register_index.json",
    "role": "datum class gov.register",
-   "sha256": "c8b00f6d6f347dff7688442cfbda1fbe930ab6d5b2c99cf874fa5f80b9861f50"
+   "sha256": "cc3abed31dc83e1225901c04432e86c31d29632d7cf35d8c4fd699a8b3125359"
   },
   {
    "bytes": 757393,
@@ -2048,8 +2048,8 @@
    "check": "Q02.2",
    "evidence": {
     "class": "gov.register",
-    "failing": 243,
-    "failures": 243,
+    "failing": 241,
+    "failures": 241,
     "first": [
      "register:EG-0001",
      "register:EG-0002",
@@ -2075,24 +2075,24 @@
     "reasons": {
      "documented with no source id": 102,
      "inferred with neither a source id nor reasoning": 3,
-     "plausible-procedural with neither a source id nor a procedural block": 138
+     "plausible-procedural with neither a source id nor a procedural block": 136
     },
     "scanned": 502,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q022-gov_register.jsonl",
-     "rows": 243,
-     "sha256": "b6c1551adee26c20546e8b9a31b28c92e044e2a7fe8ca54ab49a03150cb5d530"
+     "rows": 241,
+     "sha256": "0ca87413b935cc2ee80b037e09d4ae0d456bb774f30cb634b8e6d4e9f62d77e7"
     },
     "tier_counts": {
      "documented": 102,
-     "inferred": 262,
-     "plausible-procedural": 138
+     "inferred": 264,
+     "plausible-procedural": 136
     },
-    "tier_statements_not_exact": 4
+    "tier_statements_not_exact": 0
    },
    "id": "Q02/Q02.2/gov.register",
    "pass": false,
-   "reason": "243 of 502 members fail: plausible-procedural with neither a source id nor a procedural block (138); documented with no source id (102); inferred with neither a source id nor reasoning (3)",
+   "reason": "241 of 502 members fail: plausible-procedural with neither a source id nor a procedural block (136); documented with no source id (102); inferred with neither a source id nor reasoning (3)",
    "renderer_class": "python",
    "result": "FAIL",
    "sub_requirements": [
@@ -11261,14 +11261,14 @@
   "Q02.3 judgment part (U-29, 1.10): that each documented claim equals what its span supports is decided by no program; the runner re-finds every extract and applies the number rule, and a class of documented members is PASS only when a verification record of gate_results/verification/ names it with the verdict agree"
  ],
  "renderer_class": "python",
- "run_id": "20261124T181356Z-Q02",
+ "run_id": "20261124T181917Z-Q02",
  "runnable_here": true,
  "runner": {
   "files": 12,
   "sha256": "828a44e01c26c5486052771c90f68e2f86bb1f33587ae1cbbfed65f0a32acdfb"
  },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:13:56Z",
+ "started_utc": "2026-11-24T18:19:17Z",
  "text_store": {
   "or27_error": null,
   "statevol_error": null,

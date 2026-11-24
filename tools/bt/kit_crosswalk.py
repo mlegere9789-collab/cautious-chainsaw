@@ -16,6 +16,7 @@ OUT = os.environ.get('KIT_CROSSWALK_OUT') or os.path.join(ROOT, 'docs', 'battle-
 HIST = os.path.join(ROOT, 'docs', 'battle-theatre', 'history', 'units.json')
 CAV_ALIAS = {
     'us-cav-3d-custer-1mi': ('US.CAV.1MICH', '1st Michigan Cavalry: MI/MICH spelling'), 'us-cav-3d-custer-5mi': ('US.CAV.5MICH', '5th Michigan Cavalry: MI/MICH spelling'),
+    'us-cav-1d-devin-3wvaandc': ('US.CAV.3WV', '3rd West Virginia Cavalry (Cos A, C), Devin: same name and same parent as kit card US.CAV.3WV'),
     'us-cav-3d-custer-6mi': ('US.CAV.6MICH', '6th Michigan Cavalry: MI/MICH spelling'), 'us-cav-3d-custer-7mi': ('US.CAV.7MICH', '7th Michigan Cavalry: MI/MICH spelling'),
     'cs-cav-hampton-cobbslegion': ('CS.CAV.COBB', "Cobb's Legion"), 'cs-cav-hampton-jeffdavislegion': ('CS.CAV.JDAVIS', 'Jeff Davis Legion'), 'cs-cav-hampton-phillipslegion': ('CS.CAV.PHILLIPS', "Phillips Legion"),
     'cs-cav-jenkins-34vabn': ('CS.34VACAVBN', '34th Virginia Cavalry Battalion (kit id is spelled CS.34VACAVBN)'), 'cs-2c-early-35vacavalrybn': ('CS.CAV.35VABN', '35th Virginia Cavalry Battalion'),

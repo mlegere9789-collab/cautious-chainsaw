@@ -315,6 +315,13 @@
    "next_action": "Acquire the unacquired part of \"Woodward, The Hospital Steward's Manual, Philadelphia: J. B. Lippincott & Co., 1863 (entered 1862); cleaner OCR than the 1862 scan\" (where: acquired by the planning step from archive.org item hospitalstewards00unse), hash-record it in the acquisition ledger, record rights and text quality, then re-run gate Q25. Basis: this row's own recorded reason.",
    "state": "open",
    "origin": "derived from library/status*.json row WOODWARD-STEWARD-1863 (scheduled) by the Q25 mechanical fix"
+  },
+  {
+   "id": "WQ-NPS-SEM",
+   "source_id": "NPS-SEM",
+   "next_action": "Acquire Gettysburg Seminar Papers vols 4-13, 15, 16 from www.npshistory.com (public host, about one request per second), hash-record them in the acquisition ledger, record rights and text quality, then re-run gate Q25.",
+   "state": "open",
+   "origin": "status_5.json: block re-tested 2026-11-24, npshistory.com answers HTTP 200"
   }
  ]
 }
