@@ -29,24 +29,26 @@
    "C-008-DEFAULT"
   ]
  },
- "class": "weighted",
+ "class": "irreducible",
  "tier": "inferred",
  "basis": {
-  "kind": "reminiscence",
-  "text": "Longstreet's article of 1877 ('fully eleven o'clock when General Lee ... ordered the movement') and his book of 1896 ('It was eleven o'clock when General Lee's order was issued'), repeated by Alexander (1907), bounded by Longstreet's report of 27 July 1863 and Kershaw's of 1 October 1863 (instructions before about noon; Kershaw directed to move about noon). No report of the time gives an hour."
+  "kind": "contemporaneous_other",
+  "text": "Fremantle's diary of 2 July 1863 and Alexander's report of 3 August 1863 (the plan known in the First Corps by the morning, directed 'shortly after' 9 a.m.) against Longstreet's article of 1877 and book of 1896 (the order at eleven), bounded by Longstreet's and Kershaw's reports of 1863 (before about noon). Long and Walker (1877-78) have Lee impatient between 9 and 10."
  },
  "default": {
-  "mode": "position",
+  "mode": "window",
   "positions": [
+   "C-008-P4",
    "C-008-P2"
   ],
-  "label": "About 11:00: Lee's order to Longstreet to attack the enemy's left (Longstreet's hour); before about noon",
+  "label": "Morning of 2 July: plan given by about 9 a.m.; formal order about 11:00 (Longstreet); before about noon",
+  "basis_text": "The lower end is the diary of the day (Fremantle: Longstreet disposing McLaws's division at 7 a.m.) and Alexander's report of 1863 (directed by Longstreet 'shortly after' his 9 a.m. arrival to go with the divisions in the attack on the left); the upper end is Longstreet's own eleven o'clock for the order and the reports' ceiling of about noon.",
   "animation": {
    "at": "1863-07-02T11:00",
    "rule": "best_supported",
-   "note": "11:00 is the best-supported instant for the formal order and is the plan's own time; it is later than the early-morning plan (Fremantle, 7 a.m.) and earlier than the march (about noon), so it is not earlier than any source-supported time of the order. It drives no unit, arrival or gate; the plan to attack the left is shown as known in the morning and the earlier values stay selectable."
+   "note": "11:00 drives the picture because it is the only stated clock for the order itself and lies inside the window; it is not earlier than any source-supported time of the formal order. It drives no unit, arrival or gate. The earlier morning values stay selectable."
   },
-  "note": "Longstreet is the only source of the hour and wrote 14 and 33 years later; 'fully eleven' leaves room for a little after eleven. The reports of the time bound it before about noon."
+  "note": "The record is divided on what 'Lee's attack order' dates. On the plan's wording a report of the time (Alexander) and a diary of the day (Fremantle) point to the morning, before about 9:30; Longstreet, a memoirist with a motive to date the order late (he was answering the charge of a sunrise order), says eleven. Which reading the owner wants is the owner's choice."
  },
  "positions": [
   {
@@ -111,7 +113,7 @@
     "C-008-S3",
     "C-008-DEFAULT"
    ],
-   "label": "About 11:00: Lee's order to Longstreet (the plan's value and its recommended default; Longstreet's own hour)",
+   "label": "About 11:00: Lee's formal order to Longstreet to move (the plan's value and recommended default; Longstreet's own hour)",
    "kind": "time",
    "value": {
     "at": "1863-07-02T11:00",
@@ -257,7 +259,7 @@
        "his orders were issued"
       ]
      },
-     "note": "Alexander reached the field at 9 a.m. and was not at Lee's headquarters; he does not say how he knew the hour. His sequence (Lee to the left about nine, back about ten, orders about eleven) is the sequence of Longstreet's book (Freeman, Lee vol. 3 note, reads Longstreet's book as 'It was 10 o'clock when Lee returned'), so it is counted with Longstreet's line of knowledge."
+     "note": "Alexander reached the field at 9 a.m. and was not at Lee's headquarters; he does not say how he knew the hour. His sequence (Lee to the left about nine, back about ten, orders about eleven) is the sequence of Longstreet's book (Freeman, Lee vol. 3 note, reads Longstreet's book as 'It was 10 o'clock when Lee returned'), so it is counted with Longstreet's line of knowledge. Page 391 also says Lee 'had decided' earlier and that the reports of Long and Pendleton came after Lee returned (about ten): that is Long's story joined to Longstreet's hours, so the sentence repeats Longstreet's eleven but is not a pure copy."
     }
    ],
    "flags": [
@@ -414,7 +416,7 @@
   {
    "id": "C-008-P4",
    "origin": "research",
-   "label": "Early morning: the plan to attack the enemy's left already known in the First Corps before the formal order",
+   "label": "Early morning (Fremantle 7 a.m.; Alexander's report 'shortly after' 9 a.m.): the plan already given to the First Corps",
    "kind": "period",
    "value": {
     "text": "early in the morning",
@@ -590,11 +592,7 @@
     "unclear_clock"
    ],
    "derived": true,
-   "stance": "selectable",
-   "reason_not_chosen": {
-    "kind": "different_event",
-    "text": "These show the plan and the first dispositions in the morning, before the formal order to move; none gives an hour for Lee's order, and Longstreet places that order later, about eleven."
-   },
+   "stance": "default",
    "inference": {
     "step": "The day is 2 July (the diary entry's date; the reports' own days). A diary of the day has Longstreet disposing McLaws's division at 7 a.m. 'for to-day's fight'; Ewell was told in the morning that the main attack was the First Corps's; Alexander was directed 'shortly after' his 9 a.m. arrival to go with the divisions 'in the attack upon the left'; McLaws says Lee himself told him where to place his division soon after he arrived; so the intent to attack on the right was in the corps's hands in the morning, though not dated by any clock as an order.",
     "from": [
@@ -809,27 +807,132 @@
      "C-008-P6-c1"
     ]
    }
+  },
+  {
+   "id": "C-008-P7",
+   "origin": "research",
+   "label": "About 10:00: Lee expecting the movement to be under way (Long, Walker); Toombs's 'ten o'clock' is the third day",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T10:00",
+    "approx": true,
+    "tolerance_min": 30,
+    "note": "Long: about ten; Walker: between nine and ten; both describe Lee's impatience, not an order"
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "derived": true,
+   "support": [
+    {
+     "id": "C-008-P7-c1",
+     "source": "SHSP-04",
+     "source_class": "book",
+     "page": "68",
+     "page_basis": "as_read",
+     "page_note": "Letter of General A. L. Long, Southern Historical Society Papers vol. 4 (1877) p. 68 (head 68 stands before the passage).",
+     "text_offset": 168013,
+     "quote": "It was now about ten o'clock, and the Federals had considerably increased in numbers and extended their left",
+     "witness": {
+      "name": "A. L. Long",
+      "role": "Colonel, military secretary on Lee's staff",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "long-1877",
+     "exact": false,
+     "states": {
+      "times": [
+       "10:00"
+      ],
+      "phrases": [
+       "It was now about ten o'clock"
+      ]
+     },
+     "note": "Long rode with Lee. At about ten, with the ground on the right still unoccupied, 'General Lee's impatience became so urgent that he proceeded in person to hasten the movement of Longstreet' and was told 'that Longstreet's troops were in motion'. It gives Lee's impatience at about ten, not an order, and the report of the time (Kershaw halted until about noon; Longstreet's report, Law about noon) does not have the troops in motion then."
+    },
+    {
+     "id": "C-008-P7-c2",
+     "source": "SHSP-05",
+     "source_class": "book",
+     "page": "181",
+     "page_basis": "as_read",
+     "page_note": "Letter of Colonel R. L. Walker in Fitz Lee's 'Review of First Two Days and Reply to Longstreet', Southern Historical Society Papers vol. 5 (1878) p. 181; the letter's own date was not read. The text layer is damaged in nearby words; the quoted words are clean.",
+     "text_offset": 537452,
+     "quote": "Between 9 and 10 o'clock, I was lying [...] General Lee rode up to him and, mistaking him for one of General",
+     "witness": {
+      "name": "R. Lindsay Walker",
+      "role": "Colonel, chief of artillery of the Third Corps (letter printed 1878)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1878",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "window",
+     "group": "walker-1878",
+     "exact": false,
+     "states": {
+      "times": [
+       "09:00",
+       "10:00"
+      ],
+      "phrases": [
+       "General Lee rode up to him"
+      ]
+     },
+     "note": "Between 9 and 10 Lee, 'very much disappointed and worried that the attack had not opened earlier', asked where Longstreet was; Walker was 'fully satisfied' that Lee 'had decided to attack early'. The letter says Lee expected the attack under way; it does not say when Longstreet was ordered."
+    }
+   ],
+   "flags": [
+    "different_event",
+    "memoir_only",
+    "unclear_clock"
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "Long and Walker describe Lee's impatience at about ten, which implies the plan was given earlier; neither dates an order, and Long's 'troops in motion' conflicts with the 1863 reports (march about noon)."
+   },
+   "inference": {
+    "step": "The day is 2 July. Long has Lee at about ten hastening Longstreet and told his troops were in motion; Walker has Lee between nine and ten anxious that the attack had not opened and decided on an early attack; so Lee had given Longstreet his directions before about ten, and Longstreet's eleven would be wrong if the formal order is meant. The march reports of 1863 do not fit troops in motion at ten.",
+    "from": [
+     "C-008-P7-c1",
+     "C-008-P7-c2",
+     "C-008-P3-c2"
+    ]
+   }
   }
  ],
  "weighing": {
-  "summary": "One line of knowledge gives an hour: Longstreet, who received the order, wrote 'fully eleven o'clock' in 1877 and 'eleven o'clock' in 1896; Alexander's book (1907) and Hoke (1887) repeat it. No report of 1863 gives an hour; the reports only bound the order before about noon (Longstreet's report: instructions before Law's brigade joined about noon; Kershaw: directed to move about noon). The other value, 09:00, has no source found: it is a forum's figure, and nine o'clock is where Longstreet puts Lee's return from Ewell's lines. The plan to attack the left was already known in the corps in the morning (Fremantle at 7, Alexander's report, McLaws), so 'order' means the formal order to move.",
+  "summary": "The record is divided. The only witness who gives the hour of the order itself is Longstreet (fully eleven o'clock in 1877, eleven in 1896; Alexander 1907 and Hoke repeat it). Against him stand a diary of the day (Fremantle: Longstreet disposing McLaws's division at 7 a.m. 'for to-day's fight'), a report of 1863 (Alexander: directed by Longstreet 'shortly after' 9 a.m. to go with the divisions 'in the attack upon the left'), McLaws (Lee himself told him where to place his division, early in the morning) and Long and Walker (Lee impatient between 9 and 10, Walker sure he 'had decided to attack early'). By the owner's rule the diary and the report outrank Longstreet's memoirs; but they do not state an hour for Lee's order, and Longstreet answers that no formal order came before eleven. Nothing separates the two readings of 'Lee's attack order' by the sources alone, so the result is a window, not a point.",
   "who": "Longstreet received the order and was the corps commander, so he stands where the order landed; Alexander was a colonel who arrived at nine and was not at Lee's headquarters; Kershaw, Pendleton and Ewell wrote reports of 1863 as officers present. Lee's own report gives the assignments and no hour. Taylor, Marshall, Long and Venable wrote in 1875 and say only that they never heard of a sunrise order.",
   "when": "Longstreet's report of 27 July 1863 (25 days) and Alexander's of 3 August 1863 (rank 5), Pendleton's of 12 September (rank 4) and Kershaw's of 1 October (91 days, rank 4) outrank the memoirs; but none states an hour for the order. The hour comes from reminiscence of 14 years (1877, rank 2) and 33 years (1896), and from Alexander's book of 1907 (rank 2).",
-  "where": "Longstreet was with Lee and received the order; the reports of the time that bound it were written on the spot. Hood was with his division, not at headquarters, and his 3 p.m. is his decision about the march. Fremantle was with Longstreet from 7 a.m. and describes dispositions, not an order.",
+  "where": "Longstreet was with Lee and received the order; the reports of the time that bound it were written on the spot. Hood was with his division, not at headquarters, and his 3 p.m. is his decision about the march. Fremantle was with Longstreet from 7 a.m. and describes dispositions, not an order. Long rode with Lee; Walker met him between 9 and 10; neither was at Longstreet's side.",
   "how_knew": "Longstreet knew by being given the order, and says in the same paragraph that Lee came back from Ewell about nine and that he waited about forty minutes for Law. Alexander does not say how he knew the hour; his sequence follows Longstreet's. The reports of 1863 give the bounds from the writers' own movements.",
   "clock": "Longstreet, Alexander, Kershaw, Pendleton and Ewell wrote on the Confederate clock. Fremantle's watch is not named. The reported difference of about 20 minutes between the two armies' clocks is not applied; it is small beside the two hours between the plan's two values and cannot move 11:00 to 09:00.",
-  "independence": "Groups: longstreet (his article of 1877, his book of 1896 and Alexander's book, whose sequence of the morning is Longstreet's); longstreet-report-1863; kershaw; pendleton; ewell; alexander-report-1863; fremantle; mclaws-1879; freeman; hood-letter-1875. The hour 11:00 therefore rests on one group and carries the flags single_source and memoir_only. The bound 'before about noon' rests on three groups of reports of the time.",
-  "overrides": "A rejected value outranks the default by class only where it is a report of the time: Alexander's report ('shortly after' his 9 a.m. arrival) and Ewell's ('early in the morning') are better classed than Longstreet's memoirs, but they date Longstreet's order to Alexander and a message to Ewell, not Lee's order to Longstreet; they are carried as the early-plan value and do not contradict the formal order at about eleven. The 09:00 of the plan has no document at all."
+  "independence": "Groups: longstreet (his article of 1877, book of 1896; Alexander's book of 1907 repeats his hours but joins Long's account of Lee's trip, so it is not a pure copy); longstreet-report-1863; kershaw; pendleton; ewell; alexander-report-1863; fremantle; mclaws-1879; long-1877; walker-1878; freeman; hood-letter-1875. Only one group (Longstreet) gives the hour of the order itself, and it is the interested party; the morning plan rests on three independent groups of the time or near it (Fremantle, Alexander's report, Ewell), and Long, Walker and McLaws are memories of 14 to 16 years.",
+  "overrides": "Rank: Fremantle's diary (rank 5), Alexander's report of 3 August 1863 (5), Ewell's and Pendleton's reports (4) outrank Longstreet's memoirs (2). They are not shown to speak of a different event: Longstreet could give Alexander his directive only after he knew the plan, so the plan was known by about 9 or 10 on Alexander's report; Longstreet's own statement that Lee said nothing of the march until eleven is contradicted by that, unless 'order' means the formal order to move. That narrower reading is the plan's default and Longstreet's; it is not found in the PDF row, and the choice between the readings is the owner's. Walker, Long and Toombs: Long and Walker give impatience, not an order; Toombs's 'ten o'clock' is the order for the assault of 3 July (the passage follows the end of the second day) and is not used."
  },
- "source_panel_text": "About 11:00 on Jul 2: Longstreet, who received Lee's order, wrote in 1877 'fully eleven o'clock' and in 1896 eleven; his 1863 report only puts it before about noon. No report of the time gives an hour. The plan's 09:00 rests on a forum and has no source found; nine o'clock is when Lee came back from Ewell. Five other values are listed.",
+ "source_panel_text": "The morning of Jul 2: the record is divided. Longstreet put Lee's order at about 11:00 in 1877 and 1896; his 1863 report says only before noon. A diary of the day (7 a.m.) and Alexander's 1863 report (after 9 a.m.) show the plan already given. The plan's 09:00 has no source found. Six values listed; 11:00 drives the picture.",
  "holds": {
   "pdf_default": {
-   "holds": "yes",
-   "note": "11:00 is Longstreet's own hour, kept by the reports of 1863 (instructions before about noon); it is a memory of one line of knowledge, so it is inferred, not documented. The plan's 09:00 stays selectable and has no source found."
+   "holds": "partly",
+   "note": "11:00 is the only stated hour for the order and holds if 'order' means the formal order to move; on the plan's plain wording a diary of the day and a report of 1863 show the plan given by about 9 a.m. The plan's 09:00 has no source found."
   },
   "first_delegated": {
-   "holds": "yes",
-   "note": "11:00 with tier inferred holds: the Official Records give only the bound (before about noon), and the hour is Longstreet's memoir. The research adds his article of 1877 (the origin of the sentence), Alexander's repetition of 1907, and the early-morning plan, so the first pass's reasoning is kept and extended."
+   "holds": "partly",
+   "note": "Tier inferred and the hour 11:00 hold as the formal order; the class is not a settled single memoir but a divided record, with the morning plan and Long and Walker beside Longstreet."
   }
  },
  "readers": [
@@ -837,7 +940,7 @@
    "kind": "timeline_row",
    "ref": "T2-085",
    "must_change": true,
-   "note": "Row 'Jul 2 ~11:00 Lee / Longstreet: Orders the attack ... A forum claims a 09:00 order (low quality)', tier documented (seed), verified verdict partial (Lee R426 p.318 and Longstreet R430 p.358 support the assignments and the wait for Law, not the hour). Under this resolution the hour 11:00 is inferred (Longstreet's memoirs), not documented, and carries single_source and memoir_only; the 09:00 note stays as a flagged alternative. The row's tier and marking change; its time window stays 11:00."
+   "note": "Row 'Jul 2 ~11:00 Lee / Longstreet: Orders the attack ... A forum claims a 09:00 order (low quality)', tier documented (seed), verified verdict partial (Lee R426 p.318 and Longstreet R430 p.358 support the assignments and the wait for Law, not the hour). Under this resolution the record is a window (plan given by about 9, formal order about 11, before noon), tier inferred, flags single_source and memoir_only on the 11:00; the row's tier and marking change; its 11:00 drawing instant stays."
   },
   {
    "kind": "timeline_row",
@@ -931,9 +1034,9 @@
   },
   {
    "kind": "doc",
-   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-CONF-PREP-03 row)",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-CONF-PREP-03 row, line 950)",
    "must_change": false,
-   "note": "computed: delegated-decision row line 950 names this conflict; read it and set must_change if its value differs from this resolution"
+   "note": "The row states that single memoirs (C-006, C-008) are inferred; the tier inferred still holds for C-008, so no value differs."
   }
  ],
  "failed_searches": [
@@ -951,7 +1054,7 @@
   },
   {
    "where": "all local non-lead texts of the ledger",
-   "query": "(Longstreet|Lee|commanding general) ... (order|ordered|instructions) ... (nine|ten|eleven|twelve|9|10|11|12) o'clock|a. m., both orders, and 'about eleven|fully eleven|at 11': every 11 o'clock hit is Longstreet (1877, 1896) or relays him (Alexander 1907, Hoke 1887, Wilcox 1878, Taylor 1906 printing Longstreet)",
+   "query": "(Longstreet|Lee|commanding general) ... (order|ordered|instructions) ... (nine|ten|eleven|twelve|9|10|11|12) o'clock|a. m., both orders: every 11 o'clock hit for the order is Longstreet (1877, 1896) or repeats him (Alexander 1907, Hoke 1887, Wilcox 1878, Taylor 1906 printing Longstreet, Pierce 1914); the 10 o'clock hits are Long's and Walker's impatience of Lee and Toombs's order of 3 July",
    "outcome": "not_found",
    "at": "2026-11-24"
   },
@@ -981,5 +1084,5 @@
   }
  ],
  "what_would_change_it": "A report, letter, diary or dispatch of 2 July 1863 that gives the hour of Lee's order to Longstreet (a staff diary, Lee's or Longstreet's headquarters log, a dispatch to Ewell or Hill timing the order, Johnston's own account, or a regimental diary of the First Corps), or a page of the Civil War Talk thread and the Epperson timeline that names a primary source for 09:00 or 11:00. A witness with Lee at headquarters that morning (Taylor, Marshall, Venable, Long) stating the hour would also settle it.",
- "owner_note": "The plan's default 11:00 and the first delegated default hold. 11:00 is Longstreet's memory alone; the Official Records give only 'before about noon'. The plan's 09:00 has no source found. Neither 09:00 nor 11:00 can be documented from the local record."
+ "owner_note": "The plan's default 11:00 holds only as the formal order to move, Longstreet's own hour. On the plan's plain wording the reports of the time point to the morning, before about 9:30. The owner chooses the reading; 11:00 stays the drawing instant."
 }

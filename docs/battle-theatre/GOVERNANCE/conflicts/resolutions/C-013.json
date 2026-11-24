@@ -29,26 +29,26 @@
    "C-013-DEFAULT"
   ]
  },
- "class": "irreducible",
+ "class": "weighted",
  "tier": "inferred",
  "basis": {
-  "kind": "inferred",
-  "text": "No writer of the time gives a clock reading for the charge. The reports of Rice, Chamberlain, Bane and Barnes (July and August 1863), read with Norton's computation (1913), bound it at about 17:30 at the earliest and before dusk; the only reading of an hour is the Maine commission's volume of 1898 (about 6:30 p.m., no source named). The two readings are an hour apart and nothing in the record separates them."
+  "kind": "reminiscence",
+  "text": "No writer of 1863 gives a clock time for the charge; the reports bound it from about 17:00 and before dusk. The two stated readings are later: Oates (15th Alabama, 1878) puts the retreat from the 20th Maine's front 'just about sunset' (about 19:30) and the Maine commission's volume (1898) 'about 6:30 p. m.' (no source named). The default is the window between them."
  },
  "default": {
   "mode": "window",
   "positions": [
-   "C-013-P1",
-   "C-013-P3"
+   "C-013-P3",
+   "C-013-P7"
   ],
-  "label": "About 17:30 to 18:30: no report of 1863 gives a clock time; reasoned from the reports, with one later reading",
-  "basis_text": "The early end (17:30) is reasoned from the reports of 1863: the Confederate attack on the brigade about 16:30 to 17:00 (Bane, Norton) and an hour of severe fighting before the bayonet order (Chamberlain; above half an hour in Rice). The late end (18:30) is the Maine commission's 'about 6:30 p. m.' (1898), whose basis is not named. Every reading is an 'about'; the window is wider than the 20 minutes by which the two armies' clocks reportedly differed, which is not applied.",
+  "label": "About 18:30 to 19:30: no report of 1863 gives a clock time; two later readings, reasoned within the reports",
+  "basis_text": "The two ends are the two stated readings, both of 1878 or later: about 6:30 p. m. (Maine volume of 1898, no source named) and just about sunset, about 19:30 (Oates, 1878, the officer opposite Chamberlain). The reports of 1863 do not contradict either: they allow the charge from about 17:00 and put 'nearly dark' and 'at dusk' after it. Every reading is an 'about'; the 20 minutes by which the two armies' clocks reportedly differed is not applied.",
   "animation": {
-   "at": "1863-07-02T18:00",
+   "at": "1863-07-02T19:00",
    "rule": "midpoint",
-   "note": "The picture draws the bayonet charge at 18:00, the midpoint of the window, because no source gives a point; it is not a documented time. The 17:30 of the plan and the first delegated window 16:00 to dusk stay selectable, and the window is shown with the animation."
+   "note": "The charge is drawn at 19:00, the midpoint of the window; not a documented time. The early floor 17:30 (the plan's value) and the first delegated window 16:00 to dusk stay selectable. Dusk and the advance on Round Top (Chamberlain 9 p.m.) follow the charge in the reports, so nothing in them forbids 19:00."
   },
-  "note": "A window, not a point: nothing in the record dates the charge to the minute. The plan's own timeline row for the charge names a range 17:30 to 18:15; the window here is half an hour longer at the late end, by the 1898 volume."
+  "note": "A window between the two later readings. It sits an hour or more later than the plan's 17:30, which the reports allow only as the earliest possible hour."
  },
  "positions": [
   {
@@ -58,7 +58,7 @@
    "scenario_ids": [
     "C-013-S1"
    ],
-   "label": "17:30: the early end of the window; the plan's value, reasoned from the reports (no writer gives it)",
+   "label": "17:30: the earliest hour the reports allow, the plan's value; no writer gives it",
    "kind": "time",
    "value": {
     "at": "1863-07-02T17:30",
@@ -69,13 +69,13 @@
    "approx": true,
    "clock": "unspecified",
    "tier": "inferred",
-   "stance": "default",
+   "stance": "selectable",
    "derived": true,
    "flags": [
     "weak"
    ],
    "inference": {
-    "step": "No writer of the time gives a clock reading for the charge. The reports start the fight at the brigade's order into position about 16:00 (Rice) and the Confederate attack on it about 16:30 to 17:00 (Bane, Norton), the first infantry attack coming as Chamberlain's line was formed, and give a length of 'above half an hour' to 'an hour' of severe fighting before the bayonet order (Rice, Chamberlain). 16:30 plus about an hour is 17:30: the earliest the charge can be placed by those reports, and the plan's value. Later fits within the same lengths run to about 18:00 or later.",
+    "step": "No writer gives a clock reading for the charge. The order into position about 16:00 (Rice, Welch) and the Confederate attack on the brigade about 16:30 to 17:00 (Bane, Norton) start the fight; Rice has above half an hour of desperate struggle against the 20th Maine and Conner about one hour for the 44th, Chamberlain an hour of severe fighting. 16:30 plus half an hour is about 17:00, plus an hour about 17:30: the reports allow the charge from about 17:00 to 17:30 at the very earliest. 17:30 is the later of the two floors, not a reading.",
     "from": [
      "C-013-P1-c1",
      "C-013-P1-c2",
@@ -405,7 +405,11 @@
      "note": "Rice, report of 31 July 1863: Chamberlain ordered a charge after the struggle of above half an hour. No clock reading."
     }
    ],
-   "note": "17:30 is a computation, not a statement. The earlier Confederate hour (Oates 3.30) is for the whole line's advance; the 15th Alabama still had to climb Big Round Top, so it does not move the charge earlier."
+   "note": "17:30 is a computation, not a statement. The earlier Confederate hour (Oates 3.30) is for the whole line's advance; the 15th Alabama still had to climb Big Round Top, so it does not move the charge earlier.",
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Built from the start of the fight and its length, so it dates the earliest possible charge, not the charge. The two stated readings (Oates, about sunset; the Maine volume, about 18:30) put it an hour or more later."
+   }
   },
   {
    "id": "C-013-P2",
@@ -454,7 +458,7 @@
   {
    "id": "C-013-P3",
    "origin": "research",
-   "label": "About 18:30: the one reading of the hour, in a Maine volume of 1898 (its basis not named)",
+   "label": "About 18:30: the Maine volume of 1898, the early end of the window (its basis not named)",
    "kind": "time",
    "value": {
     "at": "1863-07-02T18:30",
@@ -579,7 +583,7 @@
   {
    "id": "C-013-P4",
    "origin": "research",
-   "label": "About 18:00: the 83rd Pennsylvania's 'nearly 6 p. m.' for the enemy falling back (a clock its writer disowned)",
+   "label": "About 18:00: the 83rd Pennsylvania's 'nearly 6 p. m.' for the enemy falling back from its front",
    "kind": "time",
    "value": {
     "at": "1863-07-02T18:00",
@@ -598,7 +602,7 @@
     "different_event"
    ],
    "inference": {
-    "step": "Woodward of the 83rd Pennsylvania, on the 20th Maine's right, wrote that the enemy fell back from his front 'nearly 6 p. m.', which bounds the end of the attack on the brigade, not the bayonet order itself, and his other clock readings were later called mistaken by Norton.",
+    "step": "Woodward of the 83rd Pennsylvania, on the 20th Maine's right, wrote that the enemy fell back from his front 'nearly 6 p. m.'. That dates the end of the attack on his regiment, not the bayonet order. Norton says Woodward's starting hours (2.30 and 3.15 p.m.) were mistaken, by about an hour and a half if the attack began between 4:30 and 5; he does not correct 'nearly 6', and if the same error runs through the report that hour would be later than 18:00.",
     "from": [
      "C-013-P4-c1",
      "C-013-P4-c2"
@@ -669,8 +673,8 @@
     }
    ],
    "reason_not_chosen": {
-    "kind": "within_range",
-    "text": "It lies inside the window. It dates the enemy falling back from the 83rd's front, not Chamberlain's order, and its writer's other hours were later called mistaken."
+    "kind": "different_event",
+    "text": "It dates the enemy falling back from the 83rd's front, not Chamberlain's order. Norton corrected the same report's starting hours, so its clock is doubtful; the hour lies below the window."
    },
    "note": "Woodward is the only writer of 1863 who gives a clock reading near the end of the fight, and it falls inside the window."
   },
@@ -1037,30 +1041,123 @@
     }
    ],
    "reason_not_chosen": {
-    "kind": "within_range",
-    "text": "The same 17:30 as the early end of the window. Drawn as the single point of the charge it would claim more than the reports give; the 1898 volume puts the charge an hour later."
+    "kind": "different_event",
+    "text": "The same computed 17:30 as C-013-P1, drawn as a point: the earliest the reports allow, built from the start of the fight. Both stated readings put the charge an hour or more later."
    },
    "note": "Kept because the plan recommends it. It is not a different time from C-013-P1; it is the plan's wording of that time as a default point."
+  },
+  {
+   "id": "C-013-P7",
+   "origin": "research",
+   "label": "About 19:30, just about sunset: Oates's account of 1878 of the retreat after the charge",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T19:30",
+    "approx": true,
+    "tolerance_min": 30,
+    "note": "'just about sunset'; sunset was 19:32"
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "stance": "default",
+   "derived": true,
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "inference": {
+    "step": "Oates, the officer opposite Chamberlain, wrote in 1878 that his regiment's retreat from the 20th Maine's front 'was just about sunset' and that the battle had begun 'four hours previously' (about 15:30 by his book of 1905). The retreat followed the charge and was the end of that fight, so the charge is read as at or a little before sunset (19:32); a memoir fifteen years after, hedged, and the retreat is the Confederate side's moment, not Chamberlain's order.",
+    "from": [
+     "C-013-P7-c1",
+     "C-013-P7-c2"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-013-P7-c1",
+     "source": "SHSP-06",
+     "source_class": "book",
+     "page": "178",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running head 178 that stands about 1,700 characters before the passage; the next running head was not found within 5,000 characters, so the page is probably 178 (the reviewer reads 178-179)",
+     "text_offset": 538055,
+     "quote": "This was just about sunset, and the fighting all along our line had pretty well ceased",
+     "witness": {
+      "name": "William C. Oates",
+      "role": "Colonel, 15th Alabama Infantry (Law's brigade); the officer opposite Chamberlain",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1878",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "oates1878",
+     "exact": true,
+     "states": {
+      "phrases": [
+       "just about sunset"
+      ]
+     },
+     "note": "Oates, 'The Battle on the Right' (Southern Historical Society Papers, vol. 6, 1878): after the 20th Maine's charge he ordered a retreat and ran through the dismounted cavalry to the top of Round Top; 'This was just about sunset'. Sunset was 19:32. The words fix the retreat, which followed the charge, to the hour of sunset by a participant 15 years later; hedged. Confederate clock."
+    },
+    {
+     "id": "C-013-P7-c2",
+     "source": "SHSP-06",
+     "source_class": "book",
+     "page": "178",
+     "page_basis": "as_read",
+     "page_note": "same page as the previous citation",
+     "text_offset": 538689,
+     "quote": "When the battle commenced, four hours previously, I had the strongest and finest regiment in Hood's division",
+     "witness": {
+      "name": "William C. Oates",
+      "role": "Colonel, 15th Alabama Infantry (Law's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1878",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "oates1878",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "four hours previously"
+      ]
+     },
+     "note": "Same account, at the evening roll call after dark: the battle began 'four hours previously'. From the guns about 3.30 p.m. (his book of 1905) that is about 19:30; he does not say what he counts from."
+    }
+   ],
+   "note": "The one reading by a participant of the other side; it lies an hour after the Maine volume and is consistent with the Union reports ('nearly dark' and 'at dusk' after the charge)."
   }
  ],
  "weighing": {
-  "summary": "No writer of 1863 gives a clock time for the bayonet charge. Rice and Welch put the order into position about 4 p.m.; Bane and Norton put the Confederate attack on the brigade at 4:30 or between 4:30 and 5; Chamberlain has an hour of severe fighting after the flanking column came and then the order 'At that crisis, I ordered the bayonet', and Rice has above half an hour on the 20th Maine; both put the charge before dusk. Read together the reports give about 17:30 at the earliest. The only clock reading of the charge is later: a Maine volume of 1898 has about 6:30 p.m. and names no source. The reports and that volume are an hour apart and the record has nothing to choose between them, so the default is the window 17:30 to 18:30 (class irreducible, tier inferred), not a point.",
-  "who": "Rice (44th New York, then the brigade), Chamberlain (20th Maine), Conner (44th New York), Welch (16th Michigan) and Woodward (83rd Pennsylvania) wrote as officers of Vincent's brigade on the hill; they are the best class of writing there is (reports within a month) and none gives a clock for the charge. Bane (4th Texas) wrote for the Confederates against the brigade's centre. Barnes, the division commander, does not say he was at the ledge and relays the brigade's reports. Norton was a private of the brigade, writing in 1913, and computes his 4:30 to 5 from the movements of the corps. Oates (15th Alabama) wrote in 1905. The Maine and Pennsylvania volumes are state commission books with no named writer for the passages.",
-  "when": "The reports are of 6 July to 24 August 1863, 4 to 53 days after, the best class of writing the rubric knows, but they state lengths of time and the order into position, not an hour for the charge. Bane's report is of 9 July. Norton (1913), Oates (1905) and the state volumes (1898, 1914) are 35 to 51 years after. The one clock reading of the charge, in the Maine volume, is of the weakest class that gives one; it is not outweighed by a contrary report because the reports give none, and it is not a better one either because no basis is named. Woodward (6 July 1863) is the only writer of the time near an hour for the end of the fight and his other readings were disowned by him.",
-  "where": "Chamberlain and Rice stood at the 20th Maine's position, Conner and Woodward at the 44th New York and the 83rd Pennsylvania next to it; Welch at the right end of the brigade. Bane's Texans attacked the brigade's centre and right, so his 4:30 dates the first attack, which came before the flanking column reached the 20th Maine (Chamberlain: the flanking column was seen after the assault on the centre was under way). The charge itself therefore came later than the first attack by the length of the fight at the 20th Maine's ledge. Barnes's 'nearly dark' and Chamberlain's 'At dusk' come after the charge.",
-  "how_knew": "Chamberlain and Rice report their own commands and say what they saw; their lengths of time ('an hour', 'above half an hour') are estimates made with the action in mind and are not clock readings. Bane reports an order he received. Norton and the Maine volume do not say how they know: Norton computes, and the Maine volume names no source for 6:30. The monument inscription (about 5 p.m. for the brigade's arrival) names none either.",
-  "clock": "The Union reports use the Union clock, Bane the Confederate, Norton and the state volumes no stated clock. The reported difference of about 20 minutes between the two armies' clocks is not applied; it is much smaller than the hour between the two ends of the window. Woodward's readings, taken on his own clock, are also disowned by him.",
-  "independence": "The early end rests on four lines of knowledge that do not copy one another for the hours: Rice and Chamberlain (independent reports from the 44th New York and the 20th Maine), Bane (the Confederate side) and Norton (a computation from the corps's movements); but none of them states 17:30, which is a reasoned point, so the position is flagged weak. The late end rests on one line: the Maine volume (the same chapter dates the start about 4 p.m.; the monument inscription is a different volume and speaks to the arrival). Powell (1896) and Lossing (1868) follow the reports and do not give an hour; the Park Service texts give only 'twilight' for the later withdrawal and 'night fell' for the advance on Big Round Top; Gerrish (1882) has none."
+  "summary": "No writer of 1863 gives a clock time for the charge. The reports bound it: the brigade was ordered into position about 4 p.m. (Rice, Welch), the Confederate attack on it began about 4:30 to 5 (Bane, Norton), Rice has above half an hour and Chamberlain an hour of struggle before the bayonet order, and 'nearly dark' (Barnes) and 'at dusk' (Chamberlain) come after it. That floor is about 17:00 to 17:30. Two later writers state an hour: the Maine volume of 1898, about 18:30 with no source named, and Oates (15th Alabama) in 1878, 'just about sunset' (19:32). Oates stood opposite Chamberlain, wrote 20 years earlier than the Maine volume and says how he counts (four hours after the battle began); the Maine volume names no basis. So the weight favours the later end, but a hedged memoir is not a clock reading: the window 18:30 to 19:30, class weighted (the evidence favours the later hours but does not settle them), tier inferred. The plan's 17:30 is the computed floor and is outweighed by both readings.",
+  "who": "Rice, Chamberlain, Conner, Welch and Woodward wrote as officers of Vincent's brigade on the hill; none gives an hour for the charge. Bane (4th Texas) wrote for the Confederates against the brigade's centre. Barnes, the division commander, does not say he was at the ledge and relays the brigade's reports. Oates commanded the regiment that Chamberlain charged and wrote in 1878 and 1905. Norton, a private of the brigade, computes in 1913. The Maine and Pennsylvania volumes are state commission books with no named writer for the passages.",
+  "when": "The reports are of 6 July to 24 August 1863, the best class of writing, but state lengths of time and starting hours, not an hour for the charge. Oates's 'just about sunset' is of 1878, 15 years after, a memoir of the second rank; the Maine volume is of 1898, 35 years after, also second rank, with no basis named. The earlier writing of a participant outranks the later unsourced narrative; the reports do not outrank either because they do not state the point. Woodward (6 July 1863) is the only writer of the time near an hour for the end of the fight ('nearly 6 p. m.'), but Norton shows his starting hours were wrong, so it is not used as a bound.",
+  "where": "Chamberlain and Rice stood at the 20th Maine's position; Bane's Texans attacked the brigade's centre and right, so his 4:30 dates the first attack, which came before the flanking column reached the 20th Maine. Oates stood at the point of contact, so he saw the charge's effect: the retreat, which he dates by the sun. Barnes's 'nearly dark' and Chamberlain's 'At dusk' come after the charge.",
+  "how_knew": "Oates dates by the sun ('just about sunset') and by four hours since the battle began; it is an estimate in a retrospective article. Chamberlain and Rice give lengths of time as estimates with the action in mind. The Maine volume and the monument inscription (brigade arrival about 5 p.m.) name no source. Norton computes.",
+  "clock": "The Union reports use the Union clock, Bane and Oates the Confederate; the sun is the same for both: sunset 19:32. The reported difference of about 20 minutes between the armies' clocks is not applied. It is smaller than the hour between the window's ends and is uncertainty on every reading.",
+  "independence": "Oates (1878), the Maine volume (1898) and the reports are three independent lines; the two stated hours are an hour apart and neither is a clock reading. The Maine volume's own account starts the action about 4 p.m. and does not say how its 6:30 was reckoned; if it counts a fight of two hours from the start, it would agree with a reading later than the computed floor. Oates 1905 is the same line as 1878 (his book repeats the account). The floor 17:30 rests on four lines (Rice, Chamberlain, Conner, Bane/Norton) but is a computation. Powell, Lossing and the Park Service texts follow the reports and give no hour."
  },
- "source_panel_text": "About 17:30 to 18:30 on Jul 2. No report of 1863 gives a clock time for the charge: Rice and Bane date the fight from about 4 to 4:30 p.m., and Chamberlain has an hour of hard fighting before his bayonet order. A Maine volume of 1898 says about 6:30 p.m., naming no source. The plan's 17:30 is the early end; 'no clock time' is also listed. Four other values are listed.",
+ "source_panel_text": "About 18:30 to 19:30 on Jul 2. No report of 1863 gives a clock time for the charge; they allow it from about 17:30. Two later writers do: a Maine volume of 1898 says about 6:30 p.m. (no source named), and Colonel Oates of the 15th Alabama wrote in 1878 that the retreat was just about sunset (19:32). The plan's 17:30 is the earliest possible hour. Five other values are listed.",
  "holds": {
   "pdf_default": {
-   "holds": "partly",
-   "note": "17:30 holds as the early end of the window and as an inference, labelled inferred as the plan says; it does not hold as the point of the charge: no source states it, and the only reading of an hour (the Maine volume of 1898, about 6:30 p.m.) is an hour later. 'No clock time in the sources' is true of the writers of 1863 and stays as the visible gap."
+   "holds": "no",
+   "note": "17:30 is the earliest hour the reports allow, a computation no writer states; the two stated readings (the Maine volume, about 18:30; Oates, just about sunset) put the charge an hour or more later. It stays selectable as the floor, labelled inferred as the plan says. 'No clock time in the sources' is true of 1863 and of the Official Records, not of every source."
   },
   "first_delegated": {
    "holds": "partly",
-   "note": "About 17:30, labelled inferred, holds as the early end of the window; the window 16:00 to dusk is too wide, since 16:00 is the order into position, not the charge: the fight of about an hour and the Maine volume narrow it to about 17:30 to 18:30. The first pass searched the Official Records only and did not read the Maine volume."
+   "note": "'About 17:30, labelled inferred' does not hold as the default; the window 16:00 to dusk contains the default window but is too wide (16:00 is the order into position, not the charge). The first pass read the Official Records only; the later readings (Oates 1878, the Maine volume) were not in its reach."
   }
  },
  "readers": [
@@ -1068,7 +1165,7 @@
    "kind": "timeline_row",
    "ref": "T2-165",
    "must_change": true,
-   "note": "Row 'Jul 2 ~17:30', Little Round Top crest, tier documented, note \"Clock time 17:30 is single-sourced (SS2); neither Chamberlain's report nor Wikipedia gives one (B.2.5 range 17:30-18:15)\". Under this resolution the hour is a window 17:30 to 18:30 at inferred (no source of the time gives it), drawn at 18:00; the row's tier for the clock must follow (the strengths and the prisoners of the row are another workstream's). timeline_verified.jsonl and timeline_windows.jsonl (default_iso 17:30, point, tier documented) carry the same row."
+   "note": "Row 'Jul 2 ~17:30', Little Round Top crest, tier documented, note \"Clock time 17:30 is single-sourced (SS2); neither Chamberlain's report nor Wikipedia gives one (B.2.5 range 17:30-18:15)\". Under this resolution the hour is a window 18:30 to 19:30 at inferred (no source of the time gives it; Oates 1878 and the Maine volume of 1898), drawn at 19:00; the row's tier for the clock must follow (the strengths and the prisoners of the row are another workstream's). timeline_verified.jsonl and timeline_windows.jsonl (default_iso 17:30, point, tier documented) carry the same row."
   },
   {
    "kind": "timeline_row",
@@ -1092,7 +1189,7 @@
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-013)",
    "must_change": true,
-   "note": "default_scenario_id C-013-DEFAULT, label 'about 17:30, labelled inferred, window 16:00 to dusk' becomes the window 17:30 to 18:30 (class irreducible, tier inferred, drawn at 18:00); the four scenarios stay selectable and the three new values (about 18:30, about 18:00, the first pass's window as its own value) are added."
+   "note": "default_scenario_id C-013-DEFAULT, label 'about 17:30, labelled inferred, window 16:00 to dusk' becomes the window 18:30 to 19:30 (class weighted, tier inferred, drawn at 19:00); the four scenarios stay selectable and the new values (about 18:30, about 19:30, about 18:00, the first pass's window as its own value) are added."
   },
   {
    "kind": "app_data",
@@ -1110,7 +1207,7 @@
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md (DEC-C-013, line 41)",
    "must_change": true,
-   "note": "Stays 'PENDING OWNER'. The integration step records that a delegated resolution (window 17:30 to 18:30, inferred, class irreducible) exists; it never writes DECIDED."
+   "note": "Stays 'PENDING OWNER'. The integration step records that a delegated resolution (window 18:30 to 19:30, inferred, class weighted) exists; it never writes DECIDED."
   },
   {
    "kind": "doc",
@@ -1122,13 +1219,13 @@
    "kind": "other",
    "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0108.md and register/proposed/r03-1/r03-1-EG-06.md",
    "must_change": true,
-   "note": "Evidence-gap entry 'Clock time of Chamberlain's bayonet charge': substitute 'show the bounding window; if a point is drawn, 17:30 with the inferred tag', bounds 'about 16:00 to dusk', evidence searched OR27-1 R196 and R195 only. Under this resolution the window is 17:30 to 18:30 (inferred), the evidence searched includes Bane, Barnes, Woodward, Norton, the Maine volume of 1898 and Gerrish, and the owner question 'window or inferred point 17:30' is answered by the window; the entry's tier, marking and status follow the integration step."
+   "note": "Evidence-gap entry 'Clock time of Chamberlain's bayonet charge': substitute 'show the bounding window; if a point is drawn, 17:30 with the inferred tag', bounds 'about 16:00 to dusk', evidence searched OR27-1 R196 and R195 only. Under this resolution the window is 18:30 to 19:30 (inferred), the evidence searched includes Bane, Barnes, Woodward, Norton, the Maine volume of 1898 and Gerrish, and the owner question 'window or inferred point 17:30' is answered by the window; the entry's tier, marking and status follow the integration step."
   },
   {
    "kind": "gate",
    "ref": "Q02 and Q19 (gate_results/Q02.json lines 4693 and 8637; Q19.json lines 1101 and 4345), reading conflict-defaults.json $.conflicts.C-013",
    "must_change": true,
-   "note": "They read the delegated default (about 17:30, inferred, basis inferred). The default becomes the window with its basis text, flagged weak and single-source at the late end: Q19 needs two independent sources or a flag, and the flags are present; Q02 needs source and tier, which are given. Expected values are reconciled in the open; no gate is lowered."
+   "note": "They read the delegated default (about 17:30, inferred, basis inferred). The default becomes the window with its basis text, flagged weak and single-source at both ends: Q19 needs two independent sources or a flag, and the flags are present; Q02 needs source and tier, which are given. Expected values are reconciled in the open; no gate is lowered."
   },
   {
    "kind": "gate",
@@ -1152,7 +1249,7 @@
    "kind": "app_data",
    "ref": "docs/battle-theatre/history/positions/positions_C.jsonl (POS-C-0080, us-5c-1d-vincent-20me, 'for an hour the fighting was severe', t_iso null)",
    "must_change": false,
-   "note": "The claim has no clock (t_iso null, description of a time in another sentence); it states a length of time that is one of the reasons for the window. No change."
+   "note": "The claim has no clock (t_iso null, description of a time in another sentence); it states a length of time that is one of the floors. No change."
   },
   {
    "kind": "other",
@@ -1170,7 +1267,7 @@
    "kind": "test",
    "ref": "docs/battle-theatre/app/tests/scenario-defaults.test.mjs, tests/governance/gates/test_q19.py, tests/bt-pack/pack.test.mjs (read conflict-defaults.json)",
    "must_change": true,
-   "note": "Tests that read the defaults for every conflict; their expected C-013 label, tier and basis follow the integration step (window 17:30 to 18:30). The scenario list gains values; the existing four stay."
+   "note": "Tests that read the defaults for every conflict; their expected C-013 label, tier and basis follow the integration step (window 18:30 to 19:30). The scenario list gains values; the existing four stay."
   }
  ],
  "failed_searches": [
@@ -1188,7 +1285,7 @@
   },
   {
    "where": "OATES-1905-C016 and SHSP-06 (Oates, 1878)",
-   "query": "the hour of the repulse by the 20th Maine: only 'about 3.30 o'clock P M.' for the guns (1905); the account of 1878 has 'less than ten minutes' and 'five minutes' of delays and no clock",
+   "query": "the hour of the repulse in Oates's book of 1905: only 'about 3.30 o'clock P M.' for the guns; his account of 1878 does give one ('just about sunset', position C-013-P7) and its delays of 'less than ten minutes' and 'five minutes' give none",
    "outcome": "not_found",
    "at": "2026-11-24"
   },
@@ -1241,6 +1338,6 @@
    "at": "2026-11-24"
   }
  ],
- "what_would_change_it": "A report, letter or diary of 1863 to 1864 that gives a clock reading for the bayonet order or for the repulse in front of the 20th Maine (Spear, Morrill, Prince, Tozier or Melcher of the 20th Maine; the Oates or Law letters; the papers of the battlefield commission or the Bachelder papers) would replace the window. So would the Maine commission's source for 'about 6:30 p. m.', or the key (SS2) the plan prints for 17:30. Two independent writers of the time for one hour would make the conflict weighted.",
- "owner_note": "The first delegated default (about 17:30, window 16:00 to dusk) is replaced by a narrower window, 17:30 to 18:30, drawn at 18:00; nothing is deleted. If the owner wants a point instead of a window, the candidates are 17:30 (the plan's value, an inference) and 18:30 (the Maine volume): no source of the time supports either as a point. The charge is not an arrival and is not read by the arrival gate."
+ "what_would_change_it": "A report, letter or diary of 1863 to 1864 with a clock reading for the order or for the repulse in front of the 20th Maine (a 20th Maine officer such as Spear, Morrill or Prince; Oates's or Law's letters; the battlefield commission or Bachelder papers) would replace the window. So would the Maine commission's source for 'about 6:30 p. m.', or the plan's key SS2 for 17:30. A second independent writer of the time for the sunset hour would make it settled.",
+ "owner_note": "The first delegated default (about 17:30, window 16:00 to dusk) is replaced by a window 18:30 to 19:30 drawn at 19:00; nothing is deleted. 17:30 stays selectable as the floor the reports allow. If the owner wants a point instead, the candidates are 18:30 (Maine volume) and about 19:30 (Oates); neither is a clock reading of the day. The charge is not an arrival and is not read by the arrival gate."
 }

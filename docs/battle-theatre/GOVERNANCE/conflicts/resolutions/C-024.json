@@ -1,0 +1,1177 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-024",
+ "topic": "Council of war (Union)",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-024",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Council of war (Union) | 21:00; midnight; late | window 21:00-24:00 | each",
+  "values": [
+   "21:00",
+   "midnight",
+   "late"
+  ],
+  "recommended_default": "window 21:00-24:00",
+  "selectable_alternatives": [
+   "each"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-024-DEFAULT",
+  "default_label": "window 21:00-24:00 (evening of Jul 2); two sittings possible",
+  "tier": "inferred",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-024-S1",
+   "C-024-S2",
+   "C-024-S3",
+   "C-024-S4",
+   "C-024-DEFAULT"
+  ]
+ },
+ "class": "irreducible",
+ "tier": "inferred",
+ "basis": {
+  "kind": "official_records",
+  "text": "Gibbon's letter of 14 Mar 1864 (Official Records, p.127) ends the sitting at nearly 12 o'clock; Meade's sworn testimony of 1864 puts his call for the commanders after the battle had ceased and darkness had set in. No source gives the start hour."
+ },
+ "default": {
+  "mode": "window",
+  "positions": [
+   "C-024-P6"
+  ],
+  "label": "Jul 2 evening: from dusk (about 19:32) to nearly midnight; no source gives the start hour",
+  "basis_text": "Lower bound: Meade's sworn testimony (1864) puts his call for the corps commanders after the battle had ceased and darkness had set in; Gibbon was summoned at night after the fighting was over; Haskell puts it after evening came on; sunset on 2 Jul was 19:32 (standing note), so the assembly is not earlier. Upper bound: Gibbon's letter of 14 Mar 1864 says the sitting continued up to nearly 12 o'clock (hedged, so 23:45 to 24:00). Where the council began inside the window, and whether it sat for some two hours (Haskell) or several (Gibbon), no source says.",
+  "animation": {
+   "at": null,
+   "rule": "none",
+   "note": "No single instant is supported for the start. The council is drawn in session for the part of the window the witnesses agree on, ending at nearly 24:00; its seating time is marked uncertain, never earlier than 19:32. 21:00, midnight and late stay selectable."
+  },
+  "note": "The plan's 21:00 start is inside the window; midnight is the end of the sitting."
+ },
+ "positions": [
+  {
+   "id": "C-024-P1",
+   "origin": "pdf_value",
+   "label": "21:00 (the plan's value; no source states a start hour)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T21:00"
+   },
+   "tier": "plausible-procedural",
+   "stance": "selectable",
+   "clock": "unspecified",
+   "pdf_label": "21:00",
+   "scenario_ids": [
+    "C-024-S1"
+   ],
+   "source_keys": [
+    "SS2"
+   ],
+   "approx": true,
+   "flags": [
+    "unsourced"
+   ],
+   "procedural_basis": "Stands in for the missing start hour; the plan takes it from a secondary book (SS2) whose text is not in the record. No non-lead source in the record gives 21:00 for the start of the council.",
+   "failed_lookups": [
+    {
+     "where": "OR27-1, OR27-2, OR27-3 (Official Records, vol. 27)",
+     "query": "(council|consultation).{0,300}(nine|ten|eleven|[89]|10|11) o.?clock|(9|21)[. ]?(00)? ?p\\. ?m. near council/Leister/headquarters, and the reverse order; every council hit read: the Gettysburg hits give only evening, night and nearly 12; the 9 and 11 o'clock councils are Milroy's, at Winchester",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "BL-3, NY-GB-1900, PA-GB-1904, ME-GB-1898, MEADE-LL-v1, MEADE-LL-v2, HASKELL-1908, MINNIGH-1892-SCAN-A, ws9 texts (--all)",
+     "query": "(council|consultation|corps commanders).{0,250}(o.?clock|nine|ten|eleven|midnight)|Leister|Liester; the only start time found for a Gettysburg council is the 3 p.m. meeting of the afternoon (a different event)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "JCCW-1865-C012 (Joint Committee testimony, Meade, Hancock, Gibbon, Sedgwick, Birney, Hunt, Warren, Butterfield read for the council)",
+     "query": "council|consultation near 2d of July|night|evening and any o'clock; the \"8 or 9 o'clock in the evening\" (Wadsworth) and \"late at night\" (Meade) belong to the councils of 12 and 4 July, not to 2 July; Warren says he slept through part of an evening conference and remembers no council",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ],
+   "support": [],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No source states 21:00. The witnesses say evening or night and end the sitting at nearly 12; Haskell's \"some two hours\" would put a start about 21:45."
+   }
+  },
+  {
+   "id": "C-024-P2",
+   "origin": "pdf_value",
+   "label": "Midnight (the Park Service handbook)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T00:00"
+   },
+   "tier": "inferred",
+   "stance": "selectable",
+   "clock": "unspecified",
+   "pdf_label": "midnight",
+   "scenario_ids": [
+    "C-024-S2"
+   ],
+   "source_keys": [
+    "NPS-H1"
+   ],
+   "approx": false,
+   "flags": [
+    "weak",
+    "contradicted"
+   ],
+   "inference": {
+    "step": "The handbook says Meade sought the council's advice \"at midnight\"; read as the start of the council. No source is cited; Gibbon, who sat in it, puts midnight at the end of the sitting.",
+    "from": [
+     "C-024-P2-c1",
+     "C-024-P2-c3"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-024-P2-c1",
+     "source": "NPS-HB9-1962",
+     "source_class": "official",
+     "page": "27",
+     "page_basis": "pdf_marker",
+     "text_offset": 31772,
+     "quote": "At midnight Meade sought the advice of his Council of War in the east room of his headquarters",
+     "witness": {
+      "name": "Frederick Tilberg, National Park Service",
+      "role": "Park historian; author of Historical Handbook No. 9",
+      "side": "institution"
+     },
+     "written": {
+      "date": "1962",
+      "kind": "institutional"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "nps-hb9",
+     "exact": true,
+     "states": {
+      "times": [
+       "00:00"
+      ],
+      "phrases": [
+       "At midnight"
+      ]
+     },
+     "note": "National Park Service Handbook No. 9 (1962 edition): \"At midnight Meade sought the advice of his Council of War\". Cites no source for the hour. It is the origin of the plan's \"midnight\"."
+    },
+    {
+     "id": "C-024-P2-c2",
+     "source": "NPS-HB9-1954",
+     "source_class": "official",
+     "page": "25",
+     "page_basis": "pdf_marker",
+     "text_offset": 32077,
+     "quote": "At midnight Meade sought the advice of his Council of War in the east room of his headquarters",
+     "witness": {
+      "name": "Frederick Tilberg, National Park Service",
+      "role": "Park historian; author of Historical Handbook No. 9",
+      "side": "institution"
+     },
+     "written": {
+      "date": "1954",
+      "kind": "institutional"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "nps-hb9",
+     "exact": true,
+     "states": {
+      "times": [
+       "00:00"
+      ],
+      "phrases": [
+       "At midnight"
+      ]
+     },
+     "note": "The 1954 edition of the same handbook, same sentence; one text in two editions, one line of knowledge."
+    },
+    {
+     "id": "C-024-P2-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "127",
+     "page_basis": "scan_leaf",
+     "text_offset": 431597,
+     "quote": "during a portion of the sitting of the council, which continued up to nearly 12 o'clock",
+     "witness": {
+      "name": "John Gibbon",
+      "role": "Brigadier General, commanding the Second Corps at the council (a member of it); the letter was written at the draft rendezvous, Philadelphia",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-14",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "gibbon",
+     "exact": false,
+     "states": {
+      "times": [
+       "00:00"
+      ],
+      "numbers": [
+       12
+      ],
+      "phrases": [
+       "nearly 12 o'clock"
+      ]
+     },
+     "note": "Gibbon: the sitting \"continued up to nearly 12 o'clock\". He gives midnight as where the sitting ended, not where it began; it is listed here because it is the only primary reading of the hour that midnight can rest on."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "Gibbon, who sat in it, writes that the council \"continued up to nearly 12 o'clock\": midnight is where it ended. The handbook gives no source for its hour."
+   }
+  },
+  {
+   "id": "C-024-P3",
+   "origin": "pdf_value",
+   "label": "Late, at night after the fighting (no hour; the sources say night)",
+   "kind": "period",
+   "value": {
+    "text": "at night",
+    "date": "1863-07-02",
+    "part_of_day": "night"
+   },
+   "tier": "inferred",
+   "stance": "selectable",
+   "clock": "union",
+   "pdf_label": "late",
+   "scenario_ids": [
+    "C-024-S3"
+   ],
+   "inference": {
+    "step": "The plan's \"late\" is read as night: Gibbon, Sedgwick and Sykes (1864) and the Park Service say the council was held at night; none uses the word late or gives an hour.",
+    "from": [
+     "C-024-P3-c1",
+     "C-024-P3-c2",
+     "C-024-P3-c3"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-024-P3-c1",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "441",
+     "page_basis": "as_read",
+     "page_note": "printed page 441 read from the running head (GENERAL MEADE. 441) that stands before the passage",
+     "text_offset": 2029045,
+     "quote": "At night, after the fighting was over, the [...] officer, in summoning corps commanders to the council, summoned me",
+     "witness": {
+      "name": "John Gibbon",
+      "role": "Brigadier General, commanded the Second Corps at the council of 2 Jul and was summoned to it; sworn testimony to the Joint Committee",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-04-01",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "gibbon",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "At night",
+       "after the fighting was over"
+      ]
+     },
+     "note": "Gibbon's sworn testimony: the staff officer summoned him at night, after the fighting was over. The fighting meant is the fight on the left; Gibbon's own letter says fighting on the right went on during part of the sitting. No hour."
+    },
+    {
+     "id": "C-024-P3-c2",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "460",
+     "page_basis": "as_read",
+     "page_note": "printed page 460 read from the running head that stands before the passage",
+     "text_offset": 2115097,
+     "quote": "I think the first council was on the 2d of July, at night",
+     "witness": {
+      "name": "John Sedgwick",
+      "role": "Major General, commanding the Sixth Corps; he attended the council",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-04-08",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "sedgwick",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "at night"
+      ]
+     },
+     "note": "Sedgwick's sworn testimony of 8 Apr 1864, asked of the councils at Gettysburg: the first was on the 2d of July, at night (his hedge \"I think\" is kept). His letter of 10 Mar 1864 in Meade's report says \"evening\"."
+    },
+    {
+     "id": "C-024-P3-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "124",
+     "page_basis": "scan_leaf",
+     "text_offset": 420672,
+     "quote": "was present at a meeting on the night of the 2d and 3d of July",
+     "witness": {
+      "name": "George Sykes",
+      "role": "Major General, commanding the Fifth Corps; he attended the council",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-10",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "sykes",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02",
+       "07-03"
+      ],
+      "phrases": [
+       "on the night of the 2d and 3d of July"
+      ]
+     },
+     "note": "Sykes's letter of 10 Mar 1864 printed in Meade's report: a meeting on the night of the 2d and 3d. He dates the night across midnight, in line with Gibbon's sitting to nearly 12."
+    },
+    {
+     "id": "C-024-P3-c4",
+     "source": "NPS-HB9-1954",
+     "source_class": "official",
+     "page": "51",
+     "page_basis": "pdf_marker",
+     "text_offset": 78871,
+     "quote": "On the night of July 2, General Meade called a council of his corps commanders in this house",
+     "witness": {
+      "name": "Frederick Tilberg, National Park Service",
+      "role": "Park historian; author of Historical Handbook No. 9",
+      "side": "institution"
+     },
+     "written": {
+      "date": "1954",
+      "kind": "institutional"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "nps-hb9",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "On the night of July 2"
+      ]
+     },
+     "note": "The same handbook, in its list of the buildings: \"On the night of July 2\"; it gives no hour here, and the handbook's own narrative says \"At midnight\". The two sentences are not reconciled in the handbook."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "unclear_expression",
+    "text": "\"Late\" names no hour. The witnesses say evening or night, after the fighting on the left; the default window covers all of it, so \"late\" stays selectable as the later part."
+   }
+  },
+  {
+   "id": "C-024-P4",
+   "origin": "pdf_default",
+   "label": "The plan's default: window 21:00 to 24:00",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T21:00",
+    "to": "1863-07-03T00:00"
+   },
+   "tier": "plausible-procedural",
+   "stance": "selectable",
+   "clock": "unspecified",
+   "pdf_label": "window 21:00-24:00",
+   "scenario_ids": [
+    "C-024-S4"
+   ],
+   "approx": true,
+   "flags": [
+    "weak"
+   ],
+   "procedural_basis": "The 24:00 end rests on Gibbon (the sitting \"continued up to nearly 12 o'clock\"); the 21:00 start has no source and stands in for the missing start hour.",
+   "support": [
+    {
+     "id": "C-024-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "127",
+     "page_basis": "scan_leaf",
+     "text_offset": 431597,
+     "quote": "during a portion of the sitting of the council, which continued up to nearly 12 o'clock",
+     "witness": {
+      "name": "John Gibbon",
+      "role": "Brigadier General, commanding the Second Corps at the council (a member of it); the letter was written at the draft rendezvous, Philadelphia",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-14",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "gibbon",
+     "exact": false,
+     "states": {
+      "times": [
+       "00:00"
+      ],
+      "numbers": [
+       12
+      ],
+      "phrases": [
+       "nearly 12 o'clock"
+      ]
+     },
+     "note": "The upper bound of the window, 24:00, rests on Gibbon's \"nearly 12 o'clock\" for the end of the sitting. The lower bound, 21:00, has no source."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "The 24:00 end is Gibbon's \"nearly 12 o'clock\", but no source gives 21:00 as the start; Meade and Hancock tie the assembly to darkness and twilight, not to an hour."
+   }
+  },
+  {
+   "id": "C-024-P5",
+   "origin": "first_delegated",
+   "label": "First delegated default: window 21:00 to 24:00, two sittings possible",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T21:00",
+    "to": "1863-07-03T00:00"
+   },
+   "tier": "plausible-procedural",
+   "stance": "selectable",
+   "clock": "unspecified",
+   "scenario_ids": [
+    "C-024-DEFAULT"
+   ],
+   "approx": true,
+   "flags": [
+    "weak"
+   ],
+   "procedural_basis": "Same window as the plan's default: the end is Gibbon's; the start is a stand-in. The \"two sittings\" were looked for and not found for that night: the other meeting of corps commanders was at about 15:00 (P8).",
+   "support": [
+    {
+     "id": "C-024-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "127",
+     "page_basis": "scan_leaf",
+     "text_offset": 431597,
+     "quote": "during a portion of the sitting of the council, which continued up to nearly 12 o'clock",
+     "witness": {
+      "name": "John Gibbon",
+      "role": "Brigadier General, commanding the Second Corps at the council (a member of it); the letter was written at the draft rendezvous, Philadelphia",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-14",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "gibbon",
+     "exact": false,
+     "states": {
+      "times": [
+       "00:00"
+      ],
+      "numbers": [
+       12
+      ],
+      "phrases": [
+       "nearly 12 o'clock"
+      ]
+     },
+     "note": "The upper bound of the window, 24:00, rests on Gibbon's \"nearly 12 o'clock\" for the end of the sitting. The lower bound, 21:00, has no source."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "Same window as the plan: the start has no source. No witness describes two sittings that night; the 15:00 meeting that afternoon is another event (listed)."
+   }
+  },
+  {
+   "id": "C-024-P6",
+   "origin": "research",
+   "label": "From dusk (about 19:32) to nearly midnight; no source gives the start hour",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T19:32",
+    "to": "1863-07-03T00:00"
+   },
+   "tier": "inferred",
+   "stance": "default",
+   "clock": "union",
+   "approx": true,
+   "tolerance_min": 15,
+   "inference": {
+    "step": "Lower bound: Meade sent for his corps commanders after darkness had set in (Meade, 1864), Gibbon was summoned at night after the fighting was over, Haskell puts it after evening came on; sunset is 19:32 on 2 Jul (standing note), so the assembly cannot be earlier. Upper bound: Gibbon says the sitting \"continued up to nearly 12 o'clock\". The start inside the window is not stated by any source.",
+    "from": [
+     "C-024-P6-c1",
+     "C-024-P6-c2",
+     "C-024-P6-c3",
+     "C-024-P6-c4",
+     "C-024-P6-c7"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-024-P6-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "127",
+     "page_basis": "scan_leaf",
+     "text_offset": 431597,
+     "quote": "during a portion of the sitting of the council, which continued up to nearly 12 o'clock",
+     "witness": {
+      "name": "John Gibbon",
+      "role": "Brigadier General, commanding the Second Corps at the council (a member of it); the letter was written at the draft rendezvous, Philadelphia",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-14",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "gibbon",
+     "exact": false,
+     "states": {
+      "times": [
+       "00:00"
+      ],
+      "numbers": [
+       12
+      ],
+      "phrases": [
+       "nearly 12 o'clock"
+      ]
+     },
+     "note": "Gibbon's letter of 14 Mar 1864 answering Meade's circular, printed in Meade's report: the council sat in a room ten feet square and, during a portion of the sitting, fighting went on on the right of the line (the Twelfth Corps retaking its works). \"Nearly 12\" is the end of the sitting; he gives no start hour."
+    },
+    {
+     "id": "C-024-P6-c2",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "350",
+     "page_basis": "as_read",
+     "page_note": "printed page 350 read from the running head that stands just before the paragraph",
+     "text_offset": 1635822,
+     "quote": "after the battle of that day had ceased, and darkness had set in",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General commanding the Army of the Potomac; he sent for his corps commanders",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-05",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "lower",
+     "group": "meade",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "darkness had set in"
+      ]
+     },
+     "note": "Meade's sworn testimony before the Joint Committee (dateline printed 5 Mar 1863 in the scan, a misprint for 1864): on the evening of the 2d, after the battle of that day had ceased and darkness had set in, he sent for his corps commanders. The sentence opens \"On the evening of the 2d of July\". Darkness fixes a point after sunset; it gives no clock hour."
+    },
+    {
+     "id": "C-024-P6-c3",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "407",
+     "page_basis": "as_read",
+     "page_note": "printed page 407 read from the running head (GENERAL MEADE. 407) that stands just before the passage",
+     "text_offset": 1883512,
+     "quote": "Some of this fighting was going on at twilight, and after we had assembled in council",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding the Second Corps until Sickles fell, then the Third; he attended the council",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-03-22",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hancock",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "twilight"
+      ]
+     },
+     "note": "Hancock's sworn testimony of 22 Mar 1864: the fighting on the right (Howard's and Slocum's fronts, which he had just reinforced) was in progress at twilight, after the corps commanders had assembled. \"This fighting\" is the fighting he has just described; twilight is not a clock hour. Read with the 7 to 9.30 p.m. fight on East Cemetery Hill in Howard's report, it points to an assembly in the early evening, but the passage does not say that."
+    },
+    {
+     "id": "C-024-P6-c4",
+     "source": "HASKELL-1908",
+     "source_class": "book",
+     "page": "65",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the bracketed page marks of the reprint ([65] precedes the passage)",
+     "text_offset": 108099,
+     "quote": "After evening came on, and from reports received, all was known to be going satisfactorily upon the right. Gen. Meade summoned his Corps Commanders to his Headquarters for consultation.",
+     "witness": {
+      "name": "Frank A. Haskell",
+      "role": "Lieutenant, aide-de-camp to Brigadier General Gibbon (Second Corps); letter to his brother",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "staff_present",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "lower",
+     "group": "gibbon",
+     "exact": false,
+     "states": {
+      "dates": [],
+      "phrases": [
+       "After evening came on"
+      ]
+     },
+     "note": "Haskell, Gibbon's aide, in a long letter to his brother written \"not long after the contest\" (the editor's words; the exact day is not known, here read as July 1863). He puts the summons after evening came on. His \"all was known to be going satisfactorily upon the right\" is at odds with Gibbon's letter, in which fighting on the right continued during part of the sitting. Counted with Gibbon, his general: he worked from the same headquarters."
+    },
+    {
+     "id": "C-024-P6-c5",
+     "source": "HASKELL-1908",
+     "source_class": "book",
+     "page": "71",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the bracketed page marks of the reprint ([71] precedes the passage)",
+     "text_offset": 116534,
+     "quote": "After some two hours the council dissolved, and the officers went their several ways.",
+     "witness": {
+      "name": "Frank A. Haskell",
+      "role": "Lieutenant, aide-de-camp to Brigadier General Gibbon (Second Corps); letter to his brother",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "staff_present",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "about",
+     "group": "gibbon",
+     "exact": false,
+     "states": {
+      "numbers": [
+       2
+      ],
+      "phrases": [
+       "After some two hours"
+      ]
+     },
+     "note": "The same letter: the council lasted \"some two hours\". He adds that it was almost midnight when he was walking back to headquarters afterwards, so the end of the council is before midnight. Gibbon's sworn testimony says the members sat \"for several hours\", more than two; the two durations are a hedged \"some\" and a vague \"several\" and are not reconciled."
+    },
+    {
+     "id": "C-024-P6-c6",
+     "source": "JCCW-1865-C012",
+     "source_class": "primary",
+     "page": "442",
+     "page_basis": "as_read",
+     "page_note": "printed page 442 read from the running head that stands before the passage",
+     "text_offset": 2030394,
+     "quote": "After we had been sitting there for several hours, there were a number of points written out by direction of General Meade",
+     "witness": {
+      "name": "John Gibbon",
+      "role": "Brigadier General, commanded the Second Corps at the council of 2 Jul and was summoned to it; sworn testimony to the Joint Committee",
+      "side": "union"
+     },
+     "written": {
+      "date": "1864-04-01",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "gibbon",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "for several hours"
+      ]
+     },
+     "note": "Gibbon's sworn testimony of 1 Apr 1864, same writer as c1: the sitting ran \"several hours\" before the questions were written out and voted. It does not say when it began. Not an independent line from c1."
+    },
+    {
+     "id": "C-024-P6-c7",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "705",
+     "page_basis": "scan_leaf",
+     "text_offset": 2461512,
+     "quote": "another attack, said to be by Rodes' division, commenced between 7 and 8 p. m.",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding the Eleventh Corps on Cemetery Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "window",
+     "group": "howard",
+     "exact": false,
+     "states": {
+      "times": [
+       "19:00",
+       "20:00"
+      ],
+      "phrases": [
+       "between 7 and 8 p. m."
+      ]
+     },
+     "note": "Howard's report of 31 Aug 1863: the Confederate attack on the Eleventh Corps front on East Cemetery Hill began between 7 and 8 p.m.; the old position was resumed at 9.30 p.m. This is the fighting \"at twilight\" in Hancock's account as far as it can be tied to a place; Howard does not mention the council."
+    },
+    {
+     "id": "C-024-P6-c8",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "706",
+     "page_basis": "scan_leaf",
+     "text_offset": 2463229,
+     "quote": "At 9.30 p. m. the old position was resumed by the regiments of my corps",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding the Eleventh Corps on Cemetery Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-31",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "howard",
+     "exact": false,
+     "states": {
+      "times": [
+       "21:30"
+      ],
+      "phrases": [
+       "At 9.30 p. m."
+      ]
+     },
+     "note": "Same report: the end of the East Cemetery Hill fight, 9.30 p.m. If Hancock's \"this fighting\" at twilight was this fight, the council was assembled before about 21:30; the passage does not say so."
+    },
+    {
+     "id": "C-024-P6-c9",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "74",
+     "page_basis": "scan_leaf",
+     "text_offset": 261666,
+     "quote": "Minutes of council, held Thursday p. m., July 2.",
+     "witness": {
+      "name": "Daniel Butterfield (the indorsement is initialled M. G., C. of S.)",
+      "role": "Major General, chief of staff of the Army of the Potomac; indorsement on the pencil minutes of the council",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07",
+      "kind": "official_report"
+     },
+     "vantage": "staff_present",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "minutes",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "Thursday p. m."
+      ]
+     },
+     "note": "The indorsement on the minutes of the council, printed in Meade's report: \"held Thursday p. m., July 2\". The date and day of the week are exact; \"p. m.\" covers the afternoon too, and the votes recorded (Birney: the Third Corps used up) place it after the day's fight. The date of the indorsement is not stated; here read as July 1863."
+    }
+   ]
+  },
+  {
+   "id": "C-024-P7",
+   "origin": "research",
+   "label": "Early in the evening (Pleasonton, 1883; he was away from the council)",
+   "kind": "period",
+   "value": {
+    "text": "early in the evening",
+    "date": "1863-07-02",
+    "part_of_day": "evening"
+   },
+   "tier": "inferred",
+   "stance": "selectable",
+   "clock": "union",
+   "flags": [
+    "single_source",
+    "memoir_only",
+    "weak"
+   ],
+   "inference": {
+    "step": "Pleasonton, who was away from the field from about 5 p.m. to 10 p.m., describes the council as held \"early in the evening\"; read as what he was told, 20 years later.",
+    "from": [
+     "C-024-P7-c1"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-024-P7-c1",
+     "source": "MEADE-LL-v2",
+     "source_class": "book",
+     "page": "397",
+     "page_basis": "as_read",
+     "page_note": "printed page 397 read from the running head (APPENDIX X 397) that stands before the letter",
+     "text_offset": 1172726,
+     "quote": "This absence accounted for my not being at the council of war held at Meade's head-quarters early in the evening",
+     "witness": {
+      "name": "Alfred Pleasonton",
+      "role": "Major General, commanding the Cavalry Corps; he says he was away from the council",
+      "side": "union"
+     },
+     "written": {
+      "date": "1883-02-08",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "pleasonton",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "early in the evening"
+      ]
+     },
+     "note": "Pleasonton, in a letter of 8 Feb 1883 to Doubleday printed in an appendix to Meade's Life and Letters: he was away from the field on Meade's order from about 5 p.m. to 10 p.m., and he places the council \"early in the evening\". He was not at the council and wrote 20 years later, in a dispute with Meade's friends; Haskell, however, lists him among those present."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "elsewhere",
+    "text": "Pleasonton says he missed the council (he was away until 10 p.m.), wrote 20 years later in a dispute with Meade's friends, and gives no hour. Haskell lists him as present."
+   }
+  },
+  {
+   "id": "C-024-P8",
+   "origin": "research",
+   "label": "About 15:00 on Jul 2: the earlier meeting of corps commanders (a different event)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T15:00"
+   },
+   "tier": "inferred",
+   "stance": "selectable",
+   "clock": "union",
+   "approx": true,
+   "tolerance_min": 30,
+   "flags": [
+    "different_event"
+   ],
+   "inference": {
+    "step": "Butterfield's circular sent at 3 p.m. calls seven corps commanders to headquarters (hour blank); Sickles says the council that broke up as his front was attacked \"was at 3 in the afternoon\". Read as one earlier meeting, not the night council.",
+    "from": [
+     "C-024-P8-c1",
+     "C-024-P8-c2"
+    ]
+   },
+   "support": [
+    {
+     "id": "C-024-P8-c1",
+     "source": "OR27-3",
+     "source_class": "primary",
+     "part": "OR27-3-D2102",
+     "page": "1086",
+     "page_basis": "scan_leaf",
+     "text_offset": 2979534,
+     "quote": "The commanding general desires to see you at headquarters at — p. m.",
+     "witness": {
+      "name": "Butterfield circular, Army of the Potomac headquarters",
+      "role": "Circular of the chief of staff to seven corps commanders",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "staff_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "butterfield-circular",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "desires to see you at headquarters"
+      ]
+     },
+     "note": "Butterfield's circular dated 3 p.m. on 2 Jul, sent to Sedgwick, Sickles, Sykes, Newton, Slocum, Howard and Hancock: Meade wants to see them at headquarters at a blank hour. It dates the issue of the call at 3 p.m., not the meeting, and gives no hour for it."
+    },
+    {
+     "id": "C-024-P8-c2",
+     "source": "BL-3",
+     "source_class": "book",
+     "page": "416",
+     "page_basis": "as_read",
+     "page_note": "printed page read between the running heads of pages 415 and 417 (the head of 416 is not in the text layer)",
+     "text_offset": 1742548,
+     "quote": "This broke up the council, and the corps commanders repaired to their commands. This was at 3 in the afternoon.",
+     "witness": {
+      "name": "Daniel E. Sickles",
+      "role": "Major General, commanding the Third Corps on 2 Jul",
+      "side": "union"
+     },
+     "written": {
+      "date": "1886-08-14",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "sickles",
+     "exact": true,
+     "states": {
+      "times": [
+       "15:00"
+      ],
+      "phrases": [
+       "at 3 in the afternoon"
+      ]
+     },
+     "note": "Sickles, \"The Meade-Sickles Controversy\" in Battles and Leaders, vol. 3 (first printed in the New York Times of 14 Aug 1886, revised by Sickles on 26 Jun 1888): the corps commanders were called to a council while the Confederate attack opened on his front; Meade met him at the door and the council broke up. This is the earlier meeting, at about 3 p.m., not the night council."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "This is the earlier meeting that broke up when the Confederate attack opened on the left, about 3 p.m.; the council of war met after the fighting, in the evening."
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "No source states when the council began. The record is divided in no sharp way: every witness who sat in it says evening or night; Meade (1864) puts his call for the corps commanders after the battle had ceased and darkness had set in; Hancock says fighting was in progress at twilight after the commanders had assembled; Gibbon says the sitting continued up to nearly 12 o'clock, with fighting on the right during a part of it; Haskell says it was after evening came on and lasted some two hours; Gibbon's testimony says several hours. The Park Service handbook alone has \"at midnight\", and read as the start it is contradicted by Gibbon (it is the end). The plan's 21:00 has no source. So the default is the window the witnesses allow, from dusk to nearly midnight, and each of the plan's values stays selectable.",
+  "who": "Meade called the council and Gibbon, Hancock and Sedgwick sat in it: they are the best witnesses to its place in the evening, and none gives an hour. Haskell was Gibbon's aide. Pleasonton says he was away. The Park Service handbook (1954, 1962) is a modern summary that cites no source for \"midnight\". The hour 21:00 comes from a secondary book the plan names (SS2) that is not in the record.",
+  "when": "Meade, Gibbon, Hancock and Sedgwick wrote or testified between March and April 1864, eight to nine months after the council, in answer to the charge that Meade had meant to retreat: rank 4 (official reports within two years). Haskell wrote within weeks or months (rank 5, a private letter, exact day unknown). Sickles wrote in 1886, Pleasonton in 1883, the Park Service in 1954 and 1962 (reminiscence or institutional). No writing of the night gives an hour: the minutes printed in the Official Records (p.74), in pencil and found among Meade's papers, are indorsed \"held Thursday p. m., July 2\" by the chief of staff and carry no hour.",
+  "where": "All the main witnesses were in the room: Gibbon says it was not 10 feet square and that the corps commanders were close together. Haskell was at the house. Hancock and Gibbon came from the front and were summoned by a staff officer. Pleasonton was away. The Park Service author was not there.",
+  "how_knew": "Meade by his own orders; Gibbon, Hancock, Sedgwick and Sykes as members. None read a clock; the hours are inferred from darkness, twilight and the length of the sitting. Gibbon's \"nearly 12\" is the only clock expression for the council and it is a hedge.",
+  "clock": "Union side throughout (staff time of the Army of the Potomac). No witness names a clock. The reported 20-minute difference between the two armies' clocks is not applied and is only noted as an uncertainty of a quarter of an hour on the upper bound; it is not needed to reconcile any pair of values here.",
+  "independence": "The Park Service texts of 1954 and 1962 are one line (one handbook in two editions). Gibbon's letter, his testimony and Haskell are counted as one line: Haskell was his aide and they shared the headquarters. Meade, Hancock, Sedgwick, Sykes and Howard are separate lines; the lower bound rests on Meade and Gibbon, the upper bound on Gibbon alone, so the end of the window is single-witness; the hedge \"nearly\" is kept."
+ },
+ "source_panel_text": "Evening of Jul 2, from dusk (sunset 19:32) to nearly midnight. Gibbon, who sat in it, says the council \"continued up to nearly 12 o'clock\"; Meade's sworn testimony puts the summons after darkness fell. No source gives the start hour, so the plan's 21:00 start, the Park Service's midnight and \"late\" stay listed, with 7 other values.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "The end of the plan's window (24:00) holds as Gibbon's \"nearly 12 o'clock\". The start, 21:00, has no source: Meade ties the call to darkness and Hancock to twilight, and the sitting lasted two or more hours, so the start may be earlier. The plan's window lies inside the default and stays selectable."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "Date and evening hold, and the delegated reading of Haskell is kept (evening, some two hours). The window start of 21:00 is replaced by dusk because no source gives 21:00, and \"two sittings\" is not found for that night: the afternoon meeting at about 15:00 was another event, which is listed separately. The delegated window and each of its scenarios remain selectable."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-024 row)",
+   "must_change": true,
+   "note": "The row carries the first delegated default \"window 21:00-24:00 (evening of Jul 2); two sittings possible\", tier inferred; the resolution's default is the window from dusk (19:32) to nearly 24:00, tier inferred, and the 21:00-24:00 window and its scenarios stay selectable. (computed list entry)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-UNITS-HQ-03 row)",
+   "must_change": true,
+   "note": "The row keeps the window 21:00 to 24:00 with Haskell as a narrower scenario; the resolution widens the lower bound to dusk (no source gives 21:00) and keeps Haskell's evening and two hours as support. (computed list entry)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 972 row)",
+   "must_change": false,
+   "note": "The row says DD-UNITS-HQ-01 to -04 supplement C-024 among others and that the defaults stand; the integration step will note the new default beside DD-UNITS-HQ-03. (computed list entry)."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-024",
+   "must_change": false,
+   "note": "Decision-log line records the register row as PENDING OWNER; the resolution does not change that wording, the integration step adds the delegated resolution. (computed list entry)."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md",
+   "must_change": false,
+   "note": "Counts C-024 among the inferred defaults (7); the resolution's tier is inferred, so the count of the gate spec does not change. No gate is lowered. (computed list entry)."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md",
+   "must_change": false,
+   "note": "Same count (inferred 7 including C-024); unchanged. (computed list entry)."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-216",
+   "must_change": true,
+   "note": "Row window \"Jul 2 ~21:00\", tier documented, \"Safe animation window 21:00-24:00\" and \"Time uncertain: about 21:00 (SS2) vs midnight (NPS Handbook 9) vs late that night (Wikipedia)\": no source states 21:00; the window should read dusk (19:32) to nearly 24:00 and the start tier inferred; Gibbon's \"nearly 12 o'clock\" is the end."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-234",
+   "must_change": true,
+   "note": "Row \"Jul 2-3 midnight\", documented, \"Same event as the 21:00 council row; kept as the alternative anchor\": the handbook's midnight is a selectable value and, by Gibbon, the end of the sitting; the row should be marked inferred, not documented."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-016",
+   "must_change": true,
+   "note": "Row \"Jul 3 ~00:00 NIGHT\", documented, \"NPS-H1 says midnight\": Gibbon puts the end of the sitting at nearly 12 o'clock; midnight is an end, and the row is at best inferred. The row cannot be the start of the council."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "us-aop-hq",
+   "must_change": true,
+   "note": "Conflict link C-024 (cell night_positions, note \"council of war '21:00 to midnight window'\"): the window it names is the plan's; the resolution's default window is dusk (19:32) to nearly 24:00. The row's own printed clock default (C-001, 01:00) is unchanged."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04",
+   "must_change": false,
+   "note": "Q04 reads arrivals.json; no floor of its named cases (Stuart from 19:32, Pickett from 04:36) depends on C-024. The council is not an arrival of a unit. No gate value changes."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-024)",
+   "must_change": true,
+   "note": "default_scenario_id C-024-DEFAULT, label \"window 21:00-24:00 (evening of Jul 2); two sittings possible\", tier inferred, basis OR: becomes the window from dusk to nearly 24:00 (class irreducible, tier inferred); S1 to S4 and the old default stay selectable."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-024)",
+   "must_change": true,
+   "note": "First delegated default: same change; the five scenarios stay selectable."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/arrivals_data.py (line 61, C-024 link)",
+   "must_change": true,
+   "note": "The note text \"council of war '21:00 to midnight window'\" is the plan's window; update to the resolution's window when the integration step regenerates arrivals.json."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/pos_C/specs_05_hq_staff_part3.py (hq_council_call, hq_council_gibbon, hq_council_sykes)",
+   "must_change": false,
+   "note": "The three claims quote the Butterfield circular (hour blank), Gibbon (evening) and Sykes (night of 2d and 3d); they agree with the resolution and carry no hour; the afternoon circular is the earlier meeting (P8)."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1, OR27-2, OR27-3 (Official Records, vol. 27)",
+   "query": "(council|consultation).{0,300}(nine|ten|eleven|[89]|10|11) o.?clock|(9|21)[. ]?(00)? ?p\\. ?m. near council/Leister/headquarters, and the reverse order; every council hit read: the Gettysburg hits give only evening, night and nearly 12; the 9 and 11 o'clock councils are Milroy's, at Winchester",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "BL-3, NY-GB-1900, PA-GB-1904, ME-GB-1898, MEADE-LL-v1, MEADE-LL-v2, HASKELL-1908, MINNIGH-1892-SCAN-A, ws9 texts (--all)",
+   "query": "(council|consultation|corps commanders).{0,250}(o.?clock|nine|ten|eleven|midnight)|Leister|Liester; the only start time found for a Gettysburg council is the 3 p.m. meeting of the afternoon (a different event)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "JCCW-1865-C012 (Joint Committee testimony, Meade, Hancock, Gibbon, Sedgwick, Birney, Hunt, Warren, Butterfield read for the council)",
+   "query": "council|consultation near 2d of July|night|evening and any o'clock; the \"8 or 9 o'clock in the evening\" (Wadsworth) and \"late at night\" (Meade) belong to the councils of 12 and 4 July, not to 2 July; Warren says he slept through part of an evening conference and remembers no council",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "NPS-HB9-1954, NPS-HB9-1962, NPS-HSR-LEISTER-BARN, NPS-CLR-ROT-V1, NPS-CLR-ROT-V2 (Park Service texts)",
+   "query": "council with Leister|headquarters|midnight|night|evening: HB9 gives \"At midnight\" and \"On the night of July 2\"; the others name the council without an hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "archive.org chancellorsville00doubuoft (Doubleday, Chancellorsville and Gettysburg, 1882; fetched 2026-11-24, read, not added to the ledger)",
+   "query": "council near Meade|2d|night: \"At night a council of war was held\", no hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "JCCW-1865-C012 testimony of Howard, Slocum, Newton, Warren (second part) on the council",
+   "query": "council hour: no 'Testimony of' heading for Howard, Slocum or Newton was found in the volume, so none was read; Warren's second testimony was read only where it names a council or consultation",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "Not applicable to a start hour. The lower bound is the standing sunset of 19:32; it is a computed time, so the window is inferred, not documented. A better source would be a timed order, log or diary entry of the evening of 2 July at headquarters (Butterfield's or Meade's own, or an aide's), or a letter of a corps commander written that night."
+}
