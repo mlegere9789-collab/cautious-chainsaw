@@ -18,8 +18,8 @@ export function auditTier(s) {
   if (/documented/.test(head)) hits.push('documented'); if (/inferred/.test(head)) hits.push('inferred'); if (/plausible/.test(head)) hits.push('plausible-procedural'); if (/open[ -]gap/.test(head)) hits.push('open gap');
   return hits.length ? hits.sort((a, b) => TIER_ORDER.indexOf(b) - TIER_ORDER.indexOf(a))[0] : null;
 }
-const CATALOG = [          // status wording is the register's own: "identified from index only, images unseen" / "not located"
-  { reg: 'EG-0137', title: 'OR Atlas, Gettysburg plates 28, 40, 43, 73 and 95', status: 'identified from index only, images unseen', tail: 'Plate 95 map 1 is credited to Warren in the index; whether it reproduces Warren 1868-69 is not established. No plate is used as a geometry or Warren source.' },
+const CATALOG = [          // status wording is the register's own: "records disagree..." / "not located"
+  { reg: 'EG-0137', title: 'OR Atlas, Gettysburg plates 28, 40, 43, 73 and 95', status: 'records disagree on whether images were viewed (plates 28, 40, 73: index only)', tail: 'Plate 95 map 1 is credited to Warren in the index; whether it reproduces Warren 1868-69 is not established. No plate is used as a geometry or Warren source.' },
   { reg: 'EG-0139', title: "Pickett's Charge Cultural Landscape Report (2024)", status: 'not located', tail: "The npshistory index shows only the Pickett's Charge Battlefield Cultural Landscapes Inventory." },
   { reg: 'EG-0139', title: 'NPS Historic Vegetation Study', status: 'not located', tail: 'Search IRMA by title for the Pickett\'s Charge CLR before any fence or field claim relies on it.' },
 ];

@@ -12,7 +12,7 @@ const OV = J('app/data/timeline-overlay.json'), TL = await loadTimeline(), byId 
 test('the shipped overlay is the built file (no hand edit)', () => { assert.deepEqual(OV, build()); });
 test('source catalog: OR Atlas plates and the two NPS reports carry the register\'s own status words', () => {
   const C = catalogOf(OV), by = t => C.find(c => c.title.includes(t));
-  assert.equal(by('OR Atlas').status, 'identified from index only, images unseen'); assert.match(by('OR Atlas').title, /28, 40, 43, 73 and 95/); assert.equal(by('OR Atlas').register, 'EG-0137');
+  assert.equal(by('OR Atlas').status, 'records disagree on whether images were viewed (plates 28, 40, 73: index only)'); assert.match(by('OR Atlas').title, /28, 40, 43, 73 and 95/); assert.equal(by('OR Atlas').register, 'EG-0137');
   assert.equal(by('Pickett').status, 'not located'); assert.equal(by('Vegetation').status, 'not located'); assert.equal(by('Vegetation').register, 'EG-0139');
   for (const c of C) assert.ok(['documented', 'inferred', 'plausible-procedural', 'open gap'].includes(c.tier) && c.detail, c.title);
 });
