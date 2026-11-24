@@ -1,5 +1,5 @@
 {
- "command": "python3 tools/bt/gates/q05_speed.py",
+ "command": "python3 tools/bt/gates/q05_speed.py --quiet",
  "counts": {
   "BLOCKED-INPUT": 507,
   "COVERED": 0,
@@ -8,7 +8,7 @@
   "NOT-RUN": 0,
   "PASS": 6110
  },
- "finished_utc": "2026-11-24T21:37:19Z",
+ "finished_utc": "2026-11-24T22:16:55Z",
  "gate": "Q05",
  "incomplete_reasons": [
   "507 item(s) NOT-RUN or BLOCKED-INPUT"
@@ -22,7 +22,7 @@
   "docs/battle-theatre/app/data/battery-guns.json": "94a5c1d83a46496b767c1fa07827fd8a158ab4d841cf1a54c1a83184a762b260",
   "docs/battle-theatre/app/data/casualty-sources.json": "f237363da495c3416e1256682589c8e18c1404c3ad30a02a423107072ca1a08b",
   "docs/battle-theatre/app/data/claim-dispositions.json": "b8fe5c754655067cf50a27fd33a309f6164d70e9a8bcd43613597c74d5658a25",
-  "docs/battle-theatre/app/data/conflict-defaults.json": "95df40c0708b9358ce8c0943a943e4336f42d98aca74b7a95e20aa9cc9881694",
+  "docs/battle-theatre/app/data/conflict-defaults.json": "061eed25a6ddd136c772cc8f38956392275af04a6102c6308c2e93628bc5cf70",
   "docs/battle-theatre/app/data/daypositions.json": "bfa45fe00a45629a3254e129e78cace86802e66484e2af92e8df4a010739800d",
   "docs/battle-theatre/app/data/engagements.json": "d57993be15acebade93d4022442024cda904b4d509d4805a1278d56dad77a6b9",
   "docs/battle-theatre/app/data/figures-validation.json": "590ca88df6a75a67f5011370742a314119f7fdfa8ce181708c0b483da95b944e",
@@ -31,7 +31,7 @@
   "docs/battle-theatre/app/data/placement-claims.json": "a3f736b5787d755ad255d478042bafdaf78ae4c5d2a7b9b341a04b1179bf8393",
   "docs/battle-theatre/app/data/placement.json": "3f4296b28fe033ffbfddd528b73063958b7281d8274ddc9f57aefaa82ddc5164",
   "docs/battle-theatre/app/data/sibling-approach.json": "9a9f8fa7b885b090481bbe53a5e21a3db190e87d59a00e408110e9c4f3e1535b",
-  "docs/battle-theatre/app/src/": "b46d21f1e5dc9b7e95f3134210d0d77b3f1a7bb358ae35bbf9796f3785830c27",
+  "docs/battle-theatre/app/src/": "61ef5bf61e582245bd9d78f870eb902187574922eb2ba7ccf7b84ceee16dde60",
   "docs/battle-theatre/app/src/clock.mjs": "763ded967f5a9486d1d1e5fcd85ac28a7e9497a08499938d666cc2ed79bc3178",
   "docs/battle-theatre/app/src/config.mjs": "a3fb4c4a185e4c098c88ad84eb0f59f2355d6eb057687a0702a0c1bdd96f92b8",
   "docs/battle-theatre/app/src/data.mjs": "6915ca6ebf79d298ff2a5dffa2882a2668ccfa7900a554d90633d2746703b466",
@@ -51,7 +51,7 @@
   "docs/battle-theatre/app/src/history/strength.mjs": "fb1cf5a54656af70ee655975f3b10afd795477b3bf968be120f32b9ef8eec7c2",
   "docs/battle-theatre/app/src/layout.mjs": "07387ff5b8b811ffe460d4dd995b888bb541da318cfaaedd0ff5478b9726f515",
   "docs/battle-theatre/app/src/scenario-defaults.mjs": "239da2cb5cb428f8d931d909548eacb0ab46a4fee23767ed48cecf73575a0a89",
-  "docs/battle-theatre/app/src/stage.mjs": "2403c872eed5e13ebcb34d88a64bbad9e747ce9e08b7b04755735a4c0511c935",
+  "docs/battle-theatre/app/src/stage.mjs": "99a8fedacda22bb6acf7321b4434a6d9f4e0dea2af0b3260f30a977931633388",
   "docs/battle-theatre/app/src/structures/artillery.mjs": "56dfeffe50d1477e6fcb1f45cdbecdf15acf7409318847ae769fc1b1fbbb7d9d",
   "docs/battle-theatre/app/src/world-from-units.mjs": "b9c1d5cc691ef5266e9ce2edaf5707f6f0616bad81f6ef92ddb3e889b21fe5b9",
   "docs/battle-theatre/app/tests/node-world.mjs": "ece9ebdb561adb38414feeb747f3675e4f83ab210707a4bd9798b1f0771c4e3c",
@@ -79,7 +79,7 @@
   "docs/battle-theatre/sim/rng.mjs": "f233b49b7f9028851f5d39afba2fa2a8d8d2606962c6b4328537a9ba854fee4b",
   "docs/battle-theatre/structures/structures.json": "b223dacf386d9983167d24561dc05a8466248096a7715a23dd25fa5bd2b1ad53",
   "docs/battle-theatre/structures/works_stages.json": "22c0c950efa34172d259260085effe210fe43dca64710747d0c5207b996209c2",
-  "tools/bt/gates/q05_speed.mjs": "da12c6a3fc50e29e4fa633e344c95fc7d15c5e09c4a9ed0b534bfdfd7799fc1a",
+  "tools/bt/gates/q05_speed.mjs": "8ed6c1ae345cf2b3467017506c260ba18bfcdef89279c1f9bcc95c81ee6cdf97",
   "tools/bt/gates/q456_lib.mjs": "65e224decff3970288ffa687d185b97812c737ee75bd19127a9c994c8c20ce14"
  },
  "inputs": [
@@ -132,10 +132,10 @@
    "sha256": "b8fe5c754655067cf50a27fd33a309f6164d70e9a8bcd43613597c74d5658a25"
   },
   {
-   "bytes": 481243,
+   "bytes": 481448,
    "path": "docs/battle-theatre/app/data/conflict-defaults.json",
    "role": "data",
-   "sha256": "95df40c0708b9358ce8c0943a943e4336f42d98aca74b7a95e20aa9cc9881694"
+   "sha256": "061eed25a6ddd136c772cc8f38956392275af04a6102c6308c2e93628bc5cf70"
   },
   {
    "bytes": 971091,
@@ -190,7 +190,7 @@
    "kind": "tree digest",
    "path": "docs/battle-theatre/app/src/",
    "role": "code",
-   "sha256": "b46d21f1e5dc9b7e95f3134210d0d77b3f1a7bb358ae35bbf9796f3785830c27"
+   "sha256": "61ef5bf61e582245bd9d78f870eb902187574922eb2ba7ccf7b84ceee16dde60"
   },
   {
    "bytes": 3030,
@@ -307,10 +307,10 @@
    "sha256": "239da2cb5cb428f8d931d909548eacb0ab46a4fee23767ed48cecf73575a0a89"
   },
   {
-   "bytes": 28461,
+   "bytes": 28474,
    "path": "docs/battle-theatre/app/src/stage.mjs",
    "role": "data",
-   "sha256": "2403c872eed5e13ebcb34d88a64bbad9e747ce9e08b7b04755735a4c0511c935"
+   "sha256": "99a8fedacda22bb6acf7321b4434a6d9f4e0dea2af0b3260f30a977931633388"
   },
   {
    "bytes": 18145,
@@ -477,10 +477,10 @@
    "sha256": "22c0c950efa34172d259260085effe210fe43dca64710747d0c5207b996209c2"
   },
   {
-   "bytes": 15334,
+   "bytes": 15387,
    "path": "tools/bt/gates/q05_speed.mjs",
    "role": "code",
-   "sha256": "da12c6a3fc50e29e4fa633e344c95fc7d15c5e09c4a9ed0b534bfdfd7799fc1a"
+   "sha256": "8ed6c1ae345cf2b3467017506c260ba18bfcdef89279c1f9bcc95c81ee6cdf97"
   },
   {
    "bytes": 23313,
@@ -385494,7 +385494,7 @@
   "Q05.5: a documented rate of movement for limbers, caissons, wagons and the forge, gun pieces on the road and a cavalry column (the Instruction for Field Artillery 1863 and Wheeler 1863 give horse speeds, not vehicle or column rates) and an open L3 register entry with a dated search log for each class (GATE-SPEC 1.4)"
  ],
  "renderer_class": "node",
- "run_id": "20261124T211937Z-Q05",
+ "run_id": "20261124T215956Z-Q05",
  "runnable_here": true,
  "scenario_set": {
   "count": 1635,
@@ -385764,7 +385764,7 @@
   "id": "S*"
  },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T21:19:37Z",
+ "started_utc": "2026-11-24T21:59:56Z",
  "thresholds": [
   {
    "decision": "DD-G01",
