@@ -1,0 +1,963 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-034",
+ "topic": "Monterey Pass wagon counts",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-034",
+ "event_date": "1863-07-05",
+ "pdf_row": {
+  "page": 62,
+  "text": "Monterey Pass wagon counts | 40; 150; 300; 400-500 | 150 (range shown) | all",
+  "values": [
+   "40",
+   "150",
+   "300",
+   "400-500"
+  ],
+  "recommended_default": "150 (range shown)",
+  "selectable_alternatives": [
+   "all"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-034-DEFAULT",
+  "default_label": "range 40 to 500 as printed (40, 300, 400-500), scope per report",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-034-S1",
+   "C-034-S2",
+   "C-034-S3",
+   "C-034-S4",
+   "C-034-S5",
+   "C-034-S6",
+   "C-034-DEFAULT"
+  ]
+ },
+ "class": "irreducible",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Huey (6 Aug 1863) counts 150 wagons captured and Capehart (17 Aug 1863) 300 wagons and 15 ambulances taken, both present at the night attack; Lee, Stuart and Kilpatrick give 30 to 40 as the wagons carried off; 400 to 500 is a claim reported through a citizen."
+ },
+ "default": {
+  "mode": "range",
+  "positions": [
+   "C-034-P8"
+  ],
+  "label": "150 to 300 wagons captured or destroyed (Huey, Capehart); about 30 to 40 carried off; range 40-500 shown",
+  "range": {
+   "low": 150,
+   "high": 300,
+   "basis": "the counts of wagons captured or taken by the two officers who wrote of it from the night attack (Huey 150; Capehart 300 wagons and 15 ambulances); each says what it counts; the figures of 40 and 30 count wagons carried off and 400 to 500 is a reported claim"
+  },
+  "basis_text": "Lower end Huey (8th Pennsylvania Cavalry, report of 6 August 1863): 150 wagons captured; upper end Capehart (1st West Virginia Cavalry, 17 August 1863): 300 wagons and 15 ambulances taken. Neither says how he counted. The wagons carried off were about 30 to 40 (Kilpatrick, Lee, Stuart).",
+  "animation": {
+   "at": null,
+   "rule": "best_supported",
+   "note": "Draws 150 wagons, the figure a witness states (Huey) and the lower of the two eyewitness counts; 300 and ambulances stay selectable, about 30 to 40 wagons are shown going off with the column. A drawing choice, not a count."
+  },
+  "note": "The figures of 40, 150, 300 and 400-500 count different things; the default keeps them apart and shows each with what it counts."
+ },
+ "positions": [
+  {
+   "id": "C-034-P1",
+   "origin": "pdf_value",
+   "label": "About 40 wagons: those carried off, as Lee heard it, Stuart's citizen said, and Kilpatrick kept 30",
+   "kind": "count",
+   "value": {
+    "n": 40,
+    "unit": "wagons"
+   },
+   "tier": "documented",
+   "clock": "not_applicable",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-034-P1-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R426",
+     "page": "299",
+     "page_basis": "scan_leaf",
+     "text_offset": 1135486,
+     "quote": "a number of wagons, said to be about 40, were captured",
+     "witness": {
+      "name": "Robert E. Lee",
+      "role": "General commanding the Army of Northern Virginia (writing to President Davis near Hagerstown)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-07",
+      "kind": "official_report"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "lee",
+     "exact": true,
+     "states": {
+      "numbers": [
+       40
+      ]
+     },
+     "note": "Lee to President Davis near Hagerstown, 4 days after (the text layer does not print this letter's dateline; the next letter, of July 8, begins 'My letter of yesterday'): 'In sending back our trains in advance, that of General Ewell was cut by the enemy's cavalry, and a number of wagons, said to be about 40, were captured.' A figure he had heard ('said to be') for wagons of Ewell's train captured."
+    },
+    {
+     "id": "C-034-P1-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R565",
+     "page": "700",
+     "page_basis": "scan_leaf",
+     "text_offset": 2614101,
+     "quote": "further informed [...] not more than 40 wagons",
+     "witness": {
+      "name": "J. E. B. Stuart",
+      "role": "Major General commanding the Cavalry Division; reached the pass the next day and heard a citizen's account",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "stuart",
+     "exact": false,
+     "states": {
+      "numbers": [
+       40
+      ]
+     },
+     "note": "Stuart, after the campaign (the dateline of this part of his report is not printed in the text layer): a citizen told him Kilpatrick's cavalry had claimed several thousand prisoners and 400 or 500 wagons near Monterey, 'but I was further informed that not more than 40 wagons accompanied them', and other facts led him to think the success 'far overrated'. 40 is the number of wagons that went with the Union column, on a citizen's word, relayed."
+    },
+    {
+     "id": "C-034-P1-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R359",
+     "page": "994",
+     "page_basis": "scan_leaf",
+     "text_offset": 3500011,
+     "quote": "Ewell's large train was entirely destroyed, save eight forges, thirty wagons, and a few ambulances loaded with wounded rebel officers",
+     "witness": {
+      "name": "Judson Kilpatrick",
+      "role": "Brigadier General, commanding the Third Cavalry Division, leading the column through Monterey Pass",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-10",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "kilpatrick",
+     "exact": false,
+     "states": {
+      "numbers": [
+       8,
+       30
+      ]
+     },
+     "note": "Kilpatrick, five weeks after: at daylight the train was entirely destroyed 'save eight forges, thirty wagons, and a few ambulances loaded with wounded rebel officers (sent with prisoners to Frederick City)'. Thirty is what was kept; he gives no count of the rest."
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Forty counts the wagons of Ewell's train that went off with the Union column (Lee, Stuart; Kilpatrick kept thirty), not the wagons captured or destroyed on the night."
+   },
+   "pdf_label": "40",
+   "scenario_ids": [
+    "C-034-S1"
+   ],
+   "approx": true
+  },
+  {
+   "id": "C-034-P2",
+   "origin": "pdf_value",
+   "label": "150 wagons captured (Huey)",
+   "kind": "count",
+   "value": {
+    "n": 150,
+    "unit": "wagons"
+   },
+   "tier": "documented",
+   "clock": "not_applicable",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-034-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R352",
+     "page": "970",
+     "page_basis": "scan_leaf",
+     "text_offset": 3417839,
+     "quote": "At 3 a. m. July 5, the wagon train was reached at and near Mon- terey, and 150 wagons captured",
+     "witness": {
+      "name": "Pennock Huey",
+      "role": "Colonel, 8th Pennsylvania Cavalry, commanding the Second Brigade, Second Division (Gregg's), sent to Kilpatrick on July 4; the rear of the column at Monterey Pass",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "huey",
+     "exact": true,
+     "states": {
+      "numbers": [
+       150
+      ],
+      "times": [
+       "03:00"
+      ],
+      "dates": [
+       "07-05"
+      ]
+     },
+     "note": "Huey, a month after: at 3 a.m. on July 5 the wagon train was reached at and near Monterey and 150 wagons were captured (his report adds 1,600 prisoners; the text layer of one scan prints 1,500, so the prisoners are not used). He counts wagons captured, by his brigade or the column, not wagons destroyed; he does not say how the 150 were counted."
+    },
+    {
+     "id": "C-034-P2-c2",
+     "source": "USSM-1864-V1",
+     "source_class": "primary",
+     "page": "76",
+     "page_basis": "as_read",
+     "text_offset": 216731,
+     "quote": "a train consisting of more than one hundred wagons was over- taken at Monterey, on the road to Hagerstown, and captured, by Kilpatrick",
+     "witness": {
+      "name": "unnamed contributor, United States Service Magazine, January 1864",
+      "role": "a periodical of 1864, not a participant",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1864-01",
+      "kind": "early_narrative"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "ussm",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "more than one hundred wagons"
+      ]
+     },
+     "note": "A magazine of January 1864, no source named: 'a train consisting of more than one hundred wagons was overtaken at Monterey ... and captured, by Kilpatrick', part of it burnt to prevent recapture. A floor, not a count.",
+     "page_note": "the text layer has no printed page marks; the passage is on page 76 of the volume (the running head UNITED STATES SERVICE MAGAZINE 76 stands in the text)"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "150 is Huey's count of wagons captured and is the lower end of the range of the two eyewitness counts that is the default."
+   },
+   "pdf_label": "150",
+   "scenario_ids": [
+    "C-034-S2"
+   ]
+  },
+  {
+   "id": "C-034-P3",
+   "origin": "pdf_value",
+   "label": "300 wagons and 15 ambulances taken (Capehart)",
+   "kind": "count",
+   "value": {
+    "n": 300,
+    "unit": "wagons"
+   },
+   "tier": "documented",
+   "clock": "not_applicable",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-034-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R367",
+     "page": "1019",
+     "page_basis": "scan_leaf",
+     "text_offset": 3591686,
+     "quote": "the whole train was taken — 300 wagons, 15 ambulances, together with all the horses and mules attached",
+     "witness": {
+      "name": "Charles E. Capehart",
+      "role": "Major, 1st West Virginia Cavalry, whose regiment led the charge on the train at Monterey Pass",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "capehart",
+     "exact": true,
+     "states": {
+      "numbers": [
+       300,
+       15
+      ]
+     },
+     "note": "Capehart, six weeks after: the road was interspersed with wagons and ambulances for 8 miles 'and the whole train was taken: 300 wagons, 15 ambulances, together with all the horses and mules attached'; prisoners 1,300. He counts wagons and ambulances taken, in the dark ('inky darkness' in the same report), and says 'the whole train'."
+    },
+    {
+     "id": "C-034-P3-c2",
+     "source": "MINNIGH-1892-SCAN-A",
+     "source_class": "book",
+     "page": "54",
+     "page_basis": "as_read",
+     "text_offset": 82115,
+     "quote": "and destroyed over two hundred wagons laden with pro- visions",
+     "witness": {
+      "name": "Luther W. Minnigh",
+      "role": "author of a visitor's guide to the field, 1892 (not a participant)",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1892",
+      "kind": "later_history"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "minnigh",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "over two hundred wagons"
+      ]
+     },
+     "note": "A guide of 1892, no source named: Kilpatrick 'captured a large wagon train of Lee's, cut off and destroyed over two hundred wagons laden with provisions, and captured fifteen hundred prisoners'. A floor, between the two eyewitness counts.",
+     "page_note": "printed page 54 read from the running head (GETTYSBURG: WHAT THEY DID HERE 54 stands before the passage)"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "300 wagons and 15 ambulances is Capehart's count of the whole train taken and is the upper end of the range of the two eyewitness counts that is the default."
+   },
+   "pdf_label": "300",
+   "scenario_ids": [
+    "C-034-S3"
+   ],
+   "note": "Capehart counts 300 wagons and 15 ambulances; the later guide says over 200 destroyed."
+  },
+  {
+   "id": "C-034-P4",
+   "origin": "pdf_value",
+   "label": "400 to 500 wagons: what Kilpatrick was said to have claimed (told to Stuart)",
+   "kind": "count_range",
+   "value": {
+    "low": 400,
+    "high": 500,
+    "unit": "wagons"
+   },
+   "tier": "inferred",
+   "clock": "not_applicable",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-034-P4-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R565",
+     "page": "700",
+     "page_basis": "scan_leaf",
+     "text_offset": 2613938,
+     "quote": "Kilpatrick, who had claimed to have [...] several thousand prisoners and 400 or 500 wagons from our forces near Mon- terey",
+     "witness": {
+      "name": "J. E. B. Stuart",
+      "role": "Major General commanding the Cavalry Division; reached the pass the next day and heard a citizen's account",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "stuart",
+     "exact": false,
+     "states": {
+      "numbers": [
+       400,
+       500
+      ]
+     },
+     "note": "Stuart: what a citizen said Kilpatrick had claimed: 'several thousand prisoners and 400 or 500 wagons from our forces near Monterey', followed by Stuart's own doubt. No text of Kilpatrick's has this figure; his dispatch of July 5 says 'over 1,500 prisoners' and his report 1,360."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak",
+    "contradicted"
+   ],
+   "reason_not_chosen": {
+    "kind": "elsewhere",
+    "text": "Only a citizen's report of a claim, relayed by Stuart, who was not at the pass; Kilpatrick's own dispatch and report give no wagon count and say 1,500 and 1,360 prisoners, not several thousand."
+   },
+   "pdf_label": "400-500",
+   "scenario_ids": [
+    "C-034-S4"
+   ],
+   "derived": true,
+   "inference": {
+    "step": "Stuart quotes a citizen who said Kilpatrick had claimed 400 or 500 wagons; the count is a claim as reported twice removed, not a count by anyone present.",
+    "from": [
+     "C-034-P4-c1"
+    ]
+   }
+  },
+  {
+   "id": "C-034-P5",
+   "origin": "pdf_default",
+   "label": "150 with the range 40 to 500 shown (the plan's default)",
+   "kind": "count",
+   "value": {
+    "n": 150,
+    "unit": "wagons"
+   },
+   "tier": "documented",
+   "clock": "not_applicable",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-034-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R352",
+     "page": "970",
+     "page_basis": "scan_leaf",
+     "text_offset": 3417839,
+     "quote": "At 3 a. m. July 5, the wagon train was reached at and near Mon- terey, and 150 wagons captured",
+     "witness": {
+      "name": "Pennock Huey",
+      "role": "Colonel, 8th Pennsylvania Cavalry, commanding the Second Brigade, Second Division (Gregg's), sent to Kilpatrick on July 4; the rear of the column at Monterey Pass",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "huey",
+     "exact": true,
+     "states": {
+      "numbers": [
+       150
+      ],
+      "times": [
+       "03:00"
+      ],
+      "dates": [
+       "07-05"
+      ]
+     },
+     "note": "Huey, a month after: at 3 a.m. on July 5 the wagon train was reached at and near Monterey and 150 wagons were captured (his report adds 1,600 prisoners; the text layer of one scan prints 1,500, so the prisoners are not used). He counts wagons captured, by his brigade or the column, not wagons destroyed; he does not say how the 150 were counted."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "150 is the lower end of the default range and the figure drawn; the plan's range 40 to 500 mixes counts of different things, which the default separates."
+   },
+   "pdf_label": "150 (range shown)",
+   "scenario_ids": [
+    "C-034-S5"
+   ]
+  },
+  {
+   "id": "C-034-P6",
+   "origin": "first_delegated",
+   "label": "Range 40 to 500 as printed, scope per report",
+   "kind": "count_range",
+   "value": {
+    "low": 40,
+    "high": 500,
+    "unit": "wagons"
+   },
+   "tier": "inferred",
+   "clock": "not_applicable",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-034-P6-c1",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R426",
+     "page": "299",
+     "page_basis": "scan_leaf",
+     "text_offset": 1135486,
+     "quote": "a number of wagons, said to be about 40, were captured",
+     "witness": {
+      "name": "Robert E. Lee",
+      "role": "General commanding the Army of Northern Virginia (writing to President Davis near Hagerstown)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-07",
+      "kind": "official_report"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "lee",
+     "exact": true,
+     "states": {
+      "numbers": [
+       40
+      ]
+     },
+     "note": "Lee to President Davis near Hagerstown, 4 days after (the text layer does not print this letter's dateline; the next letter, of July 8, begins 'My letter of yesterday'): 'In sending back our trains in advance, that of General Ewell was cut by the enemy's cavalry, and a number of wagons, said to be about 40, were captured.' A figure he had heard ('said to be') for wagons of Ewell's train captured."
+    },
+    {
+     "id": "C-034-P6-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R352",
+     "page": "970",
+     "page_basis": "scan_leaf",
+     "text_offset": 3417839,
+     "quote": "At 3 a. m. July 5, the wagon train was reached at and near Mon- terey, and 150 wagons captured",
+     "witness": {
+      "name": "Pennock Huey",
+      "role": "Colonel, 8th Pennsylvania Cavalry, commanding the Second Brigade, Second Division (Gregg's), sent to Kilpatrick on July 4; the rear of the column at Monterey Pass",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "huey",
+     "exact": true,
+     "states": {
+      "numbers": [
+       150
+      ],
+      "times": [
+       "03:00"
+      ],
+      "dates": [
+       "07-05"
+      ]
+     },
+     "note": "Huey, a month after: at 3 a.m. on July 5 the wagon train was reached at and near Monterey and 150 wagons were captured (his report adds 1,600 prisoners; the text layer of one scan prints 1,500, so the prisoners are not used). He counts wagons captured, by his brigade or the column, not wagons destroyed; he does not say how the 150 were counted."
+    },
+    {
+     "id": "C-034-P6-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R367",
+     "page": "1019",
+     "page_basis": "scan_leaf",
+     "text_offset": 3591686,
+     "quote": "the whole train was taken — 300 wagons, 15 ambulances, together with all the horses and mules attached",
+     "witness": {
+      "name": "Charles E. Capehart",
+      "role": "Major, 1st West Virginia Cavalry, whose regiment led the charge on the train at Monterey Pass",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "capehart",
+     "exact": true,
+     "states": {
+      "numbers": [
+       300,
+       15
+      ]
+     },
+     "note": "Capehart, six weeks after: the road was interspersed with wagons and ambulances for 8 miles 'and the whole train was taken: 300 wagons, 15 ambulances, together with all the horses and mules attached'; prisoners 1,300. He counts wagons and ambulances taken, in the dark ('inky darkness' in the same report), and says 'the whole train'."
+    },
+    {
+     "id": "C-034-P6-c4",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R565",
+     "page": "700",
+     "page_basis": "scan_leaf",
+     "text_offset": 2613938,
+     "quote": "Kilpatrick, who had claimed to have [...] several thousand prisoners and 400 or 500 wagons from our forces near Mon- terey",
+     "witness": {
+      "name": "J. E. B. Stuart",
+      "role": "Major General commanding the Cavalry Division; reached the pass the next day and heard a citizen's account",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "stuart",
+     "exact": false,
+     "states": {
+      "numbers": [
+       400,
+       500
+      ]
+     },
+     "note": "Stuart: what a citizen said Kilpatrick had claimed: 'several thousand prisoners and 400 or 500 wagons from our forces near Monterey', followed by Stuart's own doubt. No text of Kilpatrick's has this figure; his dispatch of July 5 says 'over 1,500 prisoners' and his report 1,360."
+    }
+   ],
+   "flags": [
+    "weak"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "The range joins three different counts: wagons carried off (40), wagons captured or destroyed (150, 300) and a claim relayed by hearsay (400-500); they are kept apart here."
+   },
+   "scenario_ids": [
+    "C-034-S6",
+    "C-034-DEFAULT"
+   ],
+   "derived": true,
+   "inference": {
+    "step": "The bounds of the range are the lowest and the highest figure found in the reports (Lee 40, Stuart 400 to 500); the range is their span, not a measure.",
+    "from": [
+     "C-034-P6-c1",
+     "C-034-P6-c4"
+    ]
+   }
+  },
+  {
+   "id": "C-034-P7",
+   "origin": "research",
+   "label": "30 wagons kept: Kilpatrick's count of what he did not destroy",
+   "kind": "count",
+   "value": {
+    "n": 30,
+    "unit": "wagons"
+   },
+   "tier": "documented",
+   "clock": "not_applicable",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-034-P7-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R359",
+     "page": "994",
+     "page_basis": "scan_leaf",
+     "text_offset": 3500011,
+     "quote": "Ewell's large train was entirely destroyed, save eight forges, thirty wagons, and a few ambulances loaded with wounded rebel officers",
+     "witness": {
+      "name": "Judson Kilpatrick",
+      "role": "Brigadier General, commanding the Third Cavalry Division, leading the column through Monterey Pass",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-10",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "kilpatrick",
+     "exact": true,
+     "states": {
+      "numbers": [
+       8,
+       30
+      ]
+     },
+     "note": "Kilpatrick, five weeks after: at daylight the train was entirely destroyed 'save eight forges, thirty wagons, and a few ambulances loaded with wounded rebel officers (sent with prisoners to Frederick City)'. Thirty is what was kept; he gives no count of the rest."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Thirty counts the wagons Kilpatrick kept, not those captured or destroyed."
+   }
+  },
+  {
+   "id": "C-034-P8",
+   "origin": "research",
+   "label": "150 to 300 wagons captured or destroyed on Jul 4-5 (Huey 150; Capehart 300 and 15 ambulances)",
+   "kind": "count_range",
+   "value": {
+    "low": 150,
+    "high": 300,
+    "unit": "wagons"
+   },
+   "tier": "documented",
+   "clock": "not_applicable",
+   "stance": "default",
+   "support": [
+    {
+     "id": "C-034-P8-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R352",
+     "page": "970",
+     "page_basis": "scan_leaf",
+     "text_offset": 3417839,
+     "quote": "At 3 a. m. July 5, the wagon train was reached at and near Mon- terey, and 150 wagons captured",
+     "witness": {
+      "name": "Pennock Huey",
+      "role": "Colonel, 8th Pennsylvania Cavalry, commanding the Second Brigade, Second Division (Gregg's), sent to Kilpatrick on July 4; the rear of the column at Monterey Pass",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "huey",
+     "exact": true,
+     "states": {
+      "numbers": [
+       150
+      ],
+      "times": [
+       "03:00"
+      ],
+      "dates": [
+       "07-05"
+      ]
+     },
+     "note": "Huey, a month after: at 3 a.m. on July 5 the wagon train was reached at and near Monterey and 150 wagons were captured (his report adds 1,600 prisoners; the text layer of one scan prints 1,500, so the prisoners are not used). He counts wagons captured, by his brigade or the column, not wagons destroyed; he does not say how the 150 were counted."
+    },
+    {
+     "id": "C-034-P8-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R367",
+     "page": "1019",
+     "page_basis": "scan_leaf",
+     "text_offset": 3591686,
+     "quote": "the whole train was taken — 300 wagons, 15 ambulances, together with all the horses and mules attached",
+     "witness": {
+      "name": "Charles E. Capehart",
+      "role": "Major, 1st West Virginia Cavalry, whose regiment led the charge on the train at Monterey Pass",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "capehart",
+     "exact": true,
+     "states": {
+      "numbers": [
+       300,
+       15
+      ]
+     },
+     "note": "Capehart, six weeks after: the road was interspersed with wagons and ambulances for 8 miles 'and the whole train was taken: 300 wagons, 15 ambulances, together with all the horses and mules attached'; prisoners 1,300. He counts wagons and ambulances taken, in the dark ('inky darkness' in the same report), and says 'the whole train'."
+    }
+   ]
+  },
+  {
+   "id": "C-034-P9",
+   "origin": "research",
+   "label": "37 wagons and 15 ambulances (a medical history says Kilpatrick reported it)",
+   "kind": "count",
+   "value": {
+    "n": 37,
+    "unit": "wagons"
+   },
+   "tier": "inferred",
+   "clock": "not_applicable",
+   "stance": "selectable",
+   "support": [
+    {
+     "id": "C-034-P9-c1",
+     "source": "DUNCAN-MEDDEPT-CIVILWAR",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "text_offset": 593659,
+     "quote": "Kilpatrick reported capturing 37 wagons and 15 ambulances",
+     "witness": {
+      "name": "Louis C. Duncan",
+      "role": "author of The Medical Department of the United States Army in the Civil War (1910s), a later history",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1917",
+      "kind": "later_history"
+     },
+     "vantage": "not_applicable",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "duncan",
+     "exact": false,
+     "states": {
+      "numbers": [
+       37,
+       15
+      ]
+     },
+     "note": "A medical history of the 1910s, no page or source named in the text layer: 'Kilpatrick reported capturing 37 wagons and 15 ambulances loaded with wounded, and several hundred on foot.' Kilpatrick's report of 10 August 1863 and his dispatch of 5 July give no such figure; the 15 ambulances match Capehart's.",
+     "page_note": "no printed page marks in the text layer; the passage is in the chapter on the retreat"
+    }
+   ],
+   "flags": [
+    "single_source",
+    "weak",
+    "unclear_clock"
+   ],
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "A history of the 1910s with no source named; neither Kilpatrick's dispatch of July 5 nor his report of August 10 has this figure."
+   },
+   "derived": true,
+   "inference": {
+    "step": "Duncan writes that Kilpatrick reported 37 wagons and 15 ambulances; this documents that Duncan wrote it; no report found carries the figure.",
+    "from": [
+     "C-034-P9-c1"
+    ]
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "Huey (150 wagons captured) and Capehart (300 wagons and 15 ambulances taken) are officers of the best class of writing, present at the pass, writing within weeks; nothing separates them, so the count of wagons captured or destroyed is a range. The 40 and the 30 count wagons carried away; the 400 to 500 is a claim reported by hearsay.",
+  "who": "Huey and Capehart wrote as officers of Kilpatrick's column (a brigade at the rear; the regiment that led the charge). Kilpatrick commanded. Lee and Stuart were not at the pass: Lee writes what he heard from Ewell's side and Stuart what a citizen told him. The magazine, the guide and the medical history are not participants.",
+  "when": "Huey 32 days, Capehart 43, Kilpatrick 36 days after; Lee 2 days, Stuart weeks after. The later figures are from 1864, 1892 and the 1910s, outweighed by reports of the time.",
+  "where": "Capehart's regiment charged the train in the dark on the mountain road; Huey's brigade was behind Custer and at the rear. Each counts wagons seen over a road of eight miles in the night; neither could count the whole.",
+  "how_knew": "Huey and Capehart give round numbers without a method; Kilpatrick counts the wagons he kept (thirty) because he took them away; Lee says \"said to be\"; Stuart repeats a citizen.",
+  "clock": "Not applicable: a count has no clock; the reported difference of 20 minutes between the armies' clocks is not involved.",
+  "independence": "Huey and Capehart are two separate groups (different brigades) and disagree; Kilpatrick, Lee and Stuart are three groups for the 30 to 40 carried off, but Lee and Stuart may relay each other; the magazine and the guide give floors with no source; the medical history is unsourced."
+ },
+ "source_panel_text": "Monterey Pass, night of Jul 4-5: two officers who were there count 150 wagons captured (Huey) and 300 wagons with 15 ambulances (Capehart); only about 30 to 40 were carried off (Kilpatrick, Lee, Stuart). 400 to 500 is a claim told to Stuart. Range 150 to 300 shown; six other values listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "150 holds as the lower end of the range and as a sourced figure (Huey, p. 970; the first pass found no source for it). It does not hold as the one value: Capehart counts 300 and the plan's 40 and 400-500 count other things."
+  },
+  "first_delegated": {
+   "holds": "no",
+   "note": "Range 40 to 500 joins wagons carried off (40), wagons captured or destroyed (150, 300) and a hearsay claim (400-500). The first pass also missed Huey's 150, so it called 150 unsourced."
+  }
+ },
+ "readers": [
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-034 row)",
+   "must_change": true,
+   "note": "computed: delegated-decision row line 44 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0008.md",
+   "must_change": true,
+   "note": "computed: register entry names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-034",
+   "must_change": true,
+   "note": "computed: decision log line 62 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md line 11",
+   "must_change": true,
+   "note": "computed: decision log line 11 names this conflict; read it and set must_change if its value differs from this resolution"
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md",
+   "must_change": false,
+   "note": "read: the spec says a default that is a range is shown as a range; this default is the range 150 to 300 with the others listed. No gate change. Not edited here."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md",
+   "must_change": false,
+   "note": "read: the spec says a default that is a range is shown as a range; this default is the range 150 to 300 with the others listed. No gate change. Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-169",
+   "must_change": true,
+   "note": "Row 'Jul 4-5 night' (Monterey Pass; 'about 250 wagons and ambulances lost plus 37 of Rodes's wagons'; 'Wagon estimates 40, 150, 300, 400-500, ~250'; cites W-MP): the reports give 150 (Huey), 300 and 15 ambulances (Capehart), about 40 (Lee), 30 kept (Kilpatrick); 250 and 37 of Rodes's wagons have no source found. Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-160",
+   "must_change": false,
+   "note": "Row 'Jul 4 evening (rain)' (Monterey Pass, Kilpatrick, Custer, Capehart, Alger, Huey; Emack's detachment delays Kilpatrick nearly 5 hours): carries no wagon count; Capehart's 'inky darkness' matches the night. No change required."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-158",
+   "must_change": false,
+   "note": "Row 'Jul 4 late afternoon' (Imboden's train; 'Monterey Pass summary ~40'): the ~40 is Lee's and Stuart's figure for wagons carried off; it is one of the values listed here. No change required."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-034)",
+   "must_change": true,
+   "note": "holds the first delegated default 'range 40 to 500 as printed'; the default becomes the range 150 to 300 captured or destroyed, drawn at 150, with 40, 30, 400-500, 37 and the later figures selectable. Not edited here."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1 (Kilpatrick R359 pp. 992-994, Custer R361, Richmond R362, Preston R365), OR27-3 (July 5 to 7 dispatches)",
+   "query": "a count of wagons captured or destroyed by Kilpatrick, Custer, Richmond or Preston: Kilpatrick gives thirty wagons kept and no count of the rest; Custer says only part of a large train; Preston and Richmond none",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2 (Lee R426, Ewell R467, Rodes R506, Stuart R565, Guild R427)",
+   "query": "a Confederate count of wagons or ambulances lost on the night of July 4-5: Lee writes about 40 of Ewell's train and later a number of wagons and ambulances; Rodes says the train was partly destroyed; none counts the loss",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "all local books, papers and the OR (find_passage --all)",
+   "query": "250 wagons or 37 of Rodes's wagons at Monterey: the plan's timeline figures; only Duncan (1910s) has 37 wagons and 15 ambulances, as a report he says Kilpatrick made; no report of Kilpatrick with it",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A Confederate return of wagons lost by Ewell's or Rodes's train, a count by Kilpatrick, Custer, Richmond or Preston of the train taken, or a method for Huey's and Capehart's numbers would narrow or settle the range."
+}
