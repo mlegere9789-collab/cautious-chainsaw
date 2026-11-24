@@ -35,7 +35,7 @@ test('contract: the real layer validates (units, arrivals, events, kit) in every
 });
 
 test('contract 1.1 extensions are strict: a strength with no figure needs an integer drawn and may not be documented; a null entry needs a reason; the 1.0 forms still validate', () => {
-  const u = JSON.parse(JSON.stringify(L.units.find(x => x.drawn))); assert.deepEqual(validateUnits([u]), []);
+  const u = JSON.parse(JSON.stringify(L.units.find(x => x.drawn && x.strength.min === null))); assert.deepEqual(validateUnits([u]), []);   // a drawn unit with no figure (a procedural share): the layer now also holds drawn units with a documented range (oob_adopt)
   const bad1 = { ...u, strength: { ...u.strength, drawn: 12.5 } }; assert.match(validateUnits([bad1])[0], /integer drawn/);
   const bad2 = { ...u, strength: { ...u.strength, tier: 'documented' } }; assert.match(validateUnits([bad2])[0], /cannot be documented/);
   const bad3 = { ...u, strength: { min: null, max: null, drawn: 5 } }; assert.match(validateUnits([bad3])[0], /basis/);
@@ -59,9 +59,9 @@ test('sources: every key a unit, arrival or event cites resolves; weak keys are 
 test('strengths: printed figures are single figures with no invented range; shares are procedural, weak, never documented, and add up to their pool', () => {
   const printed = raw.units.units.filter(u => u.strength && Number.isFinite(u.strength.strength)); assert.equal(printed.length, 21);
   for (const p of printed) { const u = L.units.find(x => x.id === p.id); assert.equal(u.strength.min, p.strength.strength); assert.equal(u.strength.max, p.strength.strength); assert.equal(u.strength.kind, 'printed'); assert.ok(u.strength.weak_source); assert.notEqual(u.tier, 'documented'); }
-  const leaves = L.units.filter(u => u.strength.kind === 'procedural'); assert.ok(leaves.length > 400);
+  const leaves = L.units.filter(u => u.strength.kind === 'procedural'); assert.ok(leaves.length > 200); assert.ok(leaves.length + L.units.filter(u => u.strength.basis_key).length > 400, 'procedural shares plus the units that adopted a documented range'); for (const u of L.units.filter(x => x.strength.basis_key)) { assert.equal(u.strength.tier, 'documented'); assert.equal(u.strength.weak_source, false); assert.ok(u.strength.min <= u.strength.max && u.strength.drawn <= u.strength.max); assert.ok(['documented', 'ranged'].includes(u.strength.kind)); assert.ok(Array.isArray(u.strength.alternatives) && u.strength.alternatives.some(a => a.key === u.strength.basis_key)); }
   for (const u of leaves) { assert.equal(u.strength.min, null); assert.equal(u.strength.max, null); assert.equal(u.strength.tier, 'plausible-procedural'); assert.equal(u.strength.weak_source, true); assert.ok(u.strength.basis.startsWith(BASIS_PROCEDURAL)); assert.ok(Number.isInteger(u.strength.share) && u.strength.share > 0); }
-  for (const p of L.pools) { const members = leaves.filter(u => u.strength.share === p.share && L.strengths.get(u.id).pool_owner === p.owner); assert.equal(members.length, p.leaves_on_field); assert.ok(Math.abs(members.length * p.share - p.pool) <= members.length / 2 + 1, `${p.owner}: shares add up to the pool within rounding`); }
+  for (const p of L.pools) { const members = L.units.filter(u => { const st = L.strengths.get(u.id); return st && st.pool_owner === p.owner && (st.shares_replaced ?? (u.strength.kind === 'procedural' ? u.strength.share : undefined)) === p.share; }); assert.equal(members.length, p.leaves_on_field); assert.ok(Math.abs(members.length * p.share - p.pool) <= members.length / 2 + 1, `${p.owner}: shares add up to the pool within rounding`); }
   const I = L.pools.find(p => p.owner === 'us-1c'); assert.equal(I.figure, 12160); assert.equal(I.sub_figured.length, 3); assert.equal(I.pool, 12160 - 1830 - 2015 - 1540);
 });
 

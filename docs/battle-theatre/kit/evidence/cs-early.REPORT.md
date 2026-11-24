@@ -26,3 +26,8 @@ OR27-2 (R424 pp. 285-286, R425, R427 pp. 330-332, 340-343, R470, R473, R474, R47
 
 ## Not done
 None open. Not read in full: R471 (Early's nominal return of casualties, pp. 474-476), whose figures duplicate the returns already read by regiment; the officers killed in the lists of OR27-2-R471 were not written as officer lines.
+
+## QC sweep 2026-11-24
+Corrections after the independent check of the evidence (checker exit 0 with `--coverage --require-complete`); details in `GOVERNANCE/horde/ws-kit/QC-SWEEP-2026-11-24.md`.
+- Sweep A, dagger and asterisk marks of the Addenda return of casualties (pp. 338-346): 1 lines (0069).
+cs-early:0069 carries the asterisk footnote of p. 332.

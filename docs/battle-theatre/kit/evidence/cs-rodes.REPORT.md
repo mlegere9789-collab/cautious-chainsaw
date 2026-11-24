@@ -3,7 +3,7 @@
 Army of Northern Virginia, Second Corps: Rodes' division (Daniel, Doles, Iverson, Ramseur, O'Neal) and the kit record CS.5ALBN (Blackford's sharpshooters). 29 units of `groups.json`. Workstream `bt-oob-kit`. Evidence file: `cs-rodes.jsonl`. Register proposals: `GOVERNANCE/horde/ws-kit/proposed-register/cs-rodes-01-strength.md`, `cs-rodes-02-arms-dress.md`. Request notes: `GOVERNANCE/horde/requests/bt-oob-kit-cs-rodes-library.md`, `-roster.md`. Written 24 November 2026. Builder in `tmp/kit-cs-rodes/` (`build_r.py`, `part2r.py`, `part3r.py`, helpers `jr.py` on top of the cs-mclaws and cs-hood helpers).
 
 ## Counts
-`--coverage --require-complete` exits 0: 282 lines (262 evidence, 12 gap, 8 source); 248 accepted (201 documented, 47 inferred), 14 superseded, 0 errors. Pairs 162 of 162. By field: roster 29, commander 58, casualties 73, strength 52, arms 27, dress 23, gap lines 12. Compile dry run: 0 operations applied (29 lines routed to the verified tables by design, 0 to review).
+`--coverage --require-complete` exits 0: 283 lines (263 evidence, 12 gap, 8 source); 249 accepted (202 documented, 47 inferred), 14 superseded, 0 errors. Pairs 162 of 162. By field: roster 29, commander 58, casualties 74, strength 52, arms 27, dress 23, gap lines 12. Compile dry run: 0 operations applied (29 lines routed to the verified tables by design, 0 to review).
 
 ## Corrections
 | unit | field | kit or plan now | record | source and page | line |
@@ -33,3 +33,9 @@ OR27-2 (R424 p. 287, R425 pp. 291-292, R427 pp. 332 and 342, R467, R506, R507 to
 
 ## Not done
 No required pair is open. Not done beyond the pairs: officer lines (the list of Rodes' officers killed and mortally wounded, p. 563, and Appendix B) were not written; the SHSP-05 table of the army's strength of 31 May 1863 was not used (labels and figures separated by the OCR, no scan); the footnote change lines for the 5th and 23rd North Carolina (captains wounded, "it does not appear who commanded") were not written because the footnote OCR is too garbled to quote (the 20th North Carolina's was); Moore's Roster of North Carolina Troops was not read for the regiments' strength.
+
+## QC sweep 2026-11-24
+Corrections after the independent check of the evidence (checker exit 0 with `--coverage --require-complete`); details in `GOVERNANCE/horde/ws-kit/QC-SWEEP-2026-11-24.md`.
+- Sweep A, dagger and asterisk marks of the Addenda return of casualties (pp. 338-346): 6 lines (0121, 0127, 0124, 0128, 0283, 0123).
+- Sweep B, organization-table lines under a footnote mark (CS pp. 283-290, US pp. 155-168): 9 lines (0034, 0035, 0036, 0039, 0040, 0041, 0042, 0043, 0044).
+New line cs-rodes:0283 (Twelfth Alabama 83, p. 342 footnote). The three marked O'Neal rows (5th, 12th, 26th Alabama) and their report-statement lines (cs-rodes:0127, 0283, 0128) are conflict sets, none chosen. The 5th, 20th and 23d North Carolina lines of the table carry the footnotes of p. 287.

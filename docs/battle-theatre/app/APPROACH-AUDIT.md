@@ -14,7 +14,7 @@ The question (brief sibling-roads): 164 leaf units were open gaps at v5 because 
 | placed (a road and a place) | 362 | 418 | +56 |
 | at the arrival edge only | 21 | 21 | +0 |
 | open gap (leaf units, not drawn) | 164 | 108 | -56 |
-| figures drawn (one soldier per figure) | 110,272 | 127,572 | +17,300 |
+| figures drawn (one soldier per figure) | 112,869 | 131,126 | +18,257 |
 | approach records | 43 | 51 | +8 |
 | drawn units, approach tier inferred | 213 | 213 | +0 |
 | drawn units, approach tier plausible-procedural | 170 | 226 | +56 |
@@ -29,10 +29,10 @@ The question (brief sibling-roads): 164 leaf units were open gaps at v5 because 
 | basis of the approach | tier | units | share of the 726 | share of the units drawn | figures | share of the figures drawn |
 |---|---|---|---|---|---|---|
 | documented | documented | 0 | 0.0% | 0.0% | 0 | 0.0% |
-| a road printed for the unit itself or for a formation below the corps (a PDF ledger row or a re-read claim of the Official Records) | inferred | 213 | 29.3% | 48.5% | 65,219 | 51.1% |
-| a road printed only for the corps, inherited down the line of command | plausible-procedural | 170 | 23.4% | 38.7% | 45,053 | 35.3% |
-| a MODELLED road taken from the sibling formations of the corps (DEC-015) | plausible-procedural | 56 | 7.7% | 12.8% | 17,300 | 13.6% |
-| **all drawn units** | | 439 | 60.5% | 100.0% | 127,572 | 100.0% |
+| a road printed for the unit itself or for a formation below the corps (a PDF ledger row or a re-read claim of the Official Records) | inferred | 213 | 29.3% | 48.5% | 66,938 | 51.0% |
+| a road printed only for the corps, inherited down the line of command | plausible-procedural | 170 | 23.4% | 38.7% | 45,931 | 35.0% |
+| a MODELLED road taken from the sibling formations of the corps (DEC-015) | plausible-procedural | 56 | 7.7% | 12.8% | 18,257 | 13.9% |
+| **all drawn units** | | 439 | 60.5% | 100.0% | 131,126 | 100.0% |
 
 By tier of the approach: documented 0 (0.0% of the 726), inferred 213 (29.3%), plausible-procedural 226 (31.1%; 170 of them inherit a corps-level road and 56 rest on a modelled road). At v5: inferred 213 (29.3%), plausible-procedural 170 (23.4%). Every drawn unit is plausible-procedural as a unit (its slot, formation and strength share are modelled); the tiers here are those of its road of approach. The position on each day is the troop-map position, documented for the day (DEC-010), for modelled units as for the others.
 
@@ -42,13 +42,13 @@ One record is attached at the highest formation below the corps all of whose lea
 
 | record | attached to | corps | road | documented siblings it rests on | leaf units drawn | figures | placed | day stops applied | claims read |
 |---|---|---|---|---|---|---|---|---|---|
-| AP-44 | `us-5c-1d` | `us-5c` | Hanover Road | AP-04 (`us-5c-1d-vincent-20me`, PDF row `us-5c`: “Jul 1 night: night march from Hanover (20th Maine)”); AP-11 (`us-5c-2d`, OR27-1-R203 p. 634, `POS-C-0105`: “Gettysburg and Hanover road”) | 10 | 2,800 | 10 | 13 | 4 |
-| AP-45 | `us-5c-3d` | `us-5c` | Hanover Road | AP-04 (`us-5c-1d-vincent-20me`, PDF row `us-5c`: “Jul 1 night: night march from Hanover (20th Maine)”); AP-11 (`us-5c-2d`, OR27-1-R203 p. 634, `POS-C-0105`: “Gettysburg and Hanover road”) | 9 | 2,520 | 9 | 9 | 5 |
+| AP-44 | `us-5c-1d` | `us-5c` | Hanover Road | AP-04 (`us-5c-1d-vincent-20me`, PDF row `us-5c`: “Jul 1 night: night march from Hanover (20th Maine)”); AP-11 (`us-5c-2d`, OR27-1-R203 p. 634, `POS-C-0105`: “Gettysburg and Hanover road”) | 10 | 3,095 | 10 | 13 | 4 |
+| AP-45 | `us-5c-3d` | `us-5c` | Hanover Road | AP-04 (`us-5c-1d-vincent-20me`, PDF row `us-5c`: “Jul 1 night: night march from Hanover (20th Maine)”); AP-11 (`us-5c-2d`, OR27-1-R203 p. 634, `POS-C-0105`: “Gettysburg and Hanover road”) | 9 | 3,192 | 9 | 9 | 5 |
 | AP-46 | `us-5c-art` | `us-5c` | Hanover Road | AP-04 (`us-5c-1d-vincent-20me`, PDF row `us-5c`: “Jul 1 night: night march from Hanover (20th Maine)”); AP-11 (`us-5c-2d`, OR27-1-R203 p. 634, `POS-C-0105`: “Gettysburg and Hanover road”) | 5 | 1,400 | 5 | 10 | 5 |
 | AP-47 | `cs-1c-mclaws-barksdale` | `cs-1c` | Chambersburg Pike | AP-41 (`cs-1c-mclaws-kershaw`, OR27-2-R432 p. 366, `PD-1c-mclaws-kershaw-02`: “a point on the Gettysburg road, some 2 miles from that place”) | 4 | 1,620 | 4 | 4 | 8 |
 | AP-48 | `cs-1c-mclaws-cabell` | `cs-1c` | Chambersburg Pike | AP-41 (`cs-1c-mclaws-kershaw`, OR27-2-R432 p. 366, `PD-1c-mclaws-kershaw-02`: “a point on the Gettysburg road, some 2 miles from that place”) | 1 | 320 | 1 | 1 | 11 |
 | AP-49 | `cs-1c-pickett-dearing` | `cs-1c` | Chambersburg Pike | AP-41 (`cs-1c-mclaws-kershaw`, OR27-2-R432 p. 366, `PD-1c-mclaws-kershaw-02`: “a point on the Gettysburg road, some 2 miles from that place”) | 1 | 320 | 1 | 1 | 7 |
-| AP-50 | `cs-1c-hood` | `cs-1c` | Chambersburg Pike | AP-41 (`cs-1c-mclaws-kershaw`, OR27-2-R432 p. 366, `PD-1c-mclaws-kershaw-02`: “a point on the Gettysburg road, some 2 miles from that place”) | 19 | 6,080 | 19 | 33 | 14 |
+| AP-50 | `cs-1c-hood` | `cs-1c` | Chambersburg Pike | AP-41 (`cs-1c-mclaws-kershaw`, OR27-2-R432 p. 366, `PD-1c-mclaws-kershaw-02`: “a point on the Gettysburg road, some 2 miles from that place”) | 19 | 6,070 | 19 | 33 | 14 |
 | AP-51 | `cs-1c-res-art` | `cs-1c` | Chambersburg Pike | AP-41 (`cs-1c-mclaws-kershaw`, OR27-2-R432 p. 366, `PD-1c-mclaws-kershaw-02`: “a point on the Gettysburg road, some 2 miles from that place”) | 7 | 2,240 | 7 | 7 | 6 |
 
 ## Still undrawn (after v6): by reason
@@ -157,7 +157,7 @@ The rule used for a road of approach (DEC-009, DEC-012, extended by DEC-013 a an
 | placed | 242 | 362 | +120 |
 | at the arrival edge only | 21 | 21 | +0 |
 | open gap (leaf units) | 285 | 164 | -121 |
-| figures drawn | 80,260 | 110,272 | +30,012 |
+| figures drawn | 82,700 | 112,869 | +30,169 |
 | approach records | 32 | 43 | +11 |
 | drawn units, approach tier inferred | 152 | 213 | +61 |
 | drawn units, approach tier plausible-procedural | 111 | 170 | +59 |

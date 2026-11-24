@@ -38,3 +38,8 @@ OR27-1 (R009 p. 155; R016, R017, R024, R025, R026, R027, R028 searched or read; 
 
 ## Not done
 No required pair is open. The Confederate side has no state or regimental text on disk for headquarters troops, so cs-anv-hq has no roster line; the provost, signal and engineer units have no strength or casualty lines because those fields are not required here (the return of casualties rows of headquarters, OR27-1-R013 p. 173, were not read for this group).
+
+## QC sweep 2026-11-24
+Corrections after the independent check of the evidence (checker exit 0 with `--coverage --require-complete`); details in `GOVERNANCE/horde/ws-kit/QC-SWEEP-2026-11-24.md`.
+- Sweep B, organization-table lines under a footnote mark (CS pp. 283-290, US pp. 155-168): 10 lines (0012, 0014, 0021, 0022, 0023, 0024, 0025, 0026, 0029, 0009).
+The 15th and 50th New York Engineers (army-hq:0021, 0023) now read engaged: no, as the footnote of the Engineer Brigade states.

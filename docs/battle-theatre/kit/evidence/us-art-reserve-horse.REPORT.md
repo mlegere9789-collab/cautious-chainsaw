@@ -82,3 +82,7 @@ Every required (unit, field) pair is evidenced or recorded as a gap. Not done, t
 - The kit's casualty figures for the batteries from the Hunt table of losses (p. 241: the OCR prints it without its figures).
 - Histories of the other batteries (searched by title on archive.org: none found).
 - `kit_overrides.py compile --dry-run --group us-art-reserve-horse`: 32 operations, 48 unapplied (14 routed by design, 34 to review: unresolved piece types, conflict sets, off-window lines, a joined card). It no longer crashes on a battery that mixes a conflict set with plain dated lines (`bt-oob-kit-us-art-reserve-horse-tools.md`).
+
+## QC sweep 2026-11-24
+Corrections after the independent check of the evidence (checker exit 0 with `--coverage --require-complete`); details in `GOVERNANCE/horde/ws-kit/QC-SWEEP-2026-11-24.md`.
+- Sweep B, organization-table lines under a footnote mark (CS pp. 283-290, US pp. 155-168): 8 lines (0039, 0040, 0085, 0086, 0053, 0054, 0056, 0058).

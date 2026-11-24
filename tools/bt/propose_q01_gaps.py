@@ -39,6 +39,24 @@ ENTRIES = collections.OrderedDict([
         'Not drawn; Q01.2 fails for each class.',
         'None above the kit class record: no strength or arrival is stated by a source read so far.', 'plausible-procedural',
         'A strength and arrival source for each class (Letterman, the army returns), then a layer unit that arrives as a march.', 'Whether classes with no unit-level record may be drawn as procedural shares (marked).')),
+    ('strength-conflict-set', ('Strength of units with a conflict set in the Official Records and state volumes (alternatives carried, none chosen)', 'source conflict (selectable scenario)',
+        'The sources print different strengths for the unit under the same or comparable bases (the evidence lines carry alternatives A, B, ...). Only the owner decides a default view of conflicting sources (Law cl. 6), and the history layer has no per-scenario instance count (a scenario changes timing, not the figures drawn).',
+        'kit/verified_oob.json strength.figures with `alt` letters; history/units.json `strength_verified` (status conflict) carries every alternative with its key, range, tier and date.',
+        'Every alternative is carried in the layer and on the card; the figure drawn stays the plausible-procedural share (not a documented figure), so Q01.3 FAILs rather than passes.',
+        'Each alternative is a documented line; none is preferred.', 'documented',
+        'The owner\'s selection of the default view, or per-scenario instance counts in the layer so that each alternative is a selectable scenario.', 'Default view of each conflict set (PENDING OWNER).')),
+    ('layer-printed-vs-table', ('Formations that carry the PDF\'s printed single figure while the table holds Official Records ranges', 'source conflict (weak printed figure vs documented ranges)',
+        'The PDF prints one figure for 13 corps and 8 brigades (Stone Sentinels, a weak source); the table holds ranges of several bases from the returns. The printed figure sets the pool that the procedural shares of the leaves without a documented range are cut from, so replacing it changes figures drawn for other units.',
+        'kit/verified_oob.json strength.ranges of the formation; history/units.json `strength.strength` and the allocation in app/src/history/strength.mjs.',
+        'The printed figure stays, marked weak and inferred; the documented ranges are in the table for the owner.',
+        'A formation total is the sum of its leaves where all leaves have documented figures.', 'inferred',
+        'The owner decides whether a documented formation range replaces the printed figure as the pool of the remaining leaves; then the builder follows.', 'Whether the printed corps and brigade figures give way to the documented ranges (PENDING OWNER).')),
+    ('table-inferred-only', ('Units whose table row holds only inferred lines for strength or commander', 'evidence partly missing',
+        'No documented line was found for the field: the table holds inferred lines only (a derived figure, an estimate, a regimental history without a primary source). The layer adopts only documented lines (Law cl. 4).',
+        'kit/verified_oob.json rows with field status inferred; kit/evidence/<group>.jsonl.',
+        'The layer keeps its printed commander or procedural share; the inferred lines are carried as alternatives.',
+        'The inferred line, marked inferred.', 'inferred',
+        'A primary source (return or report) for the field.', '-')),
     ('arrivals-no-road', ('Arrivals ledger prints no road or direction of approach for the unit', 'evidence missing',
         'The ledger rows and reports read name an arrival hour and place but no road of approach for these units; a road modelled from sibling formations is a reconstruction (EG-0070), not a record.',
         'history/arrivals.json: the entry place and approach of each record; reports read for the corps.',
@@ -64,7 +82,7 @@ ENTRIES = collections.OrderedDict([
 ])
 MAP = {'kit-evidence-not-run': ['kit-evidence-not-run'], 'table-gap': ['table-gap'], 'roster-missing': ['roster-missing'], 'support-class-missing': ['support-class-missing'],
        'arrivals-no-road': ['arrivals-no-road', 'arrivals-no-leaf-route', 'arrivals-open-gap'], 'arrivals-road-off-ground': ['arrivals-road-off-ground'], 'arrivals-road-conflict': ['arrivals-road-conflict'],
-       'required-set': ['required-set', 'layer-no-figure']}
+       'required-set': ['required-set', 'layer-no-figure'], 'strength-conflict-set': ['strength-conflict-set'], 'layer-printed-vs-table': ['layer-printed-vs-table'], 'table-inferred-only': ['table-inferred-only']}
 
 
 def main(argv=None):

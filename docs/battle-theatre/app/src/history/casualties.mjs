@@ -60,9 +60,19 @@ export function lossPools({ pools, claimed, strengths, byId, isOnField }) {
     const owner = byId.get(p.owner), ownerLost = owner.strength.lost, subLost = p.sub_figured.reduce((s, id) => s + byId.get(id).strength.lost, 0), poolLost = ownerLost - subLost;
     const members = [...claimed].filter(([, o]) => o === p.owner).map(([id]) => id).filter(id => isOnField(byId.get(id)));
     const n = members.length, base = n ? Math.floor(poolLost / n) : 0, extra = n ? poolLost - base * n : 0;
-    const order = members.slice().sort((a, b) => strId(a) - strId(b) || (a < b ? -1 : 1)), plus = new Set(order.slice(0, extra));
-    for (const id of members) shares.set(id, base + (plus.has(id) ? 1 : 0));
-    out.push({ owner: p.owner, figure: p.figure, lost: ownerLost, sub_lost: subLost, pool_lost: poolLost, pool_strength: p.pool, leaves_on_field: n, base, extra, rate_pct: p.pool ? Math.round((poolLost / p.pool) * 1000) / 10 : null });
+    const order = members.slice().sort((a, b) => strId(a) - strId(b) || (a < b ? -1 : 1));
+    // equal shares of the pool's printed loss; a unit that adopted a documented strength range (strengths.get(id).basis_key) is never given more loss than the top of its range: its excess goes to the
+    // others of the pool in turn, so the pool total is kept and a share is still not a claim about the unit. With no such unit this is the plain equal split (first `extra` units one more).
+    const cap = id => { const st = strengths && strengths.get(id); return st && st.basis_key ? st.max : Infinity; };
+    let active = order.slice(), left = poolLost; const capped = [];
+    for (;;) {
+      const k = active.length; if (!k) break;
+      const b = Math.floor(left / k), e = left - b * k, give = new Map(active.map((id, i) => [id, b + (i < e ? 1 : 0)])), over = active.filter(id => give.get(id) > cap(id));
+      if (!over.length) { for (const [id, v] of give) shares.set(id, v); left = 0; break; }
+      for (const id of over) { shares.set(id, cap(id)); left -= cap(id); capped.push(id); }
+      active = active.filter(id => !over.includes(id));
+    }
+    out.push({ owner: p.owner, figure: p.figure, lost: ownerLost, sub_lost: subLost, pool_lost: poolLost, pool_strength: p.pool, leaves_on_field: n, base, extra, rate_pct: p.pool ? Math.round((poolLost / p.pool) * 1000) / 10 : null, ...(capped.length ? { capped_at_documented_strength: capped, unallocated: left } : {}) });
   }
   return { shares, pools: out };
 }

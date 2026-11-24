@@ -50,3 +50,7 @@ OR27-1 (R009 pp. 166-167, R013 pp. 185-186 from scan, R008 pp. 151-154, R336-R36
 
 ## Not done
 No required pair is open. What was not done: the cavalry volumes for Vermont (Benedict, held by us-1c), West Virginia, Maryland, Illinois and Indiana regiments beyond the texts above were not read line by line; the books of the other regiments were searched with the regexes recorded in the gap lines, not read through; officer lines (killed and wounded lists, OR27-1-R013 pp. 188-192) were written only for the command changes found; the casualty rows of the horse artillery belong to us-art-reserve-horse. The July 14 return was not entered as a line (the kind of figure is not named).
+
+## QC sweep 2026-11-24
+Corrections after the independent check of the evidence (checker exit 0 with `--coverage --require-complete`); details in `GOVERNANCE/horde/ws-kit/QC-SWEEP-2026-11-24.md`.
+- Sweep B, organization-table lines under a footnote mark (CS pp. 283-290, US pp. 155-168): 2 lines (0070, 0078).

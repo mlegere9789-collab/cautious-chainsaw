@@ -90,3 +90,7 @@ Every required (unit, field) pair has a line or a gap line (0 open). What the pa
 - The lists of officers killed and mortally wounded (R013 pp. 188 to 192) and company officers were not entered as `officer` lines; the commanders' changes are from the reports.
 - Seven regiments have no strength, 18 no weapon line, and the dress of 1863 is a gap except the badge, the 29th Pennsylvania (1861), the 109th Pennsylvania and the 150th New York. The arms lines of 1861 and 1862 (2d Massachusetts, 27th Indiana, 3d Wisconsin, 7th Ohio, 60th New York, 5th Connecticut) are outside 26 June to 16 July 1863 and do not compile; nothing says the arms of July 1863 were different or the same.
 - The 5th Connecticut history was read only for arms words; the 20th Connecticut, 29th Ohio and 150th New York histories only for strength, arms and dress words (no cover-to-cover reading).  Regiments with no regimental text beyond the Official Records are listed under Sources.
+
+## QC sweep 2026-11-24
+Corrections after the independent check of the evidence (checker exit 0 with `--coverage --require-complete`); details in `GOVERNANCE/horde/ws-kit/QC-SWEEP-2026-11-24.md`.
+- Sweep B, organization-table lines under a footnote mark (CS pp. 283-290, US pp. 155-168): 1 lines (0016).

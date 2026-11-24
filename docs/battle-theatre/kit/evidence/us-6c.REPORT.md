@@ -108,3 +108,7 @@ Every required (unit, field) pair has a line or a gap line (0 open). What the pa
 - The abstract rows of the corps give the equipped infantry, cavalry and artillery columns; only the present for duty and aggregate columns were read into lines (the equipped columns were not read with the same care and are not entered).
 - Fox's Regimental Losses and the Official Records' index were not used for casualties; the return, the reports and the Adjutant General's letters were.
 - The `officer` lines are the ones that bear on commanders and the lists of the killed (7 lines); the company officers of the regiments are not listed.
+
+## QC sweep 2026-11-24
+Corrections after the independent check of the evidence (checker exit 0 with `--coverage --require-complete`); details in `GOVERNANCE/horde/ws-kit/QC-SWEEP-2026-11-24.md`.
+- Sweep B, organization-table lines under a footnote mark (CS pp. 283-290, US pp. 155-168): 3 lines (0007, 0008, 0012).

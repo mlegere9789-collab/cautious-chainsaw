@@ -37,3 +37,8 @@ OR27-2 (R424 pp. 290-291, R425 pp. 291-293, R427 pp. 334-335 and 345-346, R565 w
 
 ## Not done
 No required pair is open. Not done beyond the pairs: officer lines (Stuart's inclosure No. 8, the list of officers killed and wounded at Fleetwood; the Confederate Roll of Honor of R589); casualty rows of inclosures Nos. 2, 4, 5 and 6 (no printed dates); casualty rows of the batteries in inclosures Nos. 5 and 6 (7 to 24 July, no printed dates); horses killed and wounded of inclosure No. 11 (by brigade) and the Aldie table on p. 741; the captured-arms table of Cooke (R566, whose columns the OCR scrambles) and of inclosure No. 10 (p. 719); the Chancellorsville and earlier returns of McClellan (31 March estimates are written for the two Lee brigades only); Moore's Roster of North Carolina Troops was not read for the four North Carolina regiments; W. H. F. Lee as commander of his brigade before 9 June (the table does not print him, so no `order` was given); McClellan's 1,800 for Jenkins' brigade and White's battalion and Early's 'over 2,000, very probably over 3,000' for Robertson's and Jones' brigades (they join units; strength is not required for those two units).
+
+## QC sweep 2026-11-24
+Corrections after the independent check of the evidence (checker exit 0 with `--coverage --require-complete`); details in `GOVERNANCE/horde/ws-kit/QC-SWEEP-2026-11-24.md`.
+- Sweep A, dagger and asterisk marks of the Addenda return of casualties (pp. 338-346): 1 lines (0228).
+cs-cav:0228 carries the blank-row caveat of the footnotes of pp. 345-346.

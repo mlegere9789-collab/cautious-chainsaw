@@ -5,7 +5,7 @@
 A class is read from the item's own reason and evidence and from the verified table (kit/verified_oob.json); nothing is guessed. A class that cannot be matched is reported as `unclassified`
 (a runner or table change that adds a reason text must add its class here; the test lists the unclassified count and wants zero).
 Classes: kit-evidence-not-run (the group of the unit has no evidence file), table-unverified (the group has one and the field is still unverified), table-gap (the pass searched and recorded a gap),
-required-set (the unit's required fields omit the figure), layer-no-figure, layer-procedural-vs-table, layer-lacks-commander, layer-lacks-succession, roster-missing (kit row the roster lacks),
+required-set (the unit's required fields omit the figure), layer-no-figure, layer-procedural-vs-table, layer-lacks-commander, strength-conflict-set, layer-printed-vs-table, table-inferred-only, layer-lacks-succession, roster-missing (kit row the roster lacks),
 support-class-missing, arrivals-no-road, arrivals-road-off-ground, evidence-defect, runner-bug (fixed; listed with the fix)."""
 import argparse, collections, json, os, re, sys
 
@@ -24,6 +24,9 @@ CAUSE = collections.OrderedDict([
     ('layer-no-figure', 'layer draws the unit with no strength figure (open gap in the layer)'),
     ('layer-procedural-vs-table', 'layer carries a plausible-procedural share where the verified table holds a documented figure (layer data to adopt the table)'),
     ('layer-lacks-commander', 'layer holds no commander (or not the whole succession) of a unit whose commanders the table verifies (layer data to adopt the table)'),
+    ('strength-conflict-set', 'the table holds a conflict set for the unit\'s strength (alternatives with no default): the layer carries every alternative and draws no documented figure until the owner decides'),
+    ('layer-printed-vs-table', 'a formation carries the PDF\'s printed single figure (Stone Sentinels, weak) and the table holds Official Records ranges of other bases; the figure feeds the shares of its leaves and is not replaced'),
+    ('table-inferred-only', 'the table holds only inferred lines for the unit\'s strength or commander: only documented lines are adopted by the layer'),
     ('roster-missing', 'kit row of the Official Records tables that the roster (layer) lacks: the unit is not drawn'),
     ('support-class-missing', 'support-troop class of the kit (ambulance, provost, signal, ...) that the layer does not hold as a unit'),
     ('arrivals-no-road', 'arrivals ledger prints no road or direction of approach for the unit (real record gap)'),
@@ -80,6 +83,13 @@ def classify(item, units, researched):
             return 'table-gap'
         return 'kit-evidence-not-run' if t.get('group') not in researched else 'table-unverified'
     if c == 'Q01.3' and item['result'] == 'FAIL':
+        f = (t.get('fields') or {}).get('strength')
+        if f == 'conflict':
+            return 'strength-conflict-set'
+        if f == 'inferred':
+            return 'table-inferred-only'
+        if ((item.get('evidence') or {}).get('layer') or {}).get('kind') == 'printed':
+            return 'layer-printed-vs-table'
         return 'layer-procedural-vs-table'
     if c == 'Q01.4' and item['result'] == 'FAIL':
         return 'rollup-layer-vs-table'
@@ -96,6 +106,8 @@ def classify(item, units, researched):
             return 'arrivals-no-road'
         return 'unclassified'
     if c == 'Q01.7' and item['result'] == 'FAIL':
+        if (t.get('commanders') or []) and not any(x.get('tier') == 'documented' for x in t['commanders']):
+            return 'table-inferred-only'
         return 'layer-lacks-commander'
     return 'unclassified'
 

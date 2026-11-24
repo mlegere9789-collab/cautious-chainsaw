@@ -8,40 +8,42 @@
  "inputs": {
   "groups_json_sha256_16": "0f8769adf9294086",
   "evidence_files": {
-   "us-1c": "f72c4892616d873a",
-   "us-2c-1d": "d1ff0fc5612d7260",
+   "us-1c": "62b3a6459059e5b0",
+   "us-2c-1d": "4c5159d96784027f",
    "us-2c-2d3d": "702677dec1d11893",
    "us-3c-1d": "20ea7a6735aca376",
-   "us-3c-2d": "204f1dfba4945a07",
-   "us-5c": "608c4c0d9b216885",
-   "us-6c": "0ab5f9d3174e3f7d",
-   "us-11c": "2ee7d5b858e2126b",
-   "us-12c": "ae3073bc4ce6df72",
-   "us-art-corps": "c97d6a8bb34ce11d",
-   "us-art-reserve-horse": "372ae1181ba19746",
-   "us-cav": "b09e66778b32f40d",
-   "cs-mclaws": "dbfe88b0fbca2e26",
+   "us-3c-2d": "9bb2da366542cf24",
+   "us-5c": "f818531521652761",
+   "us-6c": "95e1eab9ff3ba318",
+   "us-11c": "9110c55e513f79e1",
+   "us-12c": "d689f2e72b7bbd93",
+   "us-art-corps": "610376a5a2e814ae",
+   "us-art-reserve-horse": "8c0d881c90a2438f",
+   "us-cav": "1528cd26a09196d7",
+   "army-hq": "6528af5cea82c0c1",
+   "cs-mclaws": "465d1a2310b5a2ae",
    "cs-pickett": "d3ae8f02a4ab73b3",
-   "cs-hood": "f5ffdc6da365894b",
-   "cs-early": "6f5493b21f2d8a6f",
-   "cs-johnson": "2aa3408288babf79",
-   "cs-rodes": "330d1459205ab76c",
+   "cs-hood": "5bd8e2823dce10c0",
+   "cs-early": "ef984bc755edab22",
+   "cs-johnson": "4ff770b80a56cb53",
+   "cs-rodes": "9ce3d31343440c76",
    "cs-anderson": "19c4e7f44f9ad14c",
    "cs-heth": "36c0a9dc657a5a86",
-   "cs-pender": "13ea1ad6f46a7a23",
+   "cs-pender": "5c87b4837976a363",
    "cs-art-1c": "fbcdc6493a501a3d",
    "cs-art-2c": "1934525accb07a87",
-   "cs-art-3c": "b4d73bc574725add"
+   "cs-art-3c": "b4d73bc574725add",
+   "cs-cav": "87a6ac457bb99ae2"
   }
  },
  "totals": {
   "batteries": 131,
   "formations": 33,
-  "verified": 86,
+  "verified": 91,
   "inferred": 0,
   "conflict": 6,
-  "gap": 31,
-  "unverified": 8
+  "gap": 32,
+  "unverified": 2
  },
  "batteries": {
   "us-1c-art-2me": {
@@ -8794,10 +8796,37 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-06-17",
+     "state": "engaged",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "three of Captain Breathed's guns",
+       "count": 3,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": null,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0266"
+     ],
+     "cite": {
+      "id": "cs-cav:0266",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R574",
+      "printed_page": 738,
+      "offset": 2737192
+     }
+    }
+   ],
    "range_by_date": {},
-   "unverified": true
+   "unverified": false
   },
   "CS.ART.Chew": {
    "name": "Chew battery",
@@ -8821,10 +8850,40 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-08",
+     "state": "engaged",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "a Blakely gun of Chew's battery",
+       "count": 1,
+       "type_id": null,
+       "type_candidates": [
+        "blakely_12pdr"
+       ],
+       "note": "the calibre is not stated; one gun of the battery in action at Beaver Creek bridge"
+      }
+     ],
+     "total": null,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0265"
+     ],
+     "cite": {
+      "id": "cs-cav:0265",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R565",
+      "printed_page": 704,
+      "offset": 2627617
+     }
+    }
+   ],
    "range_by_date": {},
-   "unverified": true
+   "unverified": false
   },
   "CS.ART.Griffin": {
    "name": "Griffin battery",
@@ -8848,10 +8907,38 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-06-22",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "Griffin's Parrott's",
+       "count": null,
+       "type_id": null,
+       "type_candidates": [
+        "10pdr_parrott",
+        "20pdr_parrott"
+       ],
+       "note": "Parrott guns; the calibre and the number are not stated; the OCR prints Parrott's"
+      }
+     ],
+     "total": null,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0267"
+     ],
+     "cite": {
+      "id": "cs-cav:0267",
+      "source_id": "cs-cav:0007",
+      "offset": 703907
+     }
+    }
+   ],
    "range_by_date": {},
-   "unverified": true
+   "unverified": false
   },
   "CS.ART.Hart": {
    "name": "Hart battery",
@@ -8875,10 +8962,70 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-06",
+     "state": "engaged",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "a section of 12-pounder howitzers",
+       "count": null,
+       "type_id": "12pdr_howitzer",
+       "type_candidates": [
+        "12pdr_howitzer"
+       ],
+       "note": "a section; the number of pieces is not stated"
+      }
+     ],
+     "total": null,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0262"
+     ],
+     "cite": {
+      "id": "cs-cav:0262",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R466",
+      "printed_page": 437,
+      "offset": 1620702
+     }
+    },
+    {
+     "as_of": "1863-07-06",
+     "state": "present",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "two 3-inch United States rifles",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ],
+       "note": "turned over to Hart by Lieutenant Landry of Garnett's battalion because his horses had broken down"
+      }
+     ],
+     "total": null,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0263"
+     ],
+     "cite": {
+      "id": "cs-cav:0263",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R555",
+      "printed_page": 655,
+      "offset": 2439995
+     }
+    }
+   ],
    "range_by_date": {},
-   "unverified": true
+   "unverified": false
   },
   "CS.ART.McGregor": {
    "name": "McGregor battery",
@@ -8902,10 +9049,40 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-08",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "the Napoleons of McGregor's battery",
+       "count": null,
+       "type_id": "napoleon_12pdr_m1857",
+       "type_candidates": [
+        "napoleon_12pdr_m1857"
+       ],
+       "note": "the number of pieces is not stated"
+      }
+     ],
+     "total": null,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0264"
+     ],
+     "cite": {
+      "id": "cs-cav:0264",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R565",
+      "printed_page": 703,
+      "offset": 2626200
+     }
+    }
+   ],
    "range_by_date": {},
-   "unverified": true
+   "unverified": false
   },
   "CS.ART.Moorman": {
    "name": "Moorman battery",
@@ -8929,7 +9106,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -11329,10 +11506,45 @@
    "parent": "cs-cav-div",
    "group": "cs-cav",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-06-24",
+     "state": "present",
+     "scope": "other",
+     "pieces": [
+      {
+       "printed": "six pieces of artillery",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-cav:0261"
+     ],
+     "cite": {
+      "id": "cs-cav:0261",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R565",
+      "printed_page": 692,
+      "offset": 2577832
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-06-24": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   }
  }
 }

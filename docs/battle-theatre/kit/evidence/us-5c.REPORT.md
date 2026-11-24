@@ -74,3 +74,7 @@ OR27-1 (the organization table pp. 161-162 and 167, the return of casualties pp.
 - Officers (lieutenant to captain) of the regiments were not collected beyond the commanders and the commanders' successors named in the reports; the lists of officers killed and mortally wounded (R013 pp. 188-192) were not entered as `officer` lines (they are not required pairs).
 - The abstracts of 10, 20 and 30 June (R008 pp. 151-152) for the Fifth Corps were not read; the corps strength rests on the return of 4 July.
 - Casualty lines of the state volumes (the Adjutant General's letters carry "casualties in action" for most Pennsylvania regiments) were not entered.
+
+## QC sweep 2026-11-24
+Corrections after the independent check of the evidence (checker exit 0 with `--coverage --require-complete`); details in `GOVERNANCE/horde/ws-kit/QC-SWEEP-2026-11-24.md`.
+- Sweep B, organization-table lines under a footnote mark (CS pp. 283-290, US pp. 155-168): 1 lines (0008).

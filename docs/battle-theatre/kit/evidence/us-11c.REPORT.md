@@ -99,3 +99,7 @@ OCR digit errors found against the scan:
 ## Not done
 
 No required pair is left open. What this pass did not do and why: strength of the six brigades and seven regiments (the record held is silent after the search; proposal kit-us-11c-01); the shoulder arms of 24 regiments, every bayonet and side arm and every dress field outside the lines listed (proposal kit-us-11c-02); officer lines from the lists of officers killed and mortally wounded (OR27-1-R013 pp. 188 to 192): the OCR of the lists pairs names with regiments out of order, so no officer line was written from them; the New York at Gettysburg table of 30 June against carried into action (labels garbled, no scan); Fox's regimental entries (not found by designation in the local text); the first-day casualties of the 41st New York in Einsiedel's report (the OCR scrambles the table: 15, 68, 3, 76 appear, which cannot be assigned to kinds); no register file under `register/` and no kit table was touched.
+
+## QC sweep 2026-11-24
+Corrections after the independent check of the evidence (checker exit 0 with `--coverage --require-complete`); details in `GOVERNANCE/horde/ws-kit/QC-SWEEP-2026-11-24.md`.
+- Sweep B, organization-table lines under a footnote mark (CS pp. 283-290, US pp. 155-168): 4 lines (0001, 0002, 0059, 0061).

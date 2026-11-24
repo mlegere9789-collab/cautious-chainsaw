@@ -17,7 +17,11 @@ Written by `node docs/battle-theatre/app/tools/history-notes.mjs` from the layer
 | formations above the regiments (armies, corps, divisions, brigades, groups): not drawn, they carry the printed figures | 165 |
 | listed as never or only partly on the field (PDF gating rule 2): not drawn | 14 |
 
-Units with a resolved entry: 439 (418 placed, 21 edge only). Unresolved: 108 leaf units (4 of them headquarters, staff or grouping entries with no figure). Figures drawn: 127,572, one soldier per figure, no cap. Kit manifests: 81 regiments have their own record in `kit/kit_specs.json`, all other units show the default for their army and arm (tier plausible-procedural).
+Units with a resolved entry: 439 (418 placed, 21 edge only). Unresolved: 108 leaf units (4 of them headquarters, staff or grouping entries with no figure). Figures drawn: 131,126, one soldier per figure, no cap. Kit manifests: 81 regiments have their own record in `kit/kit_specs.json`, all other units show the default for their army and arm (tier plausible-procedural).
+
+## The verified table (Official Records, state volumes): what the layer adopts
+
+`tools/bt/build_arrivals.py` calls `tools/bt/oob_adopt.py` when it writes `history/units.json`; `python3 -I tools/bt/oob_adopt.py --check` fails when the file is stale. From `kit/verified_oob.json`: **671** units carry their commanders in order of succession (`commanders_verified`; the PDF's printed commanders stay in `commanders_printed`); **159** leaf units carry a documented strength range with its basis key and date and are drawn at the top of the range (`strength_verified`, tier documented, replacing a procedural share); **33** leaf units have a conflict set in the table: every alternative is carried and none is the default, the figure drawn stays the procedural share; **0** have a date-spanning range with no date to adopt it on and **5** have inferred ranges only (not adopted). Selection rule: basis preference taken_into_action > present_for_duty > effective_total > aggregate_present > estimate_in_report > muster_or_roll > derived > aggregate_present_and_absent; men kind officers_and_men > not_stated > enlisted_only; a date-spanning range on the figure that stands at the unit's entry into the battle (pick_date: same figure on every date, else earliest inside 1-3 July 1863, else latest before, else earliest after); a conflict set is never resolved here (tools/bt/oob_adopt.py).
 
 ## Approaches: how a unit comes to have a road
 
@@ -58,7 +62,7 @@ The five ledgers `history/positions/positions_{A,B,C,D,E}.jsonl` hold one claim 
 | units at the arrival edge only | 11 | 21 | +10 |
 | open gap (no road of approach) | 476 | 164 | -312 |
 | units drawn | 72 | 383 | +311 |
-| figures drawn (one soldier per figure, no cap) | 21,728 | 110,272 | +88,544 |
+| figures drawn (one soldier per figure, no cap) | 23,023 | 112,869 | +89,846 |
 | approach records | 7 | 43 | +36 |
 | stops (positions) | 61 | 83 | +22 |
 | departures | 0 | 1 | +1 |
@@ -325,7 +329,7 @@ Units with several labels that the line states do not order (the number of label
 | **at the arrival edge only** | 81 | 21 |
 | **open gap**: no road of approach (not drawn) | 164 | 164 |
 | units with a resolved entry (drawn) | 383 | 383 |
-| figures drawn | 110,272 | 110,272 |
+| figures drawn | 112,869 | 112,869 |
 
 No unit gains a road of approach from a day position: the set of drawn units is the same (383), and what changes is where they stand. Of the 383 drawn leaf units, **285** stand at a troop-map day position on at least one day in the default scenario (60 of them have no timed ledger place at all: they were at the arrival edge only before), 77 keep only their ledger places and 21 stay at the arrival edge (no position of any sheet reaches them). **99** leaf units have a single-label day position but no road of approach, so they stay open gaps (the position is recorded on their cards and nowhere in the picture): cs-1c 32, cs-2c 19, us-11c 14, us-3c 6, us-5c 24, us-cav 4. A further 59 open-gap leaf units are named by labels that place nothing (several labels).
 
@@ -340,7 +344,7 @@ Units placed by each source (a unit can have several):
 | Bachelder sheet 3 (day position) | 199 |
 | LOC 99447494 (hour stop) | 0 |
 
-Day stops: 473 day entries over the drawn leaf units (one per unit and day), **441** applied in the default scenario (0 of them reached through a ledger place inside the position), tiers of the claims behind them: 422 documented, 19 inferred. Not applied: 33 (the position lies outside the loaded ground, or too close to its edge for the column). 73 ledger places of 72 units take their slot inside a position that overlaps them. The hour sheet: 10 brigade-level units may use it, 0 stops applied (0 units). Marches to a day position: median 1,142 m, longest 9,105 m. Defects (lateness of a timed place) in the default scenario: 0; offsets of the ledger time against the edge (unchanged): 302.
+Day stops: 473 day entries over the drawn leaf units (one per unit and day), **441** applied in the default scenario (0 of them reached through a ledger place inside the position), tiers of the claims behind them: 422 documented, 19 inferred. Not applied: 33 (the position lies outside the loaded ground, or too close to its edge for the column). 73 ledger places of 72 units take their slot inside a position that overlaps them. The hour sheet: 10 brigade-level units may use it, 0 stops applied (0 units). Marches to a day position: median 1,142 m, longest 9,144 m. Defects (lateness of a timed place) in the default scenario: 0; offsets of the ledger time against the edge (unchanged): 302.
 
 Arrival time of the day stops, by hour of the day (modelled: the unit leaves as soon as the record allows, so a stop of a new day is reached just after local midnight when the previous position is near; this is a property of the rule, not a historical claim, and the card gives the whole window):
 
@@ -444,7 +448,7 @@ At v5, 164 leaf units had no road of approach anywhere on their line of command 
 | placed (a road and a place) | 362 | 418 | +56 |
 | at the arrival edge only | 21 | 21 | +0 |
 | open gap (leaf units, not drawn) | 164 | 108 | -56 |
-| figures drawn (one soldier per figure) | 110,272 | 127,572 | +17,300 |
+| figures drawn (one soldier per figure) | 112,869 | 131,126 | +18,257 |
 | approach records | 43 | 51 | +8 |
 | drawn units, approach tier inferred | 213 | 213 | +0 |
 | drawn units, approach tier plausible-procedural | 170 | 226 | +56 |
@@ -459,10 +463,10 @@ At v5, 164 leaf units had no road of approach anywhere on their line of command 
 | basis of the approach | tier | units | share of the 726 | share of the units drawn | figures | share of the figures drawn |
 |---|---|---|---|---|---|---|
 | documented | documented | 0 | 0.0% | 0.0% | 0 | 0.0% |
-| a road printed for the unit itself or for a formation below the corps (a PDF ledger row or a re-read claim of the Official Records) | inferred | 213 | 29.3% | 48.5% | 65,219 | 51.1% |
-| a road printed only for the corps, inherited down the line of command | plausible-procedural | 170 | 23.4% | 38.7% | 45,053 | 35.3% |
-| a MODELLED road taken from the sibling formations of the corps (DEC-015) | plausible-procedural | 56 | 7.7% | 12.8% | 17,300 | 13.6% |
-| **all drawn units** | | 439 | 60.5% | 100.0% | 127,572 | 100.0% |
+| a road printed for the unit itself or for a formation below the corps (a PDF ledger row or a re-read claim of the Official Records) | inferred | 213 | 29.3% | 48.5% | 66,938 | 51.0% |
+| a road printed only for the corps, inherited down the line of command | plausible-procedural | 170 | 23.4% | 38.7% | 45,931 | 35.0% |
+| a MODELLED road taken from the sibling formations of the corps (DEC-015) | plausible-procedural | 56 | 7.7% | 12.8% | 18,257 | 13.9% |
+| **all drawn units** | | 439 | 60.5% | 100.0% | 131,126 | 100.0% |
 
 By tier of the approach: documented 0 (0.0% of the 726), inferred 213 (29.3%), plausible-procedural 226 (31.1%; 170 of them inherit a corps-level road and 56 rest on a modelled road). At v5: inferred 213 (29.3%), plausible-procedural 170 (23.4%). Every drawn unit is plausible-procedural as a unit (its slot, formation and strength share are modelled); the tiers here are those of its road of approach. The position on each day is the troop-map position, documented for the day (DEC-010), for modelled units as for the others.
 
@@ -470,13 +474,13 @@ The records (each unit card lists the siblings with report, page and printed wor
 
 | record | attached to | corps | road | documented siblings it rests on | leaf units drawn | figures | placed | day stops applied | claims read |
 |---|---|---|---|---|---|---|---|---|---|
-| AP-44 | `us-5c-1d` | `us-5c` | Hanover Road | AP-04 (`us-5c-1d-vincent-20me`, PDF row `us-5c`: “Jul 1 night: night march from Hanover (20th Maine)”); AP-11 (`us-5c-2d`, OR27-1-R203 p. 634, `POS-C-0105`: “Gettysburg and Hanover road”) | 10 | 2,800 | 10 | 13 | 4 |
-| AP-45 | `us-5c-3d` | `us-5c` | Hanover Road | AP-04 (`us-5c-1d-vincent-20me`, PDF row `us-5c`: “Jul 1 night: night march from Hanover (20th Maine)”); AP-11 (`us-5c-2d`, OR27-1-R203 p. 634, `POS-C-0105`: “Gettysburg and Hanover road”) | 9 | 2,520 | 9 | 9 | 5 |
+| AP-44 | `us-5c-1d` | `us-5c` | Hanover Road | AP-04 (`us-5c-1d-vincent-20me`, PDF row `us-5c`: “Jul 1 night: night march from Hanover (20th Maine)”); AP-11 (`us-5c-2d`, OR27-1-R203 p. 634, `POS-C-0105`: “Gettysburg and Hanover road”) | 10 | 3,095 | 10 | 13 | 4 |
+| AP-45 | `us-5c-3d` | `us-5c` | Hanover Road | AP-04 (`us-5c-1d-vincent-20me`, PDF row `us-5c`: “Jul 1 night: night march from Hanover (20th Maine)”); AP-11 (`us-5c-2d`, OR27-1-R203 p. 634, `POS-C-0105`: “Gettysburg and Hanover road”) | 9 | 3,192 | 9 | 9 | 5 |
 | AP-46 | `us-5c-art` | `us-5c` | Hanover Road | AP-04 (`us-5c-1d-vincent-20me`, PDF row `us-5c`: “Jul 1 night: night march from Hanover (20th Maine)”); AP-11 (`us-5c-2d`, OR27-1-R203 p. 634, `POS-C-0105`: “Gettysburg and Hanover road”) | 5 | 1,400 | 5 | 10 | 5 |
 | AP-47 | `cs-1c-mclaws-barksdale` | `cs-1c` | Chambersburg Pike | AP-41 (`cs-1c-mclaws-kershaw`, OR27-2-R432 p. 366, `PD-1c-mclaws-kershaw-02`: “a point on the Gettysburg road, some 2 miles from that place”) | 4 | 1,620 | 4 | 4 | 8 |
 | AP-48 | `cs-1c-mclaws-cabell` | `cs-1c` | Chambersburg Pike | AP-41 (`cs-1c-mclaws-kershaw`, OR27-2-R432 p. 366, `PD-1c-mclaws-kershaw-02`: “a point on the Gettysburg road, some 2 miles from that place”) | 1 | 320 | 1 | 1 | 11 |
 | AP-49 | `cs-1c-pickett-dearing` | `cs-1c` | Chambersburg Pike | AP-41 (`cs-1c-mclaws-kershaw`, OR27-2-R432 p. 366, `PD-1c-mclaws-kershaw-02`: “a point on the Gettysburg road, some 2 miles from that place”) | 1 | 320 | 1 | 1 | 7 |
-| AP-50 | `cs-1c-hood` | `cs-1c` | Chambersburg Pike | AP-41 (`cs-1c-mclaws-kershaw`, OR27-2-R432 p. 366, `PD-1c-mclaws-kershaw-02`: “a point on the Gettysburg road, some 2 miles from that place”) | 19 | 6,080 | 19 | 33 | 14 |
+| AP-50 | `cs-1c-hood` | `cs-1c` | Chambersburg Pike | AP-41 (`cs-1c-mclaws-kershaw`, OR27-2-R432 p. 366, `PD-1c-mclaws-kershaw-02`: “a point on the Gettysburg road, some 2 miles from that place”) | 19 | 6,070 | 19 | 33 | 14 |
 | AP-51 | `cs-1c-res-art` | `cs-1c` | Chambersburg Pike | AP-41 (`cs-1c-mclaws-kershaw`, OR27-2-R432 p. 366, `PD-1c-mclaws-kershaw-02`: “a point on the Gettysburg road, some 2 miles from that place”) | 7 | 2,240 | 7 | 7 | 6 |
 
 What became of the leaf units that were open gaps at v5:
@@ -505,7 +509,7 @@ An approach needs a road, not a clock: its time is the unit's arrival gate (neve
 | placed (a road and a place) | 242 | 362 | +120 |
 | at the arrival edge only | 21 | 21 | +0 |
 | open gap (leaf units, not drawn) | 285 | 164 | -121 |
-| figures drawn (one soldier per figure) | 80,260 | 110,272 | +30,012 |
+| figures drawn (one soldier per figure) | 82,700 | 112,869 | +30,169 |
 | approach records | 32 | 43 | +11 |
 | drawn units, approach tier inferred | 152 | 213 | +61 |
 | drawn units, approach tier plausible-procedural | 111 | 170 | +59 |
@@ -551,14 +555,14 @@ Ledger E (`history/positions/positions_E.jsonl`, 200 claims: 61 documented, 139 
 | open gap (leaf units, not drawn) | 118 | 108 | -10 |
 | not on the field (13 listed by the PDF ledger + documented absences) | 13 | 14 | +1 |
 | of them documented absent from the field (overlay) | 0 | 1 | +1 |
-| figures drawn (one soldier per figure, no cap) | 124,728 | 127,572 | +2,844 |
+| figures drawn (one soldier per figure, no cap) | 127,838 | 131,126 | +3,288 |
 | approach records | 49 | 51 | +2 |
 | stop entries (PO) | 82 | 83 | +1 |
 | ledger-vs-edge offsets (card note, gate not moved) | 346 | 355 | +9 |
 | defects (a timed place reached late) | 0 | 0 | +0 |
 | troop-map day stops applied | 498 | 519 | +21 |
 
-**Previously undrawn units now drawn: 9** (`us-11c-2d-coster-134ny` (AP-42, moving, 296 figures), `us-11c-2d-coster-154ny` (AP-42, moving, 296 figures), `us-11c-2d-coster-27pa` (AP-42, moving, 296 figures), `us-11c-2d-coster-73pa` (AP-42, moving, 296 figures), `us-11c-2d-smith-33ma` (AP-42, moving, 296 figures), `us-11c-2d-smith-136ny` (AP-42, moving, 296 figures), `us-11c-2d-smith-55oh` (AP-42, moving, 296 figures), `us-11c-2d-smith-73oh` (AP-42, moving, 296 figures), `us-11c-art-1nyi` (AP-43, moving, 296 figures)). Gates moved: 0 (Q04: a gate is never moved by a claim). Offsets reported for the new units (the ledger time of the first place refers to a place farther along the road than the edge of the loaded ground; the card says so): 9 of 9: `us-11c-2d-coster-134ny` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-2d-coster-154ny` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-2d-coster-27pa` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-2d-coster-73pa` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-2d-smith-33ma` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-2d-smith-136ny` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-2d-smith-55oh` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-2d-smith-73oh` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-art-1nyi` (PO-81, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time).
+**Previously undrawn units now drawn: 9** (`us-11c-2d-coster-134ny` (AP-42, moving, 430 figures), `us-11c-2d-coster-154ny` (AP-42, moving, 300 figures), `us-11c-2d-coster-27pa` (AP-42, moving, 296 figures), `us-11c-2d-coster-73pa` (AP-42, moving, 332 figures), `us-11c-2d-smith-33ma` (AP-42, moving, 296 figures), `us-11c-2d-smith-136ny` (AP-42, moving, 529 figures), `us-11c-2d-smith-55oh` (AP-42, moving, 375 figures), `us-11c-2d-smith-73oh` (AP-42, moving, 338 figures), `us-11c-art-1nyi` (AP-43, moving, 296 figures)). Gates moved: 0 (Q04: a gate is never moved by a claim). Offsets reported for the new units (the ledger time of the first place refers to a place farther along the road than the edge of the loaded ground; the card says so): 9 of 9: `us-11c-2d-coster-134ny` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-2d-coster-154ny` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-2d-coster-27pa` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-2d-coster-73pa` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-2d-smith-33ma` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-2d-smith-136ny` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-2d-smith-55oh` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-2d-smith-73oh` (PO-34, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time); `us-11c-art-1nyi` (PO-81, Cemetery Hill: 8.5 km farther along Emmitsburg Road than the edge; reached on time).
 
 Approach records added (tier inferred; the claim tier is shown on the card, with the volume, section, printed page, quoted words and the claims that conflict):
 
@@ -573,7 +577,7 @@ Roads of ledger E that are **not** admitted, and why (the full reason of each cl
 
 ### The 84th Pennsylvania: documented absence (an overlay, not an edit of the PDF-derived files)
 
-`us-3c-2d-carr-84pa` (roster status on_field, an open gap before v8 with a procedural share of 249 figures counted in its corps pool) is **documented absent from the field**: 9 claims (POS-E-US-3C-2D-CARR-84PA-001:documented, POS-E-US-3C-2D-CARR-84PA-002:documented, POS-E-US-3C-2D-CARR-84PA-003:inferred, POS-B-us-3c-2d-carr-84pa-01:documented, POS-B-us-3c-2d-carr-84pa-02:documented, POS-B-us-3c-2d-carr-84pa-03:documented, POS-B-us-3c-2d-carr-84pa-04:documented, POS-B-us-3c-2d-carr-84pa-05:documented, POS-B-us-3c-2d-carr-84pa-06:documented), decision DEC-023E, evidence-gap entry `EG-E-84PA` (tier documented). Its card reads "With the supply train at Taneytown (documented, regimental account), not engaged" followed by the summary and every claim with its source, page, tier and quoted words; render status `not_on_field`, drawn false, figures 0; its strength is not counted in the field totals, so the procedural shares of the other leaf units of its corps pool rise (42 leaf units, from 249 to 255 each: the printed corps figure is shared by the leaf units on the field, as for the 13 units the PDF lists as never on the field). The source files `history/units.json` and `not_on_field.json` are not edited (the layer reads the status over the unit; `tools/bt/check_arrivals.py` still reads the PDF-derived file).
+`us-3c-2d-carr-84pa` (roster status on_field, an open gap before v8 with a procedural share of 249 figures counted in its corps pool) is **documented absent from the field**: 9 claims (POS-E-US-3C-2D-CARR-84PA-001:documented, POS-E-US-3C-2D-CARR-84PA-002:documented, POS-E-US-3C-2D-CARR-84PA-003:inferred, POS-B-us-3c-2d-carr-84pa-01:documented, POS-B-us-3c-2d-carr-84pa-02:documented, POS-B-us-3c-2d-carr-84pa-03:documented, POS-B-us-3c-2d-carr-84pa-04:documented, POS-B-us-3c-2d-carr-84pa-05:documented, POS-B-us-3c-2d-carr-84pa-06:documented), decision DEC-023E, evidence-gap entry `EG-E-84PA` (tier documented). Its card reads "With the supply train at Taneytown (documented, regimental account), not engaged" followed by the summary and every claim with its source, page, tier and quoted words; render status `not_on_field`, drawn false, figures 0; its strength is not counted in the field totals, so the procedural shares of the other leaf units of its corps pool rise (22 leaf units, from 249 to 255 each: the printed corps figure is shared by the leaf units on the field, as for the 13 units the PDF lists as never on the field). The source files `history/units.json` and `not_on_field.json` are not edited (the layer reads the status over the unit; `tools/bt/check_arrivals.py` still reads the PDF-derived file).
 
 Candidates for "detached from the field" in the five ledgers (a regular-expression read of the printed quote, summary, place and time of every usable claim; it **lists, it does not exclude**; only a unit with a documented basis for the whole battle is excluded):
 
@@ -624,7 +628,7 @@ Candidates for "detached from the field" in the five ledgers (a regular-expressi
 | `us-cav-1d` | on field | no | `POS-A-CV1-015` (A, documented, “guard the trains”); `POS-E-US-CAV-1D-003` (E, inferred, “guard the trains”) | no | a formation: its claims concern part of it or a time; not excluded |
 | `us-cav-3d-farnsworth` | on field | no | `POS-A-CV2-024` (A, documented, “not engaged”) | no | a formation: its claims concern part of it or a time; not excluded |
 
-Playwright specs to run once the Release 1 acceptance run has finished (not run here: no browser, no build, no long process while the machine is being measured): `tests/real.spec.mjs` (cards: the E source words, the absent card), `tests/arrival.spec.mjs` (counts, arrivals), `tests/scrub.spec.mjs` (no pop, units enter at their gates), `tests/leak.spec.mjs`, `tests/casualties.spec.mjs`, `tests/ui.spec.mjs` (about panel, card sections), `tests/perf.spec.mjs` (figures drawn rose from 124,728 to 127,572). `python tools/bt/check_figures.py --write` was run (short Python) and `data/figures-validation.json` rewritten for the new drawn set.
+Playwright specs to run once the Release 1 acceptance run has finished (not run here: no browser, no build, no long process while the machine is being measured): `tests/real.spec.mjs` (cards: the E source words, the absent card), `tests/arrival.spec.mjs` (counts, arrivals), `tests/scrub.spec.mjs` (no pop, units enter at their gates), `tests/leak.spec.mjs`, `tests/casualties.spec.mjs`, `tests/ui.spec.mjs` (about panel, card sections), `tests/perf.spec.mjs` (figures drawn rose from 127,838 to 131,126). `python tools/bt/check_figures.py --write` was run (short Python) and `data/figures-validation.json` rewritten for the new drawn set.
 
 ## Strengths
 
@@ -697,7 +701,7 @@ The split that drives the picture is the middle of each fraction range (DEC-008,
 
 **Time.** 31 engagement clauses (`data/engagements.json`, built from `tools/engagement-clauses.mjs`) read the printed windows of the PDF master timeline for 58 units and formations; the OR27 audit verdicts of those rows: 25 supported by or, 4 ambiguous in or, 1 contradicted by or, 1 not found in or. 213 leaf units on the field take a window from themselves or a formation above them; the other 330 procedural shares have no printed window and stay a total (an open gap, not spread over the day).
 
-**On screen.** 170 of the 439 drawn units have a window: 17,574 men are placed in time by the sim's loss solver; 14,553 fall where their unit stands on the map (killed 2,352, wounded 8,902, missing 3,299; the killed and wounded lie down, the missing are counted but not animated) and 3,021 fall while the unit is marching in, away or not yet arrived and are NOT drawn (they stay in the unit's total). Per drawn unit:
+**On screen.** 170 of the 439 drawn units have a window: 17,591 men are placed in time by the sim's loss solver; 14,559 fall where their unit stands on the map (killed 2,350, wounded 8,897, missing 3,312; the killed and wounded lie down, the missing are counted but not animated) and 3,032 fall while the unit is marching in, away or not yet arrived and are NOT drawn (they stay in the unit's total). Per drawn unit:
 
 | unit | total | placed in time | shown | not shown |
 |---|---|---|---|---|
@@ -762,24 +766,24 @@ The split that drives the picture is the middle of each fraction range (DEC-008,
 | `us-1c-1d-meredith-19in` | 230 | 230 | 95 | 135 |
 | `us-1c-1d-meredith-24mi` | 230 | 230 | 90 | 140 |
 | `us-1c-1d-meredith-6wi` | 230 | 230 | 75 | 155 |
-| `us-1c-1d-cutler-84ny` | 167 | 167 | 72 | 95 |
-| `us-1c-1d-cutler-95ny` | 167 | 167 | 76 | 91 |
+| `us-1c-1d-cutler-84ny` | 167 | 167 | 70 | 97 |
+| `us-1c-1d-cutler-95ny` | 167 | 167 | 73 | 94 |
 | `us-1c-1d-cutler-147ny` | 166 | 166 | 0 | 166 |
 | `us-1c-2d-paul-16me` | 206 | 206 | 85 | 121 |
-| `us-1c-2d-baxter-12ma` | 130 | 130 | 130 | 0 |
-| `us-1c-2d-baxter-83ny` | 130 | 130 | 130 | 0 |
-| `us-1c-2d-baxter-97ny` | 130 | 130 | 130 | 0 |
-| `us-1c-2d-baxter-11pa` | 130 | 130 | 130 | 0 |
-| `us-1c-2d-baxter-88pa` | 130 | 130 | 130 | 0 |
-| `us-1c-2d-baxter-90pa` | 130 | 130 | 130 | 0 |
-| `us-1c-3d-biddle-80ny` | 130 | 130 | 130 | 0 |
-| `us-1c-3d-biddle-121pa` | 130 | 130 | 130 | 0 |
+| `us-1c-2d-baxter-12ma` | 131 | 131 | 131 | 0 |
+| `us-1c-2d-baxter-83ny` | 131 | 131 | 131 | 0 |
+| `us-1c-2d-baxter-97ny` | 131 | 131 | 131 | 0 |
+| `us-1c-2d-baxter-11pa` | 131 | 131 | 131 | 0 |
+| `us-1c-2d-baxter-88pa` | 131 | 131 | 131 | 0 |
+| `us-1c-2d-baxter-90pa` | 131 | 131 | 131 | 0 |
+| `us-1c-3d-biddle-80ny` | 131 | 131 | 131 | 0 |
+| `us-1c-3d-biddle-121pa` | 131 | 131 | 131 | 0 |
 | `us-1c-3d-biddle-142pa` | 130 | 130 | 130 | 0 |
-| `us-1c-3d-biddle-151pa` | 130 | 130 | 130 | 0 |
-| `us-1c-3d-stone-143pa` | 130 | 130 | 130 | 0 |
+| `us-1c-3d-biddle-151pa` | 131 | 131 | 131 | 0 |
+| `us-1c-3d-stone-143pa` | 131 | 131 | 131 | 0 |
 | `us-1c-3d-stone-149pa` | 131 | 131 | 131 | 0 |
-| `us-1c-3d-stone-150pa` | 130 | 130 | 130 | 0 |
-| `us-1c-3d-stannard-13vt` | 130 | 130 | 66 | 64 |
+| `us-1c-3d-stone-150pa` | 131 | 131 | 131 | 0 |
+| `us-1c-3d-stannard-13vt` | 131 | 131 | 65 | 66 |
 | `us-1c-1d-meredith-2wi` | 230 | 230 | 92 | 138 |
 | `us-1c-1d-meredith-7wi` | 230 | 230 | 98 | 132 |
 | `us-11c-1d-gilsa-41ny` | 124 | 124 | 0 | 124 |
@@ -794,23 +798,23 @@ The split that drives the picture is the middle of each fraction range (DEC-008,
 | `us-3c-1d-ward-4me` | 101 | 101 | 82 | 19 |
 | `us-3c-1d-ward-124ny` | 100 | 100 | 100 | 0 |
 | `us-3c-1d-trobriand-17me` | 101 | 101 | 75 | 26 |
-| `us-3c-1d-trobriand-3mi` | 100 | 100 | 72 | 28 |
-| `us-3c-1d-trobriand-5mi` | 100 | 100 | 79 | 21 |
-| `us-3c-1d-trobriand-110pa` | 101 | 101 | 75 | 26 |
+| `us-3c-1d-trobriand-3mi` | 100 | 100 | 71 | 29 |
+| `us-3c-1d-trobriand-5mi` | 100 | 100 | 78 | 22 |
+| `us-3c-1d-trobriand-110pa` | 101 | 101 | 74 | 27 |
 | `us-3c-1d-ward-99pa` | 101 | 101 | 78 | 23 |
-| `us-3c-1d-trobriand-40ny` | 101 | 101 | 76 | 25 |
+| `us-3c-1d-trobriand-40ny` | 101 | 101 | 75 | 26 |
 | `us-cav-1d-merritt-6pa` | 20 | 20 | 0 | 20 |
 | `us-cav-1d-merritt-1us` | 20 | 20 | 0 | 20 |
 | `us-cav-1d-merritt-2us` | 20 | 20 | 0 | 20 |
 | `us-cav-1d-merritt-5us` | 19 | 19 | 0 | 19 |
 | `us-cav-1d-merritt-6us` | 19 | 19 | 0 | 19 |
-| `us-2c-2d-harrow-15ma` | 87 | 87 | 87 | 0 |
+| `us-2c-2d-harrow-15ma` | 88 | 88 | 88 | 0 |
 | `us-2c-2d-harrow-1mn` | 87 | 87 | 87 | 0 |
 | `us-2c-2d-harrow-82ny` | 88 | 88 | 88 | 0 |
-| `us-2c-2d-webb-69pa` | 87 | 87 | 87 | 0 |
-| `us-2c-2d-webb-71pa` | 87 | 87 | 87 | 0 |
-| `us-2c-2d-webb-72pa` | 87 | 87 | 87 | 0 |
-| `us-2c-2d-webb-106pa` | 87 | 87 | 87 | 0 |
+| `us-2c-2d-webb-69pa` | 88 | 88 | 88 | 0 |
+| `us-2c-2d-webb-71pa` | 88 | 88 | 88 | 0 |
+| `us-2c-2d-webb-72pa` | 88 | 88 | 88 | 0 |
+| `us-2c-2d-webb-106pa` | 88 | 88 | 88 | 0 |
 | `us-cav-2d-gregg-1me` | 20 | 20 | 18 | 2 |
 | `us-cav-2d-gregg-10ny` | 20 | 20 | 18 | 2 |
 | `us-cav-2d-gregg-4pa` | 19 | 19 | 16 | 3 |
@@ -874,11 +878,11 @@ The split that drives the picture is the middle of each fraction range (DEC-008,
 
 ### Guns
 
-The kit data states gun types for 29 of 125 batteries. 23 of them match one battery of the roster by name, 4 are combined entries that are NOT split (`US.ART.3rd_US_F_K`, `US.ART.Pa_Independent_C_F`, `US.ART.1st_Pennsylvania_F_G`, `US.ART.1st_NY_K_with_11th_NY_attached`), 2 match no roster battery (`US.ART.2nd_US_A`, `CS.ART.HURT`); 22 roster batteries therefore have a stated count. Of the 73 drawn batteries (`us-1c-art-2me`, `us-1c-art-5me`, `us-1c-art-1nye`, `us-1c-art-1nyl`, `us-1c-art-1pab`, `us-1c-art-4usb`, `us-2c-art-1nyb`, `us-2c-art-1ria`, `us-2c-art-1rib`, `us-2c-art-1usi`, `us-2c-art-4usa`, `us-3c-art-1njb`, `us-3c-art-1nyd`, `us-3c-art-4ny`, `us-3c-art-1rie`, `us-3c-art-4usk`, `us-5c-art-3ma`, `us-5c-art-1nyc`, `us-5c-art-1ohl`, `us-5c-art-5usd`, `us-5c-art-5usi`, `us-6c-art-1maa`, `us-6c-art-1ny`, `us-6c-art-3ny`, `us-6c-art-1ric`, `us-6c-art-1rig`, `us-6c-art-2usd`, `us-6c-art-2usg`, `us-6c-art-5usf`, `us-11c-art-1nyi`, `us-12c-art-1nym`, `us-12c-art-pae`, `us-12c-art-4usf`, `us-12c-art-5usk`, `us-art-reserve-ransom-1ush`, `us-art-reserve-ransom-3usf`, `us-art-reserve-ransom-3usk`, `us-art-reserve-ransom-4usc`, `us-art-reserve-ransom-5usc`, `us-art-reserve-mcgilvery-5ma`, `us-art-reserve-mcgilvery-9ma`, `us-art-reserve-mcgilvery-15ny`, `us-art-reserve-mcgilvery-pac`, `us-art-reserve-mcgilvery-paf`, `us-art-reserve-taft-2ct`, `us-art-reserve-taft-5ny`, `us-art-reserve-huntington-1nh`, `us-art-reserve-huntington-1ohh`, `us-art-reserve-huntington-1paf`, `us-art-reserve-huntington-1pag`, `us-art-reserve-huntington-wvc`, `us-art-reserve-fitzhugh-6me`, `us-art-reserve-fitzhugh-mda`, `us-art-reserve-fitzhugh-1nj`, `us-art-reserve-fitzhugh-1nyg`, `us-art-reserve-fitzhugh-1nyk`, `cs-1c-mclaws-cabell`, `cs-1c-pickett-dearing`, `cs-1c-hood-henry`, `cs-1c-res-art-alexander-ashland`, `cs-1c-res-art-alexander-bedford`, `cs-1c-res-art-alexander-brookssc`, `cs-1c-res-art-alexander-madisonla`, `cs-1c-res-art-alexander-richmond`, `cs-1c-res-art-alexander-bath`, `cs-1c-res-art-washington`, `cs-2c-johnson-andrews`, `cs-2c-rodes-carter`, `cs-3c-anderson-cutts`, `cs-3c-heth-garnett`, `cs-3c-pender-poague`, `cs-3c-res-art-mcintosh`, `cs-3c-res-art-pegram`) 22 has one, so **124 guns are drawn**; each card says "not drawn: no stated gun count". The mechanism (a stated count gives that many pieces, each with the nine-man detachment of the printed manuals, taken from the battery's own figures; limbers, caissons and teams have no model and are listed on the card) is tested on a constructed layer.
+The kit data states gun types for 29 of 125 batteries. 23 of them match one battery of the roster by name, 4 are combined entries that are NOT split (`US.ART.3rd_US_F_K`, `US.ART.Pa_Independent_C_F`, `US.ART.1st_Pennsylvania_F_G`, `US.ART.1st_NY_K_with_11th_NY_attached`), 2 match no roster battery (`US.ART.2nd_US_A`, `CS.ART.HURT`); 43 roster batteries therefore have a stated count. Of the 73 drawn batteries (`us-1c-art-2me`, `us-1c-art-5me`, `us-1c-art-1nye`, `us-1c-art-1nyl`, `us-1c-art-1pab`, `us-1c-art-4usb`, `us-2c-art-1nyb`, `us-2c-art-1ria`, `us-2c-art-1rib`, `us-2c-art-1usi`, `us-2c-art-4usa`, `us-3c-art-1njb`, `us-3c-art-1nyd`, `us-3c-art-4ny`, `us-3c-art-1rie`, `us-3c-art-4usk`, `us-5c-art-3ma`, `us-5c-art-1nyc`, `us-5c-art-1ohl`, `us-5c-art-5usd`, `us-5c-art-5usi`, `us-6c-art-1maa`, `us-6c-art-1ny`, `us-6c-art-3ny`, `us-6c-art-1ric`, `us-6c-art-1rig`, `us-6c-art-2usd`, `us-6c-art-2usg`, `us-6c-art-5usf`, `us-11c-art-1nyi`, `us-12c-art-1nym`, `us-12c-art-pae`, `us-12c-art-4usf`, `us-12c-art-5usk`, `us-art-reserve-ransom-1ush`, `us-art-reserve-ransom-3usf`, `us-art-reserve-ransom-3usk`, `us-art-reserve-ransom-4usc`, `us-art-reserve-ransom-5usc`, `us-art-reserve-mcgilvery-5ma`, `us-art-reserve-mcgilvery-9ma`, `us-art-reserve-mcgilvery-15ny`, `us-art-reserve-mcgilvery-pac`, `us-art-reserve-mcgilvery-paf`, `us-art-reserve-taft-2ct`, `us-art-reserve-taft-5ny`, `us-art-reserve-huntington-1nh`, `us-art-reserve-huntington-1ohh`, `us-art-reserve-huntington-1paf`, `us-art-reserve-huntington-1pag`, `us-art-reserve-huntington-wvc`, `us-art-reserve-fitzhugh-6me`, `us-art-reserve-fitzhugh-mda`, `us-art-reserve-fitzhugh-1nj`, `us-art-reserve-fitzhugh-1nyg`, `us-art-reserve-fitzhugh-1nyk`, `cs-1c-mclaws-cabell`, `cs-1c-pickett-dearing`, `cs-1c-hood-henry`, `cs-1c-res-art-alexander-ashland`, `cs-1c-res-art-alexander-bedford`, `cs-1c-res-art-alexander-brookssc`, `cs-1c-res-art-alexander-madisonla`, `cs-1c-res-art-alexander-richmond`, `cs-1c-res-art-alexander-bath`, `cs-1c-res-art-washington`, `cs-2c-johnson-andrews`, `cs-2c-rodes-carter`, `cs-3c-anderson-cutts`, `cs-3c-heth-garnett`, `cs-3c-pender-poague`, `cs-3c-res-art-mcintosh`, `cs-3c-res-art-pegram`) 42 has one, so **230 guns are drawn**; each card says "not drawn: no stated gun count". The mechanism (a stated count gives that many pieces, each with the nine-man detachment of the printed manuals, taken from the battery's own figures; limbers, caissons and teams have no model and are listed on the card) is tested on a constructed layer.
 
 ### Per-figure kit manifests
 
-Every drawn figure (127,572 in 439 units) has a manifest made by `src/history/manifest.mjs`, a line-for-line port of `manifest_for` in `tools/bt/check_kit.py` (golden test: 2,616 reference digests equal). The kit record comes from `data/kit-crosswalk.json` (`tools/bt/kit_crosswalk.py`): by how it was found, 79 units kit presence, 213 units default, 43 units name, 17 units rule, 83 units brigade, 4 units alias; a unit with none uses the default of its army and arm. The B.6.12 validator (Python, `tools/bt/check_figures.py`) ran over all 127,852 figures: 0 fail, 2350 flagged (DISPUTED_FLAGGED 1070, FLAG_BADGE_UNRESOLVED 1035, FLAG_KEPI_PRIVATE_PURCHASE 245), and Python makes the same manifests as the shell. The renderer shows one thing of a manifest: the coat's brightness class follows the wear level (the renderer's per-figure variation scalar); headgear, coat, shirt, trousers, shoes, accoutrements, weapon, bayonet, sword, sash, pack, badge, colours and horse coat colour have no support in the renderer and are listed on the card.
+Every drawn figure (131,126 in 439 units) has a manifest made by `src/history/manifest.mjs`, a line-for-line port of `manifest_for` in `tools/bt/check_kit.py` (golden test: 2,616 reference digests equal). The kit record comes from `data/kit-crosswalk.json` (`tools/bt/kit_crosswalk.py`): by how it was found, 79 units kit presence, 213 units default, 43 units name, 17 units rule, 83 units brigade, 4 units alias; a unit with none uses the default of its army and arm. The B.6.12 validator (Python, `tools/bt/check_figures.py`) ran over all 131,406 figures: 0 fail, 2366 flagged (DISPUTED_FLAGGED 1070, FLAG_BADGE_UNRESOLVED 1051, FLAG_KEPI_PRIVATE_PURCHASE 245), and Python makes the same manifests as the shell. The renderer shows one thing of a manifest: the coat's brightness class follows the wear level (the renderer's per-figure variation scalar); headgear, coat, shirt, trousers, shoes, accoutrements, weapon, bayonet, sword, sash, pack, badge, colours and horse coat colour have no support in the renderer and are listed on the card.
 
 ### Changes of formation
 
@@ -1361,23 +1365,23 @@ Places that resolve but lie outside the loaded ground (6.2 x 6.1 km): Barlow's K
 
 | stop | units | late by (min) | distance from the edge (m) |
 |---|---|---|---|
-| ledger_vs_edge PO-41 Cemetery Ridge | 14 | 32 to 39 | 4,662 to 5,768 |
-| ledger_vs_edge PO-60 Seminary Ridge | 22 | 21 to 58 | 3,113 to 8,491 |
-| ledger_vs_edge PO-46 Herr Ridge | 5 | 45 to 48 | 6,616 to 6,950 |
+| ledger_vs_edge PO-41 Cemetery Ridge | 14 | 32 to 40 | 4,662 to 5,784 |
+| ledger_vs_edge PO-60 Seminary Ridge | 22 | 22 to 58 | 3,152 to 8,491 |
+| ledger_vs_edge PO-46 Herr Ridge | 5 | 45 to 48 | 6,655 to 6,983 |
 | ledger_vs_edge PO-47 Seminary Ridge | 10 | 55 to 57 | 8,027 to 8,309 |
-| ledger_vs_edge PO-01 McPherson Ridge | 11 | 52 to 72 | 7,574 to 10,545 |
-| ledger_vs_edge PO-06 McPherson Ridge | 13 | 44 to 52 | 9,354 to 10,548 |
-| ledger_vs_edge PO-13 Cemetery Ridge | 3 | 45 to 47 | 6,634 to 6,804 |
+| ledger_vs_edge PO-01 McPherson Ridge | 11 | 52 to 72 | 7,564 to 10,545 |
+| ledger_vs_edge PO-06 McPherson Ridge | 13 | 43 to 52 | 9,280 to 10,548 |
+| ledger_vs_edge PO-13 Cemetery Ridge | 3 | 46 to 49 | 6,702 to 7,102 |
 | ledger_vs_edge PO-70 Gettysburg (the borough) | 1 | 31 to 31 | 8,967 to 8,967 |
 | ledger_vs_edge PO-69 Gettysburg (the borough) | 1 | 31 to 31 | 8,967 to 8,967 |
 | ledger_vs_edge PO-71 Gettysburg (the borough) | 1 | 31 to 31 | 8,967 to 8,967 |
 | ledger_vs_edge PO-04 Cemetery Ridge | 19 | 50 to 50 | 7,338 to 7,387 |
 | ledger_vs_edge PO-28 Devil’s Den | 1 | 38 to 38 | 5,517 to 5,517 |
-| ledger_vs_edge PO-33 Little Round Top | 9 | 3 to 4 | 9,784 to 9,938 |
+| ledger_vs_edge PO-33 Little Round Top | 9 | 3 to 4 | 9,800 to 9,922 |
 | ledger_vs_edge PO-51 Barlow’s Knoll | 18 | 7 to 18 | 999 to 2,621 |
-| ledger_vs_edge PO-57 Oak Hill | 23 | 11 to 26 | 1,539 to 3,790 |
+| ledger_vs_edge PO-57 Oak Hill | 23 | 11 to 26 | 1,539 to 3,785 |
 
-The ledger says the head of I Corps is on the Emmitsburg Road at 10:00 and the vanguard at McPherson Ridge at 10:20. It does not say where along the road the head was. From the point where the mapped road leaves the loaded ground, 7,574 to 10,545 m of marching separate the 1st Division's leaf units from McPherson Ridge, which no drill speed covers in 20 minutes. The layer keeps the gate (nothing before 10:20 for the division) and reports the difference.
+The ledger says the head of I Corps is on the Emmitsburg Road at 10:00 and the vanguard at McPherson Ridge at 10:20. It does not say where along the road the head was. From the point where the mapped road leaves the loaded ground, 7,564 to 10,545 m of marching separate the 1st Division's leaf units from McPherson Ridge, which no drill speed covers in 20 minutes. The layer keeps the gate (nothing before 10:20 for the division) and reports the difference.
 
 **Site data defects found while building the gazetteer** (set aside, listed in `data/gazetteer.json` as `rejected_members`): Culp's Hill: monument 221 24th Michigan Infantry Marker ("Iron Brigade") 3,536 m away; Cemetery Ridge: monument 35 11th Mississippi Infantry Regiment Marker 3,414 m away; The Angle: monument 35 11th Mississippi Infantry Regiment Marker 3,483 m away; The Wheatfield: monument 290 2nd Fire Zouaves, 73rd New York Infantry Monument (4th Excelsior Regiment) 685 m away, monument 454 147th Pennsylvania Volunteer Infantry Monument (Pardee Field Monument) 2,967 m away; East Cavalry Field: monument 369 6th Pennsylvania Cavalry Regiment Monument ("Rush's Lancers") 9,521 m away. A monument record whose location tag names a place several kilometres from it is carried as a data defect, not used.
 
@@ -1414,7 +1418,7 @@ The ledger says the head of I Corps is on the Emmitsburg Road at 10:00 and the v
 - **Open gaps after v6.** The leaf units that the sibling-road rule does not draw are listed with their reason in `APPROACH-AUDIT.md`: the Eleventh Corps (the route by Horner’s Mill), Johnson’s division (the road from Scotland), the Second Division of the Third Corps (Black Horse Tavern Road), the Second Corps’ reserve artillery and the cavalry corps (documented siblings disagree), Jones’ battalion (reports disagree), Stuart’s cavalry (only earlier marches printed), and the brigades with a sibling road and no day position. Each needs a period map of the road, a report that names it, or an owner ruling.
 - **The position ledgers** leave 3,628 of 3,703 claims unused; the largest group (1,796) prints a day or a day-part but no clock, which cannot give a place a time. A road printed in a report (Heidlersburg road, Middletown road, Fairfield road, the Scotland road) that the gazetteer does not hold, or holds under two entries, gives no entry point: the roads layer of the repository would need the road, or the owner a ruling on the name.
 - **Departures** need a destination and a road in the gazetteer (the villages Westminster, Taneytown, Emmitsburg and the passes have no coordinates in the repository) and the owner's choice for the “Fairfield road”.
-- **Casualties** are procedural shares of corps and brigade totals (no regimental number exists in the record) and are placed only in the printed windows of the timeline; **guns** are drawn only where a count is stated: 22 of the 73 drawn batteries have one (124 pieces). See `CASUALTIES-NOTES.md`.
+- **Casualties** are procedural shares of corps and brigade totals (no regimental number exists in the record) and are placed only in the printed windows of the timeline; **guns** are drawn only where a count is stated: 42 of the 73 drawn batteries have one (230 pieces). See `CASUALTIES-NOTES.md`.
 - **Gazetteer lines for ridges** (Seminary Ridge, Herr Ridge are proxies); a mapped ridge crest would replace them.
 - Strengths: Busey and Martin and the Official Records are not available; every share is a placeholder for a sourced figure.
 

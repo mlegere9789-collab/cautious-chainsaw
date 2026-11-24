@@ -32,3 +32,9 @@ OR27-2 (R424 p. 286, R425 pp. 291-292, R427 pp. 331 and 341, R467, R481, R482, R
 
 ## Not done
 No required pair is open. Not done beyond the pairs: officer lines (killed and wounded officers of the lists of OR27-2-R471 and the nominal returns) were not written; the SHSP-05 table of the army's strength of 31 May 1863 (the divisions of Rodes, Early and Johnson) was not used because the OCR separates its labels from its figures and the volume has no scan; the Winchester figures (Johnson's "not more than 1,200 muskets", Ewell's "two brigades did not reach 2,000") describe 14 to 15 June and were not written as strength of a unit; the pass did not read Moore's Roster of North Carolina Troops for the 1st and 3rd North Carolina.
+
+## QC sweep 2026-11-24
+Corrections after the independent check of the evidence (checker exit 0 with `--coverage --require-complete`); details in `GOVERNANCE/horde/ws-kit/QC-SWEEP-2026-11-24.md`.
+- Sweep A, dagger and asterisk marks of the Addenda return of casualties (pp. 338-346): 10 lines (0108, 0116, 0109, 0117, 0111, 0118, 0112, 0119, 0113, 0120).
+- Sweep B, organization-table lines under a footnote mark (CS pp. 283-290, US pp. 155-168): 50 lines (0005, 0006, 0007, 0008, 0009, 0010, 0011, 0012, 0013, 0014, 0015, 0016, 0017, 0018, 0021, 0022, 0023, 0024, 0025, 0026, 0027, 0028, 0029, 0030, 0033, 0034, 0035, 0036, 0037, 0038, 0039, 0040, 0041, 0042, 0046, 0047, 0048, 0049, 0050, 0051, 0052, 0053, 0054, 0055, 0056, 0057, 0058, 0059, 0060, 0061).
+The five marked rows of Jones' brigade (cs-johnson:0108 0109 0111 0112 0113) and their report-statement lines (0116 to 0120) are conflict sets, none chosen. The sentence that regimental commanders are given as reported for 14 June is removed from every line outside Nicholls' Brigade (the asterisk of p. 286 marks that brigade only); the five Nicholls regimental commander lines (0034 0036 0038 0040 0042) are dated 1863-06-14.

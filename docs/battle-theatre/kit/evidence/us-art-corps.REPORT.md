@@ -81,3 +81,9 @@ Every required (unit, field) pair is evidenced or recorded as a gap. Not done, t
 - Brigade lines for horses and ammunition beyond the First Corps sum (about 80 horses) and the battery lines above; the 30 June abstract's pieces column (R008 p. 151) was not entered (a table row whose figures the contract does not allow as a documented guns quote).
 - `kit_overrides.py compile --dry-run --group us-art-corps` crashes in `c_guns` (KeyError 'conflict') when a battery has a conflict set on one date and plain lines on others (`bt-oob-kit-us-art-corps-tools.md`); with that expression patched in memory it gives 41 operations and 44 unapplied (13 routed by design, 31 to review). The unpatched command was not rerun after a fix.
 - Histories of Rhode Island C and G, the regular batteries, Massachusetts A and C, the New York, Ohio and Pennsylvania batteries other than those in the local volumes were searched for by title on archive.org (none found for C, G, Massachusetts A and C or the regular batteries) and not fetched.
+
+## QC sweep 2026-11-24
+Corrections after the independent check of the evidence (checker exit 0 with `--coverage --require-complete`); details in `GOVERNANCE/horde/ws-kit/QC-SWEEP-2026-11-24.md`.
+- Sampled defects: 1 lines (0301).
+- Sweep B, organization-table lines under a footnote mark (CS pp. 283-290, US pp. 155-168): 7 lines (0024, 0025, 0026, 0031, 0032, 0033, 0034).
+us-art-corps:0301: men is not_stated (the row prints no officers figure; 475 is the artillery men column and the aggregate).

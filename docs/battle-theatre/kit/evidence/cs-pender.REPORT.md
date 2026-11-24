@@ -14,7 +14,7 @@ Army of Northern Virginia, Third Corps: Pender's division (McGowan under Perrin,
 | cs-3c-pender-lane | strength | none | effective total 1,355 including ambulance corps and rear guard (Lane; the 33rd North Carolina history repeats it) | R558 p. 667; Clark vol. 2 | strength lines |
 
 ## Conflicts
-No conflict set. Kept as separate lines by basis or period: Guild's return (pp. 333-334, killed and wounded) and the Addenda compilation (pp. 344-345, with the captured or missing of Scales' brigade, 110); the division total of the Addenda (262, 1,312, 116, 1,690) includes Poague's artillery battalion, Guild's (259, 1,383, 1,542) does not; Lane's brigade 389 in the rows and 660 in his own report and the footnote; Scales' own table of his report (48, 381, 116, 545 for 1 July) against the return (102, 323, 110, 535 for 1 to 3 July).
+One conflict set of the QC sweep (Lane's brigade, 389 and 660, none chosen). Otherwise kept as separate lines by basis or period: Guild's return (pp. 333-334, killed and wounded) and the Addenda compilation (pp. 344-345, with the captured or missing of Scales' brigade, 110); the division total of the Addenda (262, 1,312, 116, 1,690) includes Poague's artillery battalion, Guild's (259, 1,383, 1,542) does not; Lane's brigade 389 in the rows and 660 in his own report and the footnote; Scales' own table of his report (48, 381, 116, 545 for 1 July) against the return (102, 323, 110, 535 for 1 to 3 July).
 OCR and print errors found against the scan: Guild's division total prints 1,383 wounded where the four brigade totals add to 1,283 (348+136+322+477); the corps total below it (1,384) is consistent with 1,283, so the 1,383 is a misprint of the original (waiver recorded on the line). OCR digit and label errors: 1,B42 for 1,542; 434 for 424 (Scales' total, Guild); 1.36 for 136 (Thomas, Addenda); 1,:J55 for 1,355 (Lane's report); UOO for 660; Kth for 14th South Carolina; IWh for 18th, 83d for 33d, 23d for 22d, S4th for 34th, 3(jth for 38th North Carolina; the labels of the 7th and 18th North Carolina, 35th and 45th Georgia and and several Scales rows are missing or misread in the OCR (nearest label quoted).
 
 ## Gaps
@@ -31,3 +31,8 @@ OR27-2 (R424 pp. 289-290, R425 p. 292, R427 pp. 333-334, 344-345, R556 to R561 a
 
 ## Not done
 No required pair is open. Not done beyond the pairs: officer lines (the lists of officers killed and wounded in the brigade reports, Appendix lists), the Staff rows of the Addenda, Perrin's campaign totals (654 killed and wounded, about 90 missing), Lane's campaign total (731) and the figures of the retreat were not written; Moore's Roster of North Carolina Troops was not read; the narrative of the 38th North Carolina is not in the volumes of Clark on disk (vol. 3 not searched for it).
+
+## QC sweep 2026-11-24
+Corrections after the independent check of the evidence (checker exit 0 with `--coverage --require-complete`); details in `GOVERNANCE/horde/ws-kit/QC-SWEEP-2026-11-24.md`.
+- Sweep A, dagger and asterisk marks of the Addenda return of casualties (pp. 338-346): 2 lines (0101, 0139).
+Lane's brigade total (cs-pender:0101, 389) and the footnote figure (cs-pender:0139, 660) are one conflict set, none chosen.

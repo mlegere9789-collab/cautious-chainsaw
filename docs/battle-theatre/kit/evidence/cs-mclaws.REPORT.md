@@ -34,3 +34,8 @@ OR27-2 (R424, R425, R427, R430 to R434), ALEXANDER-1907 (strength of 31 May), FR
 
 ## Not done
 No required pair is open. Content limits: regimental strength, arms and dress stay gaps (above); seven regimental commanders rest on a gap line until the scan is read into a matching quote; Longstreet's own casualty table (R430 p. 363) and Kershaw's addenda table (R432 p. 370) were not written as lines (they repeat the Addenda brigade totals).
+
+## QC sweep 2026-11-24
+Corrections after the independent check of the evidence (checker exit 0 with `--coverage --require-complete`); details in `GOVERNANCE/horde/ws-kit/QC-SWEEP-2026-11-24.md`.
+- Sweep B, organization-table lines under a footnote mark (CS pp. 283-290, US pp. 155-168): 8 lines (0010, 0011, 0025, 0027, 0012, 0026, 0028, 0029).
+Semmes' Brigade carries the dagger footnote of p. 283: lines 0010 0011 0025 0027 carry it; the commander lines 0026 (Weems) and 0028 (Simms) are dated 1863-06-22/1863-07-31, Manning (0029) 1863-06-22 and Bryan (0012) 1863-07-07, the dates the footnote gives. No line for the commander of the 51st Georgia (Col. E. Ball) exists in this file.
