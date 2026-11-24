@@ -1,0 +1,1250 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-011",
+ "topic": "Hood’s attack",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-011",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Hood’s attack | 16:00; 16:30 (SS2, HESS) | 16:30 | 16:00",
+  "values": [
+   "16:00",
+   "16:30 (SS2, HESS)"
+  ],
+  "recommended_default": "16:30",
+  "selectable_alternatives": [
+   "16:00"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-011-DEFAULT",
+  "default_label": "guns about 16:00, infantry soon afterwards (window 16:00-16:30)",
+  "tier": "inferred",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-011-S1",
+   "C-011-S2",
+   "C-011-S3",
+   "C-011-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "inferred",
+ "basis": {
+  "kind": "official_records",
+  "text": "Lee's report puts Longstreet's guns at about 4 p.m. and Hood's infantry 'soon afterward'; reports of 8 and 9 July 1863 from four regiments of Hood's division say about 4 (three) and 4.30 (one). Alexander's account puts the order about 16:15. No source states one start for the whole division."
+ },
+ "default": {
+  "mode": "window",
+  "positions": [
+   "C-011-P4"
+  ],
+  "label": "Guns about 16:00, Hood's infantry soon after: window 16:00-16:30, step-off about 16:15",
+  "basis_text": "Lower bound: Lee, Work, Manning, Bryan and Alexander (about 4 p.m.); upper bound: Bane (4.30) and Lee's 'soon afterward' (0 to 30 minutes after 16:00); the order about 16:15 (Alexander, 3.45 plus perhaps 30 minutes).",
+  "animation": {
+   "at": "1863-07-02T16:15",
+   "rule": "midpoint",
+   "note": "The guns of Longstreet's corps are heard about 16:00 and the first infantry of Hood's division step off about 16:15, the middle of the window; no instant is earlier than the 'about 4' of the reports. 16:00 and 16:30 stay selectable."
+  },
+  "note": "The window is the span in which every report of 1863 fits within its 'about'; no writer states it."
+ },
+ "positions": [
+  {
+   "id": "C-011-P1",
+   "origin": "pdf_value",
+   "pdf_label": "16:00",
+   "scenario_ids": [
+    "C-011-S1"
+   ],
+   "source_keys": [],
+   "label": "About 16:00: the guns open and the first Texas regiments are ordered forward (Lee, Work, Manning, Bryan, Alexander)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T16:00"
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R454",
+     "page": "408",
+     "page_basis": "scan_leaf",
+     "text_offset": 1508206,
+     "quote": "ordered forward to the attack about 4 p. m.",
+     "id": "C-011-P1-c1",
+     "witness": {
+      "name": "P. A. Work",
+      "role": "Lieutenant Colonel, commanding the 1st Texas Infantry (Robertson's brigade, Hood's division)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "work",
+     "exact": true,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "The regiment, with the brigade, was ordered forward to the attack about 4 p.m.; written seven days after. A regiment's order, not the division's first step."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R453",
+     "page": "407",
+     "page_basis": "scan_leaf",
+     "text_offset": 1504255,
+     "quote": "About 4 o'clock on the evening of July 2, I was ordered to move against the enemy",
+     "id": "C-011-P1-c2",
+     "witness": {
+      "name": "Van H. Manning",
+      "role": "Colonel, commanding the 3rd Arkansas Infantry (Robertson's brigade, Hood's division)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-08",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "manning",
+     "exact": true,
+     "states": {
+      "times": [
+       "16:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Manning was ordered to move against the enemy about 4 o'clock on the evening of July 2; written six days after."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R456",
+     "page": "412",
+     "page_basis": "scan_leaf",
+     "text_offset": 1522592,
+     "quote": "About 4 p. m. on the 2d instant, General Hood's division was drawn up in line of battle",
+     "id": "C-011-P1-c3",
+     "witness": {
+      "name": "R. Bryan",
+      "role": "Lieutenant Colonel, commanding the 5th Texas Infantry (Robertson's brigade, Hood's division)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-08",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "bryan",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The division was drawn up in line of battle about 4 p.m.; the sentence after it begins 'At the word Forward'. So the line was formed about 4, the step-off came after."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R426",
+     "page": "319",
+     "page_basis": "scan_leaf",
+     "text_offset": 1210712,
+     "quote": "About 4 p. m. Longstreet's batteries opened, and soon afterward Hood's division, on the extreme right, moved to the attack",
+     "id": "C-011-P1-c4",
+     "witness": {
+      "name": "Robert E. Lee",
+      "role": "General, commanding the Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1864-01",
+      "kind": "official_report"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "lee",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ],
+      "phrases": [
+       "soon afterward"
+      ]
+     },
+     "note": "Lee's report of the campaign (dated January 1864): the guns of Longstreet's corps open about 4 p.m. and Hood's division moves to the attack soon afterward. He does not say where he stood or how he knew the hour."
+    },
+    {
+     "source": "BL-3",
+     "source_class": "book",
+     "part": null,
+     "page": "359",
+     "page_basis": "as_read",
+     "text_offset": 1484369,
+     "quote": "I think it was about 4 o'clock when at last the word was given for Hood's division to move out",
+     "id": "C-011-P1-c5",
+     "page_note": "printed page read from the running heads of the text (the head of page 359, 'Artillery fighting at Gettysburg', stands before the paragraph and the head of page 360 after it)",
+     "witness": {
+      "name": "E. Porter Alexander",
+      "role": "Colonel, commanding the reserve artillery battalion with Hood and McLaws",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "alexander",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Alexander's article of 1887: about 4 o'clock the word was given for Hood's division to move out. He hedges it with 'I think'. His own report of 1863 gives about 4 p.m. for his batteries opening at the Peach Orchard."
+    }
+   ],
+   "flags": [],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "About 4 p.m. dates the guns and the first orders; Lee says the infantry moved soon afterward, so 16:00 is the lower end of the window, not a separate start."
+   },
+   "inference": {
+    "step": "Three regiments of Robertson's brigade (Work, Manning, Bryan) and Alexander date the order or the line-up to about 4 p.m., and Lee dates the guns to about 4 p.m. with Hood's infantry soon afterward; the order to a regiment is taken as the opening of Hood's attack, which they do not say in so many words.",
+    "from": [
+     "C-011-P1-c1",
+     "C-011-P1-c2",
+     "C-011-P1-c3",
+     "C-011-P1-c4",
+     "C-011-P1-c5"
+    ]
+   }
+  },
+  {
+   "id": "C-011-P2",
+   "origin": "pdf_value",
+   "pdf_label": "16:30 (SS2, HESS)",
+   "scenario_ids": [
+    "C-011-S2"
+   ],
+   "source_keys": [
+    "SS2",
+    "HESS"
+   ],
+   "label": "About 16:30: the 4th Texas ordered to advance (Bane); the plan cites two sources not read here",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T16:30"
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R455",
+     "page": "410",
+     "page_basis": "scan_leaf",
+     "text_offset": 1518568,
+     "quote": "About 4.30 p. m. the 2d instant, we were ordered to advance on the enemy",
+     "id": "C-011-P2-c1",
+     "witness": {
+      "name": "John P. Bane",
+      "role": "Major, commanding the 4th Texas Infantry (Robertson's brigade, Hood's division)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "bane",
+     "exact": true,
+     "states": {
+      "times": [
+       "16:30"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The 4th Texas, between the 5th Texas and the 1st Texas, was ordered to advance about 4.30 p.m.; the only report of the division that gives 4.30. The 5th and 1st Texas, on either side of it, say about 4."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "failed_lookups": [
+    {
+     "where": "SS2 (Stone Sentinels, July 2 timeline, a web page)",
+     "query": "the page behind the plan's 16:30 (SS2): not opened, so what it says and what it rests on is unknown",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "HESS (Hessler, The Peach Orchard, ch. 3)",
+     "query": "the chapter the plan cites for 16:30: not in the local library, not on the reachable hosts",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    }
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "Only one regiment of the division (4th Texas) gives 4.30; its neighbours say about 4. It is the upper end of the window. The plan's two sources could not be read."
+   },
+   "inference": {
+    "step": "Bane gives 4.30 for the order to his own regiment; the order to a regiment is taken as the opening of Hood's attack, which he does not say in so many words. The two sources the plan cites (SS2, HESS) were not read.",
+    "from": [
+     "C-011-P2-c1"
+    ]
+   }
+  },
+  {
+   "id": "C-011-P3",
+   "origin": "pdf_default",
+   "pdf_label": "16:30",
+   "scenario_ids": [
+    "C-011-S3"
+   ],
+   "source_keys": [],
+   "label": "PDF recommended default: 16:30 (the same value as above, chosen by the plan for coherence)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T16:30"
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R455",
+     "page": "410",
+     "page_basis": "scan_leaf",
+     "text_offset": 1518568,
+     "quote": "About 4.30 p. m. the 2d instant, we were ordered to advance on the enemy",
+     "id": "C-011-P3-c1",
+     "witness": {
+      "name": "John P. Bane",
+      "role": "Major, commanding the 4th Texas Infantry (Robertson's brigade, Hood's division)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "bane",
+     "exact": true,
+     "states": {
+      "times": [
+       "16:30"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The 4th Texas, between the 5th Texas and the 1st Texas, was ordered to advance about 4.30 p.m.; the only report of the division that gives 4.30. The 5th and 1st Texas, on either side of it, say about 4."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "failed_lookups": [
+    {
+     "where": "SS2 (Stone Sentinels, July 2 timeline, a web page)",
+     "query": "the page behind the plan's 16:30 (SS2): not opened, so what it says and what it rests on is unknown",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "HESS (Hessler, The Peach Orchard, ch. 3)",
+     "query": "the chapter the plan cites for 16:30: not in the local library, not on the reachable hosts",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    }
+   ],
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "The plan's default rests on one regiment's 4.30 and two pages not read here; the reports taken together put the start between 16:00 and 16:30, and 16:30 is its end."
+   },
+   "inference": {
+    "step": "Same step as the 16:30 value: Bane's 4.30 for the order to the 4th Texas is taken as the opening of Hood's attack.",
+    "from": [
+     "C-011-P3-c1"
+    ]
+   }
+  },
+  {
+   "id": "C-011-P4",
+   "origin": "first_delegated",
+   "scenario_ids": [
+    "C-011-DEFAULT"
+   ],
+   "source_keys": [],
+   "label": "Guns about 16:00, Hood's infantry soon afterward: window 16:00-16:30, step-off about 16:15",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T16:00",
+    "to": "1863-07-02T16:30"
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R426",
+     "page": "319",
+     "page_basis": "scan_leaf",
+     "text_offset": 1210712,
+     "quote": "About 4 p. m. Longstreet's batteries opened, and soon afterward Hood's division, on the extreme right, moved to the attack",
+     "id": "C-011-P4-c1",
+     "witness": {
+      "name": "Robert E. Lee",
+      "role": "General, commanding the Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1864-01",
+      "kind": "official_report"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "lee",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ],
+      "phrases": [
+       "soon afterward"
+      ]
+     },
+     "note": "Lee's report of the campaign (dated January 1864): the guns of Longstreet's corps open about 4 p.m. and Hood's division moves to the attack soon afterward. He does not say where he stood or how he knew the hour."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R454",
+     "page": "408",
+     "page_basis": "scan_leaf",
+     "text_offset": 1508206,
+     "quote": "ordered forward to the attack about 4 p. m.",
+     "id": "C-011-P4-c2",
+     "witness": {
+      "name": "P. A. Work",
+      "role": "Lieutenant Colonel, commanding the 1st Texas Infantry (Robertson's brigade, Hood's division)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "work",
+     "exact": true,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "The regiment, with the brigade, was ordered forward to the attack about 4 p.m.; written seven days after. A regiment's order, not the division's first step."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R453",
+     "page": "407",
+     "page_basis": "scan_leaf",
+     "text_offset": 1504255,
+     "quote": "About 4 o'clock on the evening of July 2, I was ordered to move against the enemy",
+     "id": "C-011-P4-c3",
+     "witness": {
+      "name": "Van H. Manning",
+      "role": "Colonel, commanding the 3rd Arkansas Infantry (Robertson's brigade, Hood's division)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-08",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "manning",
+     "exact": true,
+     "states": {
+      "times": [
+       "16:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Manning was ordered to move against the enemy about 4 o'clock on the evening of July 2; written six days after."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R456",
+     "page": "412",
+     "page_basis": "scan_leaf",
+     "text_offset": 1522592,
+     "quote": "About 4 p. m. on the 2d instant, General Hood's division was drawn up in line of battle",
+     "id": "C-011-P4-c4",
+     "witness": {
+      "name": "R. Bryan",
+      "role": "Lieutenant Colonel, commanding the 5th Texas Infantry (Robertson's brigade, Hood's division)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-08",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "bryan",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The division was drawn up in line of battle about 4 p.m.; the sentence after it begins 'At the word Forward'. So the line was formed about 4, the step-off came after."
+    },
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R455",
+     "page": "410",
+     "page_basis": "scan_leaf",
+     "text_offset": 1518568,
+     "quote": "About 4.30 p. m. the 2d instant, we were ordered to advance on the enemy",
+     "id": "C-011-P4-c5",
+     "witness": {
+      "name": "John P. Bane",
+      "role": "Major, commanding the 4th Texas Infantry (Robertson's brigade, Hood's division)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "bane",
+     "exact": true,
+     "states": {
+      "times": [
+       "16:30"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "The 4th Texas, between the 5th Texas and the 1st Texas, was ordered to advance about 4.30 p.m.; the only report of the division that gives 4.30. The 5th and 1st Texas, on either side of it, say about 4."
+    },
+    {
+     "source": "BL-3",
+     "source_class": "book",
+     "part": null,
+     "page": "359",
+     "page_basis": "as_read",
+     "text_offset": 1484369,
+     "quote": "I think it was about 4 o'clock when at last the word was given for Hood's division to move out",
+     "id": "C-011-P4-c6",
+     "page_note": "printed page read from the running heads of the text (the head of page 359, 'Artillery fighting at Gettysburg', stands before the paragraph and the head of page 360 after it)",
+     "witness": {
+      "name": "E. Porter Alexander",
+      "role": "Colonel, commanding the reserve artillery battalion with Hood and McLaws",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "alexander",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Alexander's article of 1887: about 4 o'clock the word was given for Hood's division to move out. He hedges it with 'I think'. His own report of 1863 gives about 4 p.m. for his batteries opening at the Peach Orchard."
+    },
+    {
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "part": null,
+     "page": "395",
+     "page_basis": "as_read",
+     "text_offset": 1039072,
+     "quote": "Thus, about 3.45 P.M., 36 guns were in action against the Peach Orchard, and the enemy's adjacent lines and 10 guns against the enemy's left. The ranges were generally between 500 and 700 yards. After this cannonade had continued for perhaps 30 minutes, Hood received the order to advance",
+     "id": "C-011-P4-c7",
+     "page_note": "printed page read from the running head of the text ('Gettysburg: second day', 395) that stands before the paragraph",
+     "witness": {
+      "name": "E. Porter Alexander",
+      "role": "Colonel, commanding the reserve artillery battalion with Hood and McLaws",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "alexander",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:45"
+      ],
+      "numbers": [
+       36,
+       10,
+       500,
+       700,
+       30
+      ]
+     },
+     "note": "Alexander's memoirs of 1907, built on his article of 1887: 36 guns in action about 3.45 p.m.; after perhaps 30 minutes of cannonade Hood received the order to advance. The 16:15 of the position is 15:45 plus his 'perhaps 30 minutes'."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "622",
+     "page_basis": "scan_leaf",
+     "text_offset": 2183942,
+     "quote": "Somewhere near 4 p. m. a sharp cannonade",
+     "id": "C-011-P4-c8",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, commanding the 20th Maine Infantry (Vincent's brigade, Fifth Corps)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "chamberlain",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Chamberlain: somewhere near 4 p.m. a sharp cannonade, some distance to the left and front, was the signal for his division's movement. It times the guns heard from the Fifth Corps' reserve position, not the infantry attack."
+    },
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "72",
+     "page_basis": "scan_leaf",
+     "text_offset": 258634,
+     "quote": "The enemy attacked me about 4 p. m. this day",
+     "id": "C-011-P4-c9",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General, commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "order_or_dispatch"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "about",
+     "group": "meade",
+     "exact": false,
+     "states": {
+      "times": [
+       "16:00"
+      ]
+     },
+     "note": "Meade's dispatch to Halleck of 8 p.m. on July 2: the enemy attacked me about 4 p.m. this day. He names no wing; the general Confederate attack fell first on his left, but the line does not say so."
+    }
+   ],
+   "flags": [],
+   "stance": "default",
+   "inference": {
+    "step": "Lee dates the guns to about 4 p.m. and the infantry to 'soon afterward' (0 to 30 minutes after, Appendix B of the plan); three regiments of the Texas brigade say about 4 and one 4.30, in reports of 8 and 9 July; Alexander puts the order about 16:15 (3.45 plus perhaps 30 minutes). The window 16:00 to 16:30 is the span all these overlap within their 'about'; it is not stated by any one writer.",
+    "from": [
+     "C-011-P4-c1",
+     "C-011-P4-c2",
+     "C-011-P4-c3",
+     "C-011-P4-c4",
+     "C-011-P4-c5",
+     "C-011-P4-c6",
+     "C-011-P4-c7",
+     "C-011-P4-c8",
+     "C-011-P4-c9"
+    ]
+   }
+  },
+  {
+   "id": "C-011-P5",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "15:30: Longstreet's recollection of when the order went to Hood (1878)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T15:30"
+   },
+   "approx": false,
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "SHSP-05",
+     "source_class": "book",
+     "part": null,
+     "page": "63",
+     "page_basis": "as_read",
+     "text_offset": 196832,
+     "quote": "At half-past 3 the order was given General Hood to advance",
+     "id": "C-011-P5-c1",
+     "page_note": "printed page read from the running heads of the text ('Causes of Lee's defeat at Gettysburg', Southern Historical Society Papers vol. 5; the head of page 64 stands after the sentence); the same sentence is in the Annals of the War (1879)",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General, commanding the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1878",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "own_orders",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet",
+     "exact": true,
+     "states": {
+      "times": [
+       "15:30"
+      ]
+     },
+     "note": "Longstreet writing in 1877-78 (printed in volume 5 of the papers, 1878): the order was given to Hood to advance at half-past 3. It is the hour of the order, which he says nothing of the step-off."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "stance": "selectable",
+   "derived": true,
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Longstreet gives the hour the order was given to Hood, written 15 years after; it is not the hour the line stepped off. Alexander dates the order near 16:15."
+   },
+   "inference": {
+    "step": "Longstreet's recollection of 1877-78 is taken as his estimate of when the order to advance went to Hood; it is a memoir and says nothing of the step-off. The day (2 July) is from the context of the passage, not the quoted words.",
+    "from": [
+     "C-011-P5-c1"
+    ]
+   }
+  },
+  {
+   "id": "C-011-P6",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 16:15: Hood receives the order to advance (Alexander, 1907: 15:45 plus perhaps 30 minutes)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T16:15"
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "part": null,
+     "page": "395",
+     "page_basis": "as_read",
+     "text_offset": 1039072,
+     "quote": "Thus, about 3.45 P.M., 36 guns were in action against the Peach Orchard, and the enemy's adjacent lines and 10 guns against the enemy's left. The ranges were generally between 500 and 700 yards. After this cannonade had continued for perhaps 30 minutes, Hood received the order to advance",
+     "id": "C-011-P6-c1",
+     "page_note": "printed page read from the running head of the text ('Gettysburg: second day', 395) that stands before the paragraph",
+     "witness": {
+      "name": "E. Porter Alexander",
+      "role": "Colonel, commanding the reserve artillery battalion with Hood and McLaws",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "alexander",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:45"
+      ],
+      "numbers": [
+       36,
+       10,
+       500,
+       700,
+       30
+      ]
+     },
+     "note": "Alexander's memoirs of 1907, built on his article of 1887: 36 guns in action about 3.45 p.m.; after perhaps 30 minutes of cannonade Hood received the order to advance. The 16:15 of the position is 15:45 plus his 'perhaps 30 minutes'."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "derived": true,
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "A sum of two hedged figures by one writer 44 years later; it lies inside the window and gives the order, not the step-off. It sets the instant that drives the animation."
+   },
+   "inference": {
+    "step": "Computed: Alexander's 'about 3.45 P.M.' for 36 guns in action plus his 'perhaps 30 minutes' of cannonade before 'Hood received the order to advance' gives about 16:15; neither figure is exact.",
+    "from": [
+     "C-011-P6-c1"
+    ]
+   }
+  },
+  {
+   "id": "C-011-P7",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Near 17:00: Law's brigade advances (Law, 1887)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T17:00"
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "BL-3",
+     "source_class": "book",
+     "part": null,
+     "page": "323",
+     "page_basis": "as_read",
+     "text_offset": 1362399,
+     "quote": "It was near 5 o'clock p. M. when we advanced to the attack",
+     "id": "C-011-P7-c1",
+     "page_note": "printed page read from the running heads of the text (the head of page 324 stands in the next sentence)",
+     "witness": {
+      "name": "E. McIver Law",
+      "role": "Brigadier General, commanding the right-hand brigade of Hood's division (later the division)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1887",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "law",
+     "exact": true,
+     "states": {
+      "times": [
+       "17:00"
+      ]
+     },
+     "note": "Law's essay of 1887: it was near 5 o'clock when his brigade advanced to the attack; the artillery on both sides had been engaged about fifteen minutes. He wrote 24 years after; the Official Records print no report by him."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "memoir_only",
+    "contradicted"
+   ],
+   "stance": "selectable",
+   "derived": true,
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "Law wrote 24 years later; the Official Records print no report by him. Reports of 8 and 9 July 1863 from the 1st, 3rd (Ark.), 4th and 5th Texas, beside his brigade, say about 4 or 4.30."
+   },
+   "inference": {
+    "step": "Law's 'near 5 o'clock' is taken as his estimate of when his own brigade advanced; written in 1887; no report by him is printed in the Official Records to check it. The day (2 July) is from the context of the essay, not the quoted words.",
+    "from": [
+     "C-011-P7-c1"
+    ]
+   }
+  },
+  {
+   "id": "C-011-P8",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "About 14:00: Hood commenced the attack (A. P. Hill's report, November 1863)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T14:00"
+   },
+   "approx": true,
+   "clock": "confederate",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R534",
+     "page": "608",
+     "page_basis": "scan_leaf",
+     "text_offset": 2258421,
+     "quote": "Hood commenced the attack about 2 o'clock",
+     "id": "C-011-P8-c1",
+     "witness": {
+      "name": "Ambrose P. Hill",
+      "role": "Lieutenant General, commanding the Third Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-11",
+      "kind": "official_report"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "hill",
+     "exact": true,
+     "states": {
+      "times": [
+       "14:00"
+      ]
+     },
+     "note": "Hill's report (November 1863) says Hood commenced the attack about 2 o'clock and McLaws about 5.30. He commanded the corps on the Confederate centre and does not say how he learned either hour; both differ from the reports of the officers who made the attack."
+    }
+   ],
+   "flags": [
+    "single_source",
+    "contradicted"
+   ],
+   "stance": "selectable",
+   "derived": true,
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "Hill commanded the centre, gives no source, and also puts McLaws at 5.30; the reports of Hood's own regiments and Lee, Longstreet and Alexander put the attack at 4."
+   },
+   "inference": {
+    "step": "Hill's 'about 2 o'clock' is taken as printed (14:00; the text does not say which 2); the report gives no sign of how he knew. The day (2 July) is from the context of the report, not the quoted words.",
+    "from": [
+     "C-011-P8-c1"
+    ]
+   }
+  },
+  {
+   "id": "C-011-P9",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Between 15:00 and 16:00: a Union regiment on the Third Corps' left says it was attacked (Cummins, July 1863)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-02T15:00",
+    "to": "1863-07-02T16:00"
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "inferred",
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R147",
+     "page": "512",
+     "page_basis": "scan_leaf",
+     "text_offset": 1787306,
+     "quote": "attacked between the hours of 3 and 4 o'clock by a heavy force of the enemy",
+     "id": "C-011-P9-c1",
+     "witness": {
+      "name": "Francis M. Cummins",
+      "role": "Lieutenant Colonel, commanding the 124th New York Infantry (Ward's brigade, Third Corps)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-28",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "window",
+     "group": "cummins",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00",
+       "16:00"
+      ]
+     },
+     "note": "The 124th New York, on a rocky bluff near the extreme left of the Third Corps line, says it was attacked between the hours of 3 and 4 o'clock by a heavy force. A span ending at 4, not a start; it may include fire before the infantry advance."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "stance": "selectable",
+   "derived": true,
+   "reason_not_chosen": {
+    "kind": "unclear_expression",
+    "text": "'Between 3 and 4' is a span, not a start; it may include fire before the infantry advance. Its upper end meets the window's lower end; the two clocks are not compared."
+   },
+   "inference": {
+    "step": "Cummins's 'attacked between the hours of 3 and 4 o'clock' is taken as the span in which the first heavy attack on his regiment fell; he does not say when the first shot was fired. The day (2 July) is from the context of the report, not the quoted words.",
+    "from": [
+     "C-011-P9-c1"
+    ]
+   }
+  }
+ ],
+ "weighing": {
+  "summary": "Nobody gives one start for Hood's division; Hood was wounded as it advanced and filed no report in the Official Records, and neither does Law. What the record gives: Lee (report of Jan. 1864) has Longstreet's guns opening about 4 p.m. and Hood's infantry moving 'soon afterward'; reports of 8-9 July 1863 from the 1st, 3rd (Ark.), 4th and 5th Texas say the order came about 4 (three regiments) or 4.30 (one); Alexander puts the order about 16:15. These fit one window, 16:00 to 16:30, with the step-off about 16:15. 16:00 and 16:30 are the two ends of that window, not rival starts. Law's 'near 5' (1887) and Hill's 'about 2' (1863) are contradicted by those reports. Class weighted, tier inferred: the window is read from hedged statements, none states it.",
+  "who": "The best-classed writers are the regimental officers (Work, Manning, Bryan, Bane): they wrote within a week, stood in the line, and were ordered forward themselves, which outranks Lee (a commander's report of six months later, place and source not stated), Alexander and Longstreet (memoirs of 1878-1907) and Law (1887). Union officers are a check, not a measure of the start: Meade's dispatch and Chamberlain's report date the attack and the guns about 4, Cummins (124th New York) says he was attacked between 3 and 4.",
+  "when": "Regimental reports: 8 and 9 July 1863, 6-7 days after. Lee: January 1864 (six months). Hill: November 1863. Meade's dispatch: 8 p.m. on 2 July. Alexander: 1887 and 1907 (44 years). Longstreet: 1877-78 (15 years). Law: 1887 (24 years). The owner's rule (a report of the time beats a later report, which beats a reminiscence) puts the regiments first and sets Law and the two memoirs of the hour of the order below them.",
+  "where": "Work, Manning, Bryan and Bane commanded or served in regiments of Robertson's brigade in the front line, next to Law's left; each gives the hour of his own order. Alexander directed the guns that went into position with Hood and McLaws; Longstreet says he rode with McLaws's line. Lee, Hill and Meade were not with Hood's regiments, and Lee does not say where he stood. Cummins's regiment held a rocky bluff near the extreme left of the Third Corps line.",
+  "how_knew": "The regimental officers knew by their own orders and by what they saw. Lee gives no source for his hour. Alexander says 'I think' in 1887 and 'perhaps 30 minutes' in 1907, so both are estimates. Longstreet's 'half-past 3' is the hour of an order he does not tie to the step-off. Law speaks of his own advance but writes without a report. Hill gives no source.",
+  "clock": "All Confederate figures are on one army's clock; the Union witnesses (Meade, Chamberlain, Cummins) are on another. The reported difference of about 20 minutes between the armies' clocks is not applied: it could account for Cummins's 'between 3 and 4' against the Confederate 'about 4', and it is carried as uncertainty only. 'About 4' is read as 15:45 to 16:15 and '4.30' as 16:15 to 16:45, which overlap at 16:15.",
+  "independence": "Work, Manning, Bryan and Bane are four separate reports from one brigade; they may share the brigade's orders and talk, so they count as four voices of one source more than four independent ones. Lee relays reports from Longstreet's corps and is not independent of them. Alexander's memoirs of 1907 build on his article of 1887: one group. Longstreet's 1878 text is printed again in the Annals of the War (1879): one group. Hood's own book (1880) says only that the decision to attack came about 3 o'clock; Oates's 1905 book repeats Hood's passage in nearly the same words and is not a second witness."
+ },
+ "source_panel_text": "Guns about 16:00, Hood's infantry soon after (window 16:00-16:30; step-off about 16:15). Lee's report and four Texas regiments' reports of July 1863 say about 4 p.m. (one says 4.30). Memoirs say 3.30 (the order) and near 5 (Law, 1887). Eight other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "16:30 stays as the upper end of the window and as the 4th Texas's figure (Bane, 4.30). It does not hold as the single default: it rests on one regiment, while three neighbouring regiments say about 4, and the plan's two sources (Stone Sentinels, Hessler) could not be read here."
+  },
+  "first_delegated": {
+   "holds": "yes",
+   "note": "The window 16:00-16:30 holds: guns about 16:00 (Lee), infantry soon after. The research adds three Texas regiments' reports for about 4, Bane for 4.30, the order about 16:15 (Alexander) and an animation instant of 16:15, and records Law's near 5 and Hill's about 2 as contradicted. Class weighted, tier inferred."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T2-139",
+   "must_change": true,
+   "note": "Row 'Jul 2 ~16:30' (Hood's division moves east off its intended axis; tier documented; cites Wikipedia): the step-off row. Under this resolution the default is the window 16:00-16:30 with the instant 16:15, tier inferred; time and tier follow. Not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-127",
+   "must_change": false,
+   "note": "Row 'Jul 2 ~16:00' (Hood and McLaws deployed, 36 guns open; cites Lee and Alexander): agrees with guns about 16:00 (Lee); Alexander's 3.45 for 36 guns would put the guns slightly earlier. No change required."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-123",
+   "must_change": false,
+   "note": "Row 'Jul 2 ~15:30' (Biesecker's Woods, Hood's division in two lines; Robertson, Benning): positions taken before the step-off; Longstreet's half-past 3 is the order, not this row. No change."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-144",
+   "must_change": false,
+   "note": "Row 'Jul 2 ~16:30 to 17:00' (Law's brigade first attacks; 4th Alabama arrived 3.30 per Scruggs): the time of contact after the step-off, not the step-off. Consistent with a 16:15 step-off; review after the placement clause is changed."
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-1c-hood (history/arrivals.json)",
+   "must_change": true,
+   "note": "Its cell key_positions reads '16:30 step-off' and carries this conflict (link topic_other_cell); the default window 16:00-16:30 with 16:15 replaces it. The row's gate (arrival 06:30, conflict C-005) is not this value."
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/arrivals_data.py line 294",
+   "must_change": true,
+   "note": "conflicts=[... C('C-011', 'topic_other_cell', 'key_positions', \"'16:30 step-off'\")]: the builder that writes the arrivals link; the note text follows the new default."
+  },
+  {
+   "kind": "app_code",
+   "ref": "docs/battle-theatre/app/tools/placement-clauses.mjs line 338",
+   "must_change": true,
+   "note": "add('cs-1c-hood', 'key', '16:30 step-off', AC({ activity: 'march', d: '07-02', t: '16:30' })): drives a drawn unit at 16:30; under the resolution the instant is 16:15 (window 16:00-16:30)."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/placement.json lines 1479 and 7085",
+   "must_change": true,
+   "note": "phrase '16:30 step-off' (the data written from the clause above); follows the clause."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/app/HISTORY-LAYER-NOTES.md (CL-251)",
+   "must_change": true,
+   "note": "Table row CL-251, cs-1c-hood, key, '16:30 step-off', 1863-07-02T16:30, plausible-procedural, 'drives a drawn unit': time and marking follow the clause."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-011)",
+   "must_change": true,
+   "note": "default_scenario_id C-011-DEFAULT, label 'guns about 16:00, infantry soon afterwards (window 16:00-16:30)', tier inferred, basis OR: the window holds; add the new values (15:30 order, about 16:15 order, near 17:00, about 14:00, 15:00-16:00 Union), class weighted and the 16:15 instant."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-011)",
+   "must_change": true,
+   "note": "First delegated default: same additions as the app copy."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-011 row, line 21)",
+   "must_change": true,
+   "note": "Row states 'Guns about 16:00 documented, infantry soon afterward; 16:30 (PDF) gap': the 16:30 is no longer a gap (Bane, 4th Texas, 4.30) and the infantry hour is read from several reports; record the resolution as a delegated decision."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md line 39 (DEC-C-011)",
+   "must_change": true,
+   "note": "Entry shows PENDING OWNER; the integration step records the default as a delegated decision, reversible by the owner."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0103.md",
+   "must_change": true,
+   "note": "The register entry says the C-011 16:30 has no Official Records hour. Bane's report (OR 27/2 p. 410) gives 4.30 for one regiment, so the wording must be corrected."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md",
+   "must_change": false,
+   "note": "Line 467 counts C-011 among the seven inferred delegated defaults (documented 29, inferred 7, plausible-procedural 8, open gap 3). The resolution keeps tier inferred, so the count stands."
+  },
+  {
+   "kind": "gate",
+   "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC.md",
+   "must_change": false,
+   "note": "Line 785 has the same count; C-011 stays inferred, so no change."
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04 (tools/bt/gates/q04_arrival.py, GOVERNANCE/gates.json)",
+   "must_change": false,
+   "note": "Q04 reads the arrival floors of Hood's division (cs-1c-hood arrival, conflict C-005), not the step-off. Reported only; no gate is edited. The placement clause CL-251 should be checked against Q05 and Q06 after it changes."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "SS2 (Stone Sentinels July 2 timeline) and HESS (Hessler, The Peach Orchard)",
+   "query": "the two sources the plan cites for 16:30: Stone Sentinels is a web page outside the reachable hosts, Hessler's chapter is not in the local library or on the reachable hosts",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2 (Robertson R452 p. 404; Benning R458; regimental reports of the Georgia and Alabama regiments)",
+   "query": "a clock reading for the opening of Hood's attack in Robertson's own report: none; Robertson says only the division reached the ground 'a few minutes before' the order to advance",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2 index (reports by Hood, Law, McLaws)",
+   "query": "a report by Hood, Law or McLaws on 2 July: none is printed (checked against the index of the volume)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "tmp/library/web/nps (local Park Service texts)",
+   "query": "4:00, 4:30, 4 p.m., 4 pm, 4:15, 16:00, 16:30, half past three, 3:30 within 200-250 characters of Hood, Law, Robertson, Devil's Den or Round Top",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "SHSP-07-C005 (McLaws, address of 1879)",
+   "query": "'o'clock' and 'p. m.' hours of the attack near Hood, advance, Peach Orchard, attack: no hour of Hood's advance",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "HOOD-1880-C005 (Advance and Retreat)",
+   "query": "the hour of the advance after his 'about 3 o'clock' decision; the rest of the narrative to his wound was not read to the end",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "BL-3 (Law, The Struggle for Round Top; Kershaw, Kershaw's Brigade at Gettysburg)",
+   "query": "'four', '4 o'clock', 'half-past' in Law's essay: only 'near 5 o'clock' and about 15 minutes of artillery; Kershaw's 'about 4 o'clock I received the order to move' is McLaws's division, not Hood's, and is not used",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report, letter or diary of 2 July to 1864 that dates the step-off of Hood's whole division or of Law's brigade (a clock reading, not 'about 4'), the Stone Sentinels page or Hessler's chapter with the source behind 16:30, Henry's battalion journal or a diary of the guns with Hood, or a report by Law or Hood. A figure inside 16:00-16:30 narrows the window; one outside it moves it."
+}
