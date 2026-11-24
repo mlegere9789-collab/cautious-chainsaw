@@ -61,7 +61,9 @@ test('the palette table: every material has a row, the variant slots are the fig
   const p = buildPal({ us_national: [177, 121, 133] }); assert.equal(p.length, 128 * 3 * 4); assert.ok(p[(63) * 4] > 0 && p[(128 + 63) * 4 + 1] === -1); assert.ok(p[(256 + 1) * 4] > 0, 'flag mean colour of the national colour');
 });
 test('block turn time scales with the formation extent and the unit\'s own speed: the far end never moves faster than the documented urgent double quick (2.5146 m/s, Hardee 114), peak of the smoothstep included (gate Q05.3)', () => {
-  const FOOT = 2.5146, i = L.units.findIndex((u, k) => u.drawn && world.units[k].count > 200), id = L.units[i].id, bb = stage.bbox[i], ext = Math.max(...bb.map(Math.abs));
+  const FOOT = 2.5146, i = L.units.findIndex((u, k) => u.drawn && world.units[k].count > 200), id = L.units[i].id, wu = world.units[i], s0 = stage.sold0;
+  // the radius of the figure farthest from the unit's origin in either of its layouts (what the gate measures: soldiers, and for a battery the guns and their crews)
+  let ext = 0; for (let k = 0; k < wu.count; k++) ext = Math.max(ext, Math.hypot(s0[(wu.first + k) * 4], s0[(wu.first + k) * 4 + 1])); if (wu.alt) for (let k = 0; k < wu.count; k++) ext = Math.max(ext, Math.hypot(wu.alt[k * 2], wu.alt[k * 2 + 1]));
   const peak = (nxt, v, dA) => Math.hypot(v, 1.5 * dA / nxt.turnS * ext);
   // standing: the turn time is the longer of the 25 s floor and the time the peak far-end speed allows
   const rec0 = { x: 0, z: 0, path: null, act: 'stand', head: 0, headFrom: 0, actT: 0, turnS: 25 };
@@ -73,6 +75,9 @@ test('block turn time scales with the formation extent and the unit\'s own speed
   const n1 = stage._step(rec1, { type: 'activity', unit: id, t: 100, activity: 'march', head: Math.PI / 2 });
   assert.ok(n1.turnS >= 25, 'turn time ' + n1.turnS);
   if (n1.turnS < 900) assert.ok(peak(n1, 2.0, Math.PI / 2) <= FOOT + 1e-9, 'moving turn far end ' + peak(n1, 2.0, Math.PI / 2));
+  // a turn dated at the very start of a leg (the activity event comes before the path event of that instant) takes the speed of the leg from the stage's own look at the unit's legs
+  let nHint = 0; for (let k = 0; k < L.units.length; k++) for (const e of stage.track[k] || []) if (e.type === 'activity' && e.vHint) { nHint++; const r = stage._step({ ...rec0, head: 0, headFrom: 0 }, { ...e, head: 2 }); if (r.turnS < 900) assert.ok(Math.hypot(e.vHint, 1.5 * 2 / r.turnS * Math.max(stage.turnR[k], 0)) <= FOOT + 1e-6, `${L.units[k].id} turn at ${e.t} with leg speed ${e.vHint}`); }
+  assert.ok(nHint > 100, 'the turns that coincide with a leg are found: ' + nHint);
 });
 test('src/*-host.mjs modules: both exist and export init / update / dispose', async () => {
   for (const f of ['fx-host.mjs', 'audio-host.mjs']) { assert.ok(fs.existsSync(path.join(BT, 'app/src', f)), f); const src = fs.readFileSync(path.join(BT, 'app/src', f), 'utf8'); for (const n of ['init', 'update', 'dispose']) assert.match(src, new RegExp('export (async )?function ' + n + '\\b'), f + ' ' + n); }

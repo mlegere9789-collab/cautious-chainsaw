@@ -1,0 +1,2 @@
+# bt-oob-kit cs-pickett: texts fetched
+Fetched 24 November 2026 from archive.org by the stream path, one request per second, none refused, kept under tmp/kit-cs-pickett/lib/: autobiographyofe00hunt (Autobiography of Eppa Hunton, cited), pickettsmenfragm00harr (Pickett's Men, Harrison 1870, searched), cu31924092914450 (Confederate Military History vol. 3, Virginia, searched). Library needs: regimental histories of the 15 Virginia regiments; none found by the searches made.

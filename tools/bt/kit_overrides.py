@@ -281,11 +281,19 @@ def c_guns(ctx, out, uid, lines):
         return out.skip(lines, 'no line states the guns present or engaged at the battery level in the battle window')
     path = ['batteries', cid]
     ids = [o['id'] for o in sel]
-    if any(o.get('conflict') for o in sel):
+    conf = [o for o in sel if o.get('conflict')]
+    if conf:
         alts = [{'alt': o['conflict']['alt'], 'guns_printed': '; '.join(p['printed'] for p in o['value']['pieces']), 'pieces': o['value']['pieces'], 'total': o['value'].get('total'), 'as_of': o.get('as_of'),
-                 'source_keys': [o['source_id']], 'tier': o['tier'], 'evidence_ids': [o['id']]} for o in sel]
-        out.set('artillery', path + ['guns_alternatives'], alts, card, ids, 'sources disagree on the guns of this battery: all alternatives kept, the card is unchanged until a decision names a default')
-        return out.skip(sel, 'conflict set on the guns of %s: a delegated decision names the default' % cid)
+                 'source_keys': [o['source_id']], 'tier': o['tier'], 'evidence_ids': [o['id']]} for o in conf]
+        out.set('artillery', path + ['guns_alternatives'], alts, card, [o['id'] for o in conf], 'sources disagree on the guns of this battery: all alternatives kept, the card is unchanged until a decision names a default')
+        out.skip(conf, 'conflict set on the guns of %s: a delegated decision names the default' % cid)
+        plain = [o for o in sel if not o.get('conflict')]
+        # plain lines of a battery with a conflict set: they apply only where they state an earlier date than every contested one (the card's value is the earliest date's)
+        if not plain:
+            return None
+        if min((o.get('as_of') or '')[:10] for o in plain) >= min((o.get('as_of') or '')[:10] for o in conf):
+            return out.skip(plain, 'the guns of %s are contested on the earliest date the record states: a delegated decision names the default before a later date can stand' % cid)
+        sel, ids = plain, [o['id'] for o in plain]
     by_date = collections.OrderedDict()
     for o in sorted(sel, key=lambda x: (x.get('as_of') or '', x['id'])):
         by_date.setdefault(o.get('as_of') or '', []).append(o)

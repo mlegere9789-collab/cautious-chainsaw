@@ -43,12 +43,28 @@ export class Stage {
     this.gunOf = new Int32Array(this.n).fill(-1); world.units.forEach((u, i) => { if (u.gun != null) this.gunOf[i] = u.gun; });
     this.gun0 = Float32Array.from(world.gunF);                        // the guns as built (period, phase, position)
     this.bbox = world.units.map(u => this._bbox(u));
+    this.turnR = this._turnRadii();                                         // the radius of the figure farthest from each unit's origin (what a rigid turn swings): soldiers in either layout, and for a battery its gun pieces and their crews
     this.sold0 = Float32Array.from(world.sold);                        // the slots as built (the first layout): the rewrite restores from here
     this.present = new Uint8Array(this.n); this.act = new Array(this.n).fill(null); this.sig = new Float32Array(this.n); this.cx = new Float32Array(this.n); this.cz = new Float32Array(this.n); this.ch = new Float32Array(this.n);
     this.dirtyUnits = true; this.dirtyGuns = true; this.dirtySlots = false; this.dirtyFalls = false; this.builtTo = -Infinity; this.rejected = [];
     this.animT = undefined; this.rebaseFlag = true; this.unsupported = []; this.detail = []; this.dt = new Array(this.nL).fill(null); this.track = new Array(this.nL).fill(null);
     for (let i = 0; i < this.nL; i++) { const u = world.units[i]; u.r0 = u.radius; }
     this.stats = { units: 0, soldiers: 0, union: 0, confederate: 0, mounted: 0, guns: 0, down: 0 };
+  }
+  _turnRadii() {
+    const W = this.w, s0 = this.sold0 || W.sold, r = new Float64Array(this.nL);
+    for (let i = 0; i < this.nL; i++) {
+      const w = W.units[i]; let m = 0;
+      for (let k = 0; k < w.count; k++) m = Math.max(m, Math.hypot(s0[(w.first + k) * 4], s0[(w.first + k) * 4 + 1]));
+      if (w.alt) for (let k = 0; k < w.count; k++) m = Math.max(m, Math.hypot(w.alt[k * 2], w.alt[k * 2 + 1]));
+      r[i] = m;
+    }
+    W.units.forEach((w, j) => {
+      if (j < this.nL || !w.crew) return; const e = W.extra[j - this.nL]; let c = 0;
+      for (let k = 0; k < w.count; k++) c = Math.max(c, Math.hypot(s0[(w.first + k) * 4], s0[(w.first + k) * 4 + 1]));
+      r[w.parent] = Math.max(r[w.parent], Math.hypot(e.dx, e.dz) + c);
+    });
+    return r;
   }
   _bbox(u) { // local extents of the formation around the unit origin: [minLateral, maxLateral, minDepth, maxDepth] in metres
     const s = this.w.sold; let a = 1e9, b = -1e9, c = 1e9, d = -1e9; if (!u.count) return [-1, 1, -1, 1];
@@ -62,13 +78,13 @@ export class Stage {
   _step(cur, e) {
     if (e.type === 'enter') return { x: e.x, z: e.z, path: null, act: 'stand', head: null, headFrom: null, actT: e.t, t0: e.t, loss: null, fb0: 0, fb1: 0, ft0: e.t, fdur: 1 };
     if (!cur) return cur;                                                  // events for a unit that is not on the field do nothing
-    if (e.type === 'path') return { ...cur, path: e.path, pathPrev: cur.path };
+    if (e.type === 'path') return { ...cur, path: e.path };
     if (e.type === 'activity') {
       if (cur.head == null) return { ...cur, act: e.activity, head: e.head ?? 0, headFrom: e.head ?? 0, actT: e.t, turnS: TURN_S };
-      const from = this._heading(cur, e.t), to = e.head ?? cur.head, bb = this.bbox[this.index.get(e.unit)] || [-1, 1, -1, 1], ext = Math.max(Math.abs(bb[0]), Math.abs(bb[1]), Math.abs(bb[2]), Math.abs(bb[3]));
+      const from = this._heading(cur, e.t), to = e.head ?? cur.head, ui = this.index.get(e.unit), bb = this.bbox[ui] || [-1, 1, -1, 1], ext = Math.max(this.turnR[ui] || 0, Math.hypot(Math.max(Math.abs(bb[0]), Math.abs(bb[1])), Math.max(Math.abs(bb[2]), Math.abs(bb[3]))) - 1.5);
       const dA = Math.abs(((to - from + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI);
       // a block turns as a rigid body: its outer edge, which also moves with the unit, may not move faster than MAX_TURN_EDGE_MS at the peak of the smoothstep turn (1.5 x the mean rate): sqrt(v^2 + (1.5 dA r / T)^2) <= MAX
-      const v = Math.max(pathSpeedAt(cur.path, e.t), pathSpeedAt(cur.pathPrev, e.t)), room = Math.sqrt(Math.max(MAX_TURN_EDGE_MS * MAX_TURN_EDGE_MS - v * v, 1e-4));
+      const v = Math.max(e.vHint || 0, pathSpeedAt(cur.path, e.t)), room = Math.sqrt(Math.max(MAX_TURN_EDGE_MS * MAX_TURN_EDGE_MS - v * v, 1e-4));
       return { ...cur, headFrom: from, act: e.activity, head: to, actT: e.t, turnS: Math.min(900, Math.max(TURN_S, 1.5 * dA * ext / room)) };
     }
     if (e.type === 'state') return { ...cur, loss: e.loss };
@@ -91,11 +107,14 @@ export class Stage {
     const cache = new EventCache({ init: () => ({ u: new Array(nL).fill(null) }), reducer, snapshotEvery: 1800, seed: SEED, scenario: scenario?.id || 'pdf-recommended', presence });
     this.track = new Array(nL).fill(null); this.unsupported = [];
     const falls = new Map(), lossEv = new Map();
+    // the legs of every unit (seconds, metres), so that a heading change dated at the very start of a leg (the unit turns as it steps off) knows the speed of that leg: events of one instant are applied in the order given, the turn before the path
+    const legsBy = new Map();
+    for (const e of events) if (e.type === 'path' && e.wp.length > 1) { let v = 0, prev = null; for (const w of e.wp) { const [x, z] = geo.xz(w.lng, w.lat); if (prev && w.t > prev.t) v = Math.max(v, Math.hypot(x - prev.x, z - prev.z) / ((w.t - prev.t) * 60)); prev = { x, z, t: w.t }; } if (!legsBy.has(e.unit)) legsBy.set(e.unit, []); legsBy.get(e.unit).push({ t0: e.wp[0].t * 60, t1: e.wp[e.wp.length - 1].t * 60, v }); }
     for (const e of events) {
       const i = this.index.get(e.unit), ev = { t: e.t * 60, unit: e.unit, type: e.type };
       if (e.type === 'enter') { const [x, z] = geo.xz(e.at.lng, e.at.lat); ev.x = x; ev.z = z; }
       if (e.type === 'path') { ev.path = { t: e.wp.map(w => w.t * 60), x: [], z: [], s: e.wp.map(w => w.sigma_m) }; for (const w of e.wp) { const [x, z] = geo.xz(w.lng, w.lat); ev.path.x.push(x); ev.path.z.push(z); } }
-      if (e.type === 'activity') { ev.activity = e.activity; if (e.heading_deg != null) ev.head = bearingToH(e.heading_deg); }
+      if (e.type === 'activity') { ev.activity = e.activity; if (e.heading_deg != null) ev.head = bearingToH(e.heading_deg); const lg = (legsBy.get(e.unit) || []).filter(l => ev.t >= l.t0 - 1e-6 && ev.t <= l.t1 + 1e-6); if (lg.length) ev.vHint = Math.max(...lg.map(l => l.v)); }
       if (e.type === 'formation') {
         const w = W.units[i], target = w && w.alt ? (e.formation === w.altFormation ? 1 : e.formation === w.baseFormation ? 0 : null) : null;
         if (target == null) { this.unsupported.push({ unit: e.unit, formation: e.formation, t: e.t, reason: w && w.alt ? `the unit has the layouts ${w.baseFormation} and ${w.altFormation} only` : 'the renderer has one slot layout for this unit (no second layout was built: the unit has no printed change of formation, or it is mounted)' }); continue; }
