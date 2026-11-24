@@ -19,8 +19,8 @@ Rule that follows: every finished kit-evidence group raises PASS by itself. Afte
 Known defect: q20_cavalry.py crashes with `duplicate item id Q20/Q20.1/CS.CAV.11VA/default` because 31 kit ids are shared by more than one table unit (CS.KERSHAW by 6); the stored Q20.json is stale (Nov 16). Fix is a bounded task (queue 2b). Q14 stays blocked until artillery kit evidence lands (131 batteries unverified).
 
 Banned: see plan section 2. No fleet wider than the governor, no re-verification of closed work, no model polling, no task without `moves:`.
-Scheduled routines are denied for this session (ACCESS_DENIED since the PC approval card of Nov 16); wake sources are workflow-completion
-notices, the watchdog and the owner's messages.
+Scheduled routines are denied for this session (ACCESS_DENIED since the PC approval card of Nov 16) and fresh-session routines cannot message it (tested 04:41, 05:25); wake sources are workflow/agent completion notices, the watchdog and the owner's messages.
+Restart-proof signal = absence: push a digest to the owner (PushNotification: scoreboard gains, spend, next) every 6 hours and at each daily line; no digest for about 8 hours means the lane is dead.
 
 Open owner items: approve the pending PowerShell request in the MSI probe session (session_01YP4o7Ri5VkRJD1AtuhsG2G) for PC work;
 the allowance (the weekly window is not unlimited); main site versus Battle Theatre priority.
