@@ -43,10 +43,10 @@
   "label": "About 07:00: the head of McLaws's division on the ridge; the whole division up by 08:00 to 08:30",
   "animation": {
    "at": "1863-07-02T07:00",
-   "rule": "earliest_documented",
-   "note": "07:00 is the earliest hour a writer of the day gives for the division on the ground (Fremantle's diary) and the middle of the range 06:00 to 08:00; it is the instant by which the head stands on the ridge. The march began about sunrise, 04:35 (Kershaw's report), from a bivouac 2 to 4 miles out, so the column is drawn marching in before 07:00 and the whole division closed up by about 08:00 to 08:30 (P1, P2); Freeman's computed 06:00 for the head stays selectable and is not the floor"
+   "rule": "best_supported",
+   "note": "07:00 is the best-supported instant by which the head stands on the ridge: Fremantle's diary has Longstreet placing the division at 7 a.m. That is an upper bound reached by inference, not a documented arrival, so it is not offered as the earliest documented time. The march began about sunrise, 04:35 (Kershaw's report), from a bivouac 2 to 4 miles out, so the column is drawn marching in before 07:00; Freeman's computed 06:00 for the head stays selectable. Whether any floor moves is for the owner to decide"
   },
-  "note": "The head of the division is shown on the ridge at 07:00 at the latest; the plan's 08:00 and 08:30 are the times the whole division was up. Kershaw's brigade led the column; McLaws and Lee met on the ridge and the division then lay behind it until the march to the right (Kershaw: 'until about noon'; the hour of Lee's order is C-008's)."
+  "note": "The head of the division is shown on the ridge at 07:00 at the latest; the plan's 08:00 and 08:30 are read as the times the whole division was up. Kershaw's brigade led the column; McLaws and Lee met on the ridge and the division then lay behind it until the march to the right (Kershaw: 'until about noon'; the hour of Lee's order is C-008's)."
  },
  "positions": [
   {
@@ -175,17 +175,17 @@
    "stance": "selectable",
    "reason_not_chosen": {
     "kind": "place_of_observation",
-    "text": "08:00 is when the whole division was closed up behind the ridge (Longstreet 1875, the Meade narrative, Freeman), not when its head came; a diary of the day has the division placed by 7 a.m."
+    "text": "08:00 is read as the hour the division was all up (Longstreet 1875, Meade narrative, Freeman), not its head's arrival; Freeman calls Longstreet's 8 a.m. an error. A diary has the division placed by 7."
    },
    "inference": {
-    "step": "Longstreet wrote in 1875 that his two divisions did not reach Lee until 8 a.m.; the Meade narrative has them halting 'about eight o'clock' behind the seminary; Freeman puts the second division in position 'by 8 or 8:30'. Read together they date the closing up of McLaws's division, not the first arrival of its head: Longstreet's 8 a.m. is wrong for himself (the diary has him with Lee at 5), McLaws says the head came before 8, and Freeman says the column 'does not seem to have been well closed'.",
+    "step": "Longstreet wrote in 1875 that his two divisions did not reach Lee until 8 a.m.; the Meade narrative has them halting 'about eight o'clock' behind the seminary; Freeman puts the second division in position 'by 8 or 8:30'. Read together they are best taken as the time the division was all up, not the first arrival of its head, though only Freeman says so (the column 'does not seem to have been well closed'); Freeman calls Longstreet's 8 a.m. an error (the diary has him with Lee at 5), and McLaws says the head came before 8.",
     "from": [
      "C-007-P1-c1",
      "C-007-P1-c2",
      "C-007-P1-c3"
     ]
    },
-   "note": "The plan's recommended default. No source dates the first arrival at 08:00; the three that give 8 o'clock all date the end of the arrival."
+   "note": "The plan's recommended default. No source dates the first arrival at 08:00; the three that give 8 o'clock are read here as the end of the arrival, a reading only Freeman supports."
   },
   {
    "id": "C-007-P2",
@@ -995,20 +995,20 @@
   }
  ],
  "weighing": {
-  "summary": "The sources agree on an early head and differ by what they measure. A diary of the day has Longstreet placing McLaws's division at 7 a.m.; Kershaw's report has the leading brigade leaving camp about sunrise and reaching the hill overlooking Gettysburg; McLaws says the head of his division reached Seminary Ridge before 8; Freeman estimates the head by 6 and the whole division in position by 8 to 8:30. The plan's 08:00 and 08:30 are Freeman's closing-up estimate and Longstreet's memory of 8 a.m. (1875), not the first arrival; sunrise is a later memory contradicted by Kershaw's report. Nobody gives a clock for the first arrival, so the default is an inference from the diary and the bounds.",
+  "summary": "The sources agree on an early head and differ by what they measure. A diary of the day has Longstreet placing McLaws's division at 7 a.m.; Kershaw's report has the leading brigade leaving camp about sunrise and reaching the hill overlooking Gettysburg; McLaws says the head of his division reached Seminary Ridge before 8; Freeman estimates the head by 6 and the whole division in position by 8 to 8:30. The plan's 08:00 and 08:30 are best read as the whole division up (Freeman's estimate; Longstreet's 8 a.m. of 1875 is called an error by Freeman), not the first arrival; sunrise is a later memory contradicted by Kershaw's report. Nobody gives a clock for the first arrival, so the default is an inference from the diary and the bounds.",
   "who": "Fremantle (a British officer riding with Longstreet) and Kershaw (leading brigade) wrote what they saw or did. McLaws and Longstreet were present but wrote years later (McLaws's address 1879 and an undated statement printed by Taylor in 1906; Longstreet 1875 and 1896); Hood wrote in 1875. Alexander (1907), Dickert (1899), the Meade family narrative (1913) and Freeman (1935, computed) are later accounts by writers who were behind the column, in camp, or not there.",
   "when": "Fremantle's entry is of 2 July 1863 (rank 5); Kershaw's report is dated 1 October 1863, 91 days after the event (rank 4). McLaws 1879 and the undated statement, Hood 1875, Longstreet 1875 and 1896, Alexander 1907 and Dickert 1899 are reminiscence (rank 2); the Meade narrative (1913) and Freeman (1935) are later history (rank 1). The two writings of the time outrank the rest, and the rest does not contradict them except Hood's and Longstreet's sunrise.",
   "where": "Fremantle rode over the ground with Longstreet at 7 a.m. and saw the division placed; Kershaw marched at the head of the division; McLaws rode at the head of his column and reported to Lee on the ridge, and Freeman notes that Hood and McLaws 'rode ahead of their troops', so their hours may date their own arrival; Alexander was with the reserve artillery, which reached the field about 9 a.m.; Dickert was in the brigade, in camp; the Meade narrative and Freeman were not there.",
   "how_knew": "Fremantle: eyewitness, a diary kept day by day (preface); he gives the hour and what he saw, not whether the division stood on the ridge. Kershaw: his own command; an hour for the start ('about sunrise') and none for the arrival. McLaws: eyewitness; 'early in the morning' (1879) and 'before 8 a.m.' (undated). Hood and Longstreet: memory, and Longstreet's accounts disagree (8 a.m. in 1875, sunrise in 1896; the diary has him with Lee at 5). Freeman computes from a sunrise start and a road 'little obstructed'. Alexander and the Meade narrative do not say how they knew. No writer gives a clock for the first arrival.",
   "clock": "Kershaw, McLaws, Hood, Longstreet, Alexander and Dickert wrote on the Confederate clock; Fremantle's watch is not named; Freeman and the Meade narrative state none. The difference of about 20 minutes between the armies' clocks is not applied: it is small beside the hour or more between the default and the plan's 08:00. Sunrise on 2 July is about 04:35 local mean time (the plan; Freeman gives 4:32).",
   "independence": "Groups: fremantle; kershaw (his report and his article of 1888); mclaws (his address and the statement in Taylor are one witness); freeman; alexander; longstreet-letter-1875; longstreet-1896; longstreet-report-1863; hood-letter-1875 (Longstreet printed it in 1877 and 1896, so his sunrise may rest on it); meade-1913; dickert-1899. The default rests on a diary of the day for its hour and on Kershaw, McLaws, Freeman and Alexander for the bounds; the hour 07:00 itself is stated once.",
-  "overrides": "No rejected value rests on a better class of writing than the default. Read and left aside as other events: Dickert's 'the sun had long since shot its rays' (the brigade roused in camp, which Kershaw's report of 1863 contradicts); Wilcox's report of 17 July 1863 (OR 27/2 p. 617: his brigade in line at 9 a.m. as the right of the army, and McLaws's division forming line at right angles to his own at about 2 p.m., the afternoon formation); Alexander's 9 a.m. (the artillery's arrival); Colonel Johnston's joining the head of the corps about 9 a.m., which a reply to Longstreet in the Southern Historical Society Papers vol. 5 (p. 183) states on his authority (his guiding of the march to the right, not an arrival); the night halt (Longstreet's 'a little after dark' against Kershaw's and McLaws's midnight), which rows T2-037 and T2-038 carry."
+  "overrides": "No rejected value rests on a better class of writing than the default. Read and left aside as other events: Dickert's 'the sun had long since shot its rays' (the brigade roused in camp, which Kershaw's report of 1863 contradicts); Wilcox's report of 17 July 1863 (OR 27/2 p. 617: his brigade in line at 9 a.m. as the right of the army, and McLaws's division forming line at right angles to his own at about 2 p.m., the afternoon formation); Alexander's 9 a.m. and the 7 a.m. Freeman reports for his artillery one mile west of the ridge (the artillery's arrival, not the infantry's; unfound in Alexander's own texts); Colonel Johnston's joining the head of the corps about 9 a.m., which a reply to Longstreet in the Southern Historical Society Papers vol. 5 (p. 183) states on his authority (his guiding of the march to the right, not an arrival); the night halt (Longstreet's 'a little after dark' against Kershaw's and McLaws's midnight), which rows T2-037 and T2-038 carry."
  },
- "source_panel_text": "About 07:00: a British officer's diary of the day has Longstreet placing McLaws's division at 7 a.m., and McLaws says his head reached the ridge before 8. The plan's 08:00 and 08:30 date the whole division closing up; a sunrise memory is contradicted by Kershaw's report. No witness gives an hour for the first arrival. Six other values stay listed.",
+ "source_panel_text": "About 07:00: a British officer's diary of the day has Longstreet placing McLaws's division at 7 a.m., and McLaws says his head reached the ridge before 8. The plan's 08:00 and 08:30 read as the whole division up (Freeman); a sunrise memory is contradicted by Kershaw's report. No witness gives an hour for the first arrival. Six other values stay listed.",
  "holds": {
   "pdf_default": {
    "holds": "partly",
-   "note": "08:00 is when the whole division was closed up (Longstreet 1875, the Meade narrative, Freeman's 8 to 8:30), so it holds as the end of the arrival; it does not hold as the first arrival, which McLaws puts before 8 and a diary of the day puts at or before 7. It stays selectable."
+   "note": "08:00 is when the whole division was closed up (Longstreet 1875, the Meade narrative, Freeman's 8 to 8:30), so, read as the end of the arrival (Freeman's reading of his own 8 to 8:30; he calls Longstreet's 8 a.m. an error), it may hold; it does not hold as the first arrival, which McLaws puts before 8 and a diary of the day puts at or before 7. It stays selectable."
   },
   "first_delegated": {
    "holds": "no",
@@ -1020,7 +1020,7 @@
    "kind": "arrivals_row",
    "ref": "cs-1c-mclaws",
    "must_change": true,
-   "note": "gate default 08:00 becomes 07:00; gate earliest 08:00 becomes 07:00 where the window means the head's presence on the field (the earliest hour a writer of the day gives), or, where it means the column's entry onto the loaded ground, opens with the documented start of the march, about sunrise 04:35 (Kershaw), the head standing on the ridge by 07:00: the integration step records which meaning the gate uses; gate latest 08:30 stays; 08:00 and 08:30 stay selectable as the closing up; Freeman's computed 06:00, 'before 08:00' and the sunrise memory become selectable scenarios and are not the floor (a floor moves only to an earlier time the record documents); default_basis 'C-007 recommended default 08:00' has to carry the new default"
+   "note": "gate default 08:00 becomes 07:00; gate earliest is not changed by the researcher: 07:00 is an inferred upper bound, not a documented arrival, and a floor moves only to an earlier time the record documents, so the owner decides (the documented facts are the start of the march about sunrise 04:35, Kershaw, and the division being placed at 7, Fremantle); gate latest 08:30 stays; 08:00 and 08:30 stay selectable as the closing up; Freeman's computed 06:00, 'before 08:00' and the sunrise memory become selectable scenarios and are not the floor (a floor moves only to an earlier time the record documents); default_basis 'C-007 recommended default 08:00' has to carry the new default"
   },
   {
    "kind": "arrivals_row",
@@ -1032,7 +1032,7 @@
    "kind": "gate",
    "ref": "Q04",
    "must_change": true,
-   "note": "named case \"Longstreet's divisions (McLaws, Hood)\" reads cs-1c-mclaws: the unit's absolute floor and default instant move from 08:00 to 07:00, with the caveat of the arrivals row (the march that brings the column to the ridge began about 04:35, so a floor at 07:00 forbids drawing a march that Kershaw's report documents from sunrise); to be reconciled in the open with a diary of the day and Kershaw's report as the evidence, no gate is lowered; 08:00, 08:30 and the earlier values stay selectable scenarios"
+   "note": "named case \"Longstreet's divisions (McLaws, Hood)\" reads cs-1c-mclaws: the default instant may move from 08:00 to 07:00 (best_supported); the floor is the owner's decision, because a floor at 07:00 would forbid drawing the march that Kershaw's report documents from sunrise and 07:00 is inferred; no gate is lowered or skipped; 08:00, 08:30 and the earlier values stay selectable scenarios"
   },
   {
    "kind": "gate",
@@ -1095,6 +1095,24 @@
    "note": "the claim is Wilcox's 'about 2 p. m.' (OR 27/2 p. 617: McLaws's division forming line at right angles to his own): an afternoon formation, a different event from the morning arrival on the ridge; the tag names the wrong conflict and no value of C-007 comes from it"
   },
   {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0256.md and register/proposed/tl-06/tl-06-EG-001.md (\"McLaws on the ridge\", open gap, plausible-procedural)",
+   "must_change": true,
+   "note": "the register entry must follow the resolution: inferred, not a gap"
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/or27_claims.py line 317 (claim check h, pdf C-005, C-006, C-007)",
+   "must_change": false,
+   "note": "informational: a topic grouping that holds no value"
+  },
+  {
+   "kind": "test",
+   "ref": "docs/battle-theatre/app/tests/results/sw-round-1/pre/arrival-constants.log (linkedConflicts of the arrival constants include C-007)",
+   "must_change": false,
+   "note": "follows the arrivals row when the integration step changes it"
+  },
+  {
    "kind": "doc",
    "ref": "GATE-SPEC.md, GATE-SPEC-A.md and decision_log.md",
    "must_change": true,
@@ -1148,6 +1166,12 @@
    "where": "archive.org page images of the American edition of Fremantle (item threemonthsinsou00frem)",
    "query": "the single page image n281 through the BookReader path: the image host ia801600.us.archive.org refused the connection with 403; the same scan was then read as a PDF through the archive.org cors path and page 257 (PDF page 265) looked at: it reads 'At 7 A. M.'",
    "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "ALEXANDER-1907, BL-3, OR27-2-R464 and all local non-lead texts",
+   "query": "Alexander's statement, reported by Freeman (appendix III-2), that his artillery reached a point one mile west of Seminary Ridge about 7 a.m.: one mile west|7 a. m.|seven o'clock near Alexander and Seminary Ridge; the sentence was not found in any local text (only Freeman reports it, his footnote names no page here)",
+   "outcome": "not_found",
    "at": "2026-11-24"
   },
   {
