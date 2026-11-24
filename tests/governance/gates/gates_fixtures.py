@@ -276,4 +276,14 @@ def q20_inputs():
     return {'kit': kit, 'horses': {}, 'weapons': {}, 'table': table, 'actions': None, 'plan': plan}
 
 
+def q20_actions(**kw):
+    """A machine action table (schema bt-cavalry-action-table/1) with one on-field row that names the 6th PA through its brigade prefix, July 3 13:00-17:00 (46860..47100), and one off-field row."""
+    row = {'id': 'CAV-AT-T1', 'plan_ref': 'B.6.15.3', 'page': 87, 'pages': [87], 'date_text': 'July 3, about 1-5 p.m.', 'kind': 'action', 'compare': True, 'start_earliest': 46860, 'start_latest': 47100, 'end_earliest': 47100, 'end_latest': 47100,
+           'units': ['us-cav-1d-merritt'], 'persons': [], 'tier': 'seeded_unverified'}
+    row.update(kw)
+    off = {'id': 'CAV-AT-T2', 'plan_ref': 'B.6.15.3', 'page': 87, 'pages': [87], 'date_text': 'July 3', 'kind': 'action', 'compare': False, 'start_earliest': 46080, 'start_latest': 47520, 'end_earliest': 47520, 'end_latest': 47520,
+           'units': ['cs-cav-imboden'], 'persons': [], 'tier': 'seeded_unverified'}
+    return {'schema': 'bt-cavalry-action-table/1', 'rows': [row, off]}
+
+
 GAIT_OK = {'status': 'ran', 'exit': 0, 'tests': 14, 'pass': 14, 'fail': 0, 'cancelled': 0, 'skipped': 0, 'todo': 0, 'not_run_marker': False}

@@ -34,3 +34,14 @@ T3-046, T3-048, T3-051, T3-063, T3-065, T3-067, T3-071, T3-072, T3-082, T3-087, 
 - Raw OR OCR must be present in tmp/library/or27 to re-run or27_find.py verification for the own_checks.
 
 Nothing committed; no shared file edited.
+
+
+## Close-out 2026-11-24 (merged through tools/bt/merge_timeline_verification.py)
+
+Rows 57; verdicts {'gap': 15, 'partially_supported': 39, 'confirmed': 3}; scenarios carried on 18 rows (no default anywhere, Law cl.6). Promoted to verified (verdict confirmed, every sub-claim documented and supported, quotes cut verbatim from tmp/library/or27 and re-matched at their stored offsets, digits read on the page image of the scan PDF): T3-056, T3-080, T3-096. Every other row stays seeded_unverified with its gaps visible in the `verification` block of timeline_seed.jsonl.
+
+Quote check. 60 quoted strings in supporting_passage: 42 matched verbatim, 11 only after ignoring case, punctuation and spacing (OCR spacing, ellipses), 7 not matched (T3-049 two non-quote strings, T3-066 a condensed quote whose text reads "ordered a column of attack to be formed of Pickett's, Heth's, and part of Pender's divisions", T3-074 and T3-093 OCR differences ("gtms", "Ahout"), T3-101 a fragment "some 50 or 60 yards behind and to the right" and a non-quote string).
+
+What was read: the shard notes, quotes and offsets against the local Official Records text (the 2026-11-04 audit had only compared them with its own library audit file because the OCR was absent); for each promoted row every element of the seed claim against the quoted text, and the digits (hours, ranges, yards) on the scan page image (tmp/kit-plan/or27-pdf, PDF page = leaf + 1; viewed 2026-11-24; the OCR errors found there are noted on the citations: Ritten-/Bitten-, Round/Eound, dayliglit). Rows with a conflict carry the values as scenarios taken from the shard notes; rows corrected: none; rows unsupported: none.
+
+Not done (said, not hidden): the page images were not read for rows that were not promoted; the shard paraphrases of tl-09 and tl-11 are not re-read passage by passage; no web page was fetched in this close-out (archive.org and loc.gov page requests are not repeated); register entries tl-10-CO-<id>.md in proposed-register/ are new for rows that had none (not yet integrated into register/). Builder and data: closeout/ of horde/tl-09 (build.py, spec.py, register_md.py, crop.py) rebuilds all four files; `python3 -I horde/tl-09/closeout/build.py --check-only`.

@@ -156,6 +156,9 @@ a:hover { color: #fff; }
 .conflict h3 { margin: 0 0 6px; letter-spacing: .06em; text-transform: none; font: 600 13.5px/1.3 var(--sans); color: var(--text); }
 .conflict .id { color: var(--gold); font: 600 11px/1 var(--mono); margin-right: 8px; }
 .conflict select { width: 100%; height: 38px; margin-top: 8px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line-2); background: #181826; color: var(--text); font: inherit; font-size: 13px; }
+.conflict .sel-full { margin: 6px 0 0; font-size: 12.5px; line-height: 1.4; color: var(--text-2); overflow-wrap: anywhere; }
+.conflict .cls-chip { display: inline-block; margin-right: 6px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--gold); color: var(--gold-2); font: 600 11px/1.3 var(--sans); letter-spacing: .04em; text-transform: uppercase; vertical-align: 1px; }
+.conflict .cls-chip[data-kind="gap"] { border-style: dashed; border-color: #d98a8a; color: #f0b4b4; }
 .conflict .printed { font-size: 12px; color: var(--muted); line-height: 1.45; }
 .conflict .printed b { color: var(--text-2); font-weight: 600; }
 .conflict[data-changed="true"] { background: linear-gradient(90deg, rgba(201, 162, 75, .08), transparent); margin: 0 -20px; padding-left: 20px; padding-right: 20px; }

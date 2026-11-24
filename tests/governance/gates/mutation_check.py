@@ -55,6 +55,8 @@ MUT = [
  ('q20_cavalry.py', 'test_q20', "elif gait.get('skipped') or gait.get('cancelled')", "elif False and gait.get('cancelled')", 'Q20.6 skipped gait test passes'),
  ('q20_cavalry.py', 'test_q20', "cond('every state of B.6.15.7 is in the kit list', not miss_kit", "cond('every state of B.6.15.7 is in the kit list', True", 'Q20.6 kit states ignored'),
  ('q20_cavalry.py', 'test_q20', "        elif K.get('actions') is None:\n            mk('Q20.2', uid, 'default', 'BLOCKED-INPUT'", "        elif K.get('actions') is None:\n            mk('Q20.2', uid, 'default', 'PASS'", 'Q20.2 without action table passes'),
+ ('q20_cavalry.py', 'test_q20', "arr.get('default') is not None and arr['default'] <= first['start_latest']", "True", 'Q20.2 late arrival ignored'),
+ ('q20_cavalry.py', 'test_q20', "arr.get('earliest') is not None and arr['earliest'] >= r['start_earliest']", "True", 'Q20.2 early arrival ignored'),
  ('q20_cavalry.py', 'test_q20', "if kid not in seen_cards:", "if False:", 'Q20.1 unmatched card ignored'),
 ]
 only = sys.argv[1] if len(sys.argv) > 1 else None

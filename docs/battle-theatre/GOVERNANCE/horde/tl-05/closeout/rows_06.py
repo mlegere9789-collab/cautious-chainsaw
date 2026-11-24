@@ -336,15 +336,15 @@ ROW('T2-108', 'partially_supported',
 
 ROW('T2-109', 'partially_supported',
     'Berdan "reported about 2 o\'clock to Major-General Birney the result of our operations"; the place "Cemetery Ridge" is not OR wording (his men return to the Emmitsburg road line).',
-    [SUB('Berdan reported about 2 o\'clock to Major-General Birney the result of the operations', D, S_, ['be_2']),
+    [SUB('Berdan reported about 2 o\'clock to Major-General Birney (OCR: Bimey) the result of the operations and discoveries', D, S_, ['be_2'], 'OCR reads Bimey for Birney'),
      SUB('The place is Cemetery Ridge', I, C_, [], 'not OR wording')],
-    {'be_2': ('OR27-1-R149', 'reported about 2 o\'clock to Major-General Birney')})
+    {'be_2': ('OR27-1-R149', 'reported about 2 o\'clock to Major-General Bimey the result of our operations and discoveries')})
 
 ROW('T2-110', 'partially_supported',
     'Kershaw: "about 4 o\'clock, when I received orders to advance, I moved at once"; Maffett: "at 4 o\'clock our regiment ... was ordered forward"; Aiken\'s later recollection of a forward order by about 14:00 contradicts both; no OR passage gives the cannonade from about noon.',
     [SUB('Kershaw: about 4 o\'clock he received orders to advance and moved at once', D, S_, ['k_4']),
      SUB('Aiken (7th South Carolina) recalls a forward order by about 14:00 and cannonading from about noon', I, C_, [], 'NPS9 essay quoting a recollection; not a local text')],
-    {'k_4': ('OR27-2-R432', 'about 4 o\'clock, when I received orders to advance, I moved at once')},
+    {'k_4': ('OR27-2-R432', 'about 4 o\'clock, when "I received orders to advance, I moved at once in this direction')},
     scenarios=[SCN('A', 'Forward order by about 14:00', 'seed (NPS9, later recollection)', I), SCN('B', 'Orders to advance about 16:00', 'Kershaw OR27-2-R432 p.368', D, ['k_4'])])
 
 ROW('T2-111', 'partially_supported',

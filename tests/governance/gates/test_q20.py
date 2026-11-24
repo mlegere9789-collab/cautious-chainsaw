@@ -126,11 +126,84 @@ class Times(unittest.TestCase):                 # Q20.2
             D['units'][1]['drawn'] = True
         self.assertEqual(one(run(mutate_d=draw), 'Q20.2', 'cs-cav-imboden')['result'], 'FAIL')
 
-    def test_without_a_machine_action_table_a_drawn_unit_is_blocked_and_with_one_it_is_not_run_not_passed(self):
+    def test_without_a_machine_action_table_a_drawn_unit_is_blocked(self):
         self.assertEqual(one(run(), 'Q20.2', U1)['result'], 'BLOCKED-INPUT')
+
+    def test_a_table_of_another_schema_is_not_read_and_the_unit_is_not_run_not_passed(self):
         r = one(run(mutate_k=lambda K: K.update(actions={'schema': 'x', 'units': {}})), 'Q20.2', U1)
         self.assertEqual(r['result'], 'NOT-RUN')
         self.assertFalse(r['pass'])
+
+    def test_a_unit_that_is_on_the_field_when_its_documented_action_begins_passes(self):
+        r = one(run(mutate_k=lambda K: K.update(actions=F.q20_actions())), 'Q20.2', U1)
+        self.assertEqual(r['result'], 'PASS', r['reason'])
+        self.assertIn('CAV-AT-T1', json.dumps(r['evidence']))
+
+    def test_a_unit_that_arrives_after_the_latest_start_of_its_documented_action_fails(self):
+        r = one(run(mutate_k=lambda K: K.update(actions=F.q20_actions(start_latest=46000, start_earliest=45900))), 'Q20.2', U1)
+        self.assertEqual(r['result'], 'FAIL')
+        self.assertIn('not on the field', r['reason'])
+
+    def test_a_unit_that_is_drawn_before_a_documented_arrival_fails(self):
+        r = one(run(mutate_k=lambda K: K.update(actions=F.q20_actions(kind='arrival', start_earliest=47000, start_latest=47100))), 'Q20.2', U1)
+        self.assertEqual(r['result'], 'FAIL')
+        self.assertIn('before its documented arrival', r['reason'])
+
+    def test_a_row_that_does_not_compare_is_never_used_and_a_unit_with_no_comparing_row_is_not_run(self):
+        r = one(run(mutate_k=lambda K: K.update(actions=F.q20_actions(compare=False))), 'Q20.2', U1)
+        self.assertEqual(r['result'], 'NOT-RUN')
+        self.assertIn('no row', r['reason'])
+
+    def test_a_row_without_a_page_citation_makes_the_table_unreadable(self):
+        def mod(K):
+            K['actions'] = F.q20_actions()
+            del K['actions']['rows'][0]['page']
+        r = one(run(mutate_k=mod), 'Q20.2', U1)
+        self.assertEqual(r['result'], 'BLOCKED-INPUT')
+        self.assertIn('page', r['reason'])
+
+    def test_a_unit_id_in_a_row_matches_by_prefix_only_at_a_hyphen(self):
+        r = one(run(mutate_k=lambda K: K.update(actions=F.q20_actions(units=['us-cav-1d-merr']))), 'Q20.2', U1)
+        self.assertEqual(r['result'], 'NOT-RUN')
+
+    def test_the_whole_clean_fixture_with_a_table_has_no_blocked_item_and_a_pass_verdict_is_possible(self):
+        out = run(mutate_k=lambda K: K.update(actions=F.q20_actions()))
+        bad = [(i['id'], i['result']) for i in out['items'] if i['result'] not in ('PASS', 'N/A')]
+        self.assertEqual(bad, [], bad)
+
+
+class ActionTableFile(unittest.TestCase):
+    """The real kit/cavalry_action_table.json built from plan B.6.15.3: every row has its page citation, its plan anchor is in the plan text, its units exist in the verified OOB."""
+    @classmethod
+    def setUpClass(cls):
+        root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+        cls.bt = os.path.join(root, 'docs', 'battle-theatre')
+        cls.fn = os.path.join(cls.bt, 'kit', 'cavalry_action_table.json')
+
+    def test_the_file_exists_and_every_row_cites_a_page_of_the_plan_and_keeps_its_anchor(self):
+        self.assertTrue(os.path.isfile(self.fn), self.fn)
+        t = json.load(open(self.fn, encoding='utf-8'))
+        self.assertEqual(t['schema'], 'bt-cavalry-action-table/1')
+        plan = open(os.path.join(self.bt, 'BIBLE', 'plan-clean.txt'), encoding='utf-8').read().replace('\u2019', "'")
+        self.assertEqual(len(t['rows']), 19)
+        for r in t['rows']:
+            self.assertIn(r['page'], (86, 87), r['id'])
+            self.assertTrue(r['pages'] and r['plan_ref'] == 'B.6.15.3', r['id'])
+            self.assertIn(r['anchor'], plan, r['id'])
+            self.assertEqual(r['tier'], 'seeded_unverified', r['id'])
+
+    def test_every_unit_id_is_a_unit_of_the_verified_oob_or_a_prefix_of_some(self):
+        t = json.load(open(self.fn, encoding='utf-8'))
+        oob = json.load(open(os.path.join(self.bt, 'kit', 'verified_oob.json'), encoding='utf-8'))['units']
+        for r in t['rows']:
+            for u in r['units']:
+                self.assertTrue(u in oob or any(k.startswith(u + '-') for k in oob), (r['id'], u))
+
+    def test_the_file_is_what_the_builder_makes_from_the_plan(self):
+        import subprocess
+        import sys
+        root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+        self.assertEqual(subprocess.run([sys.executable, os.path.join(root, 'tools', 'bt', 'build_cavalry_action_table.py'), '--check']).returncode, 0)
 
 
 class Manifest(unittest.TestCase):              # Q20.3

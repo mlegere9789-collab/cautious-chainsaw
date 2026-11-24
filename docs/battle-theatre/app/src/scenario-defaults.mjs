@@ -54,3 +54,6 @@ export const scenarioIsDefault = (sc, conflicts) => scenarioKind(sc, conflicts).
 export function setChoice(sc, conflicts, c, key) { sc.choices = sc.choices || {}; if (!c.delegated && key === PDF_KEY) delete sc.choices[c.id]; else sc.choices[c.id] = key; sc.id = scenarioId(scenarioKind(sc, conflicts).kind); return sc; }
 export function resetToDelegated(sc, conflicts) { sc.choices = defaultChoices(conflicts); sc.id = 'delegated-defaults'; return sc; }
 export function switchToPdf(sc, conflicts) { sc.choices = pdfChoices(conflicts); sc.id = 'pdf-recommended'; return sc; }
+// the visible marker of a window, a range, an unresolved set or a gap (null for a settled or weighted single value); and the whole label of the chosen value (a closed select clips it)
+export function classChip(d) { const word = d.cls === 'gap' ? 'Gap' : d.mode === 'window' ? 'Window' : d.mode === 'range' ? 'Range' : d.mode === 'unresolved_set' ? 'Unresolved set' : ''; return word ? { word, kind: d.cls === 'gap' ? 'gap' : d.mode } : null; }
+export function selectedLabel(c, key) { const o = c.options.find(x => x.key === key); return o ? optionLabel(c, o) : ''; }

@@ -1,4 +1,4 @@
-"""Merge the verified timeline shards (tl-01..tl-04 close-out corrections) into GOVERNANCE/timeline_seed.jsonl.
+"""Merge the verified timeline shards (tl-01..tl-04 and tl-09..tl-12 close-out corrections) into GOVERNANCE/timeline_seed.jsonl.
 
 Input : GOVERNANCE/timeline_corrections/tl-0N.jsonl (one line per seed row, written by the shard close-outs)
 Output: GOVERNANCE/timeline_seed.jsonl (same 691 rows, same order; text_raw/tier/page/time_window_raw never touched)
@@ -12,7 +12,7 @@ Rule (CLAUDE.md Law cl.4, never promote on weaker evidence). A row leaves `seede
   4. every sub-claim cites at least one NON-LEAD source (not COMPUTED, PROJECT-DATA, wiki/forum/blog/auction/EPP/CWT-type ids);
   5. every such citation's quote is re-read in the stored source text at its stored offsets (file sha256 and quote match).
 Everything else keeps `seeded_unverified`, gets a `verification` block with state and reasons (the gap stays visible).
-Rows of shards without a close-out (tl-05..tl-12) are not touched. Idempotent: status is recomputed from the evidence on every run,
+Rows of shards without a close-out (those not in SHARDS) are not touched. Idempotent: status is recomputed from the evidence on every run,
 never from the previous status. Content-hash cached (quote checks are re-done only if the citation record or source file changed).
 
 Run: python3 -I tools/bt/merge_timeline_verification.py [--check] [--no-cache]
@@ -26,7 +26,7 @@ CORR = os.path.join(G, 'timeline_corrections')
 REPORT = os.path.join(G, 'timeline_merge_report.json')
 CACHE = os.path.join(G, '.timeline_merge_cache.json')
 OVERLAY = os.path.join(G, 'timeline_conflict_updates.jsonl')   # conflict-resolution windows/defaults per row (tools/bt/conflicts/apply_readers.py)
-SHARDS = ['tl-01', 'tl-02', 'tl-03', 'tl-04']
+SHARDS = ['tl-01', 'tl-02', 'tl-03', 'tl-04', 'tl-09', 'tl-10', 'tl-11', 'tl-12']
 RULE_VERSION = 2
 NOT_SOURCES = {'COMPUTED', 'PROJECT-DATA'}
 LEAD = re.compile(r'^(WIKI|WP-|EPP|CWT|PADRE|WHB|WOMENHIST|ROSEB|CALEF-CWT|DW|HNN|FORUM|BLOG|AUCTION|EBAY)', re.I)

@@ -3,7 +3,7 @@
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import path from 'node:path';
 import { BT } from './node-world.mjs';
 import { loadConflicts, DEFAULT_SCENARIO, scenarioIsDefault, scenarioLabel } from '../src/data.mjs';
-import { DELEGATED_KEY, PDF_KEY, DELEGATED_NOTE, defaultChoices, pdfChoices, setChoice, resetToDelegated, switchToPdf, scenarioKind, optionLabel, currentKey } from '../src/scenario-defaults.mjs';
+import { DELEGATED_KEY, PDF_KEY, DELEGATED_NOTE, defaultChoices, pdfChoices, setChoice, resetToDelegated, switchToPdf, scenarioKind, optionLabel, currentKey, classChip, selectedLabel } from '../src/scenario-defaults.mjs';
 import { chooseApi } from '../src/config.mjs';
 import { build } from '../../../../tools/bt/build_conflict_defaults.mjs';
 
@@ -94,4 +94,13 @@ test('the shipped file carries no process wording (copy audit)', () => {
   const t = fs.readFileSync(path.join(BT, 'app/data/conflict-defaults.json'), 'utf8');
   assert.ok(!/\b(?:AI|A\.I\.|Claude|Anthropic|LLMs?|sub-?agents?|agents?|automated(?:ly)?|machine[- ]generated|language[- ]model|chat-?bots?|prompts?)\b/i.test(t));
   assert.ok(!/\b(workstream|shards?|horde|task brief|(research|later|earlier|previous|prior|coding|working) session|(in|during|for) this round)\b/i.test(t));
+});
+
+test('panel: a gap, window, range and unresolved set carry a visible chip; settled has none; the chosen value is shown whole beneath the select', async () => {
+  const conf = await loadConflicts(BT); const by = id => conf.find(c => c.id === id);
+  assert.deepEqual(classChip(by('C-024').delegated), { word: 'Gap', kind: 'gap' });
+  assert.equal(classChip(by('C-008').delegated).word, 'Window'); assert.equal(classChip(by('C-014').delegated).word, 'Range'); assert.equal(classChip(by('C-018').delegated).word, 'Unresolved set');
+  assert.equal(classChip(by('C-017').delegated), null);
+  for (const c of conf.filter(c => c.delegated)) for (const o of c.options) assert.equal(selectedLabel(c, o.key), optionLabel(c, o), c.id + ' ' + o.key);
+  assert.match(selectedLabel(by('C-008'), DELEGATED_KEY), /^Morning of 2 July: plan given by about 9 a\.m\.; formal order about 11:00 \(Longstreet\); before about noon \(default, inferred\)$/);
 });

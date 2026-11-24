@@ -1,0 +1,820 @@
+{
+ "schema": "bt-cavalry-action-table/1",
+ "plan_section": "B.6.15.3",
+ "plan_title": "Action-by-action table through time (June 26 to July 16)",
+ "clock": "minutes since 1863-06-01 00:00 LMT (app/src/clock.mjs); a time is present only where the plan prints one; start_earliest None = no earliest time printed",
+ "rules": [
+  "compare=true rows are those the plan places at Gettysburg or its field; only they are compared with the layer (Q20.2)",
+  "every row is seeded_unverified: the plan cites Wikipedia, HistoryNet and similar leads; no row is claimed documented here (CLAUDE.md Law cl. 4)",
+  "conflicts are carried as the earliest and latest printed readings"
+ ],
+ "unit_id_rule": "a unit_id names a layer unit or, as a prefix, every leaf below it (id == p or id startswith p + \"-\")",
+ "rows": [
+  {
+   "id": "CAV-AT-01",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    86
+   ],
+   "page": 86,
+   "plan_lines": [
+    20425,
+    20435
+   ],
+   "anchor": "Skirmish near Gettysburg",
+   "date_text": "June 26",
+   "place": "near Gettysburg (skirmish)",
+   "kind": "action",
+   "compare": true,
+   "scope_note": "the plan places the skirmish near Gettysburg",
+   "start_earliest": 36000,
+   "start_latest": 37440,
+   "end_earliest": 36000,
+   "end_latest": 37440,
+   "window_basis": "date_only",
+   "units": [
+    "cs-2c-early-35vacavalrybn"
+   ],
+   "persons": [
+    "Lt Col Elijah White"
+   ],
+   "conflicts_and_notes": "plan note: Early's June 26 cavalry detail beyond White not found; the layer first brings this battalion on July 1 (arrival ledger B.2.4): the two are not reconciled here",
+   "inferred_reading": null,
+   "sources_printed": "HistoryNet",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Skirmish near Gettysburg",
+    "Lt Col Elijah White's 35th Va Bn vs",
+    "Co B, 21st Pa Cav (Adams County",
+    "Cavalry, Capt Robert Bell)"
+   ]
+  },
+  {
+   "id": "CAV-AT-02",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    86
+   ],
+   "page": 86,
+   "plan_lines": [
+    20436,
+    20455
+   ],
+   "anchor": "Stuart's ride",
+   "date_text": "June 25-July 2",
+   "place": "Salem Depot to Rockville, Westminster, Hanover, Dover, Carlisle; reached Lee July 2",
+   "kind": "transit",
+   "compare": false,
+   "scope_note": "route through towns other than Gettysburg; the field arrival is the row of July 2 afternoon",
+   "start_earliest": 34620,
+   "start_latest": 34620,
+   "end_earliest": 44640,
+   "end_latest": 46080,
+   "window_basis": "printed_start_date_only_end",
+   "units": [
+    "cs-cav-hampton",
+    "cs-cav-flee",
+    "cs-cav-chambliss"
+   ],
+   "persons": [
+    "Stuart"
+   ],
+   "conflicts_and_notes": "Rockville wagon count 125+, about 150 or 140; Dover 2 a.m. or morning of July 1",
+   "inferred_reading": null,
+   "sources_printed": "Wikipedia Stuart; ABT; Stuart's report (NPS)",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Stuart's ride",
+    "Hampton, F. Lee, Chambliss",
+    "Left Salem Depot 1 a.m. June 25;",
+    "Federal infantry blocked the route;"
+   ]
+  },
+  {
+   "id": "CAV-AT-03",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    86
+   ],
+   "page": 86,
+   "plan_lines": [
+    20456,
+    20466
+   ],
+   "anchor": "Buford enters Gettysburg",
+   "date_text": "June 30, about 11 a.m.",
+   "place": "Gettysburg",
+   "kind": "arrival",
+   "compare": true,
+   "scope_note": "the first arrival of cavalry at Gettysburg; \"about\" 11 a.m. is carried as the point 11:00 with no tolerance invented",
+   "start_earliest": 42420,
+   "start_latest": 42420,
+   "end_earliest": 42420,
+   "end_latest": 42420,
+   "window_basis": "printed_about",
+   "units": [
+    "us-cav-1d-gamble",
+    "us-cav-1d-devin"
+   ],
+   "persons": [
+    "Buford"
+   ],
+   "conflicts_and_notes": "Buford's June 29 route and exact vedette positions not found",
+   "inferred_reading": null,
+   "sources_printed": "HistoryNet; Wikipedia Day 1",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Buford enters Gettysburg",
+    "1st Division",
+    "Patrolled; judged Lee converging",
+    "from Cashtown and Carlisle."
+   ]
+  },
+  {
+   "id": "CAV-AT-04",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    86
+   ],
+   "page": 86,
+   "plan_lines": [
+    20467,
+    20484
+   ],
+   "anchor": "Hanover",
+   "date_text": "June 30, before 10 a.m. to evening",
+   "place": "Hanover",
+   "kind": "action",
+   "compare": false,
+   "scope_note": "Hanover is a town other than Gettysburg",
+   "start_earliest": null,
+   "start_latest": 42360,
+   "end_earliest": 41760,
+   "end_latest": 43200,
+   "window_basis": "printed_before_10am_end_date_only",
+   "units": [
+    "us-cav-3d-farnsworth",
+    "us-cav-3d-custer",
+    "cs-cav-hampton",
+    "cs-cav-flee",
+    "cs-cav-chambliss"
+   ],
+   "persons": [
+    "Kilpatrick",
+    "Hampton"
+   ],
+   "conflicts_and_notes": "Forney farm fight ended just before noon; Hampton in place about 2 p.m.; about 2-hour artillery duel",
+   "inferred_reading": null,
+   "sources_printed": "Wikipedia Hanover; ABT",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Hanover",
+    "Farnsworth's/Kilpatrick's division",
+    "with Custer's Michigan Brigade vs",
+    "Hampton, F. Lee, Chambliss"
+   ]
+  },
+  {
+   "id": "CAV-AT-05",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    86
+   ],
+   "page": 86,
+   "plan_lines": [
+    20485,
+    20512
+   ],
+   "anchor": "Buford's delaying action, McPherson",
+   "date_text": "July 1, about 7:30 a.m.-about 10:20 a.m.",
+   "place": "McPherson Ridge",
+   "kind": "action",
+   "compare": true,
+   "scope_note": "the field",
+   "start_earliest": 43650,
+   "start_latest": 43650,
+   "end_earliest": 43820,
+   "end_latest": 43820,
+   "window_basis": "printed_about",
+   "units": [
+    "us-cav-1d-gamble",
+    "us-cav-1d-devin"
+   ],
+   "persons": [
+    "Buford",
+    "Calef"
+   ],
+   "conflicts_and_notes": "withdrawal \"about 2 hours\" (HistoryNet); every fourth man a horse holder; Gamble held its own for more than two hours",
+   "inferred_reading": null,
+   "sources_printed": "Wikipedia Day 1; HistoryNet; Buford report; Civil War News",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Buford's delaying action, McPherson",
+    "Ridge",
+    "Gamble, Devin, Calef's battery vs",
+    "Heth's two brigades"
+   ]
+  },
+  {
+   "id": "CAV-AT-06",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    86
+   ],
+   "page": 86,
+   "plan_lines": [
+    20513,
+    20519
+   ],
+   "anchor": "Stuart at Dover and Carlisle",
+   "date_text": "July 1",
+   "place": "Dover, Carlisle",
+   "kind": "transit",
+   "compare": false,
+   "scope_note": "towns other than Gettysburg",
+   "start_earliest": 43200,
+   "start_latest": 44640,
+   "end_earliest": 43200,
+   "end_latest": 44640,
+   "window_basis": "date_only",
+   "units": [],
+   "persons": [
+    "Stuart"
+   ],
+   "conflicts_and_notes": "Dover morning; Carlisle afternoon/evening",
+   "inferred_reading": null,
+   "sources_printed": "Stuart's report (NPS)",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Stuart at Dover and Carlisle",
+    "Dover morning; Carlisle",
+    "afternoon/evening; got word that",
+    "night that the army was at"
+   ]
+  },
+  {
+   "id": "CAV-AT-07",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    86
+   ],
+   "page": 86,
+   "plan_lines": [
+    20520,
+    20531
+   ],
+   "anchor": "Buford relieved; movements",
+   "date_text": "July 2",
+   "place": "Gettysburg, then Taneytown, Westminster or Emmitsburg",
+   "kind": "action",
+   "compare": true,
+   "scope_note": "relieved on the field by Sickles' corps; the later place is in conflict (three sources differ on place and day)",
+   "start_earliest": 44640,
+   "start_latest": 46080,
+   "end_earliest": 44640,
+   "end_latest": 46080,
+   "window_basis": "date_only",
+   "units": [
+    "us-cav-1d-gamble",
+    "us-cav-1d-devin"
+   ],
+   "persons": [
+    "Buford"
+   ],
+   "conflicts_and_notes": "Taneytown (Buford's report), Westminster (HistoryNet July 2), Emmitsburg (Wikipedia Buford)",
+   "inferred_reading": null,
+   "sources_printed": "Buford report; HistoryNet; Wikipedia",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Buford relieved; movements",
+    "Buford's division",
+    "Relieved by Sickles' corps after a",
+    "sharpshooter fight; then Taneytown"
+   ]
+  },
+  {
+   "id": "CAV-AT-08",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    86
+   ],
+   "page": 86,
+   "plan_lines": [
+    20532,
+    20551
+   ],
+   "anchor": "Hunterstown, about 5 miles",
+   "date_text": "July 2, evening/dusk",
+   "place": "Hunterstown, about 5 miles NE of town",
+   "kind": "action",
+   "compare": true,
+   "scope_note": "the plan prints the place as about 5 miles NE of town",
+   "start_earliest": 44640,
+   "start_latest": 46080,
+   "end_earliest": 44640,
+   "end_latest": 46080,
+   "window_basis": "date_only",
+   "units": [
+    "us-cav-3d-farnsworth",
+    "us-cav-3d-custer",
+    "cs-cav-hampton"
+   ],
+   "persons": [
+    "Custer",
+    "Hampton"
+   ],
+   "conflicts_and_notes": "times of the charge not found; Hampton wounded at Hunterstown (Civil War News) vs only July 3 wounds in Hampton's report; artillery duel until dark",
+   "inferred_reading": null,
+   "sources_printed": "Wikipedia Hunterstown; Hampton's report (NPS)",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Hunterstown, about 5 miles NE of",
+    "town",
+    "Farnsworth and Custer brigades vs",
+    "Hampton's rear guard"
+   ]
+  },
+  {
+   "id": "CAV-AT-09",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    86
+   ],
+   "page": 86,
+   "plan_lines": [
+    20552,
+    20570
+   ],
+   "anchor": "Gregg at the Hanover/Low Dutch",
+   "date_text": "July 2, noon-about 10 p.m.",
+   "place": "Hanover/Low Dutch Road junction and Brinkerhoff Ridge",
+   "kind": "action",
+   "compare": true,
+   "scope_note": "the field",
+   "start_earliest": 45360,
+   "start_latest": 45360,
+   "end_earliest": 45960,
+   "end_latest": 45960,
+   "window_basis": "printed_about",
+   "units": [
+    "us-cav-2d-mcintosh",
+    "us-cav-2d-gregg"
+   ],
+   "persons": [
+    "McIntosh",
+    "I. Gregg"
+   ],
+   "conflicts_and_notes": "about 3 p.m. 10th NY skirmishers on Brinkerhoff Ridge; about 5 p.m. 2nd Va drove the 10th NY back; about 10 p.m. withdrew to the Baltimore Pike",
+   "inferred_reading": null,
+   "sources_printed": "Stone Sentinels; Stonewall Brigade site",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Gregg at the Hanover/Low Dutch",
+    "Road junction and Brinkerhoff Ridge",
+    "McIntosh (right), I. Gregg (left) vs",
+    "elements of Stonewall Brigade"
+   ]
+  },
+  {
+   "id": "CAV-AT-10",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    86
+   ],
+   "page": 86,
+   "plan_lines": [
+    20571,
+    20581
+   ],
+   "anchor": "Stuart reaches Lee",
+   "date_text": "July 2, afternoon",
+   "place": "Lee's headquarters",
+   "kind": "arrival",
+   "compare": false,
+   "scope_note": "a person's arrival; no unit is named, so no unit is compared",
+   "start_earliest": 45360,
+   "start_latest": 46080,
+   "end_earliest": 44640,
+   "end_latest": 46080,
+   "window_basis": "conflicting_readings",
+   "units": [],
+   "persons": [
+    "Stuart",
+    "Hampton"
+   ],
+   "conflicts_and_notes": "noon-1 p.m. with Hampton about an hour later (one Wikipedia fetch); mid-afternoon (ABT); afternoon (Wikipedia Stuart; Stuart's report \"just in time\"); evening (the brief). Window = from the earliest printed hour (noon) to the end of the day (evening, no hour printed)",
+   "inferred_reading": null,
+   "sources_printed": null,
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Stuart reaches Lee",
+    "Lee's reported greeting by",
+    "Alexander: “Well, General, you are",
+    "here at last”"
+   ]
+  },
+  {
+   "id": "CAV-AT-11",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    86,
+    87
+   ],
+   "page": 86,
+   "plan_lines": [
+    20582,
+    20629
+   ],
+   "anchor": "East Cavalry Field",
+   "date_text": "July 3, about 11 a.m.-about 3 p.m.",
+   "place": "East Cavalry Field",
+   "kind": "action",
+   "compare": true,
+   "scope_note": "the field",
+   "start_earliest": 46740,
+   "start_latest": 46860,
+   "end_earliest": 46920,
+   "end_latest": 46980,
+   "window_basis": "conflicting_readings",
+   "units": [
+    "us-cav-2d-gregg",
+    "us-cav-2d-mcintosh",
+    "us-cav-3d-custer",
+    "cs-cav-hampton",
+    "cs-cav-flee",
+    "cs-cav-chambliss",
+    "cs-cav-jenkins"
+   ],
+   "persons": [
+    "Stuart",
+    "Custer",
+    "Gregg"
+   ],
+   "conflicts_and_notes": "start about 11 a.m. (header), \"just before noon\" (HistoryNet), fighting from about 1 p.m.; Hampton's charge about 3 p.m. (HistoryNet); about 2 p.m. Custer relieved, about 3 p.m. reserves charged (Stone Sentinels); about 40 minutes of the charge phase",
+   "inferred_reading": "plan inference for scheduling: best shown as a 12-1 p.m. skirmish and artillery phase with a 2-3 p.m. climax (inferred)",
+   "sources_printed": "Wikipedia third-day cavalry; HistoryNet; Stone Sentinels; Hampton and Stuart reports",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "East Cavalry Field",
+    "Gregg's division and Custer's",
+    "Michigan Brigade vs Stuart",
+    "(Hampton, F. Lee, Chambliss,"
+   ]
+  },
+  {
+   "id": "CAV-AT-12",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    87
+   ],
+   "page": 87,
+   "plan_lines": [
+    20630,
+    20662
+   ],
+   "anchor": "South Cavalry Field",
+   "date_text": "July 3, about 1-5 p.m.",
+   "place": "South Cavalry Field",
+   "kind": "action",
+   "compare": true,
+   "scope_note": "the field; the plan names the Reserve Brigade as a whole (the 6th US is also placed at Fairfield in the row of July 3: both are carried, not reconciled)",
+   "start_earliest": 46860,
+   "start_latest": 47100,
+   "end_earliest": 47100,
+   "end_latest": 47100,
+   "window_basis": "conflicting_readings",
+   "units": [
+    "us-cav-3d-farnsworth",
+    "us-cav-1d-merritt"
+   ],
+   "persons": [
+    "Farnsworth",
+    "Merritt"
+   ],
+   "conflicts_and_notes": "Farnsworth about 1:00 p.m.; Merritt about 3 p.m. on the Emmitsburg Road; HistoryNet puts the attack at about 5 p.m. and Merritt repulsed in about 15 minutes",
+   "inferred_reading": "plan inference for scheduling: charges at 3-5 p.m. after Pickett's repulse about 4 p.m., so 5 p.m. is more plausible than 1 p.m. for the charges, the earlier times being positioning (inferred)",
+   "sources_printed": "Wikipedia third-day cavalry; Wikipedia Farnsworth; HistoryNet",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "South Cavalry Field",
+    "Farnsworth's brigade and Merritt's",
+    "Reserve Brigade vs Law's (Hood's",
+    "division) infantry and Anderson's"
+   ]
+  },
+  {
+   "id": "CAV-AT-13",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    87
+   ],
+   "page": 87,
+   "plan_lines": [
+    20663,
+    20674
+   ],
+   "anchor": "Fairfield",
+   "date_text": "July 3",
+   "place": "Fairfield",
+   "kind": "action",
+   "compare": false,
+   "scope_note": "Fairfield is a town other than Gettysburg",
+   "start_earliest": 46080,
+   "start_latest": 47520,
+   "end_earliest": 46080,
+   "end_latest": 47520,
+   "window_basis": "date_only",
+   "units": [
+    "us-cav-1d-merritt-6us",
+    "cs-cav-jones"
+   ],
+   "persons": [
+    "Major Starr"
+   ],
+   "conflicts_and_notes": "Union 6 killed, 28 wounded, 208 missing; Confederate 8/21/5; Union strength about 500 mounted (blog) vs about 400 (Wikipedia)",
+   "inferred_reading": null,
+   "sources_printed": "Wikipedia Fairfield",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Fairfield",
+    "Jones' Laurel Brigade (6th, 7th, 11th",
+    "Va + Chew's Bty) vs Maj Starr's 6th",
+    "US (dismounted in three"
+   ]
+  },
+  {
+   "id": "CAV-AT-14",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    87
+   ],
+   "page": 87,
+   "plan_lines": [
+    20675,
+    20697
+   ],
+   "anchor": "Monterey Pass",
+   "date_text": "July 4 night-July 5",
+   "place": "Monterey Pass",
+   "kind": "action",
+   "compare": false,
+   "scope_note": "a pass other than the field",
+   "start_earliest": 48120,
+   "start_latest": 48120,
+   "end_earliest": 48960,
+   "end_latest": 50400,
+   "window_basis": "printed_start_end_date_only",
+   "units": [
+    "us-cav-3d",
+    "cs-cav-jones",
+    "cs-cav-robertson"
+   ],
+   "persons": [
+    "Kilpatrick"
+   ],
+   "conflicts_and_notes": "wagons estimates 40-500; train length about 40 miles in the Monterey Pass summary",
+   "inferred_reading": null,
+   "sources_printed": "Wikipedia Monterey Pass",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Monterey Pass",
+    "Kilpatrick vs Jones/Robertson",
+    "brigades; 4th NC; 6th/7th Va;",
+    "Chew's and Courtney's batteries"
+   ]
+  },
+  {
+   "id": "CAV-AT-15",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    87
+   ],
+   "page": 87,
+   "plan_lines": [
+    20698,
+    20707
+   ],
+   "anchor": "Retreat assignments",
+   "date_text": "July 4-10",
+   "place": "retreat routes",
+   "kind": "transit",
+   "compare": false,
+   "scope_note": "routes other than the field",
+   "start_earliest": 47520,
+   "start_latest": 48960,
+   "end_earliest": 56160,
+   "end_latest": 57600,
+   "window_basis": "date_only",
+   "units": [
+    "cs-cav-flee",
+    "cs-cav-imboden",
+    "cs-cav-robertson",
+    "cs-cav-jones",
+    "cs-cav-chambliss"
+   ],
+   "persons": [
+    "Baker",
+    "Ferguson"
+   ],
+   "conflicts_and_notes": "train length 17 vs 30 miles (and about 40 in the Monterey Pass summary)",
+   "inferred_reading": null,
+   "sources_printed": "Civil War News; ABT",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Retreat assignments and skirmishes",
+    "Fitz Lee left flank; Baker with",
+    "wagons and ambulances; Imboden",
+    "independent with a 17-30 mile train;"
+   ]
+  },
+  {
+   "id": "CAV-AT-16",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    87
+   ],
+   "page": 87,
+   "plan_lines": [
+    20708,
+    20730
+   ],
+   "anchor": "Williamsport",
+   "date_text": "July 6 (or 7)",
+   "place": "Williamsport",
+   "kind": "action",
+   "compare": false,
+   "scope_note": "a town other than Gettysburg",
+   "start_earliest": 50400,
+   "start_latest": 50400,
+   "end_earliest": 51840,
+   "end_latest": 53280,
+   "window_basis": "conflicting_readings",
+   "units": [
+    "us-cav-1d-gamble",
+    "us-cav-1d-devin",
+    "us-cav-1d-merritt",
+    "cs-cav-imboden"
+   ],
+   "persons": [
+    "Buford",
+    "Imboden"
+   ],
+   "conflicts_and_notes": "July 6 (Buford's report; Stone Sentinels) vs \"by July 7\" (Wikipedia) vs July 7 (Civil War News); Buford attacked about 4 p.m. and probed about 5 hours",
+   "inferred_reading": null,
+   "sources_printed": "Stone Sentinels; Buford report",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Williamsport",
+    "Train length 17 vs 30 miles (and",
+    "about 40 in the Monterey Pass",
+    "summary)"
+   ]
+  },
+  {
+   "id": "CAV-AT-17",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    87
+   ],
+   "page": 87,
+   "plan_lines": [
+    20731,
+    20742
+   ],
+   "anchor": "Boonsboro",
+   "date_text": "July 8",
+   "place": "Boonsboro",
+   "kind": "action",
+   "compare": false,
+   "scope_note": "a town other than Gettysburg",
+   "start_earliest": 53280,
+   "start_latest": 54720,
+   "end_earliest": 53280,
+   "end_latest": 54720,
+   "window_basis": "date_only",
+   "units": [
+    "us-cav-3d",
+    "us-cav-1d"
+   ],
+   "persons": [
+    "Stuart",
+    "Kilpatrick",
+    "Buford"
+   ],
+   "conflicts_and_notes": "Union infantry arrived about 7 p.m.; Stuart withdrew to Funkstown (Funkstown July 10)",
+   "inferred_reading": null,
+   "sources_printed": "Wikipedia Boonsboro; Civil War News",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Boonsboro",
+    "Stuart (five brigades) vs Kilpatrick",
+    "and Buford",
+    "Mud made mounted action nearly"
+   ]
+  },
+  {
+   "id": "CAV-AT-18",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    87
+   ],
+   "page": 87,
+   "plan_lines": [
+    20743,
+    20763
+   ],
+   "anchor": "Falling Waters",
+   "date_text": "July 14",
+   "place": "Falling Waters",
+   "kind": "action",
+   "compare": false,
+   "scope_note": "a place other than the field",
+   "start_earliest": 61920,
+   "start_latest": 63360,
+   "end_earliest": 62640,
+   "end_latest": 62640,
+   "window_basis": "date_only_end_printed",
+   "units": [
+    "us-cav-3d-custer-6mi",
+    "us-cav-3d-custer-1mi",
+    "us-cav-1d-gamble-8ny"
+   ],
+   "persons": [
+    "Kilpatrick",
+    "Custer",
+    "Buford"
+   ],
+   "conflicts_and_notes": "last of Heth across about noon; the plan names the 1st Michigan with Gamble's brigade (the layer holds it in Custer's): not reconciled here",
+   "inferred_reading": null,
+   "sources_printed": "ABT; Emerging Civil War",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Falling Waters",
+    "Kilpatrick, Custer, Buford vs Heth's",
+    "rear guard",
+    "Heth's rear guard had no screening"
+   ]
+  },
+  {
+   "id": "CAV-AT-19",
+   "plan_ref": "B.6.15.3",
+   "pages": [
+    87
+   ],
+   "page": 87,
+   "plan_lines": [
+    20764,
+    20769
+   ],
+   "anchor": "Shepherdstown",
+   "date_text": "July 16",
+   "place": "Shepherdstown",
+   "kind": "action",
+   "compare": false,
+   "scope_note": "a town other than Gettysburg",
+   "start_earliest": 64800,
+   "start_latest": 66240,
+   "end_earliest": 64800,
+   "end_latest": 66240,
+   "window_basis": "date_only",
+   "units": [
+    "us-cav-2d",
+    "cs-cav-flee",
+    "cs-cav-chambliss"
+   ],
+   "persons": [
+    "Gregg",
+    "F. Lee"
+   ],
+   "conflicts_and_notes": "no further detail printed in the table",
+   "inferred_reading": null,
+   "sources_printed": "Wikipedia Gregg",
+   "tier_printed": "documented unless marked (plan convention)",
+   "tier": "seeded_unverified",
+   "row_text_first_lines": [
+    "Shepherdstown",
+    "Gregg vs F. Lee and Chambliss",
+    "Wikipedia Gregg",
+    "Inferences for scheduling: the most consistent reading of Stuart's arrival is early-to-mid afternoon at Lee's HQ on July 2 with Hampton trailing and fighting at Hunterstown at dusk (inferred); East"
+   ]
+  }
+ ]
+}

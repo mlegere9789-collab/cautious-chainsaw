@@ -100,6 +100,53 @@ def gait_test(env):
     return {'status': 'ran', 'exit': p.returncode, 'tests': g('tests'), 'pass': g('pass'), 'fail': g('fail'), 'cancelled': g('cancelled'), 'skipped': g('skipped'), 'todo': g('todo'), 'not_run_marker': 'NOT RUN' in txt}
 
 
+ACTION_SCHEMA = 'bt-cavalry-action-table/1'
+ACTION_ROW_KEYS = ('id', 'page', 'kind', 'compare', 'start_earliest', 'start_latest', 'units')
+
+
+def action_table_problems(T):
+    """None when the machine table of B.6.15.3 is readable (schema, rows, every row with its id, page citation, kind, compare flag, window and unit list), else a one-line reason."""
+    if not isinstance(T, dict) or T.get('schema') != ACTION_SCHEMA or not isinstance(T.get('rows'), list):
+        return 'the action table is not in the layout this runner reads (schema %r, expected %r with a list of rows)' % ((T or {}).get('schema') if isinstance(T, dict) else None, ACTION_SCHEMA)
+    for r in T['rows']:
+        miss = [k for k in ACTION_ROW_KEYS if k not in r or (k in ('id', 'page', 'kind', 'units') and r[k] in (None, '', []) and not (k == 'units' and isinstance(r.get(k), list)))]
+        if miss:
+            return 'row %s of the action table lacks %s (every row keeps its page citation)' % (r.get('id'), ', '.join(miss))
+    return None
+
+
+def row_names_unit(r, uid):
+    return any(uid == p or uid.startswith(p + '-') for p in r.get('units') or [])
+
+
+def action_presence(T, u):
+    """Q20.2 against the machine table of B.6.15.3. A drawn on-field unit is compared with the rows that name it and that the table marks `compare` (the plan puts them at Gettysburg or its field):
+    (1) it must be on the field (arrival default) no later than the latest start the table allows for its first documented action; (2) for a row of kind `arrival` it must not enter before the earliest
+    documented time. A unit no comparing row names is NOT-RUN, never PASS: a presence that cannot be compared is not shown."""
+    bad = action_table_problems(T)
+    if bad:
+        return ('BLOCKED-INPUT' if (isinstance(T, dict) and T.get('schema') == ACTION_SCHEMA) else 'NOT-RUN'), bad, {'missing': ACTION_REL}
+    uid = u['id']
+    named = [r for r in T['rows'] if row_names_unit(r, uid)]
+    rows = sorted([r for r in named if r.get('compare')], key=lambda r: (r['start_earliest'] if r.get('start_earliest') is not None else r['start_latest'], r['id']))
+    ev = {'rows_naming_the_unit': [r['id'] for r in named], 'rows_compared': [r['id'] for r in rows], 'pages': sorted({pg for r in rows for pg in (r.get('pages') or [r['page']])})}
+    if not rows:
+        return 'NOT-RUN', 'no row of the B.6.15.3 table that the table marks as at the field names this unit (named in %d other row(s)): its presence interval cannot be compared' % len(named), ev
+    arr = u.get('arrival') or {}
+    first = rows[0]
+    conds = [cond('the unit is on the field (arrival default %s) no later than the latest start the table allows for its first documented action (%s, p. %s: %s)' % (arr.get('default'), first['id'], first['page'], first.get('date_text')),
+                  arr.get('default') is not None and arr['default'] <= first['start_latest'], 'arrival default %s, latest start %s: the unit is not on the field when the documented action begins' % (arr.get('default'), first['start_latest']))]
+    for r in rows:
+        if r.get('kind') == 'arrival' and r.get('start_earliest') is not None:
+            conds.append(cond('the unit does not enter before its documented arrival (%s, p. %s)' % (r['id'], r['page']), arr.get('earliest') is not None and arr['earliest'] >= r['start_earliest'],
+                              'arrival earliest %s is before its documented arrival %s' % (arr.get('earliest'), r['start_earliest'])))
+    bad_c = first_failed(conds)
+    ev['conditions'] = conds
+    if bad_c:
+        return 'FAIL', 'presence: ' + '; '.join(bad_c), ev
+    return 'PASS', 'the unit is on the field when its first documented action begins and enters no earlier than a documented arrival (%s)' % ', '.join(r['id'] for r in rows), ev
+
+
 def sw(items, pat):
     return [k for k in (items or {}) if re.search(pat, k, re.I)]
 
@@ -146,7 +193,8 @@ def evaluate(rec, env, D, K, gait=None, gap_cover=None):
         elif K.get('actions') is None:
             mk('Q20.2', uid, 'default', 'BLOCKED-INPUT', MISSING_ACTIONS, {'missing': ACTION_REL, 'arrival': u.get('arrival'), 'render': u['render']})
         else:
-            mk('Q20.2', uid, 'default', 'NOT-RUN', 'a cavalry action table exists (%s) but this runner has no reader for its layout: the intervals are not compared' % ACTION_REL, {'arrival': u.get('arrival')})
+            res, why, ev2 = action_presence(K['actions'], u)
+            mk('Q20.2', uid, 'default', res, why, dict(ev2, arrival=u.get('arrival'), render=u['render']))
         # ---- Q20.3 manifest and Q20.4 horses
         if off:
             mk('Q20.3', uid, 'default', 'N/A', 'documented off the field: no figure, no manifest', {'status': u['status']})
@@ -290,7 +338,8 @@ def evaluate(rec, env, D, K, gait=None, gap_cover=None):
                  cond('the unit shows horse holders: one in four of the dismounted', all(((x.get('dismount') or {}).get('roles') or {}).get('hold') is not None for x in us if x['drawn']) and any(x['drawn'] for x in us), 'roles %s' % [((x.get('dismount') or {}).get('roles')) for x in us if x['drawn']])]
         bad = first_failed(conds)
         rec.item('Q20/Q20.6/dismount-%s/default' % dr['id'], 'FAIL' if bad else 'PASS', ('dismounted fight %s: ' % dr['id'] + '; '.join(bad)) if bad else 'the dismounted fight is shown with its horse holders', {'conditions': conds, 'record': dr}, check='Q20.6', scenario='default', subjects=sorted(x['id'] for x in us) or [dr['id']], sub_requirements=rows)
-    rec.owe('Q20.2 needs the B.6.15.3 action table of the cavalry (June 26 to July 16, conflicts as ranges) as a machine table, kit/cavalry_action_table.json, before any presence interval can be compared')
+    if K.get('actions') is None:
+        rec.owe('Q20.2 needs the B.6.15.3 action table of the cavalry (June 26 to July 16, conflicts as ranges) as a machine table, kit/cavalry_action_table.json, before any presence interval can be compared')
     if T is None:
         rec.owe('Q20.1 needs kit/verified_oob.json (the table of Q01) to be written by its owner')
     rec.owe('Q20.6: a time-keyed schedule of the cavalry states per unit does not exist in the product; the foot-contact test checks the structure of the gaits, not documented speeds (G-ANIM-07)')

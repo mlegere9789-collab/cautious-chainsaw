@@ -55,3 +55,14 @@ T3-164, T3-166, T3-167, T3-170, T3-173, T3-179, T3-185, T3-187, T3-196, T3-197, 
 - Raw OR OCR must be present in tmp/library/or27 to re-run or27_find.py verification for the own_checks.
 
 Nothing committed; no shared file edited.
+
+
+## Close-out 2026-11-24 (merged through tools/bt/merge_timeline_verification.py)
+
+Rows 58; verdicts {'partially_supported': 43, 'gap': 14, 'unsupported': 1}; scenarios carried on 19 rows (no default anywhere, Law cl.6). Promoted to verified (verdict confirmed, every sub-claim documented and supported, quotes cut verbatim from tmp/library/or27 and re-matched at their stored offsets, digits read on the page image of the scan PDF): none. Every other row stays seeded_unverified with its gaps visible in the `verification` block of timeline_seed.jsonl.
+
+Quote check. 67 quote strings: 65 matched verbatim; 2 not matched are web-lookup summaries (T3-211, T3-218), not OR text. Rows whose basis is "recorded in library/timeline_audit_T3.jsonl (or_value paraphrase)" (T3-163, T3-193 and others) carry no verbatim quote and cannot be promoted. T3-206 (Carter p603 quote verified) stays partially_supported: Carter gives no date, Jul 14 is read from Lee p323, a join of two reports.
+
+What was read: the shard notes, quotes and offsets against the local Official Records text (the 2026-11-04 audit had only compared them with its own library audit file because the OCR was absent); for each promoted row every element of the seed claim against the quoted text, and the digits (hours, ranges, yards) on the scan page image (tmp/kit-plan/or27-pdf, PDF page = leaf + 1; viewed 2026-11-24; the OCR errors found there are noted on the citations: Ritten-/Bitten-, Round/Eound, dayliglit). Rows with a conflict carry the values as scenarios taken from the shard notes; rows corrected: none; rows unsupported: ['T3-190'].
+
+Not done (said, not hidden): the page images were not read for rows that were not promoted; the shard paraphrases of tl-09 and tl-11 are not re-read passage by passage; no web page was fetched in this close-out (archive.org and loc.gov page requests are not repeated); register entries tl-12-CO-<id>.md in proposed-register/ are new for rows that had none (not yet integrated into register/). Builder and data: closeout/ of horde/tl-09 (build.py, spec.py, register_md.py, crop.py) rebuilds all four files; `python3 -I horde/tl-09/closeout/build.py --check-only`.
