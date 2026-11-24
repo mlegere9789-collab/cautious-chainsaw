@@ -41,7 +41,7 @@
    "C-037-P5"
   ],
   "label": "Wounded the evening of Jul 2; died between that night and about 08:00 on Jul 3; day and hour not settled",
-  "basis_text": "Lower bound: the wound on the evening of Jul 2 (Longstreet's report of 27 Jul 1863, Hall's report of 17 Jul). Upper bound: Meade's dispatch of Jul 3, 8 a.m., and a Times special of 7:45 a.m., which already have the body within the lines. Inside the window the record is divided: Butterfield (sworn, 1864) has him dead when found on the night of the 2d; Doubleday (report of Dec 1863), the Vermont volume and the 149th Pennsylvania have him found alive, dying later and Doubleday naming the third day. No one gives an hour.",
+  "basis_text": "Lower bound: the wound on the evening of Jul 2 (Longstreet's report of 27 Jul 1863, Hall's report of 17 Jul). Upper bound: Meade's dispatch of Jul 3, 8 a.m., and a Times special of 7:45 a.m., which already have the body within the lines. Inside the window the record is divided: Butterfield (sworn, 1864) swore that on the night of the 2d it was reported Barksdale lay wounded, and that he was dead when found (no hour given); Doubleday (report of Dec 1863), the Vermont volume and the 149th Pennsylvania have him found alive, dying later and Doubleday naming the third day. No one gives an hour.",
   "note": "Two parts kept apart: the wound (Jul 2 evening, position P4, documented) and the death (window, P5). 'Jul 2' (P1) and 'Jul 3' (P2) each stay selectable with the witnesses that say them.",
   "animation": {
    "at": null,
@@ -108,7 +108,7 @@
    "stance": "selectable",
    "reason_not_chosen": {
     "kind": "equal_standing",
-    "text": "Butterfield, who sent for him, says he was dead when found on the night of the 2d; Doubleday, Vermont and the 149th Pennsylvania have him alive when brought in. The record is divided, so both stay."
+    "text": "Butterfield: reported wounded on the night of the 2d, dead when found (no hour). Doubleday, Vermont and the 149th Pennsylvania: alive when brought in. The record is divided."
    },
    "inference": {
     "step": "Butterfield, who sent for Barksdale, says it was reported 'on the night of the 2d' that he lay wounded and wanted to be brought in, and that 'he died before we reached him ... he was dead when found'. Read together, the death comes during the night of the 2d, which is Jul 2 only if the night is taken as before midnight; no hour is stated.",
@@ -361,7 +361,7 @@
    "derived": true,
    "reason_not_chosen": {
     "kind": "equal_standing",
-    "text": "Doubleday, the Vermont volume and the 149th Pennsylvania have him alive when brought in and dying the next day; Butterfield says dead when found on the night of the 2d. No hour settles it."
+    "text": "Doubleday, Vermont and the 149th Pennsylvania: alive when brought in, dying later. Butterfield: reported on the night of the 2d, dead when found (no hour). None settles it."
    }
   },
   {
@@ -896,7 +896,7 @@
   "clock": "Clock readings: Meade's 8 a.m. is the Union headquarters clock and the Times 7:45 a newspaper's; the Union and Confederate clocks reportedly differed by about 20 minutes and no row corrects for it. The upper bound (about 08:00 on Jul 3) is read to within that uncertainty; the bound is not used to date the death within the night.",
   "independence": "Groups: Meade's dispatch (one group); the Times correspondent (a separate telegram, though he may draw on the same headquarters talk); Butterfield (sworn testimony; he served at Meade's headquarters, but the passage is his own account of his own errand); Doubleday (report and book of 1882, one author; the Minnesota history quotes him for the last messages and writes 'dying on the third' in its own words, and is counted with his group only as an assumption); the 149th Pennsylvania; the Vermont volume; the New York volume. The window rests on Longstreet (wound), Meade and the Times (upper bound); the day inside it is carried by Butterfield on one side and Doubleday, Vermont and Pennsylvania on the other. The wound rests on Longstreet, Hall, McLaws and Jacobs, four independent groups."
  },
- "source_panel_text": "Wounded the evening of Jul 2 (Longstreet). Death: the record is divided. Butterfield swore he was dead when found on the night of the 2d; Doubleday names the third day and others have him found alive. Meade's 8 a.m. dispatch has the body within the lines. The window runs to about 08:00 on Jul 3; no hour; two other values listed.",
+ "source_panel_text": "Wounded the evening of Jul 2 (Longstreet). Death: the record is divided. Butterfield swore that on the night of the 2d it was reported Barksdale lay wounded, and that he was dead when found (no hour given); Doubleday names the third day and others have him found alive. Meade's 8 a.m. dispatch has the body within the lines. The window runs to about 08:00 on Jul 3; no hour; two other values listed.",
  "holds": {
   "pdf_default": {
    "holds": "partly",

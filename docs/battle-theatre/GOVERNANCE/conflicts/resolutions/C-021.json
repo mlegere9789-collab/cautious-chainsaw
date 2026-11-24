@@ -1092,7 +1092,7 @@
    ],
    "reason_not_chosen": {
     "kind": "place_of_observation",
-    "text": "One brigade's start, from a bivouac about four miles out; the walk to the field, which the report does not time, comes after it. It is the earliest documented time and drives the animation."
+    "text": "One brigade's start from a bivouac four miles out; the walk is not timed. The earliest documented infantry start; Dearing's guns were on the field the evening before."
    }
   },
   {
@@ -1261,7 +1261,7 @@
    },
    "reason_not_chosen": {
     "kind": "later_memory",
-    "text": "A reminiscence of 1881 and a book of 1888 without a source; Peyton's report of 9 July 1863 gives about 9 a. m. for his brigade give 3 a.m. for the start of one brigade and about 9 a.m. for another's arrival."
+    "text": "A reminiscence of 1881 and a book of 1888, neither naming a source; the brigade commanders' reports of July 1863 give 3 a.m. for one brigade's start and about 9 a.m. for another's arrival."
    }
   },
   {
@@ -1442,8 +1442,8 @@
   "label": "Morning of Jul 3: a brigade starts 4 miles out at 03:00, another reaches the field about 09:00",
   "animation": {
    "at": "1863-07-03T03:00",
-   "rule": "earliest_documented",
-   "note": "The earliest documented time is the start of Armistead's brigade at 3 a.m. from a bivouac about four miles out on the Chambersburg turnpike; 03:00 is the start of a march from off the field, not a presence on it; it is drawn as a march, not a spawn. No report times its arrival on the field; Garnett's brigade reached the field about 9 a.m. The later readings stay selectable. This bears on gate Q04, which keeps the division off the scene until sunrise (04:36): see the readers."
+   "rule": "best_supported",
+   "note": "The earliest documented start of an infantry brigade is Armistead's brigade at 3 a.m. from a bivouac about four miles out on the Chambersburg turnpike; 03:00 is the start of a march from off the field, not a presence on it (the Q04 floor of 04:36 applies to presence on the scene, so the viewer draws the march from off the field first and the brigade on the field only from 04:36; Dearing's battalion, documented on the field at dusk of 2 July, is the earliest part of the division present); it is drawn as a march, not a spawn. No report times its arrival on the field; Garnett's brigade reached the field about 9 a.m. The later readings stay selectable. This bears on gate Q04, which keeps the division off the scene until sunrise (04:36): see the readers."
   },
   "note": "The record gives brigade times, not a division time: the morning is certain, the hour is not. Dearing's guns were on the field at dusk of the 2d."
  },
