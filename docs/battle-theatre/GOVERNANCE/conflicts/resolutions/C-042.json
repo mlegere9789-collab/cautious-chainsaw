@@ -33,7 +33,7 @@
  "tier": "documented",
  "basis": {
   "kind": "official_records",
-  "text": "Pendleton, Lee's chief of artillery, who rode with him from Cashtown, wrote in his report of 12 Sep 1863 (Official Records 27/2, p. 348) that when they took position overlooking the field it was 'perhaps, 2 o'clock'. Early (1878) and Alexander (1907) repeat about two; no source gives 13:30 or 14:30."
+  "text": "Pendleton, Lee's chief of artillery, who rode with him from Cashtown, wrote in his report of 12 Sep 1863 (Official Records 27/2, p. 348; printed also in the Southern Historical Society Papers, vol. 5, p. 196) that when they took position overlooking the field it was 'perhaps, 2 o'clock'. Early (1878) and Alexander (1907) repeat about two; no source gives 13:30 or 14:30."
  },
  "default": {
   "mode": "position",
@@ -54,14 +54,12 @@
    "origin": "pdf_value",
    "pdf_label": "13:30 (SS1)",
    "scenario_ids": [
-    "C-042-S1",
-    "C-042-S3",
-    "C-042-DEFAULT"
+    "C-042-S1"
    ],
    "source_keys": [
     "SS1"
    ],
-   "label": "13:30: the plan's first value and recommended default (one timeline page)",
+   "label": "13:30: the plan's first value (one timeline page)",
    "kind": "time",
    "value": {
     "at": "1863-07-01T13:30",
@@ -96,6 +94,46 @@
     {
      "where": "Park Service texts (NPS-SEM16-HARMAN-C042, NPS-CLR-ROT-V1, NPS-SPANGLERS-SPRING)",
      "query": "an hour for Lee's arrival on Jul 1: Harman (2018) gives none; the cultural landscape report says only that Lee 'arrived on the feld in time to witness the retreat'; the Park Service memo of 1940 gives about 4:30",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ]
+  },
+  {
+   "id": "C-042-P5",
+   "origin": "pdf_default",
+   "pdf_label": "13:30",
+   "scenario_ids": [
+    "C-042-S3",
+    "C-042-DEFAULT"
+   ],
+   "source_keys": [
+    "SS1"
+   ],
+   "label": "13:30: the plan's recommended default, kept by the first delegated pass as a marked stand-in",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-01T13:30",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "plausible-procedural",
+   "stance": "selectable",
+   "flags": [
+    "lead_only",
+    "unsourced"
+   ],
+   "support": [],
+   "procedural_basis": "The plan recommended 13:30 'for coherence (the earlier time)' and the first delegated pass kept it as a marked stand-in because no hour had been found; it stands in for a missing record and is not a finding.",
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "A stand-in for the missing hour: the plan's earlier value. A first-hand hour (about 14:00, Pendleton) has since been found, and no source gives 13:30."
+   },
+   "failed_lookups": [
+    {
+     "where": "all local non-lead texts of the ledger (Official Records 27/1-3, the Southern Historical Society Papers, memoirs and Park Service texts)",
+     "query": "Lee within 300 characters of 1.30 / 1:30 / half past one / one thirty, in both orders, with arrived, reached, on the field, Seminary Ridge, Cashtown, Herr Ridge",
      "outcome": "not_found",
      "at": "2026-11-24"
     }
@@ -170,14 +208,13 @@
    "support": [
     {
      "id": "C-042-P3-c1",
-     "source": "OR27-2-SCAN2-C005",
-     "source_class": "primary",
-     "part": "OR27-2-R428",
-     "page": "348",
-     "page_basis": "running_head",
-     "page_note": "printed page 348 of the volume (the page of Pendleton's report that holds the passage, as in the first scan OR27-2-R428); this second scan's text layer reads the digit cleanly where the first scan lost it, so no repair is made",
-     "text_offset": 1141223,
-     "quote": "On Wednesday, July 1 [...] After a brief pause near Cashtown [...] It was, perhaps, 2 o'clock, and the battle was raging with considerable violence",
+     "source": "SHSP-05",
+     "source_class": "book",
+     "page": "196",
+     "page_basis": "as_read",
+     "page_note": "printed page 196 read from the running head '196 Southern Historical Society Papers' that stands just before the passage; the Papers print Pendleton's official report of 12 Sep 1863 from the original manuscript (1878). The Official Records print of the same report (vol. 27 part 2, p. 348) reads the hour as 'perhaps, [digit lost in the text layer] o'clock'; a second scan of that volume reads 2",
+     "text_offset": 583073,
+     "quote": "Wednesday, 1st July [...] After a brief pause near Cash Town [...] It was, perhaps, two o'clock, and the battle was raging with considerable violence",
      "witness": {
       "name": "William N. Pendleton",
       "role": "Brigadier General, chief of artillery, Army of Northern Virginia; rode with Lee from Cashtown",
@@ -190,7 +227,7 @@
      "vantage": "staff_present",
      "knew_by": "eyewitness",
      "clock": "unspecified",
-     "hedge": "about",
+     "hedge": "exact",
      "group": "pendleton",
      "exact": true,
      "states": {
@@ -352,7 +389,7 @@
      "vantage": "present",
      "knew_by": "eyewitness",
      "clock": "unspecified",
-     "hedge": "about",
+     "hedge": "exact",
      "group": "anderson",
      "exact": false,
      "states": {
@@ -382,6 +419,7 @@
     "weak",
     "different_event"
    ],
+   "derived": true,
    "support": [
     {
      "id": "C-042-P4-c1",
@@ -475,7 +513,7 @@
     }
    ],
    "inference": {
-    "step": "A history of 1913 puts Lee on Seminary Ridge about half-past four 'just as the Federal troops were retreating'; Long (1876) says Lee arrived 'near the close of the battle' and Taylor (1877) that Lee watched the flight through the town. All three put Lee's sight of the retreat late in the day; none gives a clock, and the 1913 book's own source is not named.",
+    "step": "The day (1 July) is the day of the whole account; A history of 1913 puts Lee on Seminary Ridge about half-past four 'just as the Federal troops were retreating'; Long (1876) says Lee arrived 'near the close of the battle' and Taylor (1877) that Lee watched the flight through the town. All three put Lee's sight of the retreat late in the day; none gives a clock, and the 1913 book's own source is not named.",
     "from": [
      "C-042-P4-c1",
      "C-042-P4-c2",
@@ -561,7 +599,7 @@
    "kind": "other",
    "ref": "tools/bt/positions_D/01_lee_hq.py (note on the digit lost in the OCR of R428)",
    "must_change": true,
-   "note": "The digit lost in the first scan of Pendleton's report is 2 (second scan: 'perhaps, 2 o'clock'); the note can be closed."
+   "note": "The digit lost in the first scan of Pendleton's report is 2 (the Papers print 'two o'clock'; a second scan of the volume reads 2); the note can be closed."
   }
  ],
  "failed_searches": [
@@ -600,13 +638,7 @@
    "query": "the pages and the sources they give for 13:30 and 14:30; not among the hosts reachable for this research",
    "outcome": "blocked",
    "at": "2026-11-24"
-  },
-  {
-   "where": "Official Records Ser. I vol. 27 part 2, first scan, Pendleton's report p. 348",
-   "query": "the digit of 'perhaps, [?] o'clock': lost in the first scan's text layer; read as 2 in the second scan and confirmed by Early's 1878 'about two P. M.' (not read from the page image of the first scan)",
-   "outcome": "not_read",
-   "at": "2026-11-24"
   }
  ],
- "what_would_change_it": "An hour written on 1 July or soon after by someone with Lee (Lee's, Marshall's, Venable's or Taylor's dispatches or letters, Hill's, Heth's or Pender's own notes) would replace Pendleton's estimate. A source behind the plan's 13:30 or 14:30 would move it, as would a page image of Pendleton's report that reads a digit other than 2."
+ "what_would_change_it": "An hour written on 1 July or soon after by someone with Lee (Lee's, Marshall's, Venable's or Taylor's dispatches or letters, Hill's, Heth's or Pender's own notes) would replace Pendleton's estimate. A source behind the plan's 13:30 or 14:30 would move it, as would a page image of the Official Records print of Pendleton's report that reads a digit other than 2."
 }
