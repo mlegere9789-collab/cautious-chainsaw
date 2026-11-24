@@ -1,0 +1,11 @@
+# bt-oob-kit-us-cav: roster findings for the roster owner
+
+Units the table (OR27-1-R009 pp. 166-167) shows and the plan lacks (the evidence file has `unit_id: null` lines, reported and not applied):
+
+- 1st Ohio Cavalry, Company A (Capt. Noah Jones), headquarters guard of the Second Division (parent us-cav-2d).
+- 1st Ohio Cavalry, Company C (Capt. Samuel N. Stanford), headquarters guard of the Third Division (parent us-cav-3d).
+- 3d Pennsylvania Heavy Artillery, section of Battery H (Capt. W. D. Rank), serving as light artillery with McIntosh's brigade (parent us-cav-2d-mcintosh).
+- Huey's brigade: 2d New York (Lieut. Col. Otto Harhaus), 4th New York (Lieut. Col. Augustus Pruyn), 6th Ohio, ten companies (Maj. William Stedman), 8th Pennsylvania (Capt. William A. Corrie); the brigade is footnoted "At Westminster, etc., and not engaged in the battle" (parent us-cav-2d-huey).
+- Army headquarters (group army-hq): 93d New York, 8th United States Infantry (eight companies), 3d Pennsylvania Cavalry, 6th Pennsylvania Cavalry Companies E and I, Oneida (New York) Cavalry, 15th and 50th New York Engineers, United States Engineer Battalion (parent us-aop-hq). The 3d and 6th Pennsylvania Cavalry here are the units of the provost-marshal-general's command, not the regiments of the cavalry divisions listed under the same names.
+
+Other points: the 12th Illinois and 3d Indiana are printed in a brace with one commander (Col. George H. Chapman), four and six companies; the kit card for the 12th Illinois names "Maj Lemmon, mortally wounded", which the table does not show (the table prints Chapman only); the kit card for the 1st Vermont says Col Preston, the table prints Lieut. Col. Addison W. Preston; the kit record US.CAV.3WV duplicates the unit us-cav-1d-devin-3wvaandc (two companies, Capt. Conger); the 1st Massachusetts is footnoted "Served with the Sixth Army Corps, and on the right flank" and has no row in the return of casualties; Farnsworth's brigade lists Farnsworth then Richmond, and Richmond's report says he was assigned to it on the morning of 4 July after Farnsworth was killed on 3 July; the 6th United States lists four commanders (Starr, Carpenter, Nolan, Claflin) and its losses on 3 July were at Fairfield.

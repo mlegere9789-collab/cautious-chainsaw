@@ -1,0 +1,3 @@
+# bt-oob-kit-army-hq: roster and catalog notes
+
+See bt-oob-kit-us-cav-roster.md for the units of general headquarters the plan lacks. Kit-only records CS.OTHERS, CS.SCSSBN and CS.SS_GENERIC have no row in the Confederate table (OR27-2-R424): the only South Carolina battalion listed is the 3d (Lieut. Col. Rice, Kershaw's brigade); the owner should decide whether to retire them. US.SUP.MUSICIAN and US.SUP.SUTLER have no statement in the volumes held locally. Catalog: the green cap band and green half-chevron of the Ambulance Corps (Letterman's printed order of 2 August 1862) are not in kit_items. The Crowninshield text is declared in army-hq.jsonl from the file kept by group us-cav (tmp/kit-us-cav/lib/historyoffirstre00crow.txt).

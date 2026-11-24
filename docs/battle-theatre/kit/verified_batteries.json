@@ -16,17 +16,32 @@
    "us-5c": "608c4c0d9b216885",
    "us-6c": "0ab5f9d3174e3f7d",
    "us-11c": "2ee7d5b858e2126b",
-   "us-12c": "ae3073bc4ce6df72"
+   "us-12c": "ae3073bc4ce6df72",
+   "us-art-corps": "c97d6a8bb34ce11d",
+   "us-art-reserve-horse": "372ae1181ba19746",
+   "us-cav": "b09e66778b32f40d",
+   "cs-mclaws": "dbfe88b0fbca2e26",
+   "cs-pickett": "d3ae8f02a4ab73b3",
+   "cs-hood": "f5ffdc6da365894b",
+   "cs-early": "6f5493b21f2d8a6f",
+   "cs-johnson": "2aa3408288babf79",
+   "cs-rodes": "330d1459205ab76c",
+   "cs-anderson": "19c4e7f44f9ad14c",
+   "cs-heth": "36c0a9dc657a5a86",
+   "cs-pender": "13ea1ad6f46a7a23",
+   "cs-art-1c": "fbcdc6493a501a3d",
+   "cs-art-2c": "1934525accb07a87",
+   "cs-art-3c": "b4d73bc574725add"
   }
  },
  "totals": {
   "batteries": 131,
   "formations": 33,
-  "verified": 0,
+  "verified": 86,
   "inferred": 0,
-  "conflict": 0,
-  "gap": 0,
-  "unverified": 131
+  "conflict": 6,
+  "gap": 31,
+  "unverified": 8
  },
  "batteries": {
   "us-1c-art-2me": {
@@ -50,10 +65,153 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "conflict",
+   "guns": [
+    {
+     "as_of": "1863-07-01",
+     "state": "disabled",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "3 of Hall's guns dismounted",
+       "count": 3,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ],
+       "note": "the count is of guns, the type is the battery's 3-inch"
+      }
+     ],
+     "total": 3,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0107"
+     ],
+     "cite": {
+      "id": "us-art-corps:0107",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 231,
+      "offset": 759556
+     }
+    },
+    {
+     "as_of": "1863-07-01T10:15",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0106"
+     ],
+     "cite": {
+      "id": "us-art-corps:0106",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 229,
+      "offset": 749418
+     }
+    },
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "three 3-inch",
+       "count": 3,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 3,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0108"
+     ],
+     "cite": {
+      "id": "us-art-corps:0108",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 233,
+      "offset": 767048
+     },
+     "alt": "A"
+    },
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 3-incli rifles",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ],
+       "note": "the OCR prints 3-incli"
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0109"
+     ],
+     "cite": {
+      "id": "us-art-corps:0109",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R264",
+      "printed_page": 749,
+      "offset": 2619435
+     },
+     "alt": "B"
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01": {
+     "disabled": {
+      "low": 3,
+      "high": 3,
+      "lines": 1
+     }
+    },
+    "1863-07-01T10:15": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-02": {
+     "present": {
+      "low": 3,
+      "high": 4,
+      "lines": 2
+     }
+    }
+   },
+   "unverified": false
   },
   "us-1c-art-5me": {
    "name": "5th ME",
@@ -76,10 +234,119 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six light 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0110"
+     ],
+     "cite": {
+      "id": "us-art-corps:0110",
+      "source_id": "ME-GB-1898",
+      "report_id": "ME-S004",
+      "printed_page": "81-82",
+      "offset": 223238
+     }
+    },
+    {
+     "as_of": "1863-07-01T16:00/1863-07-01T23:59",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0111"
+     ],
+     "cite": {
+      "id": "us-art-corps:0111",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 231,
+      "offset": 761301
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0112"
+     ],
+     "cite": {
+      "id": "us-art-corps:0112",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 788037
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-01T16:00/1863-07-01T23:59": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-1c-art-1nye": {
    "name": "1st NY E",
@@ -102,7 +369,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -128,10 +395,156 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01",
+     "state": "lost",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "one gun, 3-inch",
+       "count": 1,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 1,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0115"
+     ],
+     "cite": {
+      "id": "us-art-corps:0115",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 243,
+      "offset": 809551
+     }
+    },
+    {
+     "as_of": "1863-07-01T11:00/1863-07-01T16:00",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0113"
+     ],
+     "cite": {
+      "id": "us-art-corps:0113",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 230,
+      "offset": 756082
+     }
+    },
+    {
+     "as_of": "1863-07-01T16:00/1863-07-01T23:59",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "five 3-inch",
+       "count": 5,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 5,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0114"
+     ],
+     "cite": {
+      "id": "us-art-corps:0114",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 231,
+      "offset": 761037
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 3-inch",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0116"
+     ],
+     "cite": {
+      "id": "us-art-corps:0116",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 788083
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01": {
+     "lost": {
+      "low": 1,
+      "high": 1,
+      "lines": 1
+     }
+    },
+    "1863-07-01T11:00/1863-07-01T16:00": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-01T16:00/1863-07-01T23:59": {
+     "present": {
+      "low": 5,
+      "high": 5,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-1c-art-1pab": {
    "name": "1st PA B",
@@ -154,10 +567,119 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01",
+     "state": "disabled",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "one axle having broken",
+       "count": 1,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ],
+       "note": "one piece disabled by a broken axle; three guns engaged"
+      }
+     ],
+     "total": 1,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0119"
+     ],
+     "cite": {
+      "id": "us-art-corps:0119",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R075",
+      "printed_page": 365,
+      "offset": 1272195
+     }
+    },
+    {
+     "as_of": "1863-07-01",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 3-inch guns",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0117"
+     ],
+     "cite": {
+      "id": "us-art-corps:0117",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R071",
+      "printed_page": 354,
+      "offset": 1230393
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 3-inch",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0118"
+     ],
+     "cite": {
+      "id": "us-art-corps:0118",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 790082
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01": {
+     "disabled": {
+      "low": 1,
+      "high": 1,
+      "lines": 1
+     },
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-1c-art-4usb": {
    "name": "4th US B",
@@ -180,10 +702,157 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01",
+     "state": "disabled",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "2 of his guns",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ],
+       "note": "two guns disabled by the breaking of their pointing rings"
+      }
+     ],
+     "total": 2,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0121"
+     ],
+     "cite": {
+      "id": "us-art-corps:0121",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 231,
+      "offset": 759469
+     }
+    },
+    {
+     "as_of": "1863-07-01T10:15/1863-07-01T16:00",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0120"
+     ],
+     "cite": {
+      "id": "us-art-corps:0120",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 229,
+      "offset": 751075
+     }
+    },
+    {
+     "as_of": "1863-07-01T16:00/1863-07-01T23:59",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four light 12-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0122"
+     ],
+     "cite": {
+      "id": "us-art-corps:0122",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 231,
+      "offset": 760749
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 12-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0123"
+     ],
+     "cite": {
+      "id": "us-art-corps:0123",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 788339
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01": {
+     "disabled": {
+      "low": 2,
+      "high": 2,
+      "lines": 1
+     }
+    },
+    "1863-07-01T10:15/1863-07-01T16:00": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-01T16:00/1863-07-01T23:59": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-2c-art-1nyb": {
    "name": "1st NY B",
@@ -207,10 +876,136 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "conflict",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 10-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "10pdr_parrott"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0124"
+     ],
+     "cite": {
+      "id": "us-art-corps:0124",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 236,
+      "offset": 781277
+     },
+     "alt": "A"
+    },
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four lO-pounder Parrotts",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "10pdr_parrott"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0298"
+     ],
+     "cite": {
+      "id": "us-art-corps:0298",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R132",
+      "printed_page": 478,
+      "offset": 1673689
+     },
+     "alt": "B"
+    },
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "Rorty's New York Battery among five six-gun batteries of the Second Corps",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0299"
+     ],
+     "cite": {
+      "id": "us-art-corps:0299",
+      "source_id": "us-art-corps:0001",
+      "offset": 472263
+     },
+     "alt": "C"
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 10-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "10pdr_parrott"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0125"
+     ],
+     "cite": {
+      "id": "us-art-corps:0125",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 789278
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 4,
+      "high": 6,
+      "lines": 3
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-2c-art-1ria": {
    "name": "1st RI A",
@@ -234,10 +1029,85 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-incli",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ],
+       "note": "the OCR prints 3-incli"
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0126"
+     ],
+     "cite": {
+      "id": "us-art-corps:0126",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 236,
+      "offset": 781444
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0127"
+     ],
+     "cite": {
+      "id": "us-art-corps:0127",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 789106
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-2c-art-1rib": {
    "name": "1st RI B",
@@ -261,10 +1131,118 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "detached",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "two guns sent to the rear",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 2,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0129"
+     ],
+     "cite": {
+      "id": "us-art-corps:0129",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 236,
+      "offset": 782188
+     }
+    },
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0128"
+     ],
+     "cite": {
+      "id": "us-art-corps:0128",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 236,
+      "offset": 781331
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 12-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0130"
+     ],
+     "cite": {
+      "id": "us-art-corps:0130",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 789215
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "detached": {
+      "low": 2,
+      "high": 2,
+      "lines": 1
+     },
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-2c-art-1usi": {
    "name": "1st US I",
@@ -288,10 +1266,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0131"
+     ],
+     "cite": {
+      "id": "us-art-corps:0131",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 236,
+      "offset": 781503
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-2c-art-4usa": {
    "name": "4th US A",
@@ -315,10 +1331,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0132"
+     ],
+     "cite": {
+      "id": "us-art-corps:0132",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 236,
+      "offset": 781388
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-3c-art-1njb": {
    "name": "1st NJ B",
@@ -341,10 +1395,47 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 10-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "10pdr_parrott"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0136"
+     ],
+     "cite": {
+      "id": "us-art-corps:0136",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 235,
+      "offset": 776348
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-3c-art-1nyd": {
    "name": "1st NY D",
@@ -367,10 +1458,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0135"
+     ],
+     "cite": {
+      "id": "us-art-corps:0135",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 235,
+      "offset": 776690
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-3c-art-4ny": {
    "name": "4th NY",
@@ -395,10 +1524,80 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "captured",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "three 10-pounder Parrotts",
+       "count": 3,
+       "type_id": "10pdr_parrott",
+       "type_candidates": [
+        "10pdr_parrott"
+       ]
+      }
+     ],
+     "total": 3,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0134"
+     ],
+     "cite": {
+      "id": "us-art-corps:0134",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 243,
+      "offset": 809763
+     }
+    },
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 10-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "10pdr_parrott"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0133"
+     ],
+     "cite": {
+      "id": "us-art-corps:0133",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 234,
+      "offset": 773835
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "captured": {
+      "low": 3,
+      "high": 3,
+      "lines": 1
+     },
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-3c-art-1rie": {
    "name": "1st RI E",
@@ -421,10 +1620,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0137"
+     ],
+     "cite": {
+      "id": "us-art-corps:0137",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 235,
+      "offset": 774966
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-3c-art-4usk": {
    "name": "4th US K",
@@ -447,10 +1684,85 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02T15:00/1863-07-02T17:30",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0138"
+     ],
+     "cite": {
+      "id": "us-art-corps:0138",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 235,
+      "offset": 775031
+     }
+    },
+    {
+     "as_of": "1863-07-02T17:30/1863-07-02T23:59",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four guns",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ],
+       "note": "the battery went into position with four of its six guns"
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0139"
+     ],
+     "cite": {
+      "id": "us-art-corps:0139",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R186",
+      "printed_page": 591,
+      "offset": 2073385
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02T15:00/1863-07-02T17:30": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-02T17:30/1863-07-02T23:59": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-5c-art-3ma": {
    "name": "3rd MA",
@@ -473,10 +1785,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0141"
+     ],
+     "cite": {
+      "id": "us-art-corps:0141",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 236,
+      "offset": 782401
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-5c-art-1nyc": {
    "name": "1st NY C",
@@ -499,10 +1849,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 3-inch",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0144"
+     ],
+     "cite": {
+      "id": "us-art-corps:0144",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 236,
+      "offset": 782635
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-5c-art-1ohl": {
    "name": "1st OH L",
@@ -525,10 +1913,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0143"
+     ],
+     "cite": {
+      "id": "us-art-corps:0143",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 236,
+      "offset": 782583
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-5c-art-5usd": {
    "name": "5th US D",
@@ -552,10 +1978,47 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 10-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "10pdr_parrott"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0140"
+     ],
+     "cite": {
+      "id": "us-art-corps:0140",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 236,
+      "offset": 782341
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-5c-art-5usi": {
    "name": "5th US I",
@@ -578,10 +2041,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 3-inch",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0142"
+     ],
+     "cite": {
+      "id": "us-art-corps:0142",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 236,
+      "offset": 782472
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-6c-art-1maa": {
    "name": "1st MA A",
@@ -604,7 +2105,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -630,10 +2131,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0145"
+     ],
+     "cite": {
+      "id": "us-art-corps:0145",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 239,
+      "offset": 794109
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-6c-art-3ny": {
    "name": "3rd NY",
@@ -656,7 +2195,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -682,7 +2221,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -708,7 +2247,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -734,7 +2273,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -760,7 +2299,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -786,7 +2325,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -812,10 +2351,84 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01T10:00/1863-07-01T16:00",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0154"
+     ],
+     "cite": {
+      "id": "us-art-corps:0154",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R264",
+      "printed_page": 747,
+      "offset": 2613598
+     }
+    },
+    {
+     "as_of": "1863-07-01T16:00/1863-07-01T23:59",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 3-inch",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0155"
+     ],
+     "cite": {
+      "id": "us-art-corps:0155",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 231,
+      "offset": 760905
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01T10:00/1863-07-01T16:00": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-01T16:00/1863-07-01T23:59": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-11c-art-13ny": {
    "name": "13th NY",
@@ -839,10 +2452,84 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01T10:00/1863-07-01T16:00",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 3-inch guns",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0156"
+     ],
+     "cite": {
+      "id": "us-art-corps:0156",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R264",
+      "printed_page": 747,
+      "offset": 2613698
+     }
+    },
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "three 3-inch",
+       "count": 3,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 3,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0157"
+     ],
+     "cite": {
+      "id": "us-art-corps:0157",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 233,
+      "offset": 767671
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01T10:00/1863-07-01T16:00": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    },
+    "1863-07-02": {
+     "present": {
+      "low": 3,
+      "high": 3,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-11c-art-1ohi": {
    "name": "1st OH I",
@@ -865,10 +2552,84 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01T10:00/1863-07-01T16:00",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six light 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0148"
+     ],
+     "cite": {
+      "id": "us-art-corps:0148",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R264",
+      "printed_page": 747,
+      "offset": 2613394
+     }
+    },
+    {
+     "as_of": "1863-07-01T10:15/1863-07-01T16:00",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0149"
+     ],
+     "cite": {
+      "id": "us-art-corps:0149",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 229,
+      "offset": 752631
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01T10:00/1863-07-01T16:00": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-01T10:15/1863-07-01T16:00": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-11c-art-1ohk": {
    "name": "1st OH K",
@@ -891,10 +2652,145 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "conflict",
+   "guns": [
+    {
+     "as_of": "1863-07-01",
+     "state": "lost",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "one gun in the hands of the enemy",
+       "count": 1,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 1,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0151"
+     ],
+     "cite": {
+      "id": "us-art-corps:0151",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R264",
+      "printed_page": 748,
+      "offset": 2616967
+     },
+     "alt": "A"
+    },
+    {
+     "as_of": "1863-07-01",
+     "state": "lost",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "one light 12-pounder",
+       "count": 1,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 1,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0152"
+     ],
+     "cite": {
+      "id": "us-art-corps:0152",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 243,
+      "offset": 809652
+     },
+     "alt": "B"
+    },
+    {
+     "as_of": "1863-07-01",
+     "state": "lost",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "two pieces in the hands of the enemy",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 2,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0153"
+     ],
+     "cite": {
+      "id": "us-art-corps:0153",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R268",
+      "printed_page": 755,
+      "offset": 2644530
+     },
+     "alt": "C"
+    },
+    {
+     "as_of": "1863-07-01T10:00/1863-07-01T16:00",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four light 12-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0150"
+     ],
+     "cite": {
+      "id": "us-art-corps:0150",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R264",
+      "printed_page": 747,
+      "offset": 2613495
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01": {
+     "lost": {
+      "low": 1,
+      "high": 2,
+      "lines": 3
+     }
+    },
+    "1863-07-01T10:00/1863-07-01T16:00": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-11c-art-4usg": {
    "name": "4th US G",
@@ -917,10 +2813,79 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "conflict",
+   "guns": [
+    {
+     "as_of": "1863-07-01T11:00/1863-07-01T16:00",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six light 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0146"
+     ],
+     "cite": {
+      "id": "us-art-corps:0146",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R264",
+      "printed_page": 747,
+      "offset": 2613287
+     },
+     "alt": "A"
+    },
+    {
+     "as_of": "1863-07-01T11:00/1863-07-01T16:00",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 12-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0147"
+     ],
+     "cite": {
+      "id": "us-art-corps:0147",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 230,
+      "offset": 753572
+     },
+     "alt": "B"
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01T11:00/1863-07-01T16:00": {
+     "present": {
+      "low": 4,
+      "high": 6,
+      "lines": 2
+     }
+    }
+   },
+   "unverified": false
   },
   "us-12c-art-1nym": {
    "name": "1st NY M",
@@ -943,10 +2908,47 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 10-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "10pdr_parrott"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0159"
+     ],
+     "cite": {
+      "id": "us-art-corps:0159",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 237,
+      "offset": 786574
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-12c-art-pae": {
    "name": "PA E",
@@ -969,10 +2971,82 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02T17:00",
+     "state": "engaged",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "the three (Knap's Independent Pennsylvania), of the caliber of the one gun (10-pounder Parrott) placed at 3.30 p. m.",
+       "count": 3,
+       "type_id": null,
+       "type_candidates": [
+        "10pdr_parrott"
+       ]
+      }
+     ],
+     "total": 3,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0279"
+     ],
+     "cite": {
+      "id": "us-art-corps:0279",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R314",
+      "printed_page": 870,
+      "offset": 3065014
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 10-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "10pdr_parrott"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0158"
+     ],
+     "cite": {
+      "id": "us-art-corps:0158",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 237,
+      "offset": 786413
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02T17:00": {
+     "engaged": {
+      "low": 3,
+      "high": 3,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-12c-art-4usf": {
    "name": "4th US F",
@@ -995,10 +3069,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0160"
+     ],
+     "cite": {
+      "id": "us-art-corps:0160",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 237,
+      "offset": 786794
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-12c-art-5usk": {
    "name": "5th US K",
@@ -1021,10 +3133,76 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02T17:00",
+     "state": "engaged",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "one section of 12-pounder Napoleons",
+       "count": null,
+       "type_id": "napoleon_12pdr_m1857",
+       "type_candidates": [
+        "napoleon_12pdr_m1857"
+       ]
+      }
+     ],
+     "total": null,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0278"
+     ],
+     "cite": {
+      "id": "us-art-corps:0278",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R314",
+      "printed_page": 870,
+      "offset": 3065190
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 12-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0161"
+     ],
+     "cite": {
+      "id": "us-art-corps:0161",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 237,
+      "offset": 786863
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-ransom-1ush": {
    "name": "1st US H",
@@ -1047,10 +3225,84 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0145"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0145",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 233,
+      "offset": 767193
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0146"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0146",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 788632
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-ransom-3usf": {
    "name": "3rd US F",
@@ -1073,10 +3325,82 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0147"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0147",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 235,
+      "offset": 777361
+     }
+    },
+    {
+     "as_of": "1863-07-02",
+     "state": "recovered",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four guns left on the field and afterward brought off by infantry",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0149"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0149",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R315",
+      "printed_page": 873,
+      "offset": 3077453
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     },
+     "recovered": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-ransom-3usk": {
    "name": "3rd US K",
@@ -1099,10 +3423,82 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0148"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0148",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 235,
+      "offset": 777361
+     }
+    },
+    {
+     "as_of": "1863-07-02",
+     "state": "recovered",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four guns left on the field and afterward brought off by infantry",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0150"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0150",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R315",
+      "printed_page": 873,
+      "offset": 3077453
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     },
+     "recovered": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-ransom-4usc": {
    "name": "4th US C",
@@ -1125,10 +3521,84 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0168"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0168",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 235,
+      "offset": 777225
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0151"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0151",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 789483
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-ransom-5usc": {
    "name": "5th US C",
@@ -1151,10 +3621,84 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0152"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0152",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 235,
+      "offset": 777288
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0169"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0169",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 239,
+      "offset": 794047
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-mcgilvery-5ma": {
    "name": "5th MA",
@@ -1177,10 +3721,84 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0153"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0153",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 235,
+      "offset": 775520
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0154"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0154",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 789674
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-mcgilvery-9ma": {
    "name": "9th MA",
@@ -1203,10 +3821,110 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "conflict",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 12-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0155"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0155",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 235,
+      "offset": 775461
+     },
+     "alt": "A"
+    },
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six guns",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0278"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0278",
+      "source_id": "us-art-reserve-horse:0001",
+      "offset": 1325332
+     },
+     "alt": "B"
+    },
+    {
+     "as_of": "1863-07-02",
+     "state": "recovered",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four guns left and recovered the same day",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0156"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0156",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R320",
+      "printed_page": 886,
+      "offset": 3126482
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 4,
+      "high": 6,
+      "lines": 2
+     },
+     "recovered": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-mcgilvery-15ny": {
    "name": "15th NY",
@@ -1229,10 +3947,84 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 12-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0157"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0157",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 235,
+      "offset": 775575
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 12-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0158"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0158",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 789724
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-mcgilvery-pac": {
    "name": "PA C",
@@ -1255,10 +4047,84 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0159"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0159",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 235,
+      "offset": 777053
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "five 3-inch",
+       "count": 5,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 5,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0161"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0161",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 789618
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 5,
+      "high": 5,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-mcgilvery-paf": {
    "name": "PA F",
@@ -1281,10 +4147,84 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0160"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0160",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 235,
+      "offset": 777053
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "five 3-inch",
+       "count": 5,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 5,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0162"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0162",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 789618
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 5,
+      "high": 5,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-taft-1ctheavy": {
    "name": "1st CT Heavy",
@@ -1307,10 +4247,38 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "detached",
+     "scope": "other",
+     "pieces": [
+      {
+       "printed": "4 1/2-inch guns",
+       "count": null,
+       "type_id": null,
+       "type_candidates": [],
+       "note": "the number of guns is not stated"
+      }
+     ],
+     "total": null,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0270"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0270",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R315",
+      "printed_page": 872,
+      "offset": 3073586
+     }
+    }
+   ],
    "range_by_date": {},
-   "unverified": true
+   "unverified": false
   },
   "us-art-reserve-taft-2ct": {
    "name": "2nd CT",
@@ -1333,10 +4301,94 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four James rifles",
+       "count": 4,
+       "type_id": "14pdr_james_rifle",
+       "type_candidates": []
+      },
+      {
+       "printed": "two howitzers",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0166"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0166",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 235,
+      "offset": 777112
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four James rifled guns",
+       "count": 4,
+       "type_id": "14pdr_james_rifle",
+       "type_candidates": []
+      },
+      {
+       "printed": "two howitzers",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0167"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0167",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R318",
+      "printed_page": 883,
+      "offset": 3115567
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-taft-5ny": {
    "name": "5th NY",
@@ -1359,10 +4411,111 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 20-pounder Parrotts",
+       "count": 6,
+       "type_id": "20pdr_parrott",
+       "type_candidates": []
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0163"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0163",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 233,
+      "offset": 768279
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "disabled",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "one 20-pounder Parrott gun exploded",
+       "count": 1,
+       "type_id": "20pdr_parrott",
+       "type_candidates": []
+      }
+     ],
+     "total": 1,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0165"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0165",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R325",
+      "printed_page": 892,
+      "offset": 3147168
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 20-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "20pdr_parrott"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0164"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0164",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 788808
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "disabled": {
+      "low": 1,
+      "high": 1,
+      "lines": 1
+     },
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-huntington-1nh": {
    "name": "1st NH",
@@ -1385,10 +4538,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0170"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0170",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 233,
+      "offset": 767406
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-huntington-1ohh": {
    "name": "1st OH H",
@@ -1411,10 +4602,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0171"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0171",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 233,
+      "offset": 767354
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-huntington-1paf": {
    "name": "1st PA F",
@@ -1437,10 +4666,84 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0172"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0172",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 234,
+      "offset": 772359
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0174"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0174",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 788134
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-huntington-1pag": {
    "name": "1st PA G",
@@ -1463,10 +4766,84 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0173"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0173",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 234,
+      "offset": 772359
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0175"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0175",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 788134
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-huntington-wvc": {
    "name": "WV C",
@@ -1489,10 +4866,82 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 10-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "10pdr_parrott"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0176"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0176",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 233,
+      "offset": 767297
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 10-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "10pdr_parrott"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0177"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0177",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 788745
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-fitzhugh-6me": {
    "name": "6th ME",
@@ -1515,10 +4964,80 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four light twelve-pounder Napoleon guns",
+       "count": 4,
+       "type_id": "napoleon_12pdr_m1857",
+       "type_candidates": []
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0179"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0179",
+      "source_id": "ME-GB-1898",
+      "report_id": "ME-S020",
+      "printed_page": "324-326",
+      "offset": 889110
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 12-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0178"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0178",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 789882
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-fitzhugh-mda": {
    "name": "MD A",
@@ -1541,10 +5060,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0180"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0180",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 237,
+      "offset": 787263
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-fitzhugh-1nj": {
    "name": "1st NJ",
@@ -1567,10 +5124,47 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 10-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "10pdr_parrott"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0181"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0181",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 239,
+      "offset": 793991
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-fitzhugh-1nyg": {
    "name": "1st NY G",
@@ -1593,10 +5187,84 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0182"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0182",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 235,
+      "offset": 778566
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0183"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0183",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 238,
+      "offset": 789931
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-fitzhugh-1nyk": {
    "name": "1st NY K",
@@ -1619,10 +5287,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0184"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0184",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 239,
+      "offset": 793940
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-taft-1ctheavy-b": {
    "name": "1st CT Heavy B",
@@ -1697,7 +5403,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -1723,10 +5429,76 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "conflict",
+   "guns": [
+    {
+     "as_of": "1863-06-09",
+     "state": "lost",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "Three 3-inch rifled guns",
+       "count": 3,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 3,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0263"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0263",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R370",
+      "printed_page": 1026,
+      "offset": 3615554
+     },
+     "alt": "A"
+    },
+    {
+     "as_of": "1863-06-09",
+     "state": "lost",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "two guns of the Sixth New York Battery",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": 2,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0264"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0264",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R378",
+      "printed_page": 1045,
+      "offset": 3683959
+     },
+     "alt": "B"
+    }
+   ],
+   "range_by_date": {
+    "1863-06-09": {
+     "lost": {
+      "low": 2,
+      "high": 3,
+      "lines": 2
+     }
+    }
+   },
+   "unverified": false
   },
   "US.ART.2nd_US_B_L": {
    "name": "2nd US B & L",
@@ -1749,7 +5521,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -1775,10 +5547,45 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-06-09",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six guns",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0268"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0268",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R345",
+      "printed_page": 962,
+      "offset": 3389128
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-06-09": {
+     "engaged": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "US.ART.4th_US_E": {
    "name": "4th US E",
@@ -1801,7 +5608,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -1827,7 +5634,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -1853,10 +5660,46 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-06-21",
+     "state": "engaged",
+     "scope": "other",
+     "pieces": [
+      {
+       "printed": "four remaining pieces",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [],
+       "note": "one section was detached under Lieutenant Michalowski; the number of pieces of a section is not stated"
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0269"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0269",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R373",
+      "printed_page": 1029,
+      "offset": 3627252
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-06-21": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "US.ART.2nd_US_A": {
    "name": "2nd US A",
@@ -1880,10 +5723,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 3-inch",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0185"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0185",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 229,
+      "offset": 751258
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01": {
+     "present": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-1c-res-art-alexander-ashland": {
    "name": "Ashland",
@@ -1907,7 +5788,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -1934,7 +5815,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -1961,7 +5842,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -1988,10 +5869,44 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four 24-pounder howitzers",
+       "count": 4,
+       "type_id": "24pdr_howitzer"
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0102"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0102",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R442",
+      "printed_page": 389,
+      "offset": 1438758
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-1c-res-art-alexander-richmond": {
    "name": "Richmond",
@@ -2015,7 +5930,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -2042,10 +5957,44 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four Napoleons",
+       "count": 4,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0101"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0101",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R465",
+      "printed_page": 432,
+      "offset": 1600733
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Squires": {
    "name": "Squires battery",
@@ -2069,10 +6018,44 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-03",
+     "state": "engaged",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "one Napoleon (First Company)",
+       "count": 1,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 1,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0104"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0104",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R466",
+      "printed_page": 434,
+      "offset": 1607843
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03": {
+     "engaged": {
+      "low": 1,
+      "high": 1,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Richardson": {
    "name": "Richardson battery",
@@ -2096,10 +6079,44 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-03",
+     "state": "engaged",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "two Napoleons (Second Company)",
+       "count": 2,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 2,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0107"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0107",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R466",
+      "printed_page": 434,
+      "offset": 1608258
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03": {
+     "engaged": {
+      "low": 2,
+      "high": 2,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Miller": {
    "name": "Miller battery",
@@ -2123,10 +6140,44 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-03",
+     "state": "engaged",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "Three Napoleons (Third Company)",
+       "count": 3,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 3,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0103"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0103",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R466",
+      "printed_page": 434,
+      "offset": 1607740
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03": {
+     "engaged": {
+      "low": 3,
+      "high": 3,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Norcom": {
    "name": "Norcom battery",
@@ -2150,10 +6201,44 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-03",
+     "state": "engaged",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "two Napoleons (Fourth Company)",
+       "count": 2,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 2,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0108"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0108",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R466",
+      "printed_page": 434,
+      "offset": 1608141
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03": {
+     "engaged": {
+      "low": 2,
+      "high": 2,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.1st_NC_A": {
    "name": "1st NC A battery",
@@ -2177,10 +6262,44 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-06-26",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four guns",
+       "count": null,
+       "type_id": null
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0099"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0099",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R437",
+      "printed_page": 380,
+      "offset": 1405647
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-06-26": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Pulaski_GA": {
    "name": "Pulaski GA battery",
@@ -2204,10 +6323,53 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "two lO-pounder Parrotts",
+       "count": 2,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "two 3-inch rifled guns",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0095"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0095",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R438",
+      "printed_page": 382,
+      "offset": 1411524
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.1st_Richmond_Howitzers": {
    "name": "1st Richmond Howitzers",
@@ -2231,10 +6393,109 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02/1863-07-03",
+     "state": "engaged",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "two Napoleons",
+       "count": 2,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 2,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0097"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0097",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R435",
+      "printed_page": 375,
+      "offset": 1389610
+     }
+    },
+    {
+     "as_of": "1863-07-02/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "two 3-inch rifles",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "two Napoleons",
+       "count": 2,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 4,
+     "tier": "inferred",
+     "evidence_ids": [
+      "cs-art-1c:0098"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0098"
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "engaged",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "two 3-inch rifles",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 2,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0096"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0096",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R435",
+      "printed_page": 375,
+      "offset": 1388999
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02/1863-07-03": {
+     "engaged": {
+      "low": 2,
+      "high": 4,
+      "lines": 2
+     }
+    },
+    "1863-07-03": {
+     "engaged": {
+      "low": 2,
+      "high": 2,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Troup_GA": {
    "name": "Troup GA battery",
@@ -2258,10 +6519,49 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "a section of Parrott guns",
+       "count": null,
+       "type_id": null
+      },
+      {
+       "printed": "a section of 12-pounder howitzers",
+       "count": null,
+       "type_id": null
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0100"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0100",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R440",
+      "printed_page": 384,
+      "offset": 1421000
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Fauquier": {
    "name": "Fauquier battery",
@@ -2285,7 +6585,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -2312,7 +6612,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -2339,7 +6639,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -2366,7 +6666,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -2393,7 +6693,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -2420,7 +6720,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -2447,7 +6747,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -2474,7 +6774,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -2501,7 +6801,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -2528,10 +6828,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "3-inch rifles",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0073"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0073",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Louisiana_Guard": {
    "name": "Louisiana Guard battery",
@@ -2555,10 +6893,95 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "two 10-pounder Parrotts",
+       "count": 2,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "two 3-inch Yankee rifles",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ],
+       "note": "printed as 3-inch Yankee rifles"
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0081"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0081",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R479",
+      "printed_page": 497,
+      "offset": 1850728
+     }
+    },
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "10-pounder Parrotts",
+       "count": 2,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0074"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0074",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    },
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Staunton": {
    "name": "Staunton battery",
@@ -2582,10 +7005,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "light 12-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0072"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0072",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.1st_Md": {
    "name": "1st Md battery",
@@ -2609,10 +7070,80 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-06-14",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "four Napoleons",
+       "count": 4,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0082"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0082",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R504",
+      "printed_page": 540,
+      "offset": 2007670
+     }
+    },
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "light 12-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0079"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0079",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-06-14": {
+     "present": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    },
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Alleghany": {
    "name": "Alleghany battery",
@@ -2636,10 +7167,57 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "3-inch rifles",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "light 12-pounders",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0076"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0076",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Chesapeake": {
    "name": "Chesapeake battery",
@@ -2663,10 +7241,44 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "10-pounder Parrotts",
+       "count": 4,
+       "type_id": "10pdr_parrott"
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0078"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0078",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Lee": {
    "name": "Lee battery",
@@ -2690,10 +7302,58 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "20-pounder Parrotts",
+       "count": 2,
+       "type_id": "20pdr_parrott"
+      },
+      {
+       "printed": "10-pounder Parrott",
+       "count": 1,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifle",
+       "count": 1,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0077"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0077",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Jefferson_Davis_AL": {
    "name": "Jefferson Davis AL battery",
@@ -2717,10 +7377,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "3-inch rifles",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0068"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0068",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.King_William": {
    "name": "King William battery",
@@ -2744,10 +7442,53 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "10-pounder Parrotts",
+       "count": 2,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "light 12-pounders",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0067"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0067",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Morris": {
    "name": "Morris battery",
@@ -2771,10 +7512,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "light 12-pounders",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0065"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0065",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Orange": {
    "name": "Orange battery",
@@ -2798,10 +7577,53 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "10-pounder Parrotts",
+       "count": 2,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0066"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0066",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.2nd_and_3rd_Richmond_Howitzers": {
    "name": "2nd and 3rd Richmond Howitzers",
@@ -2825,10 +7647,53 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "10-pounder Parrotts (Watson, 2d Richmond Howitzers)",
+       "count": 4,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles (Smith, 3d Richmond Howitzers)",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 8,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0080"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0080",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 8,
+      "high": 8,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Powhatan": {
    "name": "Powhatan battery",
@@ -2852,10 +7717,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "3-inch rifles",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0069"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0069",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Rockbridge": {
    "name": "Rockbridge battery",
@@ -2879,10 +7782,44 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "20-pounder Parrotts",
+       "count": 4,
+       "type_id": "20pdr_parrott"
+      }
+     ],
+     "total": 4,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0071"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0071",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 4,
+      "high": 4,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Salem": {
    "name": "Salem battery",
@@ -2906,10 +7843,112 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "3-inch rifles",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 2,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0070"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0070",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "engaged",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "two rifled guns",
+       "count": 2,
+       "type_id": null
+      }
+     ],
+     "total": 2,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0083"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0083",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R532",
+      "printed_page": 604,
+      "offset": 2245540
+     }
+    },
+    {
+     "as_of": "1863-07-04",
+     "state": "present",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "two Napoleon guns",
+       "count": 2,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 2,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0084"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0084",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R532",
+      "printed_page": 604,
+      "offset": 2246393
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 2,
+      "high": 2,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "engaged": {
+      "low": 2,
+      "high": 2,
+      "lines": 1
+     }
+    },
+    "1863-07-04": {
+     "present": {
+      "low": 2,
+      "high": 2,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Amherst": {
    "name": "Amherst battery",
@@ -2933,7 +7972,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -2960,7 +7999,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -2987,10 +8026,53 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "10-pounder Parrott",
+       "count": 1,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 3,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0075"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0075",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R469",
+      "printed_page": 458,
+      "offset": 1701371
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 3,
+      "high": 3,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Donaldsonville": {
    "name": "Donaldsonville battery",
@@ -3014,10 +8096,85 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01",
+     "state": "engaged",
+     "scope": "other",
+     "pieces": [
+      {
+       "printed": "six of the battalion rifled pieces",
+       "count": 6,
+       "type_id": null
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0068"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0068",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R554",
+      "printed_page": 652,
+      "offset": 2427503
+     }
+    },
+    {
+     "as_of": "1863-07-04",
+     "state": "detached",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "two 3-inch United States rifles",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "one 10-pounder Parrott",
+       "count": 1,
+       "type_id": "10pdr_parrott"
+      }
+     ],
+     "total": 3,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0069"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0069",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R555",
+      "printed_page": 654,
+      "offset": 2435670
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01": {
+     "engaged": {
+      "low": 6,
+      "high": 6,
+      "lines": 1
+     }
+    },
+    "1863-07-04": {
+     "detached": {
+      "low": 3,
+      "high": 3,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Huger": {
    "name": "Huger battery",
@@ -3041,10 +8198,53 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-04",
+     "state": "detached",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "one 10-pounder Parrott",
+       "count": 1,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "one 3-inch United States rifle",
+       "count": 1,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 2,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0070"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0070",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R555",
+      "printed_page": 654,
+      "offset": 2435555
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-04": {
+     "detached": {
+      "low": 2,
+      "high": 2,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Lewis": {
    "name": "Lewis battery",
@@ -3068,10 +8268,44 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-13",
+     "state": "lost",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "two rifled pieces",
+       "count": 2,
+       "type_id": null
+      }
+     ],
+     "total": 2,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0071"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0071",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R554",
+      "printed_page": 653,
+      "offset": 2431632
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-13": {
+     "lost": {
+      "low": 2,
+      "high": 2,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Norfolk_Blues": {
    "name": "Norfolk Blues battery",
@@ -3095,7 +8329,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -3122,10 +8356,36 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01",
+     "state": "engaged",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "one battery of Napoleons",
+       "count": null,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": null,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0072"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0072",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R563",
+      "printed_page": 674,
+      "offset": 2513548
+     }
+    }
+   ],
    "range_by_date": {},
-   "unverified": true
+   "unverified": false
   },
   "CS.ART.HURT": {
    "name": "Hardaway AL battery",
@@ -3149,10 +8409,47 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "two Whitworth guns",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "12pdr_whitworth"
+       ]
+      }
+     ],
+     "total": 2,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0073"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0073",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R563",
+      "printed_page": 675,
+      "offset": 2516908
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03": {
+     "present": {
+      "low": 2,
+      "high": 2,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.2nd_Rockbridge": {
    "name": "2nd Rockbridge battery",
@@ -3176,10 +8473,48 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01",
+     "state": "disabled",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "one 3-inch rifle (Lieutenant Wallace's)",
+       "count": 1,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 1,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0074"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0074",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R563",
+      "printed_page": 675,
+      "offset": 2516641
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01": {
+     "disabled": {
+      "low": 1,
+      "high": 1,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Johnson_s": {
    "name": "Johnson's battery",
@@ -3203,7 +8538,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -3230,7 +8565,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -3257,10 +8592,36 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01",
+     "state": "engaged",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "a section of rifled guns",
+       "count": null,
+       "type_id": null
+      }
+     ],
+     "total": null,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0075"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0075",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R564",
+      "printed_page": 677,
+      "offset": 2524924
+     }
+    }
+   ],
    "range_by_date": {},
-   "unverified": true
+   "unverified": false
   },
   "CS.ART.Letcher": {
    "name": "Letcher battery",
@@ -3284,7 +8645,7 @@
      ]
     }
    ],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -3311,10 +8672,44 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01",
+     "state": "disabled",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "one rifle (of Lieutenant Zimmerman)",
+       "count": 1,
+       "type_id": null
+      }
+     ],
+     "total": 1,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0076"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0076",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R564",
+      "printed_page": 678,
+      "offset": 2525882
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01": {
+     "disabled": {
+      "low": 1,
+      "high": 1,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Purcell": {
    "name": "Purcell battery",
@@ -3338,10 +8733,44 @@
      ]
     }
    ],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "engaged",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "two of Captain McGraw's guns",
+       "count": 2,
+       "type_id": null
+      }
+     ],
+     "total": 2,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0077"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0077",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R564",
+      "printed_page": 679,
+      "offset": 2531336
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "engaged": {
+      "low": 2,
+      "high": 2,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "CS.ART.Breathed": {
    "name": "Breathed battery",
@@ -3514,10 +8943,40 @@
    "parent": "us-1c",
    "group": "us-art-corps",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "inferred",
+   "guns": [
+    {
+     "as_of": "1863-07-01T10:15/1863-07-01T16:00",
+     "state": "present",
+     "scope": "brigade",
+     "pieces": [
+      {
+       "printed": "sum of the guns of the batteries",
+       "count": 28,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": 28,
+     "tier": "inferred",
+     "evidence_ids": [
+      "us-art-corps:0282"
+     ],
+     "cite": {
+      "id": "us-art-corps:0282"
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01T10:15/1863-07-01T16:00": {
+     "present": {
+      "low": 28,
+      "high": 28,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-2c-art": {
    "name": "Artillery Hazard",
@@ -3526,10 +8985,40 @@
    "parent": "us-2c",
    "group": "us-art-corps",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "inferred",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "brigade",
+     "pieces": [
+      {
+       "printed": "sum of the guns of the batteries",
+       "count": 28,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": 28,
+     "tier": "inferred",
+     "evidence_ids": [
+      "us-art-corps:0283"
+     ],
+     "cite": {
+      "id": "us-art-corps:0283"
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 28,
+      "high": 28,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-3c-art": {
    "name": "Artillery Randolph/Clark",
@@ -3538,10 +9027,40 @@
    "parent": "us-3c",
    "group": "us-art-corps",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "inferred",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "brigade",
+     "pieces": [
+      {
+       "printed": "sum of the guns of the batteries",
+       "count": 30,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": 30,
+     "tier": "inferred",
+     "evidence_ids": [
+      "us-art-corps:0284"
+     ],
+     "cite": {
+      "id": "us-art-corps:0284"
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 30,
+      "high": 30,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-5c-art": {
    "name": "Artillery Martin",
@@ -3550,10 +9069,40 @@
    "parent": "us-5c",
    "group": "us-art-corps",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "inferred",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "brigade",
+     "pieces": [
+      {
+       "printed": "sum of the guns of the batteries",
+       "count": 26,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": 26,
+     "tier": "inferred",
+     "evidence_ids": [
+      "us-art-corps:0285"
+     ],
+     "cite": {
+      "id": "us-art-corps:0285"
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 26,
+      "high": 26,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-6c-art": {
    "name": "Artillery Tompkins",
@@ -3562,7 +9111,7 @@
    "parent": "us-6c",
    "group": "us-art-corps",
    "kit_ids": [],
-   "status": "unverified",
+   "status": "gap",
    "guns": [],
    "range_by_date": {},
    "unverified": true
@@ -3574,10 +9123,79 @@
    "parent": "us-11c",
    "group": "us-art-corps",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01T10:00/1863-07-01T16:00",
+     "state": "present",
+     "scope": "brigade",
+     "pieces": [
+      {
+       "printed": "Total, 26 guns",
+       "count": 26,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": 26,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0280"
+     ],
+     "cite": {
+      "id": "us-art-corps:0280",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R264",
+      "printed_page": 747,
+      "offset": 2613698
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "other",
+     "pieces": [
+      {
+       "printed": "a total of fifty-two guns",
+       "count": 52,
+       "type_id": null,
+       "type_candidates": [],
+       "note": "the brigade with the batteries sent to Osborn from the Artillery Reserve"
+      }
+     ],
+     "total": 52,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0281"
+     ],
+     "cite": {
+      "id": "us-art-corps:0281",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R264",
+      "printed_page": 749,
+      "offset": 2619700
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01T10:00/1863-07-01T16:00": {
+     "present": {
+      "low": 26,
+      "high": 26,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 52,
+      "high": 52,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-12c-art": {
    "name": "Artillery Muhlenberg",
@@ -3586,10 +9204,57 @@
    "parent": "us-12c",
    "group": "us-art-corps",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-03T04:30",
+     "state": "present",
+     "scope": "brigade",
+     "pieces": [
+      {
+       "printed": "two rifle batteries (ten guns)",
+       "count": 10,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "10pdr_parrott"
+       ]
+      },
+      {
+       "printed": "two light 12-pounder batteries (ten guns)",
+       "count": 10,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 20,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0277"
+     ],
+     "cite": {
+      "id": "us-art-corps:0277",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R314",
+      "printed_page": 870,
+      "offset": 3067781
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03T04:30": {
+     "present": {
+      "low": 20,
+      "high": 20,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-cav-art": {
    "name": "Horse Artillery",
@@ -3598,10 +9263,48 @@
    "parent": "us-cav",
    "group": "us-art-reserve-horse",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "present",
+     "scope": "brigade",
+     "pieces": [
+      {
+       "printed": "44 3-inch guns",
+       "count": 44,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      }
+     ],
+     "total": 44,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0186"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0186",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 241,
+      "offset": 801839
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-01/1863-07-03": {
+     "present": {
+      "low": 44,
+      "high": 44,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-ransom": {
    "name": "1st Regular Brigade",
@@ -3610,10 +9313,40 @@
    "parent": "us-art-reserve",
    "group": "us-art-reserve-horse",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "inferred",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "brigade",
+     "pieces": [
+      {
+       "printed": "guns of the batteries of the brigade named in the passages below",
+       "count": 24,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": 24,
+     "tier": "inferred",
+     "evidence_ids": [
+      "us-art-reserve-horse:0242"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0242"
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 24,
+      "high": 24,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-mcgilvery": {
    "name": "1st Volunteer Brigade",
@@ -3622,10 +9355,66 @@
    "parent": "us-art-reserve",
    "group": "us-art-reserve-horse",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "brigade",
+     "pieces": [
+      {
+       "printed": "guns of the batteries of the brigade named in the passages below",
+       "count": 20,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": 20,
+     "tier": "inferred",
+     "evidence_ids": [
+      "us-art-reserve-horse:0243"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0243"
+     }
+    },
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "other",
+     "pieces": [
+      {
+       "printed": "six batteries of thirty-four guns",
+       "count": 34,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": 34,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-reserve-horse:0247"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0247",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R315",
+      "printed_page": 872,
+      "offset": 3074780
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 20,
+      "high": 34,
+      "lines": 2
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-taft": {
    "name": "2nd Vol Brigade",
@@ -3634,10 +9423,40 @@
    "parent": "us-art-reserve",
    "group": "us-art-reserve-horse",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "inferred",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "brigade",
+     "pieces": [
+      {
+       "printed": "guns of the batteries of the brigade named in the passages below",
+       "count": 12,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": 12,
+     "tier": "inferred",
+     "evidence_ids": [
+      "us-art-reserve-horse:0244"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0244"
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 12,
+      "high": 12,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-huntington": {
    "name": "3rd Vol Brigade",
@@ -3646,10 +9465,40 @@
    "parent": "us-art-reserve",
    "group": "us-art-reserve-horse",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "inferred",
+   "guns": [
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "brigade",
+     "pieces": [
+      {
+       "printed": "guns of the batteries of the brigade named in the passages below",
+       "count": 22,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": 22,
+     "tier": "inferred",
+     "evidence_ids": [
+      "us-art-reserve-horse:0245"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0245"
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-02": {
+     "present": {
+      "low": 22,
+      "high": 22,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "us-art-reserve-fitzhugh": {
    "name": "4th Vol Brigade",
@@ -3658,10 +9507,40 @@
    "parent": "us-art-reserve",
    "group": "us-art-reserve-horse",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "inferred",
+   "guns": [
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "brigade",
+     "pieces": [
+      {
+       "printed": "guns of the batteries of the brigade named in the passages below",
+       "count": 28,
+       "type_id": null,
+       "type_candidates": []
+      }
+     ],
+     "total": 28,
+     "tier": "inferred",
+     "evidence_ids": [
+      "us-art-reserve-horse:0246"
+     ],
+     "cite": {
+      "id": "us-art-reserve-horse:0246"
+     }
+    }
+   ],
+   "range_by_date": {
+    "1863-07-03": {
+     "present": {
+      "low": 28,
+      "high": 28,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-1c-mclaws-cabell": {
    "name": "Cabell's battalion",
@@ -3670,10 +9549,68 @@
    "parent": "cs-1c-mclaws",
    "group": "cs-art-1c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "10-pounder Parrotts",
+       "count": 4,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 3,
+       "type_id": "napoleon_12pdr_m1857"
+      },
+      {
+       "printed": "24-pounder howitzer",
+       "count": 1,
+       "type_id": "24pdr_howitzer"
+      },
+      {
+       "printed": "12-pounder howitzers",
+       "count": 3,
+       "type_id": "12pdr_howitzer"
+      }
+     ],
+     "total": 15,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0087"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0087",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 355,
+      "offset": 1316410
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 15,
+      "high": 15,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-1c-pickett-dearing": {
    "name": "Dearing's battalion",
@@ -3682,10 +9619,63 @@
    "parent": "cs-1c-pickett",
    "group": "cs-art-1c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "20-pounder Parrotts",
+       "count": 2,
+       "type_id": "20pdr_parrott"
+      },
+      {
+       "printed": "10-pounder Parrotts",
+       "count": 3,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifle",
+       "count": 1,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 12,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 18,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0089"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0089",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 355,
+      "offset": 1317241
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 18,
+      "high": 18,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-1c-hood-henry": {
    "name": "Henry's battalion",
@@ -3694,10 +9684,59 @@
    "parent": "cs-1c-hood",
    "group": "cs-art-1c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "10-pounder Parrotts",
+       "count": 6,
+       "type_id": "10pdr_parrott",
+       "note": "the cell is smudged; read as 6, which the column total 14 (4+6+3+1) requires"
+      },
+      {
+       "printed": "3-inch rifle",
+       "count": 1,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 11,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 18,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0088"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0088",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 355,
+      "offset": 1317191
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 18,
+      "high": 18,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-1c-res-art": {
    "name": "Reserve artillery Walton",
@@ -3706,10 +9745,68 @@
    "parent": "cs-1c",
    "group": "cs-art-1c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "inferred",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "other",
+     "pieces": [
+      {
+       "printed": "20-pounder Parrotts",
+       "count": 2,
+       "type_id": "20pdr_parrott"
+      },
+      {
+       "printed": "10-pounder Parrott",
+       "count": 1,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles",
+       "count": 8,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 14,
+       "type_id": "napoleon_12pdr_m1857"
+      },
+      {
+       "printed": "24-pounder howitzers",
+       "count": 4,
+       "type_id": "24pdr_howitzer"
+      },
+      {
+       "printed": "12-pounder howitzers",
+       "count": 3,
+       "type_id": "12pdr_howitzer"
+      }
+     ],
+     "total": 32,
+     "tier": "inferred",
+     "evidence_ids": [
+      "cs-art-1c:0093"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0093"
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 32,
+      "high": 32,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-1c-res-art-alexander": {
    "name": "Alexander's battalion",
@@ -3718,10 +9815,73 @@
    "parent": "cs-1c-res-art",
    "group": "cs-art-1c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "20-pounder Parrotts",
+       "count": 2,
+       "type_id": "20pdr_parrott"
+      },
+      {
+       "printed": "10-pounder Parrott",
+       "count": 1,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles",
+       "count": 7,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 6,
+       "type_id": "napoleon_12pdr_m1857"
+      },
+      {
+       "printed": "24-pounder howitzers",
+       "count": 4,
+       "type_id": "24pdr_howitzer"
+      },
+      {
+       "printed": "12-pounder howitzers",
+       "count": 2,
+       "type_id": "12pdr_howitzer"
+      }
+     ],
+     "total": 22,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0090"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0090",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 355,
+      "offset": 1317263
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 22,
+      "high": 22,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-1c-res-art-washington": {
    "name": "Washington (LA) Artillery",
@@ -3730,10 +9890,95 @@
    "parent": "cs-1c-res-art",
    "group": "cs-art-1c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "3-inch rifle",
+       "count": 1,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 8,
+       "type_id": "napoleon_12pdr_m1857"
+      },
+      {
+       "printed": "12-pounder howitzer",
+       "count": 1,
+       "type_id": "12pdr_howitzer"
+      }
+     ],
+     "total": 10,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0091"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0091",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 355,
+      "offset": 1317569
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "eight Napoleon guns",
+       "count": 8,
+       "type_id": "napoleon_12pdr_m1857"
+      },
+      {
+       "printed": "two 12-pounder howitzers",
+       "count": 2,
+       "type_id": "12pdr_howitzer"
+      }
+     ],
+     "total": 10,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0094"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0094",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R466",
+      "printed_page": 434,
+      "offset": 1607646
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 10,
+      "high": 10,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "present": {
+      "low": 10,
+      "high": 10,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-1c-art": {
    "name": "I Corps artillery",
@@ -3742,10 +9987,73 @@
    "parent": "cs-1c",
    "group": "cs-art-1c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "corps",
+     "pieces": [
+      {
+       "printed": "20-pounder Parrotts",
+       "count": 4,
+       "type_id": "20pdr_parrott"
+      },
+      {
+       "printed": "10-pounder Parrotts",
+       "count": 14,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles",
+       "count": 14,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 40,
+       "type_id": "napoleon_12pdr_m1857"
+      },
+      {
+       "printed": "24-pounder howitzers",
+       "count": 5,
+       "type_id": "24pdr_howitzer"
+      },
+      {
+       "printed": "12-pounder howitzers",
+       "count": 6,
+       "type_id": "12pdr_howitzer"
+      }
+     ],
+     "total": 83,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-1c:0092"
+     ],
+     "cite": {
+      "id": "cs-art-1c:0092",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 355,
+      "offset": 1317899
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 83,
+      "high": 83,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-2c-early-jones": {
    "name": "Jones's battalion",
@@ -3754,10 +10062,127 @@
    "parent": "cs-2c-early",
    "group": "cs-art-2c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "10-pounder Parrotts",
+       "count": 2,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 8,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 16,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0087"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0087",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 356,
+      "offset": 1318701
+     }
+    },
+    {
+     "as_of": "1863-06-05",
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "four batteries, with an aggregate of thirteen guns",
+       "count": 13,
+       "type_id": null
+      }
+     ],
+     "total": 13,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0090"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0090",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R478",
+      "printed_page": 493,
+      "offset": 1837239
+     }
+    },
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "guns of Garber",
+       "count": 4,
+       "type_id": null
+      },
+      {
+       "printed": "guns of Tanner",
+       "count": 4,
+       "type_id": null
+      },
+      {
+       "printed": "guns of Green",
+       "count": 4,
+       "type_id": null
+      }
+     ],
+     "total": 12,
+     "tier": "inferred",
+     "evidence_ids": [
+      "cs-art-2c:0094"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0094"
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 16,
+      "high": 16,
+      "lines": 1
+     }
+    },
+    "1863-06-05": {
+     "present": {
+      "low": 13,
+      "high": 13,
+      "lines": 1
+     }
+    },
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 12,
+      "high": 12,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-2c-johnson-andrews": {
    "name": "Andrews's battalion",
@@ -3766,10 +10191,142 @@
    "parent": "cs-2c-johnson",
    "group": "cs-art-2c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "20-pounder Parrotts",
+       "count": 2,
+       "type_id": "20pdr_parrott"
+      },
+      {
+       "printed": "10-pounder Parrotts",
+       "count": 5,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles",
+       "count": 3,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 6,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 16,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0085"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0085",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 355,
+      "offset": 1317950
+     }
+    },
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "guns of Carpenter",
+       "count": 4,
+       "type_id": null
+      },
+      {
+       "printed": "guns of Raine",
+       "count": 4,
+       "type_id": null
+      },
+      {
+       "printed": "guns of Brown",
+       "count": 4,
+       "type_id": null
+      },
+      {
+       "printed": "guns of Dement",
+       "count": 4,
+       "type_id": null
+      }
+     ],
+     "total": 16,
+     "tier": "inferred",
+     "evidence_ids": [
+      "cs-art-2c:0095"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0095"
+     }
+    },
+    {
+     "as_of": "1863-07-02",
+     "state": "engaged",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "fourteen guns",
+       "count": 14,
+       "type_id": null
+      },
+      {
+       "printed": "two 20-pounder Parrotts",
+       "count": 2,
+       "type_id": "20pdr_parrott"
+      }
+     ],
+     "total": 16,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0091"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0091",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R505",
+      "printed_page": 543,
+      "offset": 2019053
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 16,
+      "high": 16,
+      "lines": 1
+     }
+    },
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 16,
+      "high": 16,
+      "lines": 1
+     }
+    },
+    "1863-07-02": {
+     "engaged": {
+      "low": 16,
+      "high": 16,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-2c-rodes-carter": {
    "name": "Carter's battalion",
@@ -3778,10 +10335,132 @@
    "parent": "cs-2c-rodes",
    "group": "cs-art-2c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "10-pounder Parrotts",
+       "count": 4,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 6,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 16,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0086"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0086",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 355,
+      "offset": 1318398
+     }
+    },
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "guns of Page",
+       "count": 4,
+       "type_id": null
+      },
+      {
+       "printed": "guns of Fry",
+       "count": 4,
+       "type_id": null
+      },
+      {
+       "printed": "guns of Carter",
+       "count": 4,
+       "type_id": null
+      },
+      {
+       "printed": "guns of Reese",
+       "count": 4,
+       "type_id": null
+      }
+     ],
+     "total": 16,
+     "tier": "inferred",
+     "evidence_ids": [
+      "cs-art-2c:0096"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0096"
+     }
+    },
+    {
+     "as_of": "1863-07-03",
+     "state": "engaged",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "ten rifled guns",
+       "count": 10,
+       "type_id": null
+      }
+     ],
+     "total": 10,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0092"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0092",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R531",
+      "printed_page": 603,
+      "offset": 2241434
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 16,
+      "high": 16,
+      "lines": 1
+     }
+    },
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 16,
+      "high": 16,
+      "lines": 1
+     }
+    },
+    "1863-07-03": {
+     "engaged": {
+      "low": 10,
+      "high": 10,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-2c-res-art": {
    "name": "Reserve artillery J. T. Brown",
@@ -3790,10 +10469,44 @@
    "parent": "cs-2c",
    "group": "cs-art-2c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "inferred",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "other",
+     "pieces": [
+      {
+       "printed": "guns of the First Virginia Artillery",
+       "count": 20,
+       "type_id": null
+      },
+      {
+       "printed": "guns of Nelson's battalion",
+       "count": 13,
+       "type_id": null
+      }
+     ],
+     "total": 33,
+     "tier": "inferred",
+     "evidence_ids": [
+      "cs-art-2c:0131"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0131"
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 33,
+      "high": 33,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-2c-res-art-1vaartbn": {
    "name": "1st VA Artillery Bn",
@@ -3802,10 +10515,105 @@
    "parent": "cs-2c-res-art",
    "group": "cs-art-2c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "20-pounder Parrotts",
+       "count": 4,
+       "type_id": "20pdr_parrott"
+      },
+      {
+       "printed": "10-pounder Parrotts",
+       "count": 4,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles",
+       "count": 10,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 2,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 20,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0088"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0088",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 356,
+      "offset": 1318744
+     }
+    },
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "guns of Dance",
+       "count": 4,
+       "type_id": null
+      },
+      {
+       "printed": "guns of Watson/Smith",
+       "count": 8,
+       "type_id": null
+      },
+      {
+       "printed": "guns of Hupp",
+       "count": 2,
+       "type_id": null
+      },
+      {
+       "printed": "guns of Graham",
+       "count": 4,
+       "type_id": null
+      }
+     ],
+     "total": 18,
+     "tier": "inferred",
+     "evidence_ids": [
+      "cs-art-2c:0097"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0097"
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 20,
+      "high": 20,
+      "lines": 1
+     }
+    },
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 18,
+      "high": 18,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-2c-res-art-nelson": {
    "name": "Nelson's battalion",
@@ -3814,10 +10622,114 @@
    "parent": "cs-2c-res-art",
    "group": "cs-art-2c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "10-pounder Parrott",
+       "count": 1,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 8,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 13,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0089"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0089",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 356,
+      "offset": 1318777
+     }
+    },
+    {
+     "as_of": "1863-07-01/1863-07-03",
+     "state": "engaged",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "guns of Milledge",
+       "count": 3,
+       "type_id": null
+      }
+     ],
+     "total": 3,
+     "tier": "inferred",
+     "evidence_ids": [
+      "cs-art-2c:0098"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0098"
+     }
+    },
+    {
+     "as_of": "1863-07-02/1863-07-03",
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "13 guns in three batteries",
+       "count": 13,
+       "type_id": null
+      }
+     ],
+     "total": 13,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-2c:0093"
+     ],
+     "cite": {
+      "id": "cs-art-2c:0093",
+      "source_id": "ALEXANDER-1907",
+      "offset": 1126631
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 13,
+      "high": 13,
+      "lines": 1
+     }
+    },
+    "1863-07-01/1863-07-03": {
+     "engaged": {
+      "low": 3,
+      "high": 3,
+      "lines": 1
+     }
+    },
+    "1863-07-02/1863-07-03": {
+     "present": {
+      "low": 13,
+      "high": 13,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-3c-anderson-cutts": {
    "name": "Cutts's battalion",
@@ -3826,10 +10738,105 @@
    "parent": "cs-3c-anderson",
    "group": "cs-art-3c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "20-pounder Parrotts",
+       "count": 2,
+       "type_id": "20pdr_parrott"
+      },
+      {
+       "printed": "10-pounder Parrotts",
+       "count": 3,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles (navy Parrotts, the remarks say)",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 3,
+       "type_id": "napoleon_12pdr_m1857"
+      },
+      {
+       "printed": "12-pounder howitzers",
+       "count": 5,
+       "type_id": "12pdr_howitzer"
+      }
+     ],
+     "total": 17,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0053"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0053",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 356,
+      "offset": 1319010
+     }
+    },
+    {
+     "as_of": "1863-07-02",
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "guns of Patterson's company",
+       "count": 6,
+       "type_id": null
+      },
+      {
+       "printed": "guns of Ross' company, five with Lane and one howitzer with Patterson",
+       "count": 6,
+       "type_id": null
+      },
+      {
+       "printed": "guns of Wingfield's company",
+       "count": 5,
+       "type_id": null
+      }
+     ],
+     "total": 17,
+     "tier": "inferred",
+     "evidence_ids": [
+      "cs-art-3c:0062"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0062"
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 17,
+      "high": 17,
+      "lines": 1
+     }
+    },
+    "1863-07-02": {
+     "present": {
+      "low": 17,
+      "high": 17,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-3c-heth-garnett": {
    "name": "Garnett's battalion",
@@ -3838,10 +10845,160 @@
    "parent": "cs-3c-heth",
    "group": "cs-art-3c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "10-pounder Parrotts",
+       "count": 2,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 3,
+       "type_id": "napoleon_12pdr_m1857"
+      },
+      {
+       "printed": "12-pounder howitzers",
+       "count": 2,
+       "type_id": "12pdr_howitzer"
+      }
+     ],
+     "total": 11,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0057"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0057",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 356,
+      "offset": 1318961
+     }
+    },
+    {
+     "as_of": "1863-07-02",
+     "state": "engaged",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "nine rifled pieces",
+       "count": 9,
+       "type_id": null
+      }
+     ],
+     "total": 9,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0063"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0063",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R554",
+      "printed_page": 652,
+      "offset": 2428419
+     }
+    },
+    {
+     "as_of": "1863-07-02/1863-07-03",
+     "state": "present",
+     "scope": "section",
+     "pieces": [
+      {
+       "printed": "four Napoleons",
+       "count": 4,
+       "type_id": "napoleon_12pdr_m1857"
+      },
+      {
+       "printed": "two howitzers",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0064"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0064",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R554",
+      "printed_page": 653,
+      "offset": 2429641
+     }
+    },
+    {
+     "as_of": "1863-07-02/1863-07-03",
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "rifled pieces",
+       "count": 9,
+       "type_id": null
+      },
+      {
+       "printed": "Napoleons and howitzers",
+       "count": 6,
+       "type_id": null
+      }
+     ],
+     "total": 15,
+     "tier": "inferred",
+     "evidence_ids": [
+      "cs-art-3c:0065"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0065"
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 11,
+      "high": 11,
+      "lines": 1
+     }
+    },
+    "1863-07-02": {
+     "engaged": {
+      "low": 9,
+      "high": 9,
+      "lines": 1
+     }
+    },
+    "1863-07-02/1863-07-03": {
+     "present": {
+      "low": 6,
+      "high": 15,
+      "lines": 2
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-3c-pender-poague": {
    "name": "Poague's battalion",
@@ -3850,10 +11007,103 @@
    "parent": "cs-3c-pender",
    "group": "cs-art-3c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "10-pounder Parrott",
+       "count": 1,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 7,
+       "type_id": "napoleon_12pdr_m1857"
+      },
+      {
+       "printed": "12-pounder howitzers",
+       "count": 6,
+       "type_id": "12pdr_howitzer"
+      }
+     ],
+     "total": 16,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0055"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0055",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 356,
+      "offset": 1318897
+     }
+    },
+    {
+     "as_of": "1863-07-02/1863-07-03",
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "ten guns in position",
+       "count": 10,
+       "type_id": null
+      },
+      {
+       "printed": "six howitzers",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 16,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0067"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0067",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R562",
+      "printed_page": 673,
+      "offset": 2509644
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 16,
+      "high": 16,
+      "lines": 1
+     }
+    },
+    "1863-07-02/1863-07-03": {
+     "present": {
+      "low": 16,
+      "high": 16,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-3c-res-art": {
    "name": "Reserve artillery R. L. Walker",
@@ -3862,10 +11112,44 @@
    "parent": "cs-3c",
    "group": "cs-art-3c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "inferred",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "other",
+     "pieces": [
+      {
+       "printed": "guns of McIntosh's battalion",
+       "count": 15,
+       "type_id": null
+      },
+      {
+       "printed": "guns of Pegram's battalion",
+       "count": 18,
+       "type_id": null
+      }
+     ],
+     "total": 33,
+     "tier": "inferred",
+     "evidence_ids": [
+      "cs-art-3c:0058"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0058"
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 33,
+      "high": 33,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-3c-res-art-mcintosh": {
    "name": "McIntosh's battalion",
@@ -3874,10 +11158,61 @@
    "parent": "cs-3c-res-art",
    "group": "cs-art-3c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "3-inch rifles",
+       "count": 7,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Whitworths",
+       "count": 2,
+       "type_id": null,
+       "type_candidates": [
+        "12pdr_whitworth"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 6,
+       "type_id": "napoleon_12pdr_m1857"
+      }
+     ],
+     "total": 15,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0054"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0054",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 356,
+      "offset": 1318873
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 15,
+      "high": 15,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-3c-res-art-pegram": {
    "name": "Pegram's battalion",
@@ -3886,10 +11221,106 @@
    "parent": "cs-3c-res-art",
    "group": "cs-art-3c",
    "kit_ids": [],
-   "status": "unverified",
-   "guns": [],
-   "range_by_date": {},
-   "unverified": true
+   "status": "verified",
+   "guns": [
+    {
+     "as_of": null,
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "10-pounder Parrotts",
+       "count": 3,
+       "type_id": "10pdr_parrott"
+      },
+      {
+       "printed": "3-inch rifles",
+       "count": 4,
+       "type_id": null,
+       "type_candidates": [
+        "3inch_ordnance_rifle",
+        "3inch_navy_rifle"
+       ]
+      },
+      {
+       "printed": "Napoleons",
+       "count": 9,
+       "type_id": "napoleon_12pdr_m1857"
+      },
+      {
+       "printed": "12-pounder howitzers",
+       "count": 2,
+       "type_id": "12pdr_howitzer"
+      }
+     ],
+     "total": 18,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0056"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0056",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R428",
+      "printed_page": 356,
+      "offset": 1318929
+     }
+    },
+    {
+     "as_of": "1863-07-01",
+     "state": "present",
+     "scope": "battalion",
+     "pieces": [
+      {
+       "printed": "ten Napoleons",
+       "count": 10,
+       "type_id": "napoleon_12pdr_m1857"
+      },
+      {
+       "printed": "seven rifled guns",
+       "count": 7,
+       "type_id": null
+      },
+      {
+       "printed": "two 12-pounder howitzers",
+       "count": 2,
+       "type_id": "12pdr_howitzer",
+       "note": "not brought into position"
+      }
+     ],
+     "total": 19,
+     "tier": "documented",
+     "evidence_ids": [
+      "cs-art-3c:0066"
+     ],
+     "cite": {
+      "id": "cs-art-3c:0066",
+      "source_id": "OR27-2",
+      "part": 2,
+      "report_id": "OR27-2-R564",
+      "printed_page": 678,
+      "offset": 2525723
+     }
+    }
+   ],
+   "range_by_date": {
+    "undated": {
+     "present": {
+      "low": 18,
+      "high": 18,
+      "lines": 1
+     }
+    },
+    "1863-07-01": {
+     "present": {
+      "low": 19,
+      "high": 19,
+      "lines": 1
+     }
+    }
+   },
+   "unverified": false
   },
   "cs-cav-horse-art": {
    "name": "Stuart Horse Artillery",
