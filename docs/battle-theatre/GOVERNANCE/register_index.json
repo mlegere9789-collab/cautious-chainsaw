@@ -10469,5 +10469,305 @@
   "owner_q": "See EG-FIG-0010: a written statement of which meshes are the author's own work. For a mesh to be used the base-game heads, hands and skeleton it needs must also be licensed or replaced by our own (our rig and heads already exist).",
   "rec": "Keep procedural; reconsider per file after the written confirmation.",
   "status": "open"
+ },
+ {
+  "id": "EG-LIB-BACHELDER",
+  "title": "Library source BACHELDER (print-only): Bachelder Papers originals / Ladd edition",
+  "rids": [
+   "R21"
+  ],
+  "cat": "secondary only",
+  "desc": "Status row BACHELDER (print-only). Where: NH Historical Society. Record: Bachelder Papers originals / Ladd edition remain print-only (copyrighted edition); Bachelder own pre-1929 publications are acquired separately as BACHELDER-PD-PUBS",
+  "why": "Not literal-100% blocked by the record of the event: the source exists; the library row is print-only as stated (Law cl.3, cl.4).",
+  "searched": "GOVERNANCE/library/status*.json, acquired*.json, candidates.json, figures-ledger.json as read by tools/bt/library_status_fill.py",
+  "subst": "None (no datum is taken from this source until it is acquired and read)",
+  "recon": "Re-attempt or acquire lawfully, record the exact passages, then update the status row",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Source row flagged in the source catalog with its status",
+  "impact": "Source availability only; no direct visual impact",
+  "owner_q": "Owner decides whether to purchase or borrow the print work (billing and loans are owner-only acts)",
+  "rec": "",
+  "status": "open"
+ },
+ {
+  "id": "EG-LIB-LOC-MAPS",
+  "title": "Library source LOC-MAPS (blocked): LOC Civil War maps (Warren 99446453, Hopkins 2004629149, Bachelder)",
+  "rids": [
+   "R21"
+  ],
+  "cat": "evidence missing / blocked",
+  "desc": "Status row LOC-MAPS (blocked). Where: loc.gov IIIF. Record: unchanged by this pass (maps, not text); see status.json and TM-HOSTS-BLOCKED",
+  "why": "Not literal-100% blocked by the record of the event: the source exists; the library row is blocked as stated (Law cl.3, cl.4).",
+  "searched": "GOVERNANCE/library/status*.json, acquired*.json, candidates.json, figures-ledger.json as read by tools/bt/library_status_fill.py",
+  "subst": "None (no datum is taken from this source until it is acquired and read)",
+  "recon": "Re-attempt or acquire lawfully, record the exact passages, then update the status row",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Source row flagged in the source catalog with its status",
+  "impact": "Source availability only; no direct visual impact",
+  "owner_q": "none (work continues)",
+  "rec": "",
+  "status": "open"
+ },
+ {
+  "id": "EG-LIB-NARA-WARREN",
+  "title": "Library source NARA-WARREN (blocked): NARA RG 77 Warren sheets NAID 102279222",
+  "rids": [
+   "R21"
+  ],
+  "cat": "evidence missing / blocked",
+  "desc": "Status row NARA-WARREN (blocked). Where: catalog.archives.gov. Record: unchanged; catalog.archives.gov root probe returned no connection 2026-11-11",
+  "why": "Not literal-100% blocked by the record of the event: the source exists; the library row is blocked as stated (Law cl.3, cl.4).",
+  "searched": "GOVERNANCE/library/status*.json, acquired*.json, candidates.json, figures-ledger.json as read by tools/bt/library_status_fill.py",
+  "subst": "None (no datum is taken from this source until it is acquired and read)",
+  "recon": "Re-attempt or acquire lawfully, record the exact passages, then update the status row",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Source row flagged in the source catalog with its status",
+  "impact": "Source availability only; no direct visual impact",
+  "owner_q": "none (work continues)",
+  "rec": "",
+  "status": "open"
+ },
+ {
+  "id": "EG-LIB-NPS-SEM",
+  "title": "Library source NPS-SEM (blocked): NPS Gettysburg Seminar Papers",
+  "rids": [
+   "R21"
+  ],
+  "cat": "evidence missing / blocked",
+  "desc": "Status row NPS-SEM (blocked). Where: npshistory.com. Record: npshistory.com root probe returned no connection (curl 000, proxy refusal) 2026-11-11; not circumvented; retry when the host is allowed",
+  "why": "Not literal-100% blocked by the record of the event: the source exists; the library row is blocked as stated (Law cl.3, cl.4).",
+  "searched": "GOVERNANCE/library/status*.json, acquired*.json, candidates.json, figures-ledger.json as read by tools/bt/library_status_fill.py",
+  "subst": "None (no datum is taken from this source until it is acquired and read)",
+  "recon": "Re-attempt or acquire lawfully, record the exact passages, then update the status row",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Source row flagged in the source catalog with its status",
+  "impact": "Source availability only; no direct visual impact",
+  "owner_q": "none (work continues)",
+  "rec": "",
+  "status": "open"
+ },
+ {
+  "id": "EG-LIB-NPS-SS",
+  "title": "Library source NPS-SS (blocked): NPS Soldiers and Sailors System",
+  "rids": [
+   "R21"
+  ],
+  "cat": "evidence missing / blocked",
+  "desc": "Status row NPS-SS (blocked). Where: nps.gov. Record: no bulk API; permission needed for bulk",
+  "why": "Not literal-100% blocked by the record of the event: the source exists; the library row is blocked as stated (Law cl.3, cl.4).",
+  "searched": "GOVERNANCE/library/status*.json, acquired*.json, candidates.json, figures-ledger.json as read by tools/bt/library_status_fill.py",
+  "subst": "None (no datum is taken from this source until it is acquired and read)",
+  "recon": "Re-attempt or acquire lawfully, record the exact passages, then update the status row",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Source row flagged in the source catalog with its status",
+  "impact": "Source availability only; no direct visual impact",
+  "owner_q": "none (work continues)",
+  "rec": "",
+  "status": "open"
+ },
+ {
+  "id": "EG-LIB-PM-ARCHIVES-GOV",
+  "title": "Library source PM-ARCHIVES-GOV (blocked): PM-ARCHIVES-GOV",
+  "rids": [
+   "R21"
+  ],
+  "cat": "evidence missing / blocked",
+  "desc": "Status row PM-ARCHIVES-GOV (blocked). Where: not recorded. Record: the egress proxy refuses the connection on 2026-11-16; the NPS Then-And-Now pages and the Library essay carry the same statement in readable official words",
+  "why": "Not literal-100% blocked by the record of the event: the source exists; the library row is blocked as stated (Law cl.3, cl.4).",
+  "searched": "GOVERNANCE/library/status*.json, acquired*.json, candidates.json, figures-ledger.json as read by tools/bt/library_status_fill.py",
+  "subst": "None (no datum is taken from this source until it is acquired and read)",
+  "recon": "Re-attempt or acquire lawfully, record the exact passages, then update the status row",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Source row flagged in the source catalog with its status",
+  "impact": "Source availability only; no direct visual impact",
+  "owner_q": "none (work continues)",
+  "rec": "",
+  "status": "open"
+ },
+ {
+  "id": "EG-LIB-PM-GARDNER-SKETCHBOOK-TEXT",
+  "title": "Library source PM-GARDNER-SKETCHBOOK-TEXT (unusable): PM-GARDNER-SKETCHBOOK-TEXT",
+  "rids": [
+   "R21"
+  ],
+  "cat": "evidence missing / unreadable",
+  "desc": "Status row PM-GARDNER-SKETCHBOOK-TEXT (unusable). Where: not recorded. Record: OCR holds no plate descriptions (re-fetched and checked again 2026-11-15: it reads the binding decoration)",
+  "why": "Not literal-100% blocked by the record of the event: the source exists; the library row is unusable as stated (Law cl.3, cl.4).",
+  "searched": "GOVERNANCE/library/status*.json, acquired*.json, candidates.json, figures-ledger.json as read by tools/bt/library_status_fill.py",
+  "subst": "None (no datum is taken from this source until it is acquired and read)",
+  "recon": "Re-attempt or acquire lawfully, record the exact passages, then update the status row",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Source row flagged in the source catalog with its status",
+  "impact": "Source availability only; no direct visual impact",
+  "owner_q": "none (work continues)",
+  "rec": "",
+  "status": "open"
+ },
+ {
+  "id": "EG-LIB-PM-GUTENBERG-SKETCHBOOK",
+  "title": "Library source PM-GUTENBERG-SKETCHBOOK (unusable): PM-GUTENBERG-SKETCHBOOK",
+  "rids": [
+   "R21"
+  ],
+  "cat": "evidence missing / unreadable",
+  "desc": "Status row PM-GUTENBERG-SKETCHBOOK (unusable). Where: not recorded. Record: the search returned no records: there is no Project Gutenberg edition of the Sketch Book",
+  "why": "Not literal-100% blocked by the record of the event: the source exists; the library row is unusable as stated (Law cl.3, cl.4).",
+  "searched": "GOVERNANCE/library/status*.json, acquired*.json, candidates.json, figures-ledger.json as read by tools/bt/library_status_fill.py",
+  "subst": "None (no datum is taken from this source until it is acquired and read)",
+  "recon": "Re-attempt or acquire lawfully, record the exact passages, then update the status row",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Source row flagged in the source catalog with its status",
+  "impact": "Source availability only; no direct visual impact",
+  "owner_q": "none (work continues)",
+  "rec": "",
+  "status": "open"
+ },
+ {
+  "id": "EG-LIB-PM-NARA-CATALOG",
+  "title": "Library source PM-NARA-CATALOG (blocked): PM-NARA-CATALOG",
+  "rids": [
+   "R21"
+  ],
+  "cat": "evidence missing / blocked",
+  "desc": "Status row PM-NARA-CATALOG (blocked). Where: not recorded. Record: reachable, but a plain request to any address of the catalog (and to its api/v2 path) returns the same 5 KB single-page-application shell, not data; the catalog API needs a key (an account, an owner act); a browser read was not made. No NARA description of a Gettysburg photograph was read Checked ag",
+  "why": "Not literal-100% blocked by the record of the event: the source exists; the library row is blocked as stated (Law cl.3, cl.4).",
+  "searched": "GOVERNANCE/library/status*.json, acquired*.json, candidates.json, figures-ledger.json as read by tools/bt/library_status_fill.py",
+  "subst": "None (no datum is taken from this source until it is acquired and read)",
+  "recon": "Re-attempt or acquire lawfully, record the exact passages, then update the status row",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Source row flagged in the source catalog with its status",
+  "impact": "Source availability only; no direct visual impact",
+  "owner_q": "none (work continues)",
+  "rec": "",
+  "status": "open"
+ },
+ {
+  "id": "EG-LIB-PM-NPS-OTHER-HOSTS",
+  "title": "Library source PM-NPS-OTHER-HOSTS (blocked): PM-NPS-OTHER-HOSTS",
+  "rids": [
+   "R21"
+  ],
+  "cat": "evidence missing / blocked",
+  "desc": "Status row PM-NPS-OTHER-HOSTS (blocked). Where: not recorded. Record: the egress proxy refuses the connection (connection reset with no HTTP answer) on 2026-11-16: not allowed for this session; the park museum catalogue (GETT 41135, the Historic Photograph Collection) therefore could not be read; not worked around; the owner step stays: ask the park",
+  "why": "Not literal-100% blocked by the record of the event: the source exists; the library row is blocked as stated (Law cl.3, cl.4).",
+  "searched": "GOVERNANCE/library/status*.json, acquired*.json, candidates.json, figures-ledger.json as read by tools/bt/library_status_fill.py",
+  "subst": "None (no datum is taken from this source until it is acquired and read)",
+  "recon": "Re-attempt or acquire lawfully, record the exact passages, then update the status row",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Source row flagged in the source catalog with its status",
+  "impact": "Source availability only; no direct visual impact",
+  "owner_q": "none (work continues)",
+  "rec": "",
+  "status": "open"
+ },
+ {
+  "id": "EG-LIB-PM-NPS-TN-EXIF-GPS",
+  "title": "Library source PM-NPS-TN-EXIF-GPS (unusable): PM-NPS-TN-EXIF-GPS",
+  "rids": [
+   "R21"
+  ],
+  "cat": "evidence missing / unreadable",
+  "desc": "Status row PM-NPS-TN-EXIF-GPS (unusable). Where: not recorded. Record: 2026-11-15: the EXIF of the 47 saved JPEG files was read: 25 carry an EXIF block (Canon EOS 60D or 80D, 2016 to 2018, focal lengths 18 to 35 mm of the modern lens), none carries a GPS block: no coordinate there; the modern focal length is not the lens of the 1863 exposure",
+  "why": "Not literal-100% blocked by the record of the event: the source exists; the library row is unusable as stated (Law cl.3, cl.4).",
+  "searched": "GOVERNANCE/library/status*.json, acquired*.json, candidates.json, figures-ledger.json as read by tools/bt/library_status_fill.py",
+  "subst": "None (no datum is taken from this source until it is acquired and read)",
+  "recon": "Re-attempt or acquire lawfully, record the exact passages, then update the status row",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Source row flagged in the source catalog with its status",
+  "impact": "Source availability only; no direct visual impact",
+  "owner_q": "none (work continues)",
+  "rec": "",
+  "status": "open"
+ },
+ {
+  "id": "EG-LIB-PRINT",
+  "title": "Library source PRINT (print-only): Busey & Martin; Coddington; Pfanz; Gottfried; Warner; Thomas/Coates; Jensen; Coco",
+  "rids": [
+   "R21"
+  ],
+  "cat": "secondary only",
+  "desc": "Status row PRINT (print-only). Where: print. Record: unchanged: Coddington and other in-copyright works skipped by instruction",
+  "why": "Not literal-100% blocked by the record of the event: the source exists; the library row is print-only as stated (Law cl.3, cl.4).",
+  "searched": "GOVERNANCE/library/status*.json, acquired*.json, candidates.json, figures-ledger.json as read by tools/bt/library_status_fill.py",
+  "subst": "None (no datum is taken from this source until it is acquired and read)",
+  "recon": "Re-attempt or acquire lawfully, record the exact passages, then update the status row",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Source row flagged in the source catalog with its status",
+  "impact": "Source availability only; no direct visual impact",
+  "owner_q": "Owner decides whether to purchase or borrow the print work (billing and loans are owner-only acts)",
+  "rec": "",
+  "status": "open"
+ },
+ {
+  "id": "EG-LIB-RUMSEY",
+  "title": "Library source RUMSEY (viewer-only): David Rumsey Warren 1895",
+  "rids": [
+   "R21"
+  ],
+  "cat": "evidence missing / rights",
+  "desc": "Status row RUMSEY (viewer-only). Where: davidrumsey.com. Record: noncommercial; no redistribution",
+  "why": "Not literal-100% blocked by the record of the event: the source exists; the library row is viewer-only as stated (Law cl.3, cl.4).",
+  "searched": "GOVERNANCE/library/status*.json, acquired*.json, candidates.json, figures-ledger.json as read by tools/bt/library_status_fill.py",
+  "subst": "None (no datum is taken from this source until it is acquired and read)",
+  "recon": "Re-attempt or acquire lawfully, record the exact passages, then update the status row",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Source row flagged in the source catalog with its status",
+  "impact": "Source availability only; no direct visual impact",
+  "owner_q": "Owner decides whether to ask the holder for permission beyond viewing (sending a permission request is an owner-only act)",
+  "rec": "",
+  "status": "open"
+ },
+ {
+  "id": "EG-LIB-TM-BACHELDER-1886-HOURLY",
+  "title": "Library source TM-BACHELDER-1886-HOURLY (blocked): Bachelder 28 tactical maps (July 1 14 maps 10:30 a.m.-4:30 p.m. and later; July 2 five; July 3 four; East Cav",
+  "rids": [
+   "R21"
+  ],
+  "cat": "evidence missing / blocked",
+  "desc": "Status row TM-BACHELDER-1886-HOURLY (blocked). Where: listed only by a retailer reprint (Horse Soldier/Morningside); no digitised public-domain copy found at LOC, Commons, archive.org or NARA catalogue in the 2026-10-21 searches. Record: open gap: location of original sheets and any digitisation not established; request to LOC/NARA or owner purchase of the reprint is an owner decision",
+  "why": "Not literal-100% blocked by the record of the event: the source exists; the library row is blocked as stated (Law cl.3, cl.4).",
+  "searched": "GOVERNANCE/library/status*.json, acquired*.json, candidates.json, figures-ledger.json as read by tools/bt/library_status_fill.py",
+  "subst": "None (no datum is taken from this source until it is acquired and read)",
+  "recon": "Re-attempt or acquire lawfully, record the exact passages, then update the status row",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Source row flagged in the source catalog with its status",
+  "impact": "Source availability only; no direct visual impact",
+  "owner_q": "none (work continues)",
+  "rec": "",
+  "status": "open"
+ },
+ {
+  "id": "EG-LIB-TM-HOSTS-BLOCKED",
+  "title": "Library source TM-HOSTS-BLOCKED (blocked): Access blocks met 2026-10-21 (recorded, not circumvented)",
+  "rids": [
+   "R21"
+  ],
+  "cat": "evidence missing / blocked",
+  "desc": "Status row TM-HOSTS-BLOCKED (blocked). Where: digitalcommonwealth.org and geo.btaa.org (Anubis browser-verification page), davidrumsey.com (Verify Access page), collections.library.yale.edu (empty response to the fetch tool), loc.gov item pages (HTTP 403 via the fetch tool; HTTP 520 via curl on several item ids), tile.loc.gov (HTTP 520 once). Record: no retry loops, no header spoofing; Commons/archive.org/LOC JSON used instead where they answered",
+  "why": "Not literal-100% blocked by the record of the event: the source exists; the library row is blocked as stated (Law cl.3, cl.4).",
+  "searched": "GOVERNANCE/library/status*.json, acquired*.json, candidates.json, figures-ledger.json as read by tools/bt/library_status_fill.py",
+  "subst": "None (no datum is taken from this source until it is acquired and read)",
+  "recon": "Re-attempt or acquire lawfully, record the exact passages, then update the status row",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Source row flagged in the source catalog with its status",
+  "impact": "Source availability only; no direct visual impact",
+  "owner_q": "none (work continues)",
+  "rec": "",
+  "status": "open"
  }
 ]

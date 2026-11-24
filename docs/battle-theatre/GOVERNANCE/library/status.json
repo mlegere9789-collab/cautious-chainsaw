@@ -6,28 +6,54 @@
    "title": "Official Records Ser I vol 27 pt 1",
    "where": "eHistory serial 043; HathiTrust coo.31924077699761",
    "status": "scheduled",
-   "note": "public domain; throttle 1 req/s"
+   "note": "public domain; throttle 1 req/s",
+   "second_witness": {
+    "status": "unreachable",
+    "host": "babel.hathitrust.org",
+    "date": "2026-11-11",
+    "result": "one root-URL probe each on 2026-11-11 returned no connection (curl status 000, proxy refusal); recorded, not circumvented (acquired_2.json)"
+   }
   },
   {
    "id": "OR-27-2",
    "title": "OR vol 27 pt 2",
    "where": "eHistory 044; HathiTrust coo.31924077728255",
    "status": "scheduled",
-   "note": "public domain"
+   "note": "public domain",
+   "second_witness": {
+    "status": "unreachable",
+    "host": "babel.hathitrust.org",
+    "date": "2026-11-11",
+    "result": "one root-URL probe each on 2026-11-11 returned no connection (curl status 000, proxy refusal); recorded, not circumvented (acquired_2.json)"
+   }
   },
   {
    "id": "OR-27-3",
    "title": "OR vol 27 pt 3",
    "where": "eHistory 045; HathiTrust coo.31924077700262",
    "status": "scheduled",
-   "note": "public domain"
+   "note": "public domain",
+   "second_witness": {
+    "status": "unreachable",
+    "host": "babel.hathitrust.org",
+    "date": "2026-11-11",
+    "result": "one root-URL probe each on 2026-11-11 returned no connection (curl status 000, proxy refusal); recorded, not circumvented (acquired_2.json)"
+   }
   },
   {
    "id": "OR-ATLAS",
    "title": "OR Atlas plates 1-175",
    "where": "ehistory.osu.edu/books/official-records",
    "status": "scheduled",
-   "note": "Gettysburg plate numbers unknown"
+   "note": "Gettysburg plate numbers unknown",
+   "remainder": {
+    "status": "scheduled",
+    "reason": "archive.org atlastoaccompany00unit: only the 398,645-byte index text and the PDF were acquired; plates are images, too coarse for brigade labels (see TM-OR-ATLAS-GETTYSBURG in status.json); no plate text",
+    "not_recorded": [
+     "next_action",
+     "queue_entry"
+    ]
+   }
   },
   {
    "id": "PA-GB",
@@ -62,14 +88,30 @@
    "title": "Other state volumes MA MN VT OH NJ WI IN VA NC GA AL SC TX",
    "where": "no URL verified",
    "status": "scheduled",
-   "note": "locate"
+   "note": "locate",
+   "remainder": {
+    "status": "scheduled",
+    "reason": "Acquired 2026-11-11 (library/acquired_2.json): New Jersey (Toombs 1888; Final Report 1891), Vermont (1890; 1914), Ohio (dedication 1887, 13 KB only; 8th Ohio 1889), Indiana (1913), 1st Minnesota (1916), Boston burial committee report (1863). NOT acquired: Massachusetts at Gettysburg (no archive.org item found), Wisconsin (only the Haskell reprint located), Virginia, North Carolina, Georgia, Alabama, South Carolina, Texas (not searched). Raw text only; not yet mined claim by claim.",
+    "not_recorded": [
+     "next_action",
+     "queue_entry"
+    ]
+   }
   },
   {
    "id": "SHSP",
    "title": "Southern Historical Society Papers (52 vols)",
    "where": "archive.org per volume",
    "status": "scheduled",
-   "note": "keyword filter; Lost Cause tier handling"
+   "note": "keyword filter; Lost Cause tier handling",
+   "remainder": {
+    "status": "scheduled",
+    "reason": "Vols 4, 5, 6, 11, 12 of 52 acquired (archive ids southernhistoricv4sout, v5sout, v6sout, v11sout, southernhistoric12sout); the rest not acquired; keyword filter and Lost Cause tier handling not run. Vol. 4 reprints Kershaw and Benning reports already in the OR.",
+    "not_recorded": [
+     "next_action",
+     "queue_entry"
+    ]
+   }
   },
   {
    "id": "FOX",
@@ -83,21 +125,40 @@
    "title": "Fremantle, Haskell, Chamberlain, Gibbon, Sorrel, Alexander, Pierce, Broadhead, Wills",
    "where": "ABT primary sources; GettDigital",
    "status": "scheduled",
-   "note": "verify availability"
+   "note": "verify availability",
+   "remainder": {
+    "status": "scheduled",
+    "reason": "Acquired: Fremantle 1864, Haskell (1908 ed.), E. P. Alexander 1907, Longstreet 1896, Meade Life and Letters (2 vols), Tillie Pierce 1889; F. M. Pierce 1914 is a secondary history (not a witness source). Not acquired: Gibbon (no archive.org result), Sorrel, Broadhead, Wills (only via the 1867 Revised Report), Chamberlain (Passing of the Armies is the final campaign; his Gettysburg report is in the OR and Maine at Gettysburg).",
+    "not_recorded": [
+     "next_action",
+     "queue_entry"
+    ]
+   }
   },
   {
    "id": "NEWS",
    "title": "Chronicling America 1863-07-01..10",
    "where": "loc.gov API + bulk OCR",
    "status": "scheduled",
-   "note": "news-spread evidence only"
+   "note": "news-spread evidence only",
+   "remainder": {
+    "status": "scheduled",
+    "reason": "Gettysburg Compiler (30 weekly issues, Jun-Dec 1863) and Adams Sentinel (31 issues, Jun-Dec 1863) acquired from archive.org; OCR is multi-column and heavily garbled; no Compiler issue for 1863-07-06 on archive.org. Chronicling America: chroniclingamerica.loc.gov refused by the proxy; www.loc.gov item JSON reachable (one probe) but bulk OCR of the 1-10 Jul 1863 papers NOT fetched (deferred, not dropped).",
+    "not_recorded": [
+     "next_action",
+     "queue_entry"
+    ]
+   }
   },
   {
    "id": "LOC-MAPS",
    "title": "LOC Civil War maps (Warren 99446453, Hopkins 2004629149, Bachelder)",
    "where": "loc.gov IIIF",
    "status": "blocked-to-prior-research",
-   "note": "retry at run time"
+   "note": "retry at run time",
+   "register_ids": [
+    "EG-LIB-LOC-MAPS"
+   ]
   },
   {
    "id": "LOC-PHOTO",
@@ -111,35 +172,76 @@
    "title": "NARA RG 77 Warren sheets NAID 102279222",
    "where": "catalog.archives.gov",
    "status": "blocked-to-prior-research",
-   "note": "72 dpi copy reported blurry"
+   "note": "72 dpi copy reported blurry",
+   "register_ids": [
+    "EG-LIB-NARA-WARREN"
+   ],
+   "failed_lookup": [
+    {
+     "host": "catalog.archives.gov",
+     "locator": "/",
+     "date": "2026-11-11",
+     "response": "one root-URL probe each on 2026-11-11 returned no connection (curl status 000, proxy refusal); recorded, not circumvented (acquired_2.json)"
+    }
+   ]
   },
   {
    "id": "RUMSEY",
    "title": "David Rumsey Warren 1895",
    "where": "davidrumsey.com",
    "status": "viewer-only",
-   "note": "noncommercial; no redistribution"
+   "note": "noncommercial; no redistribution",
+   "register_ids": [
+    "EG-LIB-RUMSEY"
+   ],
+   "owner_step": "Owner decides whether to ask the holder for permission beyond viewing (sending a permission request is an owner act)"
   },
   {
    "id": "NPS-SEM",
    "title": "NPS Gettysburg Seminar Papers",
    "where": "npshistory.com",
    "status": "scheduled",
-   "note": "vols 4-13, 15, 16"
+   "note": "vols 4-13, 15, 16",
+   "register_ids": [
+    "EG-LIB-NPS-SEM"
+   ],
+   "failed_lookup": [
+    {
+     "host": "npshistory.com",
+     "locator": "/",
+     "date": "2026-11-11",
+     "response": "one root-URL probe each on 2026-11-11 returned no connection (curl status 000, proxy refusal); recorded, not circumvented (acquired_2.json)"
+    }
+   ]
   },
   {
    "id": "NPS-CLR",
    "title": "NPS Cultural Landscape Reports, HSRs, farm histories",
    "where": "npshistory.com; IRMA 2257218",
    "status": "partial",
-   "note": "LRT CLR failed to fetch"
+   "note": "LRT CLR failed to fetch",
+   "remainder": {
+    "status": "scheduled",
+    "reason": "unchanged; npshistory.com unreachable 2026-11-11",
+    "not_recorded": [
+     "next_action",
+     "queue_entry"
+    ]
+   }
   },
   {
    "id": "NPS-SS",
    "title": "NPS Soldiers and Sailors System",
    "where": "nps.gov",
    "status": "targeted-lookup-only",
-   "note": "no bulk API; permission needed for bulk"
+   "note": "no bulk API; permission needed for bulk",
+   "remainder": {
+    "status": "blocked",
+    "reason": "no bulk API; permission needed for bulk",
+    "register_ids": [
+     "EG-LIB-NPS-SS"
+    ]
+   }
   },
   {
    "id": "STONE-S",
@@ -181,14 +283,22 @@
    "title": "Bachelder Papers originals / Ladd edition",
    "where": "NH Historical Society",
    "status": "print-only",
-   "note": "copyrighted edition: cite only"
+   "note": "copyrighted edition: cite only",
+   "register_ids": [
+    "EG-LIB-BACHELDER"
+   ],
+   "owner_step": "Owner decides whether to purchase or borrow the print work (an owner act); until then the work is cited only, with no digital copy ingested"
   },
   {
    "id": "PRINT",
    "title": "Busey & Martin; Coddington; Pfanz; Gottfried; Warner; Thomas/Coates; Jensen; Coco",
    "where": "print",
    "status": "print-only",
-   "note": "cite only; acquire lawfully"
+   "note": "cite only; acquire lawfully",
+   "register_ids": [
+    "EG-LIB-PRINT"
+   ],
+   "owner_step": "Owner decides whether to purchase or borrow the print work (an owner act); until then the work is cited only, with no digital copy ingested"
   },
   {
    "id": "ORDNANCE",
@@ -223,14 +333,25 @@
    "title": "Bachelder 1883 edition (LOC 99447492)",
    "where": "tile.loc.gov",
    "status": "partial",
-   "note": "sheet 3 only, duplicate of 1876 positions"
+   "note": "sheet 3 only, duplicate of 1876 positions",
+   "remainder": {
+    "status": "scheduled",
+    "reason": "sheet 3 only, duplicate of 1876 positions",
+    "not_recorded": [
+     "next_action",
+     "queue_entry"
+    ]
+   }
   },
   {
    "id": "TM-BACHELDER-1886-HOURLY",
    "title": "Bachelder 28 tactical maps (July 1 14 maps 10:30 a.m.-4:30 p.m. and later; July 2 five; July 3 four; East Cavalry Field five)",
    "where": "listed only by a retailer reprint (Horse Soldier/Morningside); no digitised public-domain copy found at LOC, Commons, archive.org or NARA catalogue in the 2026-10-21 searches",
    "status": "blocked",
-   "note": "open gap: location of original sheets and any digitisation not established; request to LOC/NARA or owner purchase of the reprint is an owner decision"
+   "note": "open gap: location of original sheets and any digitisation not established; request to LOC/NARA or owner purchase of the reprint is an owner decision",
+   "register_ids": [
+    "EG-LIB-TM-BACHELDER-1886-HOURLY"
+   ]
   },
   {
    "id": "TM-LOC99447494",
@@ -251,7 +372,1758 @@
    "title": "Access blocks met 2026-10-21 (recorded, not circumvented)",
    "where": "digitalcommonwealth.org and geo.btaa.org (Anubis browser-verification page), davidrumsey.com (Verify Access page), collections.library.yale.edu (empty response to the fetch tool), loc.gov item pages (HTTP 403 via the fetch tool; HTTP 520 via curl on several item ids), tile.loc.gov (HTTP 520 once)",
    "status": "blocked",
-   "note": "no retry loops, no header spoofing; Commons/archive.org/LOC JSON used instead where they answered"
+   "note": "no retry loops, no header spoofing; Commons/archive.org/LOC JSON used instead where they answered",
+   "register_ids": [
+    "EG-LIB-TM-HOSTS-BLOCKED"
+   ]
+  },
+  {
+   "id": "BL-3",
+   "title": "Battles and leaders of the civil war",
+   "where": "acquired.json",
+   "status": "scheduled",
+   "reason": "ledger acquired.json records the entry (acquired 2026-10-19) but it cannot be verified here: the ledger names no local file",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "NPSGOV-BATTLEFIELD-REHAB",
+   "title": "Battlefield Rehabilitation at Gettysburg - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/gett-battlefield-rehab.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-BATTLEFIELD-REHAB/NPSGOV-BATTLEFIELD-REHAB.txt re-hashed: sha256 839d38264b0993656ce1522285d26a921708fc2865d7053eb55edd42221947ff equals the ledger; acquired 2026-11-13T19:00:24Z"
+  },
+  {
+   "id": "NPSGOV-CEMETERY",
+   "title": "Gettysburg National Cemetery - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/cemetery.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-CEMETERY/NPSGOV-CEMETERY.txt re-hashed: sha256 002dcec5502a1c0ac20130e0cfc9d4ef60a78bd725bc6c0e36483e633aa238bc equals the ledger; acquired 2026-11-13T19:00:36Z"
+  },
+  {
+   "id": "NPSGOV-CIVILIANS",
+   "title": "Civilians at Gettysburg (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/000/civilians-at-gettysburg.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-CIVILIANS/NPSGOV-CIVILIANS.txt re-hashed: sha256 c39f60baf34ac3165a9d3cb95ec12f6d849e420e2b356bfcf8daecc310083129 equals the ledger; acquired 2026-11-13T19:00:46Z"
+  },
+  {
+   "id": "NPSGOV-COMMEM-WORKS",
+   "title": "Commemorative Works and Plaques - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/commemorative-works.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-COMMEM-WORKS/NPSGOV-COMMEM-WORKS.txt re-hashed: sha256 0dd2b5551f576c2f69aadea02b8228d507c5b7036d3e307138d0d67d7df145c3 equals the ledger; acquired 2026-11-13T19:00:49Z"
+  },
+  {
+   "id": "NPSGOV-CONFED-LINE",
+   "title": "Confederate Line (July 2 & 3) - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/confederate-line.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-CONFED-LINE/NPSGOV-CONFED-LINE.txt re-hashed: sha256 9971d5ea4bb0c7701a85a4f3a5f90cd5c03a0e1d2d7daf7e742f6a1818e99e90 equals the ledger; acquired 2026-11-13T19:00:31Z"
+  },
+  {
+   "id": "NPSGOV-CS-MONUMENTS",
+   "title": "Confederate Monuments - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/confederate-monuments.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-CS-MONUMENTS/NPSGOV-CS-MONUMENTS.txt re-hashed: sha256 f10bc795bd92df60574ed3aecc10a0268847006bee4015d040f1edc5835141ca equals the ledger; acquired 2026-11-13T19:00:52Z"
+  },
+  {
+   "id": "NPSGOV-CULPS-HILL-REHAB",
+   "title": "Culp's Hill - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/culps-hill.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-CULPS-HILL-REHAB/NPSGOV-CULPS-HILL-REHAB.txt re-hashed: sha256 9073c819b1c869319777e8eeecfe333a1faa7d45dcb67a23abb8f64131c7b2d1 equals the ledger; acquired 2026-11-13T19:00:39Z"
+  },
+  {
+   "id": "NPSGOV-DEVILS-DEN-REHAB",
+   "title": "Devil's Den - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/devils-den.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-DEVILS-DEN-REHAB/NPSGOV-DEVILS-DEN-REHAB.txt re-hashed: sha256 6e78f6d00de8dcc70e96cda62fb8de1c0b3a024208a9211fa5d1218ce7b03e63 equals the ledger; acquired 2026-11-13T19:00:43Z"
+  },
+  {
+   "id": "NPSGOV-EAST-CAVALRY",
+   "title": "East Cavalry Field - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/east-cavalry-field.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EAST-CAVALRY/NPSGOV-EAST-CAVALRY.txt re-hashed: sha256 72f601a45c5ae20a05383ef99818fc725bd1109c6ae96dd8a32b16ab51f6cdd4 equals the ledger; acquired 2026-11-13T19:00:33Z"
+  },
+  {
+   "id": "NPSGOV-FIRST-DAY",
+   "title": "First Day's Battlefield - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/first-days-battlefield.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-FIRST-DAY/NPSGOV-FIRST-DAY.txt re-hashed: sha256 d750bec869c1f02caefef1b7272a21b6460eef608d9b292c0e273d32299daf2c equals the ledger; acquired 2026-11-13T19:00:28Z"
+  },
+  {
+   "id": "NPSGOV-GRASSLANDS",
+   "title": "Eastern Grasslands Initiative - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/grasslands-initiative.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-GRASSLANDS/NPSGOV-GRASSLANDS.txt re-hashed: sha256 86b688d761d9087f3a34a8803c9526421b07e31cf257ae64c0c8d783d74972ce equals the ledger; acquired 2026-11-13T19:00:44Z"
+  },
+  {
+   "id": "NPSGOV-LRT-REHAB",
+   "title": "Little Round Top - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/little-round-top.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-LRT-REHAB/NPSGOV-LRT-REHAB.txt re-hashed: sha256 aa7655ec6a6403cb800a24094e4789fc055e8087439c694ab0bcc08c7c42588c equals the ledger; acquired 2026-11-13T19:00:40Z"
+  },
+  {
+   "id": "NPSGOV-NATURAL-FEATURES",
+   "title": "Natural Features & Ecosystems - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/nature/naturalfeaturesandecosystems.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NATURAL-FEATURES/NPSGOV-NATURAL-FEATURES.txt re-hashed: sha256 631b34d700cbfbfdeffad02137fde7c5d5c1059e96ea32312d993a547e13aebd equals the ledger; acquired 2026-11-13T19:00:26Z"
+  },
+  {
+   "id": "NPSGOV-PLANNING",
+   "title": "Planning - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/getinvolved/planning.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-PLANNING/NPSGOV-PLANNING.txt re-hashed: sha256 507b466f4b79b525a8cb43ae43e6255961103dc7759626061c1cdad808c0fb00 equals the ledger; acquired 2026-11-13T19:00:47Z"
+  },
+  {
+   "id": "NPSGOV-PLANTS",
+   "title": "Plants - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/nature/plants.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-PLANTS/NPSGOV-PLANTS.txt re-hashed: sha256 2f92d94826eb9b3f03cdc16b8c0682bcdfb917d1779b47ec5a37985c110f2dc6 equals the ledger; acquired 2026-11-13T19:00:27Z"
+  },
+  {
+   "id": "NPSGOV-TOWN",
+   "title": "Town - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/town.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-TOWN/NPSGOV-TOWN.txt re-hashed: sha256 8169b10ca053f292dc366e0f746403aa24d56405c1b90eb1d6c986673ee0e3f0 equals the ledger; acquired 2026-11-13T19:00:34Z"
+  },
+  {
+   "id": "NPSGOV-US-LINE",
+   "title": "United States Line (July 2 & 3) - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/us-line.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-US-LINE/NPSGOV-US-LINE.txt re-hashed: sha256 8a7558c9dec47f44a7336179dfb2c6f7f12fc0164ec80cc1215b462c4c0f5b52 equals the ledger; acquired 2026-11-13T19:00:30Z"
+  },
+  {
+   "id": "NPSGOV-US-MONUMENTS",
+   "title": "United States Monuments - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/united-states-monuments.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-US-MONUMENTS/NPSGOV-US-MONUMENTS.txt re-hashed: sha256 7f68ba9f0353be021918346847a53e8527ffa795f3a4573f8cee5c7caa8d2713 equals the ledger; acquired 2026-11-13T19:00:51Z"
+  },
+  {
+   "id": "NPSGOV-WARFIELD-HOUSE",
+   "title": "Warfield House - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/warfield-house.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-WARFIELD-HOUSE/NPSGOV-WARFIELD-HOUSE.txt re-hashed: sha256 102832822b57e0d2eecae7e72e9e788d7f2c40c43e699f4d7965ec294956e3c7 equals the ledger; acquired 2026-11-13T19:00:37Z"
+  },
+  {
+   "id": "NPSGOV-WISLER-HOUSE",
+   "title": "Wisler House - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/wisler-house.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-WISLER-HOUSE/NPSGOV-WISLER-HOUSE.txt re-hashed: sha256 2b72c03c916ccb8f589956ea2f0f8defc3061e007a425be1314caf0fc6788fc9 equals the ledger; acquired 2026-11-13T19:00:42Z"
+  },
+  {
+   "id": "NPS-HABS-pa0004",
+   "title": "Adams County Courthouse, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0004/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0004/NPS-HABS-pa0004.txt re-hashed: sha256 d30c781dd3f2a6475839c4e5802da5d17e1ae4ef60d35c558f926903549775b5 equals the ledger; acquired 2026-11-15T23:56:08Z"
+  },
+  {
+   "id": "NPS-HABS-pa0005",
+   "title": "Bushman House, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0005/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0005/NPS-HABS-pa0005.txt re-hashed: sha256 ce8c86eb61b6ccbdc779a16b3723999161df0f61784c6178767a5779fb38c27b equals the ledger; acquired 2026-11-15T23:43:29Z"
+  },
+  {
+   "id": "NPS-HABS-pa0006",
+   "title": "Culp Farm House, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0006/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0006/NPS-HABS-pa0006.txt re-hashed: sha256 0cd01c2f4ecd1c292524a1d59b2d537e622be6724600a81370a2dcc7bdd27b40 equals the ledger; acquired 2026-11-15T23:43:35Z"
+  },
+  {
+   "id": "NPS-HABS-pa0007",
+   "title": "Lutheran Theological Seminary, Main Building, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0007/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0007/NPS-HABS-pa0007.txt re-hashed: sha256 073c6f48b992c7e089711b734fa43a3804cf1f79af29b5f828bec04f7c15c952 equals the ledger; acquired 2026-11-15T23:43:37Z"
+  },
+  {
+   "id": "NPS-HABS-pa0008",
+   "title": "McPherson Barn, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0008/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0008/NPS-HABS-pa0008.txt re-hashed: sha256 9e2acd358f04122bdd35fa1dd8e3caaaa9798fdd265418e09e8f9ef666ad4920 equals the ledger; acquired 2026-11-15T23:43:39Z"
+  },
+  {
+   "id": "NPS-HABS-pa0009",
+   "title": "Pennsylvania College, Pennsylvania Hall, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0009/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0009/NPS-HABS-pa0009.txt re-hashed: sha256 cbee8d87e63e1a580e42a987de681b9df68ce205a8d9928590acaddee89f4090 equals the ledger; acquired 2026-11-15T23:43:41Z"
+  },
+  {
+   "id": "NPS-HABS-pa0010",
+   "title": "Black Horse Tavern, Fairfield Road (Cumberland Township), Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0010/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0010/NPS-HABS-pa0010.txt re-hashed: sha256 97fd48214eccc0920608a21e86976ecf224da8b2da624ce67f35eb43cd72481a equals the ledger; acquired 2026-11-15T23:56:08Z"
+  },
+  {
+   "id": "NPS-HABS-pa0011",
+   "title": "Bricker Outdoor Bake Oven, Taneytown & Wheat Fields Roads, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0011/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0011/NPS-HABS-pa0011.txt re-hashed: sha256 c0c040c10f02e7ce8b480e3f9e6121daf817a4713daf75baa8f6399278d060cc equals the ledger; acquired 2026-11-15T23:44:28Z"
+  },
+  {
+   "id": "NPS-HABS-pa0012",
+   "title": "Bryan House, Hancock Avenue, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0012/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0012/NPS-HABS-pa0012.txt re-hashed: sha256 18149535f0b44f14d3b3ed9367dbb6d245fca2cd98c69a2c7ec597d4c4e8d0f4 equals the ledger; acquired 2026-11-15T23:44:31Z"
+  },
+  {
+   "id": "NPS-HABS-pa0014",
+   "title": "Lydia Leister House, Taneytown Road & Meade Avenue, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0014/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0014/NPS-HABS-pa0014.txt re-hashed: sha256 018a613a690c43f4a5379a713a084ba883f93e5cc2eb66d383844a9c85ed5f40 equals the ledger; acquired 2026-11-15T23:44:34Z"
+  },
+  {
+   "id": "NPS-HABS-pa0015",
+   "title": "McClean House, Mummasburg Road (Cumberland Township), Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0015/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0015/NPS-HABS-pa0015.txt re-hashed: sha256 834fe860f15e20888cd4587b4e7245a02f727ee85ab61e7a4b7564a2eeb5f2d2 equals the ledger; acquired 2026-11-15T23:44:36Z"
+  },
+  {
+   "id": "NPS-HABS-pa0016",
+   "title": "Slyder House, Plum Run near Big Round Top, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0016/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0016/NPS-HABS-pa0016.txt re-hashed: sha256 16298584edc329dc42ca542365c3f257cc5163080d40fcf0da75639106b2f12b equals the ledger; acquired 2026-11-15T23:44:38Z"
+  },
+  {
+   "id": "NPS-HABS-pa0017",
+   "title": "Slyder House, Kitchen, Near Plum Run, West of Big Round Top, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0017/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0017/NPS-HABS-pa0017.txt re-hashed: sha256 a63f6a8948cecc026dc0771d99deaacbe74c37cedd28ebae88c3aee178f58f50 equals the ledger; acquired 2026-11-15T23:44:40Z"
+  },
+  {
+   "id": "NPS-HABS-pa0018",
+   "title": "Spangler Farm Carriage House, Emmitsburg Road (U.S. Route 15), Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0018/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0018/NPS-HABS-pa0018.txt re-hashed: sha256 dac8287a786e948a6df54625a725c9b4d7a65d60d9c24f18d86799ac77bf11a8 equals the ledger; acquired 2026-11-15T23:44:42Z"
+  },
+  {
+   "id": "NPS-HABS-pa0019",
+   "title": "Weikert House, (Cumberland Township), Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0019/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0019/NPS-HABS-pa0019.txt re-hashed: sha256 001bc3f7c560cbc31896ddecf6f188e8b0459a8396848ae82a5213b3f287c3ca equals the ledger; acquired 2026-11-15T23:44:44Z"
+  },
+  {
+   "id": "NPS-HABS-pa0020",
+   "title": "Weikert Barn, Emmitsburg Road, U.S. 15, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0020/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0020/NPS-HABS-pa0020.txt re-hashed: sha256 0df4ecb36f5baefe16e648e3ec9a5fc126687fcb1af5015bf477c3a064c78594 equals the ledger; acquired 2026-11-15T23:44:47Z"
+  },
+  {
+   "id": "NPS-HABS-pa0021",
+   "title": "Weikert Summer Kitchen, (Cumberland Township), Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa0021/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa0021/NPS-HABS-pa0021.txt re-hashed: sha256 d3b7c84662a9b744c8ae6075bce21f5f8c8fe0880ea4bc64fc8968d7fd13a6c6 equals the ledger; acquired 2026-11-15T23:44:49Z"
+  },
+  {
+   "id": "NPS-HABS-pa1357",
+   "title": "Hummelbaugh Farm, Pleasonton Avenue, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1357/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1357/NPS-HABS-pa1357.txt re-hashed: sha256 81857a83ad6efc91e4d1c85b9a17a55c5cb5f4a85dbb031293c3fa3cc77304ef equals the ledger; acquired 2026-11-15T23:44:52Z"
+  },
+  {
+   "id": "NPS-HABS-pa1413",
+   "title": "Lydia Leister Barn, Taneytown Road (State Route 134) & Hunt Avenue, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1413/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1413/NPS-HABS-pa1413.txt re-hashed: sha256 88a245963ff357d044f3259d88b4937242d2da3ad2344a4c738a96d81a3d592c equals the ledger; acquired 2026-11-15T23:58:57Z"
+  },
+  {
+   "id": "NPS-HABS-pa1639",
+   "title": "William Patterson House, Taneytown Road (Route 134), Pleasonton Avenue vicinity, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1639/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1639/NPS-HABS-pa1639.txt re-hashed: sha256 6582b405fbc62918135e1e6a296c501517585e13bee0a16ad43509de1dd6ddc6 equals the ledger; acquired 2026-11-15T23:48:20Z"
+  },
+  {
+   "id": "NPS-HABS-pa1676",
+   "title": "Spangler Farm, Emmitsburg Road (U.S. 15), Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1676/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1676/NPS-HABS-pa1676.txt re-hashed: sha256 54d2a166719a47e808484cd6b924d014ac5d6131365e06b43c3fdb8f94d7b7d4 equals the ledger; acquired 2026-11-15T23:45:44Z"
+  },
+  {
+   "id": "NPS-HABS-pa1692",
+   "title": "Rose Barn, Emmitsburg Road (U.S. Route 15), Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1692/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1692/NPS-HABS-pa1692.txt re-hashed: sha256 00bbcaeea7e6b11b51a9c90219685eefa8be0bd96ff88a89560603a95af01737 equals the ledger; acquired 2026-11-15T23:45:45Z"
+  },
+  {
+   "id": "NPS-HABS-pa1693",
+   "title": "Bushman Barn, Business U.S. 15, Emmitsburg Road, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1693/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1693/NPS-HABS-pa1693.txt re-hashed: sha256 f7b325daa6ce0e260c02cf2bde60f157f55a4fd9141c8e4f5667d24cf8c597e1 equals the ledger; acquired 2026-11-15T23:45:57Z"
+  },
+  {
+   "id": "NPS-HABS-pa1728",
+   "title": "Trostle Barn, Emmitsburg Road (U.S. 15), Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1728/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1728/NPS-HABS-pa1728.txt re-hashed: sha256 d7d98cea8ad66b1148b2b4a0f38fa3f3c8a8cb38c6b9cce8599f157e5eab25a5 equals the ledger; acquired 2026-11-15T23:46:13Z"
+  },
+  {
+   "id": "NPS-HABS-pa1739",
+   "title": "Slyder Barn, Near Plum Run, West of Big Round Top, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1739/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1739/NPS-HABS-pa1739.txt re-hashed: sha256 6201b4bfc4f261a4abeaf07d71abb7822434f9770b291b997a08a4ed64a16acc equals the ledger; acquired 2026-11-15T23:46:20Z"
+  },
+  {
+   "id": "NPS-HABS-pa1740",
+   "title": "Hummelbaugh Farm, House, Pleasanton Avenue, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1740/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1740/NPS-HABS-pa1740.txt re-hashed: sha256 3aca825ea0a0130b0de05a609f0f942160f73df794ff887b9a0a7a235edcbdb2 equals the ledger; acquired 2026-11-15T23:46:43Z"
+  },
+  {
+   "id": "NPS-HABS-pa1745",
+   "title": "Henry Spangler Farm, House, Emmitsburg Road (U.S. 15), Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1745/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1745/NPS-HABS-pa1745.txt re-hashed: sha256 c6f96a8359daf47da647c8593a66172003cb245f295ff41130d50ac465b67c23 equals the ledger; acquired 2026-11-15T23:46:44Z"
+  },
+  {
+   "id": "NPS-HABS-pa1746",
+   "title": "Spangler Farm, Summer Kitchen, Emmitsburg Road (U.S. 15), Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1746/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1746/NPS-HABS-pa1746.txt re-hashed: sha256 22f841dc97091ee0008702965766ca1805026eb18a638ccc73d92a80330bba2a equals the ledger; acquired 2026-11-15T23:46:48Z"
+  },
+  {
+   "id": "NPS-HABS-pa1747",
+   "title": "Spangler Farm, Storage House & Woodshed, Emmitsburg Road (U.S. 15), Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1747/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1747/NPS-HABS-pa1747.txt re-hashed: sha256 8647861c368701892fc357bc40b1f476b85333b2a4919ed0053b8dc078e1764a equals the ledger; acquired 2026-11-15T23:46:52Z"
+  },
+  {
+   "id": "NPS-HABS-pa1788",
+   "title": "Blocher House, Tablerock Road, off Route 34, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1788/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1788/NPS-HABS-pa1788.txt re-hashed: sha256 3152c86ff3aadeaa222b3eb8237a8f0f94bfd63669beaee7f03126ae0563c26a equals the ledger; acquired 2026-11-15T23:46:57Z"
+  },
+  {
+   "id": "NPS-HABS-pa1789",
+   "title": "Cobean Farm, State Route 34 North, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1789/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1789/NPS-HABS-pa1789.txt re-hashed: sha256 e51dca66539f44209b6d5495120fc275a53f2cb165d83a15b1d062cda1213686 equals the ledger; acquired 2026-11-15T23:47:00Z"
+  },
+  {
+   "id": "NPS-HABS-pa1793",
+   "title": "Eisenhower Farm One, Emmitsburg Road (U.S. 15), Eisenhower National Historic Site, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1793/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1793/NPS-HABS-pa1793.txt re-hashed: sha256 878dfe2b60eaeae44b8a9d463eb351518a2a22c95d7a01c22ca874f554f61bcd equals the ledger; acquired 2026-11-15T23:47:09Z"
+  },
+  {
+   "id": "NPS-HABS-pa1794",
+   "title": "Eisenhower Farm Two, Emmitsburg Road (U.S. 15), Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1794/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1794/NPS-HABS-pa1794.txt re-hashed: sha256 c7c5a7ca854ae7fe88ab959d72ee727283fc32e057a510f0801f3efaf67cb392 equals the ledger; acquired 2026-11-15T23:47:15Z"
+  },
+  {
+   "id": "NPS-HABS-pa1795",
+   "title": "Eisenhower Farms, Guard Huts, Back Lane & Nevins Lane off U.S. 15, Eisenhower National Historic Site, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1795/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1795/NPS-HABS-pa1795.txt re-hashed: sha256 365a7c6f2015f6f731ce5339c32c38dc49e0d69b4f0cf18a0e59a972f6c4ca5e equals the ledger; acquired 2026-11-15T23:47:17Z"
+  },
+  {
+   "id": "NPS-HABS-pa1800",
+   "title": "Theodore Bender House, East of Herr's Ridge Road, West of Buford Avenue, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1800/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1800/NPS-HABS-pa1800.txt re-hashed: sha256 f810c4ec376e383dd2c7d953cd90ae707b8e12e1a019e66a450342cac74cfd75 equals the ledger; acquired 2026-11-15T23:47:28Z"
+  },
+  {
+   "id": "NPS-HABS-pa1813",
+   "title": "Eisenhower Farm One, Bank Barn, Emmitsburg Road (U.S. 15), Eisenhower National Historic Site, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1813/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1813/NPS-HABS-pa1813.txt re-hashed: sha256 5f03af1fd0f91aa2265c01c8dd79b96e4d960379c6d95be731173ad510724464 equals the ledger; acquired 2026-11-15T23:47:32Z"
+  },
+  {
+   "id": "NPS-HABS-pa1814",
+   "title": "Eisenhower Farm Two, Showbarn, Emmitsburg Road (U.S. 15), Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1814/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1814/NPS-HABS-pa1814.txt re-hashed: sha256 241e3f882ba99e623a0a00ba10e2165bbc4c4f89b262834f416d7ca63147587c equals the ledger; acquired 2026-11-15T23:47:34Z"
+  },
+  {
+   "id": "NPS-HABS-pa1815",
+   "title": "Eisenhower Farm Two, Bank Barn, Emmitsburg Road (U.S. 15), Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1815/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1815/NPS-HABS-pa1815.txt re-hashed: sha256 189e9380132b49c131c665ba24e2d0f0185e43bd66e95ae84df473e647bc808d equals the ledger; acquired 2026-11-15T23:47:36Z"
+  },
+  {
+   "id": "NPS-HABS-pa1816",
+   "title": "Eisenhower Farm Two, Breeding & Equipment Shed, Emmitsburg Road (U.S. 15), Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1816/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1816/NPS-HABS-pa1816.txt re-hashed: sha256 03245c73f500fd408e5f87d3f506945eaffcd895b50ad08363fdb5b2f406e85c equals the ledger; acquired 2026-11-15T23:47:39Z"
+  },
+  {
+   "id": "NPS-HABS-pa1817",
+   "title": "Culp Farm & Smokehouse, West of Rock Creek, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1817/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1817/NPS-HABS-pa1817.txt re-hashed: sha256 e419082cb51eba98623b7aa1af33c2b17b6086c3a26bcc544e9e08d62af63033 equals the ledger; acquired 2026-11-15T23:47:40Z"
+  },
+  {
+   "id": "NPS-HABS-pa1818",
+   "title": "Culp Farm, Barn, West of Rock Creek, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1818/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1818/NPS-HABS-pa1818.txt re-hashed: sha256 a06b9d34e223a00b5a8ebc96b399192ac64d951fbe88edcd5b26b394d45c6bd5 equals the ledger; acquired 2026-11-15T23:47:42Z"
+  },
+  {
+   "id": "NPS-HABS-pa1819",
+   "title": "Culp Farm, Springhouse, West of Rock Creek, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1819/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1819/NPS-HABS-pa1819.txt re-hashed: sha256 37705b2a287fad91352fb994ae849ab5d6915eb93bcfedad5871eb104fabd4fa equals the ledger; acquired 2026-11-15T23:47:44Z"
+  },
+  {
+   "id": "NPS-HABS-pa1820",
+   "title": "Culp Farm, Woodshed, West of Rock Creek, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa1820/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa1820/NPS-HABS-pa1820.txt re-hashed: sha256 aa7c5f3bf87e78e584055a089e7fb773c62e120b1c38fee6e3218963af668f60 equals the ledger; acquired 2026-11-15T23:47:46Z"
+  },
+  {
+   "id": "NPS-HABS-pa2625",
+   "title": "Klingel Farm, House, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa2625/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa2625/NPS-HABS-pa2625.txt re-hashed: sha256 6cd4afcbcd4219d7af593b236034599c9bdc129cda53b3a8c33f16a0a82b76e8 equals the ledger; acquired 2026-11-15T23:47:48Z"
+  },
+  {
+   "id": "NPS-HABS-pa2627",
+   "title": "Biggs Farm, House, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa2627/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa2627/NPS-HABS-pa2627.txt re-hashed: sha256 a004f3d2e7336b32662b4a6eb0eba6c5d502173fe559022bc71791de2b521241 equals the ledger; acquired 2026-11-15T23:47:51Z"
+  },
+  {
+   "id": "NPS-HABS-pa3648",
+   "title": "Gettysburg National Military Park Tour Roads, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa3648/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa3648/NPS-HABS-pa3648.txt re-hashed: sha256 02661f8697562b9033bd17596df7d4cc2cea8be0774b497896f8ae818cf556e5 equals the ledger; acquired 2026-11-15T23:47:57Z"
+  },
+  {
+   "id": "NPS-HABS-pa3988",
+   "title": "Cyclorama Building, 125 Taneytown Road, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa3988/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa3988/NPS-HABS-pa3988.txt re-hashed: sha256 a9356fbcbb0f389cff673a4a58cd2aa94a6361a9ae9824a2686e7f510af78741 equals the ledger; acquired 2026-11-15T23:48:25Z"
+  },
+  {
+   "id": "NPS-HABS-pa4151",
+   "title": "Wentz House, Emmitsburg Road (U.S. Route 15), just north of Wheatfield Road, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa4151/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa4151/NPS-HABS-pa4151.txt re-hashed: sha256 199d0f36f23ee43bad3580ea16ec2dca1a6470cbf14425d74c48083909f5490a equals the ledger; acquired 2026-11-15T23:48:01Z"
+  },
+  {
+   "id": "NPS-HABS-pa4165",
+   "title": "Eisenhower Farm One, House, Emmitsburg Road (U.S. 15), Eisenhower National Historic Site, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa4165/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa4165/NPS-HABS-pa4165.txt re-hashed: sha256 e945b5038c0e793bf32c378b4982f76b9ab976fa1c27679993b6788adfb85dd8 equals the ledger; acquired 2026-11-15T23:48:03Z"
+  },
+  {
+   "id": "NPS-HABS-pa4166",
+   "title": "Gettysburg National Cemetery, Taneytown Road and Baltimore Pike, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa4166/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa4166/NPS-HABS-pa4166.txt re-hashed: sha256 09f61cf9344b35d0aedc39acb654a49bde1102248fc4438938139acee2a2c2aa equals the ledger; acquired 2026-11-15T23:48:05Z"
+  },
+  {
+   "id": "NPS-HABS-pa4187",
+   "title": "Trostle Farm, Summer Kitchen, United States Avenue, Gettysburg, Adams County, PA",
+   "where": "https://www.loc.gov/item/pa4187/",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/NPS-HABS-pa4187/NPS-HABS-pa4187.txt re-hashed: sha256 3edd63f698b4192256f1c8800d164f04ba4a05c0a047eae4e2744a58bb4d20f6 equals the ledger; acquired 2026-11-15T23:48:14Z"
+  },
+  {
+   "id": "NPSGOV-ART-ADVANCE-TO-BREAK-THE-DEADLOCK-AT-GETTYSBURG-BATTLEFIELD",
+   "title": "Advance to Break the Deadlock at Gettysburg Battlefield (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/000/advance-to-break-the-deadlock-at-gettysburg-battlefield.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-ADVANCE-TO-BREAK-THE-DEADLOCK-AT-GETTYSBURG-BATTLEFIELD/NPSGOV-ART-ADVANCE-TO-BREAK-THE-DEADLOCK-AT-GETTYSBURG-BATTLEFIELD.txt re-hashed: sha256 ab343df25070be0b46bec92b47beb9b0b5239adceb4107cc3e230f01ab9f37eb equals the ledger; acquired 2026-11-16T02:41:27Z"
+  },
+  {
+   "id": "NPSGOV-ART-AFRICAN-AMERICANS-GETTYSBURG",
+   "title": "African Americans during the Gettysburg Campaign (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/000/african-americans-gettysburg.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-AFRICAN-AMERICANS-GETTYSBURG/NPSGOV-ART-AFRICAN-AMERICANS-GETTYSBURG.txt re-hashed: sha256 fb4d3fd1413585d0d91df9ee0e1fa529fadc04cef62546021bba4f4788a28441 equals the ledger; acquired 2026-11-16T02:41:21Z"
+  },
+  {
+   "id": "NPSGOV-ART-ALONZO-CUSHING-GETTYSBURG",
+   "title": "Alonzo Cushing at Gettysburg (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/000/alonzo-cushing-gettysburg.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-ALONZO-CUSHING-GETTYSBURG/NPSGOV-ART-ALONZO-CUSHING-GETTYSBURG.txt re-hashed: sha256 83b988cc40b6d850c8629dabf0dd1dff12f2a6c760697d1269f850da5786ece9 equals the ledger; acquired 2026-11-16T02:41:25Z"
+  },
+  {
+   "id": "NPSGOV-ART-CHARGE-FOR-VICTORY-OR-DEFEAT-AT-GETTYSBURG",
+   "title": "Charge for Victory or Defeat at Gettysburg (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/000/charge-for-victory-or-defeat-at-gettysburg.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-CHARGE-FOR-VICTORY-OR-DEFEAT-AT-GETTYSBURG/NPSGOV-ART-CHARGE-FOR-VICTORY-OR-DEFEAT-AT-GETTYSBURG.txt re-hashed: sha256 e4a2a67bc3ae61d5a54b526d0bd271b40dcb8083fa3051aa11b5a42cedf4c342 equals the ledger; acquired 2026-11-16T02:41:28Z"
+  },
+  {
+   "id": "NPSGOV-ART-CHOICES-AND-COMMITMENTS-SOLDIER-AT-GETTYSBURG",
+   "title": "Choices and Commitments: The Soldiers at Gettysburg (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/choices-and-commitments-soldier-at-gettysburg.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-CHOICES-AND-COMMITMENTS-SOLDIER-AT-GETTYSBURG/NPSGOV-ART-CHOICES-AND-COMMITMENTS-SOLDIER-AT-GETTYSBURG.txt re-hashed: sha256 c6f682010bb15817da408674ed56530f8c1f7030846e0e20f503ad5ee5070935 equals the ledger; acquired 2026-11-16T02:41:56Z"
+  },
+  {
+   "id": "NPSGOV-ART-CHRISTMAS-EVE-ON-A-GETTYSBURG-FARM",
+   "title": "Christmas Eve on a Gettysburg Farm (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/000/christmas-eve-on-a-gettysburg-farm.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-CHRISTMAS-EVE-ON-A-GETTYSBURG-FARM/NPSGOV-ART-CHRISTMAS-EVE-ON-A-GETTYSBURG-FARM.txt re-hashed: sha256 3ff25ec721fb5621f55c4e5071c1024dd10ac6d6e71bcb2ec0ff4a10101071c4 equals the ledger; acquired 2026-11-16T02:41:42Z"
+  },
+  {
+   "id": "NPSGOV-ART-DYING-IN-THE-HOSPITAL",
+   "title": "Dying In The Hospital (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/000/dying-in-the-hospital.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-DYING-IN-THE-HOSPITAL/NPSGOV-ART-DYING-IN-THE-HOSPITAL.txt re-hashed: sha256 537cd777938ff012929c6ec93354e3750a1830871e8a4e4f1504414b8fb2ab70 equals the ledger; acquired 2026-11-16T02:41:52Z"
+  },
+  {
+   "id": "NPSGOV-ART-FROM-THE-FRONT-LINES-TO-THE-HOSPITAL",
+   "title": "From The Front Lines to the Hospital (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/from-the-front-lines-to-the-hospital.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-FROM-THE-FRONT-LINES-TO-THE-HOSPITAL/NPSGOV-ART-FROM-THE-FRONT-LINES-TO-THE-HOSPITAL.txt re-hashed: sha256 81aa46ba4c141375b31d36673da438c53e34736fd859f1bbc7372aa5da483d27 equals the ledger; acquired 2026-11-16T02:41:48Z"
+  },
+  {
+   "id": "NPSGOV-ART-GETTYSBURG-CAMPAIGN",
+   "title": "Gettysburg Campaign (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/000/gettysburg-campaign.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-GETTYSBURG-CAMPAIGN/NPSGOV-ART-GETTYSBURG-CAMPAIGN.txt re-hashed: sha256 62c3019bc3f4c2446922e52d6b7b1edfed5fdb5bdba722ee2f0f9017975fa5fb equals the ledger; acquired 2026-11-16T02:41:32Z"
+  },
+  {
+   "id": "NPSGOV-ART-GETTYSBURG-PARTNERSHIP",
+   "title": "Gettysburg: the Power of Partnership (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/gettysburg-partnership.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-GETTYSBURG-PARTNERSHIP/NPSGOV-ART-GETTYSBURG-PARTNERSHIP.txt re-hashed: sha256 8e56ac5dee8d76e0e621103aec12931de1202d63233b1cadf93798c5f62fdeea equals the ledger; acquired 2026-11-16T02:41:45Z"
+  },
+  {
+   "id": "NPSGOV-ART-NEUTRA-S-VISITOR-CENTER-AND-CYCLORAMA-AT-GETTYSBURG",
+   "title": "Neutra\u2019s Visitor Center and Cyclorama at Gettysburg (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/000/neutra-s-visitor-center-and-cyclorama-at-gettysburg.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-NEUTRA-S-VISITOR-CENTER-AND-CYCLORAMA-AT-GETTYSBURG/NPSGOV-ART-NEUTRA-S-VISITOR-CENTER-AND-CYCLORAMA-AT-GETTYSBURG.txt re-hashed: sha256 5d87c1d9e47ed1ea8d2212ac14e7d7a3c03f99603b41c28b11751d5cf629292b equals the ledger; acquired 2026-11-16T02:41:35Z"
+  },
+  {
+   "id": "NPSGOV-ART-NPS-GEODIVERSITY-ATLAS-GETTYSBURG-NATIONAL-MILITARY-PARK-PENNSYLVANIA",
+   "title": "NPS Geodiversity Atlas\u2014Gettysburg National Military Park, Pennsylvania (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/nps-geodiversity-atlas-gettysburg-national-military-park-pennsylvania.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-NPS-GEODIVERSITY-ATLAS-GETTYSBURG-NATIONAL-MILITARY-PARK-PENNSYLVANIA/NPSGOV-ART-NPS-GEODIVERSITY-ATLAS-GETTYSBURG-NATIONAL-MILITARY-PARK-PENNSYLVANIA.txt re-hashed: sha256 564086374cf8547ef357b592ba9b26cf5844337aa04f57b2f911b7832b58244f equals the ledger; acquired 2026-11-16T02:41:46Z"
+  },
+  {
+   "id": "NPSGOV-ART-PHOTOGRAMMETRY-GETTYSBURG-CULTURAL",
+   "title": "Cultural Resource Monitoring Example\u2014Gettysburg (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/photogrammetry-gettysburg-cultural.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-PHOTOGRAMMETRY-GETTYSBURG-CULTURAL/NPSGOV-ART-PHOTOGRAMMETRY-GETTYSBURG-CULTURAL.txt re-hashed: sha256 f38deb110ab03d0af0c5b725be88c58d16d98b9911cefd5e20abdd99334fef1c equals the ledger; acquired 2026-11-16T02:41:37Z"
+  },
+  {
+   "id": "NPSGOV-ART-RESTORING-A-GATEWAY-TO-GETTYSBURG",
+   "title": "Restoring a Gateway to Gettysburg: The View from Seminary Ridge (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/000/restoring-a-gateway-to-gettysburg.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-RESTORING-A-GATEWAY-TO-GETTYSBURG/NPSGOV-ART-RESTORING-A-GATEWAY-TO-GETTYSBURG.txt re-hashed: sha256 b8fa7b7fb6ca83919a1a917ef86195bf32f2b49ab68a4243ee7e49f6556bbfe5 equals the ledger; acquired 2026-11-16T02:41:39Z"
+  },
+  {
+   "id": "NPSGOV-EDU-A-NATION-AT-WAR-TRAVELING-TRUNK-TABLE-5-THE-MEDICAL-CORPS-AT-WAR",
+   "title": "Table 5: Civil War Medicine - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/education/a-nation-at-war-traveling-trunk-table-5-the-medical-corps-at-war.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EDU-A-NATION-AT-WAR-TRAVELING-TRUNK-TABLE-5-THE-MEDICAL-CORPS-AT-WAR/NPSGOV-EDU-A-NATION-AT-WAR-TRAVELING-TRUNK-TABLE-5-THE-MEDICAL-CORPS-AT-WAR.txt re-hashed: sha256 9729ee05c183f7457474a606effb41ecbc945edca4a033d7e5833232651dbdb9 equals the ledger; acquired 2026-11-16T02:40:54Z"
+  },
+  {
+   "id": "NPSGOV-EDU-ESSENTIAL-BACKGROUND-THE-BATTLE-OF-GETTYSBURG",
+   "title": "Essential Background: The Battle of Gettysburg - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/education/classrooms/essential-background-the-battle-of-gettysburg.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EDU-ESSENTIAL-BACKGROUND-THE-BATTLE-OF-GETTYSBURG/NPSGOV-EDU-ESSENTIAL-BACKGROUND-THE-BATTLE-OF-GETTYSBURG.txt re-hashed: sha256 30c66e71cf87f04ed8a7b10bfe8976f347fb67ace7d3e2c6eca267f2050df9c8 equals the ledger; acquired 2026-11-16T02:41:13Z"
+  },
+  {
+   "id": "NPSGOV-EDU-FALLEN-SOLDIERS-EDUCATION-PROGRAM",
+   "title": "Fallen Soldiers Field Trip - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/education/classrooms/fallen-soldiers-education-program.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EDU-FALLEN-SOLDIERS-EDUCATION-PROGRAM/NPSGOV-EDU-FALLEN-SOLDIERS-EDUCATION-PROGRAM.txt re-hashed: sha256 d8dfe5396467898f3ee57c39fb8436d7f643b64c3da1dea717c5480563491eb9 equals the ledger; acquired 2026-11-16T02:41:15Z"
+  },
+  {
+   "id": "NPSGOV-EDU-FALLEN-SOLDIERS-POST-VISIT-LESSON",
+   "title": "Fallen Soldiers: Post-Visit Lesson - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/education/classrooms/fallen-soldiers-post-visit-lesson.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EDU-FALLEN-SOLDIERS-POST-VISIT-LESSON/NPSGOV-EDU-FALLEN-SOLDIERS-POST-VISIT-LESSON.txt re-hashed: sha256 e1b150e15764d2b5f45890681ebbd1965fb7bcb22613c2635a859e67c792c67a equals the ledger; acquired 2026-11-16T02:41:20Z"
+  },
+  {
+   "id": "NPSGOV-EDU-FALLEN-SOLDIERS-PRE-VISIT-LESSON",
+   "title": "Fallen Soldiers: Pre-Visit Lesson - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/education/classrooms/fallen-soldiers-pre-visit-lesson.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EDU-FALLEN-SOLDIERS-PRE-VISIT-LESSON/NPSGOV-EDU-FALLEN-SOLDIERS-PRE-VISIT-LESSON.txt re-hashed: sha256 38deb9466dd852136328af8a2526ff3cc7817b886bbde8cf14601add5d24165f equals the ledger; acquired 2026-11-16T02:41:17Z"
+  },
+  {
+   "id": "NPSGOV-EDU-FIELD-HOSPITAL-EDUCATION-PROGRAM",
+   "title": "Field Hospital Field Trip - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/education/classrooms/field-hospital-education-program.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EDU-FIELD-HOSPITAL-EDUCATION-PROGRAM/NPSGOV-EDU-FIELD-HOSPITAL-EDUCATION-PROGRAM.txt re-hashed: sha256 5c6c7912ecb066c1956e5a101d9867c086eb720cad0e031ed5dbfeb57b533c39 equals the ledger; acquired 2026-11-16T02:40:52Z"
+  },
+  {
+   "id": "NPSGOV-EDU-PICKETT-S-CHARGE-EDUCATION-PROGRAM",
+   "title": "Pickett's Charge 360 Field Trip - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/education/classrooms/pickett-s-charge-education-program.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EDU-PICKETT-S-CHARGE-EDUCATION-PROGRAM/NPSGOV-EDU-PICKETT-S-CHARGE-EDUCATION-PROGRAM.txt re-hashed: sha256 72908b6aa554e52a175faced4580050bc0cd0220fbfbe9e7b6a9d23e9e771291 equals the ledger; acquired 2026-11-16T02:41:11Z"
+  },
+  {
+   "id": "NPSGOV-EDU-ROUND-TOPS-EDUCATION-PROGRAM",
+   "title": "Round Tops Education Program - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/education/classrooms/round-tops-education-program.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EDU-ROUND-TOPS-EDUCATION-PROGRAM/NPSGOV-EDU-ROUND-TOPS-EDUCATION-PROGRAM.txt re-hashed: sha256 f75abf323d61c8ad103ae5f4ef9c78ac85ce6286a32f16152ca6c07230efc72c equals the ledger; acquired 2026-11-16T02:41:03Z"
+  },
+  {
+   "id": "NPSGOV-EDU-ROUND-TOPS-FIELD-TRIP-PRE-VISIT-LESSON",
+   "title": "Round Tops Field Trip Pre-Visit Lesson - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/education/classrooms/round-tops-field-trip-pre-visit-lesson.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EDU-ROUND-TOPS-FIELD-TRIP-PRE-VISIT-LESSON/NPSGOV-EDU-ROUND-TOPS-FIELD-TRIP-PRE-VISIT-LESSON.txt re-hashed: sha256 a749bcdc0736184f37a3daac541fa5b20b186b54d831d254f842923916ab8070 equals the ledger; acquired 2026-11-16T02:41:05Z"
+  },
+  {
+   "id": "NPSGOV-EDU-SLYDER-FAMILY-FARM-EDUCATION-PROGRAM",
+   "title": "Slyder Family Farm Field Trip - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/education/classrooms/slyder-family-farm-education-program.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EDU-SLYDER-FAMILY-FARM-EDUCATION-PROGRAM/NPSGOV-EDU-SLYDER-FAMILY-FARM-EDUCATION-PROGRAM.txt re-hashed: sha256 f43d8734719e46a5d68c29c1f6af8d9a64c6f7e97a0e6a734c662297c3a7a71f equals the ledger; acquired 2026-11-16T02:40:56Z"
+  },
+  {
+   "id": "NPSGOV-EDU-SLYDER-FAMILY-FARM-POST-VISIT-LESSON",
+   "title": "Slyder Family Farm: Post Visit Lesson - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/education/classrooms/slyder-family-farm-post-visit-lesson.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EDU-SLYDER-FAMILY-FARM-POST-VISIT-LESSON/NPSGOV-EDU-SLYDER-FAMILY-FARM-POST-VISIT-LESSON.txt re-hashed: sha256 4120fbb6af59ba75ce14cdd521302ffaaf8ed91ce49ad5dd5df72ba171eea47a equals the ledger; acquired 2026-11-16T02:40:59Z"
+  },
+  {
+   "id": "NPSGOV-EDU-SLYDER-FAMILY-FARM-PRE-VISIT-LESSONS",
+   "title": "Slyder Family Farm: Pre-Visit Lessons - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/education/slyder-family-farm-pre-visit-lessons.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EDU-SLYDER-FAMILY-FARM-PRE-VISIT-LESSONS/NPSGOV-EDU-SLYDER-FAMILY-FARM-PRE-VISIT-LESSONS.txt re-hashed: sha256 7b90dea9724d4e998cd7a97b468e732eb175f90f48c2d4a056d6a3f5f17a188f equals the ledger; acquired 2026-11-16T02:41:01Z"
+  },
+  {
+   "id": "NPSGOV-EDU-THE-ROUND-TOPS-POST-VISIT-LESSON",
+   "title": "The Round Tops: Post Visit Lesson - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/education/classrooms/the-round-tops-post-visit-lesson.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EDU-THE-ROUND-TOPS-POST-VISIT-LESSON/NPSGOV-EDU-THE-ROUND-TOPS-POST-VISIT-LESSON.txt re-hashed: sha256 ccb601a84c025ffa4d2fb50581a71fcfa1532311595692913c363f9dfc349bc1 equals the ledger; acquired 2026-11-16T02:41:06Z"
+  },
+  {
+   "id": "NPSGOV-EISE-LEARN-HISTORYCULTURE-EISENHOWER-AT-GETTYSBURG",
+   "title": "Eisenhower at Gettysburg - Eisenhower National Historic Site (U.S. National Park Service)",
+   "where": "https://www.nps.gov/eise/learn/historyculture/eisenhower-at-gettysburg.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EISE-LEARN-HISTORYCULTURE-EISENHOWER-AT-GETTYSBURG/NPSGOV-EISE-LEARN-HISTORYCULTURE-EISENHOWER-AT-GETTYSBURG.txt re-hashed: sha256 cb7fbf1c2e5109cc0c5cd9c631ca28ddf9ac50b8328c50a61d84afff2c5923a1 equals the ledger; acquired 2026-11-16T02:42:00Z"
+  },
+  {
+   "id": "NPSGOV-EISE-LEARN-HISTORYCULTURE-EISENHOWERS-IN-GETTYSBURG",
+   "title": "The Eisenhowers in Gettysburg - Eisenhower National Historic Site (U.S. National Park Service)",
+   "where": "https://www.nps.gov/eise/learn/historyculture/eisenhowers-in-gettysburg.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EISE-LEARN-HISTORYCULTURE-EISENHOWERS-IN-GETTYSBURG/NPSGOV-EISE-LEARN-HISTORYCULTURE-EISENHOWERS-IN-GETTYSBURG.txt re-hashed: sha256 60fc6e523d4b0e81c2a7430f0b731cae1ea7e4bc7657e435b3aa08f4913dc998 equals the ledger; acquired 2026-11-16T02:42:03Z"
+  },
+  {
+   "id": "NPSGOV-EISE-LEARN-HISTORYCULTURE-IKE-AND-THE-CIVIL-WAR",
+   "title": "Ike and the Civil War - Eisenhower National Historic Site (U.S. National Park Service)",
+   "where": "https://www.nps.gov/eise/learn/historyculture/ike-and-the-civil-war.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EISE-LEARN-HISTORYCULTURE-IKE-AND-THE-CIVIL-WAR/NPSGOV-EISE-LEARN-HISTORYCULTURE-IKE-AND-THE-CIVIL-WAR.txt re-hashed: sha256 a693243d7f2514e998445fbb129ce4cecc80375c0609a9abf4e82612ed130e53 equals the ledger; acquired 2026-11-16T02:41:59Z"
+  },
+  {
+   "id": "NPSGOV-EISE-LEARN-HISTORYCULTURE-PLACES",
+   "title": "Places - Eisenhower National Historic Site (U.S. National Park Service)",
+   "where": "https://www.nps.gov/eise/learn/historyculture/places.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EISE-LEARN-HISTORYCULTURE-PLACES/NPSGOV-EISE-LEARN-HISTORYCULTURE-PLACES.txt re-hashed: sha256 b70ff73814400f7b1588aa7120e7741cd0064ad96cb5421d5e39544139835b7f equals the ledger; acquired 2026-11-16T02:42:07Z"
+  },
+  {
+   "id": "NPSGOV-EISE-LEARN-NATURE-NATURALFEATURESANDECOSYSTEMS",
+   "title": "Natural Features & Ecosystems - Eisenhower National Historic Site (U.S. National Park Service)",
+   "where": "https://www.nps.gov/eise/learn/nature/naturalfeaturesandecosystems.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EISE-LEARN-NATURE-NATURALFEATURESANDECOSYSTEMS/NPSGOV-EISE-LEARN-NATURE-NATURALFEATURESANDECOSYSTEMS.txt re-hashed: sha256 4c78ccef1f82f8f408b187b4a0165b872bc13da9f540b20a7d2c8a90a8d869db equals the ledger; acquired 2026-11-16T02:42:09Z"
+  },
+  {
+   "id": "NPSGOV-EISE-LEARN-NATURE-TREESANDSHRUBS",
+   "title": "Trees and Shrubs - Eisenhower National Historic Site (U.S. National Park Service)",
+   "where": "https://www.nps.gov/eise/learn/nature/treesandshrubs.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-EISE-LEARN-NATURE-TREESANDSHRUBS/NPSGOV-EISE-LEARN-NATURE-TREESANDSHRUBS.txt re-hashed: sha256 4d2e67371483f69eadaeebe2a88da34ff8d7055ae98287515d1e37114a2613b0 equals the ledger; acquired 2026-11-16T02:42:12Z"
+  },
+  {
+   "id": "NPSGOV-HC-ALABAMA-MONUMENT",
+   "title": "Alabama Monument - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/alabama-monument.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-ALABAMA-MONUMENT/NPSGOV-HC-ALABAMA-MONUMENT.txt re-hashed: sha256 e39cd46497f8fbfc75c61123aca8bd1eea1a22d673c78ffd84697781d2a9d905 equals the ledger; acquired 2026-11-16T02:37:44Z"
+  },
+  {
+   "id": "NPSGOV-HC-ARKANSAS-MONUMENT",
+   "title": "Arkansas Monument - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/arkansas-monument.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-ARKANSAS-MONUMENT/NPSGOV-HC-ARKANSAS-MONUMENT.txt re-hashed: sha256 572e1c9a43c6ddfc67453bc99c1558b17e65cbf623ab73c00663709b96ca5340 equals the ledger; acquired 2026-11-16T02:37:46Z"
+  },
+  {
+   "id": "NPSGOV-HC-CUSHING-AT-GETTYSBURG",
+   "title": "Lt. Alonzo Cushing at Gettysburg - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/cushing-at-gettysburg.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-CUSHING-AT-GETTYSBURG/NPSGOV-HC-CUSHING-AT-GETTYSBURG.txt re-hashed: sha256 029e6358a9353219cff660ee55882bf6b310ae5af9e2f94cf54385376055b600 equals the ledger; acquired 2026-11-16T02:38:27Z"
+  },
+  {
+   "id": "NPSGOV-HC-DELAWARE-MEMORIAL",
+   "title": "Delaware Memorial - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/delaware-memorial.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-DELAWARE-MEMORIAL/NPSGOV-HC-DELAWARE-MEMORIAL.txt re-hashed: sha256 f8a8266663ff5429edd6a6959c1651e781fb46ab4bec7f5ad1df5a45839cdb34 equals the ledger; acquired 2026-11-16T02:37:48Z"
+  },
+  {
+   "id": "NPSGOV-HC-FLORIDA-MONUMENT",
+   "title": "Florida Monument - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/florida-monument.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-FLORIDA-MONUMENT/NPSGOV-HC-FLORIDA-MONUMENT.txt re-hashed: sha256 695edba70d7272b8f4c2aac3837c6860657bc68c0e2bcf6ac0d763b4e11475d8 equals the ledger; acquired 2026-11-16T02:37:50Z"
+  },
+  {
+   "id": "NPSGOV-HC-FLOWERING-PLANTS-LITTLE-ROUND-TOP",
+   "title": "Flowering Plants of Little Round Top - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/flowering-plants-little-round-top.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-FLOWERING-PLANTS-LITTLE-ROUND-TOP/NPSGOV-HC-FLOWERING-PLANTS-LITTLE-ROUND-TOP.txt re-hashed: sha256 27d3f23ecb35228f27d865a1ee73a2d035b70af9feff4dbd63510339f24aca21 equals the ledger; acquired 2026-11-16T02:38:24Z"
+  },
+  {
+   "id": "NPSGOV-HC-GEORGIA-MONUMENT",
+   "title": "Georgia Monument - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/georgia-monument.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-GEORGIA-MONUMENT/NPSGOV-HC-GEORGIA-MONUMENT.txt re-hashed: sha256 350d468e3371e38e9f638c244cddd6a57cf2aa941b985e4c55d6a8f751a9dc5d equals the ledger; acquired 2026-11-16T02:37:51Z"
+  },
+  {
+   "id": "NPSGOV-HC-GETTYSBURG-OVERVIEW",
+   "title": "Gettysburg Overview - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/gettysburg-overview.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-GETTYSBURG-OVERVIEW/NPSGOV-HC-GETTYSBURG-OVERVIEW.txt re-hashed: sha256 02645625eb3fa24202133216437ebf9be31e030df26b082ac92621037b1660b1 equals the ledger; acquired 2026-11-16T02:38:29Z"
+  },
+  {
+   "id": "NPSGOV-HC-KENTUCKY-MEMORIAL",
+   "title": "Kentucky Memorial - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/kentucky-memorial.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-KENTUCKY-MEMORIAL/NPSGOV-HC-KENTUCKY-MEMORIAL.txt re-hashed: sha256 280bd6e8221539d409ad03ef372da17ab17b122ce4efa64532436e2bc3d1f730 equals the ledger; acquired 2026-11-16T02:37:52Z"
+  },
+  {
+   "id": "NPSGOV-HC-LINCOLN-SPEECH-MEMORIAL",
+   "title": "Lincoln Speech Memorial - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/lincoln-speech-memorial.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-LINCOLN-SPEECH-MEMORIAL/NPSGOV-HC-LINCOLN-SPEECH-MEMORIAL.txt re-hashed: sha256 f97d428eb70a4e7835523e608b0cee4fd74b043a5045d4954f5e1684bb0b174a equals the ledger; acquired 2026-11-16T02:37:54Z"
+  },
+  {
+   "id": "NPSGOV-HC-LITTLE-ROUND-TOP-FAQ2",
+   "title": "Little Round Top FAQ - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/little-round-top-faq2.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-LITTLE-ROUND-TOP-FAQ2/NPSGOV-HC-LITTLE-ROUND-TOP-FAQ2.txt re-hashed: sha256 ac05fe005db308172a1ec31f15e8c96940fd661573cdbe813930e20c1822be7d equals the ledger; acquired 2026-11-16T02:38:21Z"
+  },
+  {
+   "id": "NPSGOV-HC-LITTLE-ROUND-TOP-GRASSES",
+   "title": "Grasses of Little Round Top - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/little-round-top-grasses.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-LITTLE-ROUND-TOP-GRASSES/NPSGOV-HC-LITTLE-ROUND-TOP-GRASSES.txt re-hashed: sha256 89add01770113b885ab799b530df07ad14bcb6dadc74b79043ae9add5a048631 equals the ledger; acquired 2026-11-16T02:38:20Z"
+  },
+  {
+   "id": "NPSGOV-HC-LITTLE-ROUND-TOP-PLANTS",
+   "title": "Native Plants on Little Round Top - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/little-round-top-plants.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-LITTLE-ROUND-TOP-PLANTS/NPSGOV-HC-LITTLE-ROUND-TOP-PLANTS.txt re-hashed: sha256 3fee79b5f0bfa4e3aad5ddd03ef9d38b6e1433f957954d624f6c3dab357d7872 equals the ledger; acquired 2026-11-16T02:38:17Z"
+  },
+  {
+   "id": "NPSGOV-HC-LITTLE-ROUND-TOP-TREES",
+   "title": "Trees of Little Round Top - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/little-round-top-trees.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-LITTLE-ROUND-TOP-TREES/NPSGOV-HC-LITTLE-ROUND-TOP-TREES.txt re-hashed: sha256 eb3bffd6d1c4c2d013dbcc835f072187cb36830ee9f4645ff42d4588e427f9bc equals the ledger; acquired 2026-11-16T02:38:15Z"
+  },
+  {
+   "id": "NPSGOV-HC-LOUISIANA-MONUMENT",
+   "title": "Louisiana Monument - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/louisiana-monument.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-LOUISIANA-MONUMENT/NPSGOV-HC-LOUISIANA-MONUMENT.txt re-hashed: sha256 e53ab5eb745a14edd37261c220a13a72247270ff1d4f343ed8405639ff37ad22 equals the ledger; acquired 2026-11-16T02:37:55Z"
+  },
+  {
+   "id": "NPSGOV-HC-LRT-PROGRESS-PHOTOS",
+   "title": "Little Round Top Rehabilitation Project Photo Albums - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/lrt-progress-photos.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-LRT-PROGRESS-PHOTOS/NPSGOV-HC-LRT-PROGRESS-PHOTOS.txt re-hashed: sha256 f24a3dc1d58a81d14e125d051f9e2f510f907a2d949d6859653671a2aa7b24e1 equals the ledger; acquired 2026-11-16T02:38:26Z"
+  },
+  {
+   "id": "NPSGOV-HC-MISSISSIPPI",
+   "title": "Mississippi Monument - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/mississippi.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-MISSISSIPPI/NPSGOV-HC-MISSISSIPPI.txt re-hashed: sha256 30396ec1f0f9d92657ca3dfa32a1b68f75ebdbef0254b9b7ea966d85c9ab1be8 equals the ledger; acquired 2026-11-16T02:37:57Z"
+  },
+  {
+   "id": "NPSGOV-HC-NORTH-CAROLINA-MONUMENT",
+   "title": "North Carolina Monument - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/north-carolina-monument.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-NORTH-CAROLINA-MONUMENT/NPSGOV-HC-NORTH-CAROLINA-MONUMENT.txt re-hashed: sha256 2683c925b163927ef510ab254826dfe1db4fbe82b3664150400a27ffb79a6702 equals the ledger; acquired 2026-11-16T02:38:00Z"
+  },
+  {
+   "id": "NPSGOV-HC-PENNSYLVANIA-MEMORIAL",
+   "title": "Pennsylvania Memorial - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/pennsylvania-memorial.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-PENNSYLVANIA-MEMORIAL/NPSGOV-HC-PENNSYLVANIA-MEMORIAL.txt re-hashed: sha256 36169aa62cf6cc7bea83521cbb0e62ad1113e585b976f9c06681ea785e990f52 equals the ledger; acquired 2026-11-16T02:38:02Z"
+  },
+  {
+   "id": "NPSGOV-HC-SOLDIERS-AND-SAILORS-MONUMENT",
+   "title": "Soldiers and Sailors Monument - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/soldiers-and-sailors-monument.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-SOLDIERS-AND-SAILORS-MONUMENT/NPSGOV-HC-SOLDIERS-AND-SAILORS-MONUMENT.txt re-hashed: sha256 6d2d3668773000e832f5cd61b886beb2563c757774c2e9c30ddcad1202c93474 equals the ledger; acquired 2026-11-16T02:38:03Z"
+  },
+  {
+   "id": "NPSGOV-HC-SOUTH-CAROLINA-MONUMENT",
+   "title": "South Carolina Monument - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/south-carolina-monument.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-SOUTH-CAROLINA-MONUMENT/NPSGOV-HC-SOUTH-CAROLINA-MONUMENT.txt re-hashed: sha256 5b16be59ec9e346a4df8765605441d8a23695b69cdbb06dcee9ce4cb37efefb4 equals the ledger; acquired 2026-11-16T02:38:05Z"
+  },
+  {
+   "id": "NPSGOV-HC-STATE-OF-INDIANA-MONUMENT",
+   "title": "State of Indiana Monument - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/state-of-indiana-monument.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-STATE-OF-INDIANA-MONUMENT/NPSGOV-HC-STATE-OF-INDIANA-MONUMENT.txt re-hashed: sha256 53d28556ec83840220f7f45aa38e4cccddd45dc7737dd3fa1095a44e68f4083f equals the ledger; acquired 2026-11-16T02:38:08Z"
+  },
+  {
+   "id": "NPSGOV-HC-TENNESSEE-MONUMENT",
+   "title": "Tennessee Monument - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/tennessee-monument.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-TENNESSEE-MONUMENT/NPSGOV-HC-TENNESSEE-MONUMENT.txt re-hashed: sha256 396a4c6f486c26ab09a12bbf8c18ddd255e89f7b0507968049879408f2b92daa equals the ledger; acquired 2026-11-16T02:38:09Z"
+  },
+  {
+   "id": "NPSGOV-HC-TEXAS-MONUMENT",
+   "title": "Texas Monument - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/texas-monument.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-TEXAS-MONUMENT/NPSGOV-HC-TEXAS-MONUMENT.txt re-hashed: sha256 0596a43a00014cb8bbf1eb39da9fa70f37393b2326a879b3a051c2b111e0c4b6 equals the ledger; acquired 2026-11-16T02:38:11Z"
+  },
+  {
+   "id": "NPSGOV-HC-VIRGINIA-MONUMENT",
+   "title": "Virginia Monument - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/historyculture/virginia-monument.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-HC-VIRGINIA-MONUMENT/NPSGOV-HC-VIRGINIA-MONUMENT.txt re-hashed: sha256 af0e76ec82f9e28cc18bb4ce49cf502472157a381467b57d80d2f5efece3d1c4 equals the ledger; acquired 2026-11-16T02:38:13Z"
+  },
+  {
+   "id": "NPSGOV-NATURE-ENVIRONMENTALFACTORS",
+   "title": "Environmental Factors - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/nature/environmentalfactors.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NATURE-ENVIRONMENTALFACTORS/NPSGOV-NATURE-ENVIRONMENTALFACTORS.txt re-hashed: sha256 b82512f2955db39e39d2bb8955d2e0d23f5f74f7288e60bbf6c0837fa17c9b69 equals the ledger; acquired 2026-11-16T02:40:44Z"
+  },
+  {
+   "id": "NPSGOV-NATURE-GEOLOGICFORMATIONS",
+   "title": "Geologic Formations - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/nature/geologicformations.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NATURE-GEOLOGICFORMATIONS/NPSGOV-NATURE-GEOLOGICFORMATIONS.txt re-hashed: sha256 d600e6667eef61535d4c3ed833b7b5e9454706cbe383b26126a667fa9bbc5e1e equals the ledger; acquired 2026-11-16T02:40:41Z"
+  },
+  {
+   "id": "NPSGOV-NATURE-GRASSES",
+   "title": "Grasses - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/nature/grasses.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NATURE-GRASSES/NPSGOV-NATURE-GRASSES.txt re-hashed: sha256 42b6c59634b52af29a52789b18d2f6cbc66b91a592a9831859c7512cff885fea equals the ledger; acquired 2026-11-16T02:40:34Z"
+  },
+  {
+   "id": "NPSGOV-NATURE-NONNATIVESPECIES",
+   "title": "Nonnative Species - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/nature/nonnativespecies.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NATURE-NONNATIVESPECIES/NPSGOV-NATURE-NONNATIVESPECIES.txt re-hashed: sha256 af74e978fa776dca7d2eaee8d90280dcef61040a5c7520bc69c564606095ae02 equals the ledger; acquired 2026-11-16T02:40:51Z"
+  },
+  {
+   "id": "NPSGOV-NATURE-PRAIRIES",
+   "title": "Prairies and Grasslands - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/nature/prairies.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NATURE-PRAIRIES/NPSGOV-NATURE-PRAIRIES.txt re-hashed: sha256 2b206b46c34d2b8bb4421cbe2cf56b80fc422de27665b5304e187eafe0ee40d2 equals the ledger; acquired 2026-11-16T02:40:37Z"
+  },
+  {
+   "id": "NPSGOV-NATURE-PRESCRIBED-FIRES",
+   "title": "Prescribed Fires - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/nature/prescribed-fires.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NATURE-PRESCRIBED-FIRES/NPSGOV-NATURE-PRESCRIBED-FIRES.txt re-hashed: sha256 30911e571f041bd2877a5ea4167a4f9fcf0f247983a54e03866673f0d3629adc equals the ledger; acquired 2026-11-16T02:40:48Z"
+  },
+  {
+   "id": "NPSGOV-NATURE-SCENICVISTAS",
+   "title": "Scenic Vistas - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/nature/scenicvistas.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NATURE-SCENICVISTAS/NPSGOV-NATURE-SCENICVISTAS.txt re-hashed: sha256 e666923da236e78f7b8e1bf3470076646aa243459c567e9aea8be1c5548be5aa equals the ledger; acquired 2026-11-16T02:40:39Z"
+  },
+  {
+   "id": "NPSGOV-NATURE-TREESANDSHRUBS",
+   "title": "Trees and Shrubs - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/nature/treesandshrubs.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NATURE-TREESANDSHRUBS/NPSGOV-NATURE-TREESANDSHRUBS.txt re-hashed: sha256 35e6b1b153d5a758783510b469a1464e92c10c12bd342cf93e3e317267b58dd1 equals the ledger; acquired 2026-11-16T02:40:31Z"
+  },
+  {
+   "id": "NPSGOV-NATURE-WATERQUALITY",
+   "title": "Water Quality - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/nature/waterquality.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NATURE-WATERQUALITY/NPSGOV-NATURE-WATERQUALITY.txt re-hashed: sha256 da6ebb06dfd0c97b0397f151a65d71e0a2be5e2c8c251eb72828ebcd893d3ad7 equals the ledger; acquired 2026-11-16T02:40:49Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-121STNY-MONUMENT-REPAIR-5-13",
+   "title": "Gettysburg's 121st NY Monument Repaired - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/121stny-monument-repair-5-13.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-121STNY-MONUMENT-REPAIR-5-13/NPSGOV-NEWS-121STNY-MONUMENT-REPAIR-5-13.txt re-hashed: sha256 a003aedb9fa00e3374c5f4f908180433f7711b3b490217261469338f71155c7b equals the ledger; acquired 2026-11-16T02:39:48Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-5TH-US-ARTILLERY-MONUMENT-9-14",
+   "title": "Battery F, 5th U.S. Artillery Monument Returned to Original Location in the Park - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/5th-us-artillery-monument-9-14.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-5TH-US-ARTILLERY-MONUMENT-9-14/NPSGOV-NEWS-5TH-US-ARTILLERY-MONUMENT-9-14.txt re-hashed: sha256 dea726bba7014d2cc28712c640868d611682ef6aef374ba979c472a7054372b3 equals the ledger; acquired 2026-11-16T02:39:50Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-ARCHEOLOGICAL-SURVEY-AT-LITTLE-ROUND-TOP",
+   "title": "Archeological Survey at Little Round Top - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/archeological-survey-at-little-round-top.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-ARCHEOLOGICAL-SURVEY-AT-LITTLE-ROUND-TOP/NPSGOV-NEWS-ARCHEOLOGICAL-SURVEY-AT-LITTLE-ROUND-TOP.txt re-hashed: sha256 afdf27a65dbb6c56a6aa8d50b9e4c7d3c55bb9604a5e2f4f48fbc9e3aa8a5c9a equals the ledger; acquired 2026-11-16T02:39:10Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-BENNER-BARN-VANDALISM",
+   "title": "Gettysburg National Military Park Seeks Public Assistance For Vandalism - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/benner-barn-vandalism.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-BENNER-BARN-VANDALISM/NPSGOV-NEWS-BENNER-BARN-VANDALISM.txt re-hashed: sha256 e233e1dff5191a56017ca74bf6738c46dbf150167e971214cf6d946a08676d3c equals the ledger; acquired 2026-11-16T02:39:13Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-CEMETERY-RIDGE-FUNDING",
+   "title": "Cemetery Ridge Funding - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/cemetery-ridge-funding.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-CEMETERY-RIDGE-FUNDING/NPSGOV-NEWS-CEMETERY-RIDGE-FUNDING.txt re-hashed: sha256 8622e00116fd48c5d33c8fccfaca85ad863063aaf02d762e31aecc83f7ac79c9 equals the ledger; acquired 2026-11-16T02:38:46Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-CEMETERY-RIDGE-REHAB-PROJECT",
+   "title": "Cemetery Ridge Rehab Project - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/cemetery-ridge-rehab-project.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-CEMETERY-RIDGE-REHAB-PROJECT/NPSGOV-NEWS-CEMETERY-RIDGE-REHAB-PROJECT.txt re-hashed: sha256 e1a0d66ea131f76d8fe2d18a1622365bbc37c38fc14c6540fdc28a437782f008 equals the ledger; acquired 2026-11-16T02:38:44Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-CEMETERY-WATER-LINE",
+   "title": "Gettysburg National Cemetery Water Line to be Replaced - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/cemetery-water-line.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-CEMETERY-WATER-LINE/NPSGOV-NEWS-CEMETERY-WATER-LINE.txt re-hashed: sha256 f9a69ad8ec48860ce3ca515521063de64753fc1710dffdf341c4e93d05daa9bb equals the ledger; acquired 2026-11-16T02:39:27Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-CENTENNIAL-ACCOMPLISHMENTS",
+   "title": "Gettysburg and Eisenhower Parks Celebrate NPS Centennial Accomplishments - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/centennial-accomplishments.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-CENTENNIAL-ACCOMPLISHMENTS/NPSGOV-NEWS-CENTENNIAL-ACCOMPLISHMENTS.txt re-hashed: sha256 e8215e709499d073a41257540a262d879e0942d600cc9f37c450b07b36ca0294 equals the ledger; acquired 2026-11-16T02:39:54Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-CENTURY-OF-SACRIFICE",
+   "title": "A Century of Sacrifice: Special Memorial Day Weekend Ranger Program - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/century-of-sacrifice.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-CENTURY-OF-SACRIFICE/NPSGOV-NEWS-CENTURY-OF-SACRIFICE.txt re-hashed: sha256 4f27a683ce8726f252b07b471d92a7a2f1965421152b024746c8fd29f480bca6 equals the ledger; acquired 2026-11-16T02:39:52Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-CEREMONIAL-RIBBON-CUTTING-HELD-TO-CELEBRATE-THE-REOPENING-OF-LITTLE-ROUND-TOP",
+   "title": "Little Round Top Reopening 2024-06-24 - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/ceremonial-ribbon-cutting-held-to-celebrate-the-reopening-of-little-round-top.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-CEREMONIAL-RIBBON-CUTTING-HELD-TO-CELEBRATE-THE-REOPENING-OF-LITTLE-ROUND-TOP/NPSGOV-NEWS-CEREMONIAL-RIBBON-CUTTING-HELD-TO-CELEBRATE-THE-REOPENING-OF-LITTLE-ROUND-TOP.txt re-hashed: sha256 339dde5d18c653f3bb92253396bed01dc02347fd149ee3d7204c6d2d6379d0f1 equals the ledger; acquired 2026-11-16T02:39:39Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-CLOSURE-LITTLE-ROUND-TOP",
+   "title": "Gettysburg National Military Park announces start for Little Round Top rehabilitation project - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/closure-little-round-top.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-CLOSURE-LITTLE-ROUND-TOP/NPSGOV-NEWS-CLOSURE-LITTLE-ROUND-TOP.txt re-hashed: sha256 844664e59b4e382f1f815191bc982ff085031bb67ff6a8742255aa00d9d3f19e equals the ledger; acquired 2026-11-16T02:39:42Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-COMPREHENSIVE-TRAILS-PLAN",
+   "title": "Comprehensive Trails Plan - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/comprehensive-trails-plan.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-COMPREHENSIVE-TRAILS-PLAN/NPSGOV-NEWS-COMPREHENSIVE-TRAILS-PLAN.txt re-hashed: sha256 043bb0beeafd6f064396fe02c94bd0e5c41187590c1703ddb28ea98a944dcd3b equals the ledger; acquired 2026-11-16T02:40:03Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-COSTER-AVENUE",
+   "title": "Coster Avenue closed to buses - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/coster-avenue.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-COSTER-AVENUE/NPSGOV-NEWS-COSTER-AVENUE.txt re-hashed: sha256 139e79b2b17069a06ebe1ae528aa41f1d7a5f17e04013a6c04dcaef7ebdacce6 equals the ledger; acquired 2026-11-16T02:39:46Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-CULP-RUN",
+   "title": "Gettysburg National Military Park and Gettysburg Borough partner on Culp Run Restoration project - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/culp-run.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-CULP-RUN/NPSGOV-NEWS-CULP-RUN.txt re-hashed: sha256 ae98ba42f4dd66f1f259904d417124d14c57619df3cf049ce7c8504930856abf equals the ledger; acquired 2026-11-16T02:39:56Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-CULPS-HILL-PAVING-2024",
+   "title": "Gettysburg National Military Park Announces Upcoming Road Paving Project at Culp's Hill - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/culps-hill-paving-2024.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-CULPS-HILL-PAVING-2024/NPSGOV-NEWS-CULPS-HILL-PAVING-2024.txt re-hashed: sha256 366767f285a2a0316766454ad289d806b2e64f3dae1dff33d712c9a013f5bad3 equals the ledger; acquired 2026-11-16T02:38:52Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-CULPS-HILL-REHAB",
+   "title": "Gettysburg National Military Park & Gettysburg Foundation Partnership Project: Culp\u2019s Hill Rehabilitation - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/culps-hill-rehab.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-CULPS-HILL-REHAB/NPSGOV-NEWS-CULPS-HILL-REHAB.txt re-hashed: sha256 204ae0c9e75fb3c43ba096544100dcc2f2ceeaa42f1c215184a44e940b55b9fc equals the ledger; acquired 2026-11-16T02:38:51Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-CULTURAL-RESOURCE-SPECIALIST-RECOGNIZED",
+   "title": "Cultural Resource Specialist Recognized - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/cultural-resource-specialist-recognized.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-CULTURAL-RESOURCE-SPECIALIST-RECOGNIZED/NPSGOV-NEWS-CULTURAL-RESOURCE-SPECIALIST-RECOGNIZED.txt re-hashed: sha256 9ee95effd417195e3a666d148ccef26dfbd7e06a8d72b800767d7184f886bd90 equals the ledger; acquired 2026-11-16T02:40:17Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-CYCLORAMA-CENTER-EA-8-2012",
+   "title": "Environmental Assessment for GNMP Cyclorama Center Available for Public Comment - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/cyclorama-center-ea-8-2012.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-CYCLORAMA-CENTER-EA-8-2012/NPSGOV-NEWS-CYCLORAMA-CENTER-EA-8-2012.txt re-hashed: sha256 38a3405b5a343354f680803835f66f53249ffbfc755a4f4ee674dbe2be924c61 equals the ledger; acquired 2026-11-16T02:40:07Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-DEVIL-S-DEN-REOPENS",
+   "title": "Devil\u2019s Den reopens on September 30 - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/devil-s-den-reopens.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-DEVIL-S-DEN-REOPENS/NPSGOV-NEWS-DEVIL-S-DEN-REOPENS.txt re-hashed: sha256 5f2910743e22acde6baff987fb7e267d1a21652d1727bb6c41fdcf56404d7ffe equals the ledger; acquired 2026-11-16T02:38:57Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-DEVILS-DEN-REHAB-PROJECT",
+   "title": "Devil's Den Rehabilitation Project - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/devils-den-rehab-project.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-DEVILS-DEN-REHAB-PROJECT/NPSGOV-NEWS-DEVILS-DEN-REHAB-PROJECT.txt re-hashed: sha256 d3b58eee15eff165930040beaf00d7733bfc1a42e9e48987ae914f31dbf50338 equals the ledger; acquired 2026-11-16T02:38:55Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-FALL-INTO-HISTORY",
+   "title": "\u201cFall into History\u201d at Gettysburg National Military Park - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/fall-into-history.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-FALL-INTO-HISTORY/NPSGOV-NEWS-FALL-INTO-HISTORY.txt re-hashed: sha256 ba8aedba730468bd17e47d8a8d5ba7a4c3e15781a2d2638aa20ef0a733c4481f equals the ledger; acquired 2026-11-16T02:40:22Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-GETT-REHAB-GOALS",
+   "title": "Goals of Battlefield Rehabilitation - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/gett-rehab-goals.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-GETT-REHAB-GOALS/NPSGOV-NEWS-GETT-REHAB-GOALS.txt re-hashed: sha256 1c4561602ae92271ddbb206ad2b9689e76a9ce483e0b1d9fe5e5125cd7818b7a equals the ledger; acquired 2026-11-16T02:38:34Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-GETTYSBURG-FORGOTTEN-HISTORY",
+   "title": "They Once Lived Here \u2013 A Hike through Gettysburg\u2019s Forgotten History - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/gettysburg-forgotten-history.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-GETTYSBURG-FORGOTTEN-HISTORY/NPSGOV-NEWS-GETTYSBURG-FORGOTTEN-HISTORY.txt re-hashed: sha256 859d8ff048f2de0ad7de77db5b2b4ac8f08a69914d21b1a7c2b2cc82b17ab247 equals the ledger; acquired 2026-11-16T02:38:35Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-GETTYSBURG-ORCHARDS",
+   "title": "Recruit Members of the Gettysburg Foundation Support Gettysburg\u2019s Orchards - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/gettysburg-orchards.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-GETTYSBURG-ORCHARDS/NPSGOV-NEWS-GETTYSBURG-ORCHARDS.txt re-hashed: sha256 e4f84e428e0c1ed3ba599af8cd2ab6596e5c571b8a492a4740fc593939bbf439 equals the ledger; acquired 2026-11-16T02:38:31Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-GRASSLAND-RESTORATION",
+   "title": "Grassland Restoration Project Begins at Gettysburg National Military Park - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/grassland-restoration.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-GRASSLAND-RESTORATION/NPSGOV-NEWS-GRASSLAND-RESTORATION.txt re-hashed: sha256 3aebb2c06a98c88a1bc5b922d191411f3b9296fcb4acbf98e8bdabebb6ef779d equals the ledger; acquired 2026-11-16T02:39:06Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-HARMAN-FARM-AQUIRED-3-25-11",
+   "title": "Sec. of Interior Announces Important Land Preservation at Gettysburg - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/harman-farm-aquired-3-25-11.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-HARMAN-FARM-AQUIRED-3-25-11/NPSGOV-NEWS-HARMAN-FARM-AQUIRED-3-25-11.txt re-hashed: sha256 e3197969edad0e10826d3173e0fe438cad9432602760508c43409eddbf30cdce equals the ledger; acquired 2026-11-16T02:38:40Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-HAZARDOUS-TREES",
+   "title": "Hazardous trees to be removed from Soldiers\u2019 National Cemetery - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/hazardous-trees.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-HAZARDOUS-TREES/NPSGOV-NEWS-HAZARDOUS-TREES.txt re-hashed: sha256 d1b96995493b3004136bc32a2984c2d2f75a3fba041b81a6c181c5d4c04d6691 equals the ledger; acquired 2026-11-16T02:39:05Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-HERR-WOODS-1-2012",
+   "title": "Gettysburg Woods Get a Facelift - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/herr-woods-1-2012.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-HERR-WOODS-1-2012/NPSGOV-NEWS-HERR-WOODS-1-2012.txt re-hashed: sha256 1835d7a37d051b3c4e1744cf391329bd7c2f4c24b25ce97067061fa1902493f3 equals the ledger; acquired 2026-11-16T02:38:38Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-HISTORIC-LEASING",
+   "title": "Unique Business Opportunity Announced at Gettysburg National Military Park - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/historic-leasing.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-HISTORIC-LEASING/NPSGOV-NEWS-HISTORIC-LEASING.txt re-hashed: sha256 ae1cee945000f1f02d94eba5fd573c0368a9a414cf22a42a3a5cc3970991e823 equals the ledger; acquired 2026-11-16T02:39:18Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-LEASING-HISTORIC-BATTLEFIELD-HOMES",
+   "title": "Historic Homes on the Gettysburg Battlefield Now Available for Public Leasing - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/leasing-historic-battlefield-homes.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-LEASING-HISTORIC-BATTLEFIELD-HOMES/NPSGOV-NEWS-LEASING-HISTORIC-BATTLEFIELD-HOMES.txt re-hashed: sha256 c306e971a6e8391fd53ec0cb0742c5fcc379f664ec0ae5fd2468feb2a4590947 equals the ledger; acquired 2026-11-16T02:39:20Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-LITTLE-ROUND-TOP-PLAN",
+   "title": "Little Round Top Plan - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/little-round-top-plan.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-LITTLE-ROUND-TOP-PLAN/NPSGOV-NEWS-LITTLE-ROUND-TOP-PLAN.txt re-hashed: sha256 cb5fe7ac7a65566a9395e7b8ce679bf329090930adea237191a3a7a8c09009fb equals the ledger; acquired 2026-11-16T02:38:58Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-LITTLE-ROUND-TOP-PRESCRIBED-FIRE",
+   "title": "Little Round Top Prescribed Fire - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/little-round-top-prescribed-fire.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-LITTLE-ROUND-TOP-PRESCRIBED-FIRE/NPSGOV-NEWS-LITTLE-ROUND-TOP-PRESCRIBED-FIRE.txt re-hashed: sha256 2cf63a23297033b611fab22828e2ce9a4fd76efb3d3869694d8b7627d31df0fc equals the ledger; acquired 2026-11-16T02:39:33Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-LITTLE-ROUND-TOP-SELECT-TREE-CUTTING",
+   "title": "Select Tree Cutting on Little Round Top - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/little-round-top-select-tree-cutting.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-LITTLE-ROUND-TOP-SELECT-TREE-CUTTING/NPSGOV-NEWS-LITTLE-ROUND-TOP-SELECT-TREE-CUTTING.txt re-hashed: sha256 2425008ff6e33de7bc2193561c8ba57a32e4bb4966d4b4a446c9febcc32a58ad equals the ledger; acquired 2026-11-16T02:39:01Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-NATIONAL-CEMETERY-SPECIAL-EVENTS",
+   "title": "Gettysburg National Military Park clarifies rules for special events in Gettysburg National Cemetery - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/national-cemetery-special-events.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-NATIONAL-CEMETERY-SPECIAL-EVENTS/NPSGOV-NEWS-NATIONAL-CEMETERY-SPECIAL-EVENTS.txt re-hashed: sha256 b83a2f6f06df9546ef846dcfa76e1e02b8ad1a2028e26ce447c4c4e0ff3c1baf equals the ledger; acquired 2026-11-16T02:40:19Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-PARDEE-FIELD-PRESCRIBED-BURN",
+   "title": "Pardee Field Prescribed Burn - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/pardee-field-prescribed-burn.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-PARDEE-FIELD-PRESCRIBED-BURN/NPSGOV-NEWS-PARDEE-FIELD-PRESCRIBED-BURN.txt re-hashed: sha256 8cc8e3f1c2d60be0debf5df58b56988968942f944376cdca9b01c39ede4f471c equals the ledger; acquired 2026-11-16T02:39:31Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-PARK-AWARDS-HILL-BRADY-4-2014",
+   "title": "Gettysburg NMP Honors Park Employees Randy Hill and Maria Brady - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/park-awards-hill-brady-4-2014.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-PARK-AWARDS-HILL-BRADY-4-2014/NPSGOV-NEWS-PARK-AWARDS-HILL-BRADY-4-2014.txt re-hashed: sha256 1091f8c2927b4873823db3dd4ab0e46645b8900c3bd8eaf01be1c23d8530812c equals the ledger; acquired 2026-11-16T02:40:29Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-PRESCRIBED-BURN-COMPLETED-AT-LITTLE-ROUND-TOP",
+   "title": "Prescribed Burn Completed at Little Round Top - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/prescribed-burn-completed-at-little-round-top.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-PRESCRIBED-BURN-COMPLETED-AT-LITTLE-ROUND-TOP/NPSGOV-NEWS-PRESCRIBED-BURN-COMPLETED-AT-LITTLE-ROUND-TOP.txt re-hashed: sha256 da53ef7cf89eb2f4b8375ff7be68c4d0a35eb781ffd244550323fc6d1cfc92f3 equals the ledger; acquired 2026-11-16T02:39:36Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-PRESCRIBED-FIRES",
+   "title": "Gettysburg National Military Park plans prescribed fires in the southern portion of the battlefield in late March or April - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/prescribed-fires.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-PRESCRIBED-FIRES/NPSGOV-NEWS-PRESCRIBED-FIRES.txt re-hashed: sha256 e8664b2c86e84d00c734e84d43c61e0cdcf8ecdcb4c08eb58f976e5f93dc5aad equals the ledger; acquired 2026-11-16T02:40:11Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-REHABILITATION-OF-CEMETERY-RIDGE-1-14",
+   "title": "Battlefield Rehabilitation Continues on Cemetery Ridge - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/rehabilitation-of-cemetery-ridge-1-14.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-REHABILITATION-OF-CEMETERY-RIDGE-1-14/NPSGOV-NEWS-REHABILITATION-OF-CEMETERY-RIDGE-1-14.txt re-hashed: sha256 2ed6206d7cd7f551208fd913cbd7009fde30d28077693e8a6ae06ee04e31dd17 equals the ledger; acquired 2026-11-16T02:38:49Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-SPRING-BATTLEFIELD-FORAY",
+   "title": "Spring Battlefield Foray - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/spring-battlefield-foray.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-SPRING-BATTLEFIELD-FORAY/NPSGOV-NEWS-SPRING-BATTLEFIELD-FORAY.txt re-hashed: sha256 9a06e5e46f3ab820606eef480516b0ab365bb3db9abfe2e75166bbdd1921019c equals the ledger; acquired 2026-11-16T02:40:13Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-STONE-WALLS",
+   "title": "Stone Walls at Gettysburg get a Facelift - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/stone-walls.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-STONE-WALLS/NPSGOV-NEWS-STONE-WALLS.txt re-hashed: sha256 b8badc9db30ddae79a04a8dea5bd65232e42f7d60524b545df027e658edcaa11 equals the ledger; acquired 2026-11-16T02:38:33Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-THREE-MONUMENTS-PROJECT-5-2012",
+   "title": "Three of Gettysburg's Tallest Monuments to be Washed and Polished in June - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/three-monuments-project-5-2012.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-THREE-MONUMENTS-PROJECT-5-2012/NPSGOV-NEWS-THREE-MONUMENTS-PROJECT-5-2012.txt re-hashed: sha256 97dc7d97d443ecc753ecb46e4417fa232324535180312f6fc19993e42451beab equals the ledger; acquired 2026-11-16T02:39:14Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-TOWERS-CLOSURE",
+   "title": "Observation Towers Close for Engineering Assessments - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/towers-closure.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-TOWERS-CLOSURE/NPSGOV-NEWS-TOWERS-CLOSURE.txt re-hashed: sha256 bc5d943a70a60fe65583ecb755ba5a97318897fb9db187cb6b075454982eb362 equals the ledger; acquired 2026-11-16T02:39:58Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-TOWERS-CLOSURE-FLAG-POLES",
+   "title": "Observation Towers Close for Preservation Work - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/towers-closure-flag-poles.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-TOWERS-CLOSURE-FLAG-POLES/NPSGOV-NEWS-TOWERS-CLOSURE-FLAG-POLES.txt re-hashed: sha256 43232f7dcf15f9bd5a3a7e40bf7cb4d933b6ad94ebe8ea989e9363bfdf116aaa equals the ledger; acquired 2026-11-16T02:40:01Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-TRAILS-PLAN",
+   "title": "National Park Service Site Seeks Public Feedback on Trails Plan - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/trails-plan.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-TRAILS-PLAN/NPSGOV-NEWS-TRAILS-PLAN.txt re-hashed: sha256 b1a5524d23be23a48375d81fa61c5efba4f5021227b650225bf85c36ffdda617 equals the ledger; acquired 2026-11-16T02:40:05Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-VA-MEMORIAL-PRESERVATION",
+   "title": "Virginia Memorial Preservation and Patination Project - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/va-memorial-preservation.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-VA-MEMORIAL-PRESERVATION/NPSGOV-NEWS-VA-MEMORIAL-PRESERVATION.txt re-hashed: sha256 a3dda1f057fe4eced36954ebd582b05d3ad41104a53d0762617441b026ae884c equals the ledger; acquired 2026-11-16T02:39:17Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-WARFIELD-HOUSE",
+   "title": "Selective demolition of modern additions at historic Warfield house to begin December 2 - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/warfield-house.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-WARFIELD-HOUSE/NPSGOV-NEWS-WARFIELD-HOUSE.txt re-hashed: sha256 32c6f47a641f28795b286c46e3f33d2200ec4c7299c279fdac42f3822358d1bb equals the ledger; acquired 2026-11-16T02:39:24Z"
+  },
+  {
+   "id": "NPSGOV-NEWS-WISLER-HOUSE-PARKING",
+   "title": "Parking is Now Available at the Wisler House - Gettysburg National Military Park (U.S. National Park Service)",
+   "where": "https://www.nps.gov/gett/learn/news/wisler-house-parking.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-NEWS-WISLER-HOUSE-PARKING/NPSGOV-NEWS-WISLER-HOUSE-PARKING.txt re-hashed: sha256 7758043a608f084a21e41e5695608ddd567736431bac1e272fee85563a4eda8f equals the ledger; acquired 2026-11-16T02:40:25Z"
+  },
+  {
+   "id": "NPSGOV-ART-CAMP-COLT",
+   "title": "Camp Colt: Gettysburg's Tank Training Camp (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/000/camp-colt.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-CAMP-COLT/NPSGOV-ART-CAMP-COLT.txt re-hashed: sha256 b4d05b1a74095eea67fb45944b8016643ed7f0bd303f7f0e7de972d7edd1ed59 equals the ledger; acquired 2026-11-16T02:57:29Z"
+  },
+  {
+   "id": "NPSGOV-ART-CITIZENSHIP-AT-CAMP-COLT",
+   "title": "Citizenship at Camp Colt (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/000/citizenship-at-camp-colt.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-CITIZENSHIP-AT-CAMP-COLT/NPSGOV-ART-CITIZENSHIP-AT-CAMP-COLT.txt re-hashed: sha256 168225bdb3eb267b4e882d75e032846eeebde744835b61e70803c86764955474 equals the ledger; acquired 2026-11-16T02:57:32Z"
+  },
+  {
+   "id": "NPSGOV-ART-THE-ARMYS-FIRST-TANK-SCHOOL-CAMP-COLT-AT-GETTYSBURG",
+   "title": "The Army's First Tank School: Camp Colt at Gettysburg (U.S. National Park Service)",
+   "where": "https://www.nps.gov/articles/the-armys-first-tank-school-camp-colt-at-gettysburg.htm",
+   "status": "ingested",
+   "reason": "ledger acquired_3.json: local file tmp/library/web/nps/pages/NPSGOV-ART-THE-ARMYS-FIRST-TANK-SCHOOL-CAMP-COLT-AT-GETTYSBURG/NPSGOV-ART-THE-ARMYS-FIRST-TANK-SCHOOL-CAMP-COLT-AT-GETTYSBURG.txt re-hashed: sha256 cd9a05eeeafb8c6bcab7179530b0743fd5929c27b8e32b1f55fa754051f7153a equals the ledger; acquired 2026-11-16T02:57:34Z"
+  },
+  {
+   "id": "BL3",
+   "title": "BL3",
+   "where": "candidates.json",
+   "status": "scheduled",
+   "reason": "candidate probed 2026-10-19 (candidates.json); no acquisition record exists for it: it was found, not fetched",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "FIG-L-GOULD-1869",
+   "title": "Investigations in the military and anthropological statistics of American soldiers (B. A. Gould, U.S. Sanitary Commission, New York: Hurd and Houghton, 1869)",
+   "where": "Internet Archive item investigationsi00goulgoog (Google scan; metadata year 1869, flagged not in copyright); full text https://archive.org/stream/investigationsi00goulgoog/investigationsi00goulgoog_djvu.txt (918,209 characters)",
+   "status": "scheduled",
+   "reason": "figures-ledger entry accessed 2026-10-31: read through the WebFetch tool in 100,000-character windows (offsets 0, 120000, 560000, 660000, 760000); NOT downloaded to disk, so no file hash exists (sha256: not recorded); the figures below were returned by the fetch tool's summariser with the running-header page numbers, which can be a page off: VERIFY against the scan before anything is called documented",
+   "not_recorded": [
+    "sha256 (no file hash exists)",
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "FIG-L-ACWII-MOD",
+   "title": "ACWII (Napoleon: Total War American Civil War mod): ACW.zip, assets by the mod author ACW_Primergy and team",
+   "where": "ACW.zip (36 entries, 21 PFH0 packs), provided by the owner; scratch copy outside the repository; not published here. Subversion origin recorded in the pack data: https://subversion.assembla.com/svn/empire_american_civil_war.4 (uuid 4ca84c4f-01e6-4a0a-bfcb-691c0f47ad24), committer ACW_Primergy, 2011-05-21 to 2011-11-09; mod_details.lua 'ACW2 - 2.0 (Dev Ver)'.",
+   "status": "scheduled",
+   "reason": "figures-ledger entry accessed 2026-11-11: unpacked into a scratch directory with tools/bt/acw/pfh0.py and parsed with python3 -I; the launcher exe and every other file in the archive were never executed; no site was visited",
+   "not_recorded": [
+    "sha256 (no file hash exists)",
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "GROSS-1861",
+   "title": "S. D. Gross, A Manual of Military Surgery, or Hints on the Emergencies of Field, Camp and Hospital Practice, Philadelphia: J. B. Lippincott & Co., entered 1861 (no edition statement on the OCR title page; the 1862 printing is marked second edition); poor OCR in places",
+   "where": "acquired by the planning step from archive.org item amanualmilitary00grosgoog",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/GROSS-1861/amanualmilitary00grosgoog_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "GROSS-1861-AUGUSTA",
+   "title": "Gross's text reprinted at Augusta, Georgia: Steam Power Press, Chronicle & Sentinel, 1861 (a Confederate printing)",
+   "where": "acquired by the planning step from archive.org item manualofmilitary00gros",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/GROSS-1861-AUGUSTA/manualofmilitary00gros_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "GROSS-1862-2ED",
+   "title": "S. D. Gross, A Manual of Military Surgery, second edition, Philadelphia: J. B. Lippincott & Co., 1862 (entered 1861); clean OCR; the archive.org record dates it 1861",
+   "where": "acquired by the planning step from archive.org item manualofmilitary00grosrich",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/GROSS-1862-2ED/manualofmilitary00grosrich_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "GROSS-1862-RICHMOND",
+   "title": "Gross's text reprinted at Richmond: J. W. Randolph, 1862 (a Confederate printing; its preface says the book was recently published at Philadelphia); clean OCR",
+   "where": "acquired by the planning step from archive.org item manualofmilitary01gros",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/GROSS-1862-RICHMOND/manualofmilitary01gros_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "MSHWR-P1V1-1870",
+   "title": "The Medical and Surgical History of the War of the Rebellion. (1861-1865) Part I. Volume I. Medical History. (1st Medical volume) (1870); archive.org item MSHWRMedical1; edition read after download",
+   "where": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/MSHWR-P1V1-1870/MSHWRMedical1_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "MSHWR-P1V2-1870",
+   "title": "Part I, Volume II (the first surgical volume), Washington: Government Printing Office, 1870; its table of contents is at the end of the file",
+   "where": "acquired by the planning step from archive.org item MSHWRSurgical1",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/MSHWR-P1V2-1870/MSHWRSurgical1_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "MSHWR-P1V2-1870-ALT",
+   "title": "a second scan of the 1870 first surgical volume, identified by matching chapter and topic counts (its title page and table of contents were not read; the Gettysburg word count is 305 here and 266 in MSHWR-P1V2-1870); use it to confirm digits",
+   "where": "acquired by the planning step from archive.org item medicalsurgical12barnrich",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/MSHWR-P1V2-1870-ALT/medicalsurgical12barnrich_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "MSHWR-P2V1-1879",
+   "title": "The Medical and Surgical History of the War of the Rebellion. Part II, Volume I. (2nd Medical volume) (1879); archive.org item MSHWRMedical2; edition read after download",
+   "where": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: local file tmp/library/medical/MSHWR-P2V1-1879/MSHWRMedical2_djvu.txt does not exist in this checkout",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "MSHWR-P2V2-1876",
+   "title": "Part II, Volume II, Surgical History, first issue, Washington: Government Printing Office, 1876 (chapters VI to IX: abdomen, pelvis, back, upper extremities)",
+   "where": "acquired by the planning step from archive.org item medicalsurgical22barnrich",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/MSHWR-P2V2-1876/medicalsurgical22barnrich_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "MSHWR-P2V2-1877-2NDISSUE",
+   "title": "Part II, Volume II, Surgical History, second issue, Washington: Government Printing Office, 1877",
+   "where": "acquired by the planning step from archive.org item medicalsurgicalh22unit",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/MSHWR-P2V2-1877-2NDISSUE/medicalsurgicalh22unit_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "MSHWR-P3V1-1888",
+   "title": "The Medical and Surgical History of the War of the Rebellion. Part III, Volume I. (3rd Medical volume) (1888); archive.org item MSHWRMedical3; edition read after download",
+   "where": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: local file tmp/library/medical/MSHWR-P3V1-1888/MSHWRMedical3_djvu.txt does not exist in this checkout",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "MSHWR-P3V2-1883",
+   "title": "Part III, Volume II, Surgical History, first issue, Washington: Government Printing Office, 1883 (chapters X to XV: lower extremities, miscellaneous injuries, complications, anaesthetics, the medical staff and materia chirurgica, transportation of the wounded)",
+   "where": "acquired by the planning step from archive.org item MSHWRSurgical3",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/MSHWR-P3V2-1883/MSHWRSurgical3_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "MSHWR-P3V2-1883-2NDISSUE",
+   "title": "Part III, Volume II, Surgical History, second issue, Washington: Government Printing Office, 1883",
+   "where": "acquired by the planning step from archive.org item medicalsurgical32barnrich",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/MSHWR-P3V2-1883-2NDISSUE/medicalsurgical32barnrich_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "TRIPLER-BLACKMAN-1861-2ED",
+   "title": "Tripler and Blackman, Hand-book for the Military Surgeon, second edition, Cincinnati: Robert Clarke & Co., 1861 (a chapter on chloroform from Macleod is added; the appendix holds the standard supply for field service)",
+   "where": "acquired by the planning step from archive.org item 46920320R.nlm.nih.gov",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/TRIPLER-BLACKMAN-1861-2ED/46920320R_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "TRIPLER-BLACKMAN-1861-A",
+   "title": "Tripler and Blackman, Hand-book for the Military Surgeon, Cincinnati: Robert Clarke & Co., 1861; no edition statement on the OCR title page (the first edition is likely; not confirmed)",
+   "where": "acquired by the planning step from archive.org item 46920330R.nlm.nih.gov",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/TRIPLER-BLACKMAN-1861-A/46920330R_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "TRIPLER-BLACKMAN-1862-3ED",
+   "title": "Tripler and Blackman, Hand-book for the Military Surgeon, third edition, Cincinnati: Robert Clarke & Co., 1862",
+   "where": "acquired by the planning step from archive.org item 46920340R.nlm.nih.gov",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/TRIPLER-BLACKMAN-1862-3ED/46920340R_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "TRIPLER-BLACKMAN-1862-3ED-ALT",
+   "title": "the same third edition, a different scan (Google; the file begins with Google's notice); use it to confirm digits",
+   "where": "acquired by the planning step from archive.org item handbookformili00blacgoog",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/TRIPLER-BLACKMAN-1862-3ED-ALT/handbookformili00blacgoog_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "TRIPLER-GANGRENE-1863",
+   "title": "Hospital gangrene : a lecture delivered to Prof. Blackman's class at the Medical College of Ohio, session of 1860-61 (1863); archive.org item 9601347.nlm.nih.gov; edition read after download",
+   "where": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: local file tmp/library/medical/TRIPLER-GANGRENE-1863/9601347_djvu.txt does not exist in this checkout",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "WOODWARD-CAMP-DISEASES-1863",
+   "title": "Outlines of the chief camp diseases of the United States armies as observed during the present war. A practical contribution to military medicine (1863); archive.org item outlineschiefca00woodgoog; edition read after download",
+   "where": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: local file tmp/library/medical/WOODWARD-CAMP-DISEASES-1863/outlineschiefca00woodgoog_djvu.txt does not exist in this checkout",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "WOODWARD-STEWARD-1862",
+   "title": "Woodward, The Hospital Steward's Manual, Philadelphia: J. B. Lippincott & Co., 1862; the title page says it was rendered authoritative by order of the Surgeon-General; the file begins with the publisher's advertisements",
+   "where": "acquired by the planning step from archive.org item 101526781.nlm.nih.gov",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/WOODWARD-STEWARD-1862/101526781_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "WOODWARD-STEWARD-1863",
+   "title": "Woodward, The Hospital Steward's Manual, Philadelphia: J. B. Lippincott & Co., 1863 (entered 1862); cleaner OCR than the 1862 scan",
+   "where": "acquired by the planning step from archive.org item hospitalstewards00unse",
+   "status": "scheduled",
+   "reason": "medical/sources.json names the work (DEC-OA10-12) but it cannot be verified here: the ledger records no sha256 for tmp/library/medical/WOODWARD-STEWARD-1863/hospitalstewards00unse_djvu.txt",
+   "not_recorded": [
+    "next_action",
+    "queue_entry"
+   ]
+  },
+  {
+   "id": "OR-25-PT2",
+   "supplement": "keys added by tools/bt/library_status_fill.py; status word and reason live in status_2.json / status_3.json",
+   "remainder": {
+    "status": "scheduled",
+    "reason": "NEW row. Ser. I vol. XXV Part II (correspondence) acquired as archive id warofrebellionco0025unit; Part I (reports) not located",
+    "not_recorded": [
+     "next_action",
+     "queue_entry"
+    ]
+   }
+  },
+  {
+   "id": "OR-29-PT2",
+   "supplement": "keys added by tools/bt/library_status_fill.py; status word and reason live in status_2.json / status_3.json",
+   "remainder": {
+    "status": "scheduled",
+    "reason": "NEW row. Ser. I vol. XXIX Part II (correspondence) acquired as archive id warofrebellionco0029unit_v5r6; Part I not located",
+    "not_recorded": [
+     "next_action",
+     "queue_entry"
+    ]
+   }
+  },
+  {
+   "id": "OR-SER3",
+   "supplement": "keys added by tools/bt/library_status_fill.py; status word and reason live in status_2.json / status_3.json",
+   "remainder": {
+    "status": "scheduled",
+    "reason": "NEW row. Ser. III vol. 2 acquired (archive id warofrebellionof0000unse); vol. 3 (the 1863 year) not found",
+    "not_recorded": [
+     "next_action",
+     "queue_entry"
+    ]
+   }
+  },
+  {
+   "id": "PM-ARCHIVES-GOV",
+   "supplement": "keys added by tools/bt/library_status_fill.py; status word and reason live in status_2.json / status_3.json",
+   "register_ids": [
+    "EG-LIB-PM-ARCHIVES-GOV"
+   ],
+   "failed_lookup": [
+    {
+     "host": "www.archives.gov",
+     "locator": "/publications/prologue (the NARA Prologue blog that the plan cites for the staged sharpshooter photograph)",
+     "date": "2026-11-16",
+     "response": "the egress proxy refuses the connection on 2026-11-16; the NPS Then-And-Now pages and the Library essay carry the same statement in readable official words (acquired_3.json)"
+    }
+   ]
+  },
+  {
+   "id": "PM-GARDNER-SKETCHBOOK-TEXT",
+   "supplement": "keys added by tools/bt/library_status_fill.py; status word and reason live in status_2.json / status_3.json",
+   "register_ids": [
+    "EG-LIB-PM-GARDNER-SKETCHBOOK-TEXT"
+   ],
+   "failed_read": {
+    "tested": "https://archive.org/cors/GardnersPhotographicSketchBookOfTheWar/ (volume I and II _djvu.txt)",
+    "result": "the OCR text layer holds plate decoration only (0 occurrences of Gettysburg in 60 KB); the plate descriptions would have to be read from the page images (the jp2 zips are 150 MB each, not fetched) Re-fetched 2026-11-15 (2 requests): still unusable; the text layer reads the binding decoration (99 words of five letters or more in volume I, none from a plate); sha256 of the two _djvu.txt files 4bca1403ef788628d038e4775cdf334fbeb411fc36f0d4b4b6dc3d12b7aab7d3 (vol. I) and 54bdfb629bdad3ad958acfeed22ab2bc0d9e6c78bb07a21b23ce2d569313c5c5 (vol. II); the scratch copies were deleted.",
+    "date": "2026-11-15"
+   }
+  },
+  {
+   "id": "PM-GUTENBERG-SKETCHBOOK",
+   "supplement": "keys added by tools/bt/library_status_fill.py; status word and reason live in status_2.json / status_3.json",
+   "register_ids": [
+    "EG-LIB-PM-GUTENBERG-SKETCHBOOK"
+   ]
+  },
+  {
+   "id": "PM-LOC-MASTERS",
+   "supplement": "keys added by tools/bt/library_status_fill.py; status word and reason live in status_2.json / status_3.json",
+   "remainder": {
+    "status": "scheduled",
+    "reason": "2 of 430 resources fetched as masters (25 to 130 MB each)",
+    "not_recorded": [
+     "next_action",
+     "queue_entry"
+    ]
+   }
+  },
+  {
+   "id": "PM-LOC-NOT-DIGITIZED",
+   "supplement": "keys added by tools/bt/library_status_fill.py; status word and reason live in status_2.json / status_3.json",
+   "remainder": {
+    "status": "scheduled",
+    "reason": "records of the wide search that the Library has not digitized (its search result carries the placeholder 500x500_notdigitized.png): 2024640246, 2024640258, 2025160363, 2025160541, 2025160547; each is listed in the registry with its title and the reason it has no frame to look at Read again 2026-11-1",
+    "not_recorded": [
+     "next_action",
+     "queue_entry"
+    ]
+   }
+  },
+  {
+   "id": "PM-NARA-CATALOG",
+   "supplement": "keys added by tools/bt/library_status_fill.py; status word and reason live in status_2.json / status_3.json",
+   "register_ids": [
+    "EG-LIB-PM-NARA-CATALOG"
+   ],
+   "failed_lookup": [
+    {
+     "host": "catalog.archives.gov",
+     "locator": "/",
+     "date": "2026-11-16",
+     "response": "reachable, but a plain request to any address of the catalog (and to its api/v2 path) returns the same 5 KB single-page-application shell, not data; the catalog API needs a key (an account, an owner act); a browser read was not made. No NARA description of a Gettysburg photograph was read Checked again 2026-11-16: a plain request to api/v2/records/search without a key still returns the same 5 KB shell (http 200, html). (acquired_3.json)"
+    }
+   ]
+  },
+  {
+   "id": "PM-NPS-OTHER-HOSTS",
+   "supplement": "keys added by tools/bt/library_status_fill.py; status word and reason live in status_2.json / status_3.json",
+   "register_ids": [
+    "EG-LIB-PM-NPS-OTHER-HOSTS"
+   ],
+   "failed_lookup": [
+    {
+     "host": "museum.nps.gov",
+     "locator": "/, https://npgallery.nps.gov/, https://irma.nps.gov/, https://pubs.nps.gov/",
+     "date": "2026-11-16",
+     "response": "the egress proxy refuses the connection (connection reset with no HTTP answer) on 2026-11-16: not allowed for this session; the park museum catalogue (GETT 41135, the Historic Photograph Collection) therefore could not be read; not worked around; the owner step stays: ask the park (acquired_3.json)"
+    }
+   ]
+  },
+  {
+   "id": "PM-NPS-SLAUGHTER-PEN-PDF",
+   "supplement": "keys added by tools/bt/library_status_fill.py; status word and reason live in status_2.json / status_3.json",
+   "remainder": {
+    "status": "scheduled",
+    "reason": "captions of plates 3 to 8 read; plates are photocopies and were not matched",
+    "not_recorded": [
+     "next_action",
+     "queue_entry"
+    ]
+   }
+  },
+  {
+   "id": "PM-NPS-TN-EXIF-GPS",
+   "supplement": "keys added by tools/bt/library_status_fill.py; status word and reason live in status_2.json / status_3.json",
+   "register_ids": [
+    "EG-LIB-PM-NPS-TN-EXIF-GPS"
+   ],
+   "failed_read": {
+    "tested": "tmp/library/web/photomatch/www.nps.gov (the saved NPS Then-And-Now pictures)",
+    "result": "2026-11-15: the EXIF of the 47 saved JPEG files was read: 25 carry an EXIF block (Canon EOS 60D or 80D, 2016 to 2018, focal lengths 18 to 35 mm of the modern lens), none carries a GPS block: no coordinate there; the modern focal length is not the lens of the 1863 exposure",
+    "date": "2026-11-15"
+   }
   }
  ]
 }
