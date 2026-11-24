@@ -1,17 +1,17 @@
 {
  "command": "python3 tools/bt/gates/q20_cavalry.py",
  "counts": {
-  "BLOCKED-INPUT": 79,
+  "BLOCKED-INPUT": 21,
   "COVERED": 0,
   "FAIL": 212,
   "N/A": 8,
   "NOT-RUN": 0,
-  "PASS": 20
+  "PASS": 77
  },
- "finished_utc": "2026-11-16T00:36:00Z",
+ "finished_utc": "2026-11-24T05:34:01Z",
  "gate": "Q20",
  "incomplete_reasons": [
-  "79 item(s) NOT-RUN or BLOCKED-INPUT"
+  "21 item(s) NOT-RUN or BLOCKED-INPUT"
  ],
  "input_hashes": {
   "docs/battle-theatre/BIBLE/plan-clean.txt": "5515b8ce322c142bdadcfd1a97c2a68c066e27c971b226ef852aa54a2f9210e7",
@@ -25,11 +25,11 @@
   "docs/battle-theatre/app/tests/anim3d-gaits.test.mjs": "6ecd22c745fe344a2400248e39eab502d6a598f9584fbc7a5ac573895f01dbdf",
   "docs/battle-theatre/kit/cavalry_action_table.json": null,
   "docs/battle-theatre/kit/cavalry_units.json": "04542360d10e34b929a787bb3dfd517fb345a97236f08b1368af5463d7e8c717",
-  "docs/battle-theatre/kit/verified_oob.json": null,
+  "docs/battle-theatre/kit/verified_oob.json": "a00dd340185de9045849503cd03a8f2b0ae7ec72e0692d3ef45d26b531e322eb",
   "docs/battle-theatre/kit/weapons.json": "412396eada9819f2a0185d771c6555f3025939607991f18b3db11461948a5d02",
   "tools/bt/gates/oob_layer_lib.mjs": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d",
-  "tools/bt/gates/oobgates_common.py": "43f575e729605dfb5fd518e0e0a9a17cf03b774a5b145434a2b88f7f515e8e97",
-  "tools/bt/gates/q20_cavalry.py": "77594bab2a0fbb4e82564f735522b021dd5582850c6b863837c28e2afe395c42",
+  "tools/bt/gates/oobgates_common.py": "86bb514bfebcf4b090a9c452ffeb973cd1de82040107988eca9e4ef91e4af409",
+  "tools/bt/gates/q20_cavalry.py": "8bfa2f221f7012e1f603557e71fa35520f479a62813510795d3ebbacdb5ffa19",
   "tools/bt/gates/q20_layer.mjs": "2a4365d9d2d07c8fd56545936f6d6e1cce1ad2efb61f9f5553b0ea0da2196a1b"
  },
  "inputs": [
@@ -100,10 +100,10 @@
    "sha256": "04542360d10e34b929a787bb3dfd517fb345a97236f08b1368af5463d7e8c717"
   },
   {
-   "missing": true,
+   "bytes": 9444449,
    "path": "docs/battle-theatre/kit/verified_oob.json",
    "role": "table",
-   "sha256": null
+   "sha256": "a00dd340185de9045849503cd03a8f2b0ae7ec72e0692d3ef45d26b531e322eb"
   },
   {
    "bytes": 171362,
@@ -118,16 +118,16 @@
    "sha256": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d"
   },
   {
-   "bytes": 9183,
+   "bytes": 12137,
    "path": "tools/bt/gates/oobgates_common.py",
    "role": "runner",
-   "sha256": "43f575e729605dfb5fd518e0e0a9a17cf03b774a5b145434a2b88f7f515e8e97"
+   "sha256": "86bb514bfebcf4b090a9c452ffeb973cd1de82040107988eca9e4ef91e4af409"
   },
   {
-   "bytes": 27609,
+   "bytes": 29504,
    "path": "tools/bt/gates/q20_cavalry.py",
    "role": "runner",
-   "sha256": "77594bab2a0fbb4e82564f735522b021dd5582850c6b863837c28e2afe395c42"
+   "sha256": "8bfa2f221f7012e1f603557e71fa35520f479a62813510795d3ebbacdb5ffa19"
   },
   {
    "bytes": 5486,
@@ -145,11 +145,18 @@
      "commander_printed": "Col Lomax",
      "name": "11th Virginia Cavalry",
      "parent": "Jones' / Robertson's brigades; Jones' Laurel Brigade"
+    },
+    "shared_id": "CS.CAV.11VA",
+    "table_row": {
+     "in_roster": false,
+     "level": "regiment",
+     "name": "11th Virginia Cavalry",
+     "parent": "cs-cav-jones"
     }
    },
    "id": "Q20/Q20.1/CS.CAV.11VA/default",
    "pass": false,
-   "reason": "kit card CS.CAV.11VA (11th Virginia Cavalry) has no unit in the layer",
+   "reason": "kit card CS.CAV.11VA (11th Virginia Cavalry) has no unit in the layer; cavalry unit CS.CAV.11VA of the verified OOB is missing from the layer",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -169,11 +176,18 @@
      "commander_printed": "commander not printed",
      "name": "12th Virginia Cavalry",
      "parent": "Jones' Laurel Brigade (guarding a Potomac ford at Fairfield time)"
+    },
+    "shared_id": "CS.CAV.12VA",
+    "table_row": {
+     "in_roster": false,
+     "level": "regiment",
+     "name": "12th Virginia Cavalry",
+     "parent": "cs-cav-jones"
     }
    },
    "id": "Q20/Q20.1/CS.CAV.12VA/default",
    "pass": false,
-   "reason": "kit card CS.CAV.12VA (12th Virginia Cavalry) has no unit in the layer",
+   "reason": "kit card CS.CAV.12VA (12th Virginia Cavalry) has no unit in the layer; cavalry unit CS.CAV.12VA of the verified OOB is missing from the layer",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -193,11 +207,18 @@
      "commander_printed": "Col G. W. Imboden",
      "name": "18th Virginia Cavalry (Imboden)",
      "parent": "Imboden"
+    },
+    "shared_id": "CS.CAV.18VA",
+    "table_row": {
+     "in_roster": false,
+     "level": "regiment",
+     "name": "18th Virginia Cavalry (Imboden)",
+     "parent": "cs-cav-imboden"
     }
    },
    "id": "Q20/Q20.1/CS.CAV.18VA/default",
    "pass": false,
-   "reason": "kit card CS.CAV.18VA (18th Virginia Cavalry (Imboden)) has no unit in the layer",
+   "reason": "kit card CS.CAV.18VA (18th Virginia Cavalry (Imboden)) has no unit in the layer; cavalry unit CS.CAV.18VA of the verified OOB is missing from the layer",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -217,11 +238,18 @@
      "commander_printed": "Col Ferebee",
      "name": "4th North Carolina Cavalry",
      "parent": "Jones' / Robertson's brigades; Robertson's Brigade (command on the field not confirmed)"
+    },
+    "shared_id": "CS.CAV.4NC",
+    "table_row": {
+     "in_roster": false,
+     "level": "regiment",
+     "name": "4th North Carolina Cavalry",
+     "parent": "cs-cav-robertson"
     }
    },
    "id": "Q20/Q20.1/CS.CAV.4NC/default",
    "pass": false,
-   "reason": "kit card CS.CAV.4NC (4th North Carolina Cavalry) has no unit in the layer",
+   "reason": "kit card CS.CAV.4NC (4th North Carolina Cavalry) has no unit in the layer; cavalry unit CS.CAV.4NC of the verified OOB is missing from the layer",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -241,11 +269,18 @@
      "commander_printed": "commander not printed",
      "name": "5th North Carolina Cavalry",
      "parent": "Jones' / Robertson's brigades; Robertson's Brigade (command on the field not confirmed)"
+    },
+    "shared_id": "CS.CAV.5NC",
+    "table_row": {
+     "in_roster": false,
+     "level": "regiment",
+     "name": "5th North Carolina Cavalry",
+     "parent": "cs-cav-robertson"
     }
    },
    "id": "Q20/Q20.1/CS.CAV.5NC/default",
    "pass": false,
-   "reason": "kit card CS.CAV.5NC (5th North Carolina Cavalry) has no unit in the layer",
+   "reason": "kit card CS.CAV.5NC (5th North Carolina Cavalry) has no unit in the layer; cavalry unit CS.CAV.5NC of the verified OOB is missing from the layer",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -265,11 +300,18 @@
      "commander_printed": "Col Smith",
      "name": "62nd Virginia Mounted Infantry",
      "parent": "Imboden"
+    },
+    "shared_id": "CS.CAV.62VA",
+    "table_row": {
+     "in_roster": false,
+     "level": "regiment",
+     "name": "62nd Virginia Mounted Infantry",
+     "parent": "cs-cav-imboden"
     }
    },
    "id": "Q20/Q20.1/CS.CAV.62VA/default",
    "pass": false,
-   "reason": "kit card CS.CAV.62VA (62nd Virginia Mounted Infantry) has no unit in the layer",
+   "reason": "kit card CS.CAV.62VA (62nd Virginia Mounted Infantry) has no unit in the layer; cavalry unit CS.CAV.62VA of the verified OOB is missing from the layer",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -289,11 +331,18 @@
      "commander_printed": "Maj Flournoy",
      "name": "6th Virginia Cavalry",
      "parent": "Jones' / Robertson's brigades; Jones' Laurel Brigade"
+    },
+    "shared_id": "CS.CAV.6VA",
+    "table_row": {
+     "in_roster": false,
+     "level": "regiment",
+     "name": "6th Virginia Cavalry",
+     "parent": "cs-cav-jones"
     }
    },
    "id": "Q20/Q20.1/CS.CAV.6VA/default",
    "pass": false,
-   "reason": "kit card CS.CAV.6VA (6th Virginia Cavalry) has no unit in the layer",
+   "reason": "kit card CS.CAV.6VA (6th Virginia Cavalry) has no unit in the layer; cavalry unit CS.CAV.6VA of the verified OOB is missing from the layer",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -313,11 +362,18 @@
      "commander_printed": "Lt Col Marshall",
      "name": "7th Virginia Cavalry",
      "parent": "Jones' / Robertson's brigades; Jones' Laurel Brigade"
+    },
+    "shared_id": "CS.CAV.7VA",
+    "table_row": {
+     "in_roster": false,
+     "level": "regiment",
+     "name": "7th Virginia Cavalry",
+     "parent": "cs-cav-jones"
     }
    },
    "id": "Q20/Q20.1/CS.CAV.7VA/default",
    "pass": false,
-   "reason": "kit card CS.CAV.7VA (7th Virginia Cavalry) has no unit in the layer",
+   "reason": "kit card CS.CAV.7VA (7th Virginia Cavalry) has no unit in the layer; cavalry unit CS.CAV.7VA of the verified OOB is missing from the layer",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -337,11 +393,18 @@
      "commander_printed": "commander not printed",
      "name": "McNeill's Partisan Rangers",
      "parent": "Imboden"
+    },
+    "shared_id": "CS.CAV.MCNEILL",
+    "table_row": {
+     "in_roster": false,
+     "level": "regiment",
+     "name": "McNeill's Partisan Rangers",
+     "parent": "cs-cav-imboden"
     }
    },
    "id": "Q20/Q20.1/CS.CAV.MCNEILL/default",
    "pass": false,
-   "reason": "kit card CS.CAV.MCNEILL (McNeill's Partisan Rangers) has no unit in the layer",
+   "reason": "kit card CS.CAV.MCNEILL (McNeill's Partisan Rangers) has no unit in the layer; cavalry unit CS.CAV.MCNEILL of the verified OOB is missing from the layer",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -361,11 +424,18 @@
      "commander_printed": "Capt Conger",
      "name": "3rd West Virginia Cavalry (Cos A, C)",
      "parent": "1st Division (Buford), 2nd Brigade (Devin)"
+    },
+    "shared_id": "US.CAV.3WV",
+    "table_row": {
+     "in_roster": false,
+     "level": "regiment",
+     "name": "3rd West Virginia Cavalry (Cos A, C)",
+     "parent": "us-cav-1d-devin"
     }
    },
    "id": "Q20/Q20.1/US.CAV.3WV/default",
    "pass": false,
-   "reason": "kit card US.CAV.3WV (3rd West Virginia Cavalry (Cos A, C)) has no unit in the layer",
+   "reason": "kit card US.CAV.3WV (3rd West Virginia Cavalry (Cos A, C)) has no unit in the layer; cavalry unit US.CAV.3WV of the verified OOB is missing from the layer",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -385,11 +455,18 @@
      "commander_printed": "Capt Duvall",
      "name": "Purnell Legion Co A",
      "parent": "2nd Division (Gregg), 1st Brigade (McIntosh)"
+    },
+    "shared_id": "US.CAV.PURNELL_A",
+    "table_row": {
+     "in_roster": false,
+     "level": "regiment",
+     "name": "Purnell Legion Co A",
+     "parent": "us-cav-2d-mcintosh"
     }
    },
    "id": "Q20/Q20.1/US.CAV.PURNELL_A/default",
    "pass": false,
-   "reason": "kit card US.CAV.PURNELL_A (Purnell Legion Co A) has no unit in the layer",
+   "reason": "kit card US.CAV.PURNELL_A (Purnell Legion Co A) has no unit in the layer; cavalry unit US.CAV.PURNELL_A of the verified OOB is missing from the layer",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -408,6 +485,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -416,15 +498,13 @@
      "how": "alias",
      "unit": "CS.CAV.35VABN"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-2c-early-35vacavalrybn/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -441,6 +521,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -449,15 +534,13 @@
      "how": "rule",
      "unit": "CS.CAV.10VA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-chambliss-10va/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -474,6 +557,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -482,15 +570,13 @@
      "how": "rule",
      "unit": "CS.CAV.13VA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-chambliss-13va/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -507,6 +593,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -515,15 +606,13 @@
      "how": "rule",
      "unit": "CS.CAV.2NC"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-chambliss-2nc/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -540,6 +629,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -548,15 +642,13 @@
      "how": "rule",
      "unit": "CS.CAV.9VA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-chambliss-9va/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -573,6 +665,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -581,15 +678,13 @@
      "how": "rule",
      "unit": "CS.CAV.1MDBN"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-flee-1mdbn/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -606,6 +701,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -614,15 +714,13 @@
      "how": "rule",
      "unit": "CS.CAV.1VA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-flee-1va/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -639,6 +737,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -647,15 +750,13 @@
      "how": "rule",
      "unit": "CS.CAV.2VA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-flee-2va/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -672,6 +773,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -680,15 +786,13 @@
      "how": "rule",
      "unit": "CS.CAV.3VA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-flee-3va/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -705,6 +809,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -713,15 +822,13 @@
      "how": "rule",
      "unit": "CS.CAV.4VA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-flee-4va/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -738,6 +845,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -746,15 +858,13 @@
      "how": "rule",
      "unit": "CS.CAV.5VA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-flee-5va/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -771,6 +881,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -779,15 +894,13 @@
      "how": "rule",
      "unit": "CS.CAV.1NC"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-hampton-1nc/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -804,6 +917,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -812,15 +930,13 @@
      "how": "rule",
      "unit": "CS.CAV.1SC"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-hampton-1sc/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -837,6 +953,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -845,15 +966,13 @@
      "how": "rule",
      "unit": "CS.CAV.2SC"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-hampton-2sc/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -870,6 +989,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -878,15 +1002,13 @@
      "how": "alias",
      "unit": "CS.CAV.COBB"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-hampton-cobbslegion/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -903,6 +1025,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -911,15 +1038,13 @@
      "how": "alias",
      "unit": "CS.CAV.JDAVIS"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-hampton-jeffdavislegion/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -936,6 +1061,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -944,15 +1074,13 @@
      "how": "alias",
      "unit": "CS.CAV.PHILLIPS"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-hampton-phillipslegion/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -969,6 +1097,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'artillery'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -977,15 +1110,13 @@
      "how": "default",
      "unit": "DEFAULT.confederate.artillery"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-horse-art/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1002,6 +1133,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1010,15 +1146,13 @@
      "how": "default",
      "unit": "DEFAULT.confederate.cavalry"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "never_main_field"
    },
    "id": "Q20/Q20.1/cs-cav-imboden/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1035,6 +1169,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1043,15 +1182,13 @@
      "how": "rule",
      "unit": "CS.CAV.14VA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-jenkins-14va/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1068,6 +1205,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1076,15 +1218,13 @@
      "how": "rule",
      "unit": "CS.CAV.16VA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-jenkins-16va/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1101,6 +1241,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1109,15 +1254,13 @@
      "how": "rule",
      "unit": "CS.CAV.17VA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-jenkins-17va/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1134,6 +1277,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1142,15 +1290,13 @@
      "how": "alias",
      "unit": "CS.34VACAVBN"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-jenkins-34vabn/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1167,6 +1313,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1175,15 +1326,13 @@
      "how": "rule",
      "unit": "CS.CAV.36VABN"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/cs-cav-jenkins-36vabn/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1200,6 +1349,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1208,15 +1362,13 @@
      "how": "default",
      "unit": "DEFAULT.confederate.cavalry"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "never_main_field"
    },
    "id": "Q20/Q20.1/cs-cav-jones/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1233,6 +1385,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1241,15 +1398,13 @@
      "how": "default",
      "unit": "DEFAULT.confederate.cavalry"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "never_main_field"
    },
    "id": "Q20/Q20.1/cs-cav-robertson/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1266,6 +1421,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1274,15 +1434,13 @@
      "how": "rule",
      "unit": "US.CAV.17PA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-1d-devin-17pa/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1300,6 +1458,11 @@
       "detail": "no kit card: the figure pass resolves it to DEFAULT.union.cavalry (default)",
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": false
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1332,6 +1495,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1340,15 +1508,13 @@
      "how": "rule",
      "unit": "US.CAV.6NY"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-1d-devin-6ny/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1365,6 +1531,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1373,15 +1544,13 @@
      "how": "rule",
      "unit": "US.CAV.9NY"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-1d-devin-9ny/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1398,6 +1567,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1406,15 +1580,13 @@
      "how": "rule",
      "unit": "US.CAV.12IL"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-1d-gamble-12il/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1431,6 +1603,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1439,15 +1616,13 @@
      "how": "rule",
      "unit": "US.CAV.3IN"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-1d-gamble-3in/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1464,6 +1639,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1472,15 +1652,13 @@
      "how": "rule",
      "unit": "US.CAV.8IL"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-1d-gamble-8il/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1497,6 +1675,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1505,15 +1688,13 @@
      "how": "rule",
      "unit": "US.CAV.8NY"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-1d-gamble-8ny/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1530,6 +1711,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -1538,15 +1724,13 @@
      "how": "rule",
      "unit": "US.CAV.1US"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-1d-merritt-1us/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1563,6 +1747,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -1571,15 +1760,13 @@
      "how": "rule",
      "unit": "US.CAV.2US"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-1d-merritt-2us/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1596,6 +1783,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -1604,15 +1796,13 @@
      "how": "rule",
      "unit": "US.CAV.5US"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-1d-merritt-5us/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1629,6 +1819,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -1637,15 +1832,13 @@
      "how": "rule",
      "unit": "US.CAV.6PA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-1d-merritt-6pa/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1662,6 +1855,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -1670,15 +1868,13 @@
      "how": "rule",
      "unit": "US.CAV.6US"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-1d-merritt-6us/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1695,6 +1891,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -1703,15 +1904,13 @@
      "how": "rule",
      "unit": "US.CAV.10NY"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-2d-gregg-10ny/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1728,6 +1927,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -1736,15 +1940,13 @@
      "how": "rule",
      "unit": "US.CAV.16PA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-2d-gregg-16pa/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1761,6 +1963,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -1769,15 +1976,13 @@
      "how": "rule",
      "unit": "US.CAV.1ME"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-2d-gregg-1me/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1794,6 +1999,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -1802,15 +2012,13 @@
      "how": "rule",
      "unit": "US.CAV.4PA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-2d-gregg-4pa/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1827,6 +2035,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -1835,15 +2048,13 @@
      "how": "default",
      "unit": "DEFAULT.union.cavalry"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "never_on_field"
    },
    "id": "Q20/Q20.1/us-cav-2d-huey/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1860,6 +2071,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -1868,15 +2084,13 @@
      "how": "rule",
      "unit": "US.CAV.1MA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-2d-mcintosh-1ma/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1893,6 +2107,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -1901,15 +2120,13 @@
      "how": "rule",
      "unit": "US.CAV.1MD"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-2d-mcintosh-1md/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1926,6 +2143,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -1934,15 +2156,13 @@
      "how": "rule",
      "unit": "US.CAV.1NJ"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-2d-mcintosh-1nj/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1959,6 +2179,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -1967,15 +2192,13 @@
      "how": "rule",
      "unit": "US.CAV.1PA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-2d-mcintosh-1pa/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -1992,6 +2215,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": true,
@@ -2000,15 +2228,13 @@
      "how": "rule",
      "unit": "US.CAV.3PA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-2d-mcintosh-3pa/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2025,6 +2251,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -2033,15 +2264,13 @@
      "how": "alias",
      "unit": "US.CAV.1MICH"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-3d-custer-1mi/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2058,6 +2287,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -2066,15 +2300,13 @@
      "how": "alias",
      "unit": "US.CAV.5MICH"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-3d-custer-5mi/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2091,6 +2323,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -2099,15 +2336,13 @@
      "how": "alias",
      "unit": "US.CAV.6MICH"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-3d-custer-6mi/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2124,6 +2359,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -2132,15 +2372,13 @@
      "how": "alias",
      "unit": "US.CAV.7MICH"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-3d-custer-7mi/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2157,6 +2395,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -2165,15 +2408,13 @@
      "how": "rule",
      "unit": "US.CAV.18PA"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-3d-farnsworth-18pa/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2190,6 +2431,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -2198,15 +2444,13 @@
      "how": "rule",
      "unit": "US.CAV.1VT"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-3d-farnsworth-1vt/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2223,6 +2467,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -2231,15 +2480,13 @@
      "how": "rule",
      "unit": "US.CAV.1WV"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-3d-farnsworth-1wv/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2256,6 +2503,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'cavalry'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -2264,15 +2516,13 @@
      "how": "rule",
      "unit": "US.CAV.5NY"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-3d-farnsworth-5ny/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2289,6 +2539,11 @@
      {
       "name": "the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card",
       "ok": true
+     },
+     {
+      "detail": "table branch 'artillery'",
+      "name": "the verified OOB holds the unit as cavalry",
+      "ok": true
      }
     ],
     "drawn": false,
@@ -2297,15 +2552,13 @@
      "how": "default",
      "unit": "DEFAULT.union.artillery"
     },
-    "layer_only_result": "PASS",
-    "missing": "kit/verified_oob.json",
     "status": "on_field"
    },
    "id": "Q20/Q20.1/us-cav-art/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)",
+   "pass": true,
+   "reason": "the unit has its card and the verified OOB holds it as cavalry",
    "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
+   "result": "PASS",
    "scenario": "default",
    "sub_requirements": [
     "R04.0000",
@@ -2313,25 +2566,6 @@
    ],
    "subjects": [
     "us-cav-art"
-   ]
-  },
-  {
-   "check": "Q20.1",
-   "evidence": {
-    "missing": "kit/verified_oob.json"
-   },
-   "id": "Q20/Q20.1/verified-oob/default",
-   "pass": false,
-   "reason": "input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented)",
-   "renderer_class": "mixed",
-   "result": "BLOCKED-INPUT",
-   "scenario": "default",
-   "sub_requirements": [
-    "R04.0000",
-    "R16.0000"
-   ],
-   "subjects": [
-    "verified-oob"
    ]
   },
   {
@@ -15785,30 +16019,36 @@
  ],
  "notes": [],
  "owed": [
-  "Q20.1 needs kit/verified_oob.json (the table of Q01) to be written by its owner",
   "Q20.2 needs the B.6.15.3 action table of the cavalry (June 26 to July 16, conflicts as ranges) as a machine table, kit/cavalry_action_table.json, before any presence interval can be compared",
   "Q20.6: a time-keyed schedule of the cavalry states per unit does not exist in the product; the foot-contact test checks the structure of the gaits, not documented speeds (G-ANIM-07)"
  ],
  "renderer_class": "mixed",
- "run_id": "20261116T003541Z-Q20",
+ "run_id": "20261124T053352Z-Q20",
  "runnable_here": true,
+ "runner_files": [
+  "oob_layer_lib.mjs",
+  "oobgates_common.py",
+  "q20_cavalry.py",
+  "q20_layer.mjs"
+ ],
+ "runner_version": "e13ce8bd1de47304",
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-16T00:35:41Z",
+ "started_utc": "2026-11-24T05:33:52Z",
  "thresholds": [],
  "tool_versions": {
   "node": "v22.23.4",
   "python": "3.13.18"
  },
  "totals": {
-  "blocked_input": 79,
+  "blocked_input": 21,
   "by_check": {
    "Q20.1": {
-    "BLOCKED-INPUT": 58,
+    "BLOCKED-INPUT": 0,
     "COVERED": 0,
     "FAIL": 12,
     "N/A": 0,
     "NOT-RUN": 0,
-    "PASS": 0
+    "PASS": 57
    },
    "Q20.2": {
     "BLOCKED-INPUT": 21,
@@ -15853,11 +16093,18 @@
   },
   "covered": 0,
   "fail": 212,
-  "items": 319,
+  "items": 318,
   "n_a": 8,
-  "not_passing": 299,
+  "not_passing": 241,
   "not_run": 0,
-  "pass": 20
+  "pass": 77
  },
- "verdict": "FAIL"
+ "verdict": "FAIL",
+ "verified_oob_table": {
+  "diagnostic_copy": false,
+  "path": "docs/battle-theatre/kit/verified_oob.json",
+  "present": true,
+  "schema": "kit-verified-oob-1",
+  "units": 825
+ }
 }
