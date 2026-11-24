@@ -2,7 +2,7 @@
 
 Updated 2026-11-24 04:45 UTC by the orchestrating session. Plan: OPERATING-PLAN-2026-11-24.md. Ledger: SCOREBOARD.jsonl.
 
-Running (05:05 UTC): two conflict researchers, C-016 and C-005 (queue 5, plausible-procedural ones first), and the zero-token watchdog `watch.sh 10800`. Conflict kit is DONE and independently re-checked (READY.json; validator self-test 55 planted defects caught; 33 tests pass; 47 dossiers). Cost of the kit agent about $3 (277k tokens, 16 minutes). Last fleet died Nov 16 about 03:55 UTC on the weekly limit. Window now: Nov 22 22:00 to Nov 29 22:00 UTC
+Running (05:55 UTC): independent reviewer for C-016 and C-005; researchers C-012 and C-007; watchdog `watch.sh 10800`. Resolved so far (validator exit 0, review pending): C-016 (weighted, inferred: Little Round Top), C-005 (weighted, inferred: default changed to about 05:00, PDF and first delegated default 06:30 do not hold). Conflict kit is DONE and independently re-checked (READY.json; validator self-test 55 planted defects caught; 33 tests pass; 47 dossiers). Cost of the kit agent about $3 (277k tokens, 16 minutes). Last fleet died Nov 16 about 03:55 UTC on the weekly limit. Window now: Nov 22 22:00 to Nov 29 22:00 UTC
 (planning allowance $1,800; cost at the start of the window $3,960 of the session total; recalibrate from get_session usage.cost_usd).
 
 On every wake, in this order, and nothing else:
