@@ -1,0 +1,883 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-006",
+ "topic": "Longstreet at Lee’s headquarters",
+ "researched": "2026-11-24",
+ "researcher": "researcher-c006",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "Longstreet at Lee’s headquarters | 05:15; 08:00; “stars bright” (pre-dawn) | 08:00 | other two",
+  "values": [
+   "05:15",
+   "08:00",
+   "\"stars bright\" (pre-dawn)"
+  ],
+  "recommended_default": "08:00",
+  "selectable_alternatives": [
+   "other two"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-006-DEFAULT",
+  "default_label": "pre-dawn \"stars bright\", no clock (memoir, inferred)",
+  "tier": "inferred",
+  "basis": "memoir",
+  "scenario_ids": [
+   "C-006-S1",
+   "C-006-S2",
+   "C-006-S3",
+   "C-006-S4",
+   "C-006-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "inferred",
+ "basis": {
+  "kind": "contemporaneous_other",
+  "text": "Fremantle's diary of 2 July 1863 (Lee, Hill, Longstreet and Hood seated together when he arrived at 5 a.m.), read with Longstreet's own article of 1877 ('at daylight'), Hood's letter of 1875 ('shortly after daybreak'), Cullen's letter of 1875 ('after sunrise'), McLaws's address of 1879 (Longstreet already with Lee when the head of his division came up) and Freeman's estimate of 1935 (5:15). No record of the day gives the hour of the arrival."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-006-P5"
+  ],
+  "label": "By about 05:00 (first light to 05:15): Longstreet with Lee on Seminary Ridge",
+  "animation": {
+   "at": "1863-07-02T05:00",
+   "rule": "best_supported",
+   "note": "05:00 is the instant by which the diary has Longstreet with Lee; it is not the hour of his arrival, which is earlier and unrecorded (inferred: first light to soon after sunrise, about 04:35). He rides in ahead of his troops, from a camp some miles back; the start of that ride is given only by Cullen's recollection of 1875 (about 3 o'clock). Nothing is drawn as a documented arrival and no gate floor is moved. At 05:00 the sun is up (sunrise about 04:35), so the headquarters scene is in dawn light, not under stars; the 'stars' and 08:00 readings stay selectable."
+  },
+  "note": "The meeting of Lee, Longstreet, Hill and Hood on the ridge is seen by a diary at about 5 a.m. Longstreet's three later accounts differ from each other (8 a.m. in 1875, daylight in 1877, stars in 1896) and the diary agrees best with the middle one."
+ },
+ "positions": [
+  {
+   "id": "C-006-P1",
+   "origin": "pdf_value",
+   "pdf_label": "05:15",
+   "scenario_ids": [
+    "C-006-S1"
+   ],
+   "label": "05:15: Freeman's estimate of when Longstreet joined Lee on Seminary Ridge",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T05:15",
+    "approx": true,
+    "tolerance_min": 15,
+    "note": "'5:15 or about that time': a computed estimate"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-006-P1-c1",
+     "source": "FREEMAN-RELEE-V3-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "Appendix III-2 'The Hour of Longstreet's Arrival, July 2, 1863', printed page 553 of the appendix (the page foot of the text layer is damaged; the page before reads 552)",
+     "text_offset": 1263853,
+     "text_offset_end": 1264021,
+     "quote": "As the sun rose at Gettysburg on July 2 at 4:32, it probably is approximately correct to say that Longstreet joined Lee on Seminary Ridge at 5:15 or about that time",
+     "witness": {
+      "name": "Douglas Southall Freeman",
+      "role": "historian, biographer of Lee (not a participant)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1935",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "freeman",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:32",
+       "05:15"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Freeman weighs four statements of Longstreet, the staff and the diary, calls the 'stars' and the 8 a.m. 'wide of the mark', and gives his own computed estimate with the sunrise; a computation, not a sighting."
+    },
+    {
+     "id": "C-006-P1-c2",
+     "source": "FREMANTLE-1863-GUT-C007",
+     "source_class": "primary",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the Gutenberg transcription of the Edinburgh edition of 1863 carries no page numbers; the same entry is on p. 257 of the American edition of 1864 (FREMANTLE-1864: 'DISPOSITION OF THE TROOPS. 257')",
+     "text_offset": 351296,
+     "text_offset_end": 351535,
+     "quote": "arrived at 5 A.M. at the same commanding position we were on yesterday [...] Just below us were seated Generals Lee, Hill, Longstreet, and Hood, in consultation",
+     "witness": {
+      "name": "Arthur J. L. Fremantle",
+      "role": "Lieutenant Colonel, Coldstream Guards, British observer with Longstreet's staff",
+      "side": "other"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "fremantle",
+     "exact": false,
+     "states": {
+      "times": [
+       "05:00"
+      ],
+      "phrases": [
+       "Generals Lee, Hill, Longstreet, and Hood, in consultation"
+      ]
+     },
+     "note": "Diary entry for Thursday 2 July (Blackwood's Magazine, 1863; p. 257 of the American edition of 1864, FREMANTLE-1864, where the text layer prints the same words). 5 a.m. is when Fremantle's party arrived at the commanding position; the generals are seen 'just below' after he climbed a tree, so Longstreet is with Lee at about 5 a.m., not necessarily before it. Hood is named in the same sentence."
+    }
+   ],
+   "inference": {
+    "step": "Freeman takes the computed sunrise (4:32) and the diary's sighting of Lee and Longstreet in conference after 5 a.m. and says 5:15 'or about that time'; the diary gives 5 a.m. as the hour its writer arrived, so 5:15 is a computed estimate at the late edge of that sighting, not a report",
+    "from": [
+     "C-006-P1-c1",
+     "C-006-P1-c2"
+    ]
+   },
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "tolerance",
+    "text": "Freeman's 'about 5:15' is a computed estimate; the diary has Longstreet with Lee when its writer arrives at 5 a.m. It sits at the late edge of the default's margin, so the default says about 05:00."
+   }
+  },
+  {
+   "id": "C-006-P2",
+   "origin": "pdf_value",
+   "pdf_label": "08:00",
+   "scenario_ids": [
+    "C-006-S2",
+    "C-006-S4"
+   ],
+   "label": "08:00: Longstreet's own letter of 1875 (the plan's recommended default)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T08:00",
+    "note": "'My two divisions nor myself did not reach General Lee until 8 a.m.'"
+   },
+   "clock": "confederate",
+   "tier": "inferred",
+   "flags": [
+    "single_source",
+    "contradicted"
+   ],
+   "support": [
+    {
+     "id": "C-006-P2-c1",
+     "source": "TAYLOR-GENLEE-1906-C005",
+     "source_class": "book",
+     "page": "198",
+     "page_basis": "as_read",
+     "text_offset": 439969,
+     "text_offset_end": 440040,
+     "quote": "nor myself did not reach General Lee until 8 a.m. on the 2d",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps, Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1875-04-20",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet-1875",
+     "exact": true,
+     "states": {
+      "times": [
+       "08:00"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Taylor (1906, pp. 197-198) prints this from 'an autograph letter' of Longstreet written from New Orleans 'on the 20th of April, 1875'; Freeman (appendix) dates the letter to Taylor 25 April 1875. The sentence runs 'My two divisions nor myself did not reach General Lee until 8 a.m. on the 2d': divisions and writer together, twelve years after the day."
+    },
+    {
+     "id": "C-006-P2-c2",
+     "source": "TAYLOR-GENLEE-1906-C005",
+     "source_class": "book",
+     "page": "198",
+     "page_basis": "as_read",
+     "text_offset": 441682,
+     "text_offset_end": 441847,
+     "quote": "The preponderance of contemporaneous evidence goes to prove that General Longstreet accurately described the facts in his letter of April, 1875",
+     "witness": {
+      "name": "Walter H. Taylor",
+      "role": "Lieutenant Colonel, Lee's adjutant general (at Lee's headquarters; writing in 1906)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1906",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "relayed_report",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet-1875",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "preponderance of contemporaneous evidence"
+      ]
+     },
+     "note": "Taylor was Lee's adjutant general and was at Lee's headquarters that morning, but he gives no hour of his own and names no contemporaneous evidence; he repeats and endorses Longstreet's letter, so the two are one line of knowledge here."
+    },
+    {
+     "id": "C-006-P2-c3",
+     "source": "FREEMAN-RELEE-V3-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "Appendix III-2 'The Hour of Longstreet's Arrival, July 2, 1863', printed page 553 of the appendix (the page foot of the text layer is damaged; the page before reads 552)",
+     "text_offset": 1263768,
+     "text_offset_end": 1263851,
+     "quote": "probably was no less wide of the mark in saying that he did not arrive until 8 a.m.",
+     "witness": {
+      "name": "Douglas Southall Freeman",
+      "role": "historian, biographer of Lee (not a participant)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1935",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "freeman",
+     "exact": false,
+     "states": {
+      "times": [
+       "08:00"
+      ]
+     },
+     "note": "Freeman's verdict on this statement; cited to show the value was weighed and found 'wide of the mark' by the historian whose appendix the plan names (FREE)."
+    }
+   ],
+   "inference": {
+    "step": "Longstreet's letter says that neither he nor his two divisions reached Lee until 8 a.m.; it is read here as his statement of when he reached Lee, which is how Taylor and Freeman take it; it is a recollection of twelve years, not a report of the day",
+    "from": [
+     "C-006-P2-c1"
+    ]
+   },
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "contradicted_by_primary",
+    "text": "A diary of the day has Longstreet with Lee at about 5 a.m. and riding with him at 7; McLaws saw him with Lee when his division came up, before 8; Longstreet's own accounts of 1877 and 1896 say 'daylight' and 'stars'."
+   }
+  },
+  {
+   "id": "C-006-P3",
+   "origin": "pdf_value",
+   "pdf_label": "\"stars bright\" (pre-dawn)",
+   "scenario_ids": [
+    "C-006-S3",
+    "C-006-DEFAULT"
+   ],
+   "label": "Pre-dawn, 'stars shining brightly', no clock: Longstreet's memoir of 1896",
+   "kind": "period",
+   "value": {
+    "text": "stars were shining brightly",
+    "date": "1863-07-02",
+    "part_of_day": "pre_dawn"
+   },
+   "clock": "confederate",
+   "tier": "inferred",
+   "flags": [
+    "memoir_only",
+    "single_source",
+    "contradicted"
+   ],
+   "support": [
+    {
+     "id": "C-006-P3-c1",
+     "source": "LONGSTREET-1896",
+     "source_class": "book",
+     "page": "362",
+     "page_basis": "as_read",
+     "text_offset": 833538,
+     "text_offset_end": 833683,
+     "quote": "The stars were shining brightly on the morning of the 2d when I reported at General Lee's head-quarters and asked for orders",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps, Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1896",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet-1896",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "stars were shining brightly"
+      ]
+     },
+     "note": "From Manassas to Appomattox, opening of the chapter on the second day (p. 362 as Freeman cites it), written 33 years after the day; no hour. Longstreet adds that McLaws and Hood rode up 'after a time' and that their commands filed off the road 'at sunrise'."
+    },
+    {
+     "id": "C-006-P3-c2",
+     "source": "SHSP-05",
+     "source_class": "book",
+     "page": "78",
+     "page_basis": "as_read",
+     "text_offset": 251346,
+     "text_offset_end": 251585,
+     "quote": "About 3 o'clock in the morning, while the stars were shining, you left your headquarters and rode to General Lee's, where I found you sitting with him after sunrise looking at the enemy on Cemetery Hill",
+     "witness": {
+      "name": "J. S. D. Cullen",
+      "role": "Surgeon, medical director of the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1875-05-18",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "cullen-1875",
+     "exact": false,
+     "states": {
+      "times": [
+       "03:00"
+      ],
+      "phrases": [
+       "stars were shining",
+       "after sunrise"
+      ]
+     },
+     "note": "Dr. Cullen's letter to Longstreet of 18 May 1875, printed in Longstreet's article (SHSP vol. 5) and again in his book. The stars are those of the 3 o'clock departure from camp, not of the arrival; Cullen says he found Longstreet with Lee 'after sunrise'. A ride of several miles (Ross: 'some five miles') from a 3 a.m. start could end before sunrise (about 04:35), so an arrival in the dark is possible; Cullen does not say that."
+    }
+   ],
+   "inference": {
+    "step": "Longstreet 1896 says the stars were shining when he reported; Cullen has him leaving camp about 3 o'clock under the stars for a ride of several miles; so a report before sunrise (about 04:35, computed) cannot be ruled out, but nobody of the day gives an hour and Cullen found him with Lee only after sunrise",
+    "from": [
+     "C-006-P3-c1",
+     "C-006-P3-c2"
+    ]
+   },
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "One recollection of 1896, 33 years on, which Longstreet's own letter and article of 1875 and 1877 do not repeat (8 a.m.; 'daylight'). No writer of the day gives an hour before 5 a.m. It stays selectable as a possible earlier arrival."
+   }
+  },
+  {
+   "id": "C-006-P4",
+   "origin": "research",
+   "label": "At daylight, daybreak or about dawn, no clock: Longstreet 1877, Hood, Cullen, Alexander",
+   "kind": "period",
+   "value": {
+    "text": "daylight",
+    "date": "1863-07-02",
+    "part_of_day": "dawn",
+    "sunrise_local_mean_time": "04:35"
+   },
+   "clock": "confederate",
+   "tier": "inferred",
+   "flags": [
+    "memoir_only"
+   ],
+   "support": [
+    {
+     "id": "C-006-P4-c1",
+     "source": "ANNALS-1879-C005",
+     "source_class": "book",
+     "page": "422",
+     "page_basis": "as_read",
+     "text_offset": 1254832,
+     "text_offset_end": 1254974,
+     "quote": "On the morning of the 2d, I went to General Lee's headquarters at daylight, and renewed my views against making an attack.",
+     "witness": {
+      "name": "James Longstreet",
+      "role": "Lieutenant General commanding the First Corps, Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877-11-03",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "longstreet-1877",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "at daylight"
+      ]
+     },
+     "note": "Longstreet's article 'The Campaign of Gettysburg', Philadelphia Weekly Times, 3 November 1877 (date as given in the introduction printed with it in SHSP vol. 5), reprinted in The Annals of the War (1879), p. 422; no hour."
+    },
+    {
+     "id": "C-006-P4-c2",
+     "source": "HOOD-1880-C005",
+     "source_class": "book",
+     "page": "56",
+     "page_basis": "as_read",
+     "text_offset": 131166,
+     "text_offset_end": 131264,
+     "quote": "I arrived with my staff in front of the heights of Gettysburg shortly after daybreak",
+     "witness": {
+      "name": "John B. Hood",
+      "role": "Major General commanding a division of the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1875-06-28",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "hood-1875",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "shortly after daybreak"
+      ]
+     },
+     "note": "Hood's letter to Longstreet of 28 June 1875 (Advance and Retreat, 1880, pp. 56-57). 'Shortly after daybreak' is Hood's own arrival in front of the heights; he adds that 'during the early part of that same morning' he and Longstreet were with Lee and Hill observing the Federals, so Longstreet was there when Hood came up. No clock."
+    },
+    {
+     "id": "C-006-P4-c3",
+     "source": "SHSP-05",
+     "source_class": "book",
+     "page": "78",
+     "page_basis": "as_read",
+     "text_offset": 251346,
+     "text_offset_end": 251585,
+     "quote": "About 3 o'clock in the morning, while the stars were shining, you left your headquarters and rode to General Lee's, where I found you sitting with him after sunrise looking at the enemy on Cemetery Hill",
+     "witness": {
+      "name": "J. S. D. Cullen",
+      "role": "Surgeon, medical director of the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1875-05-18",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "window",
+     "group": "cullen-1875",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "after sunrise"
+      ]
+     },
+     "note": "'After sunrise' is when Cullen found Longstreet sitting with Lee; it is a lower bound for Cullen's arrival, not a time of Longstreet's arrival."
+    },
+    {
+     "id": "C-006-P4-c4",
+     "source": "ALEXANDER-1907",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "first page of the chapter on the second day (its number is not printed; the next page is printed 390)",
+     "text_offset": 1026531,
+     "text_offset_end": 1026647,
+     "quote": "LONGSTREET, riding ahead of his approaching troops, met Lee upon Seminary Ridge about dawn on July 2.",
+     "witness": {
+      "name": "E. Porter Alexander",
+      "role": "Colonel, First Corps artillery (reserve artillery reached the field about 9 a.m.)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1907",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "staff_present",
+     "knew_by": "not_stated",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "alexander-1907",
+     "exact": false,
+     "states": {
+      "dates": [
+       "07-02"
+      ],
+      "phrases": [
+       "about dawn"
+      ]
+     },
+     "note": "Alexander reached the field with the reserve artillery about 9 a.m.; he does not say how he knew the hour of the meeting."
+    }
+   ],
+   "inference": {
+    "step": "Four writers place Longstreet with Lee at daylight, soon after daybreak, about dawn or after sunrise without an hour; with the computed sunrise (4:32 or about 04:35) the words cover the time from first light to shortly after sunrise",
+    "from": [
+     "C-006-P4-c1",
+     "C-006-P4-c2",
+     "C-006-P4-c3",
+     "C-006-P4-c4"
+    ]
+   },
+   "stance": "selectable",
+   "reason_not_chosen": {
+    "kind": "unclear_expression",
+    "text": "These words give no clock. They put Longstreet with Lee between first light and soon after sunrise (about 04:35); the default 'by about 05:00' contains them, and they are kept as the plain reading of the memoirs."
+   }
+  },
+  {
+   "id": "C-006-P5",
+   "origin": "research",
+   "label": "By about 05:00 (first light to 05:15): Longstreet with Lee on Seminary Ridge",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-02T05:00",
+    "approx": true,
+    "tolerance_min": 15,
+    "note": "'by about 05:00': the latest hour a writer of the day sees him with Lee; the arrival is earlier"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "flags": [],
+   "support": [
+    {
+     "id": "C-006-P5-c1",
+     "source": "FREMANTLE-1863-GUT-C007",
+     "source_class": "primary",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the Gutenberg transcription of the Edinburgh edition of 1863 carries no page numbers; the same entry is on p. 257 of the American edition of 1864 (FREMANTLE-1864: 'DISPOSITION OF THE TROOPS. 257')",
+     "text_offset": 351296,
+     "text_offset_end": 351535,
+     "quote": "arrived at 5 A.M. at the same commanding position we were on yesterday [...] Just below us were seated Generals Lee, Hill, Longstreet, and Hood, in consultation",
+     "witness": {
+      "name": "Arthur J. L. Fremantle",
+      "role": "Lieutenant Colonel, Coldstream Guards, British observer with Longstreet's staff",
+      "side": "other"
+     },
+     "written": {
+      "date": "1863-07-02",
+      "kind": "private_letter_or_diary"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "fremantle",
+     "exact": false,
+     "states": {
+      "times": [
+       "05:00"
+      ],
+      "phrases": [
+       "Generals Lee, Hill, Longstreet, and Hood, in consultation"
+      ]
+     },
+     "note": "Diary entry for Thursday 2 July (Blackwood's Magazine, 1863; p. 257 of the American edition of 1864, FREMANTLE-1864, where the text layer prints the same words). 5 a.m. is when Fremantle's party arrived at the commanding position; the generals are seen 'just below' after he climbed a tree, so Longstreet is with Lee at about 5 a.m., not necessarily before it. Hood is named in the same sentence."
+    },
+    {
+     "id": "C-006-P5-c2",
+     "source": "FREEMAN-RELEE-V3-C005",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "Appendix III-2 'The Hour of Longstreet's Arrival, July 2, 1863', printed page 553 of the appendix (the page foot of the text layer is damaged; the page before reads 552)",
+     "text_offset": 1263853,
+     "text_offset_end": 1264021,
+     "quote": "As the sun rose at Gettysburg on July 2 at 4:32, it probably is approximately correct to say that Longstreet joined Lee on Seminary Ridge at 5:15 or about that time",
+     "witness": {
+      "name": "Douglas Southall Freeman",
+      "role": "historian, biographer of Lee (not a participant)",
+      "side": "other"
+     },
+     "written": {
+      "date": "1935",
+      "kind": "later_history"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "freeman",
+     "exact": false,
+     "states": {
+      "times": [
+       "04:32",
+       "05:15"
+      ],
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Freeman weighs four statements of Longstreet, the staff and the diary, calls the 'stars' and the 8 a.m. 'wide of the mark', and gives his own computed estimate with the sunrise; a computation, not a sighting."
+    },
+    {
+     "id": "C-006-P5-c3",
+     "source": "ROSS-1865-C006",
+     "source_class": "book",
+     "page": "49",
+     "page_basis": "as_read",
+     "text_offset": 60397,
+     "text_offset_end": 60790,
+     "quote": "It was still dusk next morning when the sound of cannon aroused me from my sleep [...] then breakfasted with General Longstreet and his Staff. We had to ride some five miles before we got to the front",
+     "witness": {
+      "name": "Fitzgerald Ross",
+      "role": "Captain of Hussars, Austrian service, visitor in Longstreet's camp",
+      "side": "other"
+     },
+     "written": {
+      "date": "1865",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "window",
+     "group": "ross",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "still dusk",
+       "breakfasted with General Longstreet and his Staff"
+      ]
+     },
+     "note": "Ross rode in the same party as Fremantle (Fremantle calls him 'the Austrian'); his narrative first ran in Blackwood's Magazine. He woke at dusk, breakfasted with Longstreet and his staff and rode some five miles to the front, where Lee was with his staff; he does not say that Longstreet was on the hill or give an hour. It fits a ride ending around first light to 5 a.m."
+    },
+    {
+     "id": "C-006-P5-c4",
+     "source": "SHSP-07-C005",
+     "source_class": "book",
+     "page": "68",
+     "page_basis": "as_read",
+     "text_offset": 207106,
+     "text_offset_end": 207240,
+     "quote": "Just then General Longstreet, who, when I came up, was walking back and forth some little distance from General Lee",
+     "witness": {
+      "name": "Lafayette McLaws",
+      "role": "Major General commanding a division of the First Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1879",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "mclaws-1879",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "walking back and forth some little distance from General Lee"
+      ]
+     },
+     "note": "McLaws (address of 1879): when the head of his division reached the hill 'early in the morning' and he reported to Lee, Longstreet was already there, walking back and forth near Lee. McLaws gives no hour for his own arrival (the other statement of his, 'before 8 a.m.', is printed by Taylor); it shows Longstreet was with Lee before McLaws came up."
+    }
+   ],
+   "inference": {
+    "step": "The diary has Lee, Hill, Longstreet and Hood seated together when its writer, who arrived at 5 a.m., looks down from a tree, so Longstreet was with Lee by about 5 a.m. (a little after at the latest: Freeman reads the diary as 'after 5' and estimates 5:15); Hood, Cullen, Alexander and Longstreet's article of 1877 put him there at daybreak or soon after sunrise (about 04:35); the hour of his arrival is earlier and is not given by anyone of the day",
+    "from": [
+     "C-006-P5-c1",
+     "C-006-P5-c2",
+     "C-006-P5-c3",
+     "C-006-P5-c4"
+    ]
+   },
+   "stance": "default"
+  }
+ ],
+ "weighing": {
+  "summary": "The record fixes one thing, an upper bound: a British officer's diary of 2 July has Lee, Hill, Longstreet and Hood seated together when he arrives at the ridge at 5 a.m. Everything else is memory. Longstreet himself gave three different accounts (8 a.m. in a letter of 1875, 'daylight' in an article of 1877, 'stars shining brightly' in his book of 1896); Hood, his medical director Cullen and Alexander say daybreak, after sunrise and about dawn; Freeman estimates 5:15. The diary contradicts 8 a.m.; the others are compatible with it and with each other from first light to about 5. 'Stars' (before about 04:20) cannot be excluded as an earlier arrival, but one recollection of 33 years stands alone for it, and Cullen finds Longstreet with Lee after sunrise. The default is therefore the upper bound, by about 05:00, an inference; no source gives the hour of arrival.",
+  "who": "Fremantle, a British officer riding with Longstreet's staff, wrote the diary and saw the group himself. Longstreet (corps commander), Hood and McLaws (division commanders), Cullen (medical director) and Ross (a visitor) were present at the camp or on the ridge; Alexander came up with the reserve artillery about 9 a.m. and Taylor was at Lee's headquarters but gives no hour; Freeman (1935) was not there and computed.",
+  "when": "Fremantle's entry is of 2 July 1863 (rank 5, a diary of the time, though first printed in 1863). Longstreet's letter (April 1875), Cullen's (May 1875) and Hood's (June 1875) are 12 years after the day; Longstreet's article is of November 1877, McLaws's address of 1879, Ross's book of 1865, Alexander's of 1907, Longstreet's book of 1896 and Taylor's of 1906 (all rank 2, reminiscence); Freeman (1935) is later history (rank 1). Only the diary is a writing of the time, so by the rubric it outranks every other value; the rejected values are all lower-ranked, and the 8 a.m. is contradicted by the diary, by McLaws and by Longstreet himself.",
+  "where": "Fremantle sat in a tree on the ridge and looked down on the generals; Ross rode with him; McLaws stood before Lee and saw Longstreet walking nearby; Hood and Cullen were with Longstreet that morning. Longstreet's 8 a.m. speaks of his divisions and himself together ('My two divisions nor myself'); the divisions reached the ridge at different hours (see C-005 and C-007), so 8 a.m. may date their closing up, which is a different event; Taylor, who endorses it, was at Lee's headquarters but names no hour and no evidence.",
+  "how_knew": "Fremantle: eyewitness, a diary kept day by day; he gives the hour of his own arrival and what he saw, not the hour Longstreet came. Longstreet: memory, three times, with three different results; he had taken sides in a public quarrel over the 'attack at sunrise' when he wrote the 1875 and 1877 statements. Cullen, Hood, McLaws: memory, written to or for Longstreet in the same quarrel. Ross: eyewitness of the ride, no hour. Alexander: does not say. Freeman: computed from sunrise and the diary. Nobody gives a clock for the arrival itself.",
+  "clock": "The diary's watch is not named (Fremantle was British, with Longstreet's staff); the Confederate writers (Longstreet, Hood, Cullen, McLaws) used the Confederate clock; Freeman and the plan use local mean time (sunrise 4:32 or about 04:35). The 20-minute difference between the two armies' clocks is not applied; it is an uncertainty in the 05:00 and 05:15 values and does not touch the conflict with 08:00.",
+  "independence": "The default rests on four groups: the diary (Fremantle), Ross, McLaws and Freeman. They are not wholly independent: Ross rode in Fremantle's party, and Freeman built his estimate from the diary and the sunrise. The memoir positions are separate too, but Taylor's endorsement of 8 a.m. repeats Longstreet's letter (one line of knowledge), and the 'stars' rest on Longstreet 1896 alone (Cullen's stars are those of the 3 a.m. departure). Longstreet's three accounts are three statements of one witness, not three witnesses."
+ },
+ "source_panel_text": "By about 05:00: a British officer's diary of 2 July has Longstreet already seated with Lee on the ridge when he arrived there at 5 a.m. Longstreet's own accounts differ (8 a.m. in 1875, 'daylight' in 1877, 'stars shining' in 1896); no record of the day gives the hour he came, which was earlier. Four other values are listed, including 08:00.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "08:00 is not unreferenced: it is Longstreet's own letter of 1875, which Taylor prints. It does not hold as the hour Longstreet reached Lee: a diary of the day has him with Lee at about 5 a.m., McLaws found him there when his division came up before 8, and Longstreet's later accounts give daylight and stars. It may be the hour both divisions had closed up (C-005, C-007), a different event. It stays selectable."
+  },
+  "first_delegated": {
+   "holds": "no",
+   "note": "The first pass rested on the 1896 memoir alone and judged that 05:15 and 08:00 'do not fit the quote'. The research found the diary of the day, Longstreet's two earlier statements and four other writers, so a single recollection that its writer did not repeat cannot carry the default. The 'stars' stay selectable (P3) as a possible earlier arrival, and the first pass's tier (inferred) is kept."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T2-058",
+   "must_change": true,
+   "note": "seed row 'Jul 2 ~05:15 Lee's headquarters, Seminary Ridge: Conference. Arrival time conflicts: Taylor 08:00; daylight; before dawn (Longstreet memoir); Hood shortly after daybreak; Fremantle after 05:00; Freeman about 05:15' is marked tier documented and key FREE. No clock of the arrival is documented: the tier becomes inferred, and the window ~05:15 becomes 'by about 05:00' (05:15 stays a selectable value). timeline_windows.jsonl holds 05:15 as the default (parse_status point) and timeline_verified.jsonl holds status gap/open gap (citation OR27-2-R428, 'inferred 05:15'): both follow this resolution"
+  },
+  {
+   "kind": "arrivals_row",
+   "ref": "cs-anv-hq",
+   "must_change": true,
+   "note": "history/arrivals.json and tools/bt/arrivals_data.py line 257 carry C-006 in `conflicts[]` as a 'topic_other_cell' of key_positions: 'Jul 2 05:15 (range) conference with Longstreet'; the cell should read about 05:00 (05:15 in range) and the default basis must name this resolution. The row's gate fields (default 1863-07-01T13:30, earliest 13:30, latest 14:30) belong to C-042 (Lee on the field Jul 1) and do not change"
+  },
+  {
+   "kind": "gate",
+   "ref": "Q04",
+   "must_change": false,
+   "note": "no floor, default or latest of any arrival window moves: Longstreet is a commander riding ahead of his troops, not a unit entrance the gate scans, and 05:00 is an inferred upper bound; the arrival windows of his divisions (Hood, McLaws) are C-005 and C-007; no gate is lowered or skipped. Q04 reads the key_positions cell of cs-anv-hq only as text"
+  },
+  {
+   "kind": "gate",
+   "ref": "Q02, Q19 (conflict-defaults census) and CF-1 to CF-8 of GATE-SPEC-A.md",
+   "must_change": true,
+   "note": "gate_results/Q19.json (lines 1094 and 4338) names conflict-defaults.json:$.conflicts.C-006 among the 47 entries it reads (data.conflict_defaults); GATE-SPEC U-17 ties the delegated default to Q02 and Q19. The entry changes its default and label (below); the gates are re-run by the integration step; nothing is lowered. GATE-SPEC.md line 785 and GATE-SPEC-A.md line 467 count C-006 among the 7 inferred defaults: it stays inferred (class weighted), so the count 7 does not change"
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json ($.conflicts.C-006)",
+   "must_change": true,
+   "note": "holds the first delegated default C-006-DEFAULT ('pre-dawn \"stars bright\", no clock (memoir, inferred)', basis memoir) and its rationale ('05:15 and 08:00 do not fit the quote; PDF default 08:00 has no source'), both superseded; add the research values (C-006-P4 daylight, C-006-P5 by about 05:00) as scenarios; 05:15, 08:00 and 'stars bright' keep their labels"
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json ($.conflicts.C-006)",
+   "must_change": true,
+   "note": "the source of the app data above: the first delegated default is superseded; the old scenarios stay"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (line 16, the C-006 row; line 950, which names C-006 among the single-memoir inferred defaults)",
+   "must_change": true,
+   "note": "the row 'pre-dawn \"stars bright\"... Longstreet 1896... PDF default 08:00 has no source' is superseded by this resolution (by about 05:00, inferred, weighted); the sentence about single memoirs at line 950 no longer describes C-006, whose default rests on a diary of the day with later accounts"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md (line 34 DEC-C-006, PENDING OWNER; line 296, which lists C-006 among the conflicts where the PDF default is first and the PDF value stays selectable)",
+   "must_change": true,
+   "note": "the entry stays PENDING OWNER; the delegated reading changes as above; line 296 ('C-004, C-006 partly') should say the PDF value 08:00 does not hold as the hour Longstreet reached Lee"
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0243.md and register/proposed/tl-05/tl-05-EG-016.md (T2-058, \"Lee-Longstreet conference time\")",
+   "must_change": true,
+   "note": "description 'No OR statement; the secondary values range from before dawn to 08:00', substitute 'conflicting values carried, no default chosen' and 'Agent recommendation: 05:15 is inferred' follow this resolution: the default is by about 05:00 (inferred, weighted), found in a diary of the day and later accounts; the Official Records still give no hour. The entry stays an evidence gap for the hour of arrival"
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0106.md, register/proposed/r03-1/r03-1-EG-04.md and horde/ws9-sources/proposed-register-updates/ws9-EG-0106.md",
+   "must_change": true,
+   "note": "EG-0106 says Longstreet's 1896 memoir 'says: the stars were shining when he reported' and names 'headquarters scene lighting (pre-dawn stars)' as the visual impact; the default scene at 05:00 is in dawn light after sunrise (about 04:35); pre-dawn stars become the lighting of the selectable position C-006-P3. ws9-EG-0106 already puts Fremantle at about 05:00 with Lee, Hill, Longstreet and Hood"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/requirements.json (R03.C-006, line 13592; R04 row for T2-058, line 4419) and subreq_links.json (R03.C-006)",
+   "must_change": true,
+   "note": "R03.C-006's evidence link says 'no source for 05:15 or 08:00 read' and 'stars bright confirmed': superseded (both were read: Freeman for 05:15, Longstreet's letter of 1875 for 08:00); passes stays false until the gate is run"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/library/timeline_audit_T2.jsonl (line 58, T2-058) and horde/r03-1/results.jsonl (R03.C-006) and horde/ws9-sources/REPORT.md",
+   "must_change": false,
+   "note": "working notes; record that the 'stars bright' reading of the first research pass is one of five positions and that an earlier note that 05:15 and 08:00 had no source read was written before the Freeman and Taylor texts were fetched; not edited by the researcher"
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/conflicts_structured_data.py (line 11, the PDF row of C-006)",
+   "must_change": false,
+   "note": "holds the PDF row as printed (values 05:15, 08:00, stars bright; default 08:00); the PDF row does not change"
+  },
+  {
+   "kind": "app_code",
+   "ref": "tools/bt/or27_claims.py (line 317, claim check h, pdf C-005, C-006, C-007)",
+   "must_change": false,
+   "note": "informational topic grouping that holds no value; the claim-check status of T2-058 (not found in the Official Records) stays true"
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-064, T2-072 (Hood and McLaws on the ridge)",
+   "must_change": false,
+   "note": "the same morning, resolved in C-005 and C-007; consistent: Longstreet with Lee by about 05:00 and the head of Hood's division on the ridge about the same time; no change from this resolution"
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "OR27-1, OR27-2, OR27-3 (reports of Lee, Longstreet and the corps and division commanders)",
+   "query": "(daylight|daybreak|sunrise|at dawn|before light).{0,200}Longstreet.{0,200}(General Lee|headquarters) and Longstreet.{0,200}(reported|joined|met|conferred).{0,120}Lee.{0,150}(daylight|daybreak|sunrise|a. m.) in OR27-2, and in OR27-1 with \"of the 2d\"; Longstreet's own report (OR27-2-R430) read for the morning of 2 July",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "NPS-* and NPSGOV-* Park Service texts of the ledger",
+   "query": "Longstreet.{0,250}(at dawn|about dawn|sunrise|daybreak|5:15|5 a. m.|5:00).{0,150}(Lee|headquarters|Seminary)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "SORREL-1905-C005 (Longstreet's chief of staff), LONG-1886-C023, TAYLOR-1877-C042 (Lee's secretary and adjutant, 1877 book)",
+   "query": "Longstreet.{0,300}(sunrise|daybreak|daylight|dawn|stars|early morning) and Seminary Ridge|Round Top|second day for an hour of the meeting on the morning of 2 July; Long's letter of 31 May 1875 and Marshall's and Venable's letters of May 1875 (printed in SHSP-05 pp. 76-77) read: none gives an hour for Longstreet with Lee (Venable has Lee send him to Ewell 'about sunrise')",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "all local texts of the ledger (find_passage --all)",
+   "query": "(Captain|Col.?|Colonel) Ross.{0,300}(Longstreet|breakfast); Longstreet.{0,150}Lee.{0,200}(seven|8|eight) (o'clock|a. m.); morning of the 2d I (joined|went|reported|rode): the hits are the statements cited (Longstreet 1877 and 1896, Taylor 1906, Freeman, Ross); Longstreet's sentence in Battles and Leaders vol. 3 ('On the morning of the 2d I joined General Lee') gives no hour",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Letters and diaries of 2-10 July 1863 of Lee's and Longstreet's staff (Taylor, Marshall, Venable, Long, Sorrel, Walton, Goree), the manuscript of Longstreet's letter of April 1875 (Taylor papers)",
+   "query": "a writing of the day or of the following weeks with the hour Longstreet reached Lee; the manuscript to see what the 8 a.m. refers to",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Thayer page annotating Freeman (a lead recorded by the first pass: Taylor 1875 = 8 a.m., an editor's estimate about 5:15); plan keys W-D1, W-GC (web pages of the plan)",
+   "query": "the page itself; its host is not among the hosts reachable for this research, so the page was not read and nothing is claimed from it",
+   "outcome": "blocked",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "GBG-COMPILER-1863, ADAMS-SENTINEL-1863, CA-1863 (newspapers of 1863)",
+   "query": "not searched: no newspaper of 1863 would give the hour of a private meeting at Lee's headquarters; listed so the search is not claimed",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A writing of 2 July 1863 or of the following weeks (a staff officer's letter or diary, or a Union report of Confederate officers seen on the ridge) that gives the hour at which Longstreet reached Lee; the manuscript of Longstreet's letter of April 1875 (Taylor papers) to see exactly what its 8 a.m. refers to; or a source that places him with Lee before sunrise (about 04:35), which would move the default earlier and make 'stars bright' the better-supported value.",
+ "owner_note": "The first delegated default ('stars bright', memoir) is replaced by an inferred upper bound, by about 05:00, which a diary of the day supports; every PDF value and the first default stay selectable. No gate is changed. The hour of Longstreet's arrival itself is unrecorded: the default is the instant by which he is certainly with Lee, not an arrival time."
+}
