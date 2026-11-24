@@ -38,7 +38,12 @@ class Strength(unittest.TestCase):
     def test_a_documented_range_is_adopted_with_its_basis_key_date_and_sources(self):
         r = A.strength_record(row([fig('taken_into_action', 'officers_and_men', 380, 380)]))
         self.assertEqual((r['status'], r['basis_key'], r['min'], r['max'], r['as_of'], r['tier']), ('adopted', 'taken_into_action|officers_and_men', 380, 380, '1863-07-01', 'documented'))
-        self.assertIn('OR27-1-R037', r['sources'])
+        self.assertEqual(r['sources'], ['OR27-1'])
+        self.assertEqual(r['cites'], [{'report_id': 'OR27-1-R037', 'evidence_id': 'g:0001'}])
+
+    def test_a_report_id_is_never_listed_as_a_source_so_other_basis_keys_of_the_report_do_not_tie_to_the_figure(self):
+        r = A.strength_record(row([fig('taken_into_action', 'officers_and_men', 380, 380, ev='g:1'), fig('taken_into_action', 'not_stated', 380, 380, as_of='1863-07-03', ev='g:2')]))
+        self.assertTrue(all('-R' not in x for x in r['sources']))
         self.assertIn('basis kind', A.strength_record(row([fig('taken_into_action', 'officers_and_men', 380, 380)]))['basis'].replace('meaning of taken_into_action|officers_and_men', 'basis kind'))
 
     def test_evidence_lines_that_differ_give_a_range_not_a_single_figure(self):

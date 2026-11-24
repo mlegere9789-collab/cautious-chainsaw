@@ -121,16 +121,17 @@ def strength_record(tu, sources=None):
                 as_of = real[0]
         lines = _lines_of(tu, key)
         ev = sorted({e for f in lines for e in f.get('evidence_ids') or []})
-        srcs = []
+        srcs, cites = [], []
         for f in lines:
             c = f.get('cite') or {}
-            for s in (c.get('report_id'), c.get('source_id')):
-                if s and s not in srcs and (s == c.get('report_id') or sources is None or s in sources):
-                    srcs.append(s)
+            sid = c.get('source_id')
+            if sid and sid not in srcs and (sources is None or sid in sources):
+                srcs.append(sid)                                   # the volume; the reports and pages are in `cites`: a report id in `sources` would tie other basis keys of the same report to this figure (Q01.3 pick_ranges)
+            cites.append({k: c[k] for k in ('report_id', 'printed_page') if c.get(k) is not None} | {'evidence_id': (f.get('evidence_ids') or [None])[0]})
         text = r.get('basis') or key
         basis = 'documented: %s; range %s to %s%s. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).%s' % (text, lo, hi, ' on %s' % as_of if as_of else '',
                                                                                           ' Other documented bases of this unit are carried as alternatives; the record does not rank them.' if len(alts) > 1 else '')
-        rec = {'status': 'adopted', 'basis_key': key, 'min': lo, 'max': hi, 'tier': 'documented', 'basis': basis, 'sources': srcs, 'evidence_ids': ev, 'alternatives': alts}
+        rec = {'status': 'adopted', 'basis_key': key, 'min': lo, 'max': hi, 'tier': 'documented', 'basis': basis, 'sources': srcs, 'cites': cites, 'evidence_ids': ev, 'alternatives': alts}
         if as_of:
             rec['as_of'] = as_of
         return rec
