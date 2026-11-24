@@ -34,3 +34,13 @@ T2-179, T2-217, T2-218, T2-219, T2-220, T2-221, T2-225, T2-226, T2-227
 - Raw OR OCR must be present in tmp/library/or27 to re-run or27_find.py verification for the own_checks.
 
 Nothing committed; no shared file edited.
+
+## Close-out 2026-11-24 (second reading against the local OR text; supersedes the counts above where they differ)
+
+Input: results.jsonl as audited (the shard run had no OR text; its own_checks compared claims with earlier extractions). Done here with tmp/library/or27 present: every row of this shard has a line in GOVERNANCE/timeline_corrections/tl-08.jsonl (same format as tl-01..04), written by horde/tl-05/closeout/build.py from rows_08.py; every quotation was re-matched verbatim in the local OR text inside the report the row names and re-checked with the merge script's own offset check (58 citations, 0 failures); a sub-claim is marked supported only where its quotation says exactly that, and what the shard recorded without a re-found quotation is carried as unsupported ("shard audit entry not re-found") instead of being trusted.
+
+Counts (57 rows): confirmed 1, corrected 1, gap 5, partially_supported 45, unsupported 5. Sub-claims 114: computed 4, conflict 13, contradicted 2, procedural 1, supported 55, unsupported 39. Rows carrying scenarios (conflicts, no default): 15. Promoted by tools/bt/merge_timeline_verification.py (confirmed, all sub-claims documented and supported, no scenario): T2-206. Corrected: T2-224.
+
+Per-row register proposals for every row that is not confirmed: proposed-register/tl-08-CO-<row>.md (the shard's own EG/CF/RG entries are named in register_related of each line).
+
+Not done and why: web-only claims (HMDB, NPS, Stone Sentinels, Dawes memoir, Hess, Wikipedia) have no local text and stay unsupported; the printed volume and page images of the OR were not compared for the OCR-digit rows (T2-049, T2-071, T2-081 and others are marked); computed rows (project ephemeris) are not sources under the merge rule; the Jacobs thermometer sheets were not found. No web request was made in this close-out. Nothing committed, no gate marked passes.

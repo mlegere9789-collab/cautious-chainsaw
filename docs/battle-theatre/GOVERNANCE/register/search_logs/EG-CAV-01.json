@@ -1,0 +1,72 @@
+[
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 '(number|strength|total) of (horses|mounted men|serviceable horses)' (hits 5, of them in cavalry/horse-artillery reports 2)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "cavalry hits: Col. Huey p. 971 and Gen. Kilpatrick p. 994 name \"a large number of horses\" captured, no figure; no regimental count"
+ },
+ {
+  "source_id": "OR-27-2",
+  "locator": "tools/bt/or27_find.py --part 2 '(number|strength|total) of (horses|mounted men|serviceable horses)' (hits 8, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no hit in a cavalry report"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 '(number|strength|total) of (horses|mounted men|serviceable horses)' (hits 11, of them in cavalry/horse-artillery reports 2)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "cavalry corps correspondence (D0547 p. 258, D0766 p. 338): a request to supply \"the number of horses that I need\", no figure"
+ },
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 'mounted (men|force|strength|effective)' (hits 21, of them in cavalry/horse-artillery reports 14)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "qualitative uses (\"the balance of the mounted men\", Gamble p. 935); no number of mounted men of a regiment"
+ },
+ {
+  "source_id": "OR-27-2",
+  "locator": "tools/bt/or27_find.py --part 2 'mounted (men|force|strength|effective)' (hits 34, of them in cavalry/horse-artillery reports 4)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no regimental mounted strength"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 'mounted (men|force|strength|effective)' (hits 36, of them in cavalry/horse-artillery reports 9)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no regimental mounted strength"
+ },
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 '(serviceable|effective|fit for service|unserviceable) horses' (hits 0, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no hit"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 '(serviceable|effective|fit for service|unserviceable) horses' (hits 2, of them in cavalry/horse-artillery reports 1)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "D1629 p. 775: part of a division \"absent with unserviceable horses\", no number"
+ },
+ {
+  "source_id": "OR-27-1",
+  "locator": "OR27-1-R008 Abstract from returns of the Army of the Potomac, pp. 150-161 (present for duty by command, cavalry column)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "command aggregates of men present for duty, one \"equipped\" column; no horses and no regiment rows for the cavalry brigades"
+ },
+ {
+  "source_id": "PRINT",
+  "locator": "Busey and Martin, Regimental Strengths and Losses; Coddington; Pfanz; Gottfried (library status PRINT: print-only)",
+  "date_searched": "2026-11-24",
+  "result": "unreachable",
+  "note": "print-only in the library status: no text is held, so the books could not be searched; they stay named as the sources that could settle the gap"
+ }
+]

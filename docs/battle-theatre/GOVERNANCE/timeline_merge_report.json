@@ -2,11 +2,11 @@
  "rule_version": 2,
  "summary": {
   "rows": 691,
-  "verified": 30,
-  "seeded_unverified": 661,
-  "with_shard_evidence": 461,
-  "not_promoted": 431,
-  "rows_without_shard_close_out": 230,
+  "verified": 36,
+  "seeded_unverified": 655,
+  "with_shard_evidence": 691,
+  "not_promoted": 655,
+  "rows_without_shard_close_out": 0,
   "verified_ids": [
    "T1-001",
    "T1-002",
@@ -26,6 +26,12 @@
    "T1-210",
    "T1-212",
    "T1-216",
+   "T2-038",
+   "T2-066",
+   "T2-112",
+   "T2-136",
+   "T2-164",
+   "T2-206",
    "T2-236",
    "T2-237",
    "T2-245",
@@ -2508,6 +2514,2037 @@
     "sub-claim 7 is open gap/unsupported",
     "sub-claim 7 has no non-lead source citation",
     "remains unsupported: 1 item(s)",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-006": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is unsupported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-007": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "sub-claim 4 is inferred/unsupported",
+    "sub-claim 4 has no non-lead source citation",
+    "remains unsupported: 1 item(s)",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-008": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "sub-claim 3 is open gap/unsupported",
+    "sub-claim 3 has no non-lead source citation",
+    "remains unsupported: 3 item(s)"
+   ]
+  },
+  "T2-009": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "remains unsupported: 1 item(s)",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-010": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-011": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 4 is inferred/contradicted",
+    "sub-claim 4 has no non-lead source citation",
+    "sub-claim 5 is open gap/unsupported",
+    "sub-claim 5 has no non-lead source citation",
+    "remains unsupported: 1 item(s)",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-012": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-013": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 1 is inferred/computed",
+    "sub-claim 1 has no non-lead source citation",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-014": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is inferred/computed",
+    "sub-claim 1 has no non-lead source citation",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-015": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-016": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation",
+    "sub-claim 4 is inferred/conflict",
+    "sub-claim 4 has no non-lead source citation",
+    "remains unsupported: 2 item(s)"
+   ]
+  },
+  "T2-017": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
+    "sub-claim 3 is documented/contradicted",
+    "sub-claim 3 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-018": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/conflict",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-019": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-020": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-021": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-022": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is documented/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "sub-claim 2 is open gap/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-023": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 1 is inferred/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-024": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-025": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-026": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "remains unsupported: 1 item(s)",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-027": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is unsupported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-028": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-029": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is open gap, not documented",
+    "sub-claim 3 is open gap/unsupported",
+    "sub-claim 3 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-030": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is plausible-procedural, not documented",
+    "sub-claim 1 is plausible-procedural/procedural",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-031": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-032": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is open gap, not documented",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-033": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is unsupported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-034": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is open gap, not documented",
+    "sub-claim 2 is open gap/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-035": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 4 is inferred/unsupported",
+    "sub-claim 4 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-036": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is open gap, not documented",
+    "sub-claim 2 is open gap/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-037": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "remains unsupported: 1 item(s)",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-038": {
+   "state": "verified",
+   "gaps": []
+  },
+  "T2-039": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 4 is inferred/unsupported",
+    "sub-claim 4 has no non-lead source citation",
+    "3 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-040": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "3 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-041": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-042": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
+    "sub-claim 2 is documented/contradicted",
+    "sub-claim 2 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-043": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is open gap, not documented",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-044": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is open gap, not documented",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-045": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is open gap, not documented",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "sub-claim 4 is open gap/unsupported",
+    "sub-claim 4 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-046": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is plausible-procedural, not documented",
+    "sub-claim 1 is plausible-procedural/procedural",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-047": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 1 is inferred/computed",
+    "sub-claim 1 has no non-lead source citation",
+    "sub-claim 2 is inferred/contradicted",
+    "sub-claim 2 has no non-lead source citation",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-048": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is unsupported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is open gap/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "remains unsupported: 1 item(s)",
+    "3 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-049": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-050": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "3 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-051": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-052": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 1 is inferred/computed",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-053": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-054": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 1 is inferred/computed",
+    "sub-claim 1 has no non-lead source citation",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-055": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-056": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-057": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-058": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is unsupported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-059": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 4 is inferred/unsupported",
+    "sub-claim 4 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-060": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is unsupported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-061": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is open gap/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-062": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation",
+    "3 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-063": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-064": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-065": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-066": {
+   "state": "verified",
+   "gaps": []
+  },
+  "T2-067": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-068": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "sub-claim 2 is plausible-procedural/procedural",
+    "sub-claim 2 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-069": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is open gap/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "sub-claim 3 is open gap/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-070": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-071": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 4 is inferred/conflict",
+    "sub-claim 4 has no non-lead source citation",
+    "remains unsupported: 1 item(s)",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-072": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-073": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-074": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is open gap/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-075": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is plausible-procedural, not documented",
+    "sub-claim 1 is plausible-procedural/procedural",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-076": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is open gap/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-077": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 3 is inferred/contradicted",
+    "sub-claim 3 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-078": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-079": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-080": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-081": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation",
+    "remains unsupported: 3 item(s)"
+   ]
+  },
+  "T2-082": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
+    "sub-claim 2 is inferred/contradicted",
+    "sub-claim 2 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-083": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-084": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-085": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-086": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-087": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "sub-claim 4 is inferred/unsupported",
+    "sub-claim 4 has no non-lead source citation",
+    "3 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-088": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-089": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-090": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-091": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-092": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation",
+    "3 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-093": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
+    "sub-claim 3 is inferred/contradicted",
+    "sub-claim 3 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-094": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation",
+    "4 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-095": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is open gap/unsupported",
+    "sub-claim 3 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-096": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "sub-claim 3 is documented/conflict",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-097": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-098": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is open gap, not documented",
+    "sub-claim 2 is open gap/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-099": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-100": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is open gap, not documented",
+    "sub-claim 3 is open gap/unsupported",
+    "sub-claim 3 has no non-lead source citation",
+    "remains unsupported: 2 item(s)"
+   ]
+  },
+  "T2-101": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-102": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-103": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-104": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation",
+    "3 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-105": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-106": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-107": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-108": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "4 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-109": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-110": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-111": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-112": {
+   "state": "verified",
+   "gaps": []
+  },
+  "T2-113": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/conflict",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-114": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-115": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-116": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "sub-claim 3 is documented/contradicted",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-117": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-118": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-119": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-120": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-121": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-122": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is plausible-procedural, not documented",
+    "sub-claim 1 is plausible-procedural/procedural",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-123": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-124": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-125": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 5 is inferred/unsupported",
+    "sub-claim 5 has no non-lead source citation"
+   ]
+  },
+  "T2-126": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-127": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-128": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is inferred/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-129": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "sub-claim 4 is inferred/unsupported",
+    "sub-claim 4 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-130": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-131": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-132": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-133": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-134": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-135": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 1 is inferred/computed",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-136": {
+   "state": "verified",
+   "gaps": []
+  },
+  "T2-137": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-138": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-139": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-140": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-141": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-142": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-143": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-144": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-145": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-146": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-147": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-148": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-149": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-150": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-151": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-152": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-153": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-154": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is documented/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "sub-claim 2 is open gap/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-155": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-156": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is open gap/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-157": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-158": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-159": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "4 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-160": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-161": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-162": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-163": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-164": {
+   "state": "verified",
+   "gaps": []
+  },
+  "T2-165": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-166": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-167": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-168": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-169": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-170": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "3 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-171": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-172": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-173": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-174": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
+    "sub-claim 4 is documented/contradicted",
+    "sub-claim 4 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-175": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-176": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/conflict",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)",
+    "3 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-177": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-178": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-179": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is unsupported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-180": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-181": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-182": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-183": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-184": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-185": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-186": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-187": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is inferred/unsupported",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-188": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 1 is inferred/computed",
+    "sub-claim 1 has no non-lead source citation",
+    "sub-claim 2 is inferred/contradicted",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-189": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-190": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is inferred/unsupported",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-191": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-192": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "3 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-193": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-194": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-195": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-196": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-197": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-198": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "4 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-199": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-200": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-201": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 1 is inferred/computed",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-202": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-203": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is plausible-procedural, not documented",
+    "sub-claim 1 is plausible-procedural/procedural",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-204": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 4 is inferred/unsupported",
+    "sub-claim 4 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-205": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-206": {
+   "state": "verified",
+   "gaps": []
+  },
+  "T2-207": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is inferred/unsupported",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-208": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 1 is inferred/computed",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-209": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is open gap, not documented",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-210": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is inferred/unsupported",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-211": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is documented/conflict",
+    "sub-claim 2 has no non-lead source citation",
+    "3 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-212": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is inferred, not documented",
+    "sub-claim 1 is inferred/computed",
+    "sub-claim 1 has no non-lead source citation",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-213": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is inferred/unsupported",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-214": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is inferred/unsupported",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-215": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 4 is documented/conflict",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-216": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is inferred/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation",
+    "3 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-217": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-218": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is unsupported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-219": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is unsupported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/conflict",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-220": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is unsupported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-221": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is unsupported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-222": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-223": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-224": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is corrected: the sources support a corrected claim, not the seed claim as written",
+    "sub-claim 3 is documented/contradicted",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-225": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is open gap, not documented",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-226": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-227": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is gap: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is open gap, not documented",
+    "sub-claim 1 is open gap/unsupported",
+    "sub-claim 1 has no non-lead source citation",
+    "remains unsupported: 1 item(s)"
+   ]
+  },
+  "T2-228": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-229": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "seed tier is open gap, not documented",
+    "sub-claim 2 is open gap/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-230": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
+    "4 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-231": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is inferred/unsupported",
+    "sub-claim 1 has no non-lead source citation"
+   ]
+  },
+  "T2-232": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 2 is inferred/unsupported",
+    "sub-claim 2 has no non-lead source citation"
+   ]
+  },
+  "T2-233": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/unsupported",
+    "sub-claim 3 has no non-lead source citation"
+   ]
+  },
+  "T2-234": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 1 is inferred/conflict",
+    "sub-claim 1 has no non-lead source citation",
+    "2 scenario(s) carried (source conflict, no default)"
+   ]
+  },
+  "T2-235": {
+   "state": "not_promoted",
+   "gaps": [
+    "shard verdict is partially_supported: the sources support only part of it or none of it, not the seed claim as written",
+    "sub-claim 3 is inferred/conflict",
+    "sub-claim 3 has no non-lead source citation",
     "2 scenario(s) carried (source conflict, no default)"
    ]
   },

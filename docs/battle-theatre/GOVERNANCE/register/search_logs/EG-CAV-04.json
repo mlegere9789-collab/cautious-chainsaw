@@ -1,0 +1,51 @@
+[
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 '(squadrons?|companies|battalions?) .{0,60}dismount|dismount.{0,60}(squadrons?|companies|battalions?)' (hits 11, of them in cavalry/horse-artillery reports 8)",
+  "date_searched": "2026-11-24",
+  "result": "found",
+  "note": "squadron counts printed: OR27-1-R339 Col. Thomas C. Devin pp. 938-941 (a squadron of the Sixth New York dismounted as skirmishers; one squadron of the Ninth New York; two squadrons; two squadrons of the Seventeenth Pennsylvania); R338 Gamble p. 932 (one squadron of the Third Indiana); R361 Custer p. 999 (five squadrons of a regiment at Hagerstown, July 13); the men per squadron are not printed"
+ },
+ {
+  "source_id": "OR-27-2",
+  "locator": "tools/bt/or27_find.py --part 2 '(squadrons?|companies|battalions?) .{0,60}dismount|dismount.{0,60}(squadrons?|companies|battalions?)' (hits 10, of them in cavalry/horse-artillery reports 2)",
+  "date_searched": "2026-11-24",
+  "result": "found",
+  "note": "OR27-2-R565 Stuart p. 680 (a dismounted battalion of Hampton's brigade, Brandy Station); R506 Rodes p. 549 (dismounted cavalry under Jenkins); no fraction of a regiment"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 '(squadrons?|companies|battalions?) .{0,60}dismount|dismount.{0,60}(squadrons?|companies|battalions?)' (hits 1, of them in cavalry/horse-artillery reports 1)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "D1494 p. 703: a squadron of dismounted cavalry to cross at daylight; no fraction"
+ },
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 '(squadron|squadrons) (consist|composed|of two companies|of three companies|is composed|contain)|two companies.{0,40}squadron' (hits 0, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no text states how many companies make a squadron"
+ },
+ {
+  "source_id": "OR-27-2",
+  "locator": "tools/bt/or27_find.py --part 2 '(squadron|squadrons) (consist|composed|of two companies|of three companies|is composed|contain)|two companies.{0,40}squadron' (hits 0, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no hit"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 '(squadron|squadrons) (consist|composed|of two companies|of three companies|is composed|contain)|two companies.{0,40}squadron' (hits 0, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no hit"
+ },
+ {
+  "source_id": "PRINT",
+  "locator": "Busey and Martin, Regimental Strengths and Losses; Coddington; Pfanz; Gottfried (library status PRINT: print-only)",
+  "date_searched": "2026-11-24",
+  "result": "unreachable",
+  "note": "print-only in the library status: no text is held, so the books could not be searched; they stay named as the sources that could settle the gap"
+ }
+]

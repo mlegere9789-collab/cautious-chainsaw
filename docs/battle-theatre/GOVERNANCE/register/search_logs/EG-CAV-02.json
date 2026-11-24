@@ -1,0 +1,37 @@
+[
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 '(horses|mounts) (killed|lost|disabled|wounded|shot)' (hits 50, of them in cavalry/horse-artillery reports 7)",
+  "date_searched": "2026-11-24",
+  "result": "found",
+  "note": "OR27-1-R338 Col. William Gamble p. 933: \"Horses killed - Third Indiana Cavalry, 18; Eighth Illinois Cavalry, 17. Total, 35 horses of enlisted men; 1 horse of Colonel Gamble; 36 horses in all killed.\"; other cavalry hits (Gregg p. 952, Custer p. 1000 \"4 horses killed, 3 wounded\" at Hunterstown for the battery, Capt. Robertson p. 1021 \"23 horses killed\" for Captain Daniels' battery, Calef p. 1032 \"horses killed\" (OCR \"1.3\", read 13)) are not regimental cavalry horse losses"
+ },
+ {
+  "source_id": "OR-27-2",
+  "locator": "tools/bt/or27_find.py --part 2 '(horses|mounts) (killed|lost|disabled|wounded|shot)' (hits 50, of them in cavalry/horse-artillery reports 6)",
+  "date_searched": "2026-11-24",
+  "result": "found",
+  "note": "OR27-2-R582 Lieut. Col. Thomas Marshall, Seventh Virginia Cavalry, p. 762: \"Horses killed, .37; wounded, 45; captured by enemy, 9\" (OCR prints \".37\"; a total for the report's period; no time or place per horse). Also OR27-2-R563 Maj. D. G. McIntosh p. 675 (horses disabled, battalion of artillery) and R582 pp. 759, 761 (2 and 1-2 horses wounded)"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 '(horses|mounts) (killed|lost|disabled|wounded|shot)' (hits 2, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no hit in a cavalry report"
+ },
+ {
+  "source_id": "OR-27-1",
+  "locator": "every other cavalry brigade and regiment report of OR27-1 (Buford R337, Devin R339, Gregg R344, Kilpatrick R359, Custer R361, Huey R352) read through the pattern hits above",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no horse casualty figure for the regiments other than the 3rd Indiana and 8th Illinois; none with a time"
+ },
+ {
+  "source_id": "PRINT",
+  "locator": "Busey and Martin, Regimental Strengths and Losses; Coddington; Pfanz; Gottfried (library status PRINT: print-only)",
+  "date_searched": "2026-11-24",
+  "result": "unreachable",
+  "note": "print-only in the library status: no text is held, so the books could not be searched; they stay named as the sources that could settle the gap"
+ }
+]

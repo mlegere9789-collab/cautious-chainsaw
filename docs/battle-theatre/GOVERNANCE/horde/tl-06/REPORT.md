@@ -32,3 +32,13 @@ Method and limit: the raw OR OCR (tmp/library/or27) is not present in this check
 - Default view for each conflict listed above (PDF recommended defaults stay PENDING OWNER).
 - Tier promotions or demotions relative to the seed tier recommended in the row notes.
 - Approval to acquire primary sources for the gap rows (see proposed-register entries).
+
+## Close-out 2026-11-24 (second reading against the local OR text; supersedes the counts above where they differ)
+
+Input: results.jsonl as audited (the shard run had no OR text; its own_checks compared claims with earlier extractions). Done here with tmp/library/or27 present: every row of this shard has a line in GOVERNANCE/timeline_corrections/tl-06.jsonl (same format as tl-01..04), written by horde/tl-05/closeout/build.py from rows_06.py; every quotation was re-matched verbatim in the local OR text inside the report the row names and re-checked with the merge script's own offset check (79 citations, 0 failures); a sub-claim is marked supported only where its quotation says exactly that, and what the shard recorded without a re-found quotation is carried as unsupported ("shard audit entry not re-found") instead of being trusted.
+
+Counts (58 rows): confirmed 2, corrected 3, gap 10, partially_supported 43. Sub-claims 145: conflict 17, contradicted 4, procedural 2, supported 79, unsupported 43. Rows carrying scenarios (conflicts, no default): 15. Promoted by tools/bt/merge_timeline_verification.py (confirmed, all sub-claims documented and supported, no scenario): T2-066, T2-112. Corrected: T2-077, T2-082, T2-093.
+
+Per-row register proposals for every row that is not confirmed: proposed-register/tl-06-CO-<row>.md (the shard's own EG/CF/RG entries are named in register_related of each line).
+
+Not done and why: web-only claims (HMDB, NPS, Stone Sentinels, Dawes memoir, Hess, Wikipedia) have no local text and stay unsupported; the printed volume and page images of the OR were not compared for the OCR-digit rows (T2-049, T2-071, T2-081 and others are marked); computed rows (project ephemeris) are not sources under the merge rule; the Jacobs thermometer sheets were not found. No web request was made in this close-out. Nothing committed, no gate marked passes.

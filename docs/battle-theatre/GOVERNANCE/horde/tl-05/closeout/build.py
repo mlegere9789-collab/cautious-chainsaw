@@ -138,7 +138,7 @@ if WRITE:
                     '| Requirement IDs | R04, R05 |',
                     '| Category | %s |' % ('source conflict' if r['scenarios'] else 'evidence missing'),
                     '| Description | %s |' % r['corrected_claim']['text'].replace('|', '/'),
-                    '| Why literal 100% is not possible or blocked | The sources read do not support the seed claim in full (verdict %s); the unsupported or conflicting parts are listed below (Law cl.3, 7). |' % vc,
+                    '| Why literal 100%% is not possible or blocked | The sources read do not support the seed claim in full (verdict %s); the unsupported or conflicting parts are listed below (Law cl.3, 7). |' % vc,
                     '| Evidence searched | OR Ser. I vol. 27 text (tmp/library/or27) via tools/bt/or27_find.py; %d quote(s) re-matched at stored offsets; %d declared search(es) with real hit counts in timeline_corrections/%s.jsonl; the shard\'s earlier web lookups (2026-11-04) are not repeated and not counted as local evidence. |' % (len(r['citations']), len(r['searched']), r['shard']),
                     '| Autonomous substitute applied | Supported parts carried as documented; every other part carried at its own tier and marked; conflicting values carried as selectable scenarios, no default. |',
                     '| Strongest evidence-based reconstruction | %s |' % ('; '.join('%s p.%s' % (c['report_id'], c['printed_page']) for c in r['citations']) or 'none (no local text supports any part)'),

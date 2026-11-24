@@ -1,0 +1,58 @@
+[
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 '(Gamble|Devin|Custer|Farnsworth|Merritt).{0,120}(road|pike).{0,60}(Gettysburg|Emmitsburg|Fairfield|Hunterstown)' (hits 0, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no passage joins a brigade to a road to a place"
+ },
+ {
+  "source_id": "OR-27-2",
+  "locator": "tools/bt/or27_find.py --part 2 '(Gamble|Devin|Custer|Farnsworth|Merritt).{0,120}(road|pike).{0,60}(Gettysburg|Emmitsburg|Fairfield|Hunterstown)' (hits 0, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no hit"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 '(Gamble|Devin|Custer|Farnsworth|Merritt).{0,120}(road|pike).{0,60}(Gettysburg|Emmitsburg|Fairfield|Hunterstown)' (hits 0, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no hit"
+ },
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 'Mummasburg.{0,120}(Devin|Gamble|Buford|cavalry)|(Devin|Gamble|Buford).{0,200}Mummasburg' (hits 3, of them in cavalry/horse-artillery reports 1)",
+  "date_searched": "2026-11-24",
+  "result": "found",
+  "note": "OR27-1-R337 Buford p. 924: \"There is a road from Cashtown running through Mummasburg and Hunterstown on to York pike at Oxford\"; and OR27-1-R339 Devin pp. 937-938 (page interpolated): his right \"resting on the road to Mummasburg\" (a place for Devin's brigade on July 1)"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 'Mummasburg.{0,120}(Devin|Gamble|Buford|cavalry)|(Devin|Gamble|Buford).{0,200}Mummasburg' (hits 2, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no cavalry-unit hit"
+ },
+ {
+  "source_id": "OR-27-1",
+  "locator": "tools/bt/or27_find.py --part 1 '(Gamble|Devin|Custer|Farnsworth).{0,160}(Emmitsburg|Fairfield|Hunterstown|Chambersburg)' (hits 7, of them in cavalry/horse-artillery reports 1)",
+  "date_searched": "2026-11-24",
+  "result": "found",
+  "note": "OR27-1-R337 Buford p. 923: \"Colonel Gamble has just sent me word that Lee signed a pass for a citizen this morning at Chambersburg\" (a message, not an approach road)"
+ },
+ {
+  "source_id": "OR-27-3",
+  "locator": "tools/bt/or27_find.py --part 3 '(Gamble|Devin|Custer|Farnsworth).{0,160}(Emmitsburg|Fairfield|Hunterstown|Chambersburg)' (hits 1, of them in cavalry/horse-artillery reports 0)",
+  "date_searched": "2026-11-24",
+  "result": "negative",
+  "note": "no cavalry-unit hit"
+ },
+ {
+  "source_id": "PRINT",
+  "locator": "Busey and Martin, Regimental Strengths and Losses; Coddington; Pfanz; Gottfried (library status PRINT: print-only)",
+  "date_searched": "2026-11-24",
+  "result": "unreachable",
+  "note": "print-only in the library status: no text is held, so the books could not be searched; they stay named as the sources that could settle the gap"
+ }
+]

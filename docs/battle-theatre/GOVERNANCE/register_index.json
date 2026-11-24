@@ -10789,5 +10789,181 @@
   "owner_q": "none (work continues)",
   "rec": "",
   "status": "open"
+ },
+ {
+  "id": "EG-CAV-01",
+  "title": "Mounted strength of every cavalry regiment (horses per man)",
+  "rids": [
+   "R01",
+   "R03"
+  ],
+  "cat": "evidence missing",
+  "desc": "No regimental present-for-duty or mounted strength is in the record (Busey and Martin print-only; kit strengths_note). Three weak observations bound the share of men with a serviceable horse from 0.47 to 0.77; the range card shows that share up to one horse per man and the picture draws one horse per drawn trooper.",
+  "why": "No regimental present-for-duty, mounted or horse strength of a cavalry regiment is printed in any text acquired; OR Ser. I vol. 27 prints army and command aggregates of men only. The print sources that carry regimental strengths are print-only.",
+  "searched": "Run on 2026-11-24 on the acquired OR Ser. I vol. 27 text, parts 1-3 (library OR-27-1..3, tools/bt/or27_find.py): 9 searches, 0 with a relevant find (register/search_logs/EG-CAV-01.json holds each pattern, hit counts and result). Earlier: kit/cavalry_units.json (horses, strengths, behaviour_states), history/positions ledgers A, D, E, kit/artillery_batteries.json losses. Print sources (Busey and Martin, Coddington, Pfanz) are print-only and could not be searched.",
+  "subst": "The model in app/src/history/cavalry.mjs, marked plausible-procedural on the unit card (section Riders and horses) and in app/data/cavalry-horses.json.",
+  "recon": "Keep the model of src/history/cavalry.mjs (one horse per drawn trooper, shown as a range 0.47 to 1.0 with the basis), marked plausible-procedural; replace it by printed figures if Busey and Martin or a regimental history is acquired.",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Unit card section \"Riders and horses\": range, basis, tier pill and gap id.",
+  "impact": "Every mounted figure (about 12,000 horses): the count of horses per regiment.",
+  "owner_q": "Accept one horse per drawn trooper (range card 0.47 to 1.0) as the marked model, or supply or approve acquisition of the print source for regimental mounted strengths.",
+  "rec": "Keep the marked model until a source is read; do not read the model as history.",
+  "status": "open",
+  "source_file": "tools/bt/register_cavalry_gaps.py"
+ },
+ {
+  "id": "EG-CAV-02",
+  "title": "Horse casualties of cavalry",
+  "rids": [
+   "R01",
+   "R03"
+  ],
+  "cat": "evidence missing",
+  "desc": "One regimental horse figure is printed in the ledgers (6th US, 292 horses with 290 men, OCR digits). Horses killed under unhurt riders, horses lost with missing men, wounded horses led off and horse losses of the other regiments are not in the record and are not drawn; the time of each loss is the time of the rider's fall.",
+  "why": "Horse losses are printed for some commands in OR Ser. I vol. 27 (found, below) but not for every regiment, and not with the circumstance (under an unhurt rider, with a missing man) or the time; no source acquired closes the set.",
+  "searched": "Run on 2026-11-24 on the acquired OR Ser. I vol. 27 text, parts 1-3 (library OR-27-1..3, tools/bt/or27_find.py): 4 searches, 2 with a relevant find (register/search_logs/EG-CAV-02.json holds each pattern, hit counts and result). Earlier: kit/cavalry_units.json (horses, strengths, behaviour_states), history/positions ledgers A, D, E, kit/artillery_batteries.json losses. Print sources (Busey and Martin, Coddington, Pfanz) are print-only and could not be searched.",
+  "subst": "The model in app/src/history/cavalry.mjs, marked plausible-procedural on the unit card (section Riders and horses) and in app/data/cavalry-horses.json.",
+  "recon": "Keep the model (a horse down with each fallen trooper, time of the rider's fall), marked plausible-procedural. Printed figures found in the search (not yet in the product): Gamble p. 933, 3rd Indiana 18 and 8th Illinois 17 horses killed, 36 with the colonel's; Marshall (7th Virginia Cavalry) p. 762, horses killed 37 (OCR \".37\"), wounded 45, captured 9 for the campaign period. They are totals without times and can bound, not place, the losses.",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Unit card section \"Riders and horses\": range, basis, tier pill and gap id.",
+  "impact": "Fallen-horse figures of every cavalry fight.",
+  "owner_q": "Accept the rider-fall model with the printed regimental totals shown as the bound where they exist, or supply the regimental histories that give horse losses with times.",
+  "rec": "Keep the marked model until a source is read; do not read the model as history.",
+  "status": "open",
+  "source_file": "tools/bt/register_cavalry_gaps.py"
+ },
+ {
+  "id": "EG-CAV-03",
+  "title": "Led horses and horse-holders: distance and handling",
+  "rids": [
+   "R01",
+   "R03"
+  ],
+  "cat": "evidence missing",
+  "desc": "One man in four holds the horses is the plan's statement (no cavalry manual page acquired, G-ANIM-08); the 12 m back and the 7 s to lead them there are model parameters. The sources acquired give no distance.",
+  "why": "The ratio of one man in four is the plan's statement; the sources acquired give neither the ratio nor the distance at which led horses stood or the time to lead them there.",
+  "searched": "Run on 2026-11-24 on the acquired OR Ser. I vol. 27 text, parts 1-3 (library OR-27-1..3, tools/bt/or27_find.py): 12 searches, 1 with a relevant find (register/search_logs/EG-CAV-03.json holds each pattern, hit counts and result). Earlier: kit/cavalry_units.json (horses, strengths, behaviour_states), history/positions ledgers A, D, E, kit/artillery_batteries.json losses. Print sources (Busey and Martin, Coddington, Pfanz) are print-only and could not be searched.",
+  "subst": "The model in app/src/history/cavalry.mjs, marked plausible-procedural on the unit card (section Riders and horses) and in app/data/cavalry-horses.json.",
+  "recon": "Keep one in four as the plan's tier, with the 12 m and 7 s as model parameters marked plausible-procedural. OR Ser. I vol. 27 confirms only that horse-holders existed (Buford p. 927).",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Unit card section \"Riders and horses\": range, basis, tier pill and gap id.",
+  "impact": "Positions and handling of the led horses of every dismounted fight.",
+  "owner_q": "Confirm the one-in-four rule and the 12 m / 7 s parameters as marked model values, or supply a cavalry drill source with the distance.",
+  "rec": "Keep the marked model until a source is read; do not read the model as history.",
+  "status": "open",
+  "source_file": "tools/bt/register_cavalry_gaps.py"
+ },
+ {
+  "id": "EG-CAV-04",
+  "title": "Dismounted shares: squadron arithmetic and unstated fractions",
+  "rids": [
+   "R01",
+   "R03"
+  ],
+  "cat": "evidence missing",
+  "desc": "Where the report names squadrons the share rests on two companies to the squadron (not printed in any acquired text) and the kit's company count; where it names companies without a total (1st Vermont), a number of squadrons without a company count (6th Michigan) or says only \"the rest\" (9th New York) no fraction exists and the unit is drawn mounted with this gap listed. The hours of a fight are the engagement windows of the timeline rows (seeded_unverified).",
+  "why": "Reports name squadrons dismounted (found) but no text acquired gives the number of companies or men in a squadron, so a fraction of a regiment cannot be derived; several reports name no fraction at all.",
+  "searched": "Run on 2026-11-24 on the acquired OR Ser. I vol. 27 text, parts 1-3 (library OR-27-1..3, tools/bt/or27_find.py): 6 searches, 2 with a relevant find (register/search_logs/EG-CAV-04.json holds each pattern, hit counts and result). Earlier: kit/cavalry_units.json (horses, strengths, behaviour_states), history/positions ledgers A, D, E, kit/artillery_batteries.json losses. Print sources (Busey and Martin, Coddington, Pfanz) are print-only and could not be searched.",
+  "subst": "The model in app/src/history/cavalry.mjs, marked plausible-procedural on the unit card (section Riders and horses) and in app/data/cavalry-horses.json.",
+  "recon": "Keep two companies to the squadron as a marked assumption (plausible-procedural) and draw a unit mounted where no fraction is printed. Printed squadron counts found (not yet applied): Devin p. 939-941 (one squadron of the 9th NY; two squadrons of the 17th PA, etc.), Gamble p. 932 (one squadron of the 3rd Indiana), Custer p. 999 (five squadrons of a regiment).",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Unit card section \"Riders and horses\": range, basis, tier pill and gap id.",
+  "impact": "The share of each regiment shown dismounted.",
+  "owner_q": "Accept two companies to the squadron as a marked assumption, or supply the printed company strength and organisation.",
+  "rec": "Keep the marked model until a source is read; do not read the model as history.",
+  "status": "open",
+  "source_file": "tools/bt/register_cavalry_gaps.py"
+ },
+ {
+  "id": "EG-CAV-05",
+  "title": "Spare, remount, pack and officers' horses of cavalry",
+  "rids": [
+   "R01",
+   "R03"
+  ],
+  "cat": "evidence missing",
+  "desc": "No acquired source gives spare or led horses of a cavalry regiment beyond the horses of the dismounted men (the artillery case, ws6-EG-05, rests on one forum quote). Remounts (about 17,000 to the Cavalry Corps May-July 1863, HistoryNet) are an aggregate, not a unit figure. No spare horse is drawn.",
+  "why": "No acquired source gives spare, pack or officers' horses of a cavalry regiment; remounts are aggregates only.",
+  "searched": "Run on 2026-11-24 on the acquired OR Ser. I vol. 27 text, parts 1-3 (library OR-27-1..3, tools/bt/or27_find.py): 6 searches, 0 with a relevant find (register/search_logs/EG-CAV-05.json holds each pattern, hit counts and result). Earlier: kit/cavalry_units.json (horses, strengths, behaviour_states), history/positions ledgers A, D, E, kit/artillery_batteries.json losses. Print sources (Busey and Martin, Coddington, Pfanz) are print-only and could not be searched.",
+  "subst": "The model in app/src/history/cavalry.mjs, marked open gap on the unit card (section Riders and horses) and in app/data/cavalry-horses.json.",
+  "recon": "No spare horse is drawn; the gap is shown on the unit card. The remount aggregate is not apportioned to units.",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Unit card section \"Riders and horses\": range, basis, tier pill and gap id.",
+  "impact": "Absence of spare and pack horses in cavalry columns.",
+  "owner_q": "Accept that no spare horses are drawn, or supply a source for spare and led horses per regiment.",
+  "rec": "Keep the marked model until a source is read; do not read the model as history.",
+  "status": "open",
+  "source_file": "tools/bt/register_cavalry_gaps.py"
+ },
+ {
+  "id": "EG-CAV-06",
+  "title": "The mounted charge: path and full-speed pace",
+  "rids": [
+   "R01",
+   "R03"
+  ],
+  "cat": "evidence missing",
+  "desc": "The charge clauses of the layer (AC-12, the Jul 3 15:00 attack of the 3rd Division) carry no path, so a charging unit has no ground speed and stands. The manual's schedule (Wheeler paras 292, 410-411: walk 20, trot 60, gallop 80, charge 60 paces) is data in gaits.mjs; the speed of the last pace (\"nearly full speed\", para 189) has no printed number. A unit whose path runs faster than the Wheeler gallop plays the gallop clip.",
+  "why": "The manual's paces are data in gaits.mjs; the speed of the final pace of a charge (\"nearly full speed\") has no printed number and no charge in the layer carries a path.",
+  "searched": "Run on 2026-11-24 on the acquired OR Ser. I vol. 27 text, parts 1-3 (library OR-27-1..3, tools/bt/or27_find.py): 3 searches, 0 with a relevant find (register/search_logs/EG-CAV-06.json holds each pattern, hit counts and result). Earlier: kit/cavalry_units.json (horses, strengths, behaviour_states), history/positions ledgers A, D, E, kit/artillery_batteries.json losses. Print sources (Busey and Martin, Coddington, Pfanz) are print-only and could not be searched.",
+  "subst": "The model in app/src/history/cavalry.mjs, marked plausible-procedural on the unit card (section Riders and horses) and in app/data/cavalry-horses.json.",
+  "recon": "A unit whose path runs faster than the manual's gallop plays the gallop clip; a charging unit with no path stands. Marked plausible-procedural.",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Unit card section \"Riders and horses\": range, basis, tier pill and gap id.",
+  "impact": "Pace and path of every mounted charge.",
+  "owner_q": "Accept the gallop clip for charges with a path, or supply a source for charge speed and the paths of the charges.",
+  "rec": "Keep the marked model until a source is read; do not read the model as history.",
+  "status": "open",
+  "source_file": "tools/bt/register_cavalry_gaps.py"
+ },
+ {
+  "id": "EG-CAV-07",
+  "title": "Cavalry that the layer does not draw",
+  "rids": [
+   "R01",
+   "R03"
+  ],
+  "cat": "evidence missing",
+  "desc": "Of the 55 cavalry regiments and battalions of the order of battle, the real layer draws 21:  the 5 regiments of the Reserve Brigade, the 5 of McIntosh, the 4 of J. I. Gregg's, 6 of Hampton's and the 35th Virginia Battalion; Gamble's and Devin's regiments, Custer's Michigan Brigade, Farnsworth's brigade and the rest of Stuart's command have no road of approach or place in the ledgers and are drawn with 0 figures. This is the history layer's open gap, not narrowed here.",
+  "why": "The history layer's arrival ledger gives no road of approach or place for these units, so the figure pass does not draw them. This is the layer's gap, not a gap of the record alone: OR Ser. I vol. 27 prints some places (found, below) that have not been entered in the ledger.",
+  "searched": "Run on 2026-11-24 on the acquired OR Ser. I vol. 27 text, parts 1-3 (library OR-27-1..3, tools/bt/or27_find.py): 7 searches, 2 with a relevant find (register/search_logs/EG-CAV-07.json holds each pattern, hit counts and result). Earlier: kit/cavalry_units.json (horses, strengths, behaviour_states), history/positions ledgers A, D, E, kit/artillery_batteries.json losses. Print sources (Busey and Martin, Coddington, Pfanz) are print-only and could not be searched.",
+  "subst": "The model in app/src/history/cavalry.mjs, marked open gap on the unit card (section Riders and horses) and in app/data/cavalry-horses.json.",
+  "recon": "Units stay undrawn with the gap listed, and the Q20 gate keeps them FAIL until each is drawn at a ledger place with a road. Candidate printed places found (not yet applied): Devin formed with his right on the road to Mummasburg (R339 pp. 937-938, page interpolated by the index); Buford names the road from Cashtown through Mummasburg and Hunterstown to the York pike (R337 p. 924) and Colonel Gamble's message that Lee signed a pass at Chambersburg (R337 p. 923).",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Unit card section \"Riders and horses\": range, basis, tier pill and gap id.",
+  "impact": "21 of 55 cavalry units are drawn; the other 34 are absent from the picture.",
+  "owner_q": "Authorise the arrival ledger (B.2.4) to be extended from the printed places for each undrawn cavalry unit, with the owner's decision on any road not printed.",
+  "rec": "Keep the marked model until a source is read; do not read the model as history.",
+  "status": "open",
+  "source_file": "tools/bt/register_cavalry_gaps.py"
+ },
+ {
+  "id": "EG-CAV-08",
+  "title": "Draught-horse losses of the batteries: times",
+  "rids": [
+   "R01",
+   "R03"
+  ],
+  "cat": "evidence missing",
+  "desc": "Counts are printed for six batteries (kit losses: 15th NY 25 killed or wounded, 1st NY B 13 disabled, 1st RI B 24 killed and 6 disabled, 4th NY 11, 13th NY 12, 2nd US A 13); no time is printed. Each loss is placed by the counter-based RNG inside the battery's engagement windows. 2nd US A (Calef, horse artillery) is not a drawn leaf unit of the layer.",
+  "why": "Counts of draught-horse losses are printed for some batteries; no time is printed for any single loss.",
+  "searched": "Run on 2026-11-24 on the acquired OR Ser. I vol. 27 text, parts 1-3 (library OR-27-1..3, tools/bt/or27_find.py): 6 searches, 1 with a relevant find (register/search_logs/EG-CAV-08.json holds each pattern, hit counts and result). Earlier: kit/cavalry_units.json (horses, strengths, behaviour_states), history/positions ledgers A, D, E, kit/artillery_batteries.json losses. Print sources (Busey and Martin, Coddington, Pfanz) are print-only and could not be searched.",
+  "subst": "The model in app/src/history/cavalry.mjs, marked plausible-procedural on the unit card (section Riders and horses) and in app/data/cavalry-horses.json.",
+  "recon": "Each loss is placed by the counter-based RNG inside the battery's engagement windows, marked plausible-procedural. Printed counts: McMahon p. 889 (13 horses killed in the day's fight), Ames p. 901 (14 horses killed in two days), Calef p. 1032 (OCR \"1.3\"), Robertson p. 1021 for Captain Daniels' battery (23).",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Unit card section \"Riders and horses\": range, basis, tier pill and gap id.",
+  "impact": "Fallen draught horses of the batteries.",
+  "owner_q": "Accept RNG placement inside the engagement windows, or supply the battery histories that time the losses.",
+  "rec": "Keep the marked model until a source is read; do not read the model as history.",
+  "status": "open",
+  "source_file": "tools/bt/register_cavalry_gaps.py"
  }
 ]
