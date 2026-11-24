@@ -31,11 +31,11 @@
    "C-018-DEFAULT"
   ]
  },
- "class": "irreducible",
+ "class": "weighted",
  "tier": "inferred",
  "basis": {
   "kind": "official_records",
-  "text": "The reports of 1863 are divided in kind, not in value: Wright (28 Sep) says his brigade went to the top of the crest and withdrew because the brigade on his right gave way and none came on his left; four reports of his regiments (17-18 Jul) say the same of the withdrawal and do not name the crest; Union regiments (106th Pa., 82nd N.Y., 59th N.Y., 19th Me.) report taking the 48th Georgia's colonel and flags; no report names Wright's brigade as stopped by Webb, by Stannard or by any one unit."
+  "text": "Three questions are kept apart. Crest: Wright is the only witness; nobody contradicts or confirms him, so his claim is carried as his claim. Stopper: no report names one; the Union regiments that report the 48th Georgia's prisoners or flags are two (Curry's 106th Pa. for its colonel; Darrow's 82nd N.Y. for its flags, a credit Hall's letter of 3 August gives to the 59th N.Y.). Withdrawal: Wright and his regiments agree, Lang and Wilcox support the right-hand part, Posey and Harris differ on the left. In detail: Wright (28 Sep) says his brigade went to the top of the crest and withdrew because the brigade on his right gave way and none came on his left; four reports of his regiments (17-18 Jul) say the same of the withdrawal and do not name the crest; Union regiments (106th Pa., 82nd N.Y., 59th N.Y., 19th Me.) report taking the 48th Georgia's colonel and flags; no report names Wright's brigade as stopped by Webb, by Stannard or by any one unit."
  },
  "default": {
   "mode": "unresolved_set",
@@ -44,8 +44,8 @@
    "C-018-P5",
    "C-018-P6"
   ],
-  "label": "No single stopper: Gibbon's regiments counter-charged and Wright's flanks gave way; the crest is Wright's claim",
-  "note": "Three claims shown side by side: (1) Wright, Lee and Anderson say the brigade reached the top of the crest, which no other witness confirms or denies; (2) regiments of Webb's, Harrow's and Hall's brigades took the 48th Georgia's colonel and flags and checked the line at Brown's battery; (3) Wright and his four regiments say they withdrew when the brigade on their right gave way and no support came on their left. Webb, Stannard and the plan's 'stopped short of the crest' stay selectable."
+  "label": "No single stopper: Gibbon's regiments counter-charged, Wright's flanks failed him; the crest is Wright's claim",
+  "note": "Three claims shown side by side: (1) Wright, Lee and Anderson say the brigade reached the top of the crest, which no other witness confirms or denies; (2) the 106th Pa. (colonel) and 82nd N.Y. (flags) report taking men of the 48th Georgia, and the 19th Maine checked the line at Brown's battery; (3) Wright and his four regiments say they withdrew when the brigade on their right gave way and no support came on their left; Lang supports the right, Posey and Harris say regiments did advance on the left as skirmishers. Webb, Stannard and the plan's 'stopped short of the crest' stay selectable."
  },
  "positions": [
   {
@@ -225,8 +225,7 @@
    "tier": "inferred",
    "stance": "selectable",
    "flags": [
-    "weak",
-    "memoir_only"
+    "weak"
    ],
    "inference": {
     "step": "Stannard's and Randall's reports show the 13th Vermont charged a rebel line, retook guns and took about 80 prisoners at the Emmitsburg road at dusk; the book of 1914 and the Park Service study of 1981 name the guns' captors as Wright's men. The identification of the enemy as Wright's brigade is made only by those later writers; the reports of 1863 do not make it.",
@@ -914,7 +913,7 @@
    "origin": "research",
    "scenario_ids": [],
    "source_keys": [],
-   "label": "No single stopper: regiments of Gibbon's division (106th Pa., 82nd N.Y., 59th N.Y., 19th Me.) counter-charged",
+   "label": "No single stopper: the 106th Pa. and 82nd N.Y. (Gibbon's division) and the 19th Me. counter-charged the 48th Ga.",
    "kind": "category",
    "value": {
     "text": "regiments of Gibbon's division"
@@ -924,12 +923,11 @@
    "stance": "default",
    "flags": [],
    "inference": {
-    "step": "Reports of the 106th Pennsylvania (Webb's brigade), the 82nd New York (Harrow's) and Hall's list of flags (59th New York, Hall's brigade) name the 48th Georgia, the left regiment of Wright's brigade, as the unit whose colonel or flags they took; Hancock credits the 19th Maine with checking the enemy at Brown's battery, and Gibbon the nearest troops and the Twelfth Corps. From these, regiments of three brigades of Gibbon's division turned back Wright's left; no report names Wright's brigade as a whole or any one brigade as its stopper.",
+    "step": "Curry (106th Pennsylvania, Webb's brigade) names the 48th Georgia's colonel among his prisoners, and Darrow (82nd New York, Harrow's brigade) says his regiment took its flags (Colonel Hall's letter of 3 August gives that flag to the 59th New York: the credit is disputed and the letter is not used for the day); Hancock credits the 19th Maine with checking the enemy at Brown's battery, and Gibbon the nearest troops and the Twelfth Corps. From these, regiments of two brigades of Gibbon's division turned back the 48th Georgia, the left regiment of Wright's brigade; only Curry mentions the colonel; no report names Wright's brigade as a whole or any one brigade as its stopper.",
     "from": [
      "C-018-P5-c1",
      "C-018-P5-c2",
      "C-018-P5-c3",
-     "C-018-P5-c4",
      "C-018-P5-c5",
      "C-018-P5-c6",
      "C-018-P5-c7",
@@ -1046,7 +1044,7 @@
       "side": "union"
      },
      "written": {
-      "date": "1863-07-17",
+      "date": "1863-08-03",
       "kind": "official_report"
      },
      "vantage": "present",
@@ -1060,7 +1058,7 @@
        "Forty-eighth Georgia"
       ]
      },
-     "note": "In Hall's list of flags taken (report of 17 July 1863, p. 441) the 48th Georgia flag was taken by Sergeant James Wiley of the 59th New York (Hall's brigade). The list does not give the day; the 48th Georgia, of Wright's brigade, fought on 2 July."
+     "note": "In Col. Norman J. Hall's separate letter 'New York, August 3, 1863' to Col. Townsend (OR27-1 p. 441, after his report), listing flags 'captured at Gettysburg, Pa., on the 3d of July' the 48th Georgia flag was taken by Sergeant James Wiley of the 59th New York (Hall's brigade). The letter's heading says 3 July, but the 48th Georgia fought on 2 July, so the heading is loose and the flag's day is not stated by the quote. Darrow's 82nd New York claims the same flag, so the credit is disputed; used only to show that the claim exists, not for the 2 July placing."
     },
     {
      "id": "C-018-P5-c5",
@@ -1225,15 +1223,34 @@
    "origin": "research",
    "scenario_ids": [],
    "source_keys": [],
-   "label": "Wright's side: the brigades on his flanks gave way or never came up, and he withdrew for want of support",
+   "label": "Wright's side: his flanks gave way or lagged and he withdrew unsupported; Lang, Posey and Harris differ on the left",
    "kind": "category",
    "value": {
     "text": "actually given way"
    },
    "clock": "not_applicable",
-   "tier": "documented",
+   "tier": "inferred",
    "stance": "default",
-   "flags": [],
+   "flags": [
+    "contradicted"
+   ],
+   "derived": true,
+   "inference": {
+    "step": "Wright and his four regiments say the brigade on the right gave way and none came on the left. Lang says Wilcox on his right fell back and the enemy passed his flank; Posey and Harris say regiments of Posey's brigade did advance, as skirmishers, after Wright. So the right-hand claim is supported (Wilcox, Lang) and the left-hand claim ('failed to advance') is partly contradicted: Posey's regiments went forward, though not as a brigade and not to Wright's line.",
+    "from": [
+     "C-018-P6-c1",
+     "C-018-P6-c2",
+     "C-018-P6-c3",
+     "C-018-P6-c4",
+     "C-018-P6-c5",
+     "C-018-P6-c6",
+     "C-018-P6-c7",
+     "C-018-P6-c8",
+     "C-018-P6-c9",
+     "C-018-P6-c10",
+     "C-018-P6-c11"
+    ]
+   },
    "support": [
     {
      "id": "C-018-P6-c1",
@@ -1482,20 +1499,113 @@
       ]
      },
      "note": "Wilcox, on the right of Perry's and Wright's brigades, p. 618: he asked for support, none came, and he withdrew."
+    },
+    {
+     "id": "C-018-P6-c9",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R545",
+     "page": "632",
+     "page_basis": "scan_leaf",
+     "text_offset": 2348282,
+     "quote": "another messenger from my right informed me that General Wilcox had fallen back",
+     "witness": {
+      "name": "David Lang",
+      "role": "Colonel, commanding Perry's Florida brigade, on Wright's right",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "lang",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "General Wilcox had fallen back"
+      ]
+     },
+     "note": "Lang (Perry's brigade, on Wright's right), report of July 1863 (day not legible in the text), p. 632: his brigade reached the foot of the heights, learned that Wilcox on its right had fallen back, found the enemy past its right flank and withdrew. He does not say Perry's brigade gave way before Wright's; his order of events puts Wilcox first."
+    },
+    {
+     "id": "C-018-P6-c10",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R546",
+     "page": "633",
+     "page_basis": "scan_leaf",
+     "text_offset": 2354848,
+     "quote": "I received an order to advance after Brigadier-General Wright, who was posted on my right",
+     "witness": {
+      "name": "Carnot Posey",
+      "role": "Brigadier General, commanding the Mississippi brigade on Wright's left",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-29",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "posey",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "advance after Brigadier-General Wright"
+      ]
+     },
+     "note": "Posey (p. 633): he was to advance after Wright, but sent out only two regiments, the 48th and 19th Mississippi, as skirmishers (then a third and a fourth); about dark he was ordered back. This differs from Wright's 'the brigade ordered to our support having failed to advance': Posey's regiments did advance, as skirmishers, not as a brigade."
+    },
+    {
+     "id": "C-018-P6-c11",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R547",
+     "page": "634",
+     "page_basis": "scan_leaf",
+     "text_offset": 2358102,
+     "quote": "supported on his left by the Forty-eighth Mississippi Regiment",
+     "witness": {
+      "name": "N. H. Harris",
+      "role": "Colonel, commanding the 19th Mississippi Infantry (Posey's brigade)",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-29",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "harris",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "Forty-eighth Mississippi"
+      ]
+     },
+     "note": "Harris (19th Mississippi, p. 634): Wright's brigade commenced advancing, supported on his left by the 48th Mississippi, his own right resting on it; his skirmishers drove the gunners from a battery three times. Says the regiments were near Wright's left; he does not say they stayed with it to the end."
     }
    ]
   }
  ],
  "weighing": {
-  "summary": "No witness of the time says who stopped Wright's brigade as a whole. The Union reports name no Confederate brigade; they name the 48th Georgia (colonel and flags) and the regiments that took them, which belong to three brigades of Gibbon's division (Webb's, Harrow's, Hall's); Hancock and Gibbon credit the nearest troops, the 19th Maine and, further left, part of the Twelfth Corps. The 13th Vermont (Stannard) retook guns at dusk, but no report of 1863 puts it against Wright; the 1914 book names its prisoners as an Alabama regiment's. Wright and his four regimental reports agree on why he withdrew (the brigade on the right gave way, none came on the left). On the crest, only Wright's own report, with Lee and Anderson repeating it, says the top was reached; his colonels and Webb give places short of it, and nothing separates the two readings. The record is divided on the crest and not on a single stopper, so the default is a set of claims side by side.",
-  "who": "Wright, Anderson and Lee wrote about their own side's advance (Lee from reports, not from the ground). The regimental colonels and captains of Wright's brigade (Walker, McCurry, Hall, Moffett) were in the line. On the Union side Curry, Darrow, Heath and Smith led the regiments in the counter-charges; Webb, Hall, Gibbon and Hancock commanded the brigades, division and corps. Stannard and Randall led the Vermonters. Wilcox, on Wright's right, wrote that he did not see Wright's brigade. Alexander gives Wright's own remark of 3 July. The Park Service handbook (1954), the study of 1981 and the books of 1904 and 1914 are later summaries, not witnesses.",
+  "summary": "No witness of the time says who stopped Wright's brigade as a whole. The Union reports name no Confederate brigade; they name the 48th Georgia (colonel and flags) and the regiments that took them, which belong to two brigades of Gibbon's division (Webb's and Harrow's; Colonel Hall's letter of 3 August gives the same flag to the 59th N.Y., so the flag credit is disputed and only Curry mentions the colonel); Hancock and Gibbon credit the nearest troops, the 19th Maine and, further left, part of the Twelfth Corps. The 13th Vermont (Stannard) retook guns at dusk, but no report of 1863 puts it against Wright; the 1914 book names its prisoners as an Alabama regiment's. Wright and his four regimental reports agree on why he withdrew (the brigade on the right gave way, none came on the left); Lang supports the right-hand part, but Posey and Harris say regiments of Posey's brigade did advance on the left, as skirmishers, so 'failed to advance' is partly contradicted. On the crest, only Wright's own report, with Lee and Anderson repeating it, says the top was reached; his colonels and Webb are silent or give places short of it, but none contradicts him. The crest is therefore weighted toward Wright's claim, carried as a claim (one witness, repeated by two); the stopper is open for want of a source naming one; the withdrawal is better supported than the crest. Because the questions differ, the default shows them side by side rather than one value.",
+  "who": "Wright, Anderson and Lee wrote about their own side's advance (Lee from reports, not from the ground). The regimental colonels and captains of Wright's brigade (Walker, McCurry, Hall, Moffett) were in the line. On the Union side Curry, Darrow, Heath and Smith led the regiments in the counter-charges; Webb, N. J. Hall, Gibbon and Hancock commanded the brigades, division and corps. Stannard and Randall led the Vermonters. Lang, Wilcox, Posey and Harris, on Wright's right and left, wrote of their own brigades; Wilcox (1878) wrote that he did not see Wright's brigade. Alexander gives Wright's own remark of 3 July. The Park Service handbook (1954), the study of 1981 and the books of 1904 and 1914 are later summaries, not witnesses.",
   "when": "Reports of the time: the regimental reports of both sides (11-18 July 1863, 9-16 days after), Stannard 4 July, Heath 4 July, Webb 13 July, Gibbon 7 August, Anderson 7 August, Darrow 3 August, Wright 28 September (88 days), Hancock by 24 October, Lee 20 January 1864. Later: Wilcox 1878, Alexander 1887 and 1907, the Pennsylvania address 1904, the Vermont book 1914, the Park Service 1954 and 1981. By the rubric the reports of 1863 outrank the memoirs; none of the later accounts is used to overrule a report.",
   "where": "Wright was ill on 1 July and back with the brigade at 7 a.m. on 2 July; he led the advance. His regiments' officers were in the line. Webb, Curry and Smith were with the 69th, 71st, 72nd and 106th Pennsylvania at the Angle; Darrow's 82nd New York stood at the Codori house, Heath's 19th Maine left of Brown's battery, Hall's brigade south of Webb. Stannard came up at dusk from the rear of Cemetery Hill. Gibbon commanded the corps at that hour and Hancock rode the line. Lee was far from the ground.",
   "how_knew": "Eyewitness for every regimental and brigade writer named. Lee and Anderson relay reports of the brigades. Alexander relays Wright's remark of 3 July. The later books and the Park Service summarize the reports and name the guns' captors without a source. No writer says how he knew that the Union regiment he fought was Wright's brigade; the Union writers know the 48th Georgia by its prisoners and flags.",
   "clock": "Not applicable: the question is who and where. Wright's advance began at 5 p.m. on his clock (Confederate), Lang's at 6; Webb and Heath say about 6.30 and a little past 6 on the Union clock. The 20-minute difference between the two clocks is not applied.",
-  "independence": "Lines counted separately: Wright (with Lee, who repeats his report); Anderson; Walker; McCurry; Hall (48th); Moffett; Wilcox 1863; Wilcox 1878; Alexander (1887 and 1907 count once); Webb with Curry and the 1904 address (the address follows Curry); Smith; Darrow; N. J. Hall; Heath; Gibbon; Hancock; Stannard with Randall; the 1914 Vermont book; the Park Service handbook and the 1981 study. The 'who stopped it' claims of Webb and Stannard each rest on one line of evidence of the time, not two; the crest claim rests on one source (Wright) repeated by two."
+  "independence": "Lines counted separately: Wright (with Lee, who repeats his report); Anderson; Walker; McCurry; Hall (48th); Moffett; Lang; Posey; Harris; Wilcox 1863; Wilcox 1878; Alexander (1887 and 1907 count once); Webb with Curry and the 1904 address (the address follows Curry); Smith; Darrow; N. J. Hall (letter of 3 August, not used for 2 July); Heath; Gibbon; Hancock; Stannard with Randall (reports of 1863 that name no brigade, plus later books); the 1914 Vermont book; the Park Service handbook and the 1981 study. The 'who stopped it' claims of Webb and Stannard each rest on one line of evidence of the time, not two; the crest claim rests on one source (Wright) repeated by two."
  },
- "source_panel_text": "Unresolved. Wright's report says his Georgians reached the top of the crest; his colonels do not, and no Union report names his brigade or one stopper. Regiments of Gibbon's division took the 48th Georgia's colonel and flags; Stannard's Vermonters retook guns. Wright's flanks also gave way. 6 values listed.",
+ "source_panel_text": "Unresolved. Wright's report says his Georgians reached the top of the crest; his colonels do not, and no Union report names his brigade or one stopper. The 106th Pa. took the 48th Georgia's colonel and the 82nd N.Y. its flags; Stannard's Vermonters retook guns. Wright blames his flanks, which Posey partly contradicts. 6 values listed.",
  "holds": {
   "pdf_default": {
    "holds": "partly",
@@ -1503,7 +1613,7 @@
   },
   "first_delegated": {
    "holds": "partly",
-   "note": "The first pass held the attribution to be a gap. The reports of 1863 do name who took the 48th Georgia's colonel and flags (regiments of Gibbon's division), and Wright's and his colonels' reports say why he withdrew, so it is not a gap: it is an unresolved set (irreducible, inferred). 'Wright claims the crest' holds as his claim."
+   "note": "The first pass held the attribution to be a gap. The reports of 1863 do name who took the 48th Georgia's colonel (the 106th Pa.) and claim its flags (the 82nd N.Y.; a letter of 3 August gives them to the 59th N.Y.), and Wright's and his colonels' reports say why he withdrew, so it is not a gap: it is a set of separate claims (weighted, inferred). 'Wright claims the crest' holds as his claim."
   }
  },
  "readers": [
@@ -1511,25 +1621,25 @@
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-018 row)",
    "must_change": true,
-   "note": "Row of 2026-11-11: default 'attribution unresolved; Wright claims the crest' with tier open gap; the research makes it class irreducible, tier inferred, with the regiments of Gibbon's division named from the reports. To be reconciled by the integration step."
+   "note": "Row of 2026-11-11: default 'attribution unresolved; Wright claims the crest' with tier open gap; the research makes it class weighted, tier inferred, with the regiments named from the reports. To be reconciled by the integration step."
   },
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0111.md",
    "must_change": true,
-   "note": "Register entry says Gibbon and Harrow were not mined and the Union reports do not name Wright; this research read them and the regimental reports (Curry, Darrow, Hall, Heath): they name the 48th Georgia and the units that took it. The entry should be closed or rewritten as the irreducible resolution; the failed searches listed here stay open."
+   "note": "Register entry says Gibbon and Harrow were not mined and the Union reports do not name Wright; this research read them and the regimental reports (Curry, Darrow, Hall, Heath): they name the 48th Georgia and the units that took it. The entry should be closed or rewritten as the weighted resolution; the failed searches listed here stay open."
   },
   {
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-018",
    "must_change": true,
-   "note": "DEC-C-018 is PENDING OWNER; the delegated resolution (irreducible, inferred) is to be recorded as a delegated decision, never as DECIDED; the PDF default stays selectable."
+   "note": "DEC-C-018 is PENDING OWNER; the delegated resolution (weighted, inferred) is to be recorded as a delegated decision, never as DECIDED; the PDF default stays selectable."
   },
   {
    "kind": "gate",
    "ref": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md",
    "must_change": true,
-   "note": "Names C-018 as one of the three open-gap defaults (CF-3: an open-gap default never passes). The default is no longer an open gap: it is an unresolved set of claims, class irreducible, tier inferred. The gate spec expected values are to be reconciled in the open, not lowered."
+   "note": "Names C-018 as one of the three open-gap defaults (CF-3: an open-gap default never passes). The default is no longer an open gap: it is a set of claims, class weighted, tier inferred. The gate spec expected values are to be reconciled in the open, not lowered."
   },
   {
    "kind": "gate",
@@ -1559,7 +1669,7 @@
    "kind": "app_data",
    "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-018)",
    "must_change": true,
-   "note": "Holds default C-018-DEFAULT with tier open gap; to be replaced by the unresolved set (P3, P5, P6), class irreducible, tier inferred; every scenario stays selectable. Not edited here."
+   "note": "Holds default C-018-DEFAULT with tier open gap; to be replaced by the unresolved set (P3, P5, P6), class weighted, tier inferred; every scenario stays selectable. Not edited here."
   },
   {
    "kind": "app_data",
@@ -1609,6 +1719,12 @@
    "where": "OR27-1 (reports of Humphreys, Carr, Brewster, Caldwell and the Maryland brigade of Lockwood)",
    "query": "read only through the name searches above, not through to the end, for a unit that met Wright's brigade",
    "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-2 (Lang p. 631-633, Posey p. 633-634, Harris p. 634)",
+   "query": "read; they bear on the withdrawal (cited in P6) and not on the crest: none states where Wright's brigade stood",
+   "outcome": "not_found",
    "at": "2026-11-24"
   },
   {
