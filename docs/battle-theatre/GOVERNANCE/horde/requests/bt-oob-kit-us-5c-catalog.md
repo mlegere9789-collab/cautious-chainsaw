@@ -1,0 +1,6 @@
+# bt-oob-kit / us-5c: catalog items the lines need (code changes of the integrator)
+
+Items whose `item_id` or `weapon_id` is null in the lines of `kit/evidence/us-5c.jsonl` because the catalog lacks them:
+- Arms: "Belgian rifle" and "Austrian rifle" (91st and 155th Pennsylvania, 1861-62; the Bucktails' "Sharps ... Spencer" use existing ids); "Harper's Ferry musket" (83d Pennsylvania, 1861); the lines use `springfield_model_unspecified` and `smoothbore_69_musket_unspecified` where the passage names only a Springfield or a 69-calibre musket (the rule bars the first from assignment).
+- Dress: whole-uniform statements with no garment named (Zouave uniform of the 44th New York 1861, the 146th New York April 1863, the 155th and 91st Pennsylvania 1864 and the 140th New York 1864; the Chasseur uniform of the 62d and 83d Pennsylvania 1861-62; the gray uniform of the 9th Massachusetts 1861; the 83d's blue jacket, pants and yellow flannel shirt; the Bucktail in the cap): all `item_id` null; the catalog has `zouave_jacket_146ny`, `shirt_red_zouave_44ny`, `trousers_44ny_red_stripe` (kit entries not matched to a passage here).
+- All arms and dress lines of this group are dated outside 26 June to 16 July 1863 and so do not compile into the kit tables (dry-run: 0 operations).

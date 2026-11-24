@@ -8,14 +8,14 @@
   "NOT-RUN": 0,
   "PASS": 30
  },
- "finished_utc": "2026-11-24T18:52:24Z",
+ "finished_utc": "2026-11-24T20:27:35Z",
  "gate": "Q19",
  "incomplete_reasons": [
   "1 item(s) NOT-RUN or BLOCKED-INPUT"
  ],
  "independence": {
   "entries_with_a_recorded_relation": 0,
-  "manifest_entries": 4361
+  "manifest_entries": 4382
  },
  "input_hashes": {
   "docs/battle-theatre/GOVERNANCE/claim_ledger.json": null,
@@ -26,7 +26,7 @@
   "docs/battle-theatre/GOVERNANCE/library/status_3.json": "faf77daaf011303222f60d4a1adcae8394d8c32895e949f78150d5b46dcd7e76",
   "docs/battle-theatre/GOVERNANCE/library/status_4.json": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e",
   "docs/battle-theatre/GOVERNANCE/library/status_5.json": "6c7ac45aed89b2955c5e414eb81f41549afa26d88fc07693f383286fbe40f682",
-  "docs/battle-theatre/GOVERNANCE/register_index.json": "fb64343aedfee31e3a0418371e28f06938829d6a36df120d558f7abfeafbd4d6",
+  "docs/battle-theatre/GOVERNANCE/register_index.json": "92a33d48222e82fc9b1194123d005b421f11ae933fac2c15a8c30da9353f659f",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "5464cb93e1a68f87cd429689179a38ada14802f917d51a84d0fa51df03698918",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "5ac7d8db1790e5e47f99b982c21c9906555d9cc20ab5bb0453ea4fcff2f31a2b",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "9a5fa49814cf6b6d27df1f8267bdefad8915616d300a547fc99bfcc23d71c0d0",
@@ -151,10 +151,10 @@
    "sha256": "6c7ac45aed89b2955c5e414eb81f41549afa26d88fc07693f383286fbe40f682"
   },
   {
-   "bytes": 1673289,
+   "bytes": 1708816,
    "path": "docs/battle-theatre/GOVERNANCE/register_index.json",
    "role": "datum class gov.register",
-   "sha256": "fb64343aedfee31e3a0418371e28f06938829d6a36df120d558f7abfeafbd4d6"
+   "sha256": "92a33d48222e82fc9b1194123d005b421f11ae933fac2c15a8c30da9353f659f"
   },
   {
    "bytes": 758389,
@@ -7696,7 +7696,7 @@
    "check": "Q19.6",
    "evidence": {
     "conflicts": 47,
-    "manifest_entries": 4361,
+    "manifest_entries": 4382,
     "manifest_entries_with_a_relation": 0,
     "reasons": {
      "a value names no source key, so its support cannot be computed": 107,
@@ -7777,10 +7777,10 @@
   "Q19.3 independence needs a recorded relation (`independent_of` or `derived_from`) on every Source Manifest entry; the owner of the manifest writes it, no runner invents one"
  ],
  "renderer_class": "python",
- "run_id": "20261124T185220Z-Q19",
+ "run_id": "20261124T202731Z-Q19",
  "runnable_here": true,
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:52:20Z",
+ "started_utc": "2026-11-24T20:27:31Z",
  "thresholds": [],
  "tool_versions": {
   "node": "v22.23.4",

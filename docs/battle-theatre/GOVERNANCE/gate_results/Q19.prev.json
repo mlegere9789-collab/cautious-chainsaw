@@ -8,14 +8,14 @@
   "NOT-RUN": 0,
   "PASS": 30
  },
- "finished_utc": "2026-11-24T18:30:13Z",
+ "finished_utc": "2026-11-24T18:52:24Z",
  "gate": "Q19",
  "incomplete_reasons": [
   "1 item(s) NOT-RUN or BLOCKED-INPUT"
  ],
  "independence": {
   "entries_with_a_recorded_relation": 0,
-  "manifest_entries": 3840
+  "manifest_entries": 4361
  },
  "input_hashes": {
   "docs/battle-theatre/GOVERNANCE/claim_ledger.json": null,
@@ -26,16 +26,24 @@
   "docs/battle-theatre/GOVERNANCE/library/status_3.json": "faf77daaf011303222f60d4a1adcae8394d8c32895e949f78150d5b46dcd7e76",
   "docs/battle-theatre/GOVERNANCE/library/status_4.json": "41ba154a46f22fdbd9a0fb2e330073c7c409c640b2ef07f8a0f4896617fef99e",
   "docs/battle-theatre/GOVERNANCE/library/status_5.json": "6c7ac45aed89b2955c5e414eb81f41549afa26d88fc07693f383286fbe40f682",
-  "docs/battle-theatre/GOVERNANCE/register_index.json": "1f1f08961a1e37f482c32c43323a091095ff23933bfca99750cf0bfcee0bf3e6",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "97a3139ef408bfeb221632916445f3000ccf5a93dc8df2fa36356690e78552b5",
+  "docs/battle-theatre/GOVERNANCE/register_index.json": "fb64343aedfee31e3a0418371e28f06938829d6a36df120d558f7abfeafbd4d6",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "5464cb93e1a68f87cd429689179a38ada14802f917d51a84d0fa51df03698918",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "5ac7d8db1790e5e47f99b982c21c9906555d9cc20ab5bb0453ea4fcff2f31a2b",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "9a5fa49814cf6b6d27df1f8267bdefad8915616d300a547fc99bfcc23d71c0d0",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-04.jsonl": "55db432864de3b0ff109a7ab37958a3c6ba2ee0406e38fa719e513077d28e4a0",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-04.jsonl": "c4ef24e09e2951c8af6a847856fa04710195dba5456e1c26dd94868ad4b73110",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-05.jsonl": "b0e4fa9a1f6507a42a819122257a3fa9e699760405c73f60a570867cc1b6c83c",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-06.jsonl": "8d97a13867993892329f0c02602c1c6ae9f8873de56e7527b4ffb040305b7761",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-07.jsonl": "72f876f49a58252d3771e63980238a1d9f1c2c83e17ddbc2474c0555c6bf479a",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-08.jsonl": "06d2c512d6ed87f15d8804b625194ef6627d4c21f8a8ca844027d028766d9a20",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-09.jsonl": "2642cc2dfd70dedc194848f76b1694e59fe27c87679041891e97892fa104d103",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-10.jsonl": "f22030aa9ee4339087aaab3593a8309a6a2c0ead43b41faae2b04085f2288511",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-11.jsonl": "499a503239c0fe835abb226ccbcf583c0da70fae23f4a64f046d7a902dcbf5fd",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-12.jsonl": "b6d795db6dc8694a9b97644bb5b0f062fef63a755c56bfb2d22e28066b2cbab7",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-lookups.jsonl": "5c5c65de6cdce61d7c64fdec5ed381c1b4e81a2e26a6737900317d5c812f034f",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-newspapers.jsonl": "1c2e4e14102cc522bb775e3dd56e3800ce1db3f49514a56c1f97b748e7558b94",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-nps-landscape.jsonl": "fd44217eaa0c7a519441727fa159713b5c219539682a121e3f7d174490747ebf",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-photomatch.jsonl": "ca60ff50bdf9583e8dc5f7a86a2a1ef553cd70dc83bd2774e4ca2d190a1812c3",
-  "docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl": "ca61d0ff961ab35af8b9ae280c40b75156378ad680601a361e5cb010328262f3",
+  "docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl": "bbf019df1a627a9e0547c7c74bd22db09526b243cd1274da892663b5701e20a9",
   "docs/battle-theatre/app/data/artillery-train.json": "6737bb8bbde0ca44dc087f4cf928b971271d3ab721b3c99858082ba7d44ac030",
   "docs/battle-theatre/app/data/audio3d/calls.json": "6273b3225b89500af22dac803c4ac5580d739d7a3e93ade9c3b872df766a1bf2",
   "docs/battle-theatre/app/data/audio3d/commands.json": "40c801c32060be1b94177571fb3db50ceb59514573539f40295647adb43e0656",
@@ -143,16 +151,16 @@
    "sha256": "6c7ac45aed89b2955c5e414eb81f41549afa26d88fc07693f383286fbe40f682"
   },
   {
-   "bytes": 612915,
+   "bytes": 1673289,
    "path": "docs/battle-theatre/GOVERNANCE/register_index.json",
    "role": "datum class gov.register",
-   "sha256": "1f1f08961a1e37f482c32c43323a091095ff23933bfca99750cf0bfcee0bf3e6"
+   "sha256": "fb64343aedfee31e3a0418371e28f06938829d6a36df120d558f7abfeafbd4d6"
   },
   {
-   "bytes": 757393,
+   "bytes": 758389,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl",
    "role": "timeline correction records",
-   "sha256": "97a3139ef408bfeb221632916445f3000ccf5a93dc8df2fa36356690e78552b5"
+   "sha256": "5464cb93e1a68f87cd429689179a38ada14802f917d51a84d0fa51df03698918"
   },
   {
    "bytes": 1065377,
@@ -167,10 +175,58 @@
    "sha256": "9a5fa49814cf6b6d27df1f8267bdefad8915616d300a547fc99bfcc23d71c0d0"
   },
   {
-   "bytes": 878632,
+   "bytes": 879185,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-04.jsonl",
    "role": "timeline correction records",
-   "sha256": "55db432864de3b0ff109a7ab37958a3c6ba2ee0406e38fa719e513077d28e4a0"
+   "sha256": "c4ef24e09e2951c8af6a847856fa04710195dba5456e1c26dd94868ad4b73110"
+  },
+  {
+   "bytes": 174734,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-05.jsonl",
+   "role": "timeline correction records",
+   "sha256": "b0e4fa9a1f6507a42a819122257a3fa9e699760405c73f60a570867cc1b6c83c"
+  },
+  {
+   "bytes": 195873,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-06.jsonl",
+   "role": "timeline correction records",
+   "sha256": "8d97a13867993892329f0c02602c1c6ae9f8873de56e7527b4ffb040305b7761"
+  },
+  {
+   "bytes": 198698,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-07.jsonl",
+   "role": "timeline correction records",
+   "sha256": "72f876f49a58252d3771e63980238a1d9f1c2c83e17ddbc2474c0555c6bf479a"
+  },
+  {
+   "bytes": 169868,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-08.jsonl",
+   "role": "timeline correction records",
+   "sha256": "06d2c512d6ed87f15d8804b625194ef6627d4c21f8a8ca844027d028766d9a20"
+  },
+  {
+   "bytes": 227347,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-09.jsonl",
+   "role": "timeline correction records",
+   "sha256": "2642cc2dfd70dedc194848f76b1694e59fe27c87679041891e97892fa104d103"
+  },
+  {
+   "bytes": 148407,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-10.jsonl",
+   "role": "timeline correction records",
+   "sha256": "f22030aa9ee4339087aaab3593a8309a6a2c0ead43b41faae2b04085f2288511"
+  },
+  {
+   "bytes": 126742,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-11.jsonl",
+   "role": "timeline correction records",
+   "sha256": "499a503239c0fe835abb226ccbcf583c0da70fae23f4a64f046d7a902dcbf5fd"
+  },
+  {
+   "bytes": 159710,
+   "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-12.jsonl",
+   "role": "timeline correction records",
+   "sha256": "b6d795db6dc8694a9b97644bb5b0f062fef63a755c56bfb2d22e28066b2cbab7"
   },
   {
    "bytes": 131044,
@@ -197,10 +253,10 @@
    "sha256": "ca60ff50bdf9583e8dc5f7a86a2a1ef553cd70dc83bd2774e4ca2d190a1812c3"
   },
   {
-   "bytes": 814333,
+   "bytes": 1107705,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl",
    "role": "timeline rows",
-   "sha256": "ca61d0ff961ab35af8b9ae280c40b75156378ad680601a361e5cb010328262f3"
+   "sha256": "bbf019df1a627a9e0547c7c74bd22db09526b243cd1274da892663b5701e20a9"
   },
   {
    "bytes": 14667,
@@ -1914,8 +1970,8 @@
    "check": "Q19.2",
    "evidence": {
     "class": "gov.timeline",
-    "failing": 470,
-    "failures": 470,
+    "failing": 184,
+    "failures": 184,
     "first": [
      "timeline:T1-105",
      "timeline:T1-138",
@@ -1926,37 +1982,37 @@
      "timeline:T1-220",
      "timeline:T1-223",
      "timeline:T1-224",
-     "timeline:T2-006",
-     "timeline:T2-007",
-     "timeline:T2-008",
-     "timeline:T2-009",
-     "timeline:T2-010",
-     "timeline:T2-011",
-     "timeline:T2-012",
      "timeline:T2-013",
      "timeline:T2-014",
-     "timeline:T2-015",
-     "timeline:T2-016"
+     "timeline:T2-018",
+     "timeline:T2-022",
+     "timeline:T2-023",
+     "timeline:T2-024",
+     "timeline:T2-027",
+     "timeline:T2-030",
+     "timeline:T2-031",
+     "timeline:T2-032",
+     "timeline:T2-033"
     ],
     "reasons": {
-     "the claim has no span in a stored source (no quote with a report or source)": 470
+     "the claim has no span in a stored source (no quote with a report or source)": 184
     },
     "scanned": 691,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q192-gov_timeline.jsonl",
-     "rows": 470,
-     "sha256": "157cdb60744caf7c37f3122cf8ff8e6b3fffaedab7fa833438b018af3a813407"
+     "rows": 184,
+     "sha256": "888b3bb1f8246d367faedb61b08d3a4e4e14959ce69d61742fc33f0700f51601"
     },
     "tier_counts": {
-     "documented": 570,
-     "inferred": 72,
-     "open gap": 38,
-     "plausible-procedural": 11
+     "documented": 526,
+     "inferred": 95,
+     "open gap": 57,
+     "plausible-procedural": 13
     }
    },
    "id": "Q19/Q19.2/gov.timeline",
    "pass": false,
-   "reason": "470 of 691 members fail: the claim has no span in a stored source (no quote with a report or source) (470)",
+   "reason": "184 of 691 members fail: the claim has no span in a stored source (no quote with a report or source) (184)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -3382,8 +3438,8 @@
    "check": "Q19.3",
    "evidence": {
     "class": "gov.timeline",
-    "failing": 206,
-    "failures": 206,
+    "failing": 349,
+    "failures": 349,
     "first": [
      "timeline:T1-001",
      "timeline:T1-002",
@@ -3407,31 +3463,31 @@
      "timeline:T1-023"
     ],
     "reasons": {
-     "two or more sources but no pair is shown independent (independence not recorded for FREE, ALEXR)": 2,
      "two or more sources but no pair is shown independent (independence not recorded for JACOBS-1864, JACOBS-1864, JACOBS-1864)": 3,
-     "two or more sources but no pair is shown independent (independence not recorded for OR27-1-R029, OR27-1-R029, OR27-1-R029)": 3,
-     "two or more sources but no pair is shown independent (independence not recorded for OR27-1-R044, OR27-1-R044, OR27-1-R044)": 4,
-     "two or more sources but no pair is shown independent (independence not recorded for OR27-1-R076, OR27-1-R076, OR27-1-R076)": 3,
-     "two or more sources but no pair is shown independent (independence not recorded for OR27-2-R470, OR27-2-R470, JACOBS-1864)": 3,
+     "two or more sources but no pair is shown independent (independence not recorded for OR27-1-R006, OR27-1-R006)": 4,
+     "two or more sources but no pair is shown independent (independence not recorded for OR27-1-R016, OR27-1-R016)": 3,
+     "two or more sources but no pair is shown independent (independence not recorded for OR27-1-R028, OR27-1-R028)": 4,
+     "two or more sources but no pair is shown independent (independence not recorded for OR27-1-R044, OR27-1-R044, OR27-1-R044)": 5,
+     "two or more sources but no pair is shown independent (independence not recorded for OR27-1-R196, OR27-1-R196, OR27-1-R196)": 4,
      "two or more sources but no pair is shown independent (independence not recorded for OR27-2-R470, OR27-2-R470, OR27-2-R470)": 10,
-     "two or more sources but no pair is shown independent (independence not recorded for OR27-2-R565, OR27-2-R565, OR27-2-R565)": 5
+     "two or more sources but no pair is shown independent (independence not recorded for OR27-2-R565, OR27-2-R565, OR27-2-R565)": 6
     },
-    "scanned": 206,
+    "scanned": 349,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q193-gov_timeline.jsonl",
-     "rows": 206,
-     "sha256": "d4208368b78e09debfb29d853e8f3982c570397c172706ab17d4c0db9d5dff5a"
+     "rows": 349,
+     "sha256": "892ccd8515b26fa02b7f68536c9c67b0d17a91984ed6e681e804e327152b0228"
     },
     "tier_counts": {
-     "documented": 180,
-     "inferred": 23,
-     "open gap": 2,
+     "documented": 312,
+     "inferred": 28,
+     "open gap": 8,
      "plausible-procedural": 1
     }
    },
    "id": "Q19/Q19.3/gov.timeline",
    "pass": false,
-   "reason": "206 of 206 members fail: two or more sources but no pair is shown independent (independence not recorded for OR27-2-R470, OR27-2-R470, OR27-2-R470) (10); two or more sources but no pair is shown independent (independence not recorded for OR27-2-R565, OR27-2-R565, OR27-2-R565) (5); two or more sources but no pair is shown independent (independence not recorded for OR27-1-R044, OR27-1-R044, OR27-1-R044) (4)",
+   "reason": "349 of 349 members fail: two or more sources but no pair is shown independent (independence not recorded for OR27-2-R470, OR27-2-R470, OR27-2-R470) (10); two or more sources but no pair is shown independent (independence not recorded for OR27-2-R565, OR27-2-R565, OR27-2-R565) (6); two or more sources but no pair is shown independent (independence not recorded for OR27-1-R044, OR27-1-R044, OR27-1-R044) (5)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -5369,29 +5425,28 @@
     },
     "flagged_and_covered": 0,
     "reasons": {
-     "documented on lead or weak sources alone": 70,
-     "documented with 0 independent source(s) and no flag": 302,
-     "documented with 1 independent source(s) and no flag": 88,
-     "documented with sources that are not shown independent and no flag": 180,
+     "documented with 0 independent source(s) and no flag": 67,
+     "documented with 1 independent source(s) and no flag": 147,
+     "documented with sources that are not shown independent and no flag": 312,
      "no open register entry names where the second source would come from": 691
     },
     "scanned": 691,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q194-gov_timeline.jsonl",
-     "rows": 1331,
-     "sha256": "6232a3597821832572bd7d8150ee9c75c4b14539b471ffc8d60c8e4deb9023f3"
+     "rows": 1217,
+     "sha256": "a1d2dd4e1c5e7ff31b3615686c1b51edd2f13ad80fcd5797e470607d0c670dc8"
     },
     "tier_counts": {
-     "documented": 570,
-     "inferred": 72,
-     "open gap": 38,
-     "plausible-procedural": 11
+     "documented": 526,
+     "inferred": 95,
+     "open gap": 57,
+     "plausible-procedural": 13
     },
     "two_independent_sources": 0
    },
    "id": "Q19/Q19.4/gov.timeline",
    "pass": false,
-   "reason": "691 of 691 members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (691); documented with 0 independent source(s) and no flag (302); documented with sources that are not shown independent and no flag (180)",
+   "reason": "691 of 691 members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (691); documented with sources that are not shown independent and no flag (312); documented with 1 independent source(s) and no flag (147)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -7052,56 +7107,27 @@
    "check": "Q19.5",
    "evidence": {
     "class": "gov.timeline",
-    "failing": 81,
-    "failures": 81,
+    "failing": 3,
+    "failures": 3,
     "first": [
-     "timeline:T2-007",
-     "timeline:T2-010",
-     "timeline:T2-012",
-     "timeline:T2-015",
-     "timeline:T2-017",
-     "timeline:T2-018",
-     "timeline:T2-019",
-     "timeline:T2-020",
-     "timeline:T2-025",
-     "timeline:T2-026",
-     "timeline:T2-040",
-     "timeline:T2-041",
-     "timeline:T2-042",
-     "timeline:T2-049",
-     "timeline:T2-057",
-     "timeline:T2-065",
-     "timeline:T2-070",
-     "timeline:T2-077",
-     "timeline:T2-078",
-     "timeline:T2-080"
+     "timeline:T2-128",
+     "timeline:T2-207",
+     "timeline:T2-214"
     ],
     "reasons": {
-     "documented on lead or weak sources alone (EPP, SS1)": 2,
-     "documented on lead or weak sources alone (SS2)": 7,
-     "documented on lead or weak sources alone (SS2, W-LRT)": 2,
-     "documented on lead or weak sources alone (W-CH)": 5,
-     "documented on lead or weak sources alone (W-D2)": 6,
-     "documented on lead or weak sources alone (W-PC)": 3,
-     "documented on lead or weak sources alone (W-RET)": 14,
-     "lead-only support not flagged weak": 11
+     "lead-only support not flagged weak": 3
     },
     "scanned": 691,
-    "sidecar": {
-     "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q195-gov_timeline.jsonl",
-     "rows": 81,
-     "sha256": "083b5117869e2235e2bc6329c2bbbfb3cdfe2cf3da5e1fbc51ccd9275fb48cb8"
-    },
     "tier_counts": {
-     "documented": 570,
-     "inferred": 72,
-     "open gap": 38,
-     "plausible-procedural": 11
+     "documented": 526,
+     "inferred": 95,
+     "open gap": 57,
+     "plausible-procedural": 13
     }
    },
    "id": "Q19/Q19.5/gov.timeline",
    "pass": false,
-   "reason": "81 of 691 members fail: documented on lead or weak sources alone (W-RET) (14); lead-only support not flagged weak (11); documented on lead or weak sources alone (SS2) (7)",
+   "reason": "3 of 691 members fail: lead-only support not flagged weak (3)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -7670,7 +7696,7 @@
    "check": "Q19.6",
    "evidence": {
     "conflicts": 47,
-    "manifest_entries": 3840,
+    "manifest_entries": 4361,
     "manifest_entries_with_a_relation": 0,
     "reasons": {
      "a value names no source key, so its support cannot be computed": 107,
@@ -7751,10 +7777,10 @@
   "Q19.3 independence needs a recorded relation (`independent_of` or `derived_from`) on every Source Manifest entry; the owner of the manifest writes it, no runner invents one"
  ],
  "renderer_class": "python",
- "run_id": "20261124T183008Z-Q19",
+ "run_id": "20261124T185220Z-Q19",
  "runnable_here": true,
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:30:08Z",
+ "started_utc": "2026-11-24T18:52:20Z",
  "thresholds": [],
  "tool_versions": {
   "node": "v22.23.4",

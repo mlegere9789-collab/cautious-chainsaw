@@ -8,7 +8,7 @@
   "NOT-RUN": 0,
   "PASS": 121
  },
- "finished_utc": "2026-11-24T18:52:32Z",
+ "finished_utc": "2026-11-24T20:27:43Z",
  "gate": "Q20",
  "incomplete_reasons": [],
  "input_hashes": {
@@ -23,7 +23,7 @@
   "docs/battle-theatre/app/tests/anim3d-gaits.test.mjs": "6ecd22c745fe344a2400248e39eab502d6a598f9584fbc7a5ac573895f01dbdf",
   "docs/battle-theatre/kit/cavalry_action_table.json": "733f8fa7d0e610a84d338d0977437dcd4dab609de186e57b1547c9ebcf5fb94d",
   "docs/battle-theatre/kit/cavalry_units.json": "04542360d10e34b929a787bb3dfd517fb345a97236f08b1368af5463d7e8c717",
-  "docs/battle-theatre/kit/verified_oob.json": "a00dd340185de9045849503cd03a8f2b0ae7ec72e0692d3ef45d26b531e322eb",
+  "docs/battle-theatre/kit/verified_oob.json": "4ab6dc11d7141c82a7f8c9175c619632ec19e30aebebfa197a2482e31b6f290d",
   "docs/battle-theatre/kit/weapons.json": "412396eada9819f2a0185d771c6555f3025939607991f18b3db11461948a5d02",
   "tools/bt/gates/oob_layer_lib.mjs": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d",
   "tools/bt/gates/oobgates_common.py": "a592fe4a79459c8af1c5b0d3d4e7400f6be4faa60eb7ad568429be5c1c5d4730",
@@ -98,10 +98,10 @@
    "sha256": "04542360d10e34b929a787bb3dfd517fb345a97236f08b1368af5463d7e8c717"
   },
   {
-   "bytes": 9444449,
+   "bytes": 9444581,
    "path": "docs/battle-theatre/kit/verified_oob.json",
    "role": "table",
-   "sha256": "a00dd340185de9045849503cd03a8f2b0ae7ec72e0692d3ef45d26b531e322eb"
+   "sha256": "4ab6dc11d7141c82a7f8c9175c619632ec19e30aebebfa197a2482e31b6f290d"
   },
   {
    "bytes": 171362,
@@ -16382,7 +16382,7 @@
   "Q20.6: a time-keyed schedule of the cavalry states per unit does not exist in the product; the foot-contact test checks the structure of the gaits, not documented speeds (G-ANIM-07)"
  ],
  "renderer_class": "mixed",
- "run_id": "20261124T185224Z-Q20",
+ "run_id": "20261124T202735Z-Q20",
  "runnable_here": true,
  "runner_files": [
   "oob_layer_lib.mjs",
@@ -16392,7 +16392,7 @@
  ],
  "runner_version": "8be48779c99afe01",
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:52:24Z",
+ "started_utc": "2026-11-24T20:27:35Z",
  "thresholds": [],
  "tool_versions": {
   "node": "v22.23.4",
