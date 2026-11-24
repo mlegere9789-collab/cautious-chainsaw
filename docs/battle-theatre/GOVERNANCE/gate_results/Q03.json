@@ -15,7 +15,7 @@
   "stored_file_is_current": true,
   "units": 439
  },
- "finished_utc": "2026-11-24T18:15:52Z",
+ "finished_utc": "2026-11-24T18:21:08Z",
  "gate": "Q03",
  "incomplete_reasons": [
   "4 item(s) NOT-RUN or BLOCKED-INPUT",
@@ -30,7 +30,7 @@
   "docs/basemap1863/features/structures/structures.geojson": "185bff78f23202f11dc951fe4ad236a7059d8516f8f6e380f4b9d8809f0204df",
   "docs/battle-theatre/GOVERNANCE/conflicts_structured.json": "8dda5d91e0021309e1261e62a7a020b2f5b5d6645745dec8663f1710620f70da",
   "docs/battle-theatre/GOVERNANCE/ground_audit/audit.json": null,
-  "docs/battle-theatre/GOVERNANCE/register_index.json": "c8b00f6d6f347dff7688442cfbda1fbe930ab6d5b2c99cf874fa5f80b9861f50",
+  "docs/battle-theatre/GOVERNANCE/register_index.json": "cc3abed31dc83e1225901c04432e86c31d29632d7cf35d8c4fd699a8b3125359",
   "docs/battle-theatre/GOVERNANCE/requirements.json": "9993c7407421d3f713ecb89691c1ca6ba646202f7544b4d3e0478b39e47352f5",
   "docs/battle-theatre/app/data/artillery-train.json": "6737bb8bbde0ca44dc087f4cf928b971271d3ab721b3c99858082ba7d44ac030",
   "docs/battle-theatre/app/data/figures-validation.json": "590ca88df6a75a67f5011370742a314119f7fdfa8ce181708c0b483da95b944e",
@@ -106,10 +106,10 @@
    "sha256": null
   },
   {
-   "bytes": 611818,
+   "bytes": 611221,
    "path": "docs/battle-theatre/GOVERNANCE/register_index.json",
    "role": "register index",
-   "sha256": "c8b00f6d6f347dff7688442cfbda1fbe930ab6d5b2c99cf874fa5f80b9861f50"
+   "sha256": "cc3abed31dc83e1225901c04432e86c31d29632d7cf35d8c4fd699a8b3125359"
   },
   {
    "bytes": 343326,
@@ -53592,10 +53592,10 @@
   "Q03.4(b): the ground audit (GOVERNANCE/ground_audit/audit.json) from the terrain work: the layers the page loads classified, every modern feature removed, painted out or replaced with a recorded correction; until it exists Q03 cannot pass"
  ],
  "renderer_class": "mixed",
- "run_id": "20261124T181410Z-Q03",
+ "run_id": "20261124T181930Z-Q03",
  "runnable_here": true,
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T18:14:10Z",
+ "started_utc": "2026-11-24T18:19:30Z",
  "thresholds": [],
  "tool_versions": {
   "node": "v22.23.4",
