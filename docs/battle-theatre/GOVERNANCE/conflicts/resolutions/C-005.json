@@ -47,8 +47,8 @@
   "label": "About 05:00 (sunrise to 05:30): Hood and the head of his division on the ridge; the tail could be up by 07:30",
   "animation": {
    "at": "1863-07-02T05:00",
-   "rule": "earliest_documented",
-   "note": "05:00 is the earliest time a writer of the day places Hood on the ridge (Fremantle's diary); the memoir value (sunrise, about 04:35) stays selectable and is not the floor; the soldiers come in as a march along the road from Marsh Creek, the tail by about 07:30 (C-005-P3)"
+   "rule": "best_supported",
+   "note": "05:00 is the best-supported instant for Hood and the head (Fremantle's diary sees Hood on the ridge after 5 a.m.; the head is inferred); it is not a documented time for the soldiers, so the Q04 floor is not moved here (05:30 stays) and the earlier values stay selectable; the soldiers come in as a march along the road from Marsh Creek, the tail by about 07:30 (C-005-P3)"
   },
   "note": "The head is shown at 05:00; Freeman computes the whole division up by about 07:30 (P3) and Longstreet's letter of 1875 and Meade's narrative close up both divisions about 08:00 (P6). Law's brigade was not with the column; it rejoined about noon."
  },
@@ -59,9 +59,6 @@
    "pdf_label": "05:30",
    "scenario_ids": [
     "C-005-S1"
-   ],
-   "source_keys": [
-    "FREE"
    ],
    "label": "05:30: head of the column on the ridge, the plan's earliest value (Freeman's computation)",
    "kind": "time",
@@ -173,9 +170,6 @@
     "C-005-S4",
     "C-005-DEFAULT"
    ],
-   "source_keys": [
-    "EPP"
-   ],
    "label": "06:30: the plan's middle value (an unreferenced timeline page)",
    "kind": "time",
    "value": {
@@ -280,6 +274,69 @@
       ]
      },
      "note": "Freeman's Appendix III-2, 'The Hour of Longstreet's Arrival, July 2, 1863' (the appendix on times that the plan's key FREE points to). A computation, not a sighting."
+    },
+    {
+     "id": "C-005-P3-c2",
+     "source": "SHSP-04",
+     "source_class": "book",
+     "page": "114",
+     "page_basis": "as_read",
+     "page_note": "Wilcox, letter from Baltimore, March 1877, SHSP vol. 4 p. 114 ('such facts as I have personal knowledge of'); the fight that follows is dated 'about 9 A. M.'; the page number is as given by the reviewer, not re-read on the page image",
+     "text_offset": 286564,
+     "text_offset_end": 286902,
+     "quote": "Wilcox's brigade was recalled from picket duty, leaving its post after sunrise, moved back to the Chambersburg pike, then on it towards Gettysburg for about a mile, bore off then to the right, passed through troops whose arms were stacked, was informed they were McLaws' and Hood's divisions",
+     "witness": {
+      "name": "Cadmus M. Wilcox",
+      "role": "Brigadier General, brigade of Anderson's division, Third Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877-03",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "wilcox-letter-1877",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "arms were stacked"
+      ]
+     }
+    },
+    {
+     "id": "C-005-P3-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R537",
+     "page": "617",
+     "page_basis": "scan_leaf",
+     "text_offset": 2293478,
+     "text_offset_end": 2293586,
+     "quote": "The brigade now (9 a. m.) took its position in line of battle on the right of the division",
+     "witness": {
+      "name": "Cadmus M. Wilcox",
+      "role": "Brigadier General, brigade of Anderson's division, Third Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "wilcox-report-1863",
+     "exact": false,
+     "states": {
+      "times": [
+       "09:00"
+      ]
+     },
+     "note": "Wilcox's report of 17 July 1863; the same report has the brigade rejoining the division at 7 a. m.; the brigade passed McLaws's and Hood's divisions between those hours, so both stood with arms stacked by about 9 a. m."
     }
    ],
    "inference": {
@@ -458,8 +515,8 @@
    },
    "stance": "selectable",
    "reason_not_chosen": {
-    "kind": "later_memory",
-    "text": "Written 12 and 33 years later. Freeman finds that Hood rode ahead of his troops, and Kershaw's report has McLaws's division leaving camp only at sunrise: the memoirs probably date the generals, not the column."
+    "kind": "within_range",
+    "text": "Sunrise (04:35) lies inside the default's window, sunrise to 05:30. The memory is 12 and 33 years later and gives no clock; the default keeps the writers of the time and leaves this earlier value selectable."
    }
   },
   {
@@ -761,6 +818,7 @@
      "C-005-P5-c4",
      "C-005-P5-c5",
      "C-005-P5-c6",
+     "C-005-P5-c7",
      "C-005-P5-c8"
     ]
    },
@@ -846,6 +904,69 @@
        "08:00"
       ]
      }
+    },
+    {
+     "id": "C-005-P6-c3",
+     "source": "SHSP-04",
+     "source_class": "book",
+     "page": "114",
+     "page_basis": "as_read",
+     "page_note": "Wilcox, letter from Baltimore, March 1877, SHSP vol. 4 p. 114 ('such facts as I have personal knowledge of'); the fight that follows is dated 'about 9 A. M.'; the page number is as given by the reviewer, not re-read on the page image",
+     "text_offset": 286564,
+     "text_offset_end": 286902,
+     "quote": "Wilcox's brigade was recalled from picket duty, leaving its post after sunrise, moved back to the Chambersburg pike, then on it towards Gettysburg for about a mile, bore off then to the right, passed through troops whose arms were stacked, was informed they were McLaws' and Hood's divisions",
+     "witness": {
+      "name": "Cadmus M. Wilcox",
+      "role": "Brigadier General, brigade of Anderson's division, Third Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1877-03",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "wilcox-letter-1877",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "arms were stacked"
+      ]
+     }
+    },
+    {
+     "id": "C-005-P6-c4",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R537",
+     "page": "617",
+     "page_basis": "scan_leaf",
+     "text_offset": 2293478,
+     "text_offset_end": 2293586,
+     "quote": "The brigade now (9 a. m.) took its position in line of battle on the right of the division",
+     "witness": {
+      "name": "Cadmus M. Wilcox",
+      "role": "Brigadier General, brigade of Anderson's division, Third Corps",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "wilcox-report-1863",
+     "exact": false,
+     "states": {
+      "times": [
+       "09:00"
+      ]
+     },
+     "note": "Wilcox's report of 17 July 1863; the same report has the brigade rejoining the division at 7 a. m.; the brigade passed McLaws's and Hood's divisions between those hours, so both stood with arms stacked by about 9 a. m."
     }
    ],
    "inference": {
@@ -857,8 +978,8 @@
    },
    "stance": "selectable",
    "reason_not_chosen": {
-    "kind": "later_memory",
-    "text": "Written 12 and 50 years later. Longstreet's own accounts disagree (8 a.m. in 1875, sunrise in 1896) and the diary of the day has him with Lee at 5 a.m.; it dates the closing up of both divisions."
+    "kind": "place_of_observation",
+    "text": "It dates the closing up of both divisions, not the head of Hood's column: Longstreet (1875) and Meade (1913) say about 8, Wilcox saw the arms stacked by about 9. Longstreet's own accounts differ."
    }
   }
  ],
@@ -869,14 +990,14 @@
   "where": "Fremantle sat in a tree above Lee's group on the ridge; Shepherd marched in the column; Hood and Longstreet were on the ridge, and Freeman says Hood and McLaws 'rode ahead of their troops'; Law reached the field only shortly before noon and found Hood's other brigades resting about a mile from the town on the Chambersburg road; Freeman, Taylor and Meade were not there.",
   "how_knew": "Fremantle and Shepherd wrote what they saw and did. Hood wrote 'from memory'. Longstreet's accounts differ (8 a.m. in 1875, sunrise in 1896). Freeman computes: a 3 a.m. start and an assumed five miles. Law, of the same division on the same day, gives the pace: 24 miles from 3 a.m. to shortly before noon.",
   "clock": "Shepherd, Hood, Longstreet and Polley use the Confederate clock; Fremantle's watch is unspecified. The 20-minute difference between the two armies' clocks is not applied: it is smaller than the half-hour margin of the default. Sunrise on 2 July is 04:35 local mean time (the plan).",
-  "independence": "Groups: fremantle; shepherd; hood-letter-1875 (Longstreet printed it in 1877 and again in 1896, so his 'sunrise' may rest on it); longstreet-1896; freeman (computes from Shepherd's 3 a.m.); polley; law. Fremantle and Shepherd are independent of each other and of the memoirs; the default rests on six groups, two of them contemporaneous.",
-  "overrides": "Rank inversion check: no rejected value rests on a better class of writing than the default. Hodges's report (Seventeenth Georgia) prints 'until 3 p. m.' for the hour the march was resumed (the first text layer reads '3 i). m.'); it is ambiguous and is not used."
+  "independence": "Groups: fremantle; shepherd; hood-letter-1875 (Longstreet printed it in 1877 and again in 1896, so his 'sunrise' may rest on it); longstreet-report-1863; freeman (computes from Shepherd's 3 a.m.); polley; law. Fremantle, Shepherd and Longstreet's report are independent of each other and of the memoirs; the default rests on seven groups, three of them contemporaneous. Wilcox (letter 1877, report 1863) is a further independent witness for the closing-up bound (P3, P6).",
+  "overrides": "Sunrise (P4) is not rejected as contradicted: no record of the time contradicts Hood's memory about his troops, and it lies inside the default's window; it is outweighed only in that the default stands on two writers of the time and sunrise on memory 12 and 33 years later. Wilcox (letter of 1877; report of 17 July 1863: 'the brigade now (9 a. m.)') passed McLaws's and Hood's divisions with arms stacked between about 7 and 9 a.m.; this bears on the closing-up bound (P3, P6), not on the head. Fremantle also writes 'At 7 A. M. I rode over part of the ground with General Longstreet, and saw him disposing of M'Laws's division'. Rank inversion check: no rejected value rests on a better class of writing than the default. Hodges's report (Seventeenth Georgia) prints 'until 3 p. m.' for the hour the march was resumed (the first text layer reads '3 i). m.'); it is ambiguous and is not used."
  },
- "source_panel_text": "About 05:00 (sunrise to 05:30): a British officer's diary of the day has Hood with Lee, Hill and Longstreet on the ridge at 5 a.m., and a regiment of his division reports leaving its bivouac at 3 a.m. for a march of about 3 miles. The plan's 06:30 has no source; 07:30 is when the whole column could be up. Five other values are listed.",
+ "source_panel_text": "About 05:00 (sunrise to 05:30): a British officer's diary of the day has Hood with Lee, Hill and Longstreet on the ridge soon after 5 a.m., and a regiment of his division reports leaving its bivouac at 3 a.m. for a march of about 3 miles. No source found for the plan's 06:30; 07:30 is when the whole column could be up. Five other values are listed.",
  "holds": {
   "pdf_default": {
    "holds": "no",
-   "note": "No source states 06:30: it is the midpoint of Freeman's computed 05:30 and 07:30, and the timeline page that gives it is unreferenced. The head of the column is better placed at about 05:00; 06:30 stays selectable."
+   "note": "No source found states 06:30 (the Epperson page that the plan cites was not read): it is the midpoint of Freeman's computed 05:30 and 07:30. The head of the column is better placed at about 05:00; 06:30 stays selectable."
   },
   "first_delegated": {
    "holds": "no",
@@ -888,19 +1009,19 @@
    "kind": "arrivals_row",
    "ref": "cs-1c-hood",
    "must_change": true,
-   "note": "gate default 06:30 becomes 05:00; gate earliest 05:30 becomes 05:00 (the earliest time a writer of the day places Hood on the ridge); gate latest 07:30 stays; the memoir value (sunrise 04:35) and 05:30, 06:30, 07:30 and 08:00 stay selectable; the row's night position 'resumes 03:30' (EPP) should read 03:00 (Official Records 27/2 p. 420)"
+   "note": "gate default 06:30 becomes 05:00; gate earliest stays 05:30 (the diary places Hood himself, not the division, so the floor is not moved; moving it is for the owner); gate latest 07:30 stays; the memoir value (sunrise 04:35) and 05:30, 06:30, 07:30 and 08:00 stay selectable; the row's night position 'resumes 03:30' (EPP) should read 03:00 (Official Records 27/2 p. 420)"
   },
   {
    "kind": "arrivals_row",
    "ref": "cs-1c",
    "must_change": true,
-   "note": "the corps row carries the same Hood values in its first-on-field cell: default 06:30 and earliest 05:30 follow the Hood row (05:00); latest 08:30 (McLaws, C-007) is not touched"
+   "note": "the corps row carries the same Hood values in its first-on-field cell: default 06:30 follows the Hood row (05:00); earliest 05:30 stays; its 'Hood about 01:00' halt follows T2-041 below; latest 08:30 (McLaws, C-007) is not touched"
   },
   {
    "kind": "gate",
    "ref": "Q04",
    "must_change": true,
-   "note": "named case \"Longstreet's divisions (McLaws, Hood)\" reads cs-1c-hood: the window opens at 05:00 instead of 05:30 and the default instant is 05:00 instead of 06:30; to be reconciled in the open with a diary of the day as evidence, no gate is lowered; the earlier memoir value stays a selectable scenario, not the floor"
+   "note": "named case \"Longstreet's divisions (McLaws, Hood)\" reads cs-1c-hood: the window still opens at 05:30 (the floor is not moved: no source documents an earlier time for the soldiers) and the default instant is 05:00 instead of 06:30, which is before the floor; the integration step must either set the instant at the floor or put a lower floor to the owner as a decision, in the open; no gate is lowered"
   },
   {
    "kind": "gate",
@@ -919,6 +1040,30 @@
    "ref": "T2-049",
    "must_change": true,
    "note": "row 'Jul 2 ~03:30, Marsh Creek, Hood's division resumes march' (EPP, single weak source): the Second Georgia reports 3 a.m. (Official Records 27/2 p. 420, report 459; a second scan reads the same) and Freeman says about 3 a.m."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T2-041",
+   "must_change": true,
+   "note": "row 'Jul 2 ~01:00, Marsh Creek, Hood's division, halts' (EPP): Longstreet's report has Hood's division about four miles out 'about 12 o'clock at night' and Shepherd '12 p. m.'; the verified record already shows a conflict (01:00 against about midnight)"
+  },
+  {
+   "kind": "other",
+   "ref": "docs/battle-theatre/history/arrivals.json night_positions of cs-1c-hood and first_on_field of cs-1c",
+   "must_change": true,
+   "note": "'Marsh Creek about 01:00; resumes 03:30' and 'Hood halts about 01:00' should read about midnight and 03:00 (Official Records 27/2 pp. 358, 420)"
+  },
+  {
+   "kind": "other",
+   "ref": "tools/bt/gates/oob_layer_lib.mjs line 39 (sample-4)",
+   "must_change": true,
+   "note": "selects C-005 by index 'v2' with the text '07:30 (EPP, FREE, PADRE)'; the order v0..v2 of the scenarios changes when 05:00, sunrise and 08:00 are added, so the line has to be checked"
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (row C-005, line 15)",
+   "must_change": true,
+   "note": "records the first delegated default 06:30; the integration step records that this resolution supersedes it"
   },
   {
    "kind": "timeline_row",
@@ -1019,6 +1164,12 @@
    "at": "2026-11-24"
   },
   {
+   "where": "SHSP-04 and OR27-2 (Wilcox, report 537)",
+   "query": "read after the review: Wilcox's letter p. 114 and report: arms stacked, 7 a. m. and 9 a. m.; no arrival hour for Hood's head",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
    "where": "J. F. Epperson timeline and Padre Steve blog (plan keys EPP, PADRE)",
    "query": "the pages themselves; their hosts are not among the hosts reachable for this research",
    "outcome": "not_read",
@@ -1031,6 +1182,6 @@
    "at": "2026-11-24"
   }
  ],
- "what_would_change_it": "A report, diary or letter of 2 July 1863 or of the weeks after it that gives the hour at which the first or the last brigade of Hood's division reached Seminary Ridge (the reports of Robertson's or Anderson's brigades if they exist, or a diary of the Texas or Georgia brigades), or the hour at which the Second Georgia halted 'after proceeding some 3 miles'; or the page image of Shepherd's report showing an hour other than 3 a.m.",
- "owner_note": "The first delegated default (06:30, a marked stand-in) is replaced by an inferred value; nothing is deleted and 06:30 stays selectable. The floor of the arrival gate would move from 05:30 to 05:00, which a diary of the day documents for Hood himself; the memoir value (sunrise) is a scenario, not the floor. How the floor is reconciled is recorded by the integration step, in the open."
+ "what_would_change_it": "The Epperson page itself (not read); a report, diary or letter of 2 July 1863 or of the weeks after it that gives the hour at which the first or the last brigade of Hood's division reached Seminary Ridge (the reports of Robertson's or Anderson's brigades if they exist, or a diary of the Texas or Georgia brigades), or the hour at which the Second Georgia halted 'after proceeding some 3 miles'; or the page image of Shepherd's report showing an hour other than 3 a.m.",
+ "owner_note": "The first delegated default (06:30, a marked stand-in) is replaced by an inferred value; nothing is deleted and 06:30 stays selectable. The floor of the arrival gate stays 05:30: the diary documents Hood himself, not the division. 05:00 is the instant for Hood and the head (inferred); if the owner wants the soldiers shown from 05:00 or from sunrise, that is a decision for the owner (PLAN section 8)."
 }
