@@ -1,6 +1,6 @@
 # The 47 conflicts at a glance
 
-Generated 2026-11-16 by `tools/bt/conflicts/build_dossiers.py --index`. One dossier per conflict (`C-0xx.md`); the plan is `../PLAN.md`; the validator is `tools/bt/conflicts/validate_resolution.py`. A resolution file does not exist yet for any conflict until its researcher writes it (`../resolutions/`).
+Generated 2026-11-24 by `tools/bt/conflicts/build_dossiers.py --index`. One dossier per conflict (`C-0xx.md`); the plan is `../PLAN.md`; the validator is `tools/bt/conflicts/validate_resolution.py`. A resolution file does not exist yet for any conflict until its researcher writes it (`../resolutions/`).
 
 | id | topic | event date | kind of value | PDF values | PDF default | first delegated default (tier, basis) | arrival rows |
 |---|---|---|---|---|---|---|---|
