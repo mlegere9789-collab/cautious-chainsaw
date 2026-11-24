@@ -45,6 +45,20 @@ export function createRealHistory({ raw, T, helpers = {} }) {          // T: any
   const am = new ArrivalModel({ units: U, arrivals: raw.arrivals, notOnField: raw.notOnField });
   const gaz = new Gazetteer(raw.gazetteer);
   const { strengths, pools, claimed } = allocateStrengths(U);
+  // the layer adopts the verified table (tools/bt/oob_adopt.py, written into history/units.json by build_arrivals.py): a leaf unit on the field whose documented range is adopted carries that range, its basis key and date
+  // and is drawn at the top of the range (contract strengthDrawn); a conflict set or an unresolved date keeps the procedural share and carries every alternative, none chosen. Nothing else changes an instanced count.
+  const adoptedIds = new Set();
+  for (const u of U) {
+    const sv = u.strength_verified, prior = strengths.get(u.id);
+    if (!sv || !prior || !onField(u) || u.children.length) continue;
+    if (sv.status === 'adopted') {
+      adoptedIds.add(u.id);
+      strengths.set(u.id, { min: sv.min, max: sv.max, drawn: sv.max, kind: sv.min === sv.max ? 'documented' : 'ranged', basis: sv.basis, tier: 'documented', sources: sv.sources.slice(), weak_source: false, pool_owner: prior.pool_owner, basis_key: sv.basis_key, ...(sv.as_of ? { as_of: sv.as_of } : {}), alternatives: sv.alternatives, shares_replaced: prior.drawn });
+    } else strengths.set(u.id, { ...prior, selection_status: sv.status, alternatives: sv.alternatives, selection_note: sv.note });
+  }
+  const adoptionSources = Object.fromEntries(Object.entries(((raw.units.meta || {}).oob_adoption || {}).sources || {}).map(([k, v]) => [k, { key: k, label: v.label, kind: v.weak ? 'secondary' : 'primary', weak: !!v.weak, citation: v.cite }]));
+  const strength_note = (u, s) => (s.selection_status === 'conflict' ? ` Strength: the verified table holds a conflict set of ${s.alternatives.length} basis kind(s) for this unit; every alternative is carried and none is the default, so the figure drawn stays the plausible-procedural share.` : s.selection_status ? ` Strength: ${s.selection_note}.` : '');
+  const commandersOf = u => (u.commanders_verified ? u.commanders_verified.map(c => [c.rank, c.name].filter(Boolean).join(' ')) : (u.commanders_printed || []));
   const gateOf = id => { const e = am.effective(id, {}, helpers); return e ? e.earliest : -Infinity; };      // the default-scenario hard gate (Q04): a clause that falls before it does not apply to the unit
   const placement = new Placement({ doc: raw.placement, claimsDoc: raw.placementClaims || null, siblingDoc: raw.siblingApproach || null, gaz, units: U, rows: raw.arrivals.rows, box, gateOf });
   const problems = placement.validate(); if (problems.length) throw new Error('placement.json does not hold: ' + problems.join('; '));
@@ -106,6 +120,7 @@ export function createRealHistory({ raw, T, helpers = {} }) {          // T: any
 
   // ---- sources
   const sources = {
+    ...adoptionSources,
     'PDF-B1': { key: 'PDF-B1', label: 'Plan v2 Part B.1: headline strengths and casualties', kind: 'secondary', weak: true, citation: 'Gettysburg Total War animation plan, version 2, B.1 (the table of Wikipedia, Stone Sentinels, Busey and Martin as quoted, and Civil War Medicine museum figures). The PDF says the Confederate record is structurally weak and that no count may be a single number. docs/battle-theatre/app/data/casualty-sources.json.' },
     'OR27-CAS': { key: 'OR27-CAS', label: 'OR vol. 27 casualty figures (Return of Casualties, Letterman), confirmed by the claim check', kind: 'primary', weak: false, citation: 'library/or27_claim_checks.json items n and s: Union total 23,049 (one OCR-read cell) and Letterman’s wounded 14,193; Guild’s Confederate columns are partly garbled and are not used for fractions. A second witness has not been compared.' },
     'PDF-TL': { key: 'PDF-TL', label: 'Plan v2 Part B.2 master timeline rows (seeded_unverified)', kind: 'secondary', weak: false, citation: 'GOVERNANCE/timeline_seed.jsonl and timeline_windows.jsonl: rows stay unverified until checked against a primary source; library/timeline_audit_T*.jsonl holds the OR27 verdict of each row. docs/battle-theatre/app/data/engagements.json.' },
@@ -177,7 +192,7 @@ export function createRealHistory({ raw, T, helpers = {} }) {          // T: any
   const units = U.map((u, i) => {
     const s = strengths.get(u.id), plan = plans.get(u.id), drawn = drawnIds.has(u.id), leaf = cand.includes(u) || isLeafLevel(u);
     const nm = tidyName(u.name), parent = u.parent ? tidyName(by.get(u.parent).name) : null;
-    const strength = { min: s.min, max: s.max, drawn: drawn ? s.drawn : 0, share: s.drawn, basis: absentBy.has(u.id) ? `documented absent from the field (${absentBy.get(u.id).register}, ${absentBy.get(u.id).decision}): no figure is drawn and none is counted in the field totals` : s.basis, tier: s.tier, sources: s.sources, weak_source: s.weak_source, kind: s.kind };
+    const strength = { min: s.min, max: s.max, drawn: drawn ? s.drawn : 0, share: s.drawn, basis: absentBy.has(u.id) ? `documented absent from the field (${absentBy.get(u.id).register}, ${absentBy.get(u.id).decision}): no figure is drawn and none is counted in the field totals` : s.basis, tier: s.tier, sources: s.sources, weak_source: s.weak_source, kind: s.kind, ...(s.basis_key ? { basis_key: s.basis_key } : {}), ...(s.as_of ? { as_of: s.as_of } : {}), ...(s.alternatives ? { alternatives: s.alternatives } : {}), ...(s.selection_status ? { selection_status: s.selection_status, selection_note: s.selection_note } : {}) };
     let render, tier, why, approach = null;
     if (drawn) { approach = approachCard(u, plan); render = plan.status; tier = 'plausible-procedural'; why = plan.status === 'moving' ? (plan.stops.length ? `Placed by a printed approach road and dated place(s); slot inside the place, strength share and formation are plausible-procedural. ${approach.text} ${offsetNote(plan)}` : `Placed by a printed approach road and a day-level position of the troop maps (documented for the day; the time it got there is modelled, the card says between when and when); slot inside the position, strength share and formation are plausible-procedural. ${approach.text}`) + dayWhy(plan) : `Shown only where its approach road leaves the loaded ground: ${plan.reason}. ${approach.text}${dayWhy(plan)}`; }
     else if (absentBy.has(u.id)) { render = 'not_on_field'; tier = 'documented'; why = absenceText(absentBy.get(u.id)); }
@@ -187,9 +202,9 @@ export function createRealHistory({ raw, T, helpers = {} }) {          // T: any
     const cas = casualtiesOf(u), guns = gunsOf(u, drawn);
     return {
       id: u.id, name: u.children.length || !parent ? nm : `${nm} (${parent})`, short: nm.replace(/(\d+)(?:st|nd|rd|th)\b/, '$1').slice(0, 14), side: SIDE[u.army], arm: arm(u), parent: u.parent, level: u.level,
-      strength, formation: { ...formationOf(u), changes: drawn ? placement.formationsOf(u.id).map(f => ({ id: f.id, to: f.formation, t: f.t, phrase: f.phrase, stop: f.stop })) : [] }, casualties: cas, guns, kit: 'KIT-' + u.id, tier, sources: ['PDF-B3', 'PDF-B24', ...(drawn ? ['PLACEMENT', 'GAZETTEER'] : []), ...(s.kind === 'printed' || s.kind === 'procedural' ? ['SS-B3'] : []), ...cas.sources, ...(guns.sources || []), ...rowSources(u).slice(0, 12), ...(absentBy.has(u.id) ? ['OR27-POS', 'STATEVOL-POS', absentBy.get(u.id).register] : tier === 'plausible-procedural' ? ['EG-0001'] : ['EG-0005'])].filter((k, j, a) => a.indexOf(k) === j && sources[k]),
-      register: absentBy.has(u.id) ? absentBy.get(u.id).register : tier === 'plausible-procedural' ? 'EG-0001' : 'EG-0005', drawn, approach, render: { status: render, reason: why }, status: u.status, children: u.children.slice(), commanders: u.commanders_printed || [],
-      notes: `${why}${(u.commanders_printed || []).length ? ' Commander(s) as printed: ' + u.commanders_printed.map(tidyName).join('; ') + '.' : ''}${u.status !== 'on_field' ? ` Ledger status: ${u.status.replace(/_/g, ' ')}.` : ''}`,
+      strength, formation: { ...formationOf(u), changes: drawn ? placement.formationsOf(u.id).map(f => ({ id: f.id, to: f.formation, t: f.t, phrase: f.phrase, stop: f.stop })) : [] }, casualties: cas, guns, kit: 'KIT-' + u.id, tier, sources: ['PDF-B3', 'PDF-B24', ...(drawn ? ['PLACEMENT', 'GAZETTEER'] : []), ...(s.kind === 'printed' || s.kind === 'procedural' ? ['SS-B3'] : []), ...(adoptedIds.has(u.id) ? s.sources : []), ...cas.sources, ...(guns.sources || []), ...rowSources(u).slice(0, 12), ...(absentBy.has(u.id) ? ['OR27-POS', 'STATEVOL-POS', absentBy.get(u.id).register] : tier === 'plausible-procedural' ? ['EG-0001'] : ['EG-0005'])].filter((k, j, a) => a.indexOf(k) === j && sources[k]),
+      register: absentBy.has(u.id) ? absentBy.get(u.id).register : tier === 'plausible-procedural' ? 'EG-0001' : 'EG-0005', drawn, approach, render: { status: render, reason: why }, status: u.status, children: u.children.slice(), commanders: commandersOf(u), ...(u.commanders_verified ? { commanders_record: u.commanders_verified } : {}),
+      notes: `${why}${u.commanders_verified ? ' Commander(s) in order of succession (verified table, Official Records and state volumes): ' + u.commanders_verified.map(c => `${tidyName([c.rank, c.name].filter(Boolean).join(' '))} (${c.tier})`).join('; ') + '.' : (u.commanders_printed || []).length ? ' Commander(s) as printed: ' + u.commanders_printed.map(tidyName).join('; ') + '.' : ''}${strength_note(u, s)}${u.status !== 'on_field' ? ` Ledger status: ${u.status.replace(/_/g, ' ')}.` : ''}`,
     };
   });
   const uById = new Map(units.map(u => [u.id, u]));

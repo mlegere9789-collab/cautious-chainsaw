@@ -19,6 +19,7 @@ from arrivals_data import SPEC, NAMED_PERIODS
 import oob_parse as OP
 from oob_parse import clean_join, lines
 import oob_units as OU
+import oob_adopt as OA
 
 ROOT = OP.ROOT
 OUT = os.path.join(ROOT, 'docs', 'battle-theatre', 'history')
@@ -814,9 +815,10 @@ def main():
         print('%d failure(s); nothing written' % len(ERR))
         sys.exit(1)
 
+    adoption = OA.apply(units_out)          # the layer adopts the verified table (commanders, documented strengths); tools/bt/oob_adopt.py, checked by `oob_adopt.py --check`
     dump('units.json', {
         '_doc': 'Unit tree from PDF B.2.4 (ledger rows) and B.3 (order of battle). Names, commanders and figures are as printed (smart quotes kept); regiment commanders are not in the PDF and are not supplied. ids: see tools/bt/oob_units.py. status: on_field | partly_on_field | never_on_field | never_main_field. Regiment lists are expanded from the printed lists (flags record inherited state and ranges). strength: PDF B.3 corps table (Stone Sentinels figures, caveats B.1), single printed figures, no range declared.',
-        'meta': {'source_text': 'tmp/pdf/plan-clean.txt (= docs/battle-theatre/BIBLE/plan-clean.txt)', 'counts': counts, 'regimental_commanders': 'not in the PDF (stripped from the fetched order of battle, B.3); none supplied', 'builder': 'tools/bt/build_arrivals.py'},
+        'meta': {'source_text': 'tmp/pdf/plan-clean.txt (= docs/battle-theatre/BIBLE/plan-clean.txt)', 'counts': counts, 'regimental_commanders': 'not in the PDF (stripped from the fetched order of battle, B.3); none supplied from the PDF. Commanders and strengths that the verified table (kit/verified_oob.json, Official Records and state volumes) documents are in commanders_verified and strength_verified (oob_adoption below)', 'oob_adoption': adoption, 'builder': 'tools/bt/build_arrivals.py'},
         'units': units_out})
     dump('arrivals.json', {
         '_doc': 'PDF B.2.4 unit arrival and departure ledger as machine-checkable data. rows: one record per ledger row (44), raw cells verbatim. first_on_field.earliest/default/latest are ONLY clock times printed in the cell (null otherwise, with null_reason). gate: what the Q04 checker uses (printed clocks, labelled named-period conventions, date floors, event floors, or derived min of children). Defaults copied from the PDF B.2.5 are PDF recommendations, PENDING OWNER, not owner decisions. All times are 1863 local mean time as printed (the Union and Confederate clocks differed by about 20 minutes, B.2.2; no correction applied). tier: documented / inferred / open gap; claim_support_verified is false everywhere.',
