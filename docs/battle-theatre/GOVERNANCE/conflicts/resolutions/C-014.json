@@ -30,7 +30,7 @@
    "C-014-DEFAULT"
   ]
  },
- "class": "weighted",
+ "class": "irreducible",
  "tier": "documented",
  "basis": {
   "kind": "official_records",
@@ -49,7 +49,7 @@
    "high": 400,
    "basis": "Barnes's 368 and Chamberlain's \"four hundred\": the two reports of 1863 on the 20th Maine's front; lower figures (302, over 300, at most 238) and the brigade's over 500 stay listed"
   },
-  "note": "A range with no headline figure: the two best-class counts differ by 32 and neither explains the other."
+  "note": "A range with no headline figure: two best-class counts that the evidence cannot separate; a round 400 for 368 is possible but is not shown."
  },
  "positions": [
   {
@@ -226,37 +226,6 @@
       ]
      },
      "note": "Chamberlain, report of 6 July 1863 (four days after), after his regiment's bayonet charge and return to its position: \"Four hundred prisoners, including two field and several line officers, were sent to the rear\", mainly from the 15th and 47th Alabama with some of the 4th and 5th Texas. A round figure; he does not say how it was counted or whether wounded men are in it."
-    },
-    {
-     "id": "C-014-P3-c2",
-     "source": "NORTON-1913-C016",
-     "source_class": "book",
-     "page": "113",
-     "page_basis": "as_read",
-     "page_note": "printed page read from the running heads of the text (the head of page 114 follows the passage)",
-     "text_offset": 238951,
-     "quote": "Vincent's other regiments took their full share, and a total of four hundred for the brigade does not seem excessive",
-     "witness": {
-      "name": "Oliver W. Norton",
-      "role": "Private, 83rd Pennsylvania, Vincent's brigade (book of 1913)",
-      "side": "union"
-     },
-     "written": {
-      "date": "1913",
-      "kind": "postwar_narrative"
-     },
-     "vantage": "present",
-     "knew_by": "not_stated",
-     "clock": "union",
-     "hedge": "exact",
-     "group": "norton",
-     "exact": false,
-     "states": {
-      "numbers": [
-       400
-      ]
-     },
-     "note": "Norton, 1913 (50 years after), answering Oates: he reads the 400 as a total \"for the brigade\", since the prisoners included men of the 4th and 48th Alabama and the 4th and 5th Texas and the brigade's other regiments \"took their full share\". It is the only place a writer says what the 400 counts; Chamberlain's report says they were sent to the rear in front of his regiment."
     }
    ]
   },
@@ -714,14 +683,74 @@
    ]
   },
   {
+   "id": "C-014-P12",
+   "origin": "research",
+   "label": "400 as a brigade total, not the 20th Maine's front alone (Norton, 1913)",
+   "kind": "count",
+   "value": {
+    "n": 400
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source",
+    "memoir_only"
+   ],
+   "inference": {
+    "step": "Norton, answering Oates, reads Chamberlain's and Prince's 400 as a total for the brigade (prisoners of the 4th and 48th Alabama and the Texans were also taken and Vincent's other regiments took their share); Chamberlain's report itself says the 400 were sent to the rear from his front.",
+    "from": [
+     "C-014-P3-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "later_memory",
+    "text": "A reading of 1913 by a private of the brigade that differs from the colonel's own report of four days after, which puts the 400 in front of his regiment; it conflicts with Rice's over 500 for the brigade."
+   },
+   "support": [
+    {
+     "id": "C-014-P3-c2",
+     "source": "NORTON-1913-C016",
+     "source_class": "book",
+     "page": "113",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 114 follows the passage)",
+     "text_offset": 238951,
+     "quote": "Vincent's other regiments took their full share, and a total of four hundred for the brigade does not seem excessive",
+     "witness": {
+      "name": "Oliver W. Norton",
+      "role": "Private, 83rd Pennsylvania, Vincent's brigade (book of 1913)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1913",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "norton",
+     "exact": false,
+     "states": {
+      "numbers": [
+       400
+      ]
+     },
+     "note": "Norton, 1913 (50 years after), answering Oates: he reads the 400 as a total \"for the brigade\", since the prisoners included men of the 4th and 48th Alabama and the 4th and 5th Texas and the brigade's other regiments \"took their full share\". It is the only place a writer says what the 400 counts; Chamberlain's report says they were sent to the rear in front of his regiment."
+    }
+   ]
+  },
+  {
    "id": "C-014-P9",
    "origin": "research",
-   "label": "At most 238 from the 15th and 47th Alabama (84 of the 15th unwounded), by Oates from muster rolls",
-   "kind": "count_range",
+   "label": "At most 238 from the 15th and 47th Alabama, of which 84 are the 15th's unwounded captured (Oates, from muster rolls)",
+   "kind": "count",
    "value": {
-    "low": 84,
-    "high": 238
+    "n": 238
    },
+   "approx": true,
    "derived": true,
    "clock": "not_applicable",
    "tier": "inferred",
@@ -732,7 +761,7 @@
     "contradicted"
    ],
    "inference": {
-    "step": "Oates writes that the 15th's rolls show 84 captured without wounds and that all 154 men of the 47th's seven companies added would give 238; the range is those two figures. His report of 1863 puts the 15th's missing, dead and wounded included, at 90.",
+    "step": "Oates writes that the 15th's rolls show 84 captured without wounds and that all 154 men of the 47th's seven companies added would give 238; 238 is a ceiling for the two regiments, of which 84 is the 15th's own count; it is not a count of prisoners. His report of 1863 puts the 15th's missing, dead and wounded included, at 90.",
     "from": [
      "C-014-P9-c1",
      "C-014-P9-c2"
@@ -814,7 +843,7 @@
   {
    "id": "C-014-P10",
    "origin": "research",
-   "label": "Over 30 prisoners in the night ascent of Great Round Top (Fisher; Crawford) by three regiments",
+   "label": "Over 30 prisoners in the night ascent of Great Round Top by three regiments (Fisher)",
    "kind": "count",
    "value": {
     "n": 30
@@ -828,7 +857,7 @@
    ],
    "reason_not_chosen": {
     "kind": "different_event",
-    "text": "It is the night count for three regiments climbing together; it does not count the 20th Maine's counter-charge, and Chamberlain's own part of it is the 25."
+    "text": "It is the night count for three regiments climbing together; it does not count the 20th Maine's counter-charge, and Chamberlain's 25 very probably lies inside it, so the two should not be added."
    },
    "support": [
     {
@@ -866,7 +895,7 @@
   }
  ],
  "weighing": {
-  "summary": "The 20th Maine's counter-charge sent prisoners to the rear: the colonel who led it says four hundred (6 July 1863), the division commander writing from the brigade's reports says 368 (24 August). Rice's over 500 is the whole brigade to 9 p. m.; Fisher's over 30 and Chamberlain's 25 are the night advance. Against them stand the regiment's own survivors (302 on the monument of 1886, over 300 in Melcher, Gerrish and Minnigh) and Oates, who argues from Confederate muster rolls that the 15th and 47th Alabama together could give at most 238, 84 of the 15th being unwounded captures; his report of 1863 has the 15th's missing, dead and wounded included, at 90. The reports of 1863 outrank the later figures, so 368 to 400 is the default, weighted, not settled: the figure a Confederate commander gives for his own regiment does not fit \"mainly from the 15th and 47th Alabama\", and nobody says how 368 or 400 was counted.",
+  "summary": "The record is divided between two figures the evidence cannot separate: Chamberlain, who led the counter-charge, says four hundred (6 July 1863); Barnes, writing from the brigade's reports, says 368 (24 August). Chamberlain was at the ledge and outranks Barnes on place, but his figure is round and gives no method; Barnes's is exact but relayed. A round 400 for a count of 368 is a possible reading (within 9 per cent) but nobody says so, and Chamberlain's text offers no sign of rounding. Rice's over 500 is the whole brigade to 9 p. m.; Fisher's over 30 includes the 20th Maine's night ascent, so Chamberlain's 25 probably lies inside it. Against them stand the regiment's survivors (302 on the monument, over 300 in Melcher, Gerrish and Minnigh) and Oates, whose muster rolls give 84 unwounded captured in the 15th and at most 238 for the two Alabama regiments; his report of 1863 has the 15th's missing, dead and wounded included, at 90. The reports of 1863 outrank the later figures, so 368 to 400 is the default range.",
   "who": "Chamberlain commanded the regiment and was at the ledge; Rice commanded the brigade there; Barnes commanded the division and says he drew the story of the brigade from Rice's report, so he relays. Melcher, Gerrish and the monument committee were men of the regiment; Minnigh wrote a guide. Fisher led the brigade that came up at dusk. Oates commanded the 15th Alabama, the regiment that fought the 20th Maine, and wrote both a report of 1863 and the book of 1905; Norton, a private of the brigade, defends the 400 as a brigade total.",
   "when": "Chamberlain wrote four days after, Rice 29 days, Barnes 53 days (all reports, the best class); the monument and the Maine volume are 23 and 35 years after; Gerrish 19, Melcher 25, Minnigh 29 years; Oates's report is 37 days after (8 August 1863) and his book 42 years. A report of the time outranks later figures; the lower figures of the regiment's own men (302, over 300) are later memory but come from men who were there.",
   "where": "Chamberlain, Rice, Melcher and Gerrish stood on the ledge or in the charge and saw the prisoners gathered; Barnes was elsewhere and relays; Oates was on the other side of the ledge and counts from rolls he examined afterward; Fisher came up at dusk.",

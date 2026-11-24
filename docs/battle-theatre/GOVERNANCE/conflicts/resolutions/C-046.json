@@ -1160,6 +1160,64 @@
      "C-046-P8"
     ]
    }
+  },
+  {
+   "id": "C-046-P18",
+   "origin": "research",
+   "scenario_ids": [],
+   "source_keys": [],
+   "label": "Union: 3,063 killed (Fox's table of 1889, the figures before the revised return)",
+   "kind": "count",
+   "value": {
+    "n": 3063
+   },
+   "approx": false,
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "support": [
+    {
+     "source": "FOX-1889-C046",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not readable in the text layer (no page marks) (chapter II, p. 25)",
+     "text_offset": 88707,
+     "quote": "Total 3,063 14,492 5,435 22,990 5,291",
+     "witness": {
+      "name": "William F. Fox",
+      "role": "Union officer and compiler of Regimental Losses in the American Civil War (1889)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1889-01-01",
+      "kind": "reference_table"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "computed",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "fox",
+     "exact": true,
+     "states": {
+      "numbers": [
+       3063,
+       14492,
+       5435,
+       22990,
+       5291
+      ]
+     },
+     "note": "Fox's table of the Union loss at Gettysburg: killed 3,063, wounded 14,492, missing 5,435, total 22,990, killed and died of wounds 5,291."
+    }
+   ],
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "The War Department's revised return in the Official Records (3,155 killed, 1889) replaces the figures Fox had before him; his killed column is the earlier statement."
+   }
   }
  ],
  "weighing": {

@@ -124,7 +124,7 @@
      "clock": "union",
      "hedge": "exact",
      "group": "first-corps",
-     "exact": false,
+     "exact": true,
      "states": {
       "times": [
        "08:00"
@@ -133,7 +133,7 @@
        "07-01"
       ]
      },
-     "note": "context. Dates the day of the 10.15 sentence: the same report, the opening of its account of 1 July."
+     "note": "context: states the day only, not the hour of the fall; exact is set for the day the value needs. Dates the day of the 10.15 sentence: the same report, the opening of its account of 1 July."
     },
     {
      "id": "C-040-P1-c3",
@@ -590,7 +590,7 @@
      "clock": "union",
      "hedge": "exact",
      "group": "howard",
-     "exact": false,
+     "exact": true,
      "states": {
       "times": [
        "03:30"
@@ -599,7 +599,7 @@
        "07-01"
       ]
      },
-     "note": "context. Dates the day of the 11.30 sentence: the same report."
+     "note": "context: states the day only, not the hour; exact is set for the day the value needs. Dates the day of the 11.30 sentence: the same report."
     }
    ],
    "reason_not_chosen": {

@@ -132,7 +132,7 @@
      "clock": "union",
      "hedge": "exact",
      "group": "wadsworth",
-     "exact": false,
+     "exact": true,
      "states": {
       "times": [
        "08:00"
@@ -141,7 +141,7 @@
        "07-01"
       ]
      },
-     "note": "context. Dates the day of the 3.45 sentence: the same report, the opening of its account of 1 July."
+     "note": "context: states the day only, not the hour; exact is set for the day the value needs. Dates the day of the 3.45 sentence: the same report, the opening of its account of 1 July."
     }
    ]
   },
@@ -449,13 +449,13 @@
      "clock": "union",
      "hedge": "exact",
      "group": "robinson",
-     "exact": false,
+     "exact": true,
      "states": {
       "dates": [
        "07-01"
       ]
      },
-     "note": "context. Dates the day of the 'nearly 5 p. m.' sentence: the same report, headed 'Hdqrs. Second Division, First Army Corps, July 18, 1863'."
+     "note": "context: states the day only, not the hour; exact is set for the day the value needs. Dates the day of the 'nearly 5 p. m.' sentence: the same report, headed 'Hdqrs. Second Division, First Army Corps, July 18, 1863'."
     }
    ],
    "reason_not_chosen": {
@@ -734,7 +734,7 @@
      "clock": "union",
      "hedge": "exact",
      "group": "howard",
-     "exact": false,
+     "exact": true,
      "states": {
       "times": [
        "03:30"
@@ -743,7 +743,7 @@
        "07-01"
       ]
      },
-     "note": "context. Dates the day of the 4.10 sentence: the same report narrates 1 July in order from this line."
+     "note": "context: states the day only, not the hour; exact is set for the day the value needs. Dates the day of the 4.10 sentence: the same report narrates 1 July in order from this line."
     },
     {
      "id": "C-043-P7-c3",
@@ -769,11 +769,7 @@
      "hedge": "exact",
      "group": "howard",
      "exact": false,
-     "states": {
-      "times": [
-       "16:10"
-      ]
-     },
+     "states": {},
      "note": "Howard's article in Battles and Leaders (1887) reprints the report's sentence; same group as the report, not an independent witness."
     }
    ]

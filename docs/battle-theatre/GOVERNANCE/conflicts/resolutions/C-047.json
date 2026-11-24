@@ -45,11 +45,11 @@
    "C-047-P33"
   ],
   "label": "Side by side: Union 83,289-100,000+ men, 23,049 lost; Confederate 62,000-75,992 men, 20,451-28,063 lost",
-  "basis_text": "Strength and casualties of each army are shown as claims side by side, each with what it counts. Union: effectives engaged by Livermore (83,289) to the aggregate of the return before the march (a little over 100,000); casualties by the revised return (23,049). Confederate: effectives at Gettysburg by Taylor (62,000) to Livermore's computation (75,992); casualties by the Official Records' compilation (20,451) to Livermore's estimate (28,063). The returns of 1863 are the documented ends; the others are computed estimates.",
+  "basis_text": "Strength and casualties of each army are shown as claims side by side, each with what it counts. Union: effectives engaged by Livermore (83,289) to the aggregate of Meade's most recent return (a lower bound, over 100,000); casualties by the revised return (23,049). Confederate: effectives at Gettysburg by Taylor (62,000) to Livermore's computation (75,992); casualties by the Official Records' compilation (20,451) to Livermore's estimate (28,063). The returns of 1863 are the documented ends; the others are computed estimates.",
   "range": {
    "low": 20451,
    "high": 100000,
-   "basis": "not one quantity: the smallest and largest of the seven figures in the set (a Confederate casualty total and a Union aggregate); each army and each measure keeps its own range in the label and in the positions"
+   "basis": "not displayed: this set holds four measures (strength and casualties of each army), so one range would mix them; the label and basis_text give each measure its own range"
   },
   "animation": {
    "at": null,
@@ -548,7 +548,7 @@
    "origin": "research",
    "scenario_ids": [],
    "source_keys": [],
-   "label": "Union: an aggregate of a little over 100,000 (the most recent return before 28 June, Meade's report of Oct 1863)",
+   "label": "Union: over 100,000 aggregate, a lower bound (the most recent return, Meade's report of Oct 1863)",
    "kind": "count",
    "value": {
     "n": 100000
@@ -578,7 +578,7 @@
      "vantage": "commander_present",
      "knew_by": "relayed_report",
      "clock": "union",
-     "hedge": "exact",
+     "hedge": "lower",
      "group": "meade-aggregate",
      "exact": true,
      "states": {
@@ -586,7 +586,7 @@
        100000
       ]
      },
-     "note": "Meade, report of 1 Oct 1863 (p. 114): the army \"situated in and around Frederick\" had a return showing \"an aggregate of a little over 100,000\"; he put Lee at \"over 100,000 strong, of all arms\" (an estimate). An aggregate counts every man on the return, present or not for duty; it is the high end of the Union figures, not the men engaged."
+     "note": "Meade, report of 1 Oct 1863 (p. 114): the most recent return, while the army lay \"in and around Frederick\" (no date is stated), showed \"an aggregate of a little over 100,000\"; he put Lee at \"over 100,000 strong, of all arms\" (an estimate). An aggregate counts every man on the return, present or not for duty; it is the high end of the Union figures, not the men engaged."
     }
    ],
    "flags": [
@@ -751,7 +751,7 @@
    "origin": "research",
    "scenario_ids": [],
    "source_keys": [],
-   "label": "Union: about 58,000 effectives of the corps at the council of 2 July evening (Meade's memorandum)",
+   "label": "Union: 58,000 effective, the printed total of seven figures in the council memorandum of 2 July",
    "kind": "count",
    "value": {
     "n": 58000
@@ -776,7 +776,7 @@
      },
      "written": {
       "date": "1863-07-02",
-      "kind": "private_letter_or_diary"
+      "kind": "reference_table"
      },
      "vantage": "staff_present",
      "knew_by": "relayed_report",
@@ -794,7 +794,7 @@
        58000
       ]
      },
-     "note": "The council memorandum (p. 74): seven figures and \"total, 58,000\". It does not say which corps each figure is, or whether it counts infantry only; it was written after two days of fighting."
+     "note": "The council memorandum (p. 74): seven figures and \"total, 58,000\". It names no corps and does not say what it counts. The seven printed figures add to 59,000, not the printed 58,000 (a discrepancy in the original). Unsigned pencil memorandum found among Meade's papers, indorsed by the chief of staff."
     }
    ],
    "flags": [
@@ -802,7 +802,7 @@
    ],
    "reason_not_chosen": {
     "kind": "different_event",
-    "text": "It counts the effectives of seven corps at the council on the evening of 2 July, after the loss of the first two days; it is not the army's strength."
+    "text": "The memorandum names no corps and does not say what it counts; its seven figures add to 59,000, not the printed 58,000. It is not shown as the army's strength."
    }
   },
   {
@@ -1017,7 +1017,7 @@
      "knew_by": "computed",
      "clock": "confederate",
      "hedge": "exact",
-     "group": "early",
+     "group": "lee-return-may31",
      "exact": true,
      "states": {
       "numbers": [
@@ -1244,7 +1244,7 @@
     "weak"
    ],
    "inference": {
-    "step": "Livermore computes the effectives from the returns of 31 May (and, separately, of 31 July plus losses) with his percentages; both figures are computed, and the second rests on his own enlarged loss figure.",
+    "step": "Livermore computes the effectives from the returns of 31 May (and, separately, of 31 July plus losses) with his percentages; both figures are computed, and the second rests on his own enlarged loss figure. Livermore prints 28,070 for the losses in the note and 28,063 in the table; 77,707 uses 28,070 (49,637 + 28,070).",
     "from": [
      "C-047-P19"
     ]
@@ -2207,7 +2207,7 @@
    "kind": "doc",
    "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0119.md",
    "must_change": true,
-   "note": "Register entry says the OR strength tables are unreadable and that the legible council memorandum gives 58,000; the strengths now stand in Livermore, Taylor and Early, and the 58,000 counts seven corps after two days. Not edited here."
+   "note": "Register entry says the OR strength tables are unreadable and that the legible council memorandum gives 58,000; the strengths now stand in Livermore, Taylor and Early, and the 58,000 is the printed total of seven unnamed figures that add to 59,000. Not edited here."
   },
   {
    "kind": "doc",
