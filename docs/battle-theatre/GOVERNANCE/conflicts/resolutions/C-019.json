@@ -135,9 +135,9 @@
      "id": "C-019-P1-c3",
      "source": "BL-3",
      "source_class": "book",
-     "page": "317",
+     "page": null,
      "page_basis": "as_read",
-     "page_note": "printed page read from the contents list of the volume (the article begins on page 317); the page head was not found in the text",
+     "page_note": "the article begins on page 317 by the contents list of the volume; the OCR text has no page heads near the passage, so the printed page was not read",
      "text_offset": 1337467,
      "quote": "The rest of the corps moved off just before dusk (about 7 P. M.)",
      "witness": {
@@ -152,7 +152,7 @@
      "vantage": "commander_present",
      "knew_by": "eyewitness",
      "clock": "union",
-     "hedge": "about",
+     "hedge": "exact",
      "group": "greene",
      "exact": false,
      "states": {
@@ -183,7 +183,7 @@
      "vantage": "elsewhere",
      "knew_by": "relayed_report",
      "clock": "union",
-     "hedge": "about",
+     "hedge": "exact",
      "group": "geary",
      "exact": false,
      "states": {
@@ -260,13 +260,14 @@
     },
     {
      "id": "C-019-P5-c1",
-     "source": "OR27-2-SCAN2-C005",
+     "source": "OR27-2",
      "source_class": "primary",
-     "page": null,
-     "page_basis": "running_head",
-     "page_note": "printed page read from the running head in the text of the second scan of the volume (page 447, the head stands before the passage)",
-     "text_offset": 1468652,
-     "quote": "General Johnson ordered forward his division to attack the wooded hill in his front, and about dusk the attack was made",
+     "part": "OR27-2-R467",
+     "page": "447",
+     "page_basis": "scan_leaf",
+     "page_note": "printed page read from the running head in the text (the head of page 447 stands before the passage)",
+     "text_offset": 1659361,
+     "quote": "just before sundown, General Johnson ordered forward his division to attack [...] wooded hill in [...] front, and about dusk [...] attack was made",
      "witness": {
       "name": "Richard S. Ewell",
       "role": "Lieutenant General, commanding the Second Corps",
@@ -397,7 +398,7 @@
       "side": "confederate"
      },
      "written": {
-      "date": "1863-07-31",
+      "date": "1863-09-02",
       "kind": "official_report"
      },
      "vantage": "commander_present",
@@ -411,14 +412,14 @@
        "17:00"
       ]
      },
-     "note": "Steuart, report of Gettysburg (the print's dateline, June 19, belongs to the report of Winchester that precedes it; this report is undated in the text): his pickets were relieved at about 5 o'clock by four companies of skirmishers from the 23rd Virginia, and \"shortly afterward the brigade was formed in line of battle and moved forward\". No hour for the contact."
+     "note": "Steuart, report of 2 September 1863 (62 days after): his pickets were relieved at about 5 o'clock by four companies of skirmishers from the 23rd Virginia, and \"shortly afterward the brigade was formed in line of battle and moved forward\". No hour for the contact."
     }
    ]
   },
   {
    "id": "C-019-P5",
    "origin": "research",
-   "label": "About dusk, after the guns stopped just before sundown; dark when the other brigades reached the mountain (Ewell, Johnson)",
+   "label": "About dusk, just after sundown; darkness in the woods on the climb (Ewell, Jones)",
    "kind": "period",
    "value": {
     "text": "about dusk",
@@ -436,13 +437,14 @@
    "support": [
     {
      "id": "C-019-P5-c1",
-     "source": "OR27-2-SCAN2-C005",
+     "source": "OR27-2",
      "source_class": "primary",
-     "page": null,
-     "page_basis": "running_head",
-     "page_note": "printed page read from the running head in the text of the second scan of the volume (page 447, the head stands before the passage)",
-     "text_offset": 1468652,
-     "quote": "General Johnson ordered forward his division to attack the wooded hill in his front, and about dusk the attack was made",
+     "part": "OR27-2-R467",
+     "page": "447",
+     "page_basis": "scan_leaf",
+     "page_note": "printed page read from the running head in the text (the head of page 447 stands before the passage)",
+     "text_offset": 1659361,
+     "quote": "just before sundown, General Johnson ordered forward his division to attack [...] wooded hill in [...] front, and about dusk [...] attack was made",
      "witness": {
       "name": "Richard S. Ewell",
       "role": "Lieutenant General, commanding the Second Corps",
@@ -469,35 +471,63 @@
      "id": "C-019-P5-c2",
      "source": "OR27-2",
      "source_class": "primary",
-     "part": "OR27-2-R481",
-     "page": "504",
+     "part": "OR27-2-R495",
+     "page": "532",
      "page_basis": "scan_leaf",
-     "text_offset": 1879059,
-     "quote": "By the time my other brigades had crossed Rock Creek and reached the base of the mountain, it was dark. His skirmishers were driven in, and the attack made with great vigor and spirit",
+     "text_offset": 1979253,
+     "quote": "the lateness of the hour at which the advance was made, the darkness in the woods, and the nature of the hill",
      "witness": {
-      "name": "Edward Johnson",
-      "role": "Major General, commanding the division that attacked Culp's Hill",
+      "name": "J. M. Jones",
+      "role": "Brigadier General, commanding a brigade of Johnson's division (wounded in the assault)",
       "side": "confederate"
      },
      "written": {
-      "date": "1863-08-18",
+      "date": "1863-09-25",
       "kind": "official_report"
      },
      "vantage": "commander_present",
-     "knew_by": "own_orders",
+     "knew_by": "eyewitness",
      "clock": "confederate",
      "hedge": "exact",
-     "group": "johnson",
+     "group": "jones",
      "exact": true,
      "states": {
       "phrases": [
-       "it was dark"
+       "the darkness in the woods"
       ]
      },
-     "note": "Johnson, report of 18 August 1863 (47 days after): his infantry advanced in obedience to Ewell's order, \"By the time my other brigades had crossed Rock Creek and reached the base of the mountain, it was dark\" (the printed word is damaged and read as \"dark\"), and the attack was made with great vigor. His Stonewall Brigade was not up that night.",
-     "quote_mode": "ocr",
-     "raw": "By the time my other brigades had crossed Rock Creek and reached the base of the mountain, it was darlv. His skirmishers were driven in. and the attack made with great vigor and spirit",
-     "ocr_note": "the OCR has \"darlv\" for \"dark\" and a full stop for a comma; read in context (the same page speaks of the darkness in the woods)"
+     "note": "Jones, report of 25 September 1863 (85 days after): the confusion toward the left of his line in the advance was unavoidable \"from the lateness of the hour at which the advance was made, the darkness in the woods, and the nature of the hill\". He was wounded near the first line of works and gives no hour."
+    },
+    {
+     "id": "C-019-P5-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R307",
+     "page": "858",
+     "page_basis": "scan_leaf",
+     "text_offset": 3023909,
+     "quote": "Johnson's division, of Ewell's corps, which attacked us on the night of the 2d instant",
+     "witness": {
+      "name": "George S. Greene",
+      "role": "Brigadier General, commanding the Third Brigade, 2nd Division, XII Corps (alone on Culp's Hill)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "greene",
+     "exact": true,
+     "states": {
+      "dates": [
+       "07-02"
+      ]
+     },
+     "note": "Greene, same report: Johnson's division attacked \"on the night of the 2d instant\" (the day of the value)."
     }
    ]
   },
@@ -527,8 +557,8 @@
      "part": "OR27-2-R498",
      "page": "535",
      "page_basis": "scan_leaf",
-     "text_offset": 1989511,
-     "quote": "the regiment fell back about 8 o'clock to the branch at the foot of the mountain",
+     "text_offset": 1989302,
+     "quote": "remained in that position until about 6 p. m. of the 2d, when it advanced against the enemy, intrenched on the mountain in its front. The advance did not prove successful, and the regiment fell back about 8 o'clock to the branch at the foot of the mountain",
      "witness": {
       "name": "W. P. Moseley",
       "role": "Captain, commanding the 21st Virginia (Jones's brigade, Johnson's division)",
@@ -543,10 +573,13 @@
      "clock": "confederate",
      "hedge": "about",
      "group": "moseley",
-     "exact": false,
+     "exact": true,
      "states": {
       "times": [
        "20:00"
+      ],
+      "dates": [
+       "07-02"
       ]
      },
      "note": "Moseley, same report: after the advance \"did not prove successful\", the 21st Virginia fell back about 8 o'clock to the branch at the foot of the mountain. This is the end of its first attack, not the start."
@@ -586,13 +619,13 @@
   }
  ],
  "weighing": {
-  "summary": "Greene, who was attacked, gives the one clock reading: \"a few minutes before 7 p. m.\" (report of 12 July). Geary, marching away, has an order at 7.30 and Greene attacked \"in the meantime\". The Confederate reports give an advance about 6 (Moseley) after pickets were relieved at 5 (Steuart), the guns stopping just before sundown and the attack about dusk (Ewell), and darkness when Johnson's other brigades reached the mountain. Dusk and dark are periods, and by the computed sunset (19:32) they begin half an hour after Greene's reading; the armies' clocks reportedly differed by about 20 minutes and the Confederate approach took an hour, so the spread of 19:00 to dusk is explained by clock, period and approach, not a flat disagreement. The default is Greene's 19:00, weighted, documented by one witness; 19:30 and 20:00 stay selectable (20:00 has no source for a start).",
-  "who": "Greene commanded the brigade that was attacked and was on the spot; Geary and Ewell were away from the point of attack (Geary with two brigades at the turnpike bridge, Ewell behind the Confederate line); Johnson commanded the attacking division; Moseley and Steuart were with their regiment and brigade in the advance.",
-  "when": "Greene wrote ten days after (best class); Moseley 19 days; Geary 27; Johnson 47; Ewell's report is undated in the print, year 1863; Steuart's is undated in the text. Greene's account in Battles and Leaders (1887) is later and has the corps leaving \"about 7\" and the attack just after, a little later than his report. Reports of the time outrank it.",
+  "summary": "Greene, who was attacked, gives the one clock reading: \"a few minutes before 7 p. m.\" (report of 12 July). Geary, marching away, has an order at 7.30 and Greene attacked \"in the meantime\". The Confederate reports give an advance about 6 (Moseley) after pickets were relieved at 5 (Steuart), the guns stopping just before sundown and the attack about dusk (Ewell), and darkness in the woods on the climb (Jones). Dusk and dark are periods, and by the computed sunset (19:32) they begin half an hour after Greene's reading; the armies' clocks reportedly differed by about 20 minutes and the Confederate approach took an hour, so the spread of 19:00 to dusk is explained by clock, period and approach, not a flat disagreement. The default is Greene's 19:00, weighted, documented by one witness; 19:30 and 20:00 stay selectable (20:00 has no source for a start).",
+  "who": "Greene commanded the brigade that was attacked and was on the spot; Geary and Ewell were away from the point of attack (Geary with two brigades at the turnpike bridge, Ewell behind the Confederate line); Jones led a brigade in the climb; Moseley and Steuart were with their regiment and brigade in the advance.",
+  "when": "Greene wrote ten days after (best class); Moseley 19 days; Geary 27; Jones 85; Ewell's report is undated in the print, year 1863; Steuart's of 2 September 1863 (62 days). Greene's account in Battles and Leaders (1887) is later and has the corps leaving \"about 7\" and the attack just after, a little later than his report. Reports of the time outrank it.",
   "where": "Greene saw the attack arrive on his own line; Moseley and Steuart saw the advance start; Johnson led it; Geary and Ewell relay.",
-  "how_knew": "Greene, Moseley, Steuart and Johnson knew by being there; Geary by being told; Ewell by report. Only Greene and Geary give a clock reading near the attack; Moseley's and Steuart's hours date the approach.",
+  "how_knew": "Greene, Moseley, Steuart and Jones knew by being there; Geary by being told; Ewell by report. Only Greene and Geary give a clock reading near the attack; Moseley's and Steuart's hours date the approach.",
   "clock": "Union writers use the army's clock, Confederate writers theirs; the reported difference of about 20 minutes is not applied. It is a possible reason Greene's reading is earlier than the Confederates' dusk. \"A few minutes before 7\" is read as at or before 19:00; \"about 6\" as 18:00 plus or minus 15 minutes.",
-  "independence": "19:00 rests on one witness (Greene: his report and his article are one man; Geary's two and a half hours is counted with him as consistent, not independent), so it is flagged single-source. 19:30 rests on Geary and Ewell, who do not state it. Dusk and dark are Ewell and Johnson; the advance about 6 is Moseley and Steuart. No two groups give the same clock reading for the attack."
+  "independence": "19:00 rests on one witness (Greene: his report and his article are one man; Geary's two and a half hours is counted with him as consistent, not independent), so it is flagged single-source. 19:30 rests on Geary and Ewell, who do not state it. Dusk and the darkness in the woods are Ewell and Jones; the advance about 6 is Moseley and Steuart. No two groups give the same clock reading for the attack."
  },
  "source_panel_text": "About 19:00 on Jul 2: General Greene, whose brigade was attacked on Culp's Hill, wrote ten days later that the attack came a few minutes before 7 p. m. Confederate reports give an advance about 6 and the attack about dusk, which began about half an hour later; no source gives 20:00 for the start. Five other values are listed.",
  "holds": {
