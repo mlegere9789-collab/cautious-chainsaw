@@ -30,6 +30,9 @@ export async function loadTimeline() {
   return rows;
 }
 
+// ---- markers of the timeline rows and the source catalog (data/timeline-overlay.json); absent file: the viewer shows the rows as before
+export const loadOverlay = () => getJSON(URLS.data + 'timeline-overlay.json').catch(e => { console.warn('timeline overlay not read:', e.message || e); return null; });
+
 // ---- source conflicts: C-001..C-047 (PDF B.2.5) and the weather file's carried conflicts; every printed value is carried
 export async function loadConflicts() {
   const [reg, wx, defaults] = await Promise.all([getJSON(URLS.gov + 'conflict_register.json'), getJSON(URLS.env + 'weather_timeline.json'), getJSON(URLS.data + 'conflict-defaults.json').catch(e => { console.warn('delegated defaults not read, the plan\'s values are the default view:', e.message || e); return null; })]);

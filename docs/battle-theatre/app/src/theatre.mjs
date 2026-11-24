@@ -8,7 +8,7 @@ import { RenderHost } from './render-host.mjs';
 import { makeGeo } from './geo.mjs';
 import { BATTLE, EPILOGUE, chapterOf, clampT, minOf, fmtDate, fmtTime, fmtShort } from './clock.mjs';
 import { Environment, BAND_NAMES } from './environment.mjs';
-import { loadTimeline, loadConflicts, loadEnvironmentFiles, loadBookmarks, loadHistoryData, DEFAULT_SCENARIO, scenarioIsDefault } from './data.mjs';
+import { loadTimeline, loadConflicts, loadOverlay, loadEnvironmentFiles, loadBookmarks, loadHistoryData, DEFAULT_SCENARIO, scenarioIsDefault } from './data.mjs';
 import { createStubHistory, STUB_LINKS } from './history/stub.mjs';
 import { createRealHistory } from './history/real.mjs';
 import { worldFromUnits } from './world-from-units.mjs';
@@ -61,8 +61,8 @@ export class Theatre {
     const step = (txt, f) => { if (this.dead) return; this.els.step.textContent = txt; this.els.bar.style.width = Math.round(f * 100) + '%'; };
     try {
       step('Reading the timeline, sources and sky tables', 0.04);
-      const [timeline, conflicts, [eph, wxf], bookmarks] = await Promise.all([loadTimeline(), loadConflicts(), loadEnvironmentFiles(), loadBookmarks()]); if (this.dead) return;
-      this.timeline = timeline; this.conflicts = conflicts; this.state.scenario = DEFAULT_SCENARIO(conflicts); this.bookmarks = bookmarks; this.env = new Environment(eph, wxf);
+      const [timeline, conflicts, [eph, wxf], bookmarks, overlay] = await Promise.all([loadTimeline(), loadConflicts(), loadEnvironmentFiles(), loadBookmarks(), loadOverlay()]); if (this.dead) return;
+      this.tlOverlay = overlay; this.timeline = timeline; this.conflicts = conflicts; this.state.scenario = DEFAULT_SCENARIO(conflicts); this.bookmarks = bookmarks; this.env = new Environment(eph, wxf);
       this.timed = timeline.filter(e => e.t != null && e.t >= BATTLE.from && e.t < BATTLE.to);
       step('Loading the ground', 0.2); await idle();
       if (!warm.T) warm.T = await loadTerrain(URLS.proto); if (this.dead) return;

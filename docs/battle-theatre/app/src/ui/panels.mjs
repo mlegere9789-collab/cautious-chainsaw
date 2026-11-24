@@ -7,6 +7,7 @@ import { DELEGATED_KEY, PDF_KEY, DELEGATED_NOTE, withDefault, currentKey, option
 import { STUB_LINKS } from '../history/stub.mjs';
 import { glyphSVG } from '../overlay.mjs';
 import { esc, ic, pill, regLink, fmtN, debounce } from './util.mjs';
+import { catalogOf, tlConflictsOf, tlChoice, eventMarks as eventMarksOf, isUnverified, NO_DEFAULT, EVERY } from '../timeline-overlay.mjs';
 import { strengthDrawn } from '../history/contract.mjs';
 import { mountLayersBlock, mountStructScenarios } from './structures-ui.mjs';
 import { soundPanel, mountSoundBlock } from './sound-panel.mjs';
@@ -22,14 +23,27 @@ const timeLabel = e => {
   if (e.parse === 'range' || e.parse === 'band_from_sun_table') return `${e.band ? esc(e.band) + ' ' : ''}${fmtTime(e.earliest)} – ${fmtTime(e.latest)}`;
   return (e.approx ? 'about ' : '') + fmtTime(e.t);
 };
-function eventDetail(e) {
+// markers from the overlay (data/timeline-overlay.json): audited tier, competing values with no default, delegated conflict updates
+function eventMarks(e, th) {
+  const m = th.tlOverlay ? eventMarksOf(th.tlOverlay, e, th.state.tlChoices) : null; if (!m) return { pills: '', block: '' };
+  const pills = m.audit ? `<span class="pill" data-audit-tier="${esc(m.audit.tier)}" title="${esc(m.audit.note)}">${glyphSVG(m.audit.tier, 12)}Audit tier: ${esc((TIER_STYLE[m.audit.tier] || { label: m.audit.tier }).label)}</span>` : '';
+  const c = m.conflict;
+  const block = (c ? `<h3 style="margin-top:10px">Competing values, no default chosen</h3><p class="mini">${esc(c.topic)}. The sources give these values; none is chosen for you. ${c.current === NO_DEFAULT ? 'No value is selected.' : c.current === EVERY ? 'Showing every value.' : 'A value is selected in Sources.'} Pick one in Sources (${esc(c.id)}); the theatre does not change with this choice.</p>
+    <table class="table" data-tl-values>${c.values.map(v => `<tr data-selected="${v.selected}"><th>${glyphSVG(v.tier, 12)} ${esc(v.label)}</th><td>${esc(v.value)}<br><span class="mini">${esc(v.basis)} · ${esc((TIER_STYLE[v.tier] || { label: v.tier }).label)}${v.selected ? ' · selected' : ''}</span></td></tr>`).join('')}</table>` : '')
+    + (m.updates.length ? `<h3 style="margin-top:10px">Source conflicts that bear on this row</h3><ul class="mini" style="margin:0 0 0 16px">${m.updates.map(u => `<li><b>${esc(u.conflict)}</b> (${esc(u.tier)}): ${esc(u.label)}. Selectable in Sources.</li>`).join('')}</ul>` : '')
+    + (m.audit ? `<p class="mini" style="margin-top:8px">Audit tier ${esc(m.audit.tier)} (${esc(m.audit.note)}) against the plan's ${esc(m.audit.seed)}; the plan's own mark is kept in the list.</p>` : '')
+    + (m.register ? `<div class="actions" style="margin-top:8px">${regLink(m.register, 'Open the source-conflict entry')}</div>` : '');
+  return { pills, block };
+}
+function eventDetail(e, th) {
+  const mk = eventMarks(e, th);
   const alt = e.alternatives.length ? `<tr><th>Other times given</th><td>${e.alternatives.map(a => esc(a.text)).join('; ')}</td></tr>` : '';
   const win = e.earliest != null && e.latest != null && e.latest !== e.earliest ? `<tr><th>Window</th><td>${fmtShort(e.earliest)} to ${fmtShort(e.latest)} · default ${e.t != null ? fmtShort(e.t) : '—'}</td></tr>` : '';
-  return `<div class="card-body" style="padding:0;margin-bottom:6px"><h3 style="margin-top:4px">Selected event</h3><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">${pill(e.tier)}<span class="pill">${esc(e.id)}</span><span class="pill" title="Timeline rows stay unverified until checked against a primary source">Seeded, unverified</span></div>
+  return `<div class="card-body" style="padding:0;margin-bottom:6px"><h3 style="margin-top:4px">Selected event</h3><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">${pill(e.tier)}<span class="pill">${esc(e.id)}</span>${mk.pills}${isUnverified(e) ? '<span class="pill" data-status="seeded_unverified" title="Timeline rows stay unverified until checked against a primary source">Seeded, unverified</span>' : '<span class="pill" data-status="verified" title="Supported by a non-lead source; see the register entry">Source-checked</span>'}</div>
     <p style="font-size:13.5px;line-height:1.5;color:var(--text)">${esc(e.text)}</p>${e.notes ? `<p class="mini" style="margin-top:6px">${esc(e.notes)}</p>` : ''}
     <table class="table" style="margin-top:8px"><tr><th>Time as printed</th><td>${esc(e.raw)}${e.parse === 'phrase_only' ? ' · no clock time, so it is not placed on the minute scale' : ''}</td></tr>${win}${alt}
     <tr><th>Source row</th><td>Plan page ${e.page ?? '—'}${e.weak ? ' · weak-source flag' : ''}</td></tr></table>
-    <div class="actions" style="margin-top:10px">${e.register ? regLink(e.register, 'Open the evidence-gap entry') : ''}</div></div>`;
+    <div class="actions" style="margin-top:10px">${e.register ? regLink(e.register, 'Open the evidence-gap entry') : ''}</div>${mk.block}</div>`;
 }
 PANELS.events = {
   title: 'Timeline events',
@@ -53,7 +67,7 @@ PANELS.events = {
         }
         list.innerHTML = html || '<li class="empty">No event matches.</li>'; count.textContent = `${rows.length} of ${th.timeline.length} events`;
       }
-      const showPin = () => { pin.innerHTML = th.state.event ? eventDetail(th.state.event) : ''; };
+      const showPin = () => { pin.innerHTML = th.state.event ? eventDetail(th.state.event, th) : ''; };
       ps.on(body.querySelector('#ev-q'), 'input', debounce(th, e => { f.q = e.target.value; draw(); }, 120));
       ps.on(body.querySelector('#ev-day'), 'change', e => { f.day = e.target.value; draw(); });
       ps.on(body.querySelector('#ev-timed'), 'change', e => { f.timed = e.target.checked; draw(); });
@@ -139,7 +153,8 @@ PANELS.scenario = {
         ? `Each entry is a place where the sources give different values. Every entry opens on a <b style="color:var(--text)">default chosen under delegated authority, reversible by the owner</b>, shown with its tier. Every other value, including the plan's own recommended value, stays selectable. Pick any value to see the theatre follow it where it can; entries marked "Used in this preview" change what you see, the rest are carried and listed.`
         : `Each entry is a place where the sources give different values. The delegated defaults were not read, so the default is the plan's recommended value, <b style="color:var(--text)">pending the owner's decision</b>.`}</p>
         <div style="display:flex;align-items:center;gap:10px;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap"><span class="pill" id="sc-label"></span><span style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn-s" id="sc-reset">${hasDef ? 'Back to the delegated defaults' : 'Reset'}</button>${hasDef ? `<button type="button" class="btn-s" id="sc-pdf">Switch to the PDF's recommended values</button>` : ''}</span></div>
-        <input class="field" type="search" placeholder="Search ${C.length} conflicts" aria-label="Search conflicts" id="sc-q" data-autofocus><p class="mini" id="sc-count" style="margin-top:6px" aria-live="polite"></p><div id="sc-list"></div>`;
+        <input class="field" type="search" placeholder="Search ${C.length} conflicts" aria-label="Search conflicts" id="sc-q" data-autofocus><p class="mini" id="sc-count" style="margin-top:6px" aria-live="polite"></p><div id="sc-list"></div><div id="sc-tl"></div><div id="sc-cat"></div>`;
+      const TL = tlConflictsOf(th.tlOverlay), CAT = catalogOf(th.tlOverlay); th.state.tlChoices = th.state.tlChoices || {};
       const list = body.querySelector('#sc-list'), label = body.querySelector('#sc-label');
       const paintLabel = () => { label.textContent = scenarioLabel(sc, C); label.dataset.kind = hasDef ? scenarioKind(sc, C).kind : 'pdf'; body.querySelector('#sc-reset').disabled = scenarioIsDefault(sc, C); const bp = body.querySelector('#sc-pdf'); if (bp) bp.disabled = scenarioKind(sc, C).kind === 'pdf'; };
       const status = (c, cur) => {
@@ -163,11 +178,19 @@ PANELS.scenario = {
             <p class="mini sel-full" data-sel-full>${esc(selectedLabel(c, cur))}</p>
             <div class="deleg-box">${status(c, cur)}</div>
             ${linked.has(c.id) ? '<p class="mini" style="margin-top:6px;color:var(--gold-2)">Used in this preview: the theatre follows this choice.</p>' : ''}</section>`; }).join('') || '<p class="empty">No conflict matches.</p>';
-        body.querySelector('#sc-count').textContent = `${rows.length} of ${C.length} conflicts`;
+        const tl = TL.filter(c => !ql || c.id.toLowerCase().includes(ql) || c.topic.toLowerCase().includes(ql) || c.row.toLowerCase().includes(ql));
+        body.querySelector('#sc-tl').innerHTML = tl.length ? `<h3 style="margin-top:16px">Timeline rows with competing values (${tl.length})</h3><p class="mini">Values the timeline audit found for a single row. No default is chosen for any of them: the owner decides. They are carried and listed; the theatre does not change with these choices.</p>` + tl.map(c => { const cur = tlChoice(th.state.tlChoices, c.id), o = c.options.find(x => x.key === cur) || c.options[0];
+          return `<section class="conflict" data-tl="1" data-id="${esc(c.id)}" data-current="${esc(cur)}"><h3><span class="id">${esc(c.id)}</span>${esc(c.topic)}</h3>
+            <p class="printed"><b>Row:</b> ${esc(c.row)}<br><b>Default:</b> none chosen</p>
+            <select aria-label="Value for ${esc(c.id)} ${esc(c.topic)}" data-tl-id="${esc(c.id)}">${c.options.map(x => `<option value="${esc(x.key)}" ${x.key === cur ? 'selected' : ''}>${esc(x.value ? `${x.label}: ${x.value} (${x.basis}; ${x.tier})` : x.label)}</option>`).join('')}</select>
+            <p class="mini sel-full" data-sel-full>${esc(o.value ? `${o.label}: ${o.value}. Source: ${o.basis}. Tier: ${o.tier}.` : o.label)}</p></section>`; }).join('') : '';
+        body.querySelector('#sc-cat').innerHTML = CAT.length && !ql ? `<h3 style="margin-top:16px">Source catalog</h3><p class="mini">Sources the record names but the project has not read. Their images or text are not used for any mark in the viewer.</p>` + CAT.map(k => `<section class="conflict" data-catalog="${esc(k.register)}"><h3><span class="id">${esc(k.register)}</span>${esc(k.title)}</h3><p class="printed"><span class="pill" data-tier="${esc(k.tier)}">${glyphSVG(k.tier, 12)}${esc((TIER_STYLE[k.tier] || { label: k.tier }).label)}</span> <b data-catalog-status>${esc(k.status)}</b></p><p class="mini">${esc(k.detail)} ${esc(k.note)}</p><p class="mini">Searched: ${esc(k.searched)}</p>${regLink(k.register)}</section>`).join('') : '';
+        body.querySelector('#sc-count').textContent = `${rows.length} of ${C.length} conflicts${TL.length ? ` · ${tl.length} of ${TL.length} timeline rows` : ''}`;
       }
       const choose = (id, key) => { const c = C.find(x => x.id === id); if (!c) return; setChoice(sc, C, c, key); const sec = list.querySelector(`.conflict[data-id="${CSS.escape(id)}"]`); if (sec) { const cur = currentKey(sc, c); sec.dataset.changed = String(cur !== (c.delegated ? DELEGATED_KEY : PDF_KEY)); sec.dataset.current = cur; sec.querySelector('select').value = cur; sec.querySelector('[data-sel-full]').textContent = selectedLabel(c, cur); sec.querySelector('.deleg-box').innerHTML = status(c, cur); } paintLabel(); th.applyScenario(true); };
       ps.on(body.querySelector('#sc-q'), 'input', debounce(th, e => { q = e.target.value; draw(); }, 120));
       ps.on(list, 'change', e => { const s = e.target.closest('select'); if (!s) return; choose(s.dataset.id, s.value); });
+      ps.on(body.querySelector('#sc-tl'), 'change', e => { const s = e.target.closest('select[data-tl-id]'); if (!s) return; th.state.tlChoices[s.dataset.tlId] = s.value; const sec = s.closest('.conflict'), c = TL.find(x => x.id === s.dataset.tlId), o = c.options.find(x => x.key === s.value); sec.dataset.current = s.value; sec.querySelector('[data-sel-full]').textContent = o.value ? `${o.label}: ${o.value}. Source: ${o.basis}. Tier: ${o.tier}.` : o.label; });
       ps.on(list, 'click', e => { const b = e.target.closest('button[data-act]'); if (!b) return; choose(b.closest('.conflict').dataset.id, b.dataset.act === 'pdf' ? PDF_KEY : DELEGATED_KEY); });
       ps.on(body.querySelector('#sc-reset'), 'click', () => { if (hasDef) resetToDelegated(sc, C); else { sc.choices = {}; } paintLabel(); draw(); th.applyScenario(true); });
       const bp = body.querySelector('#sc-pdf'); if (bp) ps.on(bp, 'click', () => { switchToPdf(sc, C); paintLabel(); draw(); th.applyScenario(true); });

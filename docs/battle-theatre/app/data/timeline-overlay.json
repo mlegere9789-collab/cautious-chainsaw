@@ -1,0 +1,2171 @@
+{
+ "label": "Timeline-row markers built from GOVERNANCE (register EG-0137, EG-0139, EG-0292..EG-0299; timeline_corrections; timeline_conflict_updates)",
+ "version": 1,
+ "catalog": [
+  {
+   "register": "EG-0137",
+   "title": "OR Atlas, Gettysburg plates 28, 40, 43, 73 and 95",
+   "status": "identified from index only, images unseen",
+   "tier": "inferred",
+   "detail": "The Atlas general index (OCR) lists Gettysburg battle maps on plates 28, 40, 43, 73 and 95 and Warren-credited work on plate 95 map 1. Plate images were not viewed, the 73 sub-number is unreadable, eHistory returned 403, and whether plate 95 reproduces Warren 1868-69 is not established.",
+   "note": "Plate 95 map 1 is credited to Warren in the index; whether it reproduces Warren 1868-69 is not established. No plate is used as a geometry or Warren source.",
+   "searched": "archive.org full text and search; shard result R12.012."
+  },
+  {
+   "register": "EG-0139",
+   "title": "Pickett's Charge Cultural Landscape Report (2024)",
+   "status": "not located",
+   "tier": "inferred",
+   "detail": "The PDF lists a Pickett's Charge CLR (2024); the npshistory index shows only the Pickett's Charge Battlefield Cultural Landscapes Inventory. The NPS Historic Vegetation Study remains unfound. The Little Round Top CLR body (54 MB) was only HEAD-checked this pass although earlier project work read it.",
+   "note": "The npshistory index shows only the Pickett's Charge Battlefield Cultural Landscapes Inventory.",
+   "searched": "npshistory index, IRMA 2257218, NPS planning page; shard result R12.017."
+  },
+  {
+   "register": "EG-0139",
+   "title": "NPS Historic Vegetation Study",
+   "status": "not located",
+   "tier": "inferred",
+   "detail": "The PDF lists a Pickett's Charge CLR (2024); the npshistory index shows only the Pickett's Charge Battlefield Cultural Landscapes Inventory. The NPS Historic Vegetation Study remains unfound. The Little Round Top CLR body (54 MB) was only HEAD-checked this pass although earlier project work read it.",
+   "note": "Search IRMA by title for the Pickett's Charge CLR before any fence or field claim relies on it.",
+   "searched": "npshistory index, IRMA 2257218, NPS planning page; shard result R12.017."
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "TL-T2-241",
+   "row": "T2-241",
+   "register": "EG-0292",
+   "topic": "II Corps overnight reinforcement of the line on Jul 2-3: row note says unverified; OR documents rails, stones and earth",
+   "options": [
+    {
+     "key": "s:PDF row note",
+     "label": "PDF row note",
+     "value": "rail/earth reinforcement unverified, do not animate",
+     "basis": "seed note; NPS-ANGLE (secondary)",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:OR Hall/Curtis",
+     "label": "OR Hall/Curtis",
+     "value": "rails, stones, earth thrown up overnight on 3rd Bde, 2nd Div front",
+     "basis": "OR27-1-R109 p437-438; OR27-1-R112 p450",
+     "tier": "documented"
+    }
+   ]
+  },
+  {
+   "id": "TL-T3-027",
+   "row": "T3-027",
+   "register": "EG-0292",
+   "topic": "II Corps overnight reinforcement of the line on Jul 2-3: row note says unverified; OR documents rails, stones and earth",
+   "options": [
+    {
+     "key": "s:PDF row note",
+     "label": "PDF row note",
+     "value": "undocumented",
+     "basis": "seed note",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:OR",
+     "label": "OR",
+     "value": "documented on Hall's sector",
+     "basis": "OR27-1-R109 p437-438; R112 p450",
+     "tier": "documented"
+    }
+   ]
+  },
+  {
+   "id": "TL-T2-242",
+   "row": "T2-242",
+   "register": "EG-0293",
+   "topic": "Hour of the Jul 3 dawn fight on the XII Corps front",
+   "options": [
+    {
+     "key": "s:A",
+     "label": "A",
+     "value": "03:30",
+     "basis": "Geary p828; Kane p847",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:B",
+     "label": "B",
+     "value": "03:45",
+     "basis": "Candy p836",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:C",
+     "label": "C",
+     "value": "04:00",
+     "basis": "Greene p857; Ireland (137th NY) p867 enemy advance",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:D",
+     "label": "D",
+     "value": "04:30 (Muhlenberg+Kinzie, 15 min)",
+     "basis": "Hunt p237; Ruger ~04:30 (audit)",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:E",
+     "label": "E",
+     "value": "05:30 (all batteries) to 10:00",
+     "basis": "Hunt p237-238; Muhlenberg p870",
+     "tier": "inferred"
+    }
+   ]
+  },
+  {
+   "id": "TL-T3-037",
+   "row": "T3-037",
+   "register": "EG-0293",
+   "topic": "Hour of the Jul 3 dawn fight on the XII Corps front",
+   "options": [
+    {
+     "key": "s:A",
+     "label": "A",
+     "value": "03:30",
+     "basis": "Geary p828; Kane p847",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:B",
+     "label": "B",
+     "value": "03:45",
+     "basis": "Candy p836",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:C",
+     "label": "C",
+     "value": "04:00",
+     "basis": "Greene p857; Ireland p867",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:D",
+     "label": "D",
+     "value": "04:30",
+     "basis": "Hunt p237; Ruger p780 (audit)",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:E",
+     "label": "E",
+     "value": "05:30",
+     "basis": "Hunt p237",
+     "tier": "inferred"
+    }
+   ]
+  },
+  {
+   "id": "TL-T3-039",
+   "row": "T3-039",
+   "register": "EG-0293",
+   "topic": "Hour of the Jul 3 dawn fight on the XII Corps front",
+   "options": [
+    {
+     "key": "s:A",
+     "label": "A",
+     "value": "03:30",
+     "basis": "Geary p828; Kane p847",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:B",
+     "label": "B",
+     "value": "03:45",
+     "basis": "Candy p836",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:C",
+     "label": "C",
+     "value": "04:00",
+     "basis": "Greene p857; Ireland p867",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:D",
+     "label": "D",
+     "value": "\"daylight\"/\"early light\"",
+     "basis": "Steuart p511; Williams p513",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:PDF",
+     "label": "PDF",
+     "value": "05:00-05:30 (04:30 Hunt vs 05:30)",
+     "basis": "seed row",
+     "tier": "inferred"
+    }
+   ]
+  },
+  {
+   "id": "TL-T3-002",
+   "row": "T3-002",
+   "register": "EG-0294",
+   "topic": "Date and place of Hampton's wound",
+   "options": [
+    {
+     "key": "s:wound at Hunterstown Jul 2",
+     "label": "wound at Hunterstown Jul 2",
+     "value": "Hampton wounded Jul 2",
+     "basis": "CWN-STU (secondary)",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:wound Jul 3",
+     "label": "wound Jul 3",
+     "value": "Hampton wounded Jul 3 (East Cavalry Field action)",
+     "basis": "OR27-2-R426 p298, p322; R479 p497-498; Hampton report",
+     "tier": "documented"
+    }
+   ]
+  },
+  {
+   "id": "TL-T3-017",
+   "row": "T3-017",
+   "register": "EG-0295",
+   "topic": "Moon illumination range for the night of Jul 2-3",
+   "options": [
+    {
+     "key": "s:PDF printed",
+     "label": "PDF printed",
+     "value": "95% to 86% lit",
+     "basis": "seed row (PDF)",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:computed",
+     "label": "computed",
+     "value": "95.0% at moonrise to ~92.3% at moonset",
+     "basis": "environment/ephemeris_1863.json; ENV-NOTES.md finding 1",
+     "tier": "inferred"
+    }
+   ]
+  },
+  {
+   "id": "TL-T3-022",
+   "row": "T3-022",
+   "register": "EG-0296",
+   "topic": "When Rigby's Maryland battery was on the hill south of the Baltimore Pike",
+   "options": [
+    {
+     "key": "s:A (Rigby)",
+     "label": "A (Rigby)",
+     "value": "on the hill from the morning of Jul 2, firing ~14:00",
+     "basis": "OR27-1-R332 p899",
+     "tier": "documented"
+    },
+    {
+     "key": "s:B (Hunt)",
+     "label": "B (Hunt)",
+     "value": "placed soon after daylight Jul 3",
+     "basis": "OR27-1-R028 p237",
+     "tier": "documented"
+    },
+    {
+     "key": "s:C (Tyler)",
+     "label": "C (Tyler)",
+     "value": "opened fire at daylight Jul 3",
+     "basis": "OR27-1-R315 p873",
+     "tier": "documented"
+    },
+    {
+     "key": "s:D (NPS-H1)",
+     "label": "D (NPS-H1)",
+     "value": "on Powers Hill overnight",
+     "basis": "secondary",
+     "tier": "inferred"
+    }
+   ]
+  },
+  {
+   "id": "TL-T3-038",
+   "row": "T3-038",
+   "register": "EG-0296",
+   "topic": "When Rigby's Maryland battery was on the hill south of the Baltimore Pike",
+   "options": [
+    {
+     "key": "s:fire start",
+     "label": "fire start",
+     "value": "daylight Jul 3 (Tyler, Rigby) / soon after daylight (Hunt)",
+     "basis": "OR27-1-R315 p873; R332 p899; R028 p237",
+     "tier": "documented"
+    }
+   ]
+  },
+  {
+   "id": "TL-T3-023",
+   "row": "T3-023",
+   "register": "EG-0297",
+   "topic": "XII Corps return to the lower Culp's Hill works and the arrival of Lockwood's brigade",
+   "options": [
+    {
+     "key": "s:NPS-H1",
+     "label": "NPS-H1",
+     "value": "overnight, hour unstated",
+     "basis": "secondary",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:CWN",
+     "label": "CWN",
+     "value": "~04:00",
+     "basis": "secondary",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:OR",
+     "label": "OR",
+     "value": "Ruger back ~22:00 Jul 2; Lockwood arrives ~08:00 Jul 3",
+     "basis": "OR27-1-R273 p780; R286 p813; R284 p808; R282 p804",
+     "tier": "documented"
+    }
+   ]
+  },
+  {
+   "id": "TL-T3-033",
+   "row": "T3-033",
+   "register": "EG-0297",
+   "topic": "XII Corps return to the lower Culp's Hill works and the arrival of Lockwood's brigade",
+   "options": [
+    {
+     "key": "s:CWN",
+     "label": "CWN",
+     "value": "~04:00 Jul 3",
+     "basis": "secondary",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:OR",
+     "label": "OR",
+     "value": "~21:00-22:00 Jul 2",
+     "basis": "OR27-1-R273 p780; R286 p813",
+     "tier": "documented"
+    }
+   ]
+  },
+  {
+   "id": "TL-T2-244",
+   "row": "T2-244",
+   "register": "EG-0297",
+   "topic": "XII Corps return to the lower Culp's Hill works and the arrival of Lockwood's brigade",
+   "options": [
+    {
+     "key": "s:CWN",
+     "label": "CWN",
+     "value": "~04:00 Jul 3",
+     "basis": "CWN-SPG (secondary)",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:OR",
+     "label": "OR",
+     "value": "~21:00-22:00 Jul 2",
+     "basis": "OR27-1-R273 p780; R286 p813; R293 p827",
+     "tier": "documented"
+    }
+   ]
+  },
+  {
+   "id": "TL-T3-029",
+   "row": "T3-029",
+   "register": "EG-0298",
+   "topic": "Who built the Little Round Top / Round Top stone breastworks and when",
+   "options": [
+    {
+     "key": "s:Row (NPS-LRT/W-LRT-W)",
+     "label": "Row (NPS-LRT/W-LRT-W)",
+     "value": "south-slope breastworks credited to Weed and the PA Reserves, pre-dawn Jul 3",
+     "basis": "secondary",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:OR Garrard",
+     "label": "OR Garrard",
+     "value": "Weed's brigade built a wall half-way down the slope at night, Jul 2",
+     "basis": "OR27-1-R217 p652",
+     "tier": "documented"
+    },
+    {
+     "key": "s:OR Fisher",
+     "label": "OR Fisher",
+     "value": "PA Reserves built a wall across the ravine between the Round Tops, morning of Jul 3",
+     "basis": "OR27-1-R220 p658",
+     "tier": "documented"
+    }
+   ]
+  },
+  {
+   "id": "TL-T3-044",
+   "row": "T3-044",
+   "register": "EG-0299",
+   "topic": "Rounds expended by Geary's division in the Culp's Hill fight",
+   "options": [
+    {
+     "key": "s:W-CH",
+     "label": "W-CH",
+     "value": "~227,000",
+     "basis": "Wikipedia (secondary)",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:soldier's letter",
+     "label": "soldier's letter",
+     "value": "~250,000",
+     "basis": "HN-HUNDREDS (secondary)",
+     "tier": "inferred"
+    },
+    {
+     "key": "s:OR OCR",
+     "label": "OR OCR",
+     "value": "277,000 (period: Jul 3 and subsequent skirmishing)",
+     "basis": "OR27-1-R293 p833",
+     "tier": "documented"
+    }
+   ]
+  }
+ ],
+ "rows": {
+  "T1-063": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T1-066": {
+   "audit": {
+    "tier": "documented",
+    "seed": "open gap",
+    "note": "documented"
+   }
+  },
+  "T1-067": {
+   "audit": {
+    "tier": "documented",
+    "seed": "open gap",
+    "note": "documented"
+   }
+  },
+  "T1-071": {
+   "audit": {
+    "tier": "documented",
+    "seed": "open gap",
+    "note": "documented"
+   }
+  },
+  "T1-072": {
+   "audit": {
+    "tier": "documented",
+    "seed": "plausible-procedural",
+    "note": "documented"
+   }
+  },
+  "T1-073": {
+   "audit": {
+    "tier": "documented",
+    "seed": "open gap",
+    "note": "documented"
+   }
+  },
+  "T1-075": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T1-092": {
+   "audit": {
+    "tier": "documented",
+    "seed": "inferred",
+    "note": "documented"
+   }
+  },
+  "T1-099": {
+   "updates": [
+    {
+     "conflict": "C-040",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "About 10:15: Wadsworth's report of 4 Jul 1863 and Doubleday's report; Howard's 11.15 is a later reckoning"
+    }
+   ]
+  },
+  "T1-114": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T1-116": {
+   "audit": {
+    "tier": "documented",
+    "seed": "open gap",
+    "note": "documented"
+   }
+  },
+  "T1-124": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   },
+   "updates": [
+    {
+     "conflict": "C-042",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "About 14:00: Lee reaches the crest west of Gettysburg and takes position overlooking the battle (Pendleton's report)"
+    }
+   ]
+  },
+  "T1-126": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   },
+   "updates": [
+    {
+     "conflict": "C-041",
+     "cls": "irreducible",
+     "tier": "inferred",
+     "label": "About 13:30 to 14:00 on Jul 1; the picture uses 13:45 (the middle)"
+    }
+   ]
+  },
+  "T1-129": {
+   "updates": [
+    {
+     "conflict": "C-041",
+     "cls": "irreducible",
+     "tier": "inferred",
+     "label": "About 13:30 to 14:00 on Jul 1; the picture uses 13:45 (the middle)"
+    }
+   ]
+  },
+  "T1-130": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T1-132": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T1-135": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T1-137": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T1-138": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T1-140": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   },
+   "updates": [
+    {
+     "conflict": "C-038",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "About 1,900 wounded (1,800 Union, 100 said to be Confederate); range 1,000-2,000 shown"
+    }
+   ]
+  },
+  "T1-143": {
+   "updates": [
+    {
+     "conflict": "C-039",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "About 16:00 to 16:30: Howard's note of the day (4 p.m.) to Howard's report and Doubleday (about 4.30)"
+    }
+   ]
+  },
+  "T1-151": {
+   "updates": [
+    {
+     "conflict": "C-043",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "15:45 to 16:10: Wadsworth ordered the First Division back at 3.45; Howard ordered both corps back at 4.10"
+    }
+   ]
+  },
+  "T1-156": {
+   "updates": [
+    {
+     "conflict": "C-043",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "15:45 to 16:10: Wadsworth ordered the First Division back at 3.45; Howard ordered both corps back at 4.10"
+    }
+   ]
+  },
+  "T1-171": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T1-181": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T1-188": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T1-189": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T1-194": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "open gap",
+    "note": "inferred"
+   }
+  },
+  "T1-197": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T1-199": {
+   "audit": {
+    "tier": "documented",
+    "seed": "inferred",
+    "note": "documented"
+   }
+  },
+  "T1-206": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T1-207": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T1-208": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T1-214": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "open gap",
+    "note": "inferred"
+   }
+  },
+  "T1-217": {
+   "audit": {
+    "tier": "documented",
+    "seed": "open gap",
+    "note": "documented"
+   },
+   "updates": [
+    {
+     "conflict": "C-027",
+     "cls": "settled",
+     "tier": "documented",
+     "label": "Taneytown on the night of 2 July, Westminster on 3 July (the Reserve Brigade: Emmitsburg)"
+    }
+   ]
+  },
+  "T1-218": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T1-225": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-003": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   },
+   "updates": [
+    {
+     "conflict": "C-038",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "About 1,900 wounded (1,800 Union, 100 said to be Confederate); range 1,000-2,000 shown"
+    }
+   ]
+  },
+  "T2-014": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-018": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-019": {
+   "audit": {
+    "tier": "documented",
+    "seed": "inferred",
+    "note": "documented"
+   }
+  },
+  "T2-022": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-024": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-027": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-031": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-033": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-039": {
+   "updates": [
+    {
+     "conflict": "C-001",
+     "cls": "irreducible",
+     "tier": "documented",
+     "label": "Between about 01:00 (Meade) and about 02:00 (Hunt) on Jul 2; drawn at 01:00"
+    }
+   ]
+  },
+  "T2-040": {
+   "updates": [
+    {
+     "conflict": "C-002",
+     "cls": "irreducible",
+     "tier": "inferred",
+     "label": "Between about 00:00 and 02:00 on Jul 2 (Brewster about midnight; Humphreys 01:00; Tripp and Bodine 02:00)"
+    }
+   ]
+  },
+  "T2-041": {
+   "updates": [
+    {
+     "conflict": "C-005",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "About 05:00 (sunrise to 05:30): Hood and the head of his division on the ridge; the tail could be up by 07:30"
+    }
+   ]
+  },
+  "T2-042": {
+   "updates": [
+    {
+     "conflict": "C-002",
+     "cls": "irreducible",
+     "tier": "inferred",
+     "label": "Between about 00:00 and 02:00 on Jul 2 (Brewster about midnight; Humphreys 01:00; Tripp and Bodine 02:00)"
+    }
+   ]
+  },
+  "T2-048": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-049": {
+   "updates": [
+    {
+     "conflict": "C-005",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "About 05:00 (sunrise to 05:30): Hood and the head of his division on the ridge; the tail could be up by 07:30"
+    }
+   ]
+  },
+  "T2-053": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-056": {
+   "updates": [
+    {
+     "conflict": "C-003",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "Window 07:00-08:00 on Jul 2: the Fifth Corps comes up on the right of the line; drawn at 07:00"
+    }
+   ]
+  },
+  "T2-057": {
+   "audit": {
+    "tier": "documented",
+    "seed": "inferred",
+    "note": "documented"
+   }
+  },
+  "T2-058": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   },
+   "updates": [
+    {
+     "conflict": "C-006",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "By about 05:00 (first light to 05:15): Longstreet with Lee on Seminary Ridge"
+    }
+   ]
+  },
+  "T2-060": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-063": {
+   "updates": [
+    {
+     "conflict": "C-004",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "Window 04:00-06:15 on Jul 2: first brigades about 4, the main body up by 6; drawn at 06:00"
+    }
+   ]
+  },
+  "T2-064": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   },
+   "updates": [
+    {
+     "conflict": "C-005",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "About 05:00 (sunrise to 05:30): Hood and the head of his division on the ridge; the tail could be up by 07:30"
+    }
+   ]
+  },
+  "T2-068": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   },
+   "updates": [
+    {
+     "conflict": "C-045",
+     "cls": "gap",
+     "tier": "plausible-procedural",
+     "label": "Light wind, drawn at 2 to 6 mph (marked stand-in)"
+    }
+   ]
+  },
+  "T2-069": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-072": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   },
+   "updates": [
+    {
+     "conflict": "C-007",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "About 07:00: the head of McLaws's division on the ridge; the whole division up by 08:00 to 08:30"
+    }
+   ]
+  },
+  "T2-073": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-085": {
+   "updates": [
+    {
+     "conflict": "C-008",
+     "cls": "irreducible",
+     "tier": "inferred",
+     "label": "Morning of 2 July: plan given by about 9 a.m.; formal order about 11:00 (Longstreet); before about noon"
+    }
+   ]
+  },
+  "T2-086": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-087": {
+   "updates": [
+    {
+     "conflict": "C-009",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "About 11:00 on Jul 2: Berdan is ordered to send the detachment out"
+    }
+   ]
+  },
+  "T2-093": {
+   "updates": [
+    {
+     "conflict": "C-010",
+     "cls": "irreducible",
+     "tier": "documented",
+     "label": "About 14:00 to 16:00 on Jul 2: the Third Corps moves up to the Emmitsburg road and the peach orchard"
+    }
+   ]
+  },
+  "T2-094": {
+   "updates": [
+    {
+     "conflict": "C-010",
+     "cls": "irreducible",
+     "tier": "documented",
+     "label": "About 14:00 to 16:00 on Jul 2: the Third Corps moves up to the Emmitsburg road and the peach orchard"
+    }
+   ]
+  },
+  "T2-095": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   },
+   "updates": [
+    {
+     "conflict": "C-023",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "Afternoon of July 2 (no hour is recorded); Hampton fights at Hunterstown at sundown"
+    }
+   ]
+  },
+  "T2-103": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-108": {
+   "updates": [
+    {
+     "conflict": "C-022",
+     "cls": "irreducible",
+     "tier": "documented",
+     "label": "Window 14:00-17:00 on Jul 2: head 14:00-15:00 (record divided), corps about 16:00, left about 17:00"
+    }
+   ]
+  },
+  "T2-113": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-116": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-121": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-128": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-133": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-139": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   },
+   "updates": [
+    {
+     "conflict": "C-011",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "Guns about 16:00, Hood's infantry soon after: window 16:00-16:30; drawn at the middle"
+    },
+    {
+     "conflict": "C-016",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "Little Round Top (western foot and slope, beside the 4th Texas)"
+    }
+   ]
+  },
+  "T2-142": {
+   "updates": [
+    {
+     "conflict": "C-012",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "10 minutes: Vincent's brigade reached the ledge ten minutes before Oates's 15th Alabama arrived"
+    }
+   ]
+  },
+  "T2-148": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-154": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-163": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-165": {
+   "updates": [
+    {
+     "conflict": "C-013",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "About 18:30 to 19:30: no report of 1863 gives a clock time; two later readings, reasoned within the reports"
+    },
+    {
+     "conflict": "C-014",
+     "cls": "irreducible",
+     "tier": "documented",
+     "label": "368 to 400 prisoners sent to the rear after the 20th Maine's counter-charge (the 25 of the night are separate)"
+    },
+    {
+     "conflict": "C-015",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "386 men all told, 358 of them with muskets"
+    }
+   ]
+  },
+  "T2-169": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-176": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   },
+   "updates": [
+    {
+     "conflict": "C-026",
+     "cls": "irreducible",
+     "tier": "inferred",
+     "label": "During the battle: from the Jul 2 afternoon fight (once wounded men were in the barn) to the end of Jul 3"
+    }
+   ]
+  },
+  "T2-177": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-178": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T2-179": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-185": {
+   "updates": [
+    {
+     "conflict": "C-018",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "No single stopper: Gibbon's regiments counter-charged, Wright's flanks failed him; the crest is Wright's claim"
+    }
+   ]
+  },
+  "T2-187": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-189": {
+   "updates": [
+    {
+     "conflict": "C-018",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "No single stopper: Gibbon's regiments counter-charged, Wright's flanks failed him; the crest is Wright's claim"
+    }
+   ]
+  },
+  "T2-190": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-192": {
+   "updates": [
+    {
+     "conflict": "C-019",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "About 19:00 on Jul 2: Johnson's division attacks Greene on Culp's Hill"
+    }
+   ]
+  },
+  "T2-198": {
+   "updates": [
+    {
+     "conflict": "C-020",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "About 20:00: the infantry assault goes up East Cemetery Hill and charges the batteries"
+    }
+   ]
+  },
+  "T2-200": {
+   "updates": [
+    {
+     "conflict": "C-023",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "Afternoon of July 2 (no hour is recorded); Hampton fights at Hunterstown at sundown"
+    }
+   ]
+  },
+  "T2-207": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-210": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-213": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-214": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-216": {
+   "updates": [
+    {
+     "conflict": "C-024",
+     "cls": "gap",
+     "tier": "plausible-procedural",
+     "label": "Jul 2 evening: from dusk (about 19:32) to nearly midnight; no source gives the start hour"
+    }
+   ]
+  },
+  "T2-217": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-218": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-219": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-220": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-221": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-225": {
+   "audit": {
+    "tier": "plausible-procedural",
+    "seed": "open gap",
+    "note": "plausible-procedural"
+   }
+  },
+  "T2-226": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-227": {
+   "audit": {
+    "tier": "plausible-procedural",
+    "seed": "open gap",
+    "note": "plausible-procedural"
+   }
+  },
+  "T2-230": {
+   "updates": [
+    {
+     "conflict": "C-025",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "Night of Jul 2-3: ordered back 21:00, Kane returning about 22:00, last brigade in 01:00-01:30"
+    }
+   ]
+  },
+  "T2-231": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T2-234": {
+   "updates": [
+    {
+     "conflict": "C-024",
+     "cls": "gap",
+     "tier": "plausible-procedural",
+     "label": "Jul 2 evening: from dusk (about 19:32) to nearly midnight; no source gives the start hour"
+    }
+   ]
+  },
+  "T2-238": {
+   "audit": {
+    "tier": "plausible-procedural",
+    "seed": "documented",
+    "note": "plausible-procedural"
+   }
+  },
+  "T2-239": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "open gap",
+    "note": "inferred"
+   },
+   "updates": [
+    {
+     "conflict": "C-021",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "Morning of Jul 3: a brigade starts 4 miles out at 03:00, another reaches the field about 09:00"
+    }
+   ]
+  },
+  "T2-241": {
+   "conflict": "TL-T2-241",
+   "register": "EG-0292"
+  },
+  "T2-242": {
+   "conflict": "TL-T2-242",
+   "register": "EG-0293",
+   "updates": [
+    {
+     "conflict": "C-028",
+     "cls": "irreducible",
+     "tier": "inferred",
+     "label": "First fire 03:30 to 04:30 (reports differ); all batteries open at 05:30"
+    }
+   ]
+  },
+  "T2-244": {
+   "conflict": "TL-T2-244",
+   "register": "EG-0297"
+  },
+  "T2-247": {
+   "updates": [
+    {
+     "conflict": "C-028",
+     "cls": "irreducible",
+     "tier": "inferred",
+     "label": "First fire 03:30 to 04:30 (reports differ); all batteries open at 05:30"
+    }
+   ]
+  },
+  "T2-248": {
+   "audit": {
+    "tier": "plausible-procedural",
+    "seed": "documented",
+    "note": "plausible-procedural"
+   }
+  },
+  "T3-001": {
+   "updates": [
+    {
+     "conflict": "C-023",
+     "cls": "weighted",
+     "tier": "documented",
+     "label": "Afternoon of July 2 (no hour is recorded); Hampton fights at Hunterstown at sundown"
+    }
+   ]
+  },
+  "T3-002": {
+   "conflict": "TL-T3-002",
+   "register": "EG-0294"
+  },
+  "T3-003": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-010": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-012": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-013": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-014": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-015": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-016": {
+   "updates": [
+    {
+     "conflict": "C-024",
+     "cls": "gap",
+     "tier": "plausible-procedural",
+     "label": "Jul 2 evening: from dusk (about 19:32) to nearly midnight; no source gives the start hour"
+    }
+   ]
+  },
+  "T3-017": {
+   "conflict": "TL-T3-017",
+   "register": "EG-0295"
+  },
+  "T3-018": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "open gap",
+    "note": "inferred"
+   }
+  },
+  "T3-019": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "open gap",
+    "note": "inferred"
+   }
+  },
+  "T3-022": {
+   "conflict": "TL-T3-022",
+   "register": "EG-0296"
+  },
+  "T3-023": {
+   "conflict": "TL-T3-023",
+   "register": "EG-0297"
+  },
+  "T3-025": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-026": {
+   "updates": [
+    {
+     "conflict": "C-025",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "Night of Jul 2-3: ordered back 21:00, Kane returning about 22:00, last brigade in 01:00-01:30"
+    }
+   ]
+  },
+  "T3-027": {
+   "conflict": "TL-T3-027",
+   "register": "EG-0292"
+  },
+  "T3-029": {
+   "conflict": "TL-T3-029",
+   "register": "EG-0298"
+  },
+  "T3-031": {
+   "audit": {
+    "tier": "plausible-procedural",
+    "seed": "documented",
+    "note": "plausible-procedural"
+   }
+  },
+  "T3-033": {
+   "conflict": "TL-T3-033",
+   "register": "EG-0297"
+  },
+  "T3-035": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-036": {
+   "updates": [
+    {
+     "conflict": "C-028",
+     "cls": "irreducible",
+     "tier": "inferred",
+     "label": "First fire 03:30 to 04:30 (reports differ); all batteries open at 05:30"
+    }
+   ]
+  },
+  "T3-037": {
+   "conflict": "TL-T3-037",
+   "register": "EG-0293"
+  },
+  "T3-038": {
+   "conflict": "TL-T3-038",
+   "register": "EG-0296"
+  },
+  "T3-039": {
+   "conflict": "TL-T3-039",
+   "register": "EG-0293",
+   "audit": {
+    "tier": "inferred",
+    "seed": "open gap",
+    "note": "inferred"
+   }
+  },
+  "T3-044": {
+   "conflict": "TL-T3-044",
+   "register": "EG-0299",
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-045": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-046": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-048": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-049": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-051": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-057": {
+   "updates": [
+    {
+     "conflict": "C-031",
+     "cls": "settled",
+     "tier": "documented",
+     "label": "About 10:30: the last Confederate charge (begun 10:25 to 10:30) is beaten back and the enemy retires"
+    }
+   ]
+  },
+  "T3-060": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-063": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   },
+   "updates": [
+    {
+     "conflict": "C-032",
+     "cls": "irreducible",
+     "tier": "inferred",
+     "label": "Between about 13:00 and 14:00; drawn at 14:00 (the latest hour a source gives for the start)"
+    }
+   ]
+  },
+  "T3-065": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-066": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-067": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-071": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "open gap",
+    "note": "inferred"
+   }
+  },
+  "T3-072": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-079": {
+   "updates": [
+    {
+     "conflict": "C-032",
+     "cls": "irreducible",
+     "tier": "inferred",
+     "label": "Between about 13:00 and 14:00; drawn at 14:00 (the latest hour a source gives for the start)"
+    }
+   ]
+  },
+  "T3-081": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-082": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-086": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-087": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-090": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-094": {
+   "updates": [
+    {
+     "conflict": "C-029",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "Cannonade ends between 14:30 and 15:00 (Union fire stopped by order about 14:30)"
+    }
+   ]
+  },
+  "T3-095": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-098": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-100": {
+   "updates": [
+    {
+     "conflict": "C-030",
+     "cls": "irreducible",
+     "tier": "inferred",
+     "label": "Between about 13:30 and 15:00; drawn at 15:00 (most witnesses)"
+    }
+   ]
+  },
+  "T3-101": {
+   "updates": [
+    {
+     "conflict": "C-030",
+     "cls": "irreducible",
+     "tier": "inferred",
+     "label": "Between about 13:30 and 15:00; drawn at 15:00 (most witnesses)"
+    }
+   ]
+  },
+  "T3-102": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-103": {
+   "updates": [
+    {
+     "conflict": "C-030",
+     "cls": "irreducible",
+     "tier": "inferred",
+     "label": "Between about 13:30 and 15:00; drawn at 15:00 (most witnesses)"
+    }
+   ]
+  },
+  "T3-110": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred (fences existed; delay/breach unsourced)"
+   }
+  },
+  "T3-113": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-116": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred (anecdote)"
+   }
+  },
+  "T3-121": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred (memoir anecdote)"
+   }
+  },
+  "T3-122": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred (open gap: components unread, totals unverifiable)"
+   }
+  },
+  "T3-127": {
+   "audit": {
+    "tier": "documented",
+    "seed": "open gap",
+    "note": "documented (Union total); Confederate total open"
+   }
+  },
+  "T3-132": {
+   "audit": {
+    "tier": "plausible-procedural",
+    "seed": "documented",
+    "note": "plausible/inferred; no primary"
+   },
+   "updates": [
+    {
+     "conflict": "C-026",
+     "cls": "irreducible",
+     "tier": "inferred",
+     "label": "During the battle: from the Jul 2 afternoon fight (once wounded men were in the barn) to the end of Jul 3"
+    }
+   ]
+  },
+  "T3-133": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred (rain documented qualitatively; hour not)"
+   }
+  },
+  "T3-134": {
+   "audit": {
+    "tier": "documented",
+    "seed": "open gap",
+    "note": "documented (date carried as scenarios)"
+   }
+  },
+  "T3-137": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-139": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred; no primary here"
+   }
+  },
+  "T3-146": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap"
+   }
+  },
+  "T3-148": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-150": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred; counts carried as scenarios"
+   },
+   "updates": [
+    {
+     "conflict": "C-046",
+     "cls": "irreducible",
+     "tier": "documented",
+     "label": "Dead, by army: Union 3,155 killed to 5,291 with died of wounds; Confederate 2,592 killed to 7,000+ buried"
+    }
+   ]
+  },
+  "T3-153": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred (civilian account)"
+   }
+  },
+  "T3-156": {
+   "audit": {
+    "tier": "documented",
+    "seed": "open gap",
+    "note": "documented (Meade held position); Warren probe is Jul 5"
+   }
+  },
+  "T3-158": {
+   "updates": [
+    {
+     "conflict": "C-033",
+     "cls": "settled",
+     "tier": "inferred",
+     "label": "Jul 4 afternoon: the head of the column leaves Cashtown about 16:00 (not Imboden himself)"
+    }
+   ]
+  },
+  "T3-161": {
+   "audit": {
+    "tier": "open gap",
+    "seed": "documented",
+    "note": "open gap / unsupported"
+   }
+  },
+  "T3-164": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-167": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-169": {
+   "updates": [
+    {
+     "conflict": "C-034",
+     "cls": "irreducible",
+     "tier": "documented",
+     "label": "150 to 300 wagons captured or destroyed (Huey, Capehart); Lee's hearsay 40 and the 30 kept shown; range 40-500 listed"
+    }
+   ]
+  },
+  "T3-170": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-173": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-178": {
+   "updates": [
+    {
+     "conflict": "C-033",
+     "cls": "settled",
+     "tier": "inferred",
+     "label": "Jul 4 afternoon: the head of the column leaves Cashtown about 16:00 (not Imboden himself)"
+    }
+   ]
+  },
+  "T3-179": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "open gap",
+    "note": "inferred"
+   }
+  },
+  "T3-184": {
+   "audit": {
+    "tier": "documented",
+    "seed": "open gap",
+    "note": "documented"
+   }
+  },
+  "T3-185": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "open gap",
+    "note": "inferred"
+   }
+  },
+  "T3-187": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "open gap",
+    "note": "inferred"
+   }
+  },
+  "T3-190": {
+   "updates": [
+    {
+     "conflict": "C-036",
+     "cls": "settled",
+     "tier": "documented",
+     "label": "6 July 1863: Buford's division attacks Williamsport; Imboden's defenders repulse it"
+    }
+   ]
+  },
+  "T3-196": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-197": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-201": {
+   "audit": {
+    "tier": "documented",
+    "seed": "open gap",
+    "note": "documented"
+   }
+  },
+  "T3-205": {
+   "updates": [
+    {
+     "conflict": "C-035",
+     "cls": "irreducible",
+     "tier": "documented",
+     "label": "Range: over 500 (Buford) to over 2,000 (Meade's dispatch); no single figure"
+    }
+   ]
+  },
+  "T3-208": {
+   "updates": [
+    {
+     "conflict": "C-035",
+     "cls": "irreducible",
+     "tier": "documented",
+     "label": "Range: over 500 (Buford) to over 2,000 (Meade's dispatch); no single figure"
+    }
+   ]
+  },
+  "T3-211": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   },
+   "updates": [
+    {
+     "conflict": "C-044",
+     "cls": "weighted",
+     "tier": "inferred",
+     "label": "Jul 22: the camp opens for patients (the earliest dated transfers found are Jul 24)"
+    }
+   ]
+  },
+  "T3-213": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-215": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-216": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-217": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-218": {
+   "audit": {
+    "tier": "inferred",
+    "seed": "documented",
+    "note": "inferred"
+   }
+  },
+  "T3-219": {
+   "updates": [
+    {
+     "conflict": "C-046",
+     "cls": "irreducible",
+     "tier": "documented",
+     "label": "Dead, by army: Union 3,155 killed to 5,291 with died of wounds; Confederate 2,592 killed to 7,000+ buried"
+    }
+   ]
+  }
+ }
+}
