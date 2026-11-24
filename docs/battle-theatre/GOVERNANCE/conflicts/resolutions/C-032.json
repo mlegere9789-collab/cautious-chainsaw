@@ -30,29 +30,32 @@
    "C-032-DEFAULT"
   ]
  },
- "class": "weighted",
+ "class": "irreducible",
  "tier": "inferred",
  "basis": {
   "kind": "official_records",
-  "text": "Green's report of 8 July 1863 dates the engagement at 2 p.m.; Rawle (1878) and Storrs (1889), Union participants, put the first skirmish line and the first shot at about two. The plan's 13:00 is McIntosh's arrival, noon is Gregg's warning, 15:00 the main mounted clash."
+  "text": "McIntosh's report of 4 August 1863 puts his brigade 'immediately engaged' after his move at 1 p.m.; Green's report of 8 July 1863 reads 2 p.m. (the second scan prints the digit; the first scan's is damaged); Rawle (1878) and Storrs (1889) put the first skirmish line and first shot at about two. The record of the time is divided by about an hour."
  },
  "default": {
-  "mode": "position",
+  "mode": "window",
   "positions": [
+   "C-032-P1",
    "C-032-P5"
   ],
-  "label": "About 14:00: the engagement begins (Green 2 p.m., McIntosh's skirmish line about two)",
+  "label": "Between about 13:00 and 14:00; drawn at 14:00 (the latest hour a source gives for the start)",
+  "basis_text": "Lower end: McIntosh (Union brigade commander, report of 4 August 1863): moved at 1 p.m. and was 'immediately engaged'. Upper end: Green (Confederate artillery, 8 July 1863: 2 p.m.; digit read from the second scan), Rawle (1878: McIntosh's skirmish line about two) and Storrs (1889, via Kidd: first shot not earlier than 2). Earlier contact on Custer's front (10:00, noon) and the main mounted clash (15:00) stay selectable.",
   "animation": {
    "at": "1863-07-03T14:00",
-   "rule": "best_supported",
-   "note": "The fight is drawn from 14:00, the hour of Green's exact report and of two Union participants. Earlier skirmishing and a first artillery contact on Custer's front (10:00 to noon) and the main mounted clash (about 15:00) stay selectable; no unit appears before its arrival."
-  }
+   "rule": "range_end",
+   "note": "The fight is drawn from 14:00, the upper end of the window and the hour of Green, Rawle and Storrs; this is a drawing choice, not a settlement: McIntosh's report would put the engagement about an hour earlier, and no unit appears before its arrival."
+  },
+  "note": "The two best-class witnesses present, McIntosh (Union, 32 days) and Green (Confederate, 5 days), differ by about an hour; nothing in the rank rules separates them."
  },
  "positions": [
   {
    "id": "C-032-P1",
    "origin": "pdf_value",
-   "label": "13:00: McIntosh arrives and engages (the plan's default)",
+   "label": "About 13:00 to 13:30: McIntosh's brigade 'immediately engaged' after moving at 1 p.m. (the plan's default)",
    "kind": "time",
    "value": {
     "at": "1863-07-03T13:00",
@@ -61,7 +64,7 @@
    },
    "tier": "inferred",
    "clock": "union",
-   "stance": "selectable",
+   "stance": "default",
    "support": [
     {
      "id": "C-032-P1-c1",
@@ -129,10 +132,6 @@
      "page_note": "printed page 14 read from the text (15 begins a few lines later)"
     }
    ],
-   "reason_not_chosen": {
-    "kind": "different_event",
-    "text": "McIntosh's 1 p.m. is his move and arrival; the first skirmish line went out about two, and the Confederate engagement is dated 2 p.m. by Green."
-   },
    "pdf_label": "13:00",
    "scenario_ids": [
     "C-032-S1",
@@ -141,7 +140,7 @@
    "approx": true,
    "derived": true,
    "inference": {
-    "step": "McIntosh moved at 1 p.m. and was engaged on arriving; Rawle puts his arrival shortly before one. The first fire is read as soon after, though Rawle and Green put it about two.",
+    "step": "McIntosh's own report says he moved at 1 p.m., placed the First New Jersey at once and that it 'became immediately engaged'; Rawle puts his arrival shortly before one. The engagement is read as soon after 13:00; Rawle, Green and Storrs put the first fire about an hour later.",
     "from": [
      "C-032-P1-c1",
      "C-032-P1-c2"
@@ -272,7 +271,7 @@
      "quote": "About noon the enemy threw a heavy force of cavalry against this position",
      "witness": {
       "name": "Alfred Pleasonton",
-      "role": "Major General commanding the Cavalry Corps (at corps headquarters; relays Gregg's report)",
+      "role": "Major General commanding the Cavalry Corps (at corps headquarters; may relay Gregg, he does not say)",
       "side": "union"
      },
      "written": {
@@ -329,7 +328,7 @@
    ],
    "reason_not_chosen": {
     "kind": "different_event",
-    "text": "Pleasonton relays an hour without saying how he knew; Gregg's noon is the dispatch that warned him, with the enemy's skirmishers shown and the attack still to come."
+    "text": "Pleasonton gives an hour without saying how he knew (he may relay Gregg); Gregg's noon is the dispatch that warned him, with the attack still to come."
    },
    "scenario_ids": [
     "C-032-S4",
@@ -580,7 +579,7 @@
    ],
    "derived": true,
    "inference": {
-    "step": "Green (Confederate, July 1863) dates the engagement at 2 p.m. in a report that runs from July 2 to 4; Rawle and Storrs, of the Union side, put the first shot and the first skirmish line at about two. The day is read from the order of Green's report.",
+    "step": "Green (Confederate, July 1863) dates the engagement at 2 p.m. in a report that runs from July 2 to 4; Rawle and Storrs, of the Union side, put the first shot and the first skirmish line at about two. The day is read from the order of Green's report. Storrs gives only a lower bound ('not earlier than 2'); the history of 1900 names no source and is not counted among the independent groups.",
     "from": [
      "C-032-P5-c1",
      "C-032-P5-c2",
@@ -590,19 +589,19 @@
   }
  ],
  "weighing": {
-  "summary": "Green, the only report of the time with a clock reading for the start, says 2 p.m.; two Union participants (Rawle, Storrs) say about two and not earlier; 13:00, noon and 15:00 date McIntosh's arrival, Gregg's warning and the main mounted clash; Custer's 10 a.m. is contradicted by his own squadron commander. Class weighted: the evidence favours 14:00 but the Union reports of 1863 give no hour for the first fire.",
+  "summary": "The two best-class witnesses present disagree: McIntosh (official report, 32 days after) has his brigade 'immediately engaged' after the 1 p.m. move; Green (official report, 5 days after, Confederate) has the engagement begin at 2 p.m., the digit read from the second scan. Rawle (1878) and Storrs (via Kidd, 1889) put the first skirmish line and first shot at about two. Noon is Gregg's warning, 15:00 the main mounted clash, 10:00 Custer's early contact. Nothing in the rank rules separates McIntosh from Green (Green is nearer in time, McIntosh is on the Union side where the clash began), so the record is divided and the window is shown.",
   "who": "Green fired a Confederate section in the fight; McIntosh and Gregg commanded on the Union side; Pleasonton was at corps headquarters; Custer commanded the brigade on the field; Rawle and Storrs were officers in the fight and wrote or spoke years later (1878, 1889). Stuart's report gives no hour; the reports of Fitz Lee, Chambliss, Ferguson and W. H. F. Lee are not printed.",
   "when": "Green wrote 5 days after, Gregg 22, McIntosh 32, Pleasonton 59 days after; Rawle 15 years and Storrs 26 years after. The best class of writing (reports of the time) gives Green 2 p.m., McIntosh 1 p.m. as a move, Gregg noon as a dispatch, Pleasonton about noon as a relay; the later participants Rawle and Storrs agree with Green.",
   "where": "Green's guns were on the Confederate side near the Rummel buildings; McIntosh was with the First New Jersey on the Union right; Storrs was in front of Custer's position; Gregg was at the right of the line. They saw different parts of a front half a mile wide, and the Confederate artillery and skirmishers may have opened earlier on Custer's front than the main engagement.",
   "how_knew": "Green gives a clock reading from the field; McIntosh gives the hour of his own move; Gregg the hour of a dispatch handed to him; Rawle and Storrs recall hours across many years, Rawle partly from a diary.",
   "clock": "Green uses the Confederate clock, the Union writers the Union clock; the reported difference of about 20 minutes is not applied and is too small to join noon and 14:00.",
-  "independence": "Green (Confederate) is independent of the Union writers; McIntosh and Rawle (of McIntosh's brigade) are separate writers of the same brigade; Storrs and Custer are of the Michigan brigade; Pleasonton relays Gregg. Three groups carry 14:00 (Green, Rawle, Storrs); one group each carries 13:00, noon, 10:00 and 15:00."
+  "independence": "Green (Confederate) is independent of the Union writers. McIntosh and Rawle are of one brigade, but Rawle's account of 1878 and McIntosh's report disagree on the hour. Storrs's statement reaches us through Kidd, who wrote knowing Rawle's pamphlet, so Storrs and Rawle may not be independent of each other. The NY-GB history (1900) names no source and is not counted. Storrs gives only a lower bound ('not earlier than 2'). Pleasonton may relay Gregg; he does not say. Counted for about two: Green, Rawle, Storrs (lower bound); for about 13:00: McIntosh; one group each for noon, 10:00 and 15:00."
  },
- "source_panel_text": "About 14:00 on Jul 3: Green (Confederate artillery, report of 8 July 1863) says the engagement began at 2 p.m.; two Union officers, Rawle and Storrs, say about two. 13:00 is McIntosh's arrival, noon Gregg's warning, 15:00 the main charge, 10:00 Custer's early contact. Four other values are listed.",
+ "source_panel_text": "Between about 13:00 and 14:00 on Jul 3; drawn at 14:00. McIntosh's report says his brigade was engaged at once after moving at 1 p.m.; Green (Confederate artillery) reads 2 p.m. (second scan; the first scan's digit is damaged), and Rawle and Storrs say about two. Noon, 10:00 and 15:00 date other events. Three other values are listed.",
  "holds": {
   "pdf_default": {
-   "holds": "no",
-   "note": "13:00 is when McIntosh moved and arrived; the first skirmish line and the first fire come about an hour later. It stays selectable."
+   "holds": "partly",
+   "note": "13:00 holds as the lower end of the window: McIntosh's report has his brigade engaged at once after moving at 1 p.m. It does not hold alone: Green, Rawle and Storrs put the first fire about two."
   },
   "first_delegated": {
    "holds": "no",

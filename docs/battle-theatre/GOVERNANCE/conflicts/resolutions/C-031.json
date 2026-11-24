@@ -41,7 +41,7 @@
   "positions": [
    "C-031-P3"
   ],
-  "label": "About 10:30: the last Confederate charge (from 10:25) is beaten back and the enemy retires",
+  "label": "About 10:30: the last Confederate charge (begun 10:25 to 10:30) is beaten back and the enemy retires",
   "animation": {
    "at": "1863-07-03T10:30",
    "rule": "best_supported",
@@ -52,7 +52,7 @@
   {
    "id": "C-031-P1",
    "origin": "pdf_value",
-   "label": "10:00: Ruger orders the counter-attack; Hunt: the infantry retake the works",
+   "label": "10:00: Ruger orders the counter-attack; Hunt and Meade round the recovery of the works",
    "kind": "time",
    "value": {
     "at": "1863-07-03T10:00",
@@ -154,7 +154,7 @@
        "10:00"
       ]
      },
-     "note": "Meade: the contest on the right began at early daylight and continued until after 10 a.m. A lower bound, which 10.30 satisfies."
+     "note": "Meade: the contest on the right began at early daylight and continued until after 10 a.m. A lower bound only, which 10.30 satisfies; it says nothing of a counter-attack."
     }
    ],
    "flags": [
@@ -162,7 +162,7 @@
    ],
    "reason_not_chosen": {
     "kind": "different_event",
-    "text": "Ruger, Hunt and Meade date the end of the long defence and the Union counter-attack at about 10; the last Confederate charge came at 10.25 to 10.30, after it."
+    "text": "Ruger's 10 a.m. is when he ordered the counter-attack; Hunt and Meade are relayed and round ('until 10', 'until after 10'; 10.30 satisfies Meade). The last charge came at 10.25 to 10.30."
    },
    "pdf_label": "10:00",
    "scenario_ids": [
@@ -173,7 +173,7 @@
    "approx": true,
    "derived": true,
    "inference": {
-    "step": "Ruger, Hunt and Meade all say about 10 a.m. for the point at which the defensive fight gave way to the Union counter-attack; none says the last charge ended then, so 10:00 is read as that earlier event.",
+    "step": "Ruger says about 10 a.m. for the point at which he ordered the Union counter-attack. Hunt, relaying twelve weeks later, gives 10 a.m. for the driving-out of the enemy, a round figure for the same recovery that Greene, Slocum and Geary place at 10.30; Meade's 'until after 10' is only a lower bound. None says the last charge ended at 10.",
     "from": [
      "C-031-P1-c1",
      "C-031-P1-c2",
@@ -302,7 +302,7 @@
   {
    "id": "C-031-P3",
    "origin": "first_delegated",
-   "label": "About 10:30: the last Confederate charge (from 10:25) is beaten back and the enemy retires",
+   "label": "About 10:30: the last Confederate charge (begun 10:25 to 10:30) is beaten back and the enemy retires",
    "kind": "time",
    "value": {
     "at": "1863-07-03T10:30",
@@ -320,8 +320,8 @@
      "part": "OR27-1-R307",
      "page": "857",
      "page_basis": "scan_leaf",
-     "text_offset": 3018317,
-     "quote": "The First Brigade returned to our support at 1.30 a. m. on the 3d, [...] continued until 10.30 a. m., when the enemy retired",
+     "text_offset": 3018631,
+     "quote": "was general on our line, and continued until 10.30 a. m., when the enemy retired",
      "witness": {
       "name": "George S. Greene",
       "role": "Brigadier General, commanding the Third Brigade, Second Division, Twelfth Corps, in the works on the crest of Culp's Hill",
@@ -339,14 +339,13 @@
      "exact": true,
      "states": {
       "times": [
-       "01:30",
        "10:30"
       ],
-      "dates": [
-       "07-03"
+      "phrases": [
+       "continued until"
       ]
      },
-     "note": "Greene, nine days after, in the works: the attack, begun at 4 a.m., 'continued until 10.30 a. m., when the enemy retired'. The day is named at the start of the sentence."
+     "note": "Greene, nine days after, in the works: 'was general on our line, and continued until 10.30 a. m., when the enemy retired' (it began at 4 a.m.)."
     },
     {
      "id": "C-031-P3-c2",
@@ -502,6 +501,40 @@
       ]
      },
      "note": "Slocum's report (the day of the month of the dateline is unreadable in the text layer, 'August, 33, 1863'): the engagement continued until 10.30 and ended in our regaining the whole line. The corps commander's summary; it draws on his division and brigade reports, so it is a separate group but not an independent eyewitness."
+    },
+    {
+     "id": "C-031-P3-c7",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R307",
+     "page": "857",
+     "page_basis": "scan_leaf",
+     "text_offset": 3018317,
+     "quote": "The First Brigade returned to our support at 1.30 a. m. on the 3d",
+     "witness": {
+      "name": "George S. Greene",
+      "role": "Brigadier General, commanding the Third Brigade, Second Division, Twelfth Corps",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-12",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "greene",
+     "exact": true,
+     "states": {
+      "times": [
+       "01:30"
+      ],
+      "dates": [
+       "07-03"
+      ]
+     },
+     "note": "Same report: names the day (the 3d) of the passage that follows."
     }
    ],
    "scenario_ids": [
@@ -573,15 +606,15 @@
   }
  ],
  "weighing": {
-  "summary": "The reports of 1863 agree on 10.25 to about 10.30 for the last Confederate charge and the retirement; 10:00 is the Union counter-attack and 12 m. the end of all firing, so the three figures date three moments of one morning. Class settled.",
+  "summary": "The reports of 1863 agree on 10.25 to about 10.30 for the last Confederate charge and the retirement; 10:00 is Ruger's counter-attack order (with Hunt's and Meade's rounded, relayed figures) and 12 m. the end of all firing, so the three figures date three moments of one morning. Class settled.",
   "who": "Geary commanded the division on the crest and Kane the brigade the charge struck; Greene, Rickards and Ruger were in the works; Slocum and Hunt wrote from the rear and relay. Maulsby was in the rifle-pits; Williams, the only Confederate with an hour, was in the line before the hill. Johnson gives no hour.",
   "when": "All the main witnesses wrote within five months, and most within a month: Rickards 4 Jul, Maulsby 4 Jul, Kane 6 Jul, Greene 12 Jul, Geary 29 Jul, Williams 28 Aug, Slocum Aug, Hunt 27 Sep, Meade 1 Oct, Ruger 5 Dec 1863. Pierce (1914) is a later history. The written-down rank gives the best class to the 10.30 witnesses (reports within a month), and Ruger and Hunt, the 10:00 witnesses, wrote months later and relay.",
   "where": "Kane's brigade took the last charge on the right of the line; Geary commanded the division; Greene was beside them. Ruger's division was on the right and he gives the hour of his own order. Hunt and Slocum were behind the hill.",
   "how_knew": "Geary, Kane, Greene and Rickards saw the charge and give a clock reading; Slocum and Hunt report what their officers told them.",
   "clock": "All hours are Union clock except Williams, who is Confederate. The reported difference of about 20 minutes is not applied; it would not join 10:30 and noon.",
-  "independence": "Geary and Kane are two independent eyewitnesses, as are Greene, Rickards and Maulsby; Slocum draws on his division reports; Hunt on his battery officers; Williams is the one Confederate and stands alone for noon on his side. Pierce is later and unsourced."
+  "independence": "Three line witnesses carry 10.30: Greene, Kane with Rickards (his regiment is in Kane's brigade), and Geary as division commander on the spot. Geary's report of 29 July postdates the brigade reports and may draw on them, so Geary and Kane are not counted as independent of each other beyond their own observation. Slocum draws on his division reports; Hunt on his battery officers; Williams is the one Confederate and stands alone for noon on his side. Pierce is later and unsourced."
  },
- "source_panel_text": "About 10:30 on Jul 3: Geary and Kane, reports of July 1863, put the last Confederate charge at 10.25 to about 10.30, and Greene says the enemy then retired. The plan's 10:00 dates the Union counter-attack (Ruger, Hunt); noon is when all firing stopped (Maulsby). Three other values are listed.",
+ "source_panel_text": "About 10:30 on Jul 3: Geary and Kane, reports of July 1863, put the last Confederate charge beginning 10.25 to about 10.30, and Greene says the enemy then retired. The plan's 10:00 is Ruger's counter-attack order (Hunt and Meade round it); noon is when all firing stopped (Maulsby). Three other values are listed.",
  "holds": {
   "pdf_default": {
    "holds": "no",

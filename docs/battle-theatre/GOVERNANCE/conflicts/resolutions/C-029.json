@@ -242,6 +242,40 @@
    "derived": true,
    "support": [
     {
+     "id": "C-029-P3-c7",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R028",
+     "page": "239",
+     "page_basis": "scan_leaf",
+     "text_offset": 793751,
+     "quote": "About 3 p. m., and soon after the enemy's fire had ceased, he formed a column of attack in the edge of the woods in front of the Second Corps",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery of the Army of the Potomac, riding the line during the cannonade",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-27",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hunt",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ],
+      "numbers": [
+       3
+      ]
+     },
+     "note": "The same sentence-run of Hunt's report that has his order at about 2.30: the enemy's fire had ceased soon before the column formed at about 3 p. m. The same witness therefore gives both bounds."
+    },
+    {
      "id": "C-029-P3-c1",
      "source": "OR27-1",
      "source_class": "primary",
@@ -556,7 +590,7 @@
    },
    "reason_not_chosen": {
     "kind": "outweighed",
-    "text": "The same division dates the opening about 2 p. m., an hour later than Hancock, Gibbon, Meade and Lee (1 p. m.), so the end shifts with it; their durations of two and a half to three hours are close to the others."
+    "text": "The same division dates the opening about 2 p. m., an hour later than Hancock, Gibbon, Meade and Lee (1 p. m.), so the end shifts with it; its fire ran two and a half to three hours, longer than the others' two; only Hays and Smyth place the end after 15:30."
    }
   },
   {
@@ -773,6 +807,40 @@
       ]
      },
      "note": "The order that stopped the Union fire, given about 2.30 p. m.; he adds that the enemy 'soon slackened' his fire after it. The day is not in the sentence (the passage is of the cannonade of the 3d)."
+    },
+    {
+     "id": "C-029-P7-c9",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R028",
+     "page": "239",
+     "page_basis": "scan_leaf",
+     "text_offset": 793751,
+     "quote": "About 3 p. m., and soon after the enemy's fire had ceased, he formed a column of attack in the edge of the woods in front of the Second Corps",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery of the Army of the Potomac, riding the line during the cannonade",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-27",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hunt",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ],
+      "numbers": [
+       3
+      ]
+     },
+     "note": "The same sentence-run of Hunt's report that has his order at about 2.30: the enemy's fire had ceased soon before the column formed at about 3 p. m. The same witness therefore gives both bounds."
     },
     {
      "id": "C-029-P7-c2",
@@ -1026,7 +1094,7 @@
    }
   }
  ],
- "class": "irreducible",
+ "class": "weighted",
  "tier": "inferred",
  "basis": {
   "kind": "official_records",
@@ -1047,7 +1115,7 @@
   "note": "The plan's 14:30 and 15:00 are the two bounds of one window; the plan's 14:00 has no source; Hays and Smyth's 16:30 to 17:00 follow their later start."
  },
  "weighing": {
-  "summary": "The reports that give the end are of three kinds. A clock reading: Hunt, who ordered the Union fire stopped about 2.30 p. m. and says the enemy soon slackened; Peyton (Confederate) 2.30 abated; Devereux just about 3; Howard 3.30 for his own guns. A duration from about 1 p. m.: Hancock one hour forty-five (14:45), Gibbon two hours, Lee about two hours, Cabell over two hours, Meade over two hours (15:00 or later). And two reports of one division, Hays (4.30) and Smyth (5 p. m.), that start the fire an hour late (about 2) and so end it later. The best writers, the gun commanders and the corps and division commanders at the line, differ by about half an hour on a fire that died away rather than stopped on a minute; nothing in the reports separates 14:30 from 15:00, so the end is the window 14:30 to 15:00 and the class is irreducible. 14:00 has no source.",
+  "summary": "The reports that give the end are of three kinds. A clock reading: Hunt, who ordered the Union fire stopped about 2.30 p. m. and says the enemy soon slackened; Peyton (Confederate) 2.30 abated; Devereux just about 3; Howard 3.30 for his own guns. A duration from about 1 p. m.: Hancock one hour forty-five (14:45), Gibbon two hours, Lee about two hours, Cabell over two hours, Meade over two hours (15:00 or later). And two reports of one division, Hays (4.30) and Smyth (5 p. m.), that start the fire an hour late (about 2) and so end it later. Hunt, the best placed witness, gives both ends himself: the Union fire stopped by his order about 2.30 and, about 3 p. m., the column forming 'soon after the enemy's fire had ceased'; Peyton and Devereux agree within their 'about'. Howard's 3.30 is the Eleventh Corps's own guns and the enemy's fire at that north end, an hour later than the Second Corps front; it stays selectable. The window is the spread of hedged readings of one fire that died away, with Hunt's own report at both ends, so the class is weighted. 14:00 has no source.",
   "who": "Hunt commanded the artillery of the army and ordered the Union fire stopped; Hancock, Gibbon, Hays, Smyth and Devereux were on Cemetery Ridge under the fire; Howard on Cemetery Hill; Peyton behind the Confederate guns with Pickett's division; Cabell commanded an artillery battalion in the Confederate line; Lee commanded the Confederate army; Meade commanded the Union army.",
   "when": "Devereux wrote on 7 Jul 1863, Peyton on 9 Jul, Smyth on 17 Jul, Cabell on 1 Aug, Gibbon on 7 Aug, Hunt on 27 Sep, Meade on 1 Oct 1863; Hancock and Howard in 1863; Lee in January 1864. All within weeks or months and of one class; none is a diary of the afternoon. The Park Service handbook (1954) follows them.",
   "where": "Hunt, riding the line behind the Union batteries, saw the batteries and gave the order; Peyton stood behind the crest of Seminary Ridge with his brigade; Hancock, Gibbon, Hays and Smyth lay under the fire; Hays and Smyth faced the Bliss farm and the left of the Confederate line. Howard was on Cemetery Hill, at the north end of the line.",
@@ -1055,7 +1123,7 @@
   "clock": "The Union writers use the Union clock and the Confederate writers theirs; the reported 20-minute difference between the armies' clocks is not applied. It could account for the gap between Hunt's 2.30 (Union) and Peyton's 2.30 (Confederate) being no gap, and a few minutes of the half hour between 14:30 and 15:00, but not for Hays and Smyth, who are Union writers like Hancock.",
   "independence": "The lower bound rests on two separate writers, Hunt (Union order) and Peyton (Confederate abatement). The upper bound rests on Devereux (a clock reading) and on three durations that count from the same signal at about 1 p. m. (Gibbon, Lee, Cabell), each separately. Meade repeats the duration of his corps commanders. Hays and Smyth are one division. The Park Service handbook follows the reports."
  },
- "source_panel_text": "The cannonade ended between 14:30 and 15:00 on Jul 3: Hunt ordered the Union fire stopped about 2.30 p.m. and said the enemy soon slackened; Peyton has the Confederate fire abating at 2.30, Devereux at about 3, and Gibbon, Lee and Cabell about two hours from 1 p.m. No report gives 14:00. Four other values are listed.",
+ "source_panel_text": "The cannonade ended between 14:30 and 15:00 on Jul 3: Hunt ordered the Union fire stopped about 2.30 p.m. and said the enemy soon slackened; Peyton has the Confederate fire abating at 2.30, Devereux at about 3, and Gibbon, Lee and Cabell about two hours from 1 p.m. No report gives 14:00. Six other values are listed.",
  "holds": {
   "pdf_default": {
    "holds": "partly",
