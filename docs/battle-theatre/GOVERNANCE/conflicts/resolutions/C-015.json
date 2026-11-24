@@ -1,0 +1,610 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-015",
+ "topic": "20th Maine strength",
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-015",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "20th Maine strength | 385; 386 | 385 | 386",
+  "values": [
+   "385",
+   "386"
+  ],
+  "recommended_default": "385",
+  "selectable_alternatives": [
+   "386"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-015-DEFAULT",
+  "default_label": "386 (Chamberlain: 386 all told, 358 guns)",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-015-S1",
+   "C-015-S2",
+   "C-015-S3",
+   "C-015-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Chamberlain's report of 6 July 1863 (four days after the battle): \"386, all told — 358 guns\"; every pioneer and musician who could carry a musket, and the sick and foot-sore who came up, are in the line. Fox's table repeats 386 without a source."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-015-P2"
+  ],
+  "value": 386,
+  "label": "386 men all told, 358 of them with muskets",
+  "range": {
+   "low": 358,
+   "high": 386,
+   "basis": "Chamberlain's own two counts, muskets and men all told; Barnes's 380 lies between; the plan's 385 has no source; the figures of 350 and 308 are round or partial counts"
+  },
+  "animation": {
+   "at": null,
+   "rule": "follows_printed_strength",
+   "note": "The soldiers drawn follow the printed unit strength (DEC-008): 386 men in the regiment, of whom 358 carry muskets; Company B's 50 are a part of the 386."
+  },
+  "note": "The spread is one man in the plan and 28 men by what is counted; Chamberlain's own report holds both counts."
+ },
+ "positions": [
+  {
+   "id": "C-015-P1",
+   "origin": "pdf_value",
+   "pdf_label": "385",
+   "scenario_ids": [
+    "C-015-S1",
+    "C-015-S3"
+   ],
+   "label": "385 (the plan's recommended figure; no source found)",
+   "kind": "count",
+   "value": {
+    "n": 385,
+    "unit": "men"
+   },
+   "clock": "not_applicable",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "unsourced",
+    "lead_only"
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No report, return or book gives 385 for the 20th Maine; it is one man below the colonel's own count and the plan names no source."
+   },
+   "failed_lookups": [
+    {
+     "where": "all local non-lead texts of the ledger (Official Records, books and papers, Park Service texts)",
+     "query": "385 within 300 characters of Twentieth Maine, 20th Maine, Chamberlain, regiment, men, in both orders; the hits are unrelated (a Pennsylvania brigade page number, a Maine volume page number, a casualty table)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1 report of Chamberlain (R196) and the casualty and organization tables of OR27-1",
+     "query": "a strength of 385 for the regiment: the report has 386 all told and 358 guns; the tables give losses, not strength",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "the web pages the plan names (Wikipedia and Stone Sentinels)",
+     "query": "the pages and their source for 385; a web page is only a lead and the hosts are not among those reachable for this research",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    }
+   ],
+   "support": []
+  },
+  {
+   "id": "C-015-P2",
+   "origin": "pdf_value",
+   "pdf_label": "386",
+   "scenario_ids": [
+    "C-015-S2",
+    "C-015-DEFAULT"
+   ],
+   "label": "386 men all told, 358 with muskets (Chamberlain's report)",
+   "kind": "count",
+   "value": {
+    "n": 386,
+    "unit": "men"
+   },
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "default",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "id": "C-015-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "626",
+     "page_basis": "scan_leaf",
+     "text_offset": 2197296,
+     "quote": "We went into the fight with 386, all told — 358 guns. Every pioneer and musician who could carry a musket went into the ranks",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, commanding the 20th Maine Infantry",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": true,
+     "states": {
+      "numbers": [
+       386,
+       358
+      ]
+     },
+     "note": "Chamberlain, report of 6 July 1863 (four days after): \"We went into the fight with 386, all told — 358 guns. Every pioneer and musician who could carry a musket went into the ranks.\" He adds that the sick and foot-sore who had fallen behind came up and took their places in line, and that men under sentence of court-martial were put into the fight. So 386 counts every man who went into the line of battle; 358 counts those with muskets. He does not say who the other 28 were."
+    },
+    {
+     "id": "C-015-P2-c2",
+     "source": "FOX-1889-C046",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the printed page was not read: the text has no page head within the table; the table stands under the heading \"Engagements. 29\" in the OCR text",
+     "text_offset": 105401,
+     "quote": "20th Maine Gettysburg Barnes's 386",
+     "witness": {
+      "name": "William F. Fox",
+      "role": "Lieutenant Colonel, compiler of Regimental Losses in the American Civil War (1889)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1889",
+      "kind": "reference_table"
+     },
+     "vantage": "not_stated",
+     "knew_by": "computed",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": false,
+     "states": {
+      "numbers": [
+       386
+      ]
+     },
+     "note": "Fox, Regimental Losses (1889): in the table of regiments that lost ten per cent or more killed, the line for the 20th Maine at Gettysburg, in Barnes's division, gives 386 in the column headed \"Engaged\". He names no source for the figure; it is the same number as Chamberlain's and is counted with him, not as a second witness."
+    }
+   ]
+  },
+  {
+   "id": "C-015-P3",
+   "origin": "research",
+   "label": "380 men and officers (Barnes's report)",
+   "kind": "count",
+   "value": {
+    "n": 380,
+    "unit": "men"
+   },
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "Barnes wrote 53 days after, from the brigade's reports and from elsewhere; Chamberlain counted his own men four days after and says what is in the 386."
+   },
+   "support": [
+    {
+     "id": "C-015-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R189",
+     "page": "603",
+     "page_basis": "scan_leaf",
+     "text_offset": 2116032,
+     "quote": "The Twentieth Maine, Colonel Chamberlain commanding, was posted on the left. It consisted of 380 men and officers",
+     "witness": {
+      "name": "James Barnes",
+      "role": "Brigadier General, commanding the 1st Division, V Corps (the 20th Maine's division)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-24",
+      "kind": "official_report"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "barnes",
+     "exact": true,
+     "states": {
+      "numbers": [
+       380
+      ]
+     },
+     "note": "Barnes, report of 24 August 1863 (53 days after): \"The Twentieth Maine, Colonel Chamberlain commanding, was posted on the left. It consisted of 380 men and officers.\" He was not with the brigade and says its record is drawn principally from its commander's report; he gives no reason for 380."
+    }
+   ]
+  },
+  {
+   "id": "C-015-P4",
+   "origin": "research",
+   "label": "358 with muskets (Chamberlain's \"guns\"; the monument's \"engaged\"; Melcher)",
+   "kind": "count",
+   "value": {
+    "n": 358,
+    "unit": "muskets"
+   },
+   "clock": "not_applicable",
+   "tier": "documented",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It counts the muskets, not the men: Chamberlain's own report gives 358 guns inside the 386 all told. It is the number of rifles to draw if only armed men are shown."
+   },
+   "support": [
+    {
+     "id": "C-015-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "626",
+     "page_basis": "scan_leaf",
+     "text_offset": 2197296,
+     "quote": "We went into the fight with 386, all told — 358 guns. Every pioneer and musician who could carry a musket went into the ranks",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel, commanding the 20th Maine Infantry",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": true,
+     "states": {
+      "numbers": [
+       386,
+       358
+      ]
+     },
+     "note": "Chamberlain, report of 6 July 1863 (four days after): \"We went into the fight with 386, all told — 358 guns. Every pioneer and musician who could carry a musket went into the ranks.\" He adds that the sick and foot-sore who had fallen behind came up and took their places in line, and that men under sentence of court-martial were put into the fight. So 386 counts every man who went into the line of battle; 358 counts those with muskets. He does not say who the other 28 were."
+    },
+    {
+     "id": "C-015-P4-c2",
+     "source": "ME-GB-1898",
+     "source_class": "book",
+     "page": "249",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 249 stands before the inscription)",
+     "text_offset": 681011,
+     "quote": "THE REGIMENT LOST 38 KILLED OR MORTALLY WOUNDED, AND 92 WOUNDED, OUT OF 358 ENGAGED",
+     "witness": {
+      "name": "Survivors of the 20th Maine (monument committee)",
+      "role": "Inscription of the regiment's monument of 1886, printed in Maine at Gettysburg (1898)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1886",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "monument",
+     "exact": false,
+     "states": {
+      "numbers": [
+       38,
+       92,
+       358
+      ]
+     },
+     "note": "The inscription of the 20th Maine's monument (1886, 23 years after): the regiment lost 38 killed or mortally wounded and 92 wounded \"out of 358 engaged\". It takes Chamberlain's musket count (358) as the number engaged; Chamberlain gives his own loss as 136, 30 of them killed."
+    },
+    {
+     "id": "C-015-P4-c3",
+     "source": "BL-3",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the article begins on page 314 by the contents list of the volume; the OCR text has no page heads near the passage, so the printed page was not read",
+     "text_offset": 1324536,
+     "quote": "Our regiment numbered 358 men, but as Company B, numbering 50 men, had been sent out to [...] we had 308 men in line to resist the furious assault",
+     "witness": {
+      "name": "H. S. Melcher",
+      "role": "Lieutenant, 20th Maine, in the counter-charge (article in Battles and Leaders, vol. 3)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1888",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "melcher",
+     "exact": true,
+     "states": {
+      "numbers": [
+       358,
+       50,
+       308
+      ]
+     },
+     "note": "Melcher, Battles and Leaders (1888, 25 years after): \"Our regiment numbered 358 men, but as Company B, numbering 50 men, had been sent out to \"protect our flank,\" we had 308 men in line\" to meet the two Alabama regiments. He takes 358 as the regiment's number and does not give 386."
+    }
+   ]
+  },
+  {
+   "id": "C-015-P5",
+   "origin": "research",
+   "label": "About 350 (Gerrish 1882; Maine at Gettysburg 1898)",
+   "kind": "count",
+   "value": {
+    "n": 350,
+    "unit": "men"
+   },
+   "approx": true,
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "memoir_only"
+   ],
+   "inference": {
+    "step": "Two later writers give a round \"three hundred and fifty\" and \"about 350\" for the regiment; the figure is read as a round version of the count of 358 to 386, since neither gives a source.",
+    "from": [
+     "C-015-P5-c1",
+     "C-015-P5-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "rounding",
+    "text": "A round figure, given by a private of the regiment in 1882 and by a state volume in 1898; the colonel's report of four days after is exact and says what it counts."
+   },
+   "support": [
+    {
+     "id": "C-015-P5-c1",
+     "source": "GERRISH-1882-C013",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the passage stands between the running heads of pages 110 and 112 of the text; the printed page was not read on the page image",
+     "text_offset": 200642,
+     "quote": "Of our three hundred and fifty men, one hundred and thirty-five had been killed and wounded",
+     "witness": {
+      "name": "Theodore Gerrish",
+      "role": "Private, 20th Maine (book of 1882)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1882",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "gerrish",
+     "exact": true,
+     "states": {
+      "numbers": [
+       350,
+       135
+      ]
+     },
+     "note": "Gerrish, Army Life (1882, 19 years after), a private of the 20th Maine: \"Of our three hundred and fifty men, one hundred and thirty-five had been killed and wounded.\" A round figure by a man in the ranks."
+    },
+    {
+     "id": "C-015-P5-c2",
+     "source": "ME-GB-1898",
+     "source_class": "book",
+     "page": "278",
+     "page_basis": "as_read",
+     "page_note": "printed page read from the running heads of the text (the head of page 278 stands before the passage)",
+     "text_offset": 756373,
+     "quote": "about forty per cent of the entire number of about 350",
+     "witness": {
+      "name": "Author of the chapter on the Twentieth Maine, Maine at Gettysburg (name not read)",
+      "role": "Writer for the Maine Gettysburg commission, 1898",
+      "side": "union"
+     },
+     "written": {
+      "date": "1898",
+      "kind": "proceedings_or_tablet"
+     },
+     "vantage": "not_stated",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "me1898",
+     "exact": true,
+     "states": {
+      "numbers": [
+       350
+      ]
+     },
+     "note": "The Maine commission's volume (1898, 35 years after): the regiment \"sustained heavy loss, about forty per cent of the entire number of about 350\". The same volume prints 358 on the monument and 400 prisoners from Chamberlain's report."
+    }
+   ]
+  },
+  {
+   "id": "C-015-P6",
+   "origin": "research",
+   "label": "308 men in the main line when the attack came (Melcher; Company B's 50 were out)",
+   "kind": "count",
+   "value": {
+    "n": 308,
+    "unit": "men"
+   },
+   "clock": "not_applicable",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "inference": {
+    "step": "Melcher takes the regiment as 358 men less Company B's 50, sent out to protect the flank, leaving 308 in line; the count of the main line is the regiment's count less the detached company.",
+    "from": [
+     "C-015-P4-c3"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "It counts only the main line without the detached Company B, which later joined the fight on the flank; the regiment's strength is the whole."
+   },
+   "support": [
+    {
+     "id": "C-015-P4-c3",
+     "source": "BL-3",
+     "source_class": "book",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the article begins on page 314 by the contents list of the volume; the OCR text has no page heads near the passage, so the printed page was not read",
+     "text_offset": 1324536,
+     "quote": "Our regiment numbered 358 men, but as Company B, numbering 50 men, had been sent out to [...] we had 308 men in line to resist the furious assault",
+     "witness": {
+      "name": "H. S. Melcher",
+      "role": "Lieutenant, 20th Maine, in the counter-charge (article in Battles and Leaders, vol. 3)",
+      "side": "union"
+     },
+     "written": {
+      "date": "1888",
+      "kind": "postwar_narrative"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "melcher",
+     "exact": true,
+     "states": {
+      "numbers": [
+       358,
+       50,
+       308
+      ]
+     },
+     "note": "Melcher, Battles and Leaders (1888, 25 years after): \"Our regiment numbered 358 men, but as Company B, numbering 50 men, had been sent out to \"protect our flank,\" we had 308 men in line\" to meet the two Alabama regiments. He takes 358 as the regiment's number and does not give 386."
+    }
+   ]
+  }
+ ],
+ "weighing": {
+  "summary": "The only count by a man who counted his own regiment is Chamberlain's: 386 all told, 358 guns, written four days after, saying what is in each. Barnes's 380, written 53 days after from the brigade's reports and from outside the regiment, is a round relay. Fox's table gives 386 with no source and is counted with Chamberlain. The regiment's survivors take 358 as the number engaged on the monument and in Melcher; Gerrish and the Maine volume say about 350. The plan's 385 has no source anywhere. So 386 men, 358 of them with muskets, is the best-supported figure, weighted not settled because only Chamberlain gives it and nobody confirms it independently.",
+  "who": "Chamberlain commanded the regiment and counted its men; Barnes commanded the division and was elsewhere; Fox compiled a table from returns without naming a source for this entry; Melcher and Gerrish were in the regiment (an officer and a private); the monument committee and the Maine commission wrote later for the veterans.",
+  "when": "Chamberlain wrote four days after (best class and nearest to the count); Barnes 53 days; the monument 23 years; Melcher 25; Gerrish 19; the Maine volume 35; Fox 26 years after. A report of the time outranks later memory, and the later writers who give 358 or 350 are using the muskets figure or a round number.",
+  "where": "Chamberlain was in the line and knew who came up (the sick and foot-sore, the pioneers and musicians, the men under sentence); the others counted from outside or from memory.",
+  "how_knew": "Chamberlain gives his own breakdown (all told against guns) and says who is in it; Barnes names his source in general (the brigade's reports) without a number; Fox names none; Melcher and Gerrish remember; the monument and Maine volume repeat the musket figure or a round one.",
+  "clock": "Not applicable to a count. The count is of the men who went into the fight in the late afternoon of 2 July; the reported 20-minute difference between the armies' clocks bears on no figure.",
+  "independence": "One line of knowledge carries 386: Chamberlain's report (Fox's 386 is counted with it, and Norton prints the same report), so the default is flagged single-source. 358 rests on Chamberlain's own musket count, which the monument and Melcher repeat. Barnes is one witness who relays the brigade's reports. Gerrish and the Maine volume are round figures from two writers."
+ },
+ "source_panel_text": "386 men all told, 358 of them with muskets, by Colonel Chamberlain's report of 6 July 1863; Barnes's report of August says 380 and the monument 358 engaged. Gerrish and the Maine volume say about 350. The plan's 385 has no source. Five other values are listed and the men drawn follow the printed strength.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "385 does not hold: no report, return or book gives it; it is one man below the colonel's own count. It stays selectable as an unsourced value."
+  },
+  "first_delegated": {
+   "holds": "yes",
+   "note": "386 (all told, 358 guns) holds: it is the colonel's own count and nothing of its class contradicts it; the first pass's reading of it as documented stands, with the single-source flag the plan requires. The research adds Barnes's 380, the musket count 358 as a value of its own, and the round and partial counts."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T2-165",
+   "must_change": true,
+   "note": "Row \"Jul 2 ~17:30\" says \"20th Maine strength 385 vs 386 (358 guns); losses 136\"; under this resolution the figure is 386 all told (358 with muskets) from Chamberlain, 385 has no source, and Barnes's 380 is a third value; the row's wording must follow."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json (C-015)",
+   "must_change": false,
+   "note": "default_scenario_id C-015-DEFAULT, \"386 (Chamberlain: 386 all told, 358 guns)\", tier documented: the value stands; the new values (380, 358 muskets, about 350, 308) are added as selectable scenarios and the single-source flag is added."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json (C-015)",
+   "must_change": false,
+   "note": "First delegated default: same value; the scenarios of the research are added."
+  },
+  {
+   "kind": "app_code",
+   "ref": "Q04 and the strength tables (soldiers instanced one-to-one)",
+   "must_change": false,
+   "note": "The strength tables read the printed unit strength (386 for the 20th Maine in the default view, 358 in the musket view); a change of the default to 380 or 358 would change the number of soldiers instanced. Reported, not edited."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-015 row)",
+   "must_change": false,
+   "note": "The row says 386 (Chamberlain: 386 all told, 358 guns), documented, 385 not found: confirmed; the reconciliation adds Barnes's 380 and the single-source flag."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0103.md",
+   "must_change": false,
+   "note": "Names C-015 among items resting on participant reports written weeks to months after the event; here the best figure is the colonel's own report of four days after."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/register/EG-0109.md",
+   "must_change": false,
+   "note": "The entry says Chamberlain gives 386 all told and 358 muskets and the plan's 385 was not found: confirmed by this resolution."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-015",
+   "must_change": false,
+   "note": "Log line stays PENDING OWNER; this is a delegated default."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "all local non-lead texts of the ledger",
+   "query": "385 within 300 characters of Twentieth Maine, 20th Maine, Chamberlain, regiment, men, in both orders: no hit that concerns the regiment",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-1 (casualty and organization tables) and the Park Service texts on Little Round Top",
+   "query": "a present-for-duty or engaged strength for the 20th Maine other than Chamberlain's and Barnes's: the tables give losses and commanders, not strength; the Park Service landscape report cites the Official Records and gives no figure of its own",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Maine adjutant general's report, the regiment's muster rolls, Busey and Martin, Pullen, Chamberlain's address of 1889, Prince 1889",
+   "query": "rolls and later studies that count the regiment by company: not local and not among the reachable hosts",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "The 20th Maine's muster-out rolls or the Maine adjutant general's roll of the men present on 2 July, or Prince's list of the companies present, would give a count that does not depend on Chamberlain's word. A report of the brigade's strength on 30 June 1863 at regimental level would check both 386 and 380. A source for the plan's 385 would add that value."
+}

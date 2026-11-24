@@ -1,0 +1,1166 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-029",
+ "topic": "Cannonade end",
+ "pdf_row": {
+  "page": 62,
+  "text": "Cannonade end | 14:00; 14:30; 15:00 | 14:30 | 14:00, 15:00",
+  "values": [
+   "14:00",
+   "14:30",
+   "15:00"
+  ],
+  "recommended_default": "14:30",
+  "selectable_alternatives": [
+   "14:00",
+   "15:00"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-029-DEFAULT",
+  "default_label": "14:30 (documented); later OR values 15:00 and 16:30-17:00 selectable",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-029-S1",
+   "C-029-S2",
+   "C-029-S3",
+   "C-029-S4",
+   "C-029-S5",
+   "C-029-DEFAULT"
+  ]
+ },
+ "researched": "2026-11-24",
+ "researcher": "bt-conflicts C-029",
+ "event_date": "1863-07-03",
+ "positions": [
+  {
+   "id": "C-029-P1",
+   "origin": "pdf_value",
+   "pdf_label": "14:00",
+   "scenario_ids": [
+    "C-029-S1"
+   ],
+   "label": "14:00: the cannonade essentially over (one historian; web pages)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T14:00",
+    "approx": true
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "open gap",
+   "stance": "selectable",
+   "flags": [
+    "lead_only",
+    "unsourced"
+   ],
+   "support": [],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No report gives an end at 14:00. The 2 p. m. of Hays, Smyth and Abbott is the hour the firing began on their front."
+   },
+   "failed_lookups": [
+    {
+     "where": "Hess, Pickett's Charge (the plan's T3-094 'about 14:00, essentially over'), Wikipedia, American Battlefield Trust",
+     "query": "the sources themselves: not local texts; the hosts are not among the hosts reachable for this research and a web page or a modern book is only a pointer",
+     "outcome": "not_read",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "OR27-1, OR27-2 (Hunt, Hancock, Gibbon, Hays, Webb, Smyth, Peyton, Lee, Cabell, Longstreet)",
+     "query": "a cannonade ending at 2 o'clock or 14:00: none; every 2 p. m. is the opening of the fire on a division front or the order to Pickett's brigade (Hays, Smyth, Abbott, Longstreet)",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    },
+    {
+     "where": "ledger books and papers (Alexander 1907, Longstreet 1896, Hoke, Bachelder, Pennsylvania and New York at Gettysburg, NPS handbooks)",
+     "query": "an end of the cannonade at 14:00: none; the handbook has the duel last nearly two hours from one o'clock",
+     "outcome": "not_found",
+     "at": "2026-11-24"
+    }
+   ]
+  },
+  {
+   "id": "C-029-P2",
+   "origin": "pdf_value",
+   "pdf_label": "14:30",
+   "scenario_ids": [
+    "C-029-S2",
+    "C-029-S4",
+    "C-029-DEFAULT"
+   ],
+   "label": "14:30: Hunt orders the Union fire stopped; Peyton's order to advance (the plan's default)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T14:30",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-029-P2-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R028",
+     "page": "239",
+     "page_basis": "scan_leaf",
+     "text_offset": 793273,
+     "quote": "About 2. 30 p. m. , finding our ammunition running low [...] I directed that the fire should be gradually stopped, which was done, and the enemy soon slackened his fire also",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery of the Army of the Potomac, riding along the line during the cannonade",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-27",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hunt",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:30"
+      ],
+      "numbers": [
+       2,
+       30
+      ]
+     },
+     "note": "The order that stopped the Union fire, given about 2.30 p. m.; he adds that the enemy 'soon slackened' his fire after it. The day is not in the sentence (the passage is of the cannonade of the 3d)."
+    },
+    {
+     "id": "C-029-P2-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R441",
+     "page": "385",
+     "page_basis": "scan_leaf",
+     "text_offset": 1425096,
+     "quote": "At 2.30 p. m. , the artillery fire having to some extent abated",
+     "witness": {
+      "name": "Charles S. Peyton",
+      "role": "Major, 19th Virginia, commanding Garnett's brigade of Pickett's division, behind the Confederate guns",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "peyton",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:30"
+      ],
+      "numbers": [
+       2,
+       30
+      ]
+     },
+     "note": "He puts the order to advance at 2.30 p. m. 'the artillery fire having to some extent abated'; he has the cannonade open at 1.30 and last one hour. The report is of the battle of July 3."
+    },
+    {
+     "id": "C-029-P2-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R441",
+     "page": "385",
+     "page_basis": "scan_leaf",
+     "text_offset": 1424628,
+     "quote": "opened at 1.30 p. m. and was kept up without intermission for one hour",
+     "witness": {
+      "name": "Charles S. Peyton",
+      "role": "Major, 19th Virginia, commanding Garnett's brigade of Pickett's division, behind the Confederate guns",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "peyton",
+     "exact": false,
+     "states": {
+      "times": [
+       "13:30"
+      ],
+      "numbers": [
+       1.3
+      ]
+     },
+     "note": "He dates the cannonade from 1.30 p. m. for one hour, which makes 2.30 p. m.; the plan's start 13:00 is an hour and a half earlier than the order to advance, the difference is his own start."
+    }
+   ],
+   "inference": {
+    "step": "Hunt orders the fire gradually stopped about 2.30 p. m. and the enemy soon slackened; Peyton has the Confederate fire abated at 2.30 p. m. and, by his 1.30 start and one hour, the same hour. The day, 3 July, is not in the quoted sentences but is the day of both reports.",
+    "from": [
+     "C-029-P2-c1",
+     "C-029-P2-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "different_event",
+    "text": "Hunt's order stopped the Union fire; the enemy's fire only 'soon slackened' after it and Gibbon, Lee, Cabell and Devereux have it slacken about 15:00. It is the early bound of the default."
+   }
+  },
+  {
+   "id": "C-029-P3",
+   "origin": "pdf_value",
+   "pdf_label": "15:00",
+   "scenario_ids": [
+    "C-029-S3"
+   ],
+   "label": "15:00: the fire slackens after about two hours (Gibbon, Devereux, Lee, Cabell)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T15:00",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-029-P3-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R110",
+     "page": "443",
+     "page_basis": "scan_leaf",
+     "text_offset": 1551305,
+     "quote": "Just about 3 o'clock the enemy's cannonade slackened",
+     "witness": {
+      "name": "Arthur F. Devereux",
+      "role": "Colonel, 19th Massachusetts, Second Corps, behind a battery on the line",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "devereux",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ],
+      "numbers": [
+       3
+      ]
+     },
+     "note": "A clock reading for the slackening on the Union side, written four days after."
+    },
+    {
+     "id": "C-029-P3-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R098",
+     "page": "417",
+     "page_basis": "scan_leaf",
+     "text_offset": 1461648,
+     "quote": "the enemy opened with his artillery [...] and for two hours the most terrific shower of shot and shell continued [...] At the end of that time the fire on both sides slackened",
+     "witness": {
+      "name": "John Gibbon",
+      "role": "Brigadier General, commanding the Second Division, Second Corps, at the Angle",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "gibbon",
+     "exact": false,
+     "states": {
+      "numbers": [
+       2
+      ],
+      "phrases": [
+       "At the end of that time"
+      ]
+     },
+     "note": "The start 'at 1 o'clock' stands in the sentence before the first fragment; two hours from it end the heavy fire about 15:00."
+    },
+    {
+     "id": "C-029-P3-c3",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R426",
+     "page": "320",
+     "page_basis": "scan_leaf",
+     "text_offset": 1218274,
+     "quote": "About 1 p. m., at a given signal, a heavy cannonade was opened, and continued for about two hours [...] toward the close their fire slackened",
+     "witness": {
+      "name": "Robert E. Lee",
+      "role": "General, commanding the Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1864-01-20",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "lee-1864",
+     "exact": false,
+     "states": {
+      "times": [
+       "13:00"
+      ],
+      "numbers": [
+       1,
+       2
+      ]
+     },
+     "note": "The detailed report, forwarded 20 Jan 1864; about two hours from about 1 p. m. is about 15:00, and the enemy's fire slackened toward the close, when Longstreet ordered the column forward."
+    },
+    {
+     "id": "C-029-P3-c4",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R435",
+     "page": "376",
+     "page_basis": "scan_leaf",
+     "text_offset": 1390345,
+     "quote": "The fire of the artillery was opened about 1 p. m. For over two hours the cannonading on both sides was almost continuous",
+     "witness": {
+      "name": "Henry C. Cabell",
+      "role": "Colonel, commanding the artillery battalion of McLaws's division, at the Peach Orchard line",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-01",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "lower",
+     "group": "cabell",
+     "exact": false,
+     "states": {
+      "times": [
+       "13:00"
+      ],
+      "numbers": [
+       1,
+       2
+      ]
+     },
+     "note": "'Over two hours' from about 1 p. m. is after 15:00; he says the artillery then ceased firing as Pickett's division passed over his ground."
+    },
+    {
+     "id": "C-029-P3-c5",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R006",
+     "page": "117",
+     "page_basis": "scan_leaf",
+     "text_offset": 395866,
+     "quote": "cannonade continued for over two hours, when our guns, in obedience to my orders",
+     "witness": {
+      "name": "George G. Meade",
+      "role": "Major General, commanding the Army of the Potomac",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-10-01",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "relayed_report",
+     "clock": "union",
+     "hedge": "lower",
+     "group": "meade",
+     "exact": false,
+     "states": {
+      "numbers": [
+       2
+      ]
+     },
+     "note": "Over two hours from 1 p. m. (the sentence before), when his guns, by his order, made no reply and the enemy ceased firing."
+    },
+    {
+     "id": "C-029-P3-c6",
+     "source": "NPS-HB9-1954",
+     "source_class": "official",
+     "part": null,
+     "page": "33",
+     "page_basis": "pdf_marker",
+     "text_offset": 43197,
+     "quote": "For nearly 2 hours the duel continued, then the Union fire slackened. Hunt had ordered a partial cessation in order to cool the guns",
+     "witness": {
+      "name": "Frederick Tilberg",
+      "role": "Park Service historian, handbook of 1954",
+      "side": "institution"
+     },
+     "written": {
+      "date": "1954",
+      "kind": "institutional"
+     },
+     "vantage": "elsewhere",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "about",
+     "group": "nps-hb9",
+     "exact": false,
+     "states": {
+      "numbers": [
+       2
+      ]
+     },
+     "note": "A Park Service handbook that follows the reports (the plan's 'nearly two hours (NPS handbook)'); it has the duel open at 1 o'clock."
+    }
+   ],
+   "inference": {
+    "step": "Devereux has the cannonade slacken just about 3 o'clock; Gibbon, Lee, Cabell and Meade give about two hours or over two hours from 1 p. m., which is 15:00 or after. The day, 3 July, is the day of every report.",
+    "from": [
+     "C-029-P3-c1",
+     "C-029-P3-c2",
+     "C-029-P3-c3"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "tolerance",
+    "text": "The later bound of the default: the same slackening seen from the line, about half an hour after Hunt's order; 'about two hours' and 'about 3' keep a quarter hour either way."
+   }
+  },
+  {
+   "id": "C-029-P4",
+   "origin": "research",
+   "scenario_ids": [
+    "C-029-S5"
+   ],
+   "label": "16:30 to 17:00: the firing continues until the infantry come on (Hays, Smyth)",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-03T16:30",
+    "to": "1863-07-03T17:00"
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-029-P4-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R115",
+     "page": "454",
+     "page_basis": "scan_leaf",
+     "text_offset": 1591745,
+     "quote": "an entire lull occurred, which was continued until nearly 2 p. m. [...] continued uninterruptedly until 4.30 o'clock, when a heavy column of the enemy moved forward",
+     "witness": {
+      "name": "Alexander Hays",
+      "role": "Brigadier General, commanding the Third Division, Second Corps, at the Bliss farm and the wall north of the Angle",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-08",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hays",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:00",
+       "16:30"
+      ],
+      "numbers": [
+       2,
+       4.3
+      ]
+     },
+     "note": "He dates the opening 'nearly 2 p. m.' (the corps commander and Gibbon say 1 o'clock), so his end is an hour later by the same shift; his own duration is about two and a half hours."
+    },
+    {
+     "id": "C-029-P4-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R123",
+     "page": "465",
+     "page_basis": "scan_leaf",
+     "text_offset": 1629712,
+     "quote": "At 2 p. m. a most terrific [...] continued without intermission until 5 p. m.",
+     "witness": {
+      "name": "Thomas A. Smyth",
+      "role": "Colonel, commanding the Second Brigade, Third Division, Second Corps, in front of the line near the Bliss barn",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-17",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "smyth",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:00",
+       "17:00"
+      ],
+      "numbers": [
+       2,
+       5
+      ]
+     },
+     "note": "Same division as Hays: the opening at 2 p. m. and the end at 5 p. m.; three hours."
+    }
+   ],
+   "inference": {
+    "step": "Hays has the fire uninterrupted until 4.30 o'clock when the column moved forward and Smyth has it continue until 5 p. m.; the window runs from the first hour to the second. Both date the opening about 2 p. m.",
+    "from": [
+     "C-029-P4-c1",
+     "C-029-P4-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "outweighed",
+    "text": "The same division dates the opening about 2 p. m., an hour later than Hancock, Gibbon, Meade and Lee (1 p. m.), so the end shifts with it; their durations of two and a half to three hours are close to the others."
+   }
+  },
+  {
+   "id": "C-029-P5",
+   "origin": "research",
+   "label": "About 14:45: the enemy's fire becomes less furious after an hour and forty-five minutes (Hancock)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T14:45",
+    "approx": true,
+    "tolerance_min": 15
+   },
+   "approx": true,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-029-P5-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "372",
+     "page_basis": "scan_leaf",
+     "text_offset": 1303437,
+     "quote": "About 1 o'clock, apparently by a given signal, the enemy opened upon our",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding the Second Corps on Cemetery Ridge",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hancock",
+     "exact": false,
+     "states": {
+      "times": [
+       "13:00"
+      ],
+      "numbers": [
+       1
+      ]
+     },
+     "note": "The start from which his 'hour and forty-five minutes' runs; the day is not in the sentence."
+    },
+    {
+     "id": "C-029-P5-c2",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "373",
+     "page_basis": "scan_leaf",
+     "text_offset": 1305236,
+     "quote": "After an hour and forty-five minutes, the fire of the enemy became less furious, and immediately their infantry was seen in the woods",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding the Second Corps on Cemetery Ridge",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hancock",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "After an hour and forty-five minutes"
+      ],
+      "numbers": [
+       45
+      ]
+     },
+     "note": "A duration, not a clock: counted from 'about 1 o'clock' (second citation of this position), it ends the heavy fire about 14:45. His corps's guns 'continued their fire until only canister remained to them, and then ceased'."
+    }
+   ],
+   "inference": {
+    "step": "Hancock dates the opening about 1 o'clock and the fire becoming less furious after an hour and forty-five minutes; the sum is about 14:45. The day is that of the report.",
+    "from": [
+     "C-029-P5-c1",
+     "C-029-P5-c2"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "within_range",
+    "text": "It lies inside the default window of 14:30 to 15:00; a duration added to an 'about 1', so it is no better fixed than the window."
+   }
+  },
+  {
+   "id": "C-029-P6",
+   "origin": "research",
+   "label": "15:30: the Eleventh Corps's guns on Cemetery Hill cease, the enemy's soon after (Howard)",
+   "kind": "time",
+   "value": {
+    "at": "1863-07-03T15:30",
+    "approx": false
+   },
+   "approx": false,
+   "clock": "union",
+   "tier": "inferred",
+   "stance": "selectable",
+   "flags": [
+    "single_source"
+   ],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-029-P6-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R243",
+     "page": "706",
+     "page_basis": "scan_leaf",
+     "text_offset": 2464748,
+     "quote": "At 3.30 p. m. we ceased our artillery fire. Soon after, the enemy's artillery also ceased",
+     "witness": {
+      "name": "Oliver O. Howard",
+      "role": "Major General, commanding the Eleventh Corps on Cemetery Hill",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "howard",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:30"
+      ],
+      "numbers": [
+       3.3
+      ]
+     },
+     "note": "His corps's guns on Cemetery Hill ceased at 3.30 p. m. and the enemy's 'soon after'; the report's first dateline is 1 July. Cemetery Hill lay at the north end of the line from the Angle."
+    }
+   ],
+   "inference": {
+    "step": "Howard has the Eleventh Corps's artillery fire cease at 3.30 p. m. and the enemy's 'soon after'; the day is that of the cannonade (his 'about 1 p. m. a terrific cannonade opened' stands a few sentences before).",
+    "from": [
+     "C-029-P6-c1"
+    ]
+   },
+   "reason_not_chosen": {
+    "kind": "place_of_observation",
+    "text": "His own guns on Cemetery Hill; Hunt ordered the line's fire stopped at 2.30 and the others see the slackening about 3. One reading by a corps commander at the north end."
+   }
+  },
+  {
+   "id": "C-029-P7",
+   "origin": "research",
+   "label": "14:30 to 15:00: Union fire stopped by order about 14:30, the enemy's slackens by about 15:00",
+   "kind": "time_window",
+   "value": {
+    "from": "1863-07-03T14:30",
+    "to": "1863-07-03T15:00"
+   },
+   "approx": true,
+   "clock": "unspecified",
+   "tier": "inferred",
+   "stance": "default",
+   "flags": [],
+   "derived": true,
+   "support": [
+    {
+     "id": "C-029-P7-c1",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R028",
+     "page": "239",
+     "page_basis": "scan_leaf",
+     "text_offset": 793273,
+     "quote": "About 2. 30 p. m. , finding our ammunition running low [...] I directed that the fire should be gradually stopped, which was done, and the enemy soon slackened his fire also",
+     "witness": {
+      "name": "Henry J. Hunt",
+      "role": "Brigadier General, chief of artillery of the Army of the Potomac, riding along the line during the cannonade",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-09-27",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hunt",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:30"
+      ],
+      "numbers": [
+       2,
+       30
+      ]
+     },
+     "note": "The order that stopped the Union fire, given about 2.30 p. m.; he adds that the enemy 'soon slackened' his fire after it. The day is not in the sentence (the passage is of the cannonade of the 3d)."
+    },
+    {
+     "id": "C-029-P7-c2",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R441",
+     "page": "385",
+     "page_basis": "scan_leaf",
+     "text_offset": 1425096,
+     "quote": "At 2.30 p. m. , the artillery fire having to some extent abated",
+     "witness": {
+      "name": "Charles S. Peyton",
+      "role": "Major, 19th Virginia, commanding Garnett's brigade of Pickett's division, behind the Confederate guns",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-07-09",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "exact",
+     "group": "peyton",
+     "exact": false,
+     "states": {
+      "times": [
+       "14:30"
+      ],
+      "numbers": [
+       2,
+       30
+      ]
+     },
+     "note": "He puts the order to advance at 2.30 p. m. 'the artillery fire having to some extent abated'; he has the cannonade open at 1.30 and last one hour. The report is of the battle of July 3."
+    },
+    {
+     "id": "C-029-P7-c3",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "372",
+     "page_basis": "scan_leaf",
+     "text_offset": 1303437,
+     "quote": "About 1 o'clock, apparently by a given signal, the enemy opened upon our",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding the Second Corps on Cemetery Ridge",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "hancock",
+     "exact": false,
+     "states": {
+      "times": [
+       "13:00"
+      ],
+      "numbers": [
+       1
+      ]
+     },
+     "note": "The start from which his 'hour and forty-five minutes' runs; the day is not in the sentence."
+    },
+    {
+     "id": "C-029-P7-c4",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R076",
+     "page": "373",
+     "page_basis": "scan_leaf",
+     "text_offset": 1305236,
+     "quote": "After an hour and forty-five minutes, the fire of the enemy became less furious, and immediately their infantry was seen in the woods",
+     "witness": {
+      "name": "Winfield S. Hancock",
+      "role": "Major General, commanding the Second Corps on Cemetery Ridge",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "exact",
+     "group": "hancock",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "After an hour and forty-five minutes"
+      ],
+      "numbers": [
+       45
+      ]
+     },
+     "note": "A duration, not a clock: counted from 'about 1 o'clock' (second citation of this position), it ends the heavy fire about 14:45. His corps's guns 'continued their fire until only canister remained to them, and then ceased'."
+    },
+    {
+     "id": "C-029-P7-c5",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R098",
+     "page": "417",
+     "page_basis": "scan_leaf",
+     "text_offset": 1461648,
+     "quote": "the enemy opened with his artillery [...] and for two hours the most terrific shower of shot and shell continued [...] At the end of that time the fire on both sides slackened",
+     "witness": {
+      "name": "John Gibbon",
+      "role": "Brigadier General, commanding the Second Division, Second Corps, at the Angle",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-08-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "gibbon",
+     "exact": false,
+     "states": {
+      "numbers": [
+       2
+      ],
+      "phrases": [
+       "At the end of that time"
+      ]
+     },
+     "note": "The start 'at 1 o'clock' stands in the sentence before the first fragment; two hours from it end the heavy fire about 15:00."
+    },
+    {
+     "id": "C-029-P7-c6",
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R110",
+     "page": "443",
+     "page_basis": "scan_leaf",
+     "text_offset": 1551305,
+     "quote": "Just about 3 o'clock the enemy's cannonade slackened",
+     "witness": {
+      "name": "Arthur F. Devereux",
+      "role": "Colonel, 19th Massachusetts, Second Corps, behind a battery on the line",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-07",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "union",
+     "hedge": "about",
+     "group": "devereux",
+     "exact": false,
+     "states": {
+      "times": [
+       "15:00"
+      ],
+      "numbers": [
+       3
+      ]
+     },
+     "note": "A clock reading for the slackening on the Union side, written four days after."
+    },
+    {
+     "id": "C-029-P7-c7",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R426",
+     "page": "320",
+     "page_basis": "scan_leaf",
+     "text_offset": 1218274,
+     "quote": "About 1 p. m., at a given signal, a heavy cannonade was opened, and continued for about two hours [...] toward the close their fire slackened",
+     "witness": {
+      "name": "Robert E. Lee",
+      "role": "General, commanding the Army of Northern Virginia",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1864-01-20",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "about",
+     "group": "lee-1864",
+     "exact": false,
+     "states": {
+      "times": [
+       "13:00"
+      ],
+      "numbers": [
+       1,
+       2
+      ]
+     },
+     "note": "The detailed report, forwarded 20 Jan 1864; about two hours from about 1 p. m. is about 15:00, and the enemy's fire slackened toward the close, when Longstreet ordered the column forward."
+    },
+    {
+     "id": "C-029-P7-c8",
+     "source": "OR27-2",
+     "source_class": "primary",
+     "part": "OR27-2-R435",
+     "page": "376",
+     "page_basis": "scan_leaf",
+     "text_offset": 1390345,
+     "quote": "The fire of the artillery was opened about 1 p. m. For over two hours the cannonading on both sides was almost continuous",
+     "witness": {
+      "name": "Henry C. Cabell",
+      "role": "Colonel, commanding the artillery battalion of McLaws's division, at the Peach Orchard line",
+      "side": "confederate"
+     },
+     "written": {
+      "date": "1863-08-01",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "confederate",
+     "hedge": "lower",
+     "group": "cabell",
+     "exact": false,
+     "states": {
+      "times": [
+       "13:00"
+      ],
+      "numbers": [
+       1,
+       2
+      ]
+     },
+     "note": "'Over two hours' from about 1 p. m. is after 15:00; he says the artillery then ceased firing as Pickett's division passed over his ground."
+    }
+   ],
+   "inference": {
+    "step": "The earliest clock reading of an end is Hunt's about 2.30 p. m. (Union fire stopped by order) and Peyton's 2.30 (Confederate fire abated); the later readings are about 3 o'clock (Devereux) and about two hours from 1 p. m. (Gibbon, Lee, Cabell). The window runs from the first to the second.",
+    "from": [
+     "C-029-P7-c1",
+     "C-029-P7-c2",
+     "C-029-P7-c6",
+     "C-029-P7-c5"
+    ]
+   }
+  }
+ ],
+ "class": "irreducible",
+ "tier": "inferred",
+ "basis": {
+  "kind": "official_records",
+  "text": "Hunt (27 Sep 1863) ordered the fire gradually stopped about 2.30 p. m. and says the enemy soon slackened; Peyton (9 Jul 1863) has the Confederate fire abated at 2.30; Devereux (7 Jul) has it slacken just about 3 o'clock; Gibbon (7 Aug), Lee (Jan 1864) and Cabell (1 Aug 1863) give two hours or more from about 1 p. m."
+ },
+ "default": {
+  "mode": "window",
+  "positions": [
+   "C-029-P7"
+  ],
+  "label": "Cannonade ends between 14:30 and 15:00 (Union fire stopped by order about 14:30)",
+  "basis_text": "the lower bound is Hunt's order to stop the Union fire about 2.30 p. m. (Peyton: the Confederate fire abated at 2.30); the upper bound is the slackening about 3 o'clock (Devereux) or two hours from 1 p. m. (Gibbon, Lee, Cabell).",
+  "animation": {
+   "at": "1863-07-03T14:30",
+   "rule": "earliest_documented",
+   "note": "The Union guns stop at 14:30 (Hunt's order) and the enemy's fire dies away by about 15:00 as the infantry come out of the woods. 14:30 is the earliest clock reading of an end; durations from about 13:00 give 14:45 to 15:30. 14:00 has no source. The later readings stay selectable."
+  },
+  "note": "The plan's 14:30 and 15:00 are the two bounds of one window; the plan's 14:00 has no source; Hays and Smyth's 16:30 to 17:00 follow their later start."
+ },
+ "weighing": {
+  "summary": "The reports that give the end are of three kinds. A clock reading: Hunt, who ordered the Union fire stopped about 2.30 p. m. and says the enemy soon slackened; Peyton (Confederate) 2.30 abated; Devereux just about 3; Howard 3.30 for his own guns. A duration from about 1 p. m.: Hancock one hour forty-five (14:45), Gibbon two hours, Lee about two hours, Cabell over two hours, Meade over two hours (15:00 or later). And two reports of one division, Hays (4.30) and Smyth (5 p. m.), that start the fire an hour late (about 2) and so end it later. The best writers, the gun commanders and the corps and division commanders at the line, differ by about half an hour on a fire that died away rather than stopped on a minute; nothing in the reports separates 14:30 from 15:00, so the end is the window 14:30 to 15:00 and the class is irreducible. 14:00 has no source.",
+  "who": "Hunt commanded the artillery of the army and ordered the Union fire stopped; Hancock, Gibbon, Hays, Smyth and Devereux were on Cemetery Ridge under the fire; Howard on Cemetery Hill; Peyton behind the Confederate guns with Pickett's division; Cabell commanded an artillery battalion in the Confederate line; Lee commanded the army from the ridge opposite; Meade commanded the Union army.",
+  "when": "Devereux wrote on 7 Jul 1863, Peyton on 9 Jul, Smyth on 17 Jul, Cabell on 1 Aug, Gibbon on 7 Aug, Hunt on 27 Sep, Meade on 1 Oct 1863; Hancock and Howard in 1863; Lee in January 1864. All within weeks or months and of one class; none is a diary of the afternoon. The Park Service handbook (1954) follows them.",
+  "where": "Hunt, riding the line behind the Union batteries, saw the batteries and gave the order; Peyton stood behind the crest of Seminary Ridge with his brigade; Hancock, Gibbon, Hays and Smyth lay under the fire; Hays and Smyth faced the Bliss farm and the left of the Confederate line. Howard was a mile and a half to the north.",
+  "how_knew": "Hunt gives the hour of his own order (about 2.30); Peyton and Devereux the hour they noted (2.30; about 3); Hancock, Gibbon, Lee, Cabell and Meade give a duration counted from the start, which makes an end only as exact as the start ('about 1') and the count ('about two hours', 'over two hours').",
+  "clock": "The Union writers use the Union clock and the Confederate writers theirs; the reported 20-minute difference between the armies' clocks is not applied. It could account for the gap between Hunt's 2.30 (Union) and Peyton's 2.30 (Confederate) being no gap, and a few minutes of the half hour between 14:30 and 15:00, but not for Hays and Smyth, who are Union writers like Hancock.",
+  "independence": "The lower bound rests on two separate writers, Hunt (Union order) and Peyton (Confederate abatement). The upper bound rests on Devereux (a clock reading) and on three durations that count from the same signal at about 1 p. m. (Gibbon, Lee, Cabell), each separately. Meade repeats the duration of his corps commanders. Hays and Smyth are one division. The Park Service handbook follows the reports."
+ },
+ "source_panel_text": "The cannonade ended between 14:30 and 15:00 on Jul 3: Hunt ordered the Union fire stopped about 2.30 p.m. and said the enemy soon slackened; Peyton has the Confederate fire abating at 2.30, Devereux at about 3, and Gibbon, Lee and Cabell about two hours from 1 p.m. No report gives 14:00. Four other values are listed.",
+ "holds": {
+  "pdf_default": {
+   "holds": "partly",
+   "note": "14:30 holds as the Union ceasefire and the early bound; it is not the end of the whole cannonade, which the line and the Confederates date about 15:00. The plan's 14:00 has no source; 15:00 is the upper bound."
+  },
+  "first_delegated": {
+   "holds": "partly",
+   "note": "14:30 documented is not exact: the day is not in Hunt's sentence, the tier is inferred, and 15:00 is a bound of the window rather than a later alternative. Its 16:30 to 17:00 holds as the Hays and Smyth reading, explained by their later start."
+  }
+ },
+ "readers": [
+  {
+   "kind": "timeline_row",
+   "ref": "T3-094",
+   "must_change": true,
+   "note": "Row 'Jul 3 ~14:00 (end per Hess)' (cannonade end values about 14:00 Hess, 14:30 Sears and Hunt, about 15:00 Coddington, Wikipedia, ABT; carried as a range 14:00-15:00; animation anchor: full exchange 13:00-13:40, Union fire fading by 14:30, 14:30-15:00 quiet before step-off): the Official Records give a window of 14:30 to 15:00; 14:00 has no report behind it. Row not edited here."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-075",
+   "must_change": false,
+   "note": "Row 'Jul 3 ~13:00' (cannonade opens, 150 to 170 guns): the opening, not the end."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-100",
+   "must_change": false,
+   "note": "Row 'Jul 3 ~14:00 (W-PC) or near 15:00 (ABT-PC, W-D3)' (Pickett asks to advance, Longstreet nods): follows the end of the fire; Peyton has the order to advance at 2.30 p. m."
+  },
+  {
+   "kind": "timeline_row",
+   "ref": "T3-112",
+   "must_change": false,
+   "note": "Row 'Jul 3 ~15:45-16:15 peak' (the Angle and the Copse): after the end of the cannonade."
+  },
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json C-029",
+   "must_change": true,
+   "note": "default_scenario_id C-029-DEFAULT (14:30 documented; later OR values 15:00 and 16:30-17:00): the default becomes the window 14:30 to 15:00, tier inferred, class irreducible; 14:00, 14:30, 15:00 and 16:30-17:00 stay scenarios."
+  },
+  {
+   "kind": "other",
+   "ref": "tools/bt/build_structures.py lines 295-296 (PD-05, S-061) and tools/bt/structures_data_schedule.py line 192 (c029_end_14_30_default: win 07-03 13:00 to 14:30)",
+   "must_change": true,
+   "note": "Printed default 14:30 with alternatives 14:00 and 15:00 and the state schedule's scenario ending at 14:30; the window now runs to about 15:00 and the 14:00 value has no source. The schedule's end is the integration step's to reconcile."
+  },
+  {
+   "kind": "other",
+   "ref": "tools/bt/or27_claims.py lines 225 and 255 (claim checks e and f); tools/bt/positions_C_summary.py line 208; tools/bt/positions_data_B_II_hancock.py line 108; tools/bt/positions_D/11_mclaws_cabell.py lines 23 and 31; tools/bt/positions_D/30_pickett.py lines 37-38",
+   "must_change": false,
+   "note": "Claim checks and position notes that read Hunt, Hancock, Peyton, Cabell and the start hours; they carry the same reports and do not change."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (C-029 row)",
+   "must_change": true,
+   "note": "Row line 39 (14:30 documented; later OR values 15:00 and 16:30-17:00): class irreducible, tier inferred, window 14:30 to 15:00."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-UNITS-HQ-14 row, line 1019 row, line 972 row)",
+   "must_change": false,
+   "note": "Rows of the undrawn-unit section that link C-029 to the Artillery Reserve claims (Hunt's ceasefire at 2.30); consistent with the lower bound."
+  },
+  {
+   "kind": "doc",
+   "ref": "docs/battle-theatre/GOVERNANCE/decision_log.md DEC-C-029",
+   "must_change": true,
+   "note": "Line 57 (PENDING OWNER): to record the delegated default and the window."
+  }
+ ],
+ "failed_searches": [
+  {
+   "where": "Hess (Pickett's Charge, the plan's 'about 14:00, essentially over'), Sears, Coddington, Wert, Wikipedia, American Battlefield Trust",
+   "query": "the sources themselves: not local texts or hosts reachable for this research; the plan's T3-094 row lists them as the source of 14:00, 14:30 and 15:00",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "OR27-1 and OR27-2, all reports of the cannonade",
+   "query": "a clock reading of the end before 2.30 p. m. (2 o'clock, 14:00, 2.15, quarter past two): none; every 2 p. m. is an opening (Hays, Smyth, Abbott, Longstreet's order to open)",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Webb (OR27-1 p. 428), Hazard (p. 480), Doubleday, Biddle, McFarland, Davis",
+   "query": "a clock reading of the end: Webb has his guns silenced by 2.45 (not an end of the cannonade); Hazard an hour and a quarter of fire (not counted from a stated start); Biddle and McFarland two and a half hours from about 1 (to about 15:30); Doubleday has the charge announced 'toward 5 o'clock'",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "Longstreet 1896, Alexander 1907, Eshleman, Walton, Pendleton (not in the Official Records for the end)",
+   "query": "an hour for the end other than Pendleton's and Lee's 'about two hours': not read in full; Alexander's Official Records report has no hour for the end",
+   "outcome": "not_read",
+   "at": "2026-11-24"
+  },
+  {
+   "where": "NPS-HB9-1954 and NPS-HB9-1962",
+   "query": "an end hour: the handbook says 'for nearly 2 hours the duel continued, then the Union fire slackened' from 1 o'clock; no clock for the end",
+   "outcome": "not_found",
+   "at": "2026-11-24"
+  }
+ ],
+ "what_would_change_it": "A report, diary or letter of 3 July that gives the hour the last Union or Confederate gun fired, such as the reports of the Confederate battalions on the Peach Orchard line not in the Official Records (Alexander's, Walton's, Eshleman's battalion journals) or of the Union batteries on Cemetery Ridge (Cushing, Brown, Cowan, Hazard's own journal). A page image that reads a different hour in Hunt, Peyton or Devereux would also change it."
+}
