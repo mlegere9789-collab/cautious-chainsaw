@@ -53,6 +53,7 @@ for s in SHARDS:
         results[r['id']] = r
 
 out = {s: [] for s in SHARDS}
+ERR = []
 counts = {'rows': 0, 'citations': 0, 'subs': 0}
 for rid, R in L.ROWS.items():
     s = shard_of(rid)
@@ -61,12 +62,15 @@ for rid, R in L.ROWS.items():
     nm = sr.get('norm', sr)
     cites = []
     for key, (rep, quote) in R['cites'].items():
-        cites.append(L.resolve(key, rep, quote))
+        try:
+            cites.append(L.resolve(key, rep, quote))
+        except SystemExit as e:
+            ERR.append('%s %s: %s' % (rid, key, e))
     keys = {c['key'] for c in cites}
     subs = []
     for i, (claim, tier, support, ck, note) in enumerate(R['subs'], 1):
         for k in ck:
-            assert k in keys, (rid, k)
+            assert k in keys or any(e.startswith('%s %s:' % (rid, k)) for e in ERR), (rid, k)
         if support == 'supported':
             assert tier == 'documented' or ck, (rid, i)
             assert ck, (rid, i, 'supported sub-claim without a citation')
@@ -76,7 +80,7 @@ for rid, R in L.ROWS.items():
         subs.append(d)
     for sc in R['scenarios']:
         for k in sc['cites']:
-            assert k in keys, (rid, 'scenario', k)
+            assert k in keys or any(e.startswith('%s %s:' % (rid, k)) for e in ERR), (rid, 'scenario', k)
     searched = [L.run_search(x) for x in R['searched']]
     related = list(dict.fromkeys(reg_by_row.get(rid, []) + R['related']))
     confirmed = R['verdict'] == 'confirmed'
@@ -105,6 +109,10 @@ for rid, R in L.ROWS.items():
     counts['citations'] += len(cites)
     counts['subs'] += len(subs)
 
+if ERR:
+    print('\n'.join(ERR))
+    print(len(ERR), 'quote errors; nothing written')
+    sys.exit(1)
 for s, rows in out.items():
     rows.sort(key=lambda r: r['id'])
     print(s, len(rows), 'rows', sum(len(r['citations']) for r in rows), 'citations', {v: sum(1 for r in rows if r['verdict'] == v) for v in L.VERDICTS})
