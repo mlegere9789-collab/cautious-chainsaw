@@ -2,7 +2,7 @@
 
 Updated 2026-11-24 04:45 UTC by the orchestrating session. Plan: OPERATING-PLAN-2026-11-24.md. Ledger: SCOREBOARD.jsonl.
 
-Running: one background agent finishing the conflict kit (queue 3, READY.json when done) and the zero-token watchdog `watch.sh 10800`. Last fleet died Nov 16 about 03:55 UTC on the weekly limit. Window now: Nov 22 22:00 to Nov 29 22:00 UTC
+Running (05:05 UTC): two conflict researchers, C-016 and C-005 (queue 5, plausible-procedural ones first), and the zero-token watchdog `watch.sh 10800`. Conflict kit is DONE and independently re-checked (READY.json; validator self-test 55 planted defects caught; 33 tests pass; 47 dossiers). Cost of the kit agent about $3 (277k tokens, 16 minutes). Last fleet died Nov 16 about 03:55 UTC on the weekly limit. Window now: Nov 22 22:00 to Nov 29 22:00 UTC
 (planning allowance $1,800; cost at the start of the window $3,960 of the session total; recalibrate from get_session usage.cost_usd).
 
 On every wake, in this order, and nothing else:
@@ -25,4 +25,5 @@ notices, the watchdog and the owner's messages.
 Open owner items: approve the pending PowerShell request in the MSI probe session (session_01YP4o7Ri5VkRJD1AtuhsG2G) for PC work;
 the allowance (the weekly window is not unlimited); main site versus Battle Theatre priority.
 
+After each researcher finishes: run its validator myself (exit 0 or it is not done), then ONE independent max-effort reviewer, then the next two conflicts. Weak list: plausible-procedural C-005 C-007 C-012 C-016 C-023 C-026 C-042 C-045; inferred C-006 C-008 C-011 C-013 C-024 C-041 C-044; open gap C-018 C-037 C-038.
 Queue head (plan section 4): 2b Q20 runner shared-kit-id fix (red-first test, re-run) and Q01 remaining 435 FAIL / 1,238 BLOCKED by class; 2 gate failure triage by class; 3 finish the conflict kit (READY.json); 4 bookkeeping gate fixes; 5 conflicts phase A (18 weak first).
