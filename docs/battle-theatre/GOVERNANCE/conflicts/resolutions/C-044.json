@@ -121,7 +121,7 @@
      "source_class": "book",
      "page": null,
      "page_basis": "as_read",
-     "page_note": "printed page not read; the sentence stands in the chapter Gettysburg (chapter VII), under the paragraph on the hospital east of the town beside the York Pike; the reprint is undated (catalogued 191-?; the written date is the latest it can be: the Surgeon General's office letter of 19 Oct 1916 describes the bound reprints, and the text cites a source of 1911)",
+     "page_note": "printed page not read; the sentence stands in the chapter Gettysburg (chapter VII), under the paragraph on the hospital east of the town beside the York Pike; the reprint is undated (catalogued 191-?; '1916' is only a latest-possible date, not a known date of writing; the written date is the latest it can be: the Surgeon General's office letter of 19 Oct 1916 describes the bound reprints, and the text cites a source of 1911)",
      "text_offset": 607811,
      "quote": "It was opened on July 22nd and not closed until November 20, 1863",
      "witness": {
@@ -219,7 +219,7 @@
        "received on July 22"
       ]
      },
-     "note": "The Park Service paper (2010) reports this passage from a source it names; the original was not read for this research, so the citation stands on the paper, which prints it. The paper puts the orders at 22 July and says the move took place the next day and at the end of the week; Norris writes on 26 July that his hospital moved to the General Hospital that day. The sentence is the paper's summary, not Norris's own words; it says that move orders came on 22 July, not that the camp opened then."
+     "note": "The Park Service paper (2010) reports this passage from a source it names; the original was not read for this research, so the citation stands on the paper, which prints it. The paper puts the orders at 22 July and says the move took place the next day and at the end of the week; Norris writes on 26 July that his hospital moved to the General Hospital that day. The paper is itself inconsistent about the move: it says the orders came on 22 July, that the soldiers were not moved until the next day (23 July), and then quotes Norris's letter of 26 July describing the move of his hospital; Souder's move of 23 July is to the clover field, a corps-hospital site, not the camp. The dates 22, 23 and 26 July are recorded as the paper gives them and not reconciled. The sentence quoted is the paper's summary of the order, not Norris's own words; it says that move orders came on 22 July, not that the camp opened then."
     },
     {
      "id": "C-044-P2-c4",
@@ -353,7 +353,7 @@
      "source_class": "primary",
      "page": null,
      "page_basis": "as_read",
-     "page_note": "printed page 62 read from the running head 'LEAVES FROM THE' in the text; the letter is headed 'Gettysburg, July 27, 1863. Wednesday evening': 27 July 1863 was a Monday and the entry before it is 'Tuesday, 28th', so the date is taken as 29 July at the latest in the book's own order; the heading is inconsistent",
+     "page_note": "printed page 62 read from the running head 'LEAVES FROM THE' in the text; the letter is headed 'Gettysburg, July 27, 1863. Wednesday evening': 27 July 1863 was a Monday and the entry before it is 'Tuesday, 28th', so the date is taken as 29 July at the latest in the book's own order; the heading is inconsistent; the 29 July date is the researcher's inference from the book's order, not a printed date",
      "text_offset": 73793,
      "quote": "The Third and Fifth Corps are being brought into the General Hospital, which is near the railroad",
      "witness": {
@@ -411,6 +411,101 @@
       ]
      },
      "note": "By 28 July the Commission moved its tents to the General Hospital, so the camp was running; it says 'about the time'."
+    },
+    {
+     "id": "C-044-P2-c10",
+     "source": "ADAMS-SENTINEL-1863",
+     "source_class": "primary",
+     "part": "1863-07-28",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "the text layer of this column is badly garbled; the item reads, as far as it can be read, 'A General Hospital has been established on the elevated grounds east of the town, and the wounded are being removed there as rapidly as possible from the [...] town and country hospitals'; only the quoted fragments are verified, and the word 'established' is a reading of garbled letters",
+     "text_offset": 53579,
+     "quote": "Hospital has been [...] on the elevated grounds",
+     "witness": {
+      "name": "The Adams Sentinel (Gettysburg weekly), issue of 28 Jul 1863",
+      "role": "Local newspaper, local item",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1863-07-28",
+      "kind": "newspaper_1863"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "sentinel",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "elevated grounds"
+      ]
+     },
+     "note": "An upper bound from a paper of the day: by the issue of Tuesday 28 Jul the general hospital is reported established and the removals under way. It gives no day."
+    },
+    {
+     "id": "C-044-P2-c11",
+     "source": "GBG-COMPILER-1863",
+     "source_class": "primary",
+     "part": "1863-08-03",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "OCR text; reads 'The number of wounded removed to the Geriersl' Hospital up to Pfiday morning last was 761'; the digits 761 were not checked on a page image",
+     "text_offset": 96294,
+     "quote": "wounded removed to the [...] up to [...] morning last was 761",
+     "witness": {
+      "name": "The Gettysburg Compiler (weekly), issue of 3 Aug 1863",
+      "role": "Local newspaper, local item",
+      "side": "civilian"
+     },
+     "written": {
+      "date": "1863-08-03",
+      "kind": "newspaper_1863"
+     },
+     "vantage": "present",
+     "knew_by": "not_stated",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "compiler",
+     "exact": false,
+     "states": {
+      "numbers": [
+       761
+      ]
+     },
+     "note": "By Friday 31 Jul 761 wounded had been removed to the general hospital (a count of men, not an opening day). It shows the transfers well under way by the end of July."
+    },
+    {
+     "id": "C-044-P2-c12",
+     "source": "MA-BURIAL-1863",
+     "source_class": "primary",
+     "page": null,
+     "page_basis": "as_read",
+     "page_note": "printed page not read; the sentence follows the committee's account of the order forbidding removals of the dead before 1 October",
+     "text_offset": 10111,
+     "quote": "general hospital was then being established, to which all the wounded soldiers in the town",
+     "witness": {
+      "name": "Massachusetts joint special committee (sub-committee at Gettysburg), report of 1863",
+      "role": "Committee sent to Gettysburg from Boston at the end of July 1863 to care for Massachusetts dead and wounded",
+      "side": "other"
+     },
+     "written": {
+      "date": "1863",
+      "kind": "official_report"
+     },
+     "vantage": "present",
+     "knew_by": "eyewitness",
+     "clock": "unspecified",
+     "hedge": "exact",
+     "group": "machusetts",
+     "exact": false,
+     "states": {
+      "phrases": [
+       "general hospital was then being established"
+      ]
+     },
+     "note": "Early August 1863: the general hospital is still 'being established' and the wounded of the town and corps hospitals are being removed to it. Describes a process; it gives no day and fits an opening about 22 July."
     }
    ],
    "inference": {
@@ -423,13 +518,16 @@
      "C-044-P2-c5",
      "C-044-P2-c6",
      "C-044-P2-c7",
-     "C-044-P2-c9"
+     "C-044-P2-c9",
+     "C-044-P2-c10",
+     "C-044-P2-c11",
+     "C-044-P2-c12"
     ]
    }
   }
  ],
  "weighing": {
-  "summary": "Two values: 20 July and 22 July. No writing found gives 20 July: the Park Service page that was reported for it could not be read as text (the word Letterman is not on the page as served) and the Trust page is not reachable. Two later writers say the camp 'was opened on July 22' (a medical history of the 1910s and a nurse in 1909, as printed by a Park Service paper of 2010 that calls the exact date 'hard to ascertain'); neither gives a source. The papers of 1863 do not state the opening but bracket it: the site was chosen and tents awaited on 14 Jul, tents arrived on 15 Jul, orders to move a corps hospital came on 22 Jul, the general hospital was still 'being established' on 24 Jul, the earliest dated transfers found are 24 Jul and the corps hospitals were merging into it by about 29 Jul. 22 July fits and 20 July has nothing; the opening day itself is not stated by a writer of the time, so the default is inferred, weighted.",
+  "summary": "Two values: 20 July and 22 July. No writing found gives 20 July: the Park Service page that was reported for it could not be read as text (the word Letterman is not on the page as served) and the Trust page is not reachable. Two later writers say the camp 'was opened on July 22' (a medical history of the 1910s and a nurse in 1909, as printed by a Park Service paper of 2010 that calls the exact date 'hard to ascertain'); neither gives a source. The papers of 1863 do not state the opening but bracket it: the site was chosen and tents awaited on 14 Jul, tents arrived on 15 Jul, orders to move a corps hospital came on 22 Jul, the general hospital was still 'being established' on 24 Jul, the earliest dated transfers found are 24 Jul, the Sentinel of 28 Jul reports a general hospital established east of the town with the wounded being removed to it, the Christian Commission moved in about 28 Jul, 761 wounded had been removed by 31 Jul (Compiler of 3 Aug) and the Massachusetts committee found it still 'being established' in early August. 22 July fits and 20 July has nothing; the opening day itself is not stated by a writer of the time, so the default is inferred, weighted.",
   "who": "Duncan was a medical officer and historian, not a witness. Myers was a Gettysburg teacher who nursed in the town hospitals and at the camp: present, but writing in 1909. Norris (First Corps hospital surgeon), Way (chaplain of the 24th Michigan) and Souder (a nurse of the Second Corps hospital) were on the spot; Janes, who chose the site and ran the hospitals, and Rankin, the depot quartermaster, were the men who dealt with the tents. None of them states the day the camp opened.",
   "when": "The 1863 witnesses wrote 14 Jul to 29 Jul, in the weeks of the establishing. The two writers who give 22 July wrote 46 years (Myers) and decades (Duncan, undated, 1910s) later. The rubric puts a contemporaneous letter or dispatch above a later history above a reminiscence; here the contemporaneous writings do not state the value, so the later ones are the only writers who give a day. They are weighed as a marker, not as a document: the tier is inferred, not documented.",
   "where": "Janes, Rankin and Norris were at Gettysburg and wrote what they dealt with; Way and Souder were with hospitals that were being merged into the camp. The 22 July orders are for a First Corps hospital to move, which fits a camp ready to take men; they do not say the camp had opened that day. The earliest dated transfers found, of 24 July, were a move of men already in hospital: opening for patients, finishing the tents and the first transfers are different days, and 22 July is the opening for patients as the two later writers give it.",
@@ -567,7 +665,7 @@
   },
   {
    "where": "The Gettysburg Compiler and the Adams Sentinel, issues of 20 Jul to 29 Dec 1863; Sanitary Commission report of 1863",
-   "query": "General Hospital with opened, established, tents, York pike: the Compiler of 3 Aug says 761 wounded were removed to it by the Friday before (OCR garbled, not cited); the Sentinel of 18 Aug and 1 Sep describe it; none gives the opening day",
+   "query": "General Hospital with opened, established, tents, York pike: the Sentinel of 28 Jul (garbled) reports it established, the Compiler of 3 Aug says 761 wounded were removed to it by the Friday before, the Sentinel of 18 Aug and 1 Sep describe it; none gives the opening day",
    "outcome": "not_found",
    "at": "2026-11-24"
   },
