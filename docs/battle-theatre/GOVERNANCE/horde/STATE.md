@@ -1,29 +1,23 @@
-# STATE (read this first on every wake; it replaces reading CAMPAIGN.md, which is the long history)
+# STATE (read this first on every wake)
 
-Updated 2026-11-24 04:45 UTC by the orchestrating session. Plan: OPERATING-PLAN-2026-11-24.md. Ledger: SCOREBOARD.jsonl.
+PAUSED by the owner at 2026-11-25 (message "pause"). Nothing is running: both agents stopped, the watchdog and the gate chains were killed. Resume only when the owner says so.
 
-Running (05:55 UTC): independent reviewer for C-016 and C-005; researchers C-012 and C-007; watchdog `watch.sh 10800`. Resolved so far (validator exit 0, review pending): C-016 (weighted, inferred: Little Round Top), C-005 (weighted, inferred: default changed to about 05:00, PDF and first delegated default 06:30 do not hold). Conflict kit is DONE and independently re-checked (READY.json; validator self-test 55 planted defects caught; 33 tests pass; 47 dossiers). Cost of the kit agent about $3 (277k tokens, 16 minutes). Last fleet died Nov 16 about 03:55 UTC on the weekly limit. Window now: Nov 22 22:00 to Nov 29 22:00 UTC
-(planning allowance $1,800; cost at the start of the window $3,960 of the session total; recalibrate from get_session usage.cost_usd).
+## Where things stand (all pushed to main-2hmypf and main)
+- 47 conflicts researched, reviewed twice, integrated (defaults v2, DEC-DELEG-J). Q04 floors untouched; owner decision requests in horde/requests/q04-floor-holds-owner-decision.md.
+- Timeline: 24 of 691 rows verified (QC demoted 12 of the first 36); all 691 covered by register entries (1,024 entries). Q17, Q18, Q23 coverage pass. Strict gates green: Q04 only (PASS 5,088 after independent review).
+- Kit evidence: all 26 groups evidenced (checker exit 0 for each) BUT three independent QC samples failed (3.75 percent, 10.6 percent, 9.8 percent vs 2 percent). The evidence is NOT accepted. Q01/Q14 numbers that depend on it are provisional: do not report them as gains.
+- oob_adopt selection rule rewritten (bounds stay bounds, pre-battle return window). Q01 about PASS 2,909, FAIL 310, BLOCKED 514; Q14 PASS 94, FAIL 72.
 
-On every wake, in this order, and nothing else:
-1. `date -u`; `df -h /` (under 4 GB: reclaim per plan section 7).
-2. `python3 -I tools/horde/scoreboard.py --cost <usage.cost_usd from get_session>` (first wake of the UTC day, and after each batch). Exit 3 stalled day, 4 regression: next task is the diagnosis or the fix.
-3. Spend vs pace line (plan section 3). Over the line by more than $60: hold. At 90 percent of the allowance: no new launches.
-4. If no lane is running and spend allows: launch the next batch (8 to 10 queue items with `moves:`), `args.skip` from `python3 tools/horde/closed.py --args <script>`.
-5. Start the watchdog in the background: `bash tools/horde/watch.sh 10800` (run_in_background). It exits on LIMIT, STALL, DISK or TICK.
-6. Commit and push both branches (`main-2hmypf` and `main`), fetch first, never force.
-7. Append one line to CAMPAIGN.md only when something changed. Tell the owner only what changed and what is true, quoting the scoreboard.
+## Stopped mid-work (unfinished, uncommitted work was committed as WIP)
+1. Gate composition fix (agent a376e854...): the review found the Q01.3 composition check (commit ee87d6da, q01_oob.py ~l.478 and q01_layer.mjs) loosens the gate. The agent had written 7 new red tests in tests/governance/gates/test_q01.py (so test_q01 now shows 7 failures ON PURPOSE) but had NOT yet edited the gate. Until the gate is tightened the loosened composition check is live: treat Q01.3 results as unreliable. Needed: strict rule (exactly 2 keys, one muskets key plus one officers key, same basis/date/report, documented tier, weakest tier), composition mutation in mutation_check.py, PROPOSED AMENDMENT in GATE-SPEC plus PENDING OWNER entry (never DECIDED), flag pre_battle_return on 29 units and show it in the product.
+2. Evidence checker hardening (agent a0f460b7...): new checker error classes (as_of narrower than quote, tier for unnamed unit, names missing from quote, differing figures without conflict set, bounds without hedge, enlisted_only, point as_of for undated narrative), then fix every flagged line and apply the QC-3 listed fixes (cs-anderson:0192, cs-heth:0121, us-2c-1d:0204/0239/0195, us-3c-1d:0316, us-5c:0193, cs-hood:0137, us-1c:0410, us-2c-2d3d:0299, us-6c:0253, cs-art-1c:0109). Was only at the step of running the checker over all groups. Evidence files us-1c and us-art-reserve-horse have uncommitted partial edits: re-run python3 -I tools/bt/kit_evidence_check.py <group> --coverage --require-complete for every group before trusting any of it.
+3. After both: rebuild python3 -I tools/bt/kit_verified.py build, oob_adopt --check, Q14 and Q01 runners (bench.sh, one heavy job at a time), then a fourth QC sample (acceptance: 2 percent or less).
 
-Done today with no model: `python3 -I tools/bt/kit_verified.py build` wrote kit/verified_oob.json (825 units: 80 verified, 48 partly, 697 unverified) and verified_batteries.json (131 batteries, all unverified); Q01 re-run: PASS 0 -> 2,069, BLOCKED-INPUT 3,510 -> 1,238, FAIL 133 -> 435 (66 planted-defect tests of the Q01 runner pass). Gate items overall PASS 206 -> 2,275 (ledger line 04:37Z).
-Rule that follows: every finished kit-evidence group raises PASS by itself. After any lane task run `python3 -I tools/horde/after_task.py --cost <usd>` (rebuild tables, re-run the light gates, append a ledger line).
-Known defect: q20_cavalry.py crashes with `duplicate item id Q20/Q20.1/CS.CAV.11VA/default` because 31 kit ids are shared by more than one table unit (CS.KERSHAW by 6); the stored Q20.json is stale (Nov 16). Fix is a bounded task (queue 2b). Q14 stays blocked until artillery kit evidence lands (131 batteries unverified).
+## Open owner items
+- Q04 floor holds (Hood 05:30, McLaws 08:00, II Corps 06:00, Hampton 19:32) and whether a PDF value moves a division's own gate.
+- Q01.3 composition amendment (pending once written).
+- Weekly allowance, main-site vs Battle Theatre priority, PC attach for GPU/audio work.
+- check_governance.py change: a timeline row may leave seeded_unverified only through tools/bt/merge_timeline_verification.py with evidence.
 
-Banned: see plan section 2. No fleet wider than the governor, no re-verification of closed work, no model polling, no task without `moves:`.
-Scheduled routines are denied for this session (ACCESS_DENIED since the PC approval card of Nov 16) and fresh-session routines cannot message it (tested 04:41, 05:25); wake sources are workflow/agent completion notices, the watchdog and the owner's messages.
-Restart-proof signal = absence: push a digest to the owner (PushNotification: scoreboard gains, spend, next) every 6 hours and at each daily line; no digest for about 8 hours means the lane is dead.
-
-Open owner items: approve the pending PowerShell request in the MSI probe session (session_01YP4o7Ri5VkRJD1AtuhsG2G) for PC work;
-the allowance (the weekly window is not unlimited); main site versus Battle Theatre priority.
-
-After each researcher finishes: run its validator myself (exit 0 or it is not done), then ONE independent max-effort reviewer, then the next two conflicts. Weak list: plausible-procedural C-005 C-007 C-012 C-016 C-023 C-026 C-042 C-045; inferred C-006 C-008 C-011 C-013 C-024 C-041 C-044; open gap C-018 C-037 C-038.
-Queue head (plan section 4): 2b Q20 runner shared-kit-id fix (red-first test, re-run) and Q01 remaining 435 FAIL / 1,238 BLOCKED by class; 2 gate failure triage by class; 3 finish the conflict kit (READY.json); 4 bookkeeping gate fixes; 5 conflicts phase A (18 weak first).
+## Wake rules after the owner resumes
+date -u; df -h / (reclaim scratch under 4 GB, never tmp/library); scoreboard; start watch.sh 10800 in the background; launch the next task BEFORE ending any turn; commit and push both branches; push a digest every 6 hours.

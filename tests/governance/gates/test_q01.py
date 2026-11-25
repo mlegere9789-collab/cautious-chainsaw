@@ -264,6 +264,10 @@ class StrengthDates(unittest.TestCase):    # Q01.3 and Q01.4, the date of a figu
     def _musket_table(self):
         t = F.oob_table()
         t['units']['us-1c-1d-b1-r1']['strength']['ranges'] = {'taken_into_action|enlisted_only': F.rng(114, 114), 'taken_into_action|officers_only': F.rng(15, 15)}
+        figs = t['units']['us-1c-1d-b1-r1']['strength']['figures']
+        for k, (lo, hi) in (('enlisted_only', (114, 114)), ('officers_only', (15, 15))):      # the evidence lines of the two parts: one report, one date
+            figs.append({'basis': 'taken_into_action', 'men': k, 'low': lo, 'high': hi, 'as_of': '1863-07-01', 'tier': 'documented', 'evidence_ids': ['ev:x:%s' % k],
+                         'cite': {'id': 'ev:x:%s' % k, 'source_id': 'OR27-1', 'report_id': 'OR27-1-R037', 'printed_page': 282}})
         return t
 
     def _total_layer(self, **upd):
@@ -278,6 +282,59 @@ class StrengthDates(unittest.TestCase):    # Q01.3 and Q01.4, the date of a figu
     def test_a_total_built_from_documented_musket_and_officer_lines_passes_on_the_sum_of_those_lines(self):
         out = run(layer=self._total_layer(), table=self._musket_table())
         self.assertEqual(result_of(out, 'Q01.3', 'us-1c-1d-b1-r1'), 'PASS')
+
+    def _comp_result(self, layer=None, table=None):
+        return result_of(run(layer=layer or self._total_layer(), table=table or self._musket_table()), 'Q01.3', 'us-1c-1d-b1-r1')
+
+    def _part(self, t, key):
+        return t['units']['us-1c-1d-b1-r1']['strength']['ranges'][key]
+
+    def test_composition_repeated_key_fails(self):
+        c = [{'key': 'taken_into_action|enlisted_only'}] * 2
+        self.assertEqual(self._comp_result(self._total_layer(min=228, max=228, drawn=228, composition=c)), 'FAIL')
+        self.assertEqual(self._comp_result(self._total_layer(min=258, max=258, drawn=258, composition=c)), 'FAIL')
+
+    def test_composition_across_bases_fails(self):
+        t = self._musket_table()
+        R = t['units']['us-1c-1d-b1-r1']['strength']['ranges']
+        R['present_for_duty|officers_only'] = F.rng(15, 15, basis='present_for_duty|officers_only')
+        t['units']['us-1c-1d-b1-r1']['strength']['figures'].append({'basis': 'present_for_duty', 'men': 'officers_only', 'low': 15, 'high': 15, 'as_of': '1863-07-01', 'tier': 'documented', 'evidence_ids': ['e'], 'cite': {'report_id': 'OR27-1-R037'}})
+        c = [{'key': 'taken_into_action|enlisted_only'}, {'key': 'present_for_duty|officers_only'}]
+        self.assertEqual(self._comp_result(self._total_layer(composition=c), t), 'FAIL')
+
+    def test_composition_parts_of_different_dates_fail(self):
+        t = self._musket_table()
+        self._part(t, 'taken_into_action|officers_only')['by_as_of'] = {'1863-06-30': {'low': 15, 'high': 15, 'lines': 1}}
+        self.assertEqual(self._comp_result(table=t), 'FAIL')
+
+    def test_composition_with_an_inferred_part_fails(self):
+        t = self._musket_table()
+        self._part(t, 'taken_into_action|officers_only')['tier'] = 'inferred'
+        self.assertEqual(self._comp_result(table=t), 'FAIL')
+
+    def test_composition_of_a_single_part_fails(self):
+        l = self._total_layer(min=114, max=114, drawn=114, composition=[{'key': 'taken_into_action|enlisted_only'}])
+        self.assertEqual(self._comp_result(l), 'FAIL')
+
+    def test_composition_parts_from_different_reports_fail(self):
+        t = self._musket_table()
+        for f in t['units']['us-1c-1d-b1-r1']['strength']['figures']:
+            if f.get('men') == 'officers_only':
+                f['cite']['report_id'] = 'OR27-1-R038'
+        self.assertEqual(self._comp_result(table=t), 'FAIL')
+
+    def test_composition_part_of_several_lines_fails(self):
+        t = self._musket_table()
+        self._part(t, 'taken_into_action|officers_only')['by_as_of']['1863-07-01']['lines'] = 2
+        self.assertEqual(self._comp_result(table=t), 'FAIL')
+
+    def test_composition_of_two_enlisted_or_two_officers_parts_fails(self):
+        t = self._musket_table()
+        R = t['units']['us-1c-1d-b1-r1']['strength']['ranges']
+        R['taken_into_action|rank_and_file'] = F.rng(114, 114)
+        t['units']['us-1c-1d-b1-r1']['strength']['figures'].append({'basis': 'taken_into_action', 'men': 'rank_and_file', 'low': 114, 'high': 114, 'as_of': '1863-07-01', 'tier': 'documented', 'evidence_ids': ['e'], 'cite': {'report_id': 'OR27-1-R037'}})
+        c = [{'key': 'taken_into_action|enlisted_only'}, {'key': 'taken_into_action|rank_and_file'}]
+        self.assertEqual(self._comp_result(self._total_layer(min=228, max=228, drawn=228, composition=c), t), 'FAIL')
 
     def test_the_same_total_without_a_composition_still_fails(self):
         out = run(layer=self._total_layer(composition=None), table=self._musket_table())
