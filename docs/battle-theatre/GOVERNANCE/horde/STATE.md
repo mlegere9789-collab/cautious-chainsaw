@@ -13,6 +13,9 @@ PAUSED by the owner at 2026-11-25 (message "pause"). Nothing is running: both ag
 2. Evidence checker hardening (agent a0f460b7...): new checker error classes (as_of narrower than quote, tier for unnamed unit, names missing from quote, differing figures without conflict set, bounds without hedge, enlisted_only, point as_of for undated narrative), then fix every flagged line and apply the QC-3 listed fixes (cs-anderson:0192, cs-heth:0121, us-2c-1d:0204/0239/0195, us-3c-1d:0316, us-5c:0193, cs-hood:0137, us-1c:0410, us-2c-2d3d:0299, us-6c:0253, cs-art-1c:0109). Was only at the step of running the checker over all groups. Evidence files us-1c and us-art-reserve-horse have uncommitted partial edits: re-run python3 -I tools/bt/kit_evidence_check.py <group> --coverage --require-complete for every group before trusting any of it.
 3. After both: rebuild python3 -I tools/bt/kit_verified.py build, oob_adopt --check, Q14 and Q01 runners (bench.sh, one heavy job at a time), then a fourth QC sample (acceptance: 2 percent or less).
 
+## Restore done at the pause
+The killed hardening scripts left kit/evidence half rewritten (every group failed the new rules and some pairs were open). I restored kit/evidence/*.jsonl and tools/bt/kit_evidence_check.py to commit 2f2be9e6 (all 26 groups exit 0 under the old checker), rebuilt the verified tables (verified units 298, partly 515, unverified 12; batteries verified 91) and confirmed oob_adopt --check and check_governance.py. The new checker rules are kept, unfinished, in tools/bt/kit_evidence_check_hardening_WIP.py with the tests in tests/governance/test_kit_evidence_rules.py (that test file fails against the restored checker: expected). QC-3 listed line fixes are NOT applied in the restored evidence.
+
 ## Open owner items
 - Q04 floor holds (Hood 05:30, McLaws 08:00, II Corps 06:00, Hampton 19:32) and whether a PDF value moves a division's own gate.
 - Q01.3 composition amendment (pending once written).
