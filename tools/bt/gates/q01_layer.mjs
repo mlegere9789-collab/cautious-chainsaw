@@ -14,7 +14,7 @@ const U = layer.units;
 const units = U.map(u => ({
   id: u.id, name: u.name, army: u.side === 'union' ? 'US' : 'CS', level: u.level, arm: u.arm === 'headquarters' || u.arm === 'staff' ? null : u.arm, parent: u.parent, status: u.status,
   status_ledger: (raw.units.units.find(x => x.id === u.id) || {}).status, commanders: u.commanders || [],
-  strength: { min: u.strength.min, max: u.strength.max, drawn: u.strength.drawn, share: u.strength.share, kind: u.strength.kind, basis: u.strength.basis, tier: u.strength.tier, sources: u.strength.sources, weak_source: u.strength.weak_source, ...(u.strength.basis_key ? { basis_key: u.strength.basis_key } : {}), ...(u.strength.as_of ? { as_of: u.strength.as_of } : {}) },
+  strength: { min: u.strength.min, max: u.strength.max, drawn: u.strength.drawn, share: u.strength.share, kind: u.strength.kind, basis: u.strength.basis, tier: u.strength.tier, sources: u.strength.sources, weak_source: u.strength.weak_source, ...(u.strength.basis_key ? { basis_key: u.strength.basis_key } : {}), ...(u.strength.as_of ? { as_of: u.strength.as_of } : {}), ...(u.strength.composition ? { composition: u.strength.composition.map(c => ({ key: c.key })) } : {}) },
   drawn: !!u.drawn, render: u.render.status, children: u.children, guns: { status: u.guns.status, count: u.guns.count ?? null }, register: u.register, tier: u.tier, sources: u.sources,
 }));
 

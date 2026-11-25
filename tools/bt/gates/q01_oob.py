@@ -475,6 +475,12 @@ def q013_strength(rec, ctx, L, T):
                 continue
             else:
                 eff[k] = {'low': r['low'], 'high': r['high'], 'tier': r.get('tier')}
+        comp = u['strength'].get('composition')                      # a total the layer builds from documented table lines of one report and date (oob_adopt.py: muskets + officers): compared with the SUM of those lines at its date, nothing looser
+        bk = u['strength'].get('basis_key')
+        if comp and as_of and bk in eff:
+            parts = [((rs.get(c.get('key')) or {}).get('by_as_of') or {}).get(as_of) for c in comp]
+            if all(parts) and any(c.get('key') == bk for c in comp):
+                eff[bk] = {'low': sum(p_['low'] for p_ in parts), 'high': sum(p_['high'] for p_ in parts), 'tier': eff[bk]['tier']}
         effm = {k: v for k, v in eff.items() if k in matching}
         inside = [k for k, r in eff.items() if r['low'] <= pt <= r['high']] if lo is None else [k for k, r in eff.items() if r['low'] <= lo and hi <= r['high']]
         drawn_n = u['strength'].get('drawn') or 0

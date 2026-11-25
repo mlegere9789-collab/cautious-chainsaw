@@ -1,5 +1,5 @@
 {
- "command": "python3 tools/bt/gates/q14_ordnance.py --quiet",
+ "command": "python3 tools/bt/gates/q14_ordnance.py",
  "counts": {
   "BLOCKED-INPUT": 51,
   "COVERED": 0,
@@ -8,7 +8,7 @@
   "NOT-RUN": 1,
   "PASS": 94
  },
- "finished_utc": "2026-11-24T23:46:17Z",
+ "finished_utc": "2026-11-25T00:04:52Z",
  "gate": "Q14",
  "incomplete_reasons": [
   "52 item(s) NOT-RUN or BLOCKED-INPUT",
@@ -28,7 +28,7 @@
   "docs/battle-theatre/drill/drill_artillery.json": "b0f017b003b187db60935ff9857fbf0b132439e3eed0844fa08161903cc93cfa",
   "docs/battle-theatre/drill/drill_infantry.json": "c5b5d5e689afbddd1ba1dca26836a06ca267f5d4bec51507edf8cb6975820f7b",
   "docs/battle-theatre/drill/ordnance_tables.json": "f7dab4cf42cec57a840fda1d4ad43a60c06db06c13962b8dee1acd362d124e2d",
-  "docs/battle-theatre/kit/verified_batteries.json": "12583faf06f8cf359f2008288fc344657b6909b247fa64d86b411f415b1f7351",
+  "docs/battle-theatre/kit/verified_batteries.json": "ccb9bbefc650dcd11e643a58048fcf3343905e861eb8ee2ac435262e522867ad",
   "docs/battle-theatre/kit/weapons.json": "412396eada9819f2a0185d771c6555f3025939607991f18b3db11461948a5d02",
   "docs/battle-theatre/structures/structures.json": "b223dacf386d9983167d24561dc05a8466248096a7715a23dd25fa5bd2b1ad53",
   "tools/bt/gates/oob_layer_lib.mjs": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d",
@@ -116,10 +116,10 @@
    "sha256": "f7dab4cf42cec57a840fda1d4ad43a60c06db06c13962b8dee1acd362d124e2d"
   },
   {
-   "bytes": 228628,
+   "bytes": 228541,
    "path": "docs/battle-theatre/kit/verified_batteries.json",
    "role": "table",
-   "sha256": "12583faf06f8cf359f2008288fc344657b6909b247fa64d86b411f415b1f7351"
+   "sha256": "ccb9bbefc650dcd11e643a58048fcf3343905e861eb8ee2ac435262e522867ad"
   },
   {
    "bytes": 171362,
@@ -9201,7 +9201,7 @@
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-01T10:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-01T10:15/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+      "detail": "[{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-01T10:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
       "name": "the count equals a verified total for every date the table has",
       "ok": false
      },
@@ -9229,7 +9229,7 @@
     "render": "not_drawn",
     "table_dates": [
      {
-      "date": "1863-07-01T10:00/1863-07-01T16:00",
+      "date": "1863-07-01",
       "layer_guns": 0,
       "ok": false,
       "present": true,
@@ -9241,7 +9241,7 @@
       }
      },
      {
-      "date": "1863-07-01T10:15/1863-07-01T16:00",
+      "date": "1863-07-01T10:00/1863-07-01T16:00",
       "layer_guns": 0,
       "ok": false,
       "present": true,
@@ -9261,7 +9261,7 @@
    },
    "id": "Q14/Q14.5/us-11c-art-1ohi/default",
    "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-01T10:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-01T10:15/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-01\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-01T10:00/1863-07-01T16:00\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}]",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -11358,7 +11358,7 @@
       "ok": true
      },
      {
-      "detail": "[{\"date\": \"1863-07-02T15:00/1863-07-02T17:30\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-02T17:30/1863-07-02T23:59\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
+      "detail": "[{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-02T17:30/1863-07-02T23:59\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
       "name": "the count equals a verified total for every date the table has",
       "ok": false
      },
@@ -11385,7 +11385,7 @@
     "render": "moving",
     "table_dates": [
      {
-      "date": "1863-07-02T15:00/1863-07-02T17:30",
+      "date": "1863-07-02",
       "layer_guns": 0,
       "ok": false,
       "present": true,
@@ -11417,7 +11417,7 @@
    },
    "id": "Q14/Q14.5/us-3c-art-4usk/default",
    "pass": false,
-   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02T15:00/1863-07-02T17:30\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-02T17:30/1863-07-02T23:59\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
+   "reason": "gun count: the count equals a verified total for every date the table has: [{\"date\": \"1863-07-02\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [6, 6]}, \"ok\": false}, {\"date\": \"1863-07-02T17:30/1863-07-02T23:59\", \"layer_guns\": 0, \"present\": true, \"table\": {\"present\": [4, 4]}, \"ok\": false}]",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -15758,7 +15758,7 @@
   "Q14.7: the drill state machine of a gun detachment (ten states, B.6.14.3) is not compared with the product (needs a machine list of the product's detachment states)"
  ],
  "renderer_class": "mixed",
- "run_id": "20261124T234613Z-Q14",
+ "run_id": "20261125T000441Z-Q14",
  "runnable_here": true,
  "runner_files": [
   "oob_layer_lib.mjs",
@@ -15775,7 +15775,7 @@
   "note": "default and the six sample scenarios of history.test.mjs: a sample, never S*"
  },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T23:46:13Z",
+ "started_utc": "2026-11-25T00:04:41Z",
  "thresholds": [
   {
    "decision": "PLAN",

@@ -63,7 +63,7 @@ export function lossPools({ pools, claimed, strengths, byId, isOnField }) {
     const order = members.slice().sort((a, b) => strId(a) - strId(b) || (a < b ? -1 : 1));
     // equal shares of the pool's printed loss; a unit that adopted a documented strength range (strengths.get(id).basis_key) is never given more loss than the top of its range: its excess goes to the
     // others of the pool in turn, so the pool total is kept and a share is still not a claim about the unit. With no such unit this is the plain equal split (first `extra` units one more).
-    const cap = id => { const st = strengths && strengths.get(id); return st && st.basis_key ? st.max : Infinity; };
+    const cap = id => { const st = strengths && strengths.get(id); return st && st.basis_key ? st.max : st && st.bound && st.bound.kind === 'upper' ? st.bound.value : Infinity; };   // a documented upper bound ('less than 100') also caps the loss
     let active = order.slice(), left = poolLost; const capped = [];
     for (;;) {
       const k = active.length; if (!k) break;

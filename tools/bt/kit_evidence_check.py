@@ -12,6 +12,7 @@ import argparse, collections, copy, json, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import kit_evidence_lib as K
+import kit_evidence_rules as RU
 
 EV = K.EV
 RESULTS = ('not_found', 'ocr_unreadable', 'source_unavailable', 'host_blocked', 'page_missing')
@@ -210,6 +211,9 @@ def check_group(group, path, any_unit=False, want_diff=False):
             for lid, _o in members[1:]:
                 if lid not in in_set:
                     R.err(order[lid], lid, 'CONFLICT', 'lines %s state different values of the same quantity %s and declare no conflict (set conflict: {"key", "alt"} on each, or supersede the wrong line)' % (ids, ' '.join(str(x) for x in ident)))
+    live = [(lid, o) for lid, o in active if lid not in R.rejected and isinstance(o.get('value'), dict) and o.get('unit_id')]
+    for lid, msg in RU.disagreements(live, in_set).items():
+        R.err(order[lid], lid, 'FIGURE_DISAGREE', msg)
     R.accepted = [lid for lid, o in R.lines.items() if o['type'] == 'evidence' and lid not in R.rejected and lid not in R.superseded]
     coverage(R, units)
     return R
@@ -552,10 +556,39 @@ def check_evidence(R, n, o, units, order, kit, cat):
             E('CHECK', 'killed, wounded and missing add to %d, not the stated total %s' % (tot, v['total']))
         if o.get('basis') == 'casualty_return':
             E('TABLE', 'a row of the Return of Casualties has scrambled columns in the OCR: use quote_mode image_row')
+    # content rules (kit_evidence_rules.py): dates, names, enlisted_only, hedges; each can be waived with a stated reason
+    for c, m in RU.shape_errors(o):
+        E(c, m)
+    anchor_text = check_anchors(R, n, o, src, E)
+    errs_r, waived = RU.resolve(o, RU.line_findings(o, entry, anchor_text))
+    for c, m in errs_r:
+        E(c, m)
+    for c in waived:
+        W('RULE_WAIVED', '%s: %s' % (c, o['waive_rules'][c]))
     if kit is not None and tier in ('documented', 'inferred') and entry is not None:
         now = kit.now(entry, f, kf)
         if now:
             R.warn(n, lid, 'KIT_NOW', now)
+
+
+def check_anchors(R, n, o, src, E):
+    """The text of the anchors of a line (headings or captions that name what the quote leaves out), each found in the same source at its offset and inside the same report."""
+    if not isinstance(o.get('anchor'), list):
+        return ''
+    texts = []
+    for a in o['anchor']:
+        if not (isinstance(a, dict) and isinstance(a.get('text'), str) and isinstance(a.get('offset'), int)):
+            continue
+        hits = [h for h in src.locate(a['text']) if h['start'] == a['offset']]
+        if not hits:
+            E('ANCHOR', 'the anchor text is not in %s at offset %d (copy the text exactly; the OCR errors stay)' % (o.get('source_id'), a['offset']))
+            continue
+        rid = src.record_at(a['offset'])[0]
+        if rid != o.get('report_id'):
+            E('ANCHOR', 'the anchor lies in %s, not in the report %s of the line' % (rid, o.get('report_id')))
+            continue
+        texts.append(a['text'])
+    return ' '.join(texts)
 
 
 def coverage(R, units):
@@ -614,10 +647,14 @@ def contract_markdown():
         'image': '`{"pdf_page", "dpi"}`: the scanned page you read, required by `ocr_corrected` and `image_row`', 'checks': 'free list of identities you verified by hand (the tool checks casualty rows itself)',
         'conflict': '`{"key": "<unit>|<field>|<detail>", "alt": "A"}`: the line is one alternative of a source conflict; give every alternative the same key', 'supersedes': 'id of an earlier line of this file that this line replaces',
         'derived_from': 'ids of earlier lines this value is computed from (required for `basis: derived`)', 'note': 'why the quote supports the value (required for `inferred` and `plausible-procedural`)', 'register_proposal': 'file name of the proposed register entry (required for `plausible-procedural`)',
-        'waive_numbers': 'the reason, when a number of the value cannot appear in the quote (for example a sum of two printed figures)', 'example': 'true only in examples.jsonl'}
+        'waive_numbers': 'the reason, when a number of the value cannot appear in the quote (for example a sum of two printed figures)', 'example': 'true only in examples.jsonl',
+        'anchor': '`[{"text", "offset"}]`: a heading or caption of the same report, found in the source at that offset, that names the unit, person or "enlisted" that the quote leaves out',
+        'hedge': '`{"word", "bound"}`: the bound word of the quote ("less than", "about", "over" ...) and its kind (`upper`, `lower`, `approx`); required when the quote hedges a recorded figure',
+        'distinct_basis': 'a sentence saying how this figure differs in kind or period from another accepted line of the unit with a different figure (checked: period, scope or kinds must differ); the alternative is a shared `conflict` key',
+        'waive_rules': '`{"<RULE>": "<reason>"}` (ASOF_NARROW, ASOF_POINT, TIER_UNIT, VALUE_NAMES, FIGURE_DISAGREE, ENLISTED, HEDGE): the line is correct as it stands, and why (25+ characters)'}
     req = K.REQUIRED_KEYS['evidence']
     for k in ['type', 'id', 'unit_id', 'unit_name', 'parent_unit_id', 'field', 'kit_field', 'value', 'basis', 'basis_note', 'tier', 'as_of', 'source_id', 'part', 'report_id', 'printed_page', 'printed_page_end', 'offset', 'quote', 'quote_mode', 'image', 'checks',
-              'conflict', 'supersedes', 'derived_from', 'note', 'register_proposal', 'waive_numbers', 'example']:
+              'conflict', 'supersedes', 'derived_from', 'note', 'register_proposal', 'waive_numbers', 'anchor', 'hedge', 'distinct_basis', 'waive_rules', 'example']:
         L.append('| `%s`%s | %s |' % (k, '*' if k in req else '', rules[k]))
     L += ['', '**A gap line** (`type: gap`) records a failed lookup: `id`*, `unit_id` or `unit_ids`*, `field` or `fields`* (a list is allowed), optional `kit_field` (`*` = every dress field), `searched`* (list of `{"source_id", "terms"}`), `result`* (%s), `note`, `register_proposal`.' % ', '.join('`%s`' % x for x in RESULTS), '']
     L += ['**A source line** (`type: source`) declares a text that `sources.json` lacks; its `id` (a line id) is the `source_id` that evidence lines cite: `id`*, `title`*, `class`* (%s), `local_path`* (under `tmp/`), `sha256` (checked if given), `url`, `part`, `note`.' % ', '.join('`%s`' % x for x in K.DECLARABLE_CLASSES), '']

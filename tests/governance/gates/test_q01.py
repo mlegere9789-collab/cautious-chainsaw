@@ -261,6 +261,32 @@ class StrengthDates(unittest.TestCase):    # Q01.3 and Q01.4, the date of a figu
                 u['strength'].update(upd)
         return layer
 
+    def _musket_table(self):
+        t = F.oob_table()
+        t['units']['us-1c-1d-b1-r1']['strength']['ranges'] = {'taken_into_action|enlisted_only': F.rng(114, 114), 'taken_into_action|officers_only': F.rng(15, 15)}
+        return t
+
+    def _total_layer(self, **upd):
+        layer = F.with_layer_commanders(F.layer_dump())
+        comp = [{'key': 'taken_into_action|enlisted_only'}, {'key': 'taken_into_action|officers_only'}]
+        for u in layer['units']:
+            if u['id'] == 'us-1c-1d-b1-r1':
+                u['strength'].update({'min': 129, 'max': 129, 'drawn': 129, 'kind': 'documented', 'basis_key': 'taken_into_action|enlisted_only', 'as_of': '1863-07-01', 'composition': comp, 'sources': ['OR27-1-R037']})
+                u['strength'].update(upd)
+        return layer
+
+    def test_a_total_built_from_documented_musket_and_officer_lines_passes_on_the_sum_of_those_lines(self):
+        out = run(layer=self._total_layer(), table=self._musket_table())
+        self.assertEqual(result_of(out, 'Q01.3', 'us-1c-1d-b1-r1'), 'PASS')
+
+    def test_the_same_total_without_a_composition_still_fails(self):
+        out = run(layer=self._total_layer(composition=None), table=self._musket_table())
+        self.assertEqual(result_of(out, 'Q01.3', 'us-1c-1d-b1-r1'), 'FAIL')
+
+    def test_a_composed_total_that_is_not_the_sum_fails(self):
+        out = run(layer=self._total_layer(min=130, max=130, drawn=130), table=self._musket_table())
+        self.assertEqual(result_of(out, 'Q01.3', 'us-1c-1d-b1-r1'), 'FAIL')
+
     def test_the_wide_span_of_a_range_that_spans_dates_is_not_a_pass(self):
         # the layer carries the whole span 100 to 320 and names no date: it lies "inside" the wide span, which the rule forbids
         out = run(layer=self._layer(min=100, max=320, drawn=300), table=self._table())

@@ -1,5 +1,5 @@
 {
- "command": "python3 tools/bt/gates/q14_ordnance.py",
+ "command": "python3 tools/bt/gates/q14_ordnance.py --quiet",
  "counts": {
   "BLOCKED-INPUT": 51,
   "COVERED": 0,
@@ -8,7 +8,7 @@
   "NOT-RUN": 1,
   "PASS": 94
  },
- "finished_utc": "2026-11-25T00:04:52Z",
+ "finished_utc": "2026-11-25T00:33:51Z",
  "gate": "Q14",
  "incomplete_reasons": [
   "52 item(s) NOT-RUN or BLOCKED-INPUT",
@@ -23,7 +23,7 @@
   "docs/battle-theatre/app/src/anim3d/ballistics.mjs": "bf68d1b15cbd85c03629528ae52064cb33b63fa717751174daacb9293c4a79d8",
   "docs/battle-theatre/app/src/anim3d/fire-plan.mjs": "d4933c3a1a37335657c05ba7e358471486121f9c184a85e89625b8db74e3a84e",
   "docs/battle-theatre/app/src/crowd/anim.mjs": "d43eb01b25676eb0d57ad4c109147902332d4c3bb6bc2908e9c80b8b1cd8242f",
-  "docs/battle-theatre/app/src/history/real.mjs": "3a57b442be4f0bd9b74559c6054438817cbef75391a07987fa317381365be023",
+  "docs/battle-theatre/app/src/history/real.mjs": "6e87c3f3b26da6904f6e7b375578f4627bf428bd1245d9c3fb588da93dbfc6bf",
   "docs/battle-theatre/app/src/world-from-units.mjs": "b9c1d5cc691ef5266e9ce2edaf5707f6f0616bad81f6ef92ddb3e889b21fe5b9",
   "docs/battle-theatre/drill/drill_artillery.json": "b0f017b003b187db60935ff9857fbf0b132439e3eed0844fa08161903cc93cfa",
   "docs/battle-theatre/drill/drill_infantry.json": "c5b5d5e689afbddd1ba1dca26836a06ca267f5d4bec51507edf8cb6975820f7b",
@@ -86,10 +86,10 @@
    "sha256": "d43eb01b25676eb0d57ad4c109147902332d4c3bb6bc2908e9c80b8b1cd8242f"
   },
   {
-   "bytes": 79475,
+   "bytes": 80903,
    "path": "docs/battle-theatre/app/src/history/real.mjs",
    "role": "code",
-   "sha256": "3a57b442be4f0bd9b74559c6054438817cbef75391a07987fa317381365be023"
+   "sha256": "6e87c3f3b26da6904f6e7b375578f4627bf428bd1245d9c3fb588da93dbfc6bf"
   },
   {
    "bytes": 7661,
@@ -15758,7 +15758,7 @@
   "Q14.7: the drill state machine of a gun detachment (ten states, B.6.14.3) is not compared with the product (needs a machine list of the product's detachment states)"
  ],
  "renderer_class": "mixed",
- "run_id": "20261125T000441Z-Q14",
+ "run_id": "20261125T003347Z-Q14",
  "runnable_here": true,
  "runner_files": [
   "oob_layer_lib.mjs",
@@ -15775,7 +15775,7 @@
   "note": "default and the six sample scenarios of history.test.mjs: a sample, never S*"
  },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-25T00:04:41Z",
+ "started_utc": "2026-11-25T00:33:47Z",
  "thresholds": [
   {
    "decision": "PLAN",

@@ -161,6 +161,15 @@ ERRORS = collections.OrderedDict([
     ('CHECK', 'an arithmetic identity of a table row fails (the figures were misread)'), ('DERIVED', 'a derived or inferred line has no derived_from or note, or cites an unknown line'), ('SUPERSEDES', 'supersedes names an unknown line'),
     ('CONFLICT', 'conflict is malformed, or two active lines of one quantity disagree and no conflict is declared'), ('GAP', 'a gap line needs searched (source ids and terms) and result'), ('DECLARE', 'a source declaration is malformed or its file is missing or its sha256 differs'),
     ('PROCEDURAL', 'a plausible-procedural line needs a note and a register_proposal'), ('TABLE', 'a documented line quotes a table row whose figures the OCR scrambled: use quote_mode image_row'),
+    ('ASOF_NARROW', 'as_of (or its hour) is narrower than what the quote and note state: a point date for a stated span, an hour the text does not state, a range that misses days the text names, or an as_of that does not cover the period of the value (waive_rules)'),
+    ('ASOF_POINT', 'a point as_of on a narrative statement whose quote and note do not name that day (waive_rules)'),
+    ('TIER_UNIT', 'tier documented for a unit that neither the quote nor a verified anchor names (waive_rules)'),
+    ('VALUE_NAMES', 'a person or unit named in the value is in neither the quote nor a verified anchor (waive_rules)'),
+    ('FIGURE_DISAGREE', 'a casualty or strength figure differs from another accepted line of the same unit and kind over overlapping dates, with no shared conflict key and no true distinct_basis (waive_rules)'),
+    ('ENLISTED', 'men enlisted_only without a quote or table columns that say the officers are left out (waive_rules)'),
+    ('HEDGE', 'a bound or approximation in the quote ("less than", "about", "over" ...) on a recorded figure without the hedge field, or a hedge field the quote does not support (waive_rules)'),
+    ('WAIVER', 'waive_rules names no rule or gives no reason (25+ characters)'),
+    ('ANCHOR', 'an anchor is malformed, not in the source at its offset, or not in the report of the line'),
     ('AUDIT', 'a free-text member (note, basis_note, detail, terms, ...) has wording that the packer\'s copy audit rejects, because it says how the data was made: say what the source states, not who read it'),
 ])
 WARNINGS = collections.OrderedDict([
@@ -168,12 +177,14 @@ WARNINGS = collections.OrderedDict([
     ('PAGE_END', 'the quote runs over a page break; give printed_page_end'), ('PAGE_RANGE', 'the page model of a state volume knows only a range of pages; the page given is the engineer\'s reading of the running heads'), ('PAGE_UNCHECKED', 'the page model of this source gives no page at this offset; the page is not checked'), ('REPORT_EDGE', 'the quote lies within 2,000 characters of the edge of the indexed report'),
     ('UNIT_FIELD', 'the field is unusual for this kind of unit'), ('LONG_QUOTE', 'the quote is long; the shortest passage that supports the claim is better'), ('NUMBERS_WAIVED', 'the number check was waived'),
     ('OFF_FIELD', 'the date is outside 26 June to 16 July 1863 (fine for background facts)'), ('KIT_NOW', 'information only (--diff): what the kit tables hold now for this unit and field'), ('NO_IDENTITY', 'an image_row strength line without an identity of the printed row: nothing but a reviewer checks the figures'),
+    ('RULE_WAIVED', 'a content rule was waived with a stated reason (waive_rules); a reviewer reads the reason'),
     ('AUDIT_QUOTE', 'a quoted or printed member (quote, printed name or label) has a word that the packer\'s copy audit rejects; a quotation cannot be altered, so the integration decides'),
     ('AUDIT_SKIPPED', 'the copy audit of the free text could not run (no node, or tools/bt/pack_theatre.mjs cannot be loaded): nothing was checked'),
 ])
 ALLOWED_KEYS = {
     'evidence': {'type', 'id', 'unit_id', 'unit_name', 'parent_unit_id', 'field', 'kit_field', 'value', 'basis', 'basis_note', 'tier', 'as_of', 'source_id', 'part', 'report_id', 'printed_page', 'printed_page_end', 'offset', 'quote',
-                 'quote_mode', 'image', 'checks', 'conflict', 'supersedes', 'derived_from', 'note', 'register_proposal', 'waive_numbers', 'example'},
+                 'quote_mode', 'image', 'checks', 'conflict', 'supersedes', 'derived_from', 'note', 'register_proposal', 'waive_numbers', 'example',
+                 'anchor', 'hedge', 'distinct_basis', 'waive_rules'},
     'gap': {'type', 'id', 'unit_id', 'unit_ids', 'field', 'fields', 'kit_field', 'searched', 'result', 'note', 'register_proposal', 'example'},
     'source': {'type', 'id', 'title', 'class', 'local_path', 'sha256', 'url', 'page_model', 'part', 'lead', 'note', 'example'},
 }

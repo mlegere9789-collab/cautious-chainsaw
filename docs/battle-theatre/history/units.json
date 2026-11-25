@@ -52,12 +52,13 @@
    "table_sha256": "c8395c6f10ed3e9f75c2e6d7ac798c6b851ab20221d6fcb1d8f086c57275c4c5",
    "counts": {
     "commanders": 706,
-    "strength_adopted": 167,
+    "strength_adopted": 145,
     "strength_conflict": 33,
-    "strength_date_unresolved": 0,
+    "strength_bound_only": 4,
+    "strength_no_eligible_figure": 18,
     "strength_no_documented_range": 5
    },
-   "selection": "basis preference taken_into_action > present_for_duty > effective_total > aggregate_present > estimate_in_report > muster_or_roll > derived > aggregate_present_and_absent; men kind officers_and_men > not_stated > enlisted_only; a date-spanning range on the figure that stands at the unit's entry into the battle (pick_date: same figure on every date, else earliest inside 1-3 July 1863, else latest before, else earliest after); a conflict set is never resolved here (tools/bt/oob_adopt.py)",
+   "selection": "eligible: the fighting strength (taken_into_action, present_for_duty, effective_total, estimate_in_report; never an aggregate, roll or derived figure, never officers_only alone) whose date overlaps 1-3 July 1863, or, with no count inside the battle, a return (present_for_duty, effective_total) dated 1 to 7 days before it; ranked bounds last, then kind in that order, then date (inside the battle: the earliest; else the nearest before), then men kind, never by key order; a bound (less than / not more than / over / at least) is carried as a bound and never adopted as a count (status bound_only: the share stays, clamped to the bound); an approximate figure (about / nearly) is adopted as not exact; muskets (enlisted_only, rank_and_file) are not the total, officers are added only from a documented officers_only figure of the same basis, date and report; a conflict set is never resolved here (tools/bt/oob_adopt.py)",
    "sources": {
     "OR27-1": {
      "label": "The War of the Rebellion: Official Records, Series I, volume 27 (Gettysburg campaign), part 1",
@@ -509,9 +510,16 @@
         288,
         288
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -600,9 +608,16 @@
         496,
         496
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -696,9 +711,16 @@
         302,
         302
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -762,6 +784,11 @@
         340,
         340
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -775,6 +802,11 @@
         340,
         340
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -792,9 +824,20 @@
         200,
         200
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       },
+       "1863-07-04": {
+        "eligible": false,
+        "why_not": "dated after the battle"
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -931,7 +974,7 @@
     "min": 500,
     "max": 500,
     "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01; 1 line (BL3-S028); range 500 to 500 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01; 1 line (BL3-S028); range 500 to 500 on 1863-07-01. Stated with a hedge: \"nearly five hundred fresh men\" (approximate, not an exact count). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "BL-3"
     ],
@@ -957,10 +1000,24 @@
         500,
         500
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "nearly"
+       }
       }
      }
     ],
-    "as_of": "1863-07-01"
+    "figure_kind": "not_stated",
+    "exact": false,
+    "as_of": "1863-07-01",
+    "hedge": {
+     "kind": "approximate",
+     "word": "nearly",
+     "text": "nearly five hundred fresh men"
+    }
    }
   },
   {
@@ -1025,6 +1082,11 @@
         370,
         375
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -1038,6 +1100,11 @@
         348,
         348
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -1092,14 +1159,10 @@
       "report_id": "NY2-S018",
       "printed_page": "688-691",
       "evidence_id": "us-1c:0267"
-     },
-     {
-      "evidence_id": "us-1c:0514"
      }
     ],
     "evidence_ids": [
-     "us-1c:0267",
-     "us-1c:0514"
+     "us-1c:0267"
     ],
     "alternatives": [
      {
@@ -1117,9 +1180,19 @@
         356,
         356
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       },
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -1203,6 +1276,11 @@
         263,
         263
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      },
      {
@@ -1216,9 +1294,18 @@
         0,
         250
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "upper",
+        "hedge_word": "less than"
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -1300,6 +1387,11 @@
         380,
         380
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -1313,9 +1405,16 @@
         380,
         380
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -1381,6 +1480,11 @@
         252,
         252
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -1402,9 +1506,24 @@
         122,
         122
        ]
+      },
+      "by_as_of_status": {
+       "1863-04-28": {
+        "eligible": false,
+        "why_not": "a return dated 1863-04-28, more than 7 days before the battle"
+       },
+       "1863-07-01": {
+        "eligible": true
+       },
+       "1863-07-05/1863-07-06": {
+        "eligible": false,
+        "why_not": "dated after the battle"
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -1643,6 +1762,11 @@
         248,
         275
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -1656,6 +1780,12 @@
         313,
         313
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-12": {
+        "eligible": false,
+        "why_not": "a return dated 1863-06-12, more than 7 days before the battle"
+       }
       }
      },
      {
@@ -1677,6 +1807,20 @@
         40,
         40
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-29": {
+        "eligible": false,
+        "why_not": "an engagement figure dated before the battle (1863-06-29): another engagement"
+       },
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       },
+       "1863-07-01/1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -1762,9 +1906,16 @@
         260,
         260
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -1848,9 +1999,16 @@
         445,
         445
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -1890,7 +2048,7 @@
     "min": 330,
     "max": 330,
     "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-07-01; 1 line (NY2-S021); range 330 to 330 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-07-01; 1 line (NY2-S021); range 330 to 330 on 1863-07-01. Stated with a hedge: \"about 330 officers and men were in line\" (approximate, not an exact count). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "NY-GB-1900-v2"
     ],
@@ -1916,10 +2074,24 @@
         330,
         330
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
-    "as_of": "1863-07-01"
+    "figure_kind": "officers_and_men",
+    "exact": false,
+    "as_of": "1863-07-01",
+    "hedge": {
+     "kind": "approximate",
+     "word": "about",
+     "text": "about 330 officers and men were in line"
+    }
    }
   },
   {
@@ -1995,6 +2167,11 @@
         255,
         255
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -2012,9 +2189,19 @@
         83,
         83
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       },
+       "1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -2110,7 +2297,7 @@
     "min": 200,
     "max": 200,
     "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01; 2 lines (FOX-S038); range 200 to 200 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01; 2 lines (FOX-S038); range 200 to 200 on 1863-07-01. Stated with a hedge: \"about two hundred men\" (approximate, not an exact count). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "FOX-1889"
     ],
@@ -2140,10 +2327,24 @@
         200,
         200
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
-    "as_of": "1863-07-01"
+    "figure_kind": "not_stated",
+    "exact": false,
+    "as_of": "1863-07-01",
+    "hedge": {
+     "kind": "approximate",
+     "word": "about",
+     "text": "about two hundred men"
+    }
    }
   },
   {
@@ -2210,6 +2411,11 @@
         148,
         148
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -2223,9 +2429,18 @@
         75,
         75
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -2276,25 +2491,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "present_for_duty|not_stated",
-    "min": 150,
-    "max": 150,
-    "tier": "documented",
-    "basis": "documented: present for duty on the date of a return; not stated; as of 1863-07-21; 1 line (NY2-S021); range 150 to 150 on 1863-07-21. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [
-     "NY-GB-1900-v2"
-    ],
-    "cites": [
-     {
-      "report_id": "NY2-S021",
-      "printed_page": "747-748",
-      "evidence_id": "us-1c:0403"
-     }
-    ],
-    "evidence_ids": [
-     "us-1c:0403"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "present_for_duty|not_stated",
@@ -2307,10 +2504,18 @@
         150,
         150
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-21": {
+        "eligible": false,
+        "why_not": "dated after the battle"
+       }
       }
      }
     ],
-    "as_of": "1863-07-21"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (present_for_duty|not_stated on 1863-07-21: dated after the battle): the figure drawn stays the procedural share"
    }
   },
   {
@@ -2397,9 +2602,16 @@
         292,
         292
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -2492,6 +2704,11 @@
         296,
         296
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -2505,6 +2722,12 @@
         296,
         296
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       }
       }
      },
      {
@@ -2522,9 +2745,21 @@
         100,
         100
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "upper",
+        "hedge_word": "less than"
+       },
+       "1863-07-01T16:00/1863-07-01T23:59": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -2592,6 +2827,11 @@
         208,
         208
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -2605,6 +2845,11 @@
         191,
         191
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -2618,6 +2863,12 @@
         241,
         241
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       }
       }
      },
      {
@@ -2631,6 +2882,11 @@
         208,
         208
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -2796,6 +3052,11 @@
         287,
         287
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -2809,6 +3070,11 @@
         375,
         375
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -2882,6 +3148,11 @@
         263,
         263
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -2895,6 +3166,11 @@
         256,
         263
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -2908,6 +3184,12 @@
         306,
         306
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       }
       }
      },
      {
@@ -2921,6 +3203,12 @@
         258,
         258
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       }
       }
      }
     ],
@@ -2992,6 +3280,15 @@
         336,
         336
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       },
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -3005,6 +3302,11 @@
         80,
         80
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -3018,6 +3320,13 @@
         336,
         336
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      },
      {
@@ -3031,6 +3340,13 @@
         0,
         100
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "upper",
+        "hedge_word": "less than"
+       }
       }
      },
      {
@@ -3044,6 +3360,12 @@
         78,
         78
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": false,
+        "why_not": "not the fighting strength (muster_or_roll)"
+       }
       }
      }
     ],
@@ -3122,6 +3444,11 @@
         467,
         487
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -3272,6 +3599,11 @@
         465,
         465
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -3285,9 +3617,16 @@
         465,
         465
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -3386,9 +3725,16 @@
         450,
         450
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -3469,6 +3815,13 @@
         397,
         417
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "nearly"
+       }
       }
      },
      {
@@ -3482,6 +3835,11 @@
         400,
         400
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -3499,6 +3857,15 @@
         397,
         397
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       },
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -3512,6 +3879,11 @@
         109,
         109
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -3640,21 +4012,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "present_for_duty|not_stated",
-    "min": 831,
-    "max": 831,
-    "tier": "documented",
-    "basis": "documented: present for duty on the date of a return; not stated; as of 1863-02-15; 1 line; range 831 to 831 on 1863-02-15. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [],
-    "cites": [
-     {
-      "evidence_id": "us-1c:0468"
-     }
-    ],
-    "evidence_ids": [
-     "us-1c:0468"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "present_for_duty|not_stated",
@@ -3667,10 +4025,18 @@
         831,
         831
        ]
+      },
+      "by_as_of_status": {
+       "1863-02-15": {
+        "eligible": false,
+        "why_not": "a return dated 1863-02-15, more than 7 days before the battle"
+       }
       }
      }
     ],
-    "as_of": "1863-02-15"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (present_for_duty|not_stated on 1863-02-15: a return dated 1863-02-15, more than 7 days before the battle): the figure drawn stays the procedural share"
    }
   },
   {
@@ -3706,21 +4072,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "present_for_duty|not_stated",
-    "min": 777,
-    "max": 777,
-    "tier": "documented",
-    "basis": "documented: present for duty on the date of a return; not stated; as of 1863-02-15; 1 line; range 777 to 777 on 1863-02-15. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [],
-    "cites": [
-     {
-      "evidence_id": "us-1c:0469"
-     }
-    ],
-    "evidence_ids": [
-     "us-1c:0469"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "present_for_duty|not_stated",
@@ -3733,10 +4085,18 @@
         777,
         777
        ]
+      },
+      "by_as_of_status": {
+       "1863-02-15": {
+        "eligible": false,
+        "why_not": "a return dated 1863-02-15, more than 7 days before the battle"
+       }
       }
      }
     ],
-    "as_of": "1863-02-15"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (present_for_duty|not_stated on 1863-02-15: a return dated 1863-02-15, more than 7 days before the battle): the figure drawn stays the procedural share"
    }
   },
   {
@@ -3770,21 +4130,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "present_for_duty|not_stated",
-    "min": 684,
-    "max": 684,
-    "tier": "documented",
-    "basis": "documented: present for duty on the date of a return; not stated; as of 1863-02-15; 1 line; range 684 to 684 on 1863-02-15. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [],
-    "cites": [
-     {
-      "evidence_id": "us-1c:0470"
-     }
-    ],
-    "evidence_ids": [
-     "us-1c:0470"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "present_for_duty|not_stated",
@@ -3797,10 +4143,18 @@
         684,
         684
        ]
+      },
+      "by_as_of_status": {
+       "1863-02-15": {
+        "eligible": false,
+        "why_not": "a return dated 1863-02-15, more than 7 days before the battle"
+       }
       }
      }
     ],
-    "as_of": "1863-02-15"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (present_for_duty|not_stated on 1863-02-15: a return dated 1863-02-15, more than 7 days before the battle): the figure drawn stays the procedural share"
    }
   },
   {
@@ -3883,25 +4237,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "muster_or_roll|officers_and_men",
-    "min": 150,
-    "max": 150,
-    "tier": "documented",
-    "basis": "documented: from muster or roll counts; officers and men; as of 1863-07-01; 1 line (ME-S001); range 150 to 150 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [
-     "ME-GB-1898"
-    ],
-    "cites": [
-     {
-      "report_id": "ME-S001",
-      "printed_page": "20-25",
-      "evidence_id": "us-art-corps:0248"
-     }
-    ],
-    "evidence_ids": [
-     "us-art-corps:0248"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "muster_or_roll|officers_and_men",
@@ -3914,10 +4250,18 @@
         150,
         150
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": false,
+        "why_not": "not the fighting strength (muster_or_roll)"
+       }
       }
      }
     ],
-    "as_of": "1863-07-01"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (muster_or_roll|officers_and_men on 1863-07-01: not the fighting strength (muster_or_roll)): the figure drawn stays the procedural share"
    }
   },
   {
@@ -4001,9 +4345,16 @@
         136,
         136
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -4152,9 +4503,16 @@
         114,
         114
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -4533,6 +4891,11 @@
         177,
         179
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -4546,6 +4909,13 @@
         200,
         200
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
@@ -4597,6 +4967,11 @@
         90,
         97
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -4610,6 +4985,13 @@
         90,
         90
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
@@ -4691,9 +5073,16 @@
         150,
         150
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -4775,6 +5164,11 @@
         210,
         400
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -4788,6 +5182,12 @@
         310,
         310
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-31": {
+        "eligible": false,
+        "why_not": "dated after the battle"
+       }
       }
      },
      {
@@ -4801,6 +5201,11 @@
         300,
         400
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -4814,6 +5219,14 @@
         750,
         750
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-31": {
+        "eligible": false,
+        "why_not": "dated after the battle",
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
@@ -4928,9 +5341,16 @@
         224,
         224
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -4995,6 +5415,11 @@
         80,
         80
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -5008,6 +5433,12 @@
         75,
         75
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": false,
+        "why_not": "men kind aggregate is not a total strength"
+       }
       }
      }
     ],
@@ -5094,9 +5525,16 @@
         75,
         75
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -5131,25 +5569,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "taken_into_action|aggregate",
-    "min": 90,
-    "max": 90,
-    "tier": "documented",
-    "basis": "documented: the report says the unit went into action with N; aggregate; as of 1863-07-02; 1 line (OR27-1-R086); range 90 to 90 on 1863-07-02. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [
-     "OR27-1"
-    ],
-    "cites": [
-     {
-      "report_id": "OR27-1-R086",
-      "printed_page": 390,
-      "evidence_id": "us-2c-1d:0164"
-     }
-    ],
-    "evidence_ids": [
-     "us-2c-1d:0164"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "taken_into_action|aggregate",
@@ -5162,10 +5582,18 @@
         90,
         90
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": false,
+        "why_not": "men kind aggregate is not a total strength"
+       }
       }
      }
     ],
-    "as_of": "1863-07-02"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (taken_into_action|aggregate on 1863-07-02: men kind aggregate is not a total strength): the figure drawn stays the procedural share"
    }
   },
   {
@@ -5212,6 +5640,11 @@
         142,
         142
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -5348,12 +5781,18 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "estimate_in_report|not_stated",
-    "min": 0,
-    "max": 100,
+    "status": "bound_only",
+    "flag": "bound_only",
     "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-02; 1 line (NY1-S081); range 0 to 100 on 1863-07-02. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "default": null,
+    "bound": {
+     "kind": "upper",
+     "value": 100,
+     "hedge": "less than 100 men",
+     "basis_key": "estimate_in_report|not_stated",
+     "as_of": "1863-07-02"
+    },
+    "basis": "documented bound, not a count: the report says \"less than 100 men\" (estimate_in_report|not_stated on 1863-07-02). The figure drawn stays the procedural share, clamped to the bound (at most 100).",
     "sources": [
      "NY-GB-1900"
     ],
@@ -5379,10 +5818,17 @@
         0,
         100
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true,
+        "hedge": "upper",
+        "hedge_word": "less than"
+       }
       }
      }
     ],
-    "as_of": "1863-07-02"
+    "note": "only bounds are eligible for this unit: no figure is adopted; the share is clamped to the upper bound 100 and the unit is flagged"
    }
   },
   {
@@ -5418,22 +5864,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "estimate_in_report|not_stated",
-    "min": 250,
-    "max": 250,
-    "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-04-01/1863-04-30; 1 line; range 250 to 250 on 1863-04-01/1863-04-30. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [],
-    "cites": [
-     {
-      "printed_page": 144,
-      "evidence_id": "us-2c-1d:0328"
-     }
-    ],
-    "evidence_ids": [
-     "us-2c-1d:0328"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "estimate_in_report|not_stated",
@@ -5446,10 +5877,18 @@
         250,
         250
        ]
+      },
+      "by_as_of_status": {
+       "1863-04-01/1863-04-30": {
+        "eligible": false,
+        "why_not": "an engagement figure dated before the battle (1863-04-01/1863-04-30): another engagement"
+       }
       }
      }
     ],
-    "as_of": "1863-04-01/1863-04-30"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (estimate_in_report|not_stated on 1863-04-01/1863-04-30: an engagement figure dated before the battle (1863-04-01/1863-04-30): another engagement): the figure drawn stays the procedural share"
    }
   },
   {
@@ -5592,6 +6031,11 @@
         515,
         515
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02T18:00": {
+        "eligible": true
+       }
       }
      },
      {
@@ -5605,6 +6049,11 @@
         589,
         589
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -5618,6 +6067,13 @@
         200,
         200
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-03": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      },
      {
@@ -5631,6 +6087,12 @@
         588,
         588
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": false,
+        "why_not": "not the fighting strength (aggregate_present)"
+       }
       }
      }
     ],
@@ -5755,9 +6217,16 @@
         75,
         75
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -5807,21 +6276,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "estimate_in_report|not_stated",
-    "min": 250,
-    "max": 250,
-    "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-01-13; 1 line; range 250 to 250 on 1863-01-13. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [],
-    "cites": [
-     {
-      "evidence_id": "us-2c-1d:0451"
-     }
-    ],
-    "evidence_ids": [
-     "us-2c-1d:0451"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "estimate_in_report|not_stated",
@@ -5834,10 +6289,20 @@
         250,
         250
        ]
+      },
+      "by_as_of_status": {
+       "1863-01-13": {
+        "eligible": false,
+        "why_not": "an engagement figure dated before the battle (1863-01-13): another engagement",
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
-    "as_of": "1863-01-13"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (estimate_in_report|not_stated on 1863-01-13: an engagement figure dated before the battle (1863-01-13): another engagement): the figure drawn stays the procedural share"
    }
   },
   {
@@ -5908,6 +6373,14 @@
         97,
         97
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       },
+       "1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -5979,6 +6452,11 @@
         135,
         135
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -5992,9 +6470,16 @@
         135,
         135
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -6077,6 +6562,11 @@
         228,
         228
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -6090,6 +6580,11 @@
         200,
         202
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -6286,6 +6781,12 @@
         440,
         440
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": false,
+        "why_not": "men kind aggregate is not a total strength"
+       }
       }
      },
      {
@@ -6299,6 +6800,13 @@
         400,
         400
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-03": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      },
      {
@@ -6312,6 +6820,12 @@
         405,
         405
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": false,
+        "why_not": "not the fighting strength (muster_or_roll)"
+       }
       }
      }
     ],
@@ -6396,6 +6910,11 @@
         239,
         239
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      },
      {
@@ -6409,9 +6928,17 @@
         239,
         239
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": false,
+        "why_not": "men kind aggregate is not a total strength"
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02/1863-07-03"
    }
   },
@@ -6496,6 +7023,11 @@
         262,
         262
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -6509,6 +7041,12 @@
         262,
         262
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": false,
+        "why_not": "men kind aggregate is not a total strength"
+       }
       }
      },
      {
@@ -6530,6 +7068,20 @@
         144,
         144
        ]
+      },
+      "by_as_of_status": {
+       "1863-05-31": {
+        "eligible": false,
+        "why_not": "a return dated 1863-05-31, more than 7 days before the battle"
+       },
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       },
+       "1863-07-31": {
+        "eligible": false,
+        "why_not": "dated after the battle"
+       }
       }
      },
      {
@@ -6547,6 +7099,18 @@
         140,
         140
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true,
+        "hedge": "upper",
+        "hedge_word": "less than"
+       },
+       "1863-07-03": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
@@ -6618,6 +7182,11 @@
         305,
         305
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -6631,6 +7200,11 @@
         300,
         365
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -6644,6 +7218,12 @@
         355,
         355
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       }
       }
      }
     ],
@@ -6775,6 +7355,11 @@
         258,
         258
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      },
      {
@@ -6788,6 +7373,11 @@
         258,
         258
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -6801,6 +7391,12 @@
         258,
         258
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": false,
+        "why_not": "men kind aggregate is not a total strength"
+       }
       }
      },
      {
@@ -6814,9 +7410,17 @@
         329,
         329
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02/1863-07-03"
    }
   },
@@ -6884,6 +7488,11 @@
         421,
         421
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      },
      {
@@ -6897,9 +7506,17 @@
         331,
         331
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02/1863-07-03"
    }
   },
@@ -6987,6 +7604,11 @@
         458,
         458
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      },
      {
@@ -7000,9 +7622,17 @@
         458,
         458
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": false,
+        "why_not": "not the fighting strength (muster_or_roll)"
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -7042,23 +7672,15 @@
     "min": 343,
     "max": 343,
     "tier": "documented",
-    "basis": "documented: present for duty on the date of a return; officers and men; as of 1863-06-30 to 1863-07-02/1863-07-03; 2 lines (PA2-S036); range 343 to 343 on 1863-07-02/1863-07-03 (earliest dated figure inside the battle; the other dates are in the alternatives). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
-    "sources": [
-     "PA-GB-1914-v2"
-    ],
+    "basis": "documented: present for duty on the date of a return; officers and men; as of 1863-06-30 to 1863-07-02/1863-07-03; 2 lines (PA2-S036); range 343 to 343 on 1863-07-02/1863-07-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
+    "sources": [],
     "cites": [
-     {
-      "report_id": "PA2-S036",
-      "printed_page": "1099-1111",
-      "evidence_id": "us-2c-2d3d:0535"
-     },
      {
       "evidence_id": "us-2c-2d3d:0403"
      }
     ],
     "evidence_ids": [
-     "us-2c-2d3d:0403",
-     "us-2c-2d3d:0535"
+     "us-2c-2d3d:0403"
     ],
     "alternatives": [
      {
@@ -7076,6 +7698,15 @@
         343,
         343
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       },
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      },
      {
@@ -7089,9 +7720,18 @@
         300,
         300
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02/1863-07-03"
    }
   },
@@ -7198,9 +7838,16 @@
         141,
         141
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02/1863-07-03"
    }
   },
@@ -7297,9 +7944,16 @@
         243,
         243
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02/1863-07-03"
    }
   },
@@ -7392,6 +8046,11 @@
         165,
         165
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -7409,9 +8068,20 @@
         165,
         165
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       },
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -7530,9 +8200,16 @@
         120,
         120
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02/1863-07-03"
    }
   },
@@ -7752,6 +8429,11 @@
         299,
         299
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      },
      {
@@ -7765,9 +8447,16 @@
         316,
         316
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02/1863-07-03"
    }
   },
@@ -7834,6 +8523,11 @@
         209,
         209
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -7847,9 +8541,16 @@
         209,
         209
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -7995,19 +8696,23 @@
    ],
    "strength_verified": {
     "status": "adopted",
-    "basis_key": "taken_into_action|not_stated",
-    "min": 219,
-    "max": 219,
+    "basis_key": "taken_into_action|rank_and_file",
+    "min": 160,
+    "max": 160,
     "tier": "documented",
-    "basis": "documented: the report says the unit went into action with N; not stated; as of 1863-05-03; 1 line; range 219 to 219 on 1863-05-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
-    "sources": [],
+    "basis": "documented: the report says the unit went into action with N; rank and file; as of 1863-07-02/1863-07-03; 1 line (OR27-1-R124); range 160 to 160 on 1863-07-02/1863-07-03. Stated with a hedge: \"about 160 muskets\" (approximate, not an exact count). Muskets / rank and file only: no officers figure is documented, so the total drawn is the muskets figure (the officers are not counted). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
+    "sources": [
+     "OR27-1"
+    ],
     "cites": [
      {
-      "evidence_id": "us-2c-2d3d:0547"
+      "report_id": "OR27-1-R124",
+      "printed_page": 468,
+      "evidence_id": "us-2c-2d3d:0175"
      }
     ],
     "evidence_ids": [
-     "us-2c-2d3d:0547"
+     "us-2c-2d3d:0175"
     ],
     "alternatives": [
      {
@@ -8021,6 +8726,12 @@
         219,
         219
        ]
+      },
+      "by_as_of_status": {
+       "1863-05-03": {
+        "eligible": false,
+        "why_not": "an engagement figure dated before the battle (1863-05-03): another engagement"
+       }
       }
      },
      {
@@ -8034,10 +8745,25 @@
         160,
         160
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
-    "as_of": "1863-05-03"
+    "figure_kind": "muskets",
+    "exact": false,
+    "as_of": "1863-07-02/1863-07-03",
+    "officers_documented": false,
+    "hedge": {
+     "kind": "approximate",
+     "word": "about",
+     "text": "about 160 muskets"
+    }
    }
   },
   {
@@ -8157,21 +8883,17 @@
     "min": 532,
     "max": 532,
     "tier": "documented",
-    "basis": "documented: present for duty on the date of a return; officers and men; as of 1863-06-30 to 1863-07-13; 2 lines; range 532 to 532 on 1863-06-30 (latest dated figure before the battle; the other dates are in the alternatives). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
+    "basis": "documented: present for duty on the date of a return; officers and men; as of 1863-06-30 to 1863-07-13; 2 lines; range 532 to 532 on 1863-06-30. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
     "sources": [
      "NJ-TOOMBS-1888"
     ],
     "cites": [
      {
       "evidence_id": "us-2c-2d3d:0443"
-     },
-     {
-      "evidence_id": "us-2c-2d3d:0445"
      }
     ],
     "evidence_ids": [
-     "us-2c-2d3d:0443",
-     "us-2c-2d3d:0445"
+     "us-2c-2d3d:0443"
     ],
     "alternatives": [
      {
@@ -8189,6 +8911,15 @@
         401,
         401
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       },
+       "1863-07-13": {
+        "eligible": false,
+        "why_not": "dated after the battle"
+       }
       }
      },
      {
@@ -8206,9 +8937,21 @@
         463,
         463
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "an engagement figure dated before the battle (1863-06-30): another engagement"
+       },
+       "1863-07-13": {
+        "eligible": false,
+        "why_not": "dated after the battle"
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -8243,25 +8986,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "present_for_duty|not_stated",
-    "min": 100,
-    "max": 100,
-    "tier": "documented",
-    "basis": "documented: present for duty on the date of a return; not stated; as of 1863-05-03; 1 line (NY1-S074); range 100 to 100 on 1863-05-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [
-     "NY-GB-1900"
-    ],
-    "cites": [
-     {
-      "report_id": "NY1-S074",
-      "printed_page": 271,
-      "evidence_id": "us-2c-2d3d:0176"
-     }
-    ],
-    "evidence_ids": [
-     "us-2c-2d3d:0176"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "present_for_duty|not_stated",
@@ -8274,10 +8999,18 @@
         100,
         100
        ]
+      },
+      "by_as_of_status": {
+       "1863-05-03": {
+        "eligible": false,
+        "why_not": "a return dated 1863-05-03, more than 7 days before the battle"
+       }
       }
      }
     ],
-    "as_of": "1863-05-03"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (present_for_duty|not_stated on 1863-05-03: a return dated 1863-05-03, more than 7 days before the battle): the figure drawn stays the procedural share"
    }
   },
   {
@@ -8348,9 +9081,16 @@
         200,
         200
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02/1863-07-03"
    }
   },
@@ -8468,23 +9208,23 @@
    ],
    "strength_verified": {
     "status": "adopted",
-    "basis_key": "taken_into_action|not_stated",
-    "min": 300,
-    "max": 300,
+    "basis_key": "present_for_duty|not_stated",
+    "min": 322,
+    "max": 322,
     "tier": "documented",
-    "basis": "documented: the report says the unit went into action with N; not stated; as of 1863-07-02/1863-07-03; 1 line (NY1-S075); range 300 to 300 on 1863-07-02/1863-07-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
+    "basis": "documented: present for duty on the date of a return; not stated; as of 1863-07-02; 1 line (NY1-S075); range 322 to 322 on 1863-07-02. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
     "sources": [
      "NY-GB-1900"
     ],
     "cites": [
      {
       "report_id": "NY1-S075",
-      "printed_page": 279,
-      "evidence_id": "us-2c-2d3d:0179"
+      "printed_page": 284,
+      "evidence_id": "us-2c-2d3d:0178"
      }
     ],
     "evidence_ids": [
-     "us-2c-2d3d:0179"
+     "us-2c-2d3d:0178"
     ],
     "alternatives": [
      {
@@ -8498,6 +9238,13 @@
         300,
         300
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true,
+        "hedge": "lower",
+        "hedge_word": "over"
+       }
       }
      },
      {
@@ -8511,10 +9258,17 @@
         322,
         322
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
-    "as_of": "1863-07-02/1863-07-03"
+    "figure_kind": "not_stated",
+    "exact": true,
+    "as_of": "1863-07-02"
    }
   },
   {
@@ -8598,6 +9352,13 @@
         350,
         390
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      },
      {
@@ -8611,6 +9372,13 @@
         400,
         400
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      },
      {
@@ -8624,6 +9392,12 @@
         475,
         475
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       }
       }
      },
      {
@@ -8637,6 +9411,11 @@
         390,
         390
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -8759,9 +9538,16 @@
         455,
         455
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -9429,6 +10215,11 @@
         205,
         209
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -9506,9 +10297,16 @@
         295,
         295
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -9586,6 +10384,11 @@
         320,
         320
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -9599,9 +10402,17 @@
         17,
         17
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": false,
+        "why_not": "men kind officers_only is not a total strength"
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -9651,6 +10462,11 @@
         284,
         284
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -9664,6 +10480,11 @@
         247,
         247
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -9677,6 +10498,11 @@
         277,
         277
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -9739,24 +10565,32 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "aggregate_present|aggregate",
-    "min": 463,
-    "max": 463,
+    "status": "bound_only",
+    "flag": "bound_only",
     "tier": "documented",
-    "basis": "documented: aggregate present of a return; aggregate; as of 1863-07-02; 1 line (PA2-S002); range 463 to 463 on 1863-07-02. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
+    "default": null,
+    "bound": {
+     "kind": "upper",
+     "value": 400,
+     "hedge": "less than four hundred",
+     "basis_key": "estimate_in_report|rank_and_file",
+     "as_of": "1863-07-02",
+     "low": 383,
+     "low_note": "the table line gives a low end (arithmetic of the same passage, not printed)"
+    },
+    "basis": "documented bound, not a count: the report says \"less than four hundred\" (estimate_in_report|rank_and_file on 1863-07-02). The figure drawn stays the procedural share, clamped to the bound (at most 400, and at least 383, the table line's low end).",
     "sources": [
      "PA-GB-1914-v2"
     ],
     "cites": [
      {
       "report_id": "PA2-S002",
-      "printed_page": 613,
-      "evidence_id": "us-3c-1d:0263"
+      "printed_page": 614,
+      "evidence_id": "us-3c-1d:0264"
      }
     ],
     "evidence_ids": [
-     "us-3c-1d:0263"
+     "us-3c-1d:0264"
     ],
     "alternatives": [
      {
@@ -9770,6 +10604,12 @@
         463,
         463
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": false,
+        "why_not": "not the fighting strength (aggregate_present)"
+       }
       }
      },
      {
@@ -9783,10 +10623,17 @@
         383,
         400
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true,
+        "hedge": "upper",
+        "hedge_word": "less than"
+       }
       }
      }
     ],
-    "as_of": "1863-07-02"
+    "note": "only bounds are eligible for this unit: no figure is adopted; the share is clamped to the upper bound 400 and the unit is flagged"
    }
   },
   {
@@ -9849,6 +10696,11 @@
         209,
         209
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -9862,6 +10714,11 @@
         198,
         200
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -9875,6 +10732,11 @@
         216,
         216
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -9888,6 +10750,12 @@
         270,
         270
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       }
       }
      },
      {
@@ -9901,6 +10769,12 @@
         273,
         273
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "an engagement figure dated before the battle (1863-06-30): another engagement"
+       }
       }
      },
      {
@@ -9914,6 +10788,13 @@
         180,
         180
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      },
      {
@@ -10148,6 +11029,11 @@
         210,
         210
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -10161,9 +11047,17 @@
         266,
         266
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -10225,7 +11119,7 @@
     "min": 318,
     "max": 318,
     "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-07-01; 1 line (ME-S007); range 318 to 318 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-07-01; 1 line (ME-S007); range 318 to 318 on 1863-07-01. Stated with a hedge: \"about 300 men and 18 officers\" (approximate, not an exact count). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "ME-GB-1898"
     ],
@@ -10251,10 +11145,24 @@
         318,
         318
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
-    "as_of": "1863-07-01"
+    "figure_kind": "officers_and_men",
+    "exact": false,
+    "as_of": "1863-07-01",
+    "hedge": {
+     "kind": "approximate",
+     "word": "about",
+     "text": "about 300 men and 18 officers"
+    }
    }
   },
   {
@@ -10325,6 +11233,11 @@
         268,
         368
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -10432,6 +11345,11 @@
         238,
         238
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -10445,6 +11363,13 @@
         240,
         240
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      },
      {
@@ -10458,6 +11383,13 @@
         240,
         240
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      },
      {
@@ -10471,9 +11403,17 @@
         264,
         264
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "an engagement figure dated before the battle (1863-06-30): another engagement"
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -10532,11 +11472,11 @@
    ],
    "strength_verified": {
     "status": "adopted",
-    "basis_key": "aggregate_present|officers_and_men",
-    "min": 339,
-    "max": 339,
+    "basis_key": "estimate_in_report|not_stated",
+    "min": 300,
+    "max": 300,
     "tier": "documented",
-    "basis": "documented: aggregate present of a return; officers and men; as of 1863-07-02; 1 line (PA1B-S034); range 339 to 339 on 1863-07-02. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-02; 1 line (PA1B-S034); range 300 to 300 on 1863-07-02. Stated with a hedge: \"about three hundred in line, all told\" (approximate, not an exact count). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
     "sources": [
      "PA-GB-1914a"
     ],
@@ -10544,11 +11484,11 @@
      {
       "report_id": "PA1B-S034",
       "printed_page": "543-545",
-      "evidence_id": "us-3c-1d:0244"
+      "evidence_id": "us-3c-1d:0245"
      }
     ],
     "evidence_ids": [
-     "us-3c-1d:0244"
+     "us-3c-1d:0245"
     ],
     "alternatives": [
      {
@@ -10562,6 +11502,12 @@
         339,
         339
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": false,
+        "why_not": "not the fighting strength (aggregate_present)"
+       }
       }
      },
      {
@@ -10575,10 +11521,24 @@
         300,
         300
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
-    "as_of": "1863-07-02"
+    "figure_kind": "not_stated",
+    "exact": false,
+    "as_of": "1863-07-02",
+    "hedge": {
+     "kind": "approximate",
+     "word": "about",
+     "text": "about three hundred in line, all told"
+    }
    }
   },
   {
@@ -10758,9 +11718,16 @@
         350,
         350
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -10850,9 +11817,16 @@
         286,
         286
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -10918,9 +11892,16 @@
         283,
         283
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -11039,9 +12020,16 @@
         152,
         152
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -11349,9 +12337,16 @@
         245,
         245
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -11463,6 +12458,11 @@
         275,
         275
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -11476,6 +12476,11 @@
         255,
         255
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -11528,6 +12533,11 @@
         365,
         382
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -11734,9 +12744,16 @@
         371,
         371
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -11811,9 +12828,16 @@
         243,
         243
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -11911,9 +12935,16 @@
         305,
         305
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -11963,6 +12994,11 @@
         507,
         507
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -11976,6 +13012,11 @@
         324,
         324
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -12047,9 +13088,16 @@
         275,
         275
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -12137,6 +13185,11 @@
         383,
         383
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -12150,9 +13203,16 @@
         440,
         440
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -12280,9 +13340,16 @@
         354,
         354
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -12542,9 +13609,16 @@
         170,
         170
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -12609,9 +13683,16 @@
         140,
         140
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -13202,9 +14283,16 @@
         332,
         332
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -13356,7 +14444,7 @@
     "min": 342,
     "max": 342,
     "tier": "documented",
-    "basis": "documented: present for duty on the date of a return; officers and men; as of 1863-07-02 to 1863-07-04; 2 lines (OR27-1-R193); range 342 to 342 on 1863-07-02 (earliest dated figure inside the battle; the other dates are in the alternatives). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: present for duty on the date of a return; officers and men; as of 1863-07-02 to 1863-07-04; 2 lines (OR27-1-R193); range 342 to 342 on 1863-07-02. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "OR27-1"
     ],
@@ -13365,16 +14453,10 @@
       "report_id": "OR27-1-R193",
       "printed_page": 613,
       "evidence_id": "us-5c:0169"
-     },
-     {
-      "report_id": "OR27-1-R193",
-      "printed_page": 613,
-      "evidence_id": "us-5c:0170"
      }
     ],
     "evidence_ids": [
-     "us-5c:0169",
-     "us-5c:0170"
+     "us-5c:0169"
     ],
     "alternatives": [
      {
@@ -13392,9 +14474,20 @@
         139,
         139
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       },
+       "1863-07-04": {
+        "eligible": false,
+        "why_not": "dated after the battle"
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -13459,6 +14552,11 @@
         426,
         426
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -13476,9 +14574,20 @@
         231,
         231
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       },
+       "1863-07-04": {
+        "eligible": false,
+        "why_not": "dated after the battle"
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -13608,6 +14717,11 @@
         386,
         386
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -13621,6 +14735,11 @@
         358,
         358
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -13634,6 +14753,11 @@
         380,
         380
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -13699,6 +14823,11 @@
         188,
         188
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -13712,6 +14841,11 @@
         150,
         150
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -13791,6 +14925,11 @@
         321,
         321
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -13804,9 +14943,16 @@
         321,
         321
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -13867,6 +15013,11 @@
         274,
         274
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -13880,9 +15031,17 @@
         308,
         308
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -14299,9 +15458,16 @@
         116,
         116
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -14368,9 +15534,16 @@
         93,
         93
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -14437,9 +15610,16 @@
         386,
         386
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -14504,9 +15684,16 @@
         260,
         260
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -14720,9 +15907,16 @@
         258,
         258
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -14787,9 +15981,16 @@
         424,
         424
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -14935,9 +16136,16 @@
         444,
         444
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -15004,9 +16212,16 @@
         273,
         273
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -15073,9 +16288,16 @@
         380,
         380
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -15158,9 +16380,16 @@
         349,
         349
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -15266,9 +16495,16 @@
         334,
         334
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -15369,9 +16605,16 @@
         420,
         420
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -15439,9 +16682,16 @@
         392,
         392
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -15509,9 +16759,16 @@
         320,
         320
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -16208,7 +17465,7 @@
     "min": 275,
     "max": 275,
     "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-07-02; 1 line (ME-S023); range 275 to 275 on 1863-07-02. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-07-02; 1 line (ME-S023); range 275 to 275 on 1863-07-02. Stated with a hedge: \"about\" (approximate, not an exact count). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "ME-GB-1898"
     ],
@@ -16234,10 +17491,24 @@
         275,
         275
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
-    "as_of": "1863-07-02"
+    "figure_kind": "officers_and_men",
+    "exact": false,
+    "as_of": "1863-07-02",
+    "hedge": {
+     "kind": "approximate",
+     "word": "about",
+     "text": "about"
+    }
    }
   },
   {
@@ -16333,9 +17604,16 @@
         356,
         356
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -16400,9 +17678,16 @@
         356,
         356
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -16479,7 +17764,7 @@
     "min": 350,
     "max": 350,
     "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-07-02; 1 line (ME-S023); range 350 to 350 on 1863-07-02. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-07-02; 1 line (ME-S023); range 350 to 350 on 1863-07-02. Stated with a hedge: \"about\" (approximate, not an exact count). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "ME-GB-1898"
     ],
@@ -16505,10 +17790,24 @@
         350,
         350
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
-    "as_of": "1863-07-02"
+    "figure_kind": "officers_and_men",
+    "exact": false,
+    "as_of": "1863-07-02",
+    "hedge": {
+     "kind": "approximate",
+     "word": "about",
+     "text": "about"
+    }
    }
   },
   {
@@ -16913,7 +18212,7 @@
     "min": 200,
     "max": 200,
     "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-07-02; 1 line (ME-S026); range 200 to 200 on 1863-07-02. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-07-02; 1 line (ME-S026); range 200 to 200 on 1863-07-02. Stated with a hedge: \"about\" (approximate, not an exact count). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "ME-GB-1898"
     ],
@@ -16939,10 +18238,24 @@
         200,
         200
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
-    "as_of": "1863-07-02"
+    "figure_kind": "officers_and_men",
+    "exact": false,
+    "as_of": "1863-07-02",
+    "hedge": {
+     "kind": "approximate",
+     "word": "about",
+     "text": "about"
+    }
    }
   },
   {
@@ -17368,9 +18681,16 @@
         538,
         538
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -17435,9 +18755,16 @@
         320,
         320
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -17769,9 +19096,16 @@
         270,
         270
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -17838,9 +19172,16 @@
         406,
         406
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -17928,9 +19269,16 @@
         511,
         511
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -18104,9 +19452,16 @@
         119,
         119
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -18521,9 +19876,16 @@
         218,
         218
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -18600,9 +19962,16 @@
         175,
         175
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02/1863-07-03"
    }
   },
@@ -18650,6 +20019,11 @@
         267,
         267
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      },
      {
@@ -18663,6 +20037,11 @@
         277,
         277
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -18732,9 +20111,16 @@
         569,
         569
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -18889,6 +20275,11 @@
         386,
         386
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -18902,9 +20293,17 @@
         129,
         129
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-04": {
+        "eligible": false,
+        "why_not": "dated after the battle"
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -19009,9 +20408,16 @@
         220,
         220
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -19096,6 +20502,11 @@
         269,
         269
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      },
      {
@@ -19113,9 +20524,21 @@
         91,
         91
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       },
+       "1863-07-01/1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -19188,9 +20611,16 @@
         480,
         480
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -19307,7 +20737,7 @@
     "min": 430,
     "max": 430,
     "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-07-01; 1 line (NY2-S029); range 430 to 430 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-07-01; 1 line (NY2-S029); range 430 to 430 on 1863-07-01. Stated with a hedge: \"about 430, officers and men\" (approximate, not an exact count). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "NY-GB-1900-v2"
     ],
@@ -19333,10 +20763,24 @@
         430,
         430
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
-    "as_of": "1863-07-01"
+    "figure_kind": "officers_and_men",
+    "exact": false,
+    "as_of": "1863-07-01",
+    "hedge": {
+     "kind": "approximate",
+     "word": "about",
+     "text": "about 430, officers and men"
+    }
    }
   },
   {
@@ -19375,7 +20819,7 @@
     "min": 300,
     "max": 300,
     "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01; 1 line (NY3-S009); range 300 to 300 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01; 1 line (NY3-S009); range 300 to 300 on 1863-07-01. Stated with a hedge: \"about 300 men\" (approximate, not an exact count). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "NY-GB-1902-v3"
     ],
@@ -19401,10 +20845,24 @@
         300,
         300
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
-    "as_of": "1863-07-01"
+    "figure_kind": "not_stated",
+    "exact": false,
+    "as_of": "1863-07-01",
+    "hedge": {
+     "kind": "approximate",
+     "word": "about",
+     "text": "about 300 men"
+    }
    }
   },
   {
@@ -19502,9 +20960,16 @@
         332,
         332
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -19613,7 +21078,7 @@
     "min": 529,
     "max": 529,
     "tier": "documented",
-    "basis": "documented: present for duty on the date of a return; enlisted only; as of 1863-06-30; 1 line (NY2-S030); range 529 to 529 on 1863-06-30. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: present for duty on the date of a return; enlisted only; as of 1863-06-30; 1 line (NY2-S030); range 529 to 529 on 1863-06-30. Muskets / rank and file only: no officers figure is documented, so the total drawn is the muskets figure (the officers are not counted). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "NY-GB-1900-v2"
     ],
@@ -19639,10 +21104,18 @@
         529,
         529
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
-    "as_of": "1863-06-30"
+    "figure_kind": "muskets",
+    "exact": true,
+    "as_of": "1863-06-30",
+    "officers_documented": false
    }
   },
   {
@@ -19707,9 +21180,16 @@
         375,
         375
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -19773,9 +21253,16 @@
         338,
         338
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -19968,6 +21455,13 @@
         375,
         400
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
@@ -20066,6 +21560,11 @@
         309,
         309
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      },
      {
@@ -20079,9 +21578,18 @@
         90,
         90
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -20174,9 +21682,16 @@
         134,
         134
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -20292,9 +21807,16 @@
         222,
         222
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -20419,6 +21941,11 @@
         258,
         258
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      },
      {
@@ -20432,9 +21959,16 @@
         312,
         312
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -20967,9 +22501,16 @@
         221,
         221
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -21017,22 +22558,10 @@
       "report_id": "OR27-1-R274",
       "printed_page": 788,
       "evidence_id": "us-12c:0154"
-     },
-     {
-      "report_id": "OR27-1-R274",
-      "printed_page": 788,
-      "evidence_id": "us-12c:0156"
-     },
-     {
-      "report_id": "OR27-1-R274",
-      "printed_page": 788,
-      "evidence_id": "us-12c:0157"
      }
     ],
     "evidence_ids": [
-     "us-12c:0154",
-     "us-12c:0156",
-     "us-12c:0157"
+     "us-12c:0154"
     ],
     "alternatives": [
      {
@@ -21054,9 +22583,22 @@
         310,
         310
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       },
+       "1863-07-02": {
+        "eligible": true
+       },
+       "1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -21121,9 +22663,16 @@
         290,
         290
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -21199,9 +22748,16 @@
         495,
         495
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -21266,9 +22822,16 @@
         245,
         245
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -21333,6 +22896,11 @@
         262,
         262
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      },
      {
@@ -21346,9 +22914,16 @@
         262,
         262
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -21474,9 +23049,16 @@
         339,
         339
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -21546,6 +23128,14 @@
         316,
         316
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       },
+       "1863-07-03": {
+        "eligible": true
+       }
       }
      },
      {
@@ -21559,6 +23149,11 @@
         294,
         294
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -21627,9 +23222,16 @@
         347,
         347
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -21700,9 +23302,16 @@
         319,
         319
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -21749,6 +23358,11 @@
         246,
         360
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
@@ -22027,7 +23641,7 @@
     "min": 365,
     "max": 365,
     "tier": "documented",
-    "basis": "documented: the report says the unit went into action with N; enlisted only; as of 1863-07-03; 1 line (OR27-1-R296); range 365 to 365 on 1863-07-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: the report says the unit went into action with N; enlisted only; as of 1863-07-03; 1 line (OR27-1-R296); range 365 to 365 on 1863-07-03. Muskets / rank and file only: no officers figure is documented, so the total drawn is the muskets figure (the officers are not counted). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "OR27-1"
     ],
@@ -22053,10 +23667,18 @@
         365,
         365
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
-    "as_of": "1863-07-03"
+    "figure_kind": "muskets",
+    "exact": true,
+    "as_of": "1863-07-03",
+    "officers_documented": false
    }
   },
   {
@@ -22198,9 +23820,16 @@
         303,
         303
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -22235,23 +23864,23 @@
    ],
    "strength_verified": {
     "status": "adopted",
-    "basis_key": "present_for_duty|officers_and_men",
-    "min": 311,
-    "max": 311,
+    "basis_key": "effective_total|officers_and_men",
+    "min": 298,
+    "max": 298,
     "tier": "documented",
-    "basis": "documented: present for duty on the date of a return; officers and men; as of 1863-06-30; 1 line (PA2-S036); range 311 to 311 on 1863-06-30. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
+    "basis": "documented: effective total of a return; officers and men; as of 1863-07-01/1863-07-03; 1 line (PA2-S036); range 298 to 298 on 1863-07-01/1863-07-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
     "sources": [
      "PA-GB-1914-v2"
     ],
     "cites": [
      {
       "report_id": "PA2-S036",
-      "printed_page": "1127-1130",
-      "evidence_id": "us-12c:0184"
+      "printed_page": 1061,
+      "evidence_id": "us-12c:0183"
      }
     ],
     "evidence_ids": [
-     "us-12c:0184"
+     "us-12c:0183"
     ],
     "alternatives": [
      {
@@ -22265,6 +23894,12 @@
         311,
         311
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": false,
+        "why_not": "a figure inside the battle exists; a return before it is used only when no count lies inside it"
+       }
       }
      },
      {
@@ -22278,10 +23913,17 @@
         298,
         298
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
-    "as_of": "1863-06-30"
+    "figure_kind": "officers_and_men",
+    "exact": true,
+    "as_of": "1863-07-01/1863-07-03"
    }
   },
   {
@@ -22406,9 +24048,16 @@
         485,
         485
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -22451,23 +24100,16 @@
     "tier": "documented",
     "basis": "documented: the report says the unit went into action with N; officers and men; as of 1863-07-01/1863-07-03 to 1863-07-02/1863-07-03; 2 lines (OR27-1-R305, PA2-S036); range 149 to 149 on 1863-07-01/1863-07-03 (the same figure on every date; the other dates are in the alternatives). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
-     "PA-GB-1914-v2",
-     "OR27-1"
+     "PA-GB-1914-v2"
     ],
     "cites": [
      {
       "report_id": "PA2-S036",
       "printed_page": "1099-1111",
       "evidence_id": "us-12c:0186"
-     },
-     {
-      "report_id": "OR27-1-R305",
-      "printed_page": 854,
-      "evidence_id": "us-12c:0166"
      }
     ],
     "evidence_ids": [
-     "us-12c:0166",
      "us-12c:0186"
     ],
     "alternatives": [
@@ -22486,9 +24128,19 @@
         149,
         149
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       },
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -22571,9 +24223,16 @@
         259,
         259
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -22652,7 +24311,7 @@
     "min": 255,
     "max": 255,
     "tier": "documented",
-    "basis": "documented: the report says the unit went into action with N; enlisted only; as of 1863-07-03; 1 line (OR27-1-R308); range 255 to 255 on 1863-07-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: the report says the unit went into action with N; enlisted only; as of 1863-07-03; 1 line (OR27-1-R308); range 255 to 255 on 1863-07-03. Muskets / rank and file only: no officers figure is documented, so the total drawn is the muskets figure (the officers are not counted). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "OR27-1"
     ],
@@ -22678,10 +24337,18 @@
         255,
         255
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
-    "as_of": "1863-07-03"
+    "figure_kind": "muskets",
+    "exact": true,
+    "as_of": "1863-07-03",
+    "officers_documented": false
    }
   },
   {
@@ -22716,12 +24383,18 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "estimate_in_report|not_stated",
-    "min": 0,
-    "max": 200,
+    "status": "bound_only",
+    "flag": "bound_only",
     "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-02/1863-07-03; 1 line (OR27-1-R310); range 0 to 200 on 1863-07-02/1863-07-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "default": null,
+    "bound": {
+     "kind": "upper",
+     "value": 200,
+     "hedge": "not more than 200",
+     "basis_key": "estimate_in_report|not_stated",
+     "as_of": "1863-07-02/1863-07-03"
+    },
+    "basis": "documented bound, not a count: the report says \"not more than 200\" (estimate_in_report|not_stated on 1863-07-02/1863-07-03). The figure drawn stays the procedural share, clamped to the bound (at most 200).",
     "sources": [
      "OR27-1"
     ],
@@ -22747,10 +24420,17 @@
         0,
         200
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true,
+        "hedge": "upper",
+        "hedge_word": "not more than"
+       }
       }
      }
     ],
-    "as_of": "1863-07-02/1863-07-03"
+    "note": "only bounds are eligible for this unit: no figure is adopted; the share is clamped to the upper bound 200 and the unit is flagged"
    }
   },
   {
@@ -22830,9 +24510,16 @@
         248,
         248
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-30": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-06-30"
    }
   },
@@ -22868,25 +24555,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "effective_total|not_stated",
-    "min": 525,
-    "max": 525,
-    "tier": "documented",
-    "basis": "documented: effective total of a return; not stated; as of 1863-06-13; 1 line (NY3-S002); range 525 to 525 on 1863-06-13. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [
-     "NY-GB-1902-v3"
-    ],
-    "cites": [
-     {
-      "report_id": "NY3-S002",
-      "printed_page": "941-942",
-      "evidence_id": "us-12c:0190"
-     }
-    ],
-    "evidence_ids": [
-     "us-12c:0190"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "effective_total|not_stated",
@@ -22899,10 +24568,18 @@
         525,
         525
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-13": {
+        "eligible": false,
+        "why_not": "a return dated 1863-06-13, more than 7 days before the battle"
+       }
       }
      }
     ],
-    "as_of": "1863-06-13"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (effective_total|not_stated on 1863-06-13: a return dated 1863-06-13, more than 7 days before the battle): the figure drawn stays the procedural share"
    }
   },
   {
@@ -23464,21 +25141,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "estimate_in_report|not_stated",
-    "min": 450,
-    "max": 450,
-    "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-06-14; 1 line; range 450 to 450 on 1863-06-14. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [],
-    "cites": [
-     {
-      "evidence_id": "us-cav:0212"
-     }
-    ],
-    "evidence_ids": [
-     "us-cav:0212"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "estimate_in_report|not_stated",
@@ -23491,10 +25154,20 @@
         450,
         450
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-14": {
+        "eligible": false,
+        "why_not": "an engagement figure dated before the battle (1863-06-14): another engagement",
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
-    "as_of": "1863-06-14"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (estimate_in_report|not_stated on 1863-06-14: an engagement figure dated before the battle (1863-06-14): another engagement): the figure drawn stays the procedural share"
    }
   },
   {
@@ -23782,25 +25455,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "taken_into_action|officers_and_men",
-    "min": 356,
-    "max": 356,
-    "tier": "documented",
-    "basis": "documented: the report says the unit went into action with N; officers and men; as of 1863-06-21; 1 line (OR27-1-R342); range 356 to 356 on 1863-06-21. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [
-     "OR27-1"
-    ],
-    "cites": [
-     {
-      "report_id": "OR27-1-R342",
-      "printed_page": 947,
-      "evidence_id": "us-cav:0187"
-     }
-    ],
-    "evidence_ids": [
-     "us-cav:0187"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "taken_into_action|officers_and_men",
@@ -23813,10 +25468,18 @@
         356,
         356
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-21": {
+        "eligible": false,
+        "why_not": "an engagement figure dated before the battle (1863-06-21): another engagement"
+       }
       }
      }
     ],
-    "as_of": "1863-06-21"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (taken_into_action|officers_and_men on 1863-06-21: an engagement figure dated before the battle (1863-06-21): another engagement): the figure drawn stays the procedural share"
    }
   },
   {
@@ -25042,9 +26705,16 @@
         104,
         104
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -25101,24 +26771,17 @@
     "tier": "documented",
     "basis": "documented: the report says the unit went into action with N; officers and men; as of 1863-07-02 to 1863-07-02/1863-07-03; 2 lines (FOX-S230, OR27-1-R319); range 104 to 104 on 1863-07-02 (the same figure on every date; the other dates are in the alternatives). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
-     "OR27-1",
-     "FOX-1889"
+     "OR27-1"
     ],
     "cites": [
      {
       "report_id": "OR27-1-R319",
       "printed_page": 884,
       "evidence_id": "us-art-reserve-horse:0194"
-     },
-     {
-      "report_id": "FOX-S230",
-      "printed_page": "462-463",
-      "evidence_id": "us-art-reserve-horse:0198"
      }
     ],
     "evidence_ids": [
-     "us-art-reserve-horse:0194",
-     "us-art-reserve-horse:0198"
+     "us-art-reserve-horse:0194"
     ],
     "alternatives": [
      {
@@ -25136,9 +26799,19 @@
         104,
         104
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       },
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -25185,24 +26858,17 @@
     "tier": "documented",
     "basis": "documented: the report says the unit went into action with N; officers and men; as of 1863-07-02 to 1863-07-02/1863-07-03; 2 lines (NY3-S029, OR27-1-R319); range 70 to 70 on 1863-07-02 (the same figure on every date; the other dates are in the alternatives). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
-     "OR27-1",
-     "NY-GB-1902-v3"
+     "OR27-1"
     ],
     "cites": [
      {
       "report_id": "OR27-1-R319",
       "printed_page": 884,
       "evidence_id": "us-art-reserve-horse:0195"
-     },
-     {
-      "report_id": "NY3-S029",
-      "printed_page": "1328-1329",
-      "evidence_id": "us-art-reserve-horse:0199"
      }
     ],
     "evidence_ids": [
-     "us-art-reserve-horse:0195",
-     "us-art-reserve-horse:0199"
+     "us-art-reserve-horse:0195"
     ],
     "alternatives": [
      {
@@ -25220,9 +26886,19 @@
         70,
         70
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       },
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -25290,6 +26966,11 @@
         105,
         105
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -25303,9 +26984,16 @@
         105,
         105
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -25373,6 +27061,11 @@
         105,
         105
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      },
      {
@@ -25386,9 +27079,16 @@
         105,
         105
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -25681,25 +27381,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "aggregate_present|officers_and_men",
-    "min": 144,
-    "max": 144,
-    "tier": "documented",
-    "basis": "documented: aggregate present of a return; officers and men; as of 1863-07-02/1863-07-03; 1 line (PA2-S036); range 144 to 144 on 1863-07-02/1863-07-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [
-     "PA-GB-1914-v2"
-    ],
-    "cites": [
-     {
-      "report_id": "PA2-S036",
-      "printed_page": 1048,
-      "evidence_id": "us-art-reserve-horse:0202"
-     }
-    ],
-    "evidence_ids": [
-     "us-art-reserve-horse:0202"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "aggregate_present|officers_and_men",
@@ -25712,10 +27394,18 @@
         144,
         144
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": false,
+        "why_not": "not the fighting strength (aggregate_present)"
+       }
       }
      }
     ],
-    "as_of": "1863-07-02/1863-07-03"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (aggregate_present|officers_and_men on 1863-07-02/1863-07-03: not the fighting strength (aggregate_present)): the figure drawn stays the procedural share"
    }
   },
   {
@@ -25751,25 +27441,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "aggregate_present|officers_and_men",
-    "min": 144,
-    "max": 144,
-    "tier": "documented",
-    "basis": "documented: aggregate present of a return; officers and men; as of 1863-07-02/1863-07-03; 1 line (PA2-S036); range 144 to 144 on 1863-07-02/1863-07-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [
-     "PA-GB-1914-v2"
-    ],
-    "cites": [
-     {
-      "report_id": "PA2-S036",
-      "printed_page": 1048,
-      "evidence_id": "us-art-reserve-horse:0203"
-     }
-    ],
-    "evidence_ids": [
-     "us-art-reserve-horse:0203"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "aggregate_present|officers_and_men",
@@ -25782,10 +27454,18 @@
         144,
         144
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": false,
+        "why_not": "not the fighting strength (aggregate_present)"
+       }
       }
      }
     ],
-    "as_of": "1863-07-02/1863-07-03"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (aggregate_present|officers_and_men on 1863-07-02/1863-07-03: not the fighting strength (aggregate_present)): the figure drawn stays the procedural share"
    }
   },
   {
@@ -25920,9 +27600,16 @@
         103,
         103
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -27120,6 +28807,11 @@
         200,
         200
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-03": {
+        "eligible": true
+       }
       }
      },
      {
@@ -27133,9 +28825,16 @@
         205,
         205
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-03"
    }
   },
@@ -28181,9 +29880,16 @@
         275,
         275
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -28609,9 +30315,16 @@
         340,
         340
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -28878,9 +30591,16 @@
         330,
         335
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02"
    }
   },
@@ -30439,9 +32159,16 @@
         312,
         312
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-02/1863-07-03"
    }
   },
@@ -30707,10 +32434,10 @@
    "strength_verified": {
     "status": "adopted",
     "basis_key": "taken_into_action|enlisted_only",
-    "min": 114,
-    "max": 114,
+    "min": 129,
+    "max": 129,
     "tier": "documented",
-    "basis": "documented: the report says the unit went into action with N; enlisted only; as of 1863-07-01/1863-07-03; 1 line (OR27-2-R493); range 114 to 114 on 1863-07-01/1863-07-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
+    "basis": "documented: the report says the unit went into action with N; enlisted only; as of 1863-07-01/1863-07-03; 1 line (OR27-2-R493); range 129 to 129 on 1863-07-01/1863-07-03. Total = enlisted_only 114 + officers_only 15 (documented, same report and date). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
     "sources": [
      "OR27-2"
     ],
@@ -30719,10 +32446,16 @@
       "report_id": "OR27-2-R493",
       "printed_page": 528,
       "evidence_id": "cs-johnson:0135"
+     },
+     {
+      "report_id": "OR27-2-R493",
+      "printed_page": 528,
+      "evidence_id": "cs-johnson:0136"
      }
     ],
     "evidence_ids": [
-     "cs-johnson:0135"
+     "cs-johnson:0135",
+     "cs-johnson:0136"
     ],
     "alternatives": [
      {
@@ -30736,6 +32469,11 @@
         114,
         114
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      },
      {
@@ -30749,10 +32487,37 @@
         15,
         15
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": false,
+        "why_not": "men kind officers_only is not a total strength"
+       }
       }
      }
     ],
-    "as_of": "1863-07-01/1863-07-03"
+    "figure_kind": "officers_and_men",
+    "exact": true,
+    "as_of": "1863-07-01/1863-07-03",
+    "composition": [
+     {
+      "key": "taken_into_action|enlisted_only",
+      "low": 114,
+      "high": 114,
+      "evidence_ids": [
+       "cs-johnson:0135"
+      ]
+     },
+     {
+      "key": "taken_into_action|officers_only",
+      "low": 15,
+      "high": 15,
+      "evidence_ids": [
+       "cs-johnson:0136"
+      ]
+     }
+    ],
+    "officers_documented": true
    }
   },
   {
@@ -31275,7 +33040,7 @@
     "min": 210,
     "max": 210,
     "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-07-02/1863-07-03; 1 line (OR27-2-R496); range 210 to 210 on 1863-07-02/1863-07-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-07-02/1863-07-03; 1 line (OR27-2-R496); range 210 to 210 on 1863-07-02/1863-07-03. Stated with a hedge: \"about 210 men and officers\" (approximate, not an exact count). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "OR27-2"
     ],
@@ -31301,10 +33066,24 @@
         210,
         210
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-02/1863-07-03": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
-    "as_of": "1863-07-02/1863-07-03"
+    "figure_kind": "officers_and_men",
+    "exact": false,
+    "as_of": "1863-07-02/1863-07-03",
+    "hedge": {
+     "kind": "approximate",
+     "word": "about",
+     "text": "about 210 men and officers"
+    }
    }
   },
   {
@@ -31738,9 +33517,16 @@
         240,
         240
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -31937,10 +33723,10 @@
    "strength_verified": {
     "status": "adopted",
     "basis_key": "taken_into_action|enlisted_only",
-    "min": 348,
-    "max": 348,
+    "min": 383,
+    "max": 383,
     "tier": "documented",
-    "basis": "documented: the report says the unit went into action with N; enlisted only; as of 1863-07-01; 1 line (OR27-2-R517); range 348 to 348 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
+    "basis": "documented: the report says the unit went into action with N; enlisted only; as of 1863-07-01; 1 line (OR27-2-R517); range 383 to 383 on 1863-07-01. Total = enlisted_only 348 + officers_only 35 (documented, same report and date). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
     "sources": [
      "OR27-2"
     ],
@@ -31949,10 +33735,16 @@
       "report_id": "OR27-2-R517",
       "printed_page": 585,
       "evidence_id": "cs-rodes:0190"
+     },
+     {
+      "report_id": "OR27-2-R517",
+      "printed_page": 585,
+      "evidence_id": "cs-rodes:0191"
      }
     ],
     "evidence_ids": [
-     "cs-rodes:0190"
+     "cs-rodes:0190",
+     "cs-rodes:0191"
     ],
     "alternatives": [
      {
@@ -31966,6 +33758,11 @@
         348,
         348
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      },
      {
@@ -31979,10 +33776,37 @@
         35,
         35
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": false,
+        "why_not": "men kind officers_only is not a total strength"
+       }
       }
      }
     ],
-    "as_of": "1863-07-01"
+    "figure_kind": "officers_and_men",
+    "exact": true,
+    "as_of": "1863-07-01",
+    "composition": [
+     {
+      "key": "taken_into_action|enlisted_only",
+      "low": 348,
+      "high": 348,
+      "evidence_ids": [
+       "cs-rodes:0190"
+      ]
+     },
+     {
+      "key": "taken_into_action|officers_only",
+      "low": 35,
+      "high": 35,
+      "evidence_ids": [
+       "cs-rodes:0191"
+      ]
+     }
+    ],
+    "officers_documented": true
    }
   },
   {
@@ -32569,7 +34393,7 @@
     "min": 350,
     "max": 350,
     "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01/1863-07-03; 1 line (OR27-2-R528); range 350 to 350 on 1863-07-01/1863-07-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01/1863-07-03; 1 line (OR27-2-R528); range 350 to 350 on 1863-07-01/1863-07-03. Stated with a hedge: \"about 350\" (approximate, not an exact count). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "OR27-2"
     ],
@@ -32595,10 +34419,24 @@
         350,
         350
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
-    "as_of": "1863-07-01/1863-07-03"
+    "figure_kind": "not_stated",
+    "exact": false,
+    "as_of": "1863-07-01/1863-07-03",
+    "hedge": {
+     "kind": "approximate",
+     "word": "about",
+     "text": "about 350"
+    }
    }
   },
   {
@@ -32664,9 +34502,16 @@
         271,
         271
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01/1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "officers_and_men",
+    "exact": true,
     "as_of": "1863-07-01/1863-07-03"
    }
   },
@@ -34405,11 +36250,11 @@
    ],
    "strength_verified": {
     "status": "adopted",
-    "basis_key": "taken_into_action|not_stated",
-    "min": 800,
-    "max": 800,
+    "basis_key": "estimate_in_report|not_stated",
+    "min": 216,
+    "max": 216,
     "tier": "documented",
-    "basis": "documented: the report says the unit went into action with N; not stated; as of 1863-07-01; 2 lines (OR27-2-R551); range 800 to 800 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01; 1 line (OR27-2-R551); range 216 to 216 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
     "sources": [
      "OR27-2"
     ],
@@ -34417,15 +36262,11 @@
      {
       "report_id": "OR27-2-R551",
       "printed_page": 645,
-      "evidence_id": "cs-heth:0114"
-     },
-     {
-      "evidence_id": "cs-heth:0118"
+      "evidence_id": "cs-heth:0115"
      }
     ],
     "evidence_ids": [
-     "cs-heth:0114",
-     "cs-heth:0118"
+     "cs-heth:0115"
     ],
     "alternatives": [
      {
@@ -34439,6 +36280,13 @@
         800,
         800
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "lower",
+        "hedge_word": "over"
+       }
       }
      },
      {
@@ -34452,6 +36300,14 @@
         80,
         80
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-04": {
+        "eligible": false,
+        "why_not": "dated after the battle",
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      },
      {
@@ -34465,9 +36321,16 @@
         216,
         216
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-01"
    }
   },
@@ -34508,12 +36371,18 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "taken_into_action|not_stated",
-    "min": 650,
-    "max": 650,
+    "status": "bound_only",
+    "flag": "bound_only",
     "tier": "documented",
-    "basis": "documented: the report says the unit went into action with N; not stated; as of 1863-07-01; 1 line; range 650 to 650 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "default": null,
+    "bound": {
+     "kind": "lower",
+     "value": 650,
+     "hedge": "over 650 muskets",
+     "basis_key": "taken_into_action|not_stated",
+     "as_of": "1863-07-01"
+    },
+    "basis": "documented bound, not a count: the report says \"over 650 muskets\" (taken_into_action|not_stated on 1863-07-01). The figure drawn stays the procedural share, clamped to the bound (at least 650).",
     "sources": [],
     "cites": [
      {
@@ -34535,10 +36404,17 @@
         650,
         650
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-01": {
+        "eligible": true,
+        "hedge": "lower",
+        "hedge_word": "over"
+       }
       }
      }
     ],
-    "as_of": "1863-07-01"
+    "note": "only bounds are eligible for this unit: no figure is adopted; the share is clamped to the lower bound 650 and the unit is flagged"
    }
   },
   {
@@ -36466,21 +38342,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "estimate_in_report|officers_and_men",
-    "min": 534,
-    "max": 534,
-    "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-05-01/1863-06-08; 1 line; range 534 to 534 on 1863-05-01/1863-06-08. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [],
-    "cites": [
-     {
-      "evidence_id": "cs-cav:0203"
-     }
-    ],
-    "evidence_ids": [
-     "cs-cav:0203"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "estimate_in_report|officers_and_men",
@@ -36493,10 +38355,18 @@
         534,
         534
        ]
+      },
+      "by_as_of_status": {
+       "1863-05-01/1863-06-08": {
+        "eligible": false,
+        "why_not": "an engagement figure dated before the battle (1863-05-01/1863-06-08): another engagement"
+       }
       }
      }
     ],
-    "as_of": "1863-05-01/1863-06-08"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (estimate_in_report|officers_and_men on 1863-05-01/1863-06-08: an engagement figure dated before the battle (1863-05-01/1863-06-08): another engagement): the figure drawn stays the procedural share"
    }
   },
   {
@@ -36536,7 +38406,7 @@
     "min": 100,
     "max": 100,
     "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-03; 1 line; range 100 to 100 on 1863-07-03. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-03; 1 line; range 100 to 100 on 1863-07-03. Stated with a hedge: \"about 100 men\" (approximate, not an exact count). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [],
     "cites": [
      {
@@ -36558,10 +38428,24 @@
         100,
         100
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-03": {
+        "eligible": true,
+        "hedge": "approximate",
+        "hedge_word": "about"
+       }
       }
      }
     ],
-    "as_of": "1863-07-03"
+    "figure_kind": "not_stated",
+    "exact": false,
+    "as_of": "1863-07-03",
+    "hedge": {
+     "kind": "approximate",
+     "word": "about",
+     "text": "about 100 men"
+    }
    }
   },
   {
@@ -36611,25 +38495,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "taken_into_action|not_stated",
-    "min": 220,
-    "max": 220,
-    "tier": "documented",
-    "basis": "documented: the report says the unit went into action with N; not stated; as of 1863-06-09; 1 line (OR27-2-R570); range 220 to 220 on 1863-06-09. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
-    "sources": [
-     "OR27-2"
-    ],
-    "cites": [
-     {
-      "report_id": "OR27-2-R570",
-      "printed_page": 729,
-      "evidence_id": "cs-cav:0206"
-     }
-    ],
-    "evidence_ids": [
-     "cs-cav:0206"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "taken_into_action|not_stated",
@@ -36642,10 +38508,18 @@
         220,
         220
        ]
+      },
+      "by_as_of_status": {
+       "1863-06-09": {
+        "eligible": false,
+        "why_not": "an engagement figure dated before the battle (1863-06-09): another engagement"
+       }
       }
      }
     ],
-    "as_of": "1863-06-09"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (taken_into_action|not_stated on 1863-06-09: an engagement figure dated before the battle (1863-06-09): another engagement): the figure drawn stays the procedural share"
    }
   },
   {
@@ -37323,9 +39197,16 @@
         40,
         40
        ]
+      },
+      "by_as_of_status": {
+       "1863-07-03": {
+        "eligible": true
+       }
       }
      }
     ],
+    "figure_kind": "not_stated",
+    "exact": true,
     "as_of": "1863-07-03"
    }
   },
@@ -37361,21 +39242,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "present_for_duty|not_stated",
-    "min": 750,
-    "max": 750,
-    "tier": "documented",
-    "basis": "documented: present for duty on the date of a return; not stated; as of 1863-04-01/1863-06-08; 1 line; range 750 to 750 on 1863-04-01/1863-06-08. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
-    "sources": [],
-    "cites": [
-     {
-      "evidence_id": "cs-cav:0205"
-     }
-    ],
-    "evidence_ids": [
-     "cs-cav:0205"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "present_for_duty|not_stated",
@@ -37388,6 +39255,12 @@
         750,
         750
        ]
+      },
+      "by_as_of_status": {
+       "1863-04-01/1863-06-08": {
+        "eligible": false,
+        "why_not": "a return dated 1863-04-01/1863-06-08, more than 7 days before the battle"
+       }
       }
      },
      {
@@ -37401,10 +39274,18 @@
         616,
         616
        ]
+      },
+      "by_as_of_status": {
+       "1863-05-01/1863-06-08": {
+        "eligible": false,
+        "why_not": "an engagement figure dated before the battle (1863-05-01/1863-06-08): another engagement"
+       }
       }
      }
     ],
-    "as_of": "1863-04-01/1863-06-08"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (estimate_in_report|officers_and_men on 1863-05-01/1863-06-08: an engagement figure dated before the battle (1863-05-01/1863-06-08): another engagement; present_for_duty|not_stated on 1863-04-01/1863-06-08: a return dated 1863-04-01/1863-06-08, more than 7 days before the battle): the figure drawn stays the procedural share"
    }
   },
   {
@@ -37814,21 +39695,7 @@
     }
    ],
    "strength_verified": {
-    "status": "adopted",
-    "basis_key": "effective_total|enlisted_only",
-    "min": 1068,
-    "max": 1068,
-    "tier": "documented",
-    "basis": "documented: effective total of a return; enlisted only; as of 1863-05-01/1863-06-08; 1 line; range 1068 to 1068 on 1863-05-01/1863-06-08. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection). Other documented bases of this unit are carried as alternatives; the record does not rank them.",
-    "sources": [],
-    "cites": [
-     {
-      "evidence_id": "cs-cav:0197"
-     }
-    ],
-    "evidence_ids": [
-     "cs-cav:0197"
-    ],
+    "status": "no_eligible_figure",
     "alternatives": [
      {
       "key": "effective_total|enlisted_only",
@@ -37841,6 +39708,12 @@
         1068,
         1068
        ]
+      },
+      "by_as_of_status": {
+       "1863-05-01/1863-06-08": {
+        "eligible": false,
+        "why_not": "a return dated 1863-05-01/1863-06-08, more than 7 days before the battle"
+       }
       }
      },
      {
@@ -37854,10 +39727,18 @@
         67,
         67
        ]
+      },
+      "by_as_of_status": {
+       "1863-05-01/1863-06-08": {
+        "eligible": false,
+        "why_not": "a return dated 1863-05-01/1863-06-08, more than 7 days before the battle"
+       }
       }
      }
     ],
-    "as_of": "1863-05-01/1863-06-08"
+    "default": null,
+    "flag": "no_eligible_figure",
+    "note": "no documented figure is the fighting strength at the battle (effective_total|enlisted_only on 1863-05-01/1863-06-08: a return dated 1863-05-01/1863-06-08, more than 7 days before the battle; effective_total|officers_only on 1863-05-01/1863-06-08: a return dated 1863-05-01/1863-06-08, more than 7 days before the battle): the figure drawn stays the procedural share"
    }
   },
   {

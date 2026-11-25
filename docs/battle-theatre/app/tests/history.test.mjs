@@ -59,10 +59,28 @@ test('sources: every key a unit, arrival or event cites resolves; weak keys are 
 test('strengths: printed figures are single figures with no invented range; shares are procedural, weak, never documented, and add up to their pool', () => {
   const printed = raw.units.units.filter(u => u.strength && Number.isFinite(u.strength.strength)); assert.equal(printed.length, 21);
   for (const p of printed) { const u = L.units.find(x => x.id === p.id); assert.equal(u.strength.min, p.strength.strength); assert.equal(u.strength.max, p.strength.strength); assert.equal(u.strength.kind, 'printed'); assert.ok(u.strength.weak_source); assert.notEqual(u.tier, 'documented'); }
-  const leaves = L.units.filter(u => u.strength.kind === 'procedural'); assert.ok(leaves.length > 200); assert.ok(leaves.length + L.units.filter(u => u.strength.basis_key).length > 400, 'procedural shares plus the units that adopted a documented range'); for (const u of L.units.filter(x => x.strength.basis_key)) { assert.equal(u.strength.tier, 'documented'); assert.equal(u.strength.weak_source, false); assert.ok(u.strength.min <= u.strength.max && u.strength.drawn <= u.strength.max); assert.ok(['documented', 'ranged'].includes(u.strength.kind)); assert.ok(Array.isArray(u.strength.alternatives) && u.strength.alternatives.some(a => a.key === u.strength.basis_key)); }
+  const leaves = L.units.filter(u => u.strength.kind === 'procedural'); assert.ok(leaves.length > 200); assert.ok(leaves.length + L.units.filter(u => u.strength.basis_key).length > 400, 'procedural shares plus the units that adopted a documented range'); for (const u of L.units.filter(x => x.strength.basis_key)) { assert.equal(u.strength.tier, 'documented'); assert.equal(u.strength.weak_source, false); assert.ok(u.strength.min <= u.strength.max && u.strength.drawn <= u.strength.max); assert.ok(['documented', 'ranged', 'approximate'].includes(u.strength.kind)); assert.ok(Array.isArray(u.strength.alternatives) && u.strength.alternatives.some(a => a.key === u.strength.basis_key)); }
   for (const u of leaves) { assert.equal(u.strength.min, null); assert.equal(u.strength.max, null); assert.equal(u.strength.tier, 'plausible-procedural'); assert.equal(u.strength.weak_source, true); assert.ok(u.strength.basis.startsWith(BASIS_PROCEDURAL)); assert.ok(Number.isInteger(u.strength.share) && u.strength.share > 0); }
   for (const p of L.pools) { const members = L.units.filter(u => { const st = L.strengths.get(u.id); return st && st.pool_owner === p.owner && (st.shares_replaced ?? (u.strength.kind === 'procedural' ? u.strength.share : undefined)) === p.share; }); assert.equal(members.length, p.leaves_on_field); assert.ok(Math.abs(members.length * p.share - p.pool) <= members.length / 2 + 1, `${p.owner}: shares add up to the pool within rounding`); }
   const I = L.pools.find(p => p.owner === 'us-1c'); assert.equal(I.figure, 12160); assert.equal(I.sub_figured.length, 3); assert.equal(I.pool, 12160 - 1830 - 2015 - 1540);
+});
+
+test('verified strengths: bounds are not counts, hedges are carried, a figure of another engagement is not the battle (oob_adopt QC-3 cases)', () => {
+  const U = id => L.units.find(u => u.id === id), St = id => L.strengths.get(id);
+  // 14th CT: the Gettysburg figure (about 160 muskets), not the 219 of Chancellorsville
+  const ct = U('us-2c-3d-smyth-14ct'); assert.equal(ct.strength.max, 160); assert.equal(ct.strength.kind, 'approximate'); assert.equal(ct.strength.as_of, '1863-07-02/1863-07-03'); assert.match(ct.strength.basis, /about 160 muskets/); assert.equal(St(ct.id).figure_kind, 'muskets'); assert.equal(St(ct.id).officers_documented, false);
+  // 52nd NY ("less than 100 men"), 78th NY ("not more than 200"), 114th PA ("less than four hundred", 383-400): a bound is no count: the share stays, clamped, flagged
+  for (const [id, bound, low] of [['us-2c-1d-zook-52ny', 100, 0], ['us-12c-2d-greene-78ny', 200, 0], ['us-3c-1d-graham-114pa', 400, 383]]) {
+    const u = U(id), st = St(id); assert.ok(u, id); assert.equal(u.strength.kind, 'procedural', id); assert.equal(u.strength.min, null); assert.equal(u.strength.basis_key, undefined); assert.equal(u.strength.selection_status, 'bound_only');
+    assert.equal(u.strength.bound.kind, 'upper'); assert.equal(u.strength.bound.value, bound); assert.equal(st.flag, 'bound_only'); assert.ok(u.strength.share <= bound && u.strength.share >= low, `${id}: share ${u.strength.share} clamped to [${low}, ${bound}]`); assert.match(u.strength.basis, /documented bound, not a count/);
+    if (u.drawn) assert.ok(u.strength.drawn <= bound);
+  }
+  // 6th US Cavalry: the 356 is the strength of 21 June (Upperville), not the battle: no figure adopted, the share stays and the figure is an alternative
+  const cav = U('us-cav-1d-merritt-6us'); assert.equal(cav.strength.kind, 'procedural'); assert.equal(cav.strength.min, null); assert.equal(cav.strength.selection_status, 'no_eligible_figure'); assert.ok(cav.strength.alternatives.some(a => a.by_as_of['1863-06-21']));
+  // 27th VA: 114 muskets + the 15 officers of the same sentence = 129
+  const va = U('cs-2c-johnson-stonewall-27va'); assert.equal(va.strength.max, 129); assert.equal(va.strength.min, 129); assert.equal(St(va.id).figure_kind, 'officers_and_men'); assert.equal(St(va.id).composition.length, 2);
+  // no adopted figure is a bound, an aggregate or another date than the battle (or the return of the days before it)
+  for (const u of L.units.filter(x => x.strength.basis_key)) { assert.ok(!/^(aggregate|muster|derived)/.test(u.strength.basis_key), u.id); assert.ok(u.strength.as_of >= '1863-06-24', `${u.id} ${u.strength.as_of}`); }
 });
 
 test('gazetteer provenance: every place has source files that exist, members with coordinates found in those files, sigma_m, and no coordinate of its own', () => {

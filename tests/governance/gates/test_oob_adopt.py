@@ -64,14 +64,15 @@ class Strength(unittest.TestCase):
         self.assertEqual({a['key'] for a in r['alternatives']}, {'present_for_duty|officers_and_men', 'taken_into_action|officers_and_men'})
 
     def test_a_range_that_spans_dates_is_adopted_on_the_figure_at_the_units_entry(self):
-        mk = lambda *pairs: A.strength_record(row([fig('taken_into_action', 'officers_and_men', v, v, as_of=d, ev='g:%d' % i) for i, (d, v) in enumerate(pairs)]))
-        inside = mk(('1863-06-30', 300), ('1863-07-01', 340), ('1863-07-03', 310))
-        self.assertEqual((inside['min'], inside['max'], inside['as_of']), (340, 340, '1863-07-01'), 'earliest figure inside the battle')
-        before = mk(('1863-06-30', 532), ('1863-07-13', 401))
-        self.assertEqual((before['max'], before['as_of']), (532, '1863-06-30'), 'latest before the battle, not the post-battle return')
-        after = mk(('1863-07-05', 100), ('1863-07-13', 90))
-        self.assertEqual(after['as_of'], '1863-07-05')
-        same = mk(('1863-07-01/1863-07-03', 149), ('1863-07-02/1863-07-03', 149))
+        mk = lambda basis, *pairs: A.strength_record(row([fig(basis, 'officers_and_men', v, v, as_of=d, ev='g:%d' % i) for i, (d, v) in enumerate(pairs)]))
+        inside = mk('taken_into_action', ('1863-06-30', 300), ('1863-07-01', 340), ('1863-07-03', 310))
+        self.assertEqual((inside['min'], inside['max'], inside['as_of']), (340, 340, '1863-07-01'), 'earliest figure inside the battle; the 30 June engagement figure is another engagement')
+        before = mk('present_for_duty', ('1863-06-30', 532), ('1863-07-13', 401))
+        self.assertEqual((before['max'], before['as_of']), (532, '1863-06-30'), 'a return of the day before the battle, not the post-battle return')
+        self.assertEqual(A.strength_record(row([fig('taken_into_action', 'officers_and_men', 532, 532, as_of='1863-06-30')]))['status'], 'no_eligible_figure', 'an engagement figure dated before the battle is not the battle')
+        self.assertEqual(mk('taken_into_action', ('1863-07-05', 100), ('1863-07-13', 90))['status'], 'no_eligible_figure', 'a figure dated after the battle is not the battle')
+        self.assertEqual(A.strength_record(row([fig('present_for_duty', 'officers_and_men', 400, 400, as_of='1863-06-21')]))['status'], 'no_eligible_figure', 'a return older than 7 days is not the unit on the field')
+        same = A.strength_record(row([fig('taken_into_action', 'officers_and_men', 149, 149, as_of=d, ev='g:%d' % i) for i, d in enumerate(('1863-07-01/1863-07-03', '1863-07-02/1863-07-03'))]))
         self.assertEqual((same['min'], same['max'], same['as_of']), (149, 149, '1863-07-01/1863-07-03'))
         self.assertIn('same figure on every date', same['basis'])
         self.assertEqual({a['key'] for a in same['alternatives']}, {'taken_into_action|officers_and_men'})
@@ -82,8 +83,126 @@ class Strength(unittest.TestCase):
         self.assertEqual(r['status'], 'no_documented_range')
         self.assertEqual(len(r['alternatives']), 1)
 
+
     def test_no_range_no_record(self):
         self.assertIsNone(A.strength_record({'fields': {}, 'strength': {'figures': [], 'ranges': {}}}))
+
+
+def ev(**kw):
+    """evidence lines by id for the hedge: {id: {'text_figure': ...}}"""
+    return {k: {'text_figure': v, 'quote': v} for k, v in kw.items()}
+
+
+class QC3Cases(unittest.TestCase):
+    """The six units QC 3 found wrongly adopted (tmp/review-notes/QC-kit-evidence-3.md, Downstream), as the table holds them (kit/verified_oob.json) with the evidence text of their lines."""
+
+    def test_14ct_draws_its_gettysburg_figure_not_the_chancellorsville_one(self):
+        t = row([fig('taken_into_action', 'not_stated', 219, 219, as_of='1863-05-03', ev='us-2c:1'), fig('taken_into_action', 'rank_and_file', 160, 160, as_of='1863-07-02/1863-07-03', ev='us-2c:2')])
+        r = A.strength_record(t, evidence=ev(**{'us-2c:1': '219', 'us-2c:2': 'about 160 muskets'}))
+        self.assertEqual((r['status'], r['basis_key'], r['min'], r['max'], r['as_of']), ('adopted', 'taken_into_action|rank_and_file', 160, 160, '1863-07-02/1863-07-03'))
+        self.assertFalse(r['exact'])
+        self.assertIn('about 160 muskets', r['basis'])
+        self.assertEqual(r['figure_kind'], 'muskets')
+        by = {a['key']: a for a in r['alternatives']}
+        self.assertEqual(by['taken_into_action|not_stated']['by_as_of_status']['1863-05-03']['eligible'], False)
+        self.assertIn('another engagement', by['taken_into_action|not_stated']['by_as_of_status']['1863-05-03']['why_not'])
+
+    def test_the_order_does_not_depend_on_the_key_order(self):
+        a = A.strength_record(row([fig('taken_into_action', 'not_stated', 219, 219, as_of='1863-05-03', ev='1'), fig('taken_into_action', 'officers_and_men', 160, 160, as_of='1863-07-02', ev='2')]))
+        b = A.strength_record(row([fig('taken_into_action', 'officers_and_men', 160, 160, as_of='1863-07-02', ev='2'), fig('taken_into_action', 'not_stated', 219, 219, as_of='1863-05-03', ev='1')]))
+        self.assertEqual((a['max'], b['max']), (160, 160))
+
+    def test_52ny_less_than_100_is_a_bound_not_a_count(self):
+        t = row([fig('estimate_in_report', 'not_stated', 0, 100, as_of='1863-07-02', ev='us-2c-1d:0167')])
+        r = A.strength_record(t, evidence=ev(**{'us-2c-1d:0167': 'less than 100 men'}))
+        self.assertEqual(r['status'], 'bound_only')
+        self.assertEqual(r['flag'], 'bound_only')
+        self.assertNotIn('min', r)
+        self.assertNotIn('max', r)
+        self.assertEqual((r['bound']['kind'], r['bound']['value'], r['bound']['hedge']), ('upper', 100, 'less than 100 men'))
+        self.assertIn('less than 100 men', r['basis'])
+        self.assertIn('not a count', r['basis'])
+        self.assertIsNone(r['default'])
+
+    def test_78ny_not_more_than_200_is_a_bound_not_a_count(self):
+        t = row([fig('estimate_in_report', 'not_stated', 0, 200, as_of='1863-07-02/1863-07-03', ev='us-12c:0181')])
+        r = A.strength_record(t, evidence=ev(**{'us-12c:0181': 'not more than 200'}))
+        self.assertEqual((r['status'], r['bound']['kind'], r['bound']['value']), ('bound_only', 'upper', 200))
+
+    def test_a_bound_stated_with_equal_low_and_high_is_still_a_bound(self):
+        r = A.strength_record(row([fig('taken_into_action', 'enlisted_only', 550, 550, ev='b:1')]), evidence=ev(**{'b:1': 'not more than 550 muskets'}))
+        self.assertEqual((r['status'], r['bound']['value']), ('bound_only', 550))
+
+    def test_a_lower_bound_is_carried_as_a_lower_bound(self):
+        r = A.strength_record(row([fig('taken_into_action', 'not_stated', 300, 300, ev='b:2')]), evidence=ev(**{'b:2': 'a fraction of over 300 men'}))
+        self.assertEqual((r['status'], r['bound']['kind'], r['bound']['value']), ('bound_only', 'lower', 300))
+
+    def test_a_count_is_preferred_over_a_bound_and_the_bound_stays_an_alternative(self):
+        t = row([fig('estimate_in_report', 'not_stated', 0, 100, ev='x:1'), fig('present_for_duty', 'officers_and_men', 90, 90, as_of='1863-06-30', ev='x:2')])
+        r = A.strength_record(t, evidence=ev(**{'x:1': 'less than 100 men'}))
+        self.assertEqual((r['status'], r['min'], r['max'], r['basis_key']), ('adopted', 90, 90, 'present_for_duty|officers_and_men'))
+        self.assertTrue(r['exact'])
+        self.assertEqual({a['key'] for a in r['alternatives']}, {'estimate_in_report|not_stated', 'present_for_duty|officers_and_men'})
+
+    def test_114pa_draws_the_men_in_the_fight_not_the_aggregate(self):
+        t = row([fig('aggregate_present', 'aggregate', 463, 463, as_of='1863-07-02', ev='us-3c-1d:1'), fig('estimate_in_report', 'rank_and_file', 383, 400, as_of='1863-07-02', ev='us-3c-1d:2')])
+        r = A.strength_record(t, evidence=ev(**{'us-3c-1d:1': '463', 'us-3c-1d:2': 'less than 400'}))
+        self.assertEqual(r['status'], 'bound_only', '"less than 400" is a bound on the rank and file; the 463 aggregate is not the men in the fight')
+        self.assertEqual(r['bound']['value'], 400)
+        t2 = row([fig('aggregate_present', 'aggregate', 463, 463, as_of='1863-07-02', ev='us-3c-1d:1'), fig('estimate_in_report', 'rank_and_file', 383, 400, as_of='1863-07-02', ev='us-3c-1d:2')])
+        r2 = A.strength_record(t2, evidence=ev(**{'us-3c-1d:1': '463', 'us-3c-1d:2': 'from 383 to 400'}))
+        self.assertEqual((r2['status'], r2['min'], r2['max'], r2['basis_key']), ('adopted', 383, 400, 'estimate_in_report|rank_and_file'))
+        self.assertEqual({a['key'] for a in r2['alternatives']}, {'aggregate_present|aggregate', 'estimate_in_report|rank_and_file'})
+
+    def test_an_aggregate_alone_is_not_the_fighting_strength(self):
+        r = A.strength_record(row([fig('aggregate_present', 'aggregate', 463, 463, as_of='1863-07-02')]))
+        self.assertEqual(r['status'], 'no_eligible_figure')
+        self.assertIn('463', json.dumps(r['alternatives']))
+        self.assertIn('not the fighting strength', r['note'])
+
+    def test_6us_cavalry_figure_of_the_21_june_engagement_is_not_the_battle(self):
+        t = row([fig('taken_into_action', 'officers_and_men', 356, 356, as_of='1863-06-21', ev='us-cav:0187')])
+        r = A.strength_record(t, evidence=ev(**{'us-cav:0187': '356'}))
+        self.assertEqual(r['status'], 'no_eligible_figure')
+        self.assertEqual(r['flag'], 'no_eligible_figure')
+        self.assertNotIn('min', r)
+        self.assertIn('1863-06-21', r['note'])
+        self.assertEqual(r['alternatives'][0]['by_as_of'], {'1863-06-21': [356, 356]}, 'the figure stays visible as an alternative')
+
+    def test_27va_officers_are_added_from_the_documented_line_of_the_same_sentence(self):
+        t = row([fig('taken_into_action', 'enlisted_only', 114, 114, as_of='1863-07-01/1863-07-03', ev='cs-johnson:0135', rid='OR27-2-R493'),
+                 fig('taken_into_action', 'officers_only', 15, 15, as_of='1863-07-01/1863-07-03', ev='cs-johnson:0136', rid='OR27-2-R493')])
+        r = A.strength_record(t, evidence=ev(**{'cs-johnson:0135': '114 muskets', 'cs-johnson:0136': '1 field officer, 2 staff officers and 12 company officers'}))
+        self.assertEqual((r['status'], r['min'], r['max'], r['figure_kind'], r['officers_documented']), ('adopted', 129, 129, 'officers_and_men', True))
+        self.assertEqual([c['key'] for c in r['composition']], ['taken_into_action|enlisted_only', 'taken_into_action|officers_only'])
+        self.assertEqual(r['basis_key'], 'taken_into_action|enlisted_only')
+        self.assertEqual(sorted(r['evidence_ids']), ['cs-johnson:0135', 'cs-johnson:0136'])
+
+    def test_officers_of_another_report_or_date_are_not_added(self):
+        t = row([fig('taken_into_action', 'enlisted_only', 114, 114, as_of='1863-07-01/1863-07-03', ev='a:1', rid='R1'), fig('taken_into_action', 'officers_only', 15, 15, as_of='1863-07-01/1863-07-03', ev='a:2', rid='R2')])
+        r = A.strength_record(t)
+        self.assertEqual((r['min'], r['max'], r['figure_kind'], r['officers_documented']), (114, 114, 'muskets', False))
+        self.assertIn('officers are not counted', r['basis'])
+
+    def test_muskets_without_an_officers_line_are_muskets_not_the_total(self):
+        r = A.strength_record(row([fig('taken_into_action', 'enlisted_only', 330, 335, as_of='1863-07-02')]))
+        self.assertEqual((r['figure_kind'], r['officers_documented'], r['min'], r['max']), ('muskets', False, 330, 335))
+
+    def test_officers_only_is_never_a_total(self):
+        r = A.strength_record(row([fig('taken_into_action', 'officers_only', 15, 15, as_of='1863-07-02')]))
+        self.assertEqual(r['status'], 'no_eligible_figure')
+
+    def test_a_conflict_set_is_carried_even_when_a_figure_is_ineligible(self):
+        t = row([fig('taken_into_action', 'officers_and_men', 267, 267, alt='A', as_of='1863-06-21'), fig('taken_into_action', 'not_stated', 277, 277, alt='B')], status='conflict')
+        r = A.strength_record(t)
+        self.assertEqual((r['status'], r['default']), ('conflict', None))
+        self.assertEqual(len(r['alternatives']), 2)
+
+    def test_a_pre_battle_return_is_used_only_when_no_figure_lies_inside_the_battle(self):
+        t = row([fig('present_for_duty', 'officers_and_men', 420, 420, as_of='1863-06-30', ev='p:1'), fig('estimate_in_report', 'officers_and_men', 300, 300, as_of='1863-07-02', ev='p:2')])
+        r = A.strength_record(t)
+        self.assertEqual((r['basis_key'], r['max']), ('estimate_in_report|officers_and_men', 300))
+        self.assertEqual({a['key'] for a in r['alternatives']}, {'present_for_duty|officers_and_men', 'estimate_in_report|officers_and_men'})
 
 
 class Commanders(unittest.TestCase):
@@ -146,10 +265,20 @@ class GeneratedLayerData(unittest.TestCase):
             if not s or s['status'] != 'adopted':
                 continue
             n += 1
-            r = table[u['id']]['strength']['ranges'][s['basis_key']]
-            self.assertEqual(r['tier'], 'documented')
-            lo, hi = (r['by_as_of'][s['as_of']]['low'], r['by_as_of'][s['as_of']]['high']) if s.get('as_of') and r['by_as_of'].get(s['as_of']) else (r['low'], r['high'])
+            self.assertEqual(s['tier'], 'documented')
+            parts = s.get('composition') or [{'key': s['basis_key']}]
+            lo = hi = 0
+            for c in parts:
+                r = table[u['id']]['strength']['ranges'][c['key']]
+                self.assertEqual(r['tier'], 'documented')
+                b = r['by_as_of'].get(s['as_of'])
+                a, z = (b['low'], b['high']) if s.get('as_of') and b else (r['low'], r['high'])
+                lo, hi = lo + a, hi + z
             self.assertEqual((s['min'], s['max']), (lo, hi))
+            self.assertIn('exact', s)
+            self.assertIn(s['figure_kind'], ('officers_and_men', 'not_stated', 'muskets'))
+            if s['max'] - s['min'] == 0 and s['exact'] is False:
+                self.assertIn('hedge', s)
             self.assertNotEqual(table[u['id']]['fields'].get('strength'), 'conflict', u['id'])
         self.assertGreater(n, 100)
 
