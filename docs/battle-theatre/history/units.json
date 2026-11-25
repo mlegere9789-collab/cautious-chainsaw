@@ -49,7 +49,7 @@
   "regimental_commanders": "not in the PDF (stripped from the fetched order of battle, B.3); none supplied from the PDF. Commanders and strengths that the verified table (kit/verified_oob.json, Official Records and state volumes) documents are in commanders_verified and strength_verified (oob_adoption below)",
   "oob_adoption": {
    "applied": true,
-   "table_sha256": "106be8be2d014eee4332cfe1c7a8a68857a1199e5a7b2fccf1d892b428b59eb8",
+   "table_sha256": "c8395c6f10ed3e9f75c2e6d7ac798c6b851ab20221d6fcb1d8f086c57275c4c5",
    "counts": {
     "commanders": 706,
     "strength_adopted": 167,
@@ -1083,7 +1083,7 @@
     "min": 356,
     "max": 356,
     "tier": "documented",
-    "basis": "documented: the report says the unit went into action with N; officers and men; as of 1863-07-01; 2 lines (NY2-S018); range 356 to 356 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: the report says the unit went into action with N; officers and men; as of 1863-07-01 to 1863-07-01/1863-07-03; 2 lines (NY2-S018); range 356 to 356 on 1863-07-01 (the same figure on every date; the other dates are in the alternatives). Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "NY-GB-1900-v2"
     ],
@@ -1107,9 +1107,13 @@
       "low": 356,
       "high": 356,
       "tier": "documented",
-      "spans_dates": false,
+      "spans_dates": true,
       "by_as_of": {
        "1863-07-01": [
+        356,
+        356
+       ],
+       "1863-07-01/1863-07-03": [
         356,
         356
        ]
@@ -1728,11 +1732,11 @@
    ],
    "strength_verified": {
     "status": "adopted",
-    "basis_key": "taken_into_action|enlisted_only",
+    "basis_key": "taken_into_action|not_stated",
     "min": 260,
     "max": 260,
     "tier": "documented",
-    "basis": "documented: the report says the unit went into action with N; enlisted only; as of 1863-07-01; 1 line (OR27-1-R046); range 260 to 260 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: the report says the unit went into action with N; not stated; as of 1863-07-01; 1 line (OR27-1-R046); range 260 to 260 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "OR27-1"
     ],
@@ -1748,7 +1752,7 @@
     ],
     "alternatives": [
      {
-      "key": "taken_into_action|enlisted_only",
+      "key": "taken_into_action|not_stated",
       "low": 260,
       "high": 260,
       "tier": "documented",
@@ -2514,7 +2518,7 @@
         0,
         300
        ],
-       "1863-07-01T18:00": [
+       "1863-07-01T16:00/1863-07-01T23:59": [
         100,
         100
        ]
@@ -2801,7 +2805,7 @@
       "tier": "documented",
       "spans_dates": false,
       "by_as_of": {
-       "1863-07-01": [
+       "1863-07-01/1863-07-03": [
         375,
         375
        ]
@@ -3036,7 +3040,7 @@
       "tier": "documented",
       "spans_dates": false,
       "by_as_of": {
-       "1863-07-01T21:00": [
+       "1863-07-01": [
         78,
         78
        ]
@@ -19367,11 +19371,11 @@
    ],
    "strength_verified": {
     "status": "adopted",
-    "basis_key": "estimate_in_report|enlisted_only",
+    "basis_key": "estimate_in_report|not_stated",
     "min": 300,
     "max": 300,
     "tier": "documented",
-    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); enlisted only; as of 1863-07-01; 1 line (NY3-S009); range 300 to 300 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01; 1 line (NY3-S009); range 300 to 300 on 1863-07-01. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "NY-GB-1902-v3"
     ],
@@ -19387,7 +19391,7 @@
     ],
     "alternatives": [
      {
-      "key": "estimate_in_report|enlisted_only",
+      "key": "estimate_in_report|not_stated",
       "low": 300,
       "high": 300,
       "tier": "documented",
@@ -27330,7 +27334,7 @@
      ],
      "change": {
       "event": "wounded",
-      "date": "1863-07-03",
+      "date": null,
       "detail": "very seriously wounded"
      }
     },
@@ -28457,7 +28461,7 @@
      "role": "Seventh Georgia, commanding the brigade",
      "change": {
       "event": "assumed_command",
-      "date": "1863-07-03"
+      "date": null
      }
     }
    ]
@@ -33815,7 +33819,7 @@
      ],
      "change": {
       "event": "wounded",
-      "date": "1863-07-02",
+      "date": null,
       "detail": "second in command, wounded and left on the field"
      }
     },
@@ -34498,7 +34502,7 @@
      ],
      "change": {
       "event": "wounded",
-      "date": "1863-07-03",
+      "date": null,
       "detail": "severely wounded (letter of 4 July)"
      }
     }
@@ -36405,7 +36409,7 @@
      "role": "commanded the brigade after Hampton was wounded",
      "change": {
       "event": "assumed_command",
-      "date": "1863-07-03",
+      "date": null,
       "detail": "commanded Hampton's brigade after Hampton was wounded"
      }
     }
@@ -36608,11 +36612,11 @@
    ],
    "strength_verified": {
     "status": "adopted",
-    "basis_key": "taken_into_action|enlisted_only",
+    "basis_key": "taken_into_action|not_stated",
     "min": 220,
     "max": 220,
     "tier": "documented",
-    "basis": "documented: the report says the unit went into action with N; enlisted only; as of 1863-06-09; 1 line (OR27-2-R570); range 220 to 220 on 1863-06-09. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
+    "basis": "documented: the report says the unit went into action with N; not stated; as of 1863-06-09; 1 line (OR27-2-R570); range 220 to 220 on 1863-06-09. Drawn: the top of the declared range (selection rule: units.json meta.oob_adoption.selection).",
     "sources": [
      "OR27-2"
     ],
@@ -36628,7 +36632,7 @@
     ],
     "alternatives": [
      {
-      "key": "taken_into_action|enlisted_only",
+      "key": "taken_into_action|not_stated",
       "low": 220,
       "high": 220,
       "tier": "documented",

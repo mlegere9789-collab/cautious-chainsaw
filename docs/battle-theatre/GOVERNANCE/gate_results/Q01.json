@@ -1,5 +1,5 @@
 {
- "command": "python3 tools/bt/gates/q01_oob.py --quiet",
+ "command": "python3 tools/bt/gates/q01_oob.py",
  "counts": {
   "BLOCKED-INPUT": 514,
   "COVERED": 0,
@@ -8,7 +8,7 @@
   "NOT-RUN": 0,
   "PASS": 2931
  },
- "finished_utc": "2026-11-24T23:46:13Z",
+ "finished_utc": "2026-11-25T00:05:22Z",
  "gate": "Q01",
  "incomplete_reasons": [
   "514 item(s) NOT-RUN or BLOCKED-INPUT",
@@ -26,35 +26,35 @@
   "docs/battle-theatre/app/src/world-from-units.mjs": "b9c1d5cc691ef5266e9ce2edaf5707f6f0616bad81f6ef92ddb3e889b21fe5b9",
   "docs/battle-theatre/history/arrivals.json": "03c13a35620c416e29972ef7d311b775f3f0674562af6b6545dc98f34958bbce",
   "docs/battle-theatre/history/not_on_field.json": "1ff7c3f4a07130a4dd53f0c40eb503f799d2db0a79b2e51a7cfc01f1c93cbc1f",
-  "docs/battle-theatre/history/units.json": "8d8ab58e1179605f93f108bd5cbf09566b27a3e3605a534b010babba74c81687",
+  "docs/battle-theatre/history/units.json": "4330248cda0140771ef5ce448ff4b2605ff91d0005020800880c769ec08dca9b",
   "docs/battle-theatre/kit/evidence/army-hq.jsonl": "6528af5cea82c0c1e80fb04dfd4686dc9f951480e5a4959eebd75a2a80cbc356",
-  "docs/battle-theatre/kit/evidence/cs-anderson.jsonl": "7d97b63cf5d71c446abe5f9ea77b98ed0c065e4d0c8f2849aa1d8feb197a5e8a",
+  "docs/battle-theatre/kit/evidence/cs-anderson.jsonl": "fc0d013e71c69cd923bcb4ed6678cb624fb01f1dd3a7b7fae452cad7041d5355",
   "docs/battle-theatre/kit/evidence/cs-art-1c.jsonl": "fbcdc6493a501a3d4446ae0e0d7e339140a8bb0761750340337e6355e3b6263d",
-  "docs/battle-theatre/kit/evidence/cs-art-2c.jsonl": "1934525accb07a874700a827ad87ad370976175dcec6858173b6794f2bfc1655",
-  "docs/battle-theatre/kit/evidence/cs-art-3c.jsonl": "cab0116842c5cfa3594684ce4894924ed5bc95fd22a5081b3fc46572a02c32c4",
-  "docs/battle-theatre/kit/evidence/cs-cav.jsonl": "5af9a34ab7f44bab0f6564824cefab01d4f4ec73313160cfc1744972b7f27c5e",
-  "docs/battle-theatre/kit/evidence/cs-early.jsonl": "ef984bc755edab2208ccb7104e84cf5e1df7e6b44b1ab30892a504862853b2f0",
-  "docs/battle-theatre/kit/evidence/cs-heth.jsonl": "36c0a9dc657a5a868083a3264a10bbe973de8b26fb21f08486c96b41decc3dea",
-  "docs/battle-theatre/kit/evidence/cs-hood.jsonl": "5bd8e2823dce10c0f91272f8fe1eacc27e70b59c5b9564450ddc6ee4c91f054d",
-  "docs/battle-theatre/kit/evidence/cs-johnson.jsonl": "4ff770b80a56cb53cd6097c0fa5995523a6b2db36ce621f31cbb040f005fb550",
-  "docs/battle-theatre/kit/evidence/cs-mclaws.jsonl": "465d1a2310b5a2ae30cce36132fac7a9fc87d8fd376a6f6f2a350ec39cd2e4c3",
-  "docs/battle-theatre/kit/evidence/cs-pender.jsonl": "5c87b4837976a363805b06d2d6614519594eb94168f0d566c27de2fdc79539a0",
-  "docs/battle-theatre/kit/evidence/cs-pickett.jsonl": "d3ae8f02a4ab73b30965648d73b2e651e9e2d883af10d05125e551fe68af16d1",
-  "docs/battle-theatre/kit/evidence/cs-rodes.jsonl": "6d386554ee7fdc875f0a3881fa1eb06a6a7a533fc384e57dba7d589a8431e46a",
+  "docs/battle-theatre/kit/evidence/cs-art-2c.jsonl": "fe6bfed960e2f51daa9b653b7fde5a9fbf561374486fbdc8d1e67eac860d5bd7",
+  "docs/battle-theatre/kit/evidence/cs-art-3c.jsonl": "585a52633a586aeb0c015cf58db8e0a11f37790e6e36876e13e1b123c8cd208c",
+  "docs/battle-theatre/kit/evidence/cs-cav.jsonl": "66d1397d1c1f92e6d398c8d14171d55fc3b8da1e174e8160e27db2e48f57623a",
+  "docs/battle-theatre/kit/evidence/cs-early.jsonl": "6f3bbe8a4ecb8426df2512737c4f854f89288958c3ec03dc4620ff5019ec8324",
+  "docs/battle-theatre/kit/evidence/cs-heth.jsonl": "e72bdacd1b3bec71c827e5dab2a4ca3bc427ddb6afe033be9b59d943c4d8a1bf",
+  "docs/battle-theatre/kit/evidence/cs-hood.jsonl": "9651080048016d2a964c8510f65b9e8ff6bd3ddc401d6ef76e55a9be1adfb015",
+  "docs/battle-theatre/kit/evidence/cs-johnson.jsonl": "041c660961b67e6cdfe1632b16dddb9bc024ccfd6ca1918c59f2780aa018a5b5",
+  "docs/battle-theatre/kit/evidence/cs-mclaws.jsonl": "07b945aebfb3cb8c8355f3a414ac4b45b2736064434a935cb52722fb183ec93d",
+  "docs/battle-theatre/kit/evidence/cs-pender.jsonl": "34d03739a80de014d1c87a52073198d4523096d17965c2645ab27da9ba86e1b4",
+  "docs/battle-theatre/kit/evidence/cs-pickett.jsonl": "e41144495e97f621208a9d925a7a43b68099a83ef8bdc59ab8560440bae2119b",
+  "docs/battle-theatre/kit/evidence/cs-rodes.jsonl": "c0bdc4e7c8b62d3952e1eabdcaf0f09bb3dc2db80a70eafbbb3c9ed867cbbe1a",
   "docs/battle-theatre/kit/evidence/sources.json": "ad1ab0308caa76432444ceefaf0d0e32b3528822ccfe0aab3a1c2d1d8f9209d9",
-  "docs/battle-theatre/kit/evidence/us-11c.jsonl": "62d61e9f223502140ce3b2f2addc755972209c74c3b0eca297662bc20c5b3faa",
-  "docs/battle-theatre/kit/evidence/us-12c.jsonl": "db3223ca6b91d157b494147378f651fbfa65204bd1957f6abbf8a3d305c67f2d",
-  "docs/battle-theatre/kit/evidence/us-1c.jsonl": "2d8cf0112d8fa6d8745860a6f7b5d07b93a98bb0f49439fbd9cc37690facc05a",
-  "docs/battle-theatre/kit/evidence/us-2c-1d.jsonl": "998bb3f5c4bf789c09521eff1fb3bb79e4956f0c95f71dfd6a3f392a54bc419c",
-  "docs/battle-theatre/kit/evidence/us-2c-2d3d.jsonl": "702677dec1d1189338f2a9945501facaaa257162a264cc76bfd05e6b657c3db1",
-  "docs/battle-theatre/kit/evidence/us-3c-1d.jsonl": "303fac656999348acce160f72a74b50d1412820cb2c380b1bd894562fd1ab5d5",
-  "docs/battle-theatre/kit/evidence/us-3c-2d.jsonl": "e98dba1115b36c36e3cc06732319b6632c054054d95394db27867a915adfcafb",
-  "docs/battle-theatre/kit/evidence/us-5c.jsonl": "f81853152165276136063c124e621835abe1505a71366664c018623eefe14249",
-  "docs/battle-theatre/kit/evidence/us-6c.jsonl": "95e1eab9ff3ba31823de4b0d18a2d563589bd1cd4e7c10194d5548b67738efe7",
-  "docs/battle-theatre/kit/evidence/us-art-corps.jsonl": "610376a5a2e814ae13f94e804139337a887417ca731f6964ac04489c16e68488",
+  "docs/battle-theatre/kit/evidence/us-11c.jsonl": "be7790166e457a1a9e4442aea2ab71593f51e943a7460d520c66de841656a51e",
+  "docs/battle-theatre/kit/evidence/us-12c.jsonl": "3df54fedb24f412921c74f6a30420229ceb5ec4146791ff85fb167d583cd9680",
+  "docs/battle-theatre/kit/evidence/us-1c.jsonl": "f0e0c4ea26cadcb9928982baf443b64fbd358c374ad2a3072c614aeb15513451",
+  "docs/battle-theatre/kit/evidence/us-2c-1d.jsonl": "986ac6db879aa2bbf1f5aa3ca8b3564a9d533a7eed2410ed55d210c5bd6c93e8",
+  "docs/battle-theatre/kit/evidence/us-2c-2d3d.jsonl": "33594347c9b6a32df84341e8ce71faa1bf321a8f2b301acda8757edd4665e8f8",
+  "docs/battle-theatre/kit/evidence/us-3c-1d.jsonl": "d43c1163b22911cc6694a96ed9b4ceccd230fe23e91459b684b9da32105d9190",
+  "docs/battle-theatre/kit/evidence/us-3c-2d.jsonl": "d119ab26818f0a27f99220966c3c6b2501b4db012adc2c86611e204e3d1718b9",
+  "docs/battle-theatre/kit/evidence/us-5c.jsonl": "a1e50241f0384e3626ba2d6231791f77f19a70aa5cb48e3cd6fdd2ff23d0e629",
+  "docs/battle-theatre/kit/evidence/us-6c.jsonl": "09cc8eeeff020771f08a0b64b6fca2c0639a138346a2e9ab2043e38e7a798e1b",
+  "docs/battle-theatre/kit/evidence/us-art-corps.jsonl": "86ef6fe3cca99ac3bc604da74a9f507ac7972f6515aef1f80eb293a4a58cb6d6",
   "docs/battle-theatre/kit/evidence/us-art-reserve-horse.jsonl": "8c0d881c90a2438fc7b3e96c22d83d7ff113e4b3d99977d178499d337583dda0",
-  "docs/battle-theatre/kit/evidence/us-cav.jsonl": "1528cd26a09196d73ef9e498ec1a58d59204f5dc3bdb234001c7187652e483b2",
-  "docs/battle-theatre/kit/verified_oob.json": "106be8be2d014eee4332cfe1c7a8a68857a1199e5a7b2fccf1d892b428b59eb8",
+  "docs/battle-theatre/kit/evidence/us-cav.jsonl": "d15b9b9d9501146ad44651b31c9d03100f5438442f59eacff1b719cbffddcc51",
+  "docs/battle-theatre/kit/verified_oob.json": "c8395c6f10ed3e9f75c2e6d7ac798c6b851ab20221d6fcb1d8f086c57275c4c5",
   "tools/bt/gates/oob_layer_lib.mjs": "37241c54dc8e30e059bc76b9723295bba3be2c46677832f559c8e1d04d10697d",
   "tools/bt/gates/oobgates_common.py": "a592fe4a79459c8af1c5b0d3d4e7400f6be4faa60eb7ad568429be5c1c5d4730",
   "tools/bt/gates/q01_layer.mjs": "d3aeb1d12ee674131a30428a02997d372bcbef03957472a753ec519caea2694c",
@@ -122,10 +122,10 @@
    "sha256": "1ff7c3f4a07130a4dd53f0c40eb503f799d2db0a79b2e51a7cfc01f1c93cbc1f"
   },
   {
-   "bytes": 868550,
+   "bytes": 868671,
    "path": "docs/battle-theatre/history/units.json",
    "role": "data",
-   "sha256": "8d8ab58e1179605f93f108bd5cbf09566b27a3e3605a534b010babba74c81687"
+   "sha256": "4330248cda0140771ef5ce448ff4b2605ff91d0005020800880c769ec08dca9b"
   },
   {
    "bytes": 66414,
@@ -134,10 +134,10 @@
    "sha256": "6528af5cea82c0c1e80fb04dfd4686dc9f951480e5a4959eebd75a2a80cbc356"
   },
   {
-   "bytes": 195343,
+   "bytes": 196324,
    "path": "docs/battle-theatre/kit/evidence/cs-anderson.jsonl",
    "role": "evidence",
-   "sha256": "7d97b63cf5d71c446abe5f9ea77b98ed0c065e4d0c8f2849aa1d8feb197a5e8a"
+   "sha256": "fc0d013e71c69cd923bcb4ed6678cb624fb01f1dd3a7b7fae452cad7041d5355"
   },
   {
    "bytes": 87122,
@@ -146,70 +146,70 @@
    "sha256": "fbcdc6493a501a3d4446ae0e0d7e339140a8bb0761750340337e6355e3b6263d"
   },
   {
-   "bytes": 119944,
+   "bytes": 122465,
    "path": "docs/battle-theatre/kit/evidence/cs-art-2c.jsonl",
    "role": "evidence",
-   "sha256": "1934525accb07a874700a827ad87ad370976175dcec6858173b6794f2bfc1655"
+   "sha256": "fe6bfed960e2f51daa9b653b7fde5a9fbf561374486fbdc8d1e67eac860d5bd7"
   },
   {
-   "bytes": 99563,
+   "bytes": 101348,
    "path": "docs/battle-theatre/kit/evidence/cs-art-3c.jsonl",
    "role": "evidence",
-   "sha256": "cab0116842c5cfa3594684ce4894924ed5bc95fd22a5081b3fc46572a02c32c4"
+   "sha256": "585a52633a586aeb0c015cf58db8e0a11f37790e6e36876e13e1b123c8cd208c"
   },
   {
-   "bytes": 317813,
+   "bytes": 318169,
    "path": "docs/battle-theatre/kit/evidence/cs-cav.jsonl",
    "role": "evidence",
-   "sha256": "5af9a34ab7f44bab0f6564824cefab01d4f4ec73313160cfc1744972b7f27c5e"
+   "sha256": "66d1397d1c1f92e6d398c8d14171d55fc3b8da1e174e8160e27db2e48f57623a"
   },
   {
-   "bytes": 164031,
+   "bytes": 167432,
    "path": "docs/battle-theatre/kit/evidence/cs-early.jsonl",
    "role": "evidence",
-   "sha256": "ef984bc755edab2208ccb7104e84cf5e1df7e6b44b1ab30892a504862853b2f0"
+   "sha256": "6f3bbe8a4ecb8426df2512737c4f854f89288958c3ec03dc4620ff5019ec8324"
   },
   {
-   "bytes": 146058,
+   "bytes": 146130,
    "path": "docs/battle-theatre/kit/evidence/cs-heth.jsonl",
    "role": "evidence",
-   "sha256": "36c0a9dc657a5a868083a3264a10bbe973de8b26fb21f08486c96b41decc3dea"
+   "sha256": "e72bdacd1b3bec71c827e5dab2a4ca3bc427ddb6afe033be9b59d943c4d8a1bf"
   },
   {
-   "bytes": 138405,
+   "bytes": 139174,
    "path": "docs/battle-theatre/kit/evidence/cs-hood.jsonl",
    "role": "evidence",
-   "sha256": "5bd8e2823dce10c0f91272f8fe1eacc27e70b59c5b9564450ddc6ee4c91f054d"
+   "sha256": "9651080048016d2a964c8510f65b9e8ff6bd3ddc401d6ef76e55a9be1adfb015"
   },
   {
-   "bytes": 278498,
+   "bytes": 279460,
    "path": "docs/battle-theatre/kit/evidence/cs-johnson.jsonl",
    "role": "evidence",
-   "sha256": "4ff770b80a56cb53cd6097c0fa5995523a6b2db36ce621f31cbb040f005fb550"
+   "sha256": "041c660961b67e6cdfe1632b16dddb9bc024ccfd6ca1918c59f2780aa018a5b5"
   },
   {
-   "bytes": 133104,
+   "bytes": 133306,
    "path": "docs/battle-theatre/kit/evidence/cs-mclaws.jsonl",
    "role": "evidence",
-   "sha256": "465d1a2310b5a2ae30cce36132fac7a9fc87d8fd376a6f6f2a350ec39cd2e4c3"
+   "sha256": "07b945aebfb3cb8c8355f3a414ac4b45b2736064434a935cb52722fb183ec93d"
   },
   {
-   "bytes": 141136,
+   "bytes": 141379,
    "path": "docs/battle-theatre/kit/evidence/cs-pender.jsonl",
    "role": "evidence",
-   "sha256": "5c87b4837976a363805b06d2d6614519594eb94168f0d566c27de2fdc79539a0"
+   "sha256": "34d03739a80de014d1c87a52073198d4523096d17965c2645ab27da9ba86e1b4"
   },
   {
-   "bytes": 101946,
+   "bytes": 102367,
    "path": "docs/battle-theatre/kit/evidence/cs-pickett.jsonl",
    "role": "evidence",
-   "sha256": "d3ae8f02a4ab73b30965648d73b2e651e9e2d883af10d05125e551fe68af16d1"
+   "sha256": "e41144495e97f621208a9d925a7a43b68099a83ef8bdc59ab8560440bae2119b"
   },
   {
-   "bytes": 352156,
+   "bytes": 354971,
    "path": "docs/battle-theatre/kit/evidence/cs-rodes.jsonl",
    "role": "evidence",
-   "sha256": "6d386554ee7fdc875f0a3881fa1eb06a6a7a533fc384e57dba7d589a8431e46a"
+   "sha256": "c0bdc4e7c8b62d3952e1eabdcaf0f09bb3dc2db80a70eafbbb3c9ed867cbbe1a"
   },
   {
    "bytes": 67527,
@@ -218,64 +218,64 @@
    "sha256": "ad1ab0308caa76432444ceefaf0d0e32b3528822ccfe0aab3a1c2d1d8f9209d9"
   },
   {
-   "bytes": 241777,
+   "bytes": 242265,
    "path": "docs/battle-theatre/kit/evidence/us-11c.jsonl",
    "role": "evidence",
-   "sha256": "62d61e9f223502140ce3b2f2addc755972209c74c3b0eca297662bc20c5b3faa"
+   "sha256": "be7790166e457a1a9e4442aea2ab71593f51e943a7460d520c66de841656a51e"
   },
   {
-   "bytes": 223778,
+   "bytes": 224760,
    "path": "docs/battle-theatre/kit/evidence/us-12c.jsonl",
    "role": "evidence",
-   "sha256": "db3223ca6b91d157b494147378f651fbfa65204bd1957f6abbf8a3d305c67f2d"
+   "sha256": "3df54fedb24f412921c74f6a30420229ceb5ec4146791ff85fb167d583cd9680"
   },
   {
-   "bytes": 659068,
+   "bytes": 661324,
    "path": "docs/battle-theatre/kit/evidence/us-1c.jsonl",
    "role": "evidence",
-   "sha256": "2d8cf0112d8fa6d8745860a6f7b5d07b93a98bb0f49439fbd9cc37690facc05a"
+   "sha256": "f0e0c4ea26cadcb9928982baf443b64fbd358c374ad2a3072c614aeb15513451"
   },
   {
-   "bytes": 383453,
+   "bytes": 384232,
    "path": "docs/battle-theatre/kit/evidence/us-2c-1d.jsonl",
    "role": "evidence",
-   "sha256": "998bb3f5c4bf789c09521eff1fb3bb79e4956f0c95f71dfd6a3f392a54bc419c"
+   "sha256": "986ac6db879aa2bbf1f5aa3ca8b3564a9d533a7eed2410ed55d210c5bd6c93e8"
   },
   {
-   "bytes": 480477,
+   "bytes": 481059,
    "path": "docs/battle-theatre/kit/evidence/us-2c-2d3d.jsonl",
    "role": "evidence",
-   "sha256": "702677dec1d1189338f2a9945501facaaa257162a264cc76bfd05e6b657c3db1"
+   "sha256": "33594347c9b6a32df84341e8ce71faa1bf321a8f2b301acda8757edd4665e8f8"
   },
   {
-   "bytes": 489962,
+   "bytes": 491542,
    "path": "docs/battle-theatre/kit/evidence/us-3c-1d.jsonl",
    "role": "evidence",
-   "sha256": "303fac656999348acce160f72a74b50d1412820cb2c380b1bd894562fd1ab5d5"
+   "sha256": "d43c1163b22911cc6694a96ed9b4ceccd230fe23e91459b684b9da32105d9190"
   },
   {
-   "bytes": 186888,
+   "bytes": 187742,
    "path": "docs/battle-theatre/kit/evidence/us-3c-2d.jsonl",
    "role": "evidence",
-   "sha256": "e98dba1115b36c36e3cc06732319b6632c054054d95394db27867a915adfcafb"
+   "sha256": "d119ab26818f0a27f99220966c3c6b2501b4db012adc2c86611e204e3d1718b9"
   },
   {
-   "bytes": 230771,
+   "bytes": 231239,
    "path": "docs/battle-theatre/kit/evidence/us-5c.jsonl",
    "role": "evidence",
-   "sha256": "f81853152165276136063c124e621835abe1505a71366664c018623eefe14249"
+   "sha256": "a1e50241f0384e3626ba2d6231791f77f19a70aa5cb48e3cd6fdd2ff23d0e629"
   },
   {
-   "bytes": 250596,
+   "bytes": 250862,
    "path": "docs/battle-theatre/kit/evidence/us-6c.jsonl",
    "role": "evidence",
-   "sha256": "95e1eab9ff3ba31823de4b0d18a2d563589bd1cd4e7c10194d5548b67738efe7"
+   "sha256": "09cc8eeeff020771f08a0b64b6fca2c0639a138346a2e9ab2043e38e7a798e1b"
   },
   {
-   "bytes": 240248,
+   "bytes": 240196,
    "path": "docs/battle-theatre/kit/evidence/us-art-corps.jsonl",
    "role": "evidence",
-   "sha256": "610376a5a2e814ae13f94e804139337a887417ca731f6964ac04489c16e68488"
+   "sha256": "86ef6fe3cca99ac3bc604da74a9f507ac7972f6515aef1f80eb293a4a58cb6d6"
   },
   {
    "bytes": 235906,
@@ -284,16 +284,16 @@
    "sha256": "8c0d881c90a2438fc7b3e96c22d83d7ff113e4b3d99977d178499d337583dda0"
   },
   {
-   "bytes": 207401,
+   "bytes": 207523,
    "path": "docs/battle-theatre/kit/evidence/us-cav.jsonl",
    "role": "evidence",
-   "sha256": "1528cd26a09196d73ef9e498ec1a58d59204f5dc3bdb234001c7187652e483b2"
+   "sha256": "d15b9b9d9501146ad44651b31c9d03100f5438442f59eacff1b719cbffddcc51"
   },
   {
-   "bytes": 23156418,
+   "bytes": 23213067,
    "path": "docs/battle-theatre/kit/verified_oob.json",
    "role": "table",
-   "sha256": "106be8be2d014eee4332cfe1c7a8a68857a1199e5a7b2fccf1d892b428b59eb8"
+   "sha256": "c8395c6f10ed3e9f75c2e6d7ac798c6b851ab20221d6fcb1d8f086c57275c4c5"
   },
   {
    "bytes": 5976,
@@ -366,11 +366,11 @@
       "ok": true
      },
      {
-      "detail": "not found 8 (cs-3c-heth-pettigrew-47nc strength cs-heth:0119 (not_found); us-12c-2d-greene strength us-12c:0163 (not_found)); long quote 510 (CS.5ALBN roster cs-rodes:0202; CS.ART.2nd_and_3rd_Richmond_Howitzers roster cs-art-2c:0062); number missing 12 (cs-1c-pickett strength cs-pickett:0080: [4999] not in the extract; cs-3c-heth strength cs-heth:0112: [8000] not in the extract)",
-      "image_only": 658,
+      "detail": "not found 8 (cs-3c-heth-pettigrew-47nc strength cs-heth:0119 (not_found); us-12c-2d-greene strength us-12c:0163 (not_found)); long quote 520 (CS.5ALBN roster cs-rodes:0202; CS.ART.2nd_and_3rd_Richmond_Howitzers roster cs-art-2c:0062); number missing 12 (cs-1c-pickett strength cs-pickett:0080: [4999] not in the extract; cs-3c-heth strength cs-heth:0112: [8000] not in the extract)",
+      "image_only": 653,
       "lead": 0,
-      "long_quote": 510,
-      "matched": 1481,
+      "long_quote": 520,
+      "matched": 1476,
       "name": "every documented value: its evidence line exists, its source is not a lead, its extract is under 15 words, it is found in the stored source text in this run and every number of the value is in it",
       "no_line": 0,
       "no_quote": 0,
@@ -405,7 +405,7 @@
       "CS.CAV.4NC strength cs-cav:0199",
       "CS.CAV.4NC strength cs-cav:0200"
      ],
-     "matched": 1481,
+     "matched": 1476,
      "no_line": [],
      "no_quote": [],
      "no_text": [],
@@ -438,7 +438,7 @@
    },
    "id": "Q01/Q01.1/table/default",
    "pass": false,
-   "reason": "the table is not fit: every documented value: its evidence line exists, its source is not a lead, its extract is under 15 words, it is found in the stored source text in this run and every number of the value is in it: not found 8 (cs-3c-heth-pettigrew-47nc strength cs-heth:0119 (not_found); us-12c-2d-greene strength us-12c:0163 (not_found)); long quote 510 (CS.5ALBN roster cs-rodes:0202; CS.ART.2nd_and_3rd_Richmond_Howitzers roster cs-art-2c:0062); number missing 12 (cs-1c-pickett strength cs-pickett:0080: [4999] not in the extract; cs-3c-heth strength cs-heth:0112: [8000] not in the extract)",
+   "reason": "the table is not fit: every documented value: its evidence line exists, its source is not a lead, its extract is under 15 words, it is found in the stored source text in this run and every number of the value is in it: not found 8 (cs-3c-heth-pettigrew-47nc strength cs-heth:0119 (not_found); us-12c-2d-greene strength us-12c:0163 (not_found)); long quote 520 (CS.5ALBN roster cs-rodes:0202; CS.ART.2nd_and_3rd_Richmond_Howitzers roster cs-art-2c:0062); number missing 12 (cs-1c-pickett strength cs-pickett:0080: [4999] not in the extract; cs-3c-heth strength cs-heth:0112: [8000] not in the extract)",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default"
@@ -78651,7 +78651,7 @@
       "ok": true
      },
      {
-      "detail": "[220, 220] not in {'taken_into_action|enlisted_only': [220, 220]}",
+      "detail": "[220, 220] not in {'taken_into_action|not_stated': [220, 220]}",
       "name": "the layer figure lies in a verified range",
       "ok": true
      },
@@ -78666,8 +78666,8 @@
     ],
     "layer": {
      "as_of": "1863-06-09",
-     "basis": "documented: the report says the unit went into action with N; enlisted only; as of 1863-06-09; 1 line (OR27-2-R570); range 220 to 220 on 1863-06-09. Drawn: the ",
-     "basis_key": "taken_into_action|enlisted_only",
+     "basis": "documented: the report says the unit went into action with N; not stated; as of 1863-06-09; 1 line (OR27-2-R570); range 220 to 220 on 1863-06-09. Drawn: the top",
+     "basis_key": "taken_into_action|not_stated",
      "kind": "documented",
      "max": 220,
      "min": 220,
@@ -78679,7 +78679,7 @@
     },
     "table": {
      "ranges": {
-      "taken_into_action|enlisted_only": [
+      "taken_into_action|not_stated": [
        220,
        220,
        "documented"
@@ -82339,7 +82339,7 @@
       "ok": true
      },
      {
-      "detail": "[300, 300] not in {'estimate_in_report|enlisted_only': [300, 300]}",
+      "detail": "[300, 300] not in {'estimate_in_report|not_stated': [300, 300]}",
       "name": "the layer figure lies in a verified range",
       "ok": true
      },
@@ -82354,8 +82354,8 @@
     ],
     "layer": {
      "as_of": "1863-07-01",
-     "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); enlisted only; as of 1863-07-01; 1 line (NY3-S009); range 300 to 300 on 1863-0",
-     "basis_key": "estimate_in_report|enlisted_only",
+     "basis": "documented: an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01; 1 line (NY3-S009); range 300 to 300 on 1863-07-0",
+     "basis_key": "estimate_in_report|not_stated",
      "kind": "documented",
      "max": 300,
      "min": 300,
@@ -82367,7 +82367,7 @@
     },
     "table": {
      "ranges": {
-      "estimate_in_report|enlisted_only": [
+      "estimate_in_report|not_stated": [
        300,
        300,
        "documented"
@@ -87749,7 +87749,7 @@
     ],
     "layer": {
      "as_of": "1863-07-01",
-     "basis": "documented: the report says the unit went into action with N; officers and men; as of 1863-07-01; 2 lines (NY2-S018); range 356 to 356 on 1863-07-01. Drawn: the",
+     "basis": "documented: the report says the unit went into action with N; officers and men; as of 1863-07-01 to 1863-07-01/1863-07-03; 2 lines (NY2-S018); range 356 to 356 ",
      "basis_key": "taken_into_action|officers_and_men",
      "kind": "documented",
      "max": 356,
@@ -89104,7 +89104,7 @@
       "ok": true
      },
      {
-      "detail": "[260, 260] not in {'taken_into_action|enlisted_only': [260, 260]}",
+      "detail": "[260, 260] not in {'taken_into_action|not_stated': [260, 260]}",
       "name": "the layer figure lies in a verified range",
       "ok": true
      },
@@ -89119,8 +89119,8 @@
     ],
     "layer": {
      "as_of": "1863-07-01",
-     "basis": "documented: the report says the unit went into action with N; enlisted only; as of 1863-07-01; 1 line (OR27-1-R046); range 260 to 260 on 1863-07-01. Drawn: the ",
-     "basis_key": "taken_into_action|enlisted_only",
+     "basis": "documented: the report says the unit went into action with N; not stated; as of 1863-07-01; 1 line (OR27-1-R046); range 260 to 260 on 1863-07-01. Drawn: the top",
+     "basis_key": "taken_into_action|not_stated",
      "kind": "documented",
      "max": 260,
      "min": 260,
@@ -89132,7 +89132,7 @@
     },
     "table": {
      "ranges": {
-      "taken_into_action|enlisted_only": [
+      "taken_into_action|not_stated": [
        260,
        260,
        "documented"
@@ -90842,7 +90842,7 @@
       "ok": false
      },
      {
-      "detail": "estimate_in_report|not_stated spans the dates ['1863-07-01', '1863-07-01/1863-07-02', '1863-07-01T18:00'] and the layer figure names no date; present_for_duty|officers_and_men spans the dates ['1863-06-30', '1863-07-04'] and the layer figure names no date",
+      "detail": "estimate_in_report|not_stated spans the dates ['1863-07-01', '1863-07-01/1863-07-02', '1863-07-01T16:00/1863-07-01T23:59'] and the layer figure names no date; present_for_duty|officers_and_men spans the dates ['1863-06-30', '1863-07-04'] and the layer figure names no date",
       "name": "the date of the figure: a layer figure is compared only with the table figures of its own date, and a range that spans dates is never used on its wide span",
       "ok": false
      }
@@ -90894,7 +90894,7 @@
    },
    "id": "Q01/Q01.3/us-1c/default",
    "pass": false,
-   "reason": "strength: same basis: the layer names the basis key or cites a source of the table row: the layer record (basis_key None, sources ['SS-B3', 'PDF-B3']) names no basis or source of the table row (aggregate_present|officers_and_men, effective_total|enlisted_only, estimate_in_report|not_stated, present_for_duty|enlisted_only, present_for_duty|officers_and_men); the layer figure lies in a verified range: [12160, 12160] not in {'aggregate_present|officers_and_men': [12157, 12157], 'effective_total|enlisted_only': [8716, 8716], 'present_for_duty|enlisted_only': [9596, 9596]}; the date of the figure: a layer figure is compared only with the table figures of its own date, and a range that spans dates is never used on its wide span: estimate_in_report|not_stated spans the dates ['1863-07-01', '1863-07-01/1863-07-02', '1863-07-01T18:00'] and the layer figure names no date; present_for_duty|officers_and_men spans the dates ['1863-06-30', '1863-07-04'] and the layer figure names no date",
+   "reason": "strength: same basis: the layer names the basis key or cites a source of the table row: the layer record (basis_key None, sources ['SS-B3', 'PDF-B3']) names no basis or source of the table row (aggregate_present|officers_and_men, effective_total|enlisted_only, estimate_in_report|not_stated, present_for_duty|enlisted_only, present_for_duty|officers_and_men); the layer figure lies in a verified range: [12160, 12160] not in {'aggregate_present|officers_and_men': [12157, 12157], 'effective_total|enlisted_only': [8716, 8716], 'present_for_duty|enlisted_only': [9596, 9596]}; the date of the figure: a layer figure is compared only with the table figures of its own date, and a range that spans dates is never used on its wide span: estimate_in_report|not_stated spans the dates ['1863-07-01', '1863-07-01/1863-07-02', '1863-07-01T16:00/1863-07-01T23:59'] and the layer figure names no date; present_for_duty|officers_and_men spans the dates ['1863-06-30', '1863-07-04'] and the layer figure names no date",
    "renderer_class": "mixed",
    "result": "FAIL",
    "scenario": "default",
@@ -122790,6 +122790,7 @@
     "own_ranges_not_usable_for_want_of_a_date": {
      "aggregate_present_and_absent|aggregate": "the range spans the dates ['1863-06-30', '1863-07-20', '1863-07-31'] and the layer names no date for this unit",
      "aggregate_present|aggregate": "the range spans the dates ['1863-06-30', '1863-07-20', '1863-07-31'] and the layer names no date for this unit",
+     "effective_total|not_stated": "the range spans the dates ['1863-06-27/1863-06-30', '1863-07-31'] and the layer names no date for this unit",
      "present_for_duty|enlisted_only": "the range spans the dates ['1863-06-30', '1863-07-20', '1863-07-31'] and the layer names no date for this unit",
      "present_for_duty|officers_only": "the range spans the dates ['1863-06-30', '1863-07-20', '1863-07-31'] and the layer names no date for this unit"
     },
@@ -122801,17 +122802,9 @@
       8125,
       8125
      ],
-     "effective_total|not_stated": [
-      4767,
-      4767
-     ],
-     "estimate_in_report|enlisted_only": [
+     "estimate_in_report|not_stated": [
       6000,
       6000
-     ],
-     "estimate_in_report|not_stated": [
-      0,
-      7000
      ],
      "estimate_in_report|officers_and_men": [
       8052,
@@ -123834,16 +123827,13 @@
     "layer_leaves": 5,
     "layer_leaves_drawn": 0,
     "layer_sum": 0,
-    "own_ranges_not_usable_for_want_of_a_date": {},
+    "own_ranges_not_usable_for_want_of_a_date": {
+     "estimate_in_report|not_stated": "the range spans the dates ['1863-06-15/1863-07-03', '1863-06-24'] and the layer names no date for this unit"
+    },
     "sums_not_usable_for_want_of_a_date": {},
     "table_leaf_sums": {},
     "table_leaves": 5,
-    "table_own_ranges": {
-     "estimate_in_report|not_stated": [
-      1500,
-      3800
-     ]
-    },
+    "table_own_ranges": {},
     "unverified_table_leaves": [
      "cs-cav-jenkins-14va",
      "cs-cav-jenkins-16va",
@@ -125027,7 +125017,7 @@
     "layer_leaves_drawn": 38,
     "layer_sum": 12942,
     "own_ranges_not_usable_for_want_of_a_date": {
-     "estimate_in_report|not_stated": "the range spans the dates ['1863-07-01', '1863-07-01/1863-07-02', '1863-07-01T18:00'] and the layer names no date for this unit",
+     "estimate_in_report|not_stated": "the range spans the dates ['1863-07-01', '1863-07-01/1863-07-02', '1863-07-01T16:00/1863-07-01T23:59'] and the layer names no date for this unit",
      "present_for_duty|officers_and_men": "the range spans the dates ['1863-06-30', '1863-07-04'] and the layer names no date for this unit"
     },
     "sums_not_usable_for_want_of_a_date": {},
@@ -210305,7 +210295,7 @@
   "Q01.6: the scenario set S* (every combination of source-conflict values inside each interaction group) was not enumerated; this run covered 7 scenario(s): default and the six sample scenarios of history.test.mjs: a sample, never S*"
  ],
  "renderer_class": "mixed",
- "run_id": "20261124T234554Z-Q01",
+ "run_id": "20261125T000452Z-Q01",
  "runnable_here": true,
  "runner_files": [
   "oob_layer_lib.mjs",
@@ -210322,7 +210312,7 @@
   "note": "default and the six sample scenarios of history.test.mjs: a sample, never S*"
  },
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-24T23:45:54Z",
+ "started_utc": "2026-11-25T00:04:52Z",
  "table": {
   "diagnostic_copy": false,
   "path": "docs/battle-theatre/kit/verified_oob.json",

@@ -8,32 +8,32 @@
  "inputs": {
   "groups_json_sha256_16": "0f8769adf9294086",
   "evidence_files": {
-   "us-1c": "62b3a6459059e5b0",
-   "us-2c-1d": "4c5159d96784027f",
-   "us-2c-2d3d": "702677dec1d11893",
-   "us-3c-1d": "20ea7a6735aca376",
-   "us-3c-2d": "9bb2da366542cf24",
-   "us-5c": "f818531521652761",
-   "us-6c": "95e1eab9ff3ba318",
-   "us-11c": "9110c55e513f79e1",
-   "us-12c": "d689f2e72b7bbd93",
-   "us-art-corps": "610376a5a2e814ae",
+   "us-1c": "f0e0c4ea26cadcb9",
+   "us-2c-1d": "986ac6db879aa2bb",
+   "us-2c-2d3d": "33594347c9b6a32d",
+   "us-3c-1d": "d43c1163b22911cc",
+   "us-3c-2d": "d119ab26818f0a27",
+   "us-5c": "a1e50241f0384e36",
+   "us-6c": "09cc8eeeff020771",
+   "us-11c": "be7790166e457a1a",
+   "us-12c": "3df54fedb24f4129",
+   "us-art-corps": "86ef6fe3cca99ac3",
    "us-art-reserve-horse": "8c0d881c90a2438f",
-   "us-cav": "1528cd26a09196d7",
+   "us-cav": "d15b9b9d9501146a",
    "army-hq": "6528af5cea82c0c1",
-   "cs-mclaws": "465d1a2310b5a2ae",
-   "cs-pickett": "d3ae8f02a4ab73b3",
-   "cs-hood": "5bd8e2823dce10c0",
-   "cs-early": "ef984bc755edab22",
-   "cs-johnson": "4ff770b80a56cb53",
-   "cs-rodes": "9ce3d31343440c76",
-   "cs-anderson": "19c4e7f44f9ad14c",
-   "cs-heth": "36c0a9dc657a5a86",
-   "cs-pender": "5c87b4837976a363",
+   "cs-mclaws": "07b945aebfb3cb8c",
+   "cs-pickett": "e41144495e97f621",
+   "cs-hood": "9651080048016d2a",
+   "cs-early": "6f3bbe8a4ecb8426",
+   "cs-johnson": "041c660961b67e6c",
+   "cs-rodes": "c0bdc4e7c8b62d39",
+   "cs-anderson": "fc0d013e71c69cd9",
+   "cs-heth": "e72bdacd1b3bec71",
+   "cs-pender": "34d03739a80de014",
    "cs-art-1c": "fbcdc6493a501a3d",
-   "cs-art-2c": "1934525accb07a87",
-   "cs-art-3c": "b4d73bc574725add",
-   "cs-cav": "87a6ac457bb99ae2"
+   "cs-art-2c": "fe6bfed960e2f51d",
+   "cs-art-3c": "585a52633a586aeb",
+   "cs-cav": "66d1397d1c1f92e6"
   }
  },
  "totals": {
@@ -1689,7 +1689,7 @@
    "status": "verified",
    "guns": [
     {
-     "as_of": "1863-07-02T15:00/1863-07-02T17:30",
+     "as_of": "1863-07-02",
      "state": "present",
      "scope": "battery",
      "pieces": [
@@ -1749,7 +1749,7 @@
     }
    ],
    "range_by_date": {
-    "1863-07-02T15:00/1863-07-02T17:30": {
+    "1863-07-02": {
      "present": {
       "low": 6,
       "high": 6,
@@ -2557,6 +2557,35 @@
    "status": "verified",
    "guns": [
     {
+     "as_of": "1863-07-01",
+     "state": "present",
+     "scope": "battery",
+     "pieces": [
+      {
+       "printed": "six 12-pounders",
+       "count": 6,
+       "type_id": null,
+       "type_candidates": [
+        "napoleon_12pdr_m1857",
+        "12pdr_howitzer"
+       ]
+      }
+     ],
+     "total": 6,
+     "tier": "documented",
+     "evidence_ids": [
+      "us-art-corps:0149"
+     ],
+     "cite": {
+      "id": "us-art-corps:0149",
+      "source_id": "OR27-1",
+      "part": 1,
+      "report_id": "OR27-1-R028",
+      "printed_page": 229,
+      "offset": 752631
+     }
+    },
+    {
      "as_of": "1863-07-01T10:00/1863-07-01T16:00",
      "state": "present",
      "scope": "battery",
@@ -2584,46 +2613,17 @@
       "printed_page": 747,
       "offset": 2613394
      }
-    },
-    {
-     "as_of": "1863-07-01T10:15/1863-07-01T16:00",
-     "state": "present",
-     "scope": "battery",
-     "pieces": [
-      {
-       "printed": "six 12-pounders",
-       "count": 6,
-       "type_id": null,
-       "type_candidates": [
-        "napoleon_12pdr_m1857",
-        "12pdr_howitzer"
-       ]
-      }
-     ],
-     "total": 6,
-     "tier": "documented",
-     "evidence_ids": [
-      "us-art-corps:0149"
-     ],
-     "cite": {
-      "id": "us-art-corps:0149",
-      "source_id": "OR27-1",
-      "part": 1,
-      "report_id": "OR27-1-R028",
-      "printed_page": 229,
-      "offset": 752631
-     }
     }
    ],
    "range_by_date": {
-    "1863-07-01T10:00/1863-07-01T16:00": {
+    "1863-07-01": {
      "present": {
       "low": 6,
       "high": 6,
       "lines": 1
      }
     },
-    "1863-07-01T10:15/1863-07-01T16:00": {
+    "1863-07-01T10:00/1863-07-01T16:00": {
      "present": {
       "low": 6,
       "high": 6,
@@ -3138,7 +3138,7 @@
    "status": "verified",
    "guns": [
     {
-     "as_of": "1863-07-02T17:00",
+     "as_of": "1863-07-02",
      "state": "engaged",
      "scope": "section",
      "pieces": [
@@ -8910,7 +8910,7 @@
    "status": "verified",
    "guns": [
     {
-     "as_of": "1863-06-22",
+     "as_of": "1863-06-20/1863-06-25",
      "state": "present",
      "scope": "battery",
      "pieces": [

@@ -11,32 +11,32 @@
  "inputs": {
   "groups_json_sha256_16": "0f8769adf9294086",
   "evidence_files": {
-   "us-1c": "62b3a6459059e5b0",
-   "us-2c-1d": "4c5159d96784027f",
-   "us-2c-2d3d": "702677dec1d11893",
-   "us-3c-1d": "20ea7a6735aca376",
-   "us-3c-2d": "9bb2da366542cf24",
-   "us-5c": "f818531521652761",
-   "us-6c": "95e1eab9ff3ba318",
-   "us-11c": "9110c55e513f79e1",
-   "us-12c": "d689f2e72b7bbd93",
-   "us-art-corps": "610376a5a2e814ae",
+   "us-1c": "f0e0c4ea26cadcb9",
+   "us-2c-1d": "986ac6db879aa2bb",
+   "us-2c-2d3d": "33594347c9b6a32d",
+   "us-3c-1d": "d43c1163b22911cc",
+   "us-3c-2d": "d119ab26818f0a27",
+   "us-5c": "a1e50241f0384e36",
+   "us-6c": "09cc8eeeff020771",
+   "us-11c": "be7790166e457a1a",
+   "us-12c": "3df54fedb24f4129",
+   "us-art-corps": "86ef6fe3cca99ac3",
    "us-art-reserve-horse": "8c0d881c90a2438f",
-   "us-cav": "1528cd26a09196d7",
+   "us-cav": "d15b9b9d9501146a",
    "army-hq": "6528af5cea82c0c1",
-   "cs-mclaws": "465d1a2310b5a2ae",
-   "cs-pickett": "d3ae8f02a4ab73b3",
-   "cs-hood": "5bd8e2823dce10c0",
-   "cs-early": "ef984bc755edab22",
-   "cs-johnson": "4ff770b80a56cb53",
-   "cs-rodes": "9ce3d31343440c76",
-   "cs-anderson": "19c4e7f44f9ad14c",
-   "cs-heth": "36c0a9dc657a5a86",
-   "cs-pender": "5c87b4837976a363",
+   "cs-mclaws": "07b945aebfb3cb8c",
+   "cs-pickett": "e41144495e97f621",
+   "cs-hood": "9651080048016d2a",
+   "cs-early": "6f3bbe8a4ecb8426",
+   "cs-johnson": "041c660961b67e6c",
+   "cs-rodes": "c0bdc4e7c8b62d39",
+   "cs-anderson": "fc0d013e71c69cd9",
+   "cs-heth": "e72bdacd1b3bec71",
+   "cs-pender": "34d03739a80de014",
    "cs-art-1c": "fbcdc6493a501a3d",
-   "cs-art-2c": "1934525accb07a87",
-   "cs-art-3c": "b4d73bc574725add",
-   "cs-cav": "87a6ac457bb99ae2"
+   "cs-art-2c": "fe6bfed960e2f51d",
+   "cs-art-3c": "585a52633a586aeb",
+   "cs-cav": "66d1397d1c1f92e6"
   }
  },
  "totals": {
@@ -327,7 +327,7 @@
       "men": "not_stated",
       "low": 2500,
       "high": 2500,
-      "as_of": "1863-07-01T18:00",
+      "as_of": "1863-07-01T16:00/1863-07-01T23:59",
       "tier": "documented",
       "evidence_ids": [
        "us-1c:0498"
@@ -436,7 +436,7 @@
       "high": 9000,
       "tier": "documented",
       "lines": 7,
-      "basis": "an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01 to 1863-07-01T18:00; 7 lines (NY1-S001, OR27-1-R029)",
+      "basis": "an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01 to 1863-07-01T16:00/1863-07-01T23:59; 7 lines (NY1-S001, OR27-1-R029)",
       "by_as_of": {
        "1863-07-01": {
         "low": 8200,
@@ -448,7 +448,7 @@
         "high": 2450,
         "lines": 1
        },
-       "1863-07-01T18:00": {
+       "1863-07-01T16:00/1863-07-01T23:59": {
         "low": 2500,
         "high": 2500,
         "lines": 1
@@ -2036,7 +2036,7 @@
     "strength": "verified",
     "casualties": "verified",
     "arms": "gap",
-    "dress": "verified"
+    "dress": "inferred"
    },
    "status": "verified",
    "presence": {
@@ -2675,7 +2675,7 @@
       ],
       "basis": "regimental_history",
       "as_of": "1863-04-02",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-1c:0232"
       ],
@@ -2716,7 +2716,7 @@
       ],
       "basis": "regimental_history",
       "as_of": "1863-07-01",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-1c:0231"
       ],
@@ -4794,7 +4794,7 @@
       ],
       "basis": "regimental_history",
       "as_of": "1863-07-01",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-1c:0234"
       ],
@@ -5970,7 +5970,7 @@
     "strength": "verified",
     "casualties": "verified",
     "arms": "gap",
-    "dress": "verified"
+    "dress": "inferred"
    },
    "status": "verified",
    "presence": {
@@ -6254,7 +6254,7 @@
       ],
       "basis": "regimental_history",
       "as_of": "1863-04-02",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-1c:0223"
       ],
@@ -6295,7 +6295,7 @@
       ],
       "basis": "regimental_history",
       "as_of": "1863-07-01",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-1c:0222"
       ],
@@ -7772,7 +7772,7 @@
       "note": "major; helped Colonel Dawes in maneuvering the regiment throughout the battle; no given name is printed"
      },
      "basis": "report_text",
-     "as_of": "1863-07-01",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-1c:0581"
@@ -7922,7 +7922,7 @@
       ],
       "basis": "regimental_history",
       "as_of": "1863-04-02",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-1c:0226"
       ],
@@ -7984,7 +7984,7 @@
       ],
       "basis": "regimental_history",
       "as_of": "1863-07-01",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-1c:0225"
       ],
@@ -8766,7 +8766,7 @@
     "strength": "gap",
     "casualties": "verified",
     "arms": "gap",
-    "dress": "verified"
+    "dress": "inferred"
    },
    "status": "partly",
    "presence": {
@@ -8910,7 +8910,7 @@
       ],
       "basis": "regimental_history",
       "as_of": "1863-04-02",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-1c:0229"
       ],
@@ -8951,7 +8951,7 @@
       ],
       "basis": "regimental_history",
       "as_of": "1863-07-01",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-1c:0228"
       ],
@@ -13751,7 +13751,7 @@
       "men": "officers_and_men",
       "low": 356,
       "high": 356,
-      "as_of": "1863-07-01",
+      "as_of": "1863-07-01/1863-07-03",
       "tier": "documented",
       "evidence_ids": [
        "us-1c:0514"
@@ -13770,15 +13770,20 @@
       "high": 356,
       "tier": "documented",
       "lines": 2,
-      "basis": "the report says the unit went into action with N; officers and men; as of 1863-07-01; 2 lines (NY2-S018)",
+      "basis": "the report says the unit went into action with N; officers and men; as of 1863-07-01 to 1863-07-01/1863-07-03; 2 lines (NY2-S018)",
       "by_as_of": {
        "1863-07-01": {
         "low": 356,
         "high": 356,
-        "lines": 2
+        "lines": 1
+       },
+       "1863-07-01/1863-07-03": {
+        "low": 356,
+        "high": 356,
+        "lines": 1
        }
       },
-      "spans_dates": false
+      "spans_dates": true
      }
     }
    },
@@ -21917,7 +21922,7 @@
     "figures": [
      {
       "basis": "taken_into_action",
-      "men": "enlisted_only",
+      "men": "not_stated",
       "low": 260,
       "high": 260,
       "as_of": "1863-07-01",
@@ -21937,12 +21942,12 @@
      }
     ],
     "ranges": {
-     "taken_into_action|enlisted_only": {
+     "taken_into_action|not_stated": {
       "low": 260,
       "high": 260,
       "tier": "documented",
       "lines": 1,
-      "basis": "the report says the unit went into action with N; enlisted only; as of 1863-07-01; 1 line (OR27-1-R046)",
+      "basis": "the report says the unit went into action with N; not stated; as of 1863-07-01; 1 line (OR27-1-R046)",
       "by_as_of": {
        "1863-07-01": {
         "low": 260,
@@ -33835,7 +33840,7 @@
       "men": "not_stated",
       "low": 100,
       "high": 100,
-      "as_of": "1863-07-01T18:00",
+      "as_of": "1863-07-01T16:00/1863-07-01T23:59",
       "tier": "documented",
       "evidence_ids": [
        "us-1c:0502"
@@ -33894,14 +33899,14 @@
       "high": 300,
       "tier": "documented",
       "lines": 2,
-      "basis": "an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01 to 1863-07-01T18:00; 2 lines",
+      "basis": "an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01 to 1863-07-01T16:00/1863-07-01T23:59; 2 lines",
       "by_as_of": {
        "1863-07-01": {
         "low": 0,
         "high": 300,
         "lines": 1
        },
-       "1863-07-01T18:00": {
+       "1863-07-01T16:00/1863-07-01T23:59": {
         "low": 100,
         "high": 100,
         "lines": 1
@@ -37948,7 +37953,7 @@
       "men": "not_stated",
       "low": 375,
       "high": 375,
-      "as_of": "1863-07-01",
+      "as_of": "1863-07-01/1863-07-03",
       "tier": "documented",
       "evidence_ids": [
        "us-1c:0462"
@@ -37970,9 +37975,9 @@
       "high": 375,
       "tier": "documented",
       "lines": 1,
-      "basis": "the report says the unit went into action with N; not stated; as of 1863-07-01; 1 line (NY2-S015)",
+      "basis": "the report says the unit went into action with N; not stated; as of 1863-07-01/1863-07-03; 1 line (NY2-S015)",
       "by_as_of": {
-       "1863-07-01": {
+       "1863-07-01/1863-07-03": {
         "low": 375,
         "high": 375,
         "lines": 1
@@ -41236,7 +41241,7 @@
       "men": "officers_and_men",
       "low": 78,
       "high": 78,
-      "as_of": "1863-07-01T21:00",
+      "as_of": "1863-07-01",
       "tier": "documented",
       "evidence_ids": [
        "us-1c:0500"
@@ -41349,9 +41354,9 @@
       "high": 78,
       "tier": "documented",
       "lines": 1,
-      "basis": "from muster or roll counts; officers and men; as of 1863-07-01T21:00; 1 line",
+      "basis": "from muster or roll counts; officers and men; as of 1863-07-01; 1 line",
       "by_as_of": {
-       "1863-07-01T21:00": {
+       "1863-07-01": {
         "low": 78,
         "high": 78,
         "lines": 1
@@ -44973,7 +44978,7 @@
       "note": "assistant surgeon of the 143rd Pennsylvania; stayed with the wounded of 2 and 3 July; no given name is printed"
      },
      "basis": "report_text",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-02/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-1c:0553"
@@ -50796,7 +50801,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-07-01T21:00",
+      "as_of": "1863-07-01",
       "tier": "documented",
       "evidence_ids": [
        "us-1c:0515"
@@ -56238,7 +56243,7 @@
       "note": "Chief commissary of the corps, named in the corps report."
      },
      "basis": "report_text",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0279"
@@ -56261,7 +56266,7 @@
       "note": "First name not printed; of the signal corps of the corps headquarters, named with Captain Hall."
      },
      "basis": "report_text",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0280"
@@ -61421,7 +61426,7 @@
     "strength": "conflict",
     "casualties": "verified",
     "arms": "verified",
-    "dress": "verified"
+    "dress": "inferred"
    },
    "status": "partly",
    "presence": {
@@ -61838,7 +61843,7 @@
       ],
       "basis": "regimental_history",
       "as_of": "1862-12-13",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-2c-1d:0248"
       ],
@@ -62169,7 +62174,7 @@
     "strength": "verified",
     "casualties": "verified",
     "arms": "verified",
-    "dress": "verified"
+    "dress": "inferred"
    },
    "status": "verified",
    "presence": {
@@ -62502,7 +62507,7 @@
       ],
       "basis": "regimental_history",
       "as_of": "1862-12-13",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-2c-1d:0249"
       ],
@@ -62782,7 +62787,7 @@
     "strength": "verified",
     "casualties": "verified",
     "arms": "verified",
-    "dress": "verified"
+    "dress": "inferred"
    },
    "status": "verified",
    "presence": {
@@ -63232,7 +63237,7 @@
       ],
       "basis": "regimental_history",
       "as_of": "1862-12-13",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-2c-1d:0250"
       ],
@@ -66971,7 +66976,7 @@
       "note": "Regimental roster, July 1-3, 1863. The narrative (p. 106) says \"the Major, with two Lieutenants, Cook and Paxton, ... were captured by a flanking party\"."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0350"
@@ -66992,7 +66997,7 @@
       "note": "Regimental roster, July 1-3, 1863."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0351"
@@ -67013,7 +67018,7 @@
       "note": "Regimental roster, July 1-3, 1863."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0352"
@@ -67035,7 +67040,7 @@
       "note": "Regimental roster, July 1-3, 1863. The narrative spells the name Shellenberger and says he \"was severly wounded, falling for a short time into the hands of the enemy\"."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0353"
@@ -67056,7 +67061,7 @@
       "note": "Regimental roster, July 1-3, 1863."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0354"
@@ -67077,7 +67082,7 @@
       "note": "Regimental roster, July 1-3, 1863."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0355"
@@ -67100,7 +67105,7 @@
       "note": "Regimental roster, July 1-3, 1863. Wounded at Gettysburg (the narrative lists Captain McCullough, Company A, among the wounded) and killed in a later battle (**)."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0356"
@@ -67123,7 +67128,7 @@
       "note": "Regimental roster, July 1-3, 1863. The narrative says he \"lost a leg\" (amputated a day or two later)."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0357"
@@ -67145,7 +67150,7 @@
       "note": "Regimental roster, July 1-3, 1863."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0358"
@@ -67167,7 +67172,7 @@
       "note": "Regimental roster, July 1-3, 1863."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0359"
@@ -67190,7 +67195,7 @@
       "note": "Regimental roster, July 1-3, 1863. The narrative lists Lieutenant Vance of Company C among those who \"lost an arm\"."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0360"
@@ -67212,7 +67217,7 @@
       "note": "Regimental roster, July 1-3, 1863."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0361"
@@ -67234,7 +67239,7 @@
       "note": "Regimental roster, July 1-3, 1863. No captain is printed for Company E."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0362"
@@ -67256,7 +67261,7 @@
       "note": "Regimental roster, July 1-3, 1863."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0363"
@@ -67279,7 +67284,7 @@
       "note": "Regimental roster, July 1-3, 1863. The narrative lists Lieutenant Stokes of Company F among those who \"lost an arm\"."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0364"
@@ -67301,7 +67306,7 @@
       "note": "Regimental roster, July 1-3, 1863. Marked ** (killed in a subsequent battle), no mark for Gettysburg."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0365"
@@ -67324,7 +67329,7 @@
       "note": "Regimental roster, July 1-3, 1863. Detached on staff (the roster says so; the Official Records name Captain H. H. Bingham on the staff of the Second Corps, line 0209)."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0366"
@@ -67347,7 +67352,7 @@
       "note": "Regimental roster, July 1-3, 1863. The narrative lists \"Cook and Paxton, of Companies K and G\" among those captured by the flanking party."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0367"
@@ -67370,7 +67375,7 @@
       "note": "Regimental roster, July 1-3, 1863. The narrative lists Captain Campbell, Company H, among the wounded."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0368"
@@ -67392,7 +67397,7 @@
       "note": "Regimental roster, July 1-3, 1863."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0369"
@@ -67414,7 +67419,7 @@
       "note": "Regimental roster, July 1-3, 1863."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0370"
@@ -67437,7 +67442,7 @@
       "note": "Regimental roster, July 1-3, 1863. The narrative lists Captain McCallister, Company I, among the wounded."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0371"
@@ -67459,7 +67464,7 @@
       "note": "Regimental roster, July 1-3, 1863."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0372"
@@ -67481,7 +67486,7 @@
       "note": "Regimental roster, July 1-3, 1863."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0373"
@@ -67503,7 +67508,7 @@
       "note": "Regimental roster, July 1-3, 1863."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0374"
@@ -67525,7 +67530,7 @@
       "note": "Regimental roster, July 1-3, 1863."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0375"
@@ -67548,7 +67553,7 @@
       "note": "Regimental roster, July 1-3, 1863. The narrative lists \"Cook and Paxton, of Companies K and G\" among those captured."
      },
      "basis": "state_volume",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-03",
      "tier": "documented",
      "evidence_ids": [
       "us-2c-1d:0376"
@@ -81986,7 +81991,7 @@
     "commander": "verified",
     "strength": "verified",
     "casualties": "conflict",
-    "arms": "verified",
+    "arms": "inferred",
     "dress": "verified"
    },
    "status": "verified",
@@ -82434,7 +82439,7 @@
       ],
       "basis": "regimental_history",
       "as_of": "1861-09-17/1861-10-31",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-2c-2d3d:0399"
       ],
@@ -84379,7 +84384,7 @@
       ],
       "basis": "regimental_history",
       "as_of": "1861-09-17/1861-10-31",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-2c-2d3d:0400"
       ],
@@ -85955,7 +85960,7 @@
     "commander": "verified",
     "strength": "verified",
     "casualties": "verified",
-    "arms": "verified",
+    "arms": "inferred",
     "dress": "verified"
    },
    "status": "verified",
@@ -86272,7 +86277,7 @@
       ],
       "basis": "regimental_history",
       "as_of": "1861-09-17/1861-10-31",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-2c-2d3d:0401"
       ],
@@ -130883,7 +130888,7 @@
       ],
       "basis": "state_volume",
       "as_of": "1863-07-02",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-3c-1d:0239"
       ],
@@ -155888,7 +155893,7 @@
        }
       ],
       "basis": "report_text",
-      "as_of": "1863-07-02",
+      "as_of": "1863-07-02/1863-07-05",
       "tier": "documented",
       "evidence_ids": [
        "us-3c-1d:0332"
@@ -158827,7 +158832,7 @@
       "event": "killed"
      },
      "basis": "casualty_list",
-     "as_of": "1863-07-02",
+     "as_of": "1863-07-01/1863-07-04",
      "tier": "documented",
      "evidence_ids": [
       "us-3c-1d:0178"
@@ -168378,7 +168383,7 @@
       ],
       "basis": "state_volume",
       "as_of": "1862-05-05",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-3c-2d:0200"
       ],
@@ -176190,7 +176195,7 @@
      },
      {
       "basis": "report_statement",
-      "period": "1863-07-02",
+      "period": "1863-07-02/1863-07-03",
       "killed": {},
       "wounded": {},
       "missing": {},
@@ -176219,14 +176224,14 @@
       "lines": 1,
       "basis": "a row of the Return of Casualties; 1863-07-01/1863-07-04; as of 1863-07-01/1863-07-04; 1 line (OR27-1-R013)"
      },
-     "report_statement|1863-07-02": {
+     "report_statement|1863-07-02/1863-07-03": {
       "total": {
        "low": 136,
        "high": 136
       },
       "tier": "documented",
       "lines": 1,
-      "basis": "stated in a report; 1863-07-02; as of 1863-07-02; 1 line (OR27-1-R196)"
+      "basis": "stated in a report; 1863-07-02/1863-07-03; as of 1863-07-02/1863-07-03; 1 line (OR27-1-R196)"
      }
     }
    },
@@ -176593,7 +176598,7 @@
      },
      {
       "basis": "report_statement",
-      "period": "1863-07-02",
+      "period": "1863-07-02/1863-07-03",
       "killed": {
        "total": 31
       },
@@ -195547,7 +195552,7 @@
      },
      {
       "basis": "report_statement",
-      "period": "1863-07-04",
+      "period": "1863-07-02/1863-07-04",
       "killed": {},
       "wounded": {
        "enlisted": 1
@@ -216595,7 +216600,7 @@
     "figures": [
      {
       "basis": "estimate_in_report",
-      "men": "enlisted_only",
+      "men": "not_stated",
       "low": 300,
       "high": 300,
       "as_of": "1863-07-01",
@@ -216614,12 +216619,12 @@
      }
     ],
     "ranges": {
-     "estimate_in_report|enlisted_only": {
+     "estimate_in_report|not_stated": {
       "low": 300,
       "high": 300,
       "tier": "documented",
       "lines": 1,
-      "basis": "an estimate or round figure given in a report (\"about\", \"less than\"); enlisted only; as of 1863-07-01; 1 line (NY3-S009)",
+      "basis": "an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-07-01; 1 line (NY3-S009)",
       "by_as_of": {
        "1863-07-01": {
         "low": 300,
@@ -238521,7 +238526,7 @@
       ],
       "basis": "state_volume",
       "as_of": "1863-07-02",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-12c:0201"
       ],
@@ -238565,7 +238570,7 @@
       ],
       "basis": "state_volume",
       "as_of": "1863-07-02",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-12c:0200"
       ],
@@ -238908,7 +238913,7 @@
     "commander": "verified",
     "strength": "verified",
     "casualties": "verified",
-    "arms": "verified",
+    "arms": "inferred",
     "dress": "inferred"
    },
    "status": "verified",
@@ -239048,7 +239053,7 @@
       ],
       "basis": "state_volume",
       "as_of": "1863-07-02",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-12c:0203"
       ],
@@ -239071,7 +239076,7 @@
       ],
       "basis": "state_volume",
       "as_of": "1863-07-02",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-12c:0202"
       ],
@@ -239414,7 +239419,7 @@
     "commander": "verified",
     "strength": "verified",
     "casualties": "verified",
-    "arms": "verified",
+    "arms": "inferred",
     "dress": "inferred"
    },
    "status": "verified",
@@ -239577,7 +239582,7 @@
       ],
       "basis": "state_volume",
       "as_of": "1863-07-02",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-12c:0205"
       ],
@@ -239600,7 +239605,7 @@
       ],
       "basis": "state_volume",
       "as_of": "1863-07-02",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-12c:0204"
       ],
@@ -239945,7 +239950,7 @@
     "commander": "verified",
     "strength": "verified",
     "casualties": "verified",
-    "arms": "verified",
+    "arms": "inferred",
     "dress": "verified"
    },
    "status": "verified",
@@ -240084,7 +240089,7 @@
       ],
       "basis": "state_volume",
       "as_of": "1863-07-02",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-12c:0207"
       ],
@@ -240107,7 +240112,7 @@
       ],
       "basis": "state_volume",
       "as_of": "1863-07-02",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-12c:0206"
       ],
@@ -240472,7 +240477,7 @@
     "commander": "verified",
     "strength": "gap",
     "casualties": "verified",
-    "arms": "verified",
+    "arms": "inferred",
     "dress": "inferred"
    },
    "status": "partly",
@@ -240588,7 +240593,7 @@
       ],
       "basis": "state_volume",
       "as_of": "1863-07-02",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-12c:0209"
       ],
@@ -240611,7 +240616,7 @@
       ],
       "basis": "state_volume",
       "as_of": "1863-07-02",
-      "tier": "documented",
+      "tier": "inferred",
       "evidence_ids": [
        "us-12c:0208"
       ],
@@ -297874,7 +297879,7 @@
     "roster": "verified",
     "commander": "inferred",
     "strength": "verified",
-    "casualties": "verified",
+    "casualties": "conflict",
     "arms": "gap",
     "dress": "gap"
    },
@@ -298099,6 +298104,122 @@
      }
     }
    },
+   "conflicts": [
+    {
+     "key": "cs-1c-pickett-garnett-8va|casualties|total-loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 6
+        },
+        "wounded": {
+         "total": 48
+        },
+        "missing": {},
+        "total": 54,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         6,
+         48,
+         54
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "8th Virginia"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-pickett:0081"
+       ],
+       "cite": {
+        "id": "cs-pickett:0081",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 329,
+        "offset": 1249960
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 6
+        },
+        "wounded": {
+         "total": 48
+        },
+        "missing": {},
+        "total": 54,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         6,
+         48,
+         null,
+         54
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "8th Virginia"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-pickett:0100"
+       ],
+       "cite": {
+        "id": "cs-pickett:0100",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 339,
+        "offset": 1265869
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {},
+        "wounded": {},
+        "missing": {},
+        "total": 190,
+        "period": "1863-07-03",
+        "scope": "regiment, the charge of 3 July",
+        "combined": [
+         {
+          "kinds": [
+           "killed",
+           "wounded",
+           "missing"
+          ],
+          "total": 190
+         }
+        ]
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-pickett:0064"
+       ],
+       "cite": {
+        "id": "cs-pickett:0064",
+        "source_id": "cs-pickett:0001",
+        "offset": 520775
+       }
+      }
+     ]
+    }
+   ],
    "gaps": [
     {
      "id": "cs-pickett:0120",
@@ -300259,7 +300380,7 @@
      "rank_printed": "Brig. Gen.",
      "change": {
       "event": "wounded",
-      "date": "1863-07-03",
+      "date": null,
       "detail": "very seriously wounded"
      }
     },
@@ -306872,6 +306993,35 @@
         "printed_page": 339,
         "offset": 1267631
        }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "total": 17
+        },
+        "wounded": {
+         "total": 54
+        },
+        "missing": {
+         "total": 90
+        },
+        "total": null,
+        "period": "1863-07-02",
+        "scope": "regiment"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-hood:0144"
+       ],
+       "cite": {
+        "id": "cs-hood:0144",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R444",
+        "printed_page": 393,
+        "offset": 1454500
+       }
       }
      ]
     }
@@ -307474,6 +307624,35 @@
         "report_id": "OR27-2-R427",
         "printed_page": 339,
         "offset": 1267662
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "total": 24
+        },
+        "wounded": {
+         "total": 66
+        },
+        "missing": {
+         "total": 4
+        },
+        "total": null,
+        "period": "1863-07-02/1863-07-03",
+        "scope": "regiment"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-hood:0145"
+       ],
+       "cite": {
+        "id": "cs-hood:0145",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R445",
+        "printed_page": 394,
+        "offset": 1460035
        }
       }
      ]
@@ -308684,6 +308863,39 @@
         "report_id": "OR27-2-R427",
         "printed_page": 339,
         "offset": 1267693
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {},
+        "wounded": {},
+        "missing": {},
+        "total": 102,
+        "period": "1863-07-02/1863-07-03",
+        "scope": "regiment",
+        "combined": [
+         {
+          "kinds": [
+           "killed",
+           "wounded",
+           "missing"
+          ],
+          "total": 102
+         }
+        ]
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-hood:0146"
+       ],
+       "cite": {
+        "id": "cs-hood:0146",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R447",
+        "printed_page": 396,
+        "offset": 1464599
        }
       }
      ]
@@ -311320,7 +311532,7 @@
      "role": "Seventh Georgia, commanding the brigade",
      "change": {
       "event": "assumed_command",
-      "date": "1863-07-03"
+      "date": null
      }
     }
    ],
@@ -311534,7 +311746,7 @@
      "rank_printed": "Col.",
      "change": {
       "event": "assumed_command",
-      "date": "1863-07-03",
+      "date": null,
       "detail": "signs as commanding the brigade"
      }
     }
@@ -312762,6 +312974,38 @@
         "report_id": "OR27-2-R427",
         "printed_page": 339,
         "offset": 1267726
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "officers": 2,
+         "enlisted": 25
+        },
+        "wounded": {
+         "officers": 11,
+         "enlisted": 119
+        },
+        "missing": {
+         "officers": 1,
+         "enlisted": 31
+        },
+        "total": 189,
+        "period": "1863-07-02/1863-07-03",
+        "scope": "regiment"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-hood:0150"
+       ],
+       "cite": {
+        "id": "cs-hood:0150",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R449",
+        "printed_page": 400,
+        "offset": 1478256
        }
       }
      ]
@@ -315268,6 +315512,39 @@
         "printed_page": 340,
         "offset": 1269295
        }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {},
+        "wounded": {},
+        "missing": {},
+        "total": 171,
+        "period": "1863-07-02/1863-07-03",
+        "scope": "regiment",
+        "combined": [
+         {
+          "kinds": [
+           "killed",
+           "wounded",
+           "missing"
+          ],
+          "total": 171
+         }
+        ]
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-hood:0152"
+       ],
+       "cite": {
+        "id": "cs-hood:0152",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R460",
+        "printed_page": 424,
+        "offset": 1572068
+       }
       }
      ]
     }
@@ -316297,6 +316574,38 @@
         "report_id": "OR27-2-R427",
         "printed_page": 340,
         "offset": 1269295
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "officers": 3,
+         "enlisted": 21
+        },
+        "wounded": {
+         "officers": 4,
+         "enlisted": 73
+        },
+        "missing": {
+         "total": 4
+        },
+        "total": null,
+        "period": "1863-07-02",
+        "scope": "regiment, Thursday 2 July",
+        "note": "a further 17 missing on Friday make the aggregate 121"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-hood:0153"
+       ],
+       "cite": {
+        "id": "cs-hood:0153",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R462",
+        "printed_page": 427,
+        "offset": 1584105
        }
       }
      ]
@@ -317978,7 +318287,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0138"
@@ -318427,7 +318736,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0141"
@@ -318876,7 +319185,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0144"
@@ -319361,7 +319670,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0147"
@@ -319810,7 +320119,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0150"
@@ -320100,7 +320409,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "inferred",
-    "casualties": "verified"
+    "casualties": "conflict"
    },
    "status": "partly",
    "presence": {
@@ -320336,7 +320645,126 @@
       "basis": "a corrected or revised return; 1863-07-01/1863-07-03; as of 1863-07-01/1863-07-03; 1 line (OR27-2-R427)"
      }
     }
-   }
+   },
+   "conflicts": [
+    {
+     "key": "cs-2c-early-smith|casualties|loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 14
+        },
+        "wounded": {
+         "total": 92
+        },
+        "missing": {},
+        "total": 106,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade",
+        "row": [
+         14,
+         92,
+         106
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "Total (Smith)"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-early:0060"
+       ],
+       "cite": {
+        "id": "cs-early:0060",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 331,
+        "offset": 1252810
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 12
+        },
+        "wounded": {
+         "total": 113
+        },
+        "missing": {
+         "total": 17
+        },
+        "total": 142,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade",
+        "row": [
+         12,
+         113,
+         17,
+         142
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "Total (Smith)"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-early:0083"
+       ],
+       "cite": {
+        "id": "cs-early:0083",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 340,
+        "offset": 1269102
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "officers": 3,
+         "enlisted": 12
+        },
+        "wounded": {
+         "officers": 5,
+         "enlisted": 105
+        },
+        "missing": {
+         "enlisted": 17
+        },
+        "total": null,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-early:0128"
+       ],
+       "cite": {
+        "id": "cs-early:0128",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R476",
+        "printed_page": 490,
+        "offset": 1823919
+       }
+      }
+     ]
+    }
+   ]
   },
   "cs-2c-early-smith-31va": {
    "name": "31st VA",
@@ -320510,7 +320938,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0153"
@@ -320957,7 +321385,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0156"
@@ -321400,7 +321828,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0159"
@@ -322039,7 +322467,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0162"
@@ -322455,7 +322883,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0165"
@@ -322871,7 +323299,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0168"
@@ -323161,7 +323589,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "verified",
-    "casualties": "verified"
+    "casualties": "conflict"
    },
    "status": "verified",
    "presence": {
@@ -323407,7 +323835,129 @@
       "basis": "a corrected or revised return; 1863-07-01/1863-07-03; as of 1863-07-01/1863-07-03; 1 line (OR27-2-R427)"
      }
     }
-   }
+   },
+   "conflicts": [
+    {
+     "key": "cs-2c-early-gordon|casualties|loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 65
+        },
+        "wounded": {
+         "total": 258
+        },
+        "missing": {},
+        "total": 323,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade",
+        "row": [
+         65,
+         258,
+         323
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "Total (Gordon)"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-early:0067"
+       ],
+       "cite": {
+        "id": "cs-early:0067",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 331,
+        "offset": 1252903
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 71
+        },
+        "wounded": {
+         "total": 270
+        },
+        "missing": {
+         "total": 39
+        },
+        "total": 380,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade",
+        "row": [
+         71,
+         270,
+         39,
+         380
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "Total (Gordon)"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-early:0090"
+       ],
+       "cite": {
+        "id": "cs-early:0090",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 341,
+        "offset": 1269552
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "total": 40
+        },
+        "wounded": {},
+        "missing": {},
+        "total": null,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade",
+        "combined": [
+         {
+          "kinds": [
+           "killed",
+           "wounded"
+          ],
+          "total": 350
+         }
+        ]
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-early:0127"
+       ],
+       "cite": {
+        "id": "cs-early:0127",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R477",
+        "printed_page": 493,
+        "offset": 1835365
+       }
+      }
+     ]
+    }
+   ]
   },
   "cs-2c-early-gordon-13ga": {
    "name": "13th GA",
@@ -323585,7 +324135,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0171"
@@ -324034,7 +324584,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0174"
@@ -324481,7 +325031,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0177"
@@ -324930,7 +325480,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0180"
@@ -325379,7 +325929,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0183"
@@ -325826,7 +326376,7 @@
        }
       ],
       "basis": "regimental_history",
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-28/1863-06-30",
       "tier": "inferred",
       "evidence_ids": [
        "cs-early:0186"
@@ -326270,7 +326820,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "verified",
-    "casualties": "verified"
+    "casualties": "conflict"
    },
    "status": "verified",
    "presence": {
@@ -326709,7 +327259,146 @@
       "basis": "stated in a report; 1863-07-01/1863-07-03; as of 1863-07-01/1863-07-03; 1 line (OR27-2-R481)"
      }
     }
-   }
+   },
+   "conflicts": [
+    {
+     "key": "cs-2c-johnson|casualties|loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 210
+        },
+        "wounded": {
+         "total": 1087
+        },
+        "missing": {},
+        "total": 1297,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "division",
+        "row": [
+         210,
+         1087,
+         1297
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "Total Johnson's division"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-johnson:0088"
+       ],
+       "cite": {
+        "id": "cs-johnson:0088",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 331,
+        "offset": 1253108
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 229
+        },
+        "wounded": {
+         "total": 1269
+        },
+        "missing": {
+         "total": 375
+        },
+        "total": 1873,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "division",
+        "row": [
+         229,
+         1269,
+         375,
+         1873
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "Total Johnson's division"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-johnson:0115"
+       ],
+       "cite": {
+        "id": "cs-johnson:0115",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 341,
+        "offset": 1271288
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "officers": 12,
+         "enlisted": 207
+        },
+        "wounded": {
+         "officers": 99,
+         "enlisted": 1130
+        },
+        "missing": {
+         "officers": 13,
+         "enlisted": 362
+        },
+        "total": 1823,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "division",
+        "row": [
+         12,
+         207,
+         99,
+         1130,
+         13,
+         362,
+         1823
+        ],
+        "row_columns": [
+         "killed_officers",
+         "killed_enlisted",
+         "wounded_officers",
+         "wounded_enlisted",
+         "missing_officers",
+         "missing_enlisted",
+         "aggregate"
+        ],
+        "label_read": "Total at Gettysburg"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-johnson:0125"
+       ],
+       "cite": {
+        "id": "cs-johnson:0125",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R481",
+        "printed_page": 506,
+        "offset": 1886707
+       }
+      }
+     ]
+    }
+   ]
   },
   "cs-2c-johnson-steuart": {
    "name": "Steuart",
@@ -329217,7 +329906,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "verified",
-    "casualties": "verified",
+    "casualties": "conflict",
     "arms": "inferred",
     "dress": "inferred"
    },
@@ -329452,6 +330141,112 @@
      }
     ]
    },
+   "conflicts": [
+    {
+     "key": "cs-2c-johnson-steuart-3nc|casualties|loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 29
+        },
+        "wounded": {
+         "total": 127
+        },
+        "missing": {},
+        "total": 156,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         29,
+         127,
+         156
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "3d North Carolina"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-johnson:0064"
+       ],
+       "cite": {
+        "id": "cs-johnson:0064",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 331,
+        "offset": 1253229
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 29
+        },
+        "wounded": {
+         "total": 127
+        },
+        "missing": {},
+        "total": 156,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         29,
+         127,
+         null,
+         156
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "3d North Carolina"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-johnson:0091"
+       ],
+       "cite": {
+        "id": "cs-johnson:0091",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 341,
+        "offset": 1270043
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {},
+        "wounded": {},
+        "missing": {},
+        "total": 207,
+        "period": "1863-07-02/1863-07-03",
+        "scope": "regiment"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-johnson:0156"
+       ],
+       "cite": {
+        "id": "cs-johnson:0156",
+        "source_id": "SHSP-05",
+        "offset": 945957
+       }
+      }
+     ]
+    }
+   ],
    "gaps": [
     {
      "id": "cs-johnson:0209",
@@ -335320,7 +336115,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "gap",
-    "casualties": "verified",
+    "casualties": "conflict",
     "arms": "inferred",
     "dress": "inferred"
    },
@@ -335526,6 +336321,121 @@
      }
     ]
    },
+   "conflicts": [
+    {
+     "key": "cs-2c-johnson-stonewall-5va|casualties|loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 5
+        },
+        "wounded": {
+         "total": 46
+        },
+        "missing": {},
+        "total": 51,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         5,
+         46,
+         51
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "5th Virginia"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-johnson:0077"
+       ],
+       "cite": {
+        "id": "cs-johnson:0077",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 331,
+        "offset": 1253502
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 5
+        },
+        "wounded": {
+         "total": 46
+        },
+        "missing": {},
+        "total": 51,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         5,
+         46,
+         null,
+         51
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "5th Virginia"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-johnson:0104"
+       ],
+       "cite": {
+        "id": "cs-johnson:0104",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 341,
+        "offset": 1270532
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "total": 3
+        },
+        "wounded": {
+         "total": 42
+        },
+        "missing": {
+         "total": 11
+        },
+        "total": null,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-johnson:0161"
+       ],
+       "cite": {
+        "id": "cs-johnson:0161",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R492",
+        "printed_page": 527,
+        "offset": 1961256
+       }
+      }
+     ]
+    }
+   ],
    "gaps": [
     {
      "id": "cs-johnson:0209",
@@ -348370,6 +349280,29 @@
         "printed_page": 341,
         "offset": 1271499
        }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {},
+        "wounded": {},
+        "missing": {},
+        "total": 76,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-johnson:0162"
+       ],
+       "cite": {
+        "id": "cs-johnson:0162",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R496",
+        "printed_page": 533,
+        "offset": 1983558
+       }
       }
      ]
     }
@@ -350186,7 +351119,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "verified",
-    "casualties": "verified"
+    "casualties": "conflict"
    },
    "status": "verified",
    "presence": {
@@ -350353,6 +351286,23 @@
      },
      {
       "basis": "effective_total",
+      "men": "not_stated",
+      "low": 0,
+      "high": 7000,
+      "as_of": "1863-06-27/1863-06-30",
+      "tier": "documented",
+      "evidence_ids": [
+       "cs-rodes:0201"
+      ],
+      "cite": {
+       "id": "cs-rodes:0201",
+       "source_id": "SHSP-04",
+       "offset": 96505
+      },
+      "scope": "Rodes' division, effectives"
+     },
+     {
+      "basis": "effective_total",
       "men": "enlisted_only",
       "low": 8125,
       "high": 8125,
@@ -350396,7 +351346,7 @@
       "men": "officers_and_men",
       "low": 8052,
       "high": 8052,
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-27/1863-06-30",
       "tier": "documented",
       "evidence_ids": [
        "cs-rodes:0199"
@@ -350410,10 +351360,10 @@
      },
      {
       "basis": "estimate_in_report",
-      "men": "enlisted_only",
+      "men": "not_stated",
       "low": 6000,
       "high": 6000,
-      "as_of": "1863-06-30",
+      "as_of": "1863-06-27/1863-06-30",
       "tier": "documented",
       "evidence_ids": [
        "cs-rodes:0200"
@@ -350424,23 +351374,6 @@
        "offset": 96505
       },
       "scope": "Rodes' division, muskets"
-     },
-     {
-      "basis": "estimate_in_report",
-      "men": "not_stated",
-      "low": 0,
-      "high": 7000,
-      "as_of": "1863-06-30",
-      "tier": "documented",
-      "evidence_ids": [
-       "cs-rodes:0201"
-      ],
-      "cite": {
-       "id": "cs-rodes:0201",
-       "source_id": "SHSP-04",
-       "offset": 96505
-      },
-      "scope": "Rodes' division, effectives"
      },
      {
       "basis": "present_for_duty",
@@ -350636,45 +351569,35 @@
       "spans_dates": false
      },
      "effective_total|not_stated": {
-      "low": 4767,
-      "high": 4767,
+      "low": 0,
+      "high": 7000,
       "tier": "documented",
-      "lines": 1,
-      "basis": "effective total of a return; not stated; as of 1863-07-31; 1 line (OR27-2-R425)",
+      "lines": 2,
+      "basis": "effective total of a return; not stated; as of 1863-06-27/1863-06-30 to 1863-07-31; 2 lines (OR27-2-R425)",
       "by_as_of": {
+       "1863-06-27/1863-06-30": {
+        "low": 0,
+        "high": 7000,
+        "lines": 1
+       },
        "1863-07-31": {
         "low": 4767,
         "high": 4767,
         "lines": 1
        }
       },
-      "spans_dates": false
+      "spans_dates": true
      },
-     "estimate_in_report|enlisted_only": {
+     "estimate_in_report|not_stated": {
       "low": 6000,
       "high": 6000,
       "tier": "documented",
       "lines": 1,
-      "basis": "an estimate or round figure given in a report (\"about\", \"less than\"); enlisted only; as of 1863-06-30; 1 line",
+      "basis": "an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-06-27/1863-06-30; 1 line",
       "by_as_of": {
-       "1863-06-30": {
+       "1863-06-27/1863-06-30": {
         "low": 6000,
         "high": 6000,
-        "lines": 1
-       }
-      },
-      "spans_dates": false
-     },
-     "estimate_in_report|not_stated": {
-      "low": 0,
-      "high": 7000,
-      "tier": "documented",
-      "lines": 1,
-      "basis": "an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-06-30; 1 line",
-      "by_as_of": {
-       "1863-06-30": {
-        "low": 0,
-        "high": 7000,
         "lines": 1
        }
       },
@@ -350685,9 +351608,9 @@
       "high": 8052,
       "tier": "documented",
       "lines": 1,
-      "basis": "an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-06-30; 1 line",
+      "basis": "an estimate or round figure given in a report (\"about\", \"less than\"); officers and men; as of 1863-06-27/1863-06-30; 1 line",
       "by_as_of": {
-       "1863-06-30": {
+       "1863-06-27/1863-06-30": {
         "low": 8052,
         "high": 8052,
         "lines": 1
@@ -350887,7 +351810,169 @@
       "basis": "stated in a report; 1863-07-01/1863-07-03; as of 1863-07-01/1863-07-03; 1 line (OR27-2-R506)"
      }
     }
-   }
+   },
+   "conflicts": [
+    {
+     "key": "cs-2c-rodes|casualties|loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 362
+        },
+        "wounded": {
+         "total": 1684
+        },
+        "missing": {},
+        "total": 2046,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "division",
+        "row": [
+         362,
+         1684,
+         2046
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "Total Rodes' division"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0098"
+       ],
+       "cite": {
+        "id": "cs-rodes:0098",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 332,
+        "offset": 1254035
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 421
+        },
+        "wounded": {
+         "total": 1728
+        },
+        "missing": {
+         "total": 704
+        },
+        "total": 2853,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "division",
+        "row": [
+         421,
+         1728,
+         704,
+         2853
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "Total Rodes' division"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0126"
+       ],
+       "cite": {
+        "id": "cs-rodes:0126",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 342,
+        "offset": 1273648
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "officers": 39,
+         "enlisted": 438
+        },
+        "wounded": {
+         "officers": 137,
+         "enlisted": 1563
+        },
+        "missing": {
+         "officers": 29,
+         "enlisted": 663
+        },
+        "total": 2869,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "division",
+        "row": [
+         39,
+         438,
+         137,
+         1563,
+         29,
+         663,
+         2869
+        ],
+        "row_columns": [
+         "killed_officers",
+         "killed_enlisted",
+         "wounded_officers",
+         "wounded_enlisted",
+         "missing_officers",
+         "missing_enlisted",
+         "aggregate"
+        ],
+        "label_read": "Total"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0134"
+       ],
+       "cite": {
+        "id": "cs-rodes:0134",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R506",
+        "printed_page": 562,
+        "offset": 2094079
+       }
+      },
+      {
+       "alt": "D",
+       "value": {
+        "killed": {},
+        "wounded": {},
+        "missing": {},
+        "total": 3600,
+        "period": "1863-07-01",
+        "scope": "division"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0198"
+       ],
+       "cite": {
+        "id": "cs-rodes:0198",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R506",
+        "printed_page": 555,
+        "offset": 2066685
+       }
+      }
+     ]
+    }
+   ]
   },
   "cs-2c-rodes-daniel": {
    "name": "Daniel",
@@ -351391,7 +352476,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "gap",
-    "casualties": "verified",
+    "casualties": "conflict",
     "arms": "inferred",
     "dress": "inferred"
    },
@@ -351592,6 +352677,126 @@
      }
     ]
    },
+   "conflicts": [
+    {
+     "key": "cs-2c-rodes-daniel-32nc|casualties|killed-and-wounded-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 26
+        },
+        "wounded": {
+         "total": 116
+        },
+        "missing": {},
+        "total": 142,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         26,
+         116,
+         142
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "32d North Carolina"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0071"
+       ],
+       "cite": {
+        "id": "cs-rodes:0071",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 332,
+        "offset": 1254076
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 26
+        },
+        "wounded": {
+         "total": 116
+        },
+        "missing": {},
+        "total": 142,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         26,
+         116,
+         null,
+         142
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "32d North Carolina"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0099"
+       ],
+       "cite": {
+        "id": "cs-rodes:0099",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 342,
+        "offset": 1271777
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {},
+        "wounded": {},
+        "missing": {
+         "total": 14
+        },
+        "total": null,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "combined": [
+         {
+          "kinds": [
+           "killed",
+           "wounded"
+          ],
+          "total": 147
+         }
+        ]
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0188"
+       ],
+       "cite": {
+        "id": "cs-rodes:0188",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R508",
+        "printed_page": 572,
+        "offset": 2135357
+       }
+      }
+     ]
+    }
+   ],
    "gaps": [
     {
      "id": "cs-rodes:0271",
@@ -355984,7 +357189,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "verified",
-    "casualties": "verified",
+    "casualties": "conflict",
     "arms": "verified",
     "dress": "inferred"
    },
@@ -356275,6 +357480,124 @@
      }
     ]
    },
+   "conflicts": [
+    {
+     "key": "cs-2c-rodes-daniel-2ncbn|casualties|killed-and-wounded-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 29
+        },
+        "wounded": {
+         "total": 124
+        },
+        "missing": {},
+        "total": 153,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         29,
+         124,
+         153
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "2d North Carolina Battalion"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0075"
+       ],
+       "cite": {
+        "id": "cs-rodes:0075",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 332,
+        "offset": 1254410
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 29
+        },
+        "wounded": {
+         "total": 124
+        },
+        "missing": {},
+        "total": 153,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         29,
+         124,
+         null,
+         153
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "2d North Carolina Battalion"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0103"
+       ],
+       "cite": {
+        "id": "cs-rodes:0103",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 342,
+        "offset": 1271758
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {},
+        "wounded": {},
+        "missing": {},
+        "total": null,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "battalion",
+        "combined": [
+         {
+          "kinds": [
+           "killed",
+           "wounded"
+          ],
+          "total": 200
+         }
+        ]
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0187"
+       ],
+       "cite": {
+        "id": "cs-rodes:0187",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R467",
+        "printed_page": 448,
+        "offset": 1665152
+       }
+      }
+     ]
+    }
+   ],
    "gaps": [
     {
      "id": "cs-rodes:0271",
@@ -357144,7 +358467,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "conflict",
-    "casualties": "verified"
+    "casualties": "conflict"
    },
    "status": "partly",
    "presence": {
@@ -357542,6 +358865,142 @@
     }
    },
    "conflicts": [
+    {
+     "key": "cs-2c-rodes-doles|casualties|loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 22
+        },
+        "wounded": {
+         "total": 135
+        },
+        "missing": {},
+        "total": 157,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade",
+        "row": [
+         22,
+         135,
+         157
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "Total (Doles)"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0086"
+       ],
+       "cite": {
+        "id": "cs-rodes:0086",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 332,
+        "offset": 1254864
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 24
+        },
+        "wounded": {
+         "total": 124
+        },
+        "missing": {
+         "total": 31
+        },
+        "total": 179,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade",
+        "row": [
+         24,
+         124,
+         31,
+         179
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "Total (Doles)"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0114"
+       ],
+       "cite": {
+        "id": "cs-rodes:0114",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 342,
+        "offset": 1272835
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "officers": 2,
+         "enlisted": 84
+        },
+        "wounded": {
+         "officers": 11,
+         "enlisted": 113
+        },
+        "missing": {
+         "enlisted": 31
+        },
+        "total": 241,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade",
+        "row": [
+         2,
+         84,
+         11,
+         113,
+         null,
+         31,
+         241
+        ],
+        "row_columns": [
+         "killed_officers",
+         "killed_enlisted",
+         "wounded_officers",
+         "wounded_enlisted",
+         "missing_officers",
+         "missing_enlisted",
+         "aggregate"
+        ],
+        "label_read": "Doles' brigade"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0130"
+       ],
+       "cite": {
+        "id": "cs-rodes:0130",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R506",
+        "printed_page": 562,
+        "offset": 2094033
+       }
+      }
+     ]
+    },
     {
      "key": "cs-2c-rodes-doles|strength|officers-present-for-duty-30-june",
      "field": "strength",
@@ -367055,7 +368514,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "verified",
-    "casualties": "verified"
+    "casualties": "conflict"
    },
    "status": "verified",
    "presence": {
@@ -367392,7 +368851,146 @@
       "basis": "stated in a report; 1863-07-01/1863-07-03; as of 1863-07-01/1863-07-03; 1 line (OR27-2-R506)"
      }
     }
-   }
+   },
+   "conflicts": [
+    {
+     "key": "cs-2c-rodes-ramseur|casualties|loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 20
+        },
+        "wounded": {
+         "total": 119
+        },
+        "missing": {},
+        "total": 139,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade",
+        "row": [
+         20,
+         119,
+         139
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "Total (Ramseur)"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0091"
+       ],
+       "cite": {
+        "id": "cs-rodes:0091",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 332,
+        "offset": 1254864
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 23
+        },
+        "wounded": {
+         "total": 122
+        },
+        "missing": {
+         "total": 32
+        },
+        "total": 177,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade",
+        "row": [
+         23,
+         122,
+         32,
+         177
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "Total (Ramseur)"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0119"
+       ],
+       "cite": {
+        "id": "cs-rodes:0119",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 342,
+        "offset": 1273252
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "officers": 5,
+         "enlisted": 18
+        },
+        "wounded": {
+         "officers": 7,
+         "enlisted": 122
+        },
+        "missing": {
+         "officers": 2,
+         "enlisted": 42
+        },
+        "total": 196,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade",
+        "row": [
+         5,
+         18,
+         7,
+         122,
+         2,
+         42,
+         196
+        ],
+        "row_columns": [
+         "killed_officers",
+         "killed_enlisted",
+         "wounded_officers",
+         "wounded_enlisted",
+         "missing_officers",
+         "missing_enlisted",
+         "aggregate"
+        ],
+        "label_read": "Ramseur's brigade"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0132"
+       ],
+       "cite": {
+        "id": "cs-rodes:0132",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R506",
+        "printed_page": 562,
+        "offset": 2093558
+       }
+      }
+     ]
+    }
+   ]
   },
   "cs-2c-rodes-ramseur-2nc": {
    "name": "2nd NC",
@@ -369689,7 +371287,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "gap",
-    "casualties": "verified",
+    "casualties": "conflict",
     "arms": "inferred",
     "dress": "inferred"
    },
@@ -369924,6 +371522,123 @@
      }
     ]
    },
+   "conflicts": [
+    {
+     "key": "cs-2c-rodes-ramseur-14nc|casualties|loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 5
+        },
+        "wounded": {
+         "total": 38
+        },
+        "missing": {},
+        "total": 43,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         5,
+         38,
+         43
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "14th North Carolina"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0089"
+       ],
+       "cite": {
+        "id": "cs-rodes:0089",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 332,
+        "offset": 1255103
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 5
+        },
+        "wounded": {
+         "total": 37
+        },
+        "missing": {
+         "total": 2
+        },
+        "total": 44,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         5,
+         37,
+         2,
+         44
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "14th North Carolina"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0117"
+       ],
+       "cite": {
+        "id": "cs-rodes:0117",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 342,
+        "offset": 1273077
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "total": 5
+        },
+        "wounded": {
+         "total": 39
+        },
+        "missing": {
+         "total": 1
+        },
+        "total": null,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0196"
+       ],
+       "cite": {
+        "id": "cs-rodes:0196",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R521",
+        "printed_page": 591,
+        "offset": 2198698
+       }
+      }
+     ]
+    }
+   ],
    "gaps": [
     {
      "id": "cs-rodes:0271",
@@ -370874,7 +372589,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "gap",
-    "casualties": "verified",
+    "casualties": "conflict",
     "arms": "inferred",
     "dress": "inferred"
    },
@@ -371104,6 +372819,123 @@
      }
     ]
    },
+   "conflicts": [
+    {
+     "key": "cs-2c-rodes-ramseur-30nc|casualties|loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 5
+        },
+        "wounded": {
+         "total": 34
+        },
+        "missing": {},
+        "total": 39,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         5,
+         34,
+         39
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "30th North Carolina"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0090"
+       ],
+       "cite": {
+        "id": "cs-rodes:0090",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 332,
+        "offset": 1255126
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 6
+        },
+        "wounded": {
+         "total": 34
+        },
+        "missing": {
+         "total": 5
+        },
+        "total": 45,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         6,
+         34,
+         5,
+         45
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "30th North Carolina"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0118"
+       ],
+       "cite": {
+        "id": "cs-rodes:0118",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 342,
+        "offset": 1273160
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "total": 6
+        },
+        "wounded": {
+         "total": 30
+        },
+        "missing": {
+         "total": 5
+        },
+        "total": null,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0197"
+       ],
+       "cite": {
+        "id": "cs-rodes:0197",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R522",
+        "printed_page": 591,
+        "offset": 2200567
+       }
+      }
+     ]
+    }
+   ],
    "gaps": [
     {
      "id": "cs-rodes:0271",
@@ -374751,7 +376583,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "verified",
-    "casualties": "verified",
+    "casualties": "conflict",
     "arms": "inferred",
     "dress": "inferred"
    },
@@ -375014,6 +376846,115 @@
      }
     ]
    },
+   "conflicts": [
+    {
+     "key": "cs-2c-rodes-oneal-6al|casualties|loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 18
+        },
+        "wounded": {
+         "total": 113
+        },
+        "missing": {},
+        "total": 131,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         18,
+         113,
+         131
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "6th Alabama"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0094"
+       ],
+       "cite": {
+        "id": "cs-rodes:0094",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 332,
+        "offset": 1255371
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 18
+        },
+        "wounded": {
+         "total": 113
+        },
+        "missing": {},
+        "total": 131,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         18,
+         113,
+         null,
+         131
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "6th Alabama"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0122"
+       ],
+       "cite": {
+        "id": "cs-rodes:0122",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 342,
+        "offset": 1273282
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {},
+        "wounded": {},
+        "missing": {},
+        "total": 162,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0193"
+       ],
+       "cite": {
+        "id": "cs-rodes:0193",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R528",
+        "printed_page": 600,
+        "offset": 2230154
+       }
+      }
+     ]
+    }
+   ],
    "gaps": [
     {
      "id": "cs-rodes:0271",
@@ -376219,6 +378160,37 @@
         "report_id": "OR27-2-R427",
         "printed_page": 342,
         "offset": 1273994
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "officers": 2,
+         "enlisted": 10,
+         "total": 12
+        },
+        "wounded": {
+         "officers": 6,
+         "enlisted": 65,
+         "total": 71
+        },
+        "missing": {},
+        "total": null,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-rodes:0195"
+       ],
+       "cite": {
+        "id": "cs-rodes:0195",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R529",
+        "printed_page": 601,
+        "offset": 2235064
        }
       }
      ]
@@ -379286,7 +381258,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "verified",
-    "casualties": "verified"
+    "casualties": "conflict"
    },
    "status": "verified",
    "presence": {
@@ -379754,7 +381726,124 @@
       "basis": "stated in a report; 1863-07-01/1863-08-01; as of 1863-07-01/1863-08-01; 1 line (OR27-2-R534)"
      }
     }
-   }
+   },
+   "conflicts": [
+    {
+     "key": "cs-3c|casualties|loss-in-the-campaign",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 273
+        },
+        "wounded": {
+         "total": 1384
+        },
+        "missing": {},
+        "total": 1657,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "corps",
+        "row": [
+         273,
+         1384,
+         1657
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "Total Hill's corps"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-anderson:0093"
+       ],
+       "cite": {
+        "id": "cs-anderson:0093",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 334,
+        "offset": 1258469
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 837
+        },
+        "wounded": {
+         "total": 4407
+        },
+        "missing": {
+         "total": 1491
+        },
+        "total": 6735,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "corps",
+        "row": [
+         837,
+         4407,
+         1491,
+         6735
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "Total Third Army Corps"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-anderson:0121"
+       ],
+       "cite": {
+        "id": "cs-anderson:0121",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 345,
+        "offset": 1278575
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "total": 849
+        },
+        "wounded": {
+         "total": 4289
+        },
+        "missing": {
+         "total": 3844
+        },
+        "total": null,
+        "period": "1863-07-01/1863-08-01",
+        "scope": "Third Corps, the whole campaign"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-anderson:0179"
+       ],
+       "cite": {
+        "id": "cs-anderson:0179",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R534",
+        "printed_page": 609,
+        "offset": 2264547
+       }
+      }
+     ]
+    }
+   ]
   },
   "cs-3c-anderson": {
    "name": "R. H. Anderson",
@@ -386365,7 +388454,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "gap",
-    "casualties": "verified"
+    "casualties": "conflict"
    },
    "status": "partly",
    "presence": {
@@ -386630,6 +388719,117 @@
      }
     }
    },
+   "conflicts": [
+    {
+     "key": "cs-3c-anderson-wright|casualties|loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 40
+        },
+        "wounded": {
+         "total": 295
+        },
+        "missing": {},
+        "total": 335,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade",
+        "row": [
+         40,
+         295,
+         335
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "Total (Wright)"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-anderson:0082"
+       ],
+       "cite": {
+        "id": "cs-anderson:0082",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 333,
+        "offset": 1256278
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 40
+        },
+        "wounded": {
+         "total": 295
+        },
+        "missing": {
+         "total": 333
+        },
+        "total": 668,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade",
+        "row": [
+         40,
+         295,
+         333,
+         668
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "Total (Wright)"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-anderson:0110"
+       ],
+       "cite": {
+        "id": "cs-anderson:0110",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 343,
+        "offset": 1275327
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {},
+        "wounded": {},
+        "missing": {},
+        "total": 688,
+        "period": "1863-07-02",
+        "scope": "brigade, the charge of 2 July"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-anderson:0185"
+       ],
+       "cite": {
+        "id": "cs-anderson:0185",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R539",
+        "printed_page": 624,
+        "offset": 2321228
+       }
+      }
+     ]
+    }
+   ],
    "gaps": [
     {
      "id": "cs-anderson:0218",
@@ -386729,7 +388929,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "gap",
-    "casualties": "verified",
+    "casualties": "conflict",
     "arms": "gap",
     "dress": "inferred"
    },
@@ -386924,6 +389124,111 @@
      }
     ]
    },
+   "conflicts": [
+    {
+     "key": "cs-3c-anderson-wright-3ga|casualties|loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {},
+        "wounded": {
+         "total": 100
+        },
+        "missing": {},
+        "total": 100,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         null,
+         100,
+         100
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "3rd Georgia"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-anderson:0078"
+       ],
+       "cite": {
+        "id": "cs-anderson:0078",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 333,
+        "offset": 1256300
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {},
+        "wounded": {
+         "total": 100
+        },
+        "missing": {},
+        "total": 100,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         null,
+         100,
+         null,
+         100
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "3rd Georgia"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-anderson:0106"
+       ],
+       "cite": {
+        "id": "cs-anderson:0106",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 343,
+        "offset": 1275123
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {},
+        "wounded": {},
+        "missing": {},
+        "total": 196,
+        "period": "1863-07-02",
+        "scope": "regiment"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-anderson:0186"
+       ],
+       "cite": {
+        "id": "cs-anderson:0186",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R541",
+        "printed_page": 628,
+        "offset": 2335540
+       }
+      }
+     ]
+    }
+   ],
    "gaps": [
     {
      "id": "cs-anderson:0219",
@@ -387983,7 +390288,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "gap",
-    "casualties": "verified",
+    "casualties": "conflict",
     "arms": "gap",
     "dress": "inferred"
    },
@@ -388222,6 +390527,115 @@
      }
     ]
    },
+   "conflicts": [
+    {
+     "key": "cs-3c-anderson-wright-48ga|casualties|loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 16
+        },
+        "wounded": {
+         "total": 74
+        },
+        "missing": {},
+        "total": 90,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         16,
+         74,
+         90
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "48th Georgia"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-anderson:0080"
+       ],
+       "cite": {
+        "id": "cs-anderson:0080",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 333,
+        "offset": 1256332
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 16
+        },
+        "wounded": {
+         "total": 74
+        },
+        "missing": {},
+        "total": 90,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "regiment",
+        "row": [
+         16,
+         74,
+         null,
+         90
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "48th Georgia"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-anderson:0108"
+       ],
+       "cite": {
+        "id": "cs-anderson:0108",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 343,
+        "offset": 1275104
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {},
+        "wounded": {},
+        "missing": {},
+        "total": 212,
+        "period": "1863-07-02",
+        "scope": "regiment"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-anderson:0187"
+       ],
+       "cite": {
+        "id": "cs-anderson:0187",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R543",
+        "printed_page": 629,
+        "offset": 2340088
+       }
+      }
+     ]
+    }
+   ],
    "gaps": [
     {
      "id": "cs-anderson:0219",
@@ -389559,7 +391973,7 @@
      "rank_printed": "Capt.",
      "change": {
       "event": "wounded",
-      "date": "1863-07-02",
+      "date": null,
       "detail": "second in command, wounded and left on the field"
      }
     },
@@ -395975,7 +398389,7 @@
      "rank_printed": "Col.",
      "change": {
       "event": "wounded",
-      "date": "1863-07-03",
+      "date": null,
       "detail": "severely wounded (letter of 4 July)"
      }
     }
@@ -410440,7 +412854,7 @@
     "roster": "verified",
     "commander": "verified",
     "strength": "verified",
-    "casualties": "verified"
+    "casualties": "conflict"
    },
    "status": "verified",
    "presence": {
@@ -410708,7 +413122,137 @@
       "basis": "stated in a report; 1863-07-01; as of 1863-07-01; 1 line (OR27-2-R560)"
      }
     }
-   }
+   },
+   "conflicts": [
+    {
+     "key": "cs-3c-pender-scales|casualties|loss-at-gettysburg",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 102
+        },
+        "wounded": {
+         "total": 322
+        },
+        "missing": {},
+        "total": 424,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade",
+        "row": [
+         102,
+         322,
+         424
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "aggregate"
+        ],
+        "label_read": "Total (Scales)"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-pender:0088"
+       ],
+       "cite": {
+        "id": "cs-pender:0088",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 334,
+        "offset": 1258397
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {
+         "total": 102
+        },
+        "wounded": {
+         "total": 323
+        },
+        "missing": {
+         "total": 110
+        },
+        "total": 535,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "brigade",
+        "row": [
+         102,
+         323,
+         110,
+         535
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "Total (Scales)"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-pender:0112"
+       ],
+       "cite": {
+        "id": "cs-pender:0112",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 345,
+        "offset": 1277997
+       }
+      },
+      {
+       "alt": "C",
+       "value": {
+        "killed": {
+         "total": 48
+        },
+        "wounded": {
+         "total": 381
+        },
+        "missing": {
+         "total": 116
+        },
+        "total": 545,
+        "period": "1863-07-01",
+        "scope": "brigade",
+        "row": [
+         48,
+         381,
+         116,
+         545
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "Total (Scales, own report)"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-pender:0114"
+       ],
+       "cite": {
+        "id": "cs-pender:0114",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R560",
+        "printed_page": 670,
+        "offset": 2497365
+       }
+      }
+     ]
+    }
+   ]
   },
   "cs-3c-pender-scales-13nc": {
    "name": "13th NC",
@@ -422952,7 +425496,7 @@
     "roster": "verified",
     "commander": "verified",
     "guns": "verified",
-    "casualties": "verified"
+    "casualties": "conflict"
    },
    "status": "verified",
    "presence": {
@@ -423076,7 +425620,83 @@
       "basis": "a row of the Return of Casualties; 1863-07-01/1863-07-03; as of 1863-07-01/1863-07-03; 1 line (OR27-2-R427)"
      }
     }
-   }
+   },
+   "conflicts": [
+    {
+     "key": "cs-3c-heth-garnett|casualties|wounded-and-missing-in-the-campaign",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {},
+        "wounded": {
+         "total": 5
+        },
+        "missing": {
+         "total": 17
+        },
+        "total": 22,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "battalion",
+        "row": [
+         null,
+         5,
+         17,
+         22
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "Total (Artillery Battalion, Heth's division)"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-art-3c:0082"
+       ],
+       "cite": {
+        "id": "cs-art-3c:0082",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 344,
+        "offset": 1276698
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {},
+        "wounded": {
+         "enlisted": 5
+        },
+        "missing": {
+         "enlisted": 14
+        },
+        "total": null,
+        "period": "1863-06-15/1863-08-02",
+        "scope": "battalion",
+        "note": "severely wounded 2, slightly wounded 3"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-art-3c:0087"
+       ],
+       "cite": {
+        "id": "cs-art-3c:0087",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R554",
+        "printed_page": 654,
+        "offset": 2434170
+       }
+      }
+     ]
+    }
+   ]
   },
   "cs-3c-pender-poague": {
    "name": "Poague's battalion",
@@ -423305,7 +425925,7 @@
     "roster": "verified",
     "commander": "verified",
     "guns": "verified",
-    "casualties": "verified"
+    "casualties": "conflict"
    },
    "status": "verified",
    "presence": {
@@ -423417,7 +426037,90 @@
       "basis": "a row of the Return of Casualties; 1863-07-01/1863-07-03; as of 1863-07-01/1863-07-03; 1 line (OR27-2-R427)"
      }
     }
-   }
+   },
+   "conflicts": [
+    {
+     "key": "cs-3c-res-art-mcintosh|casualties|killed-and-wounded-in-the-campaign",
+     "field": "casualties",
+     "alternatives": [
+      {
+       "alt": "A",
+       "value": {
+        "killed": {
+         "total": 7
+        },
+        "wounded": {
+         "total": 25
+        },
+        "missing": {},
+        "total": 32,
+        "period": "1863-07-01/1863-07-03",
+        "scope": "battalion",
+        "row": [
+         7,
+         25,
+         null,
+         32
+        ],
+        "row_columns": [
+         "killed",
+         "wounded",
+         "missing",
+         "aggregate"
+        ],
+        "label_read": "Total (McIntosh's Battalion)"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-art-3c:0084"
+       ],
+       "cite": {
+        "id": "cs-art-3c:0084",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R427",
+        "printed_page": 345,
+        "offset": 1278374
+       }
+      },
+      {
+       "alt": "B",
+       "value": {
+        "killed": {},
+        "wounded": {},
+        "missing": {
+         "total": 10
+        },
+        "total": null,
+        "period": "1863-06-15/1863-07-30",
+        "scope": "battalion",
+        "combined": [
+         {
+          "kinds": [
+           "killed",
+           "wounded"
+          ],
+          "total": 24
+         }
+        ],
+        "note": "captured 10"
+       },
+       "tier": "documented",
+       "evidence_ids": [
+        "cs-art-3c:0088"
+       ],
+       "cite": {
+        "id": "cs-art-3c:0088",
+        "source_id": "OR27-2",
+        "part": 2,
+        "report_id": "OR27-2-R563",
+        "printed_page": 676,
+        "offset": 2521350
+       }
+      }
+     ]
+    }
+   ]
   },
   "cs-3c-res-art-pegram": {
    "name": "Pegram's battalion",
@@ -427931,7 +430634,7 @@
      "role": "commanded the brigade after Hampton was wounded",
      "change": {
       "event": "assumed_command",
-      "date": "1863-07-03",
+      "date": null,
       "detail": "commanded Hampton's brigade after Hampton was wounded"
      }
     }
@@ -429276,7 +431979,7 @@
     "figures": [
      {
       "basis": "taken_into_action",
-      "men": "enlisted_only",
+      "men": "not_stated",
       "low": 220,
       "high": 220,
       "as_of": "1863-06-09",
@@ -429292,17 +431995,16 @@
        "printed_page": 729,
        "offset": 2705155
       },
-      "enlisted": 220,
       "scope": "regiment that left camp on 9 June"
      }
     ],
     "ranges": {
-     "taken_into_action|enlisted_only": {
+     "taken_into_action|not_stated": {
       "low": 220,
       "high": 220,
       "tier": "documented",
       "lines": 1,
-      "basis": "the report says the unit went into action with N; enlisted only; as of 1863-06-09; 1 line (OR27-2-R570)",
+      "basis": "the report says the unit went into action with N; not stated; as of 1863-06-09; 1 line (OR27-2-R570)",
       "by_as_of": {
        "1863-06-09": {
         "low": 220,
@@ -435473,6 +438175,24 @@
      {
       "basis": "estimate_in_report",
       "men": "not_stated",
+      "low": 1500,
+      "high": 1600,
+      "as_of": "1863-06-15/1863-07-03",
+      "tier": "documented",
+      "evidence_ids": [
+       "cs-cav:0214"
+      ],
+      "cite": {
+       "id": "cs-cav:0214",
+       "source_id": "SHSP-04",
+       "offset": 636963
+      },
+      "scope": "Jenkins' brigade",
+      "alt": "B"
+     },
+     {
+      "basis": "estimate_in_report",
+      "men": "not_stated",
       "low": 3800,
       "high": 3800,
       "as_of": "1863-06-24",
@@ -435487,24 +438207,6 @@
       },
       "scope": "Jenkins' brigade",
       "alt": "A"
-     },
-     {
-      "basis": "estimate_in_report",
-      "men": "not_stated",
-      "low": 1500,
-      "high": 1600,
-      "as_of": "1863-06-24",
-      "tier": "documented",
-      "evidence_ids": [
-       "cs-cav:0214"
-      ],
-      "cite": {
-       "id": "cs-cav:0214",
-       "source_id": "SHSP-04",
-       "offset": 636963
-      },
-      "scope": "Jenkins' brigade",
-      "alt": "B"
      }
     ],
     "ranges": {
@@ -435513,15 +438215,20 @@
       "high": 3800,
       "tier": "documented",
       "lines": 2,
-      "basis": "an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-06-24; 2 lines",
+      "basis": "an estimate or round figure given in a report (\"about\", \"less than\"); not stated; as of 1863-06-15/1863-07-03 to 1863-06-24; 2 lines",
       "by_as_of": {
-       "1863-06-24": {
+       "1863-06-15/1863-07-03": {
         "low": 1500,
+        "high": 1600,
+        "lines": 1
+       },
+       "1863-06-24": {
+        "low": 3800,
         "high": 3800,
-        "lines": 2
+        "lines": 1
        }
       },
-      "spans_dates": false
+      "spans_dates": true
      }
     }
    },
